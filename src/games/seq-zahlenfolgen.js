@@ -141,6 +141,9 @@ export function render(gs) {
   }
 
   // === PHASE: feedback ===
+  if (gd.stopped) {
+    return (gd.feedback || '') + `<div style="margin-top:12px"><button class="btn btn-primary btn-small" onclick="navigateTo('menu')">🏠 Fertig</button></div>`;
+  }
   return gd.feedback || '';
 }
 
@@ -203,10 +206,19 @@ window._checkZahlenfolge = function () {
     gs.score = 0;
   }
 
-  gd.answered = true;
   gd.phase = 'feedback';
-  gs.total = 1; // final score is the rating
+  gs.total = 1;
   engine.render();
+  // Auto-advance after short feedback
+  setTimeout(() => {
+    gd.userAnswer = [];
+    gd.sequence = genSeq(gd.level);
+    gd.phase = 'show';
+    gd.showStart = Date.now();
+    gd.showDuration = gd.level * F * 1000;
+    gd.waitDuration = 2 * gd.level * F * 1000;
+    engine.render();
+  }, correct ? 1200 : 2500);
 };
 
 /** Timeout-Check: wird vom wait-Phase-Timer aufgerufen */
@@ -222,11 +234,20 @@ window._timeoutZahlen = function () {
     ⏰ <b>Zeit abgelaufen!</b> Zu langsam.<br>
     <span style="font-size:0.85em">Neues Niveau: N=${gd.level}</span>
   </div>`;
-  gd.answered = true;
   gd.phase = 'feedback';
   gs.score = 0;
   gs.total = 1;
   engine.render();
+  // Auto-advance
+  setTimeout(() => {
+    gd.userAnswer = [];
+    gd.sequence = genSeq(gd.level);
+    gd.phase = 'show';
+    gd.showStart = Date.now();
+    gd.showDuration = gd.level * F * 1000;
+    gd.waitDuration = 2 * gd.level * F * 1000;
+    engine.render();
+  }, 2500);
 };
 
 /** Stop test – finalize with current best level score */
@@ -241,8 +262,8 @@ window._stopZahlenTest = function () {
     🏁 <b>Test beendet!</b><br>
     Bestes Niveau: <b>${finalLevel}</b> → Bewertung: <b>${finalScore}%</b>
   </div>`;
-  gd.answered = true;
   gd.phase = 'feedback';
+  gd.stopped = true;
   gs.score = finalScore;
   gs.total = 1;
   engine.render();

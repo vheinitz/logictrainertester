@@ -152,14 +152,17 @@ function renderTraining(main) {
     const gameId = mod.id;
     import(`../games/${gameId}.js`).then(game => {
       const gameHtml = game.render(gs);
+      // Adaptive tests (zahlenfolgen) manage their own flow – no "Neue Runde" button
+      const isAdaptive = gameId === 'seq-zahlenfolgen';
+      const bottomButtons = isAdaptive ? '' : `<div style="margin-top:16px">
+        <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
+        <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
+      </div>`;
       const fullHtml = `<div class="training-container">${header}<div class="training-area">
         <div class="score-display"><span class="stars">${'⭐'.repeat(Math.min(gs.score||0,10))}</span>
-        <span class="count">${t('round')} ${gs.round||1} | ${t('points')} ${gs.score||0}/${gs.total||0}</span></div>
+        <span class="count">Runde ${gs.round||1} • Punkte ${gs.score||0}/${gs.total||0}</span></div>
         ${gameHtml}
-        <div style="margin-top:16px">
-          <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
-          <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
-        </div>
+        ${bottomButtons}
       </div></div>`;
       main.innerHTML = fullHtml;
 
