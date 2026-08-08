@@ -128,7 +128,7 @@ export function aggregateFactorScores(scoresByModule) {
     for (const mid of f.modules) {
       if (scoresByModule[mid]) { acc += scoresByModule[mid].accuracy||0; cnt++; }
     }
-    fs[fid] = {...f, testedModules:cnt, totalModules:f.modules.length, accuracy:cnt>0?Math.round(acc/cnt):null};
+    fs[fid] = {...f, testedModules:cnt, totalModules:f.modules.length, accuracy:cnt>0?Math.min(100, Math.round(acc/cnt)):null};
   }
   return fs;
 }

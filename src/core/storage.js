@@ -47,6 +47,16 @@ export async function loadAllScores() {
   });
 }
 
+export async function loadScore(moduleId) {
+  const db = await open();
+  return new Promise((ok, fail) => {
+    const tx = db.transaction('scores', 'readonly');
+    const r = tx.objectStore('scores').get(moduleId);
+    r.onsuccess = () => ok(r.result || null);
+    r.onerror = e => fail(e.target.error);
+  });
+}
+
 export async function saveHistory(moduleId, scale, round, score, total, correct) {
   const db = await open();
   return new Promise((ok, fail) => {

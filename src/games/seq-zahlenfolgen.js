@@ -99,6 +99,7 @@ export function render(gs) {
       <div style="margin-top:6px;font-size:0.75em;color:var(--text-light)">
         Niveau ${gd.level} • max. Bewertung: ${computeScore(gd.level)}%
       </div>
+      <button class="btn btn-secondary btn-small" onclick="window._stopZahlenTest()" style="margin-top:8px">⏹️ Beenden</button>
     </div>`;
   }
 
@@ -125,6 +126,7 @@ export function render(gs) {
       <p style="color:var(--text-light);margin:16px 0">Noch <b>${Math.ceil(remaining/1000)}s</b></p>
       <div style="margin-top:12px">
         <button class="btn btn-secondary btn-small" onclick="window._skipWaitZahlen()">⏭️ Überspringen</button>
+        <button class="btn btn-secondary btn-small" onclick="window._stopZahlenTest()">⏹️ Beenden</button>
       </div>
     </div>`;
   }
@@ -253,9 +255,12 @@ window._doCheckZahlen = function () {
     </div>`;
     gs.score = newScore;
   } else {
+    // ❌ Falsch → N--, aber min 2
+    gd.level = Math.max(MIN_N, gd.level - 1);
     gd.currentScore = 0;
     gd.feedback = `<div class="feedback-banner feedback-wrong">
-      ❌ <b>Falsch!</b> Richtig: ${gd.sequence.join(' → ')}
+      ❌ <b>Falsch!</b> Richtig: ${gd.sequence.join(' → ')}<br>
+      <span style="font-size:0.8em">Nächstes Niveau: N=${gd.level}</span>
     </div>`;
     gs.score = 0;
   }

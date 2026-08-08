@@ -233,8 +233,23 @@ function autoPersist() {
     const mod = getModule(gs.moduleId);
     const scale = mod ? mod.scale : 'unknown';
     try {
-      await storage.saveHistory(gs.moduleId, scale, gs.round, gs.score, gs.total, correct);
-      await storage.saveScore(gs.moduleId, scale, gs.score, gs.total, gs.round);
+      // Cap score at 100% and compute average with existing
+      const cappedScore = Math.min(gs.score || 0, 100);
+      const cappedTotal = Math.min(gs.total || 0, 100);
+      
+      // Load existing score and compute AVG
+      const existing = await storage.loadScore(gs.moduleId);
+      let finalScore = cappedScore;
+      let finalTotal = cappedTotal;
+      let finalRound = gs.round || 1;
+      if (existing && existing.total > 0) {
+        finalScore = Math.round((existing.score + cappedScore) / 2);
+        finalTotal = Math.max(existing.total, cappedTotal);
+        finalRound = existing.round + 1;
+      }
+      
+      await storage.saveHistory(gs.moduleId, scale, gs.round, cappedScore, cappedTotal, correct);
+      await storage.saveScore(gs.moduleId, scale, finalScore, finalTotal, finalRound);
       showSaveIndicator();
     } catch(e) {}
   }, 0);
