@@ -24,17 +24,71 @@ function open() {
   });
 }
 
-export async function saveScore(moduleId, scale, score, total, round) {
+export async function saveScore(rec) {
   const db = await open();
   return new Promise((ok, fail) => {
     const tx = db.transaction('scores', 'readwrite');
-    tx.objectStore('scores').put({
-      moduleId, scale, score, total, round,
-      accuracy: total > 0 ? Math.round(score / total * 100) : 0,
-      updated: Date.now()
-    });
+    tx.objectStore('scores').put({ ...rec, updated: Date.now() });
     tx.oncomplete = ok; tx.onerror = e => fail(e.target.error);
   });
+}
+
+/**
+ * Fortschritt eines Moduls fortschreiben.
+ *
+ * Es gibt zwei Bewertungsarten, die vorher in denselben Feldern lagen und
+ * sich dadurch gegenseitig zerstört haben:
+ *   kind 'count'   – Übungsspiele: score = richtig, total = beantwortet.
+ *   kind 'percent' – adaptive Tests: Prozentwert aus der Score-Map (bis 150),
+ *                    plus erreichtes Niveau.
+ *
+ * `accuracy` ist das eine Feld (0–100), auf das Statistik und Radar zugreifen.
+ * Der Rohwert bleibt in `bestPercent` erhalten, damit ein 150%-Ergebnis nicht
+ * verlorengeht, nur weil die Anzeige bei 100 deckelt.
+ *
+ * @param {object} delta { kind, addScore, addTotal, percent, level }
+ */
+export async function recordProgress(moduleId, scale, delta) {
+  const prev = await loadScore(moduleId);
+  const kind = delta.kind || 'count';
+  const base = (prev && prev.kind === kind) ? prev : null;
+
+  const rec = {
+    moduleId, scale, kind,
+    cumScore: base ? base.cumScore || 0 : 0,
+    cumTotal: base ? base.cumTotal || 0 : 0,
+    bestPercent: base ? base.bestPercent || 0 : 0,
+    lastPercent: base ? base.lastPercent || 0 : 0,
+    bestLevel: base ? base.bestLevel || 0 : 0,
+    rounds: base ? (base.rounds || 0) : 0
+  };
+
+  if (kind === 'percent') {
+    rec.lastPercent = delta.percent || 0;
+    rec.bestPercent = Math.max(rec.bestPercent, delta.percent || 0);
+    rec.bestLevel = Math.max(rec.bestLevel, delta.level || 0);
+    rec.accuracy = clamp(rec.bestPercent);
+  } else {
+    rec.cumScore += delta.addScore || 0;
+    rec.cumTotal += delta.addTotal || 0;
+    rec.accuracy = rec.cumTotal > 0 ? clamp(Math.round(rec.cumScore / rec.cumTotal * 100)) : 0;
+  }
+  rec.rounds += 1;
+
+  // Für die bestehende Anzeige „score/total"
+  rec.score = kind === 'percent' ? rec.bestPercent : Math.round(rec.cumScore);
+  rec.total = kind === 'percent' ? 100 : rec.cumTotal;
+
+  await saveScore(rec);
+  return rec;
+}
+
+function clamp(n) { return Math.max(0, Math.min(100, Number(n) || 0)); }
+
+/** Alte Datensätze konnten accuracy > 100 enthalten – beim Lesen begrenzen. */
+function normalize(r) {
+  if (!r) return r;
+  return { ...r, accuracy: clamp(r.accuracy) };
 }
 
 export async function loadAllScores() {
@@ -42,7 +96,7 @@ export async function loadAllScores() {
   return new Promise((ok, fail) => {
     const tx = db.transaction('scores', 'readonly');
     const r = tx.objectStore('scores').getAll();
-    r.onsuccess = () => ok(r.result || []);
+    r.onsuccess = () => ok((r.result || []).map(normalize));
     r.onerror = e => fail(e.target.error);
   });
 }
@@ -52,17 +106,17 @@ export async function loadScore(moduleId) {
   return new Promise((ok, fail) => {
     const tx = db.transaction('scores', 'readonly');
     const r = tx.objectStore('scores').get(moduleId);
-    r.onsuccess = () => ok(r.result || null);
+    r.onsuccess = () => ok(r.result ? normalize(r.result) : null);
     r.onerror = e => fail(e.target.error);
   });
 }
 
-export async function saveHistory(moduleId, scale, round, score, total, correct) {
+export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count') {
   const db = await open();
   return new Promise((ok, fail) => {
     const tx = db.transaction('history', 'readwrite');
     tx.objectStore('history').add({
-      moduleId, scale, round, score, total, correct,
+      moduleId, scale, round, score, total, correct, kind,
       timestamp: Date.now(),
       dateStr: new Date().toISOString().split('T')[0]
     });

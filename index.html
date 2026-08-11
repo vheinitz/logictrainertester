@@ -75,6 +75,19 @@ main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .info-panel h3{color:var(--primary);margin-bottom:12px}
 .info-panel h4{color:var(--primary);margin:12px 0 4px;font-size:.95em}
 .info-panel ul{padding-left:20px;font-size:.9em;line-height:1.6}
+/* Ablaufanzeigen laufen als CSS-Animation, damit der Spielbereich während
+   einer Aufgabe nicht neu aufgebaut werden muss – ein Neuaufbau zwischen
+   mousedown und mouseup verschluckt sonst den Klick. */
+@keyframes advBar{0%{width:100%;background:var(--green)}55%{background:var(--gold)}80%{background:var(--secondary)}100%{width:0%;background:var(--secondary)}}
+@keyframes advRing{from{stroke-dashoffset:0}to{stroke-dashoffset:188.5}}
+.adv-bar{height:100%;border-radius:4px;width:100%;background:var(--green);animation-name:advBar;animation-timing-function:linear;animation-fill-mode:forwards}
+.adv-ring{stroke-dasharray:188.5;animation-name:advRing;animation-timing-function:linear;animation-fill-mode:forwards}
+/* Klickflächen im Spiel: kein Text-Markieren, keine 300ms-Verzögerung auf
+   Touch, kein Grau-Blitzen beim Antippen. */
+[onclick]{-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.pick-target{user-select:none;-webkit-user-select:none;transition:transform .08s ease-out}
+.pick-target:active{transform:scale(.92)}
+@media(prefers-reduced-motion:reduce){.pick-target{transition:none}}
 @media(max-width:600px){.card-grid{grid-template-columns:1fr}.memory-grid{max-width:300px}.game-grid{grid-template-columns:repeat(3,1fr)}.training-container{padding:16px}}
 </style>
 </head>
@@ -88,6 +101,26 @@ main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
   </div>
 </header>
 <main id="mainContent"></main>
-<script src="dist/logik-trainer.min.js"></script>
+<script src="dist/logik-trainer.min.js?v=7eb5c0f9"></script>
+<script>
+// Ohne Bundle bliebe die Seite einfach weiß – das ist der häufigste
+// Stolperstein nach einem frischen Clone.
+//
+// Geprüft wird, ob der Bundle wirklich lief: er installiert navigateTo() und
+// füllt #mainContent. Nicht auf eine Bundle-Variable prüfen – main.js
+// exportiert nichts, die wäre auch bei geladenem Bundle leer und der Hinweis
+// würde das bereits aufgebaute Menü überschreiben.
+window.addEventListener('load', function () {
+  var main = document.getElementById('mainContent');
+  if (!main) return;
+  if (typeof window.navigateTo === 'function') return;
+  if (main.innerHTML.trim() !== '') return;
+  main.innerHTML =
+    '<div class="training-container"><div class="training-area">' +
+    '<h2 style="margin-bottom:12px">⚙️ Bundle fehlt</h2>' +
+    '<p style="text-align:center">Bitte einmal bauen:<br><code>npm install &amp;&amp; npm run build</code></p>' +
+    '</div></div>';
+});
+</script>
 </body>
 </html>

@@ -1,5 +1,9 @@
 node_modules/
-dist/
 .backup/
 *.pdf
 .DS_Store
+
+# dist/ wird bewusst eingecheckt: die App soll ohne Node/Build direkt per
+# Doppelklick auf index.html laufen (Offline-Nutzung auf Tablet/Familien-PC).
+# Neu erzeugen mit: npm run build
+!dist/

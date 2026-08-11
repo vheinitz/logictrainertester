@@ -1,18 +1,8 @@
-import { t } from '../i18n/i18n-core.js';
-import { engine } from '../core/engine.js';
-import * as storage from '../core/storage.js';
+/**
+ * Bildergeschichte ordnen (KABC-II: Geschichten ergänzen)
+ * Noch nicht umgesetzt – siehe Hinweis im Modul.
+ */
+import { createStub } from '../core/stub.js';
 
-export function init(gs) {
-  const gd = gs.gd || {};
-  gd.answered = false;
-  gs.gd = gd;
-  return gs;
-}
-
-export function render(gs) {
-  const gd = gs.gd;
-  if (!gd.answered) {
-    return '<p style="font-size:1.4em;text-align:center;padding:40px">🚧 Dieses Spiel-Modul ist in Entwicklung.<br><span style="font-size:.7em;color:var(--text-light)">plan-geschichten</span></p>';
-  }
-  return gd.feedback || '';
-}
+const stub = createStub('plan-geschichten', 'Braucht Bildfolgen, die eine Handlung erzählen. Mit Emoji allein lässt sich keine eindeutige Reihenfolge herstellen – dafür sind gezeichnete Szenen nötig.');
+export const { init, render, dispose, actions, scoring } = stub;

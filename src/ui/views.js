@@ -8,8 +8,18 @@ import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
 
+/**
+ * Modultext aus der i18n-Tabelle.
+ *
+ * t() gibt den Schlüssel selbst zurück, wenn weder Übersetzung noch ein
+ * nichtleerer Fallback existiert – auf dem Startbildschirm stand deshalb
+ * wörtlich „mod_seq_zahlenfolgen_desc". Fehlt der Text, ist nichts besser
+ * als der Rohschlüssel.
+ */
 function modI18n(id, suffix, fallback) {
-  return t('mod_' + id.replace(/-/g, '_') + '_' + suffix, fallback);
+  const key = 'mod_' + id.replace(/-/g, '_') + '_' + suffix;
+  const val = t(key, fallback);
+  return val === key ? (fallback || '') : val;
 }
 
 export function renderView(view) {
@@ -82,7 +92,23 @@ function renderMenu(main) {
       <button class="tab${ag==='7-12'?' active':''}" onclick="window._setFilter('7-12',this)">${t('age7to12')}</button>
       <button class="tab${ag==='13-18'?' active':''}" onclick="window._setFilter('13-18',this)">${t('age13to18')}</button>
     </div>
-    <div class="card-grid">${modHtml || `<p style="text-align:center;color:var(--text-light);grid-column:1/-1">${t('noModules')}</p>`}</div>`;
+    <div class="card-grid">${modHtml || `<p style="text-align:center;color:var(--text-light);grid-column:1/-1">${t('noModules')}</p>`}</div>
+    <p style="text-align:center;color:var(--text-light);font-size:.72em;margin-top:28px;opacity:.7">
+      Build ${buildId()}
+    </p>`;
+}
+
+/**
+ * Build-Kennung aus dem ?v= des Script-Tags.
+ *
+ * Sie macht von außen erkennbar, welcher Stand tatsächlich im Browser läuft –
+ * ohne das war nach einem Rebuild nicht unterscheidbar, ob ein Fehler noch im
+ * Code steckt oder der Browser bloß die alte Datei aus dem Cache zeigt.
+ */
+function buildId() {
+  const s = document.querySelector('script[src*="logik-trainer"]');
+  const m = s && (s.getAttribute('src') || '').match(/[?&]v=([^&"]+)/);
+  return m ? m[1] : 'dev';
 }
 
 function renderScaleView(main) {
@@ -117,64 +143,115 @@ function renderTraining(main) {
   const ml = t(mod.mode === 'self' ? 'modeSelfDesc' : mod.mode === 'tutor' ? 'modeTutorDesc' : 'modeMixedDesc');
   const title = modI18n(mod.id, 'title', mod.title);
 
-  let header = `<div class="training-header">
+  const header = `<div class="training-header">
     <span class="icon">${mod.icon}</span>
     <div><h2>${title}</h2>
     <div class="meta">${ml} | ${t('ageLabel')}${mod.ages}${mod.kabcRef ? ' | '+t('moduleLabel')+mod.kabcRef : ''}</div>
     </div></div>`;
 
-  if (gs.step === 'intro') {
-    const desc = modI18n(mod.id, 'desc', '');
-    let body = `<p>${desc}</p>`;
-    if (mod.mode === 'tutor') {
-      body += `<div class="tutor-guide"><h3>${t('tutorGuideTitle')}</h3><p>${t('tutorGuideDesc')}</p></div>`;
-    } else if (mod.mode === 'mixed') {
-      body += `<div class="tutor-guide"><h3>${t('mixedGuideTitle')}</h3><p>${t('mixedGuideDesc')}</p></div>`;
-    }
+  if (gs.step === 'intro') renderIntro(main, mod, header);
+  else renderGameScreen(main, mod, header);
+}
 
-    // --- Info panel with cognitive model ---
-    const lang = document.documentElement.lang || 'de';
-    const perf = getPerformanceData(mod.id, lang);
-    if (perf) {
-      body += `<div class="info-panel">
-        <h3>${t('infoTabTitle')} – ${perf.subtestRef}</h3>
-        <h4>${t('infoWhat')}</h4><p style="font-size:.9em">${perf.whatItMeasures}</p>
-        <h4>${t('infoEinfluesse')}</h4><ul>${perf.einfluesse.map(e => '<li>'+e+'</li>').join('')}</ul>
-        <h4>${t('infoHypothesen')}</h4><ul>${perf.hypothesen.map(h => '<li>'+h+'</li>').join('')}</ul>
-        <h4>${t('infoFoerderung')}</h4><ul>${perf.foerderung.map(f => '<li>'+f+'</li>').join('')}</ul>
-      </div>`;
-    }
-
-    body += `<button class="btn btn-primary" onclick="window._startGame()">${t('startTraining')}</button>`;
-    main.innerHTML = `<div class="training-container">${header}<div class="training-area">${body}</div></div>`;
-  } else {
-    // Game is running – dynamically import the game module
-    const gameId = mod.id;
-    import(`../games/${gameId}.js`).then(game => {
-      const gameHtml = game.render(gs);
-      // Adaptive tests (zahlenfolgen) manage their own flow – no "Neue Runde" button
-      const isAdaptive = gameId === 'seq-zahlenfolgen';
-      const bottomButtons = isAdaptive ? '' : `<div style="margin-top:16px">
-        <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
-        <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
-      </div>`;
-      const fullHtml = `<div class="training-container">${header}<div class="training-area">
-        <div class="score-display"><span class="stars">${'⭐'.repeat(Math.min(gs.score||0,10))}</span>
-        <span class="count">Runde ${gs.round||1} • Punkte ${gs.score||0}/${gs.total||0}</span></div>
-        ${gameHtml}
-        ${bottomButtons}
-      </div></div>`;
-      main.innerHTML = fullHtml;
-
-      // Auto-persist after render
-      autoPersist();
-    }).catch(() => {
-      main.innerHTML = `<div class="training-container">${header}<div class="training-area">
-        <p>⚠️ Spiel-Modul "${gameId}" wird noch entwickelt.</p>
-        <button class="btn btn-secondary" onclick="navigateTo('menu')">${t('homeMenu')}</button>
-      </div></div>`;
-    });
+async function renderIntro(main, mod, header) {
+  const desc = modI18n(mod.id, 'desc', '');
+  let body = `<p>${desc}</p>`;
+  if (mod.mode === 'tutor') {
+    body += `<div class="tutor-guide"><h3>${t('tutorGuideTitle')}</h3><p>${t('tutorGuideDesc')}</p></div>`;
+  } else if (mod.mode === 'mixed') {
+    body += `<div class="tutor-guide"><h3>${t('mixedGuideTitle')}</h3><p>${t('mixedGuideDesc')}</p></div>`;
   }
+
+  // Die Spielanleitung steht genau hier – auf dem Startbildschirm. Im Spiel
+  // selbst erscheint sie nicht mehr, dort zählt nur die Aufgabe.
+  let game = null;
+  try { game = await engine.ensureGame(mod.id); } catch (e) { /* Stub o. ä. */ }
+  if (game && game.instruction) {
+    body += `<div data-role="instruction" style="background:var(--bg);border-radius:var(--radius-sm);padding:14px 18px;margin:16px 0;max-width:520px;text-align:center;font-size:1.02em">
+      ${game.instruction}
+    </div>`;
+  }
+
+  const lang = document.documentElement.lang || 'de';
+  const perf = getPerformanceData(mod.id, lang);
+  if (perf) {
+    body += `<div class="info-panel">
+      <h3>${t('infoTabTitle')} – ${perf.subtestRef}</h3>
+      <h4>${t('infoWhat')}</h4><p style="font-size:.9em">${perf.whatItMeasures}</p>
+      <h4>${t('infoEinfluesse')}</h4><ul>${perf.einfluesse.map(e => '<li>'+e+'</li>').join('')}</ul>
+      <h4>${t('infoHypothesen')}</h4><ul>${perf.hypothesen.map(h => '<li>'+h+'</li>').join('')}</ul>
+      <h4>${t('infoFoerderung')}</h4><ul>${perf.foerderung.map(f => '<li>'+f+'</li>').join('')}</ul>
+    </div>`;
+  }
+
+  body += `<button class="btn btn-primary" onclick="window._startGame()">${t('startTraining')}</button>`;
+  main.innerHTML = `<div class="training-container">${header}<div class="training-area">${body}</div></div>`;
+}
+
+async function renderGameScreen(main, mod, header) {
+  const gs = engine.gameState;
+  let game;
+  try {
+    game = await engine.ensureGame(mod.id);
+  } catch (e) {
+    main.innerHTML = `<div class="training-container">${header}<div class="training-area">
+      <p>⚠️ Spiel-Modul "${mod.id}" wird noch entwickelt.</p>
+      <button class="btn btn-secondary" onclick="navigateTo('menu')">${t('homeMenu')}</button>
+    </div></div>`;
+    return;
+  }
+
+  // Spiele initialisieren sich nicht mehr implizit im render(); dispose()
+  // setzt _ready zurück, damit ein erneuter Einstieg sauber neu startet.
+  if (!gs.gd || !gs.gd._ready) {
+    try { game.init(gs); } catch (e) { console.error('[game init] ' + mod.id, e); }
+  }
+
+  let gameHtml;
+  try { gameHtml = game.render(gs); }
+  catch (e) {
+    console.error('[game render] ' + mod.id, e);
+    gameHtml = `<p>⚠️ Fehler im Spielmodul – bitte zurück zum Menü.</p>`;
+  }
+
+  // Minimal-Hülle: die adaptiven Tests zeigen im Spiel nur die Aufgabe.
+  // Kopfzeile, Punktestand und Rundenknöpfe würden nur ablenken – und eine
+  // sichtbare Niveauanzeige macht aus dem Test einen Wettbewerb.
+  const minimal = game.chrome === 'minimal';
+
+  const bottom = (minimal || game.scoring === 'percent') ? '' : `<div style="margin-top:16px">
+    <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
+    <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
+  </div>`;
+
+  main.innerHTML = `<div class="training-container">
+    ${minimal ? '' : header}
+    <div class="training-area">
+      ${minimal ? '' : `<div class="score-display" id="gameScore">${scoreLineHtml()}</div>`}
+      <div id="gameArea" style="width:100%;display:flex;flex-direction:column;align-items:center">${gameHtml}</div>
+      ${bottom}
+    </div></div>`;
+
+  autoPersist();
+}
+
+/** Score-Zeile – für adaptive Tests Niveau/Prozent, sonst richtig/beantwortet. */
+function scoreLineHtml() {
+  const gs = engine.gameState;
+  const g = engine.activeGame;
+  if (g && g.mod.scoring === 'percent') {
+    const lvl = gs.level || 0;
+    return `<span class="stars">${'⭐'.repeat(Math.max(0, Math.min(lvl - 1, 10)))}</span>
+      <span class="count">Niveau ${lvl || '–'} • Bewertung ${gs.percent || 0}%</span>`;
+  }
+  const score = Math.round((gs.score || 0) * 10) / 10;
+  return `<span class="stars">${'⭐'.repeat(Math.min(Math.floor(gs.score || 0), 10))}</span>
+    <span class="count">Richtig ${score}/${gs.total || 0}</span>`;
+}
+
+export function updateScoreLine() {
+  const el = document.getElementById('gameScore');
+  if (el) el.innerHTML = scoreLineHtml();
 }
 
 // ===== Stats view =====
@@ -186,8 +263,11 @@ async function renderStats(main) {
     if (!scores.length && !history.length) {
       html += `<div class="training-container"><div class="training-area"><p>${t('statsEmpty')}</p></div></div>`;
     } else {
-      const answered = history.length;
-      const correct = history.filter(h => h.correct).length;
+      // Trefferquote nur aus Übungsspielen – die adaptiven Tests schreiben
+      // Prozentwerte, die hier sonst als „100% richtig" durchschlagen würden.
+      const counted = history.filter(h => h.kind !== 'percent');
+      const answered = counted.reduce((s,h) => s + (h.total || 0), 0);
+      const correct = counted.reduce((s,h) => s + (h.score || 0), 0);
       const acc = answered ? Math.round(correct/answered*100) : 0;
       const today = new Date().toISOString().split('T')[0];
       const todayCount = history.filter(h => h.dateStr === today).length;
@@ -204,9 +284,12 @@ async function renderStats(main) {
         scores.sort((a,b) => b.updated - a.updated).forEach(s => {
           const m = getModule(s.moduleId);
           const name = m ? modI18n(m.id, 'title', m.title) : s.moduleId;
-          const bar = s.accuracy || 0;
+          const bar = Math.max(0, Math.min(100, s.accuracy || 0));
           const color = bar >= 80 ? 'var(--green)' : bar >= 50 ? 'var(--gold)' : 'var(--secondary)';
-          html += `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.85em"><span>${m?m.icon:''} ${name}</span><span>${s.score}/${s.total} (${bar}%)</span></div><div style="background:#F0EFF8;border-radius:6px;height:8px"><div style="background:${color};height:100%;width:${bar}%;border-radius:6px"></div></div></div>`;
+          const detail = s.kind === 'percent'
+            ? `Niveau ${s.bestLevel || '–'} • ${s.bestPercent || 0}%`
+            : `${Math.round(s.cumScore ?? s.score ?? 0)}/${s.cumTotal ?? s.total ?? 0} (${bar}%)`;
+          html += `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.85em"><span>${m?m.icon:''} ${name}</span><span>${detail}</span></div><div style="background:#F0EFF8;border-radius:6px;height:8px"><div style="background:${color};height:100%;width:${bar}%;border-radius:6px"></div></div></div>`;
         });
         html += `</div>`;
       }
@@ -221,37 +304,58 @@ async function renderStats(main) {
 }
 
 // ===== Persistence =====
-let _lastScore = -1, _lastTotal = -1;
+/**
+ * Merkt sich den zuletzt gespeicherten Stand *pro Modul*. Vorher waren das
+ * zwei Modul-Globals, die beim Modulwechsel nie zurückgesetzt wurden – dadurch
+ * war das `correct`-Flag in der History teils falsch und der erste Treffer in
+ * einem neuen Modul wurde verschluckt.
+ */
+let _last = { moduleId: null, score: 0, total: 0, percent: 0 };
 
-function autoPersist() {
+export function autoPersist() {
   const gs = engine.gameState;
   if (!gs || !gs.moduleId || gs.step !== 'game') return;
-  if (gs.score === _lastScore && gs.total === _lastTotal) return;
-  const correct = gs.score > _lastScore;
-  _lastScore = gs.score; _lastTotal = gs.total;
+  const g = engine.activeGame;
+  if (!g) return;
+  const kind = g.mod.scoring === 'percent' ? 'percent' : 'count';
+
+  // Neues Modul – oder dasselbe Modul in einer neuen Sitzung (die Zähler
+  // starten dann wieder bei 0 und wären sonst für immer „schon gespeichert").
+  if (_last.moduleId !== gs.moduleId
+      || (gs.total || 0) < _last.total
+      || (gs.percent || 0) < _last.percent) {
+    _last = { moduleId: gs.moduleId, score: 0, total: 0, percent: 0 };
+  }
+
+  const mod = getModule(gs.moduleId);
+  const scale = mod ? mod.scale : 'unknown';
+
+  if (kind === 'percent') {
+    const percent = gs.percent || 0;
+    if (percent <= _last.percent) return;      // nur Verbesserungen schreiben
+    _last.percent = percent;
+    persist(scale, { kind, percent, level: gs.level || 0 },
+            () => storage.saveHistory(gs.moduleId, scale, gs.attempts || 0, percent, 100, true, 'percent'));
+  } else {
+    const score = gs.score || 0, total = gs.total || 0;
+    if (total <= _last.total) return;          // erst zählen, wenn eine Antwort dazukam
+    const addScore = score - _last.score;
+    const addTotal = total - _last.total;
+    const correct = addScore > 0;
+    _last.score = score; _last.total = total;
+    persist(scale, { kind, addScore, addTotal },
+            () => storage.saveHistory(gs.moduleId, scale, total, addScore, addTotal, correct, 'count'));
+  }
+}
+
+function persist(scale, delta, historyFn) {
+  const moduleId = engine.gameState.moduleId;
   setTimeout(async () => {
-    const mod = getModule(gs.moduleId);
-    const scale = mod ? mod.scale : 'unknown';
     try {
-      // Cap score at 100% and compute average with existing
-      const cappedScore = Math.min(gs.score || 0, 100);
-      const cappedTotal = Math.min(gs.total || 0, 100);
-      
-      // Load existing score and compute AVG
-      const existing = await storage.loadScore(gs.moduleId);
-      let finalScore = cappedScore;
-      let finalTotal = cappedTotal;
-      let finalRound = gs.round || 1;
-      if (existing && existing.total > 0) {
-        finalScore = Math.round((existing.score + cappedScore) / 2);
-        finalTotal = Math.max(existing.total, cappedTotal);
-        finalRound = existing.round + 1;
-      }
-      
-      await storage.saveHistory(gs.moduleId, scale, gs.round, cappedScore, cappedTotal, correct);
-      await storage.saveScore(gs.moduleId, scale, finalScore, finalTotal, finalRound);
+      await historyFn();
+      await storage.recordProgress(moduleId, scale, delta);
       showSaveIndicator();
-    } catch(e) {}
+    } catch (e) { console.warn('[persist]', e); }
   }, 0);
 }
 
@@ -280,12 +384,30 @@ window._setFilter = (val, btn) => {
 };
 window._startGame = () => {
   const gs = engine.gameState;
+  const g = engine.activeGame;
+  // Laufende Timer des vorigen Durchgangs abräumen, sonst starten zwei
+  // Abläufe parallel, sobald jemand „Neue Runde" während einer Aufgabe drückt.
+  if (g && typeof g.mod.dispose === 'function') { try { g.mod.dispose(gs); } catch (e) { /* egal */ } }
   gs.step = 'game';
   gs.round = (gs.round || 0) + 1;
+  gs.gd = {};
   gs.score = gs.score || 0;
   gs.total = gs.total || 0;
-  if (!gs.gd) gs.gd = {};
   engine.render();
+};
+
+/**
+ * Tempo (Sekunden pro Element) setzen – bewusst kein Bedienelement im Spiel.
+ * Das Tempo ist eine Voreinstellung der Testleitung, keine Spieloption, und
+ * würde als Regler nur den Bildschirm füllen. Von der Konsole aus:
+ *   _setTempo('seq-zahlenfolgen', 1.5)
+ * Der Wert bleibt in localStorage erhalten.
+ */
+window._setTempo = (moduleId, val) => {
+  const g = engine.activeGame;
+  if (g && g.id === moduleId && typeof g.mod.setFactor === 'function') return g.mod.setFactor(val);
+  // auch ohne geladenes Modul setzbar
+  import('../core/adaptive.js').then(m => m.setFactor(moduleId, val));
 };
 window._exportData = async () => {
   try {

@@ -1,88 +1,75 @@
 /**
- * Oberbegriffe finden – 3 Wörter, 4 Optionen, Multiple-Choice per Klick
+ * Oberbegriffe finden – Kategorisierungsfähigkeit
+ *
+ * Migriert auf core/choice.js; die Optionen werden jetzt gemischt und die
+ * Fragen sind nach Abstraktionsgrad gestaffelt (Niveau 4/5 verlangen
+ * Oberbegriffe, die nicht mehr am Aussehen ablesbar sind).
  */
-import { t } from '../i18n/i18n-core.js';
-import { engine } from '../core/engine.js';
+import { createChoiceGame } from '../core/choice.js';
+import { shuffle } from '../core/html.js';
 
 const QUESTIONS = [
-  { items:'🍎 Apfel, 🍌 Banane, 🍊 Orange', opts:['Obst','Gemüse','Süßigkeiten','Getränke'], answer:0,
-    de:'Obst – alles sind Früchte', ru:'Фрукты – всё это фрукты' },
-  { items:'🐕 Hund, 🐈 Katze, 🐇 Hase', opts:['Pflanzen','Tiere','Fahrzeuge','Möbel'], answer:1,
-    de:'Tiere – alles sind Haustiere', ru:'Животные – всё это домашние животные' },
-  { items:'🚗 Auto, 🚌 Bus, 🚲 Fahrrad', opts:['Tiere','Gebäude','Fahrzeuge','Werkzeuge'], answer:2,
-    de:'Fahrzeuge – alles fährt', ru:'Транспорт – всё это ездит' },
-  { items:'🪑 Stuhl, 🛏️ Bett, 📦 Schrank', opts:['Spielzeug','Kleidung','Essen','Möbel'], answer:3,
-    de:'Möbel – alles sind Einrichtungsgegenstände', ru:'Мебель – всё это предметы интерьера' },
-  { items:'👚 T-Shirt, 👖 Hose, 🧥 Jacke', opts:['Möbel','Kleidung','Spielzeug','Schuhe'], answer:1,
-    de:'Kleidung – alles zieht man an', ru:'Одежда – всё это надевают' },
-  { items:'⚽ Fußball, 🏀 Basketball, 🎾 Tennis', opts:['Musik','Essen','Sport','Filme'], answer:2,
-    de:'Sport – alles sind Sportarten', ru:'Спорт – всё это виды спорта' },
-  { items:'🥁 Trommel, 🎸 Gitarre, 🎹 Klavier', opts:['Sport','Musikinstrumente','Werkzeuge','Essen'], answer:1,
-    de:'Musikinstrumente – alle machen Musik', ru:'Музыкальные инструменты – все издают музыку' },
-  { items:'🔨 Hammer, 🪚 Säge, 🔧 Schraubenzieher', opts:['Spielzeug','Küchengeräte','Werkzeuge','Möbel'], answer:2,
-    de:'Werkzeuge – alle benutzt man zum Bauen', ru:'Инструменты – всё для строительства' },
-  { items:'🌧️ Regen, ❄️ Schnee, ☀️ Sonne', opts:['Tiere','Essen','Farben','Wetter'], answer:3,
-    de:'Wetter – alles sind Wettererscheinungen', ru:'Погода – всё это погодные явления' },
-  { items:'🥛 Milch, 🧃 Saft, ☕ Tee', opts:['Speisen','Getränke','Suppen','Soßen'], answer:1,
-    de:'Getränke – alles kann man trinken', ru:'Напитки – всё это можно пить' },
+  { t: 1, items: '🍎 Apfel, 🍌 Banane, 🍊 Orange', a: 'Obst', w: ['Gemüse','Süßigkeiten','Getränke'],
+    de: 'Obst – alles sind Früchte', ru: 'Фрукты – всё это фрукты' },
+  { t: 1, items: '🐕 Hund, 🐈 Katze, 🐇 Hase', a: 'Tiere', w: ['Pflanzen','Fahrzeuge','Möbel'],
+    de: 'Tiere – alles sind Haustiere', ru: 'Животные – всё это домашние животные' },
+  { t: 1, items: '🚗 Auto, 🚌 Bus, 🚲 Fahrrad', a: 'Fahrzeuge', w: ['Tiere','Gebäude','Werkzeuge'],
+    de: 'Fahrzeuge – alles fährt', ru: 'Транспорт – всё это ездит' },
+  { t: 2, items: '🪑 Stuhl, 🛏️ Bett, 📦 Schrank', a: 'Möbel', w: ['Spielzeug','Kleidung','Essen'],
+    de: 'Möbel – alles sind Einrichtungsgegenstände', ru: 'Мебель – всё это предметы интерьера' },
+  { t: 2, items: '👚 T-Shirt, 👖 Hose, 🧥 Jacke', a: 'Kleidung', w: ['Möbel','Spielzeug','Schuhe'],
+    de: 'Kleidung – alles zieht man an', ru: 'Одежда – всё это надевают' },
+  { t: 2, items: '⚽ Fußball, 🏀 Basketball, 🎾 Tennis', a: 'Sport', w: ['Musik','Essen','Filme'],
+    de: 'Sport – alles sind Sportarten', ru: 'Спорт – всё это виды спорта' },
+  { t: 3, items: '🥁 Trommel, 🎸 Gitarre, 🎹 Klavier', a: 'Musikinstrumente', w: ['Sport','Werkzeuge','Essen'],
+    de: 'Musikinstrumente – alle machen Musik', ru: 'Музыкальные инструменты – все издают музыку' },
+  { t: 3, items: '🔨 Hammer, 🪚 Säge, 🔧 Schraubenzieher', a: 'Werkzeuge', w: ['Spielzeug','Küchengeräte','Möbel'],
+    de: 'Werkzeuge – alle benutzt man zum Bauen', ru: 'Инструменты – всё для строительства' },
+  { t: 3, items: '🌧️ Regen, ❄️ Schnee, ☀️ Sonne', a: 'Wetter', w: ['Tiere','Essen','Farben'],
+    de: 'Wetter – alles sind Wettererscheinungen', ru: 'Погода – всё это погодные явления' },
+  { t: 3, items: '🥛 Milch, 🧃 Saft, ☕ Tee', a: 'Getränke', w: ['Speisen','Suppen','Soßen'],
+    de: 'Getränke – alles kann man trinken', ru: 'Напитки – всё это можно пить' },
+  // Höhere Stufen: der Oberbegriff ist nicht mehr sichtbar, sondern funktional
+  { t: 4, items: '⏰ Wecker, 📅 Kalender, ⌛ Sanduhr', a: 'Zeitmesser', w: ['Möbel','Schmuck','Werkzeuge'],
+    de: 'Alle drei haben mit dem Messen oder Einteilen von Zeit zu tun', ru: 'Всё это связано со временем' },
+  { t: 4, items: '🐋 Wal, 🦇 Fledermaus, 🐘 Elefant', a: 'Säugetiere', w: ['Meerestiere','Fliegende Tiere','Große Tiere'],
+    de: 'Alle drei sind Säugetiere – trotz Wasser, Luft und Land', ru: 'Все трое – млекопитающие' },
+  { t: 4, items: '💧 Wasser, 🥛 Milch, 🍯 Honig', a: 'Flüssigkeiten', w: ['Getränke','Lebensmittel','Süßes'],
+    de: 'Honig trinkt man nicht – gemeinsam ist der flüssige Zustand', ru: 'Общее – жидкое состояние' },
+  { t: 5, items: '📕 Buch, 📻 Radio, 💬 Gespräch', a: 'Informationsquellen', w: ['Unterhaltung','Technik','Sprache'],
+    de: 'Über alle drei bekommt man Informationen', ru: 'Через всё это получают информацию' },
+  { t: 5, items: '🔑 Schlüssel, 🎫 Eintrittskarte, 🔐 Passwort', a: 'Zugangsmittel', w: ['Wertsachen','Papiere','Metallteile'],
+    de: 'Alle drei verschaffen Zugang zu etwas', ru: 'Всё это даёт доступ' },
+  { t: 5, items: '🌡️ Thermometer, ⚖️ Waage, 📏 Lineal', a: 'Messgeräte', w: ['Werkzeuge','Küchengeräte','Schulsachen'],
+    de: 'Alle drei messen eine Größe', ru: 'Все три измеряют величину' }
 ];
 
-export function init(gs) {
-  const gd = gs.gd || {};
-  if (gd.qIdx === undefined) gd.qIdx = 0;
-  gd.current = QUESTIONS[gd.qIdx % QUESTIONS.length];
-  gd.answered = false;
-  gd.userPick = null;
-  gs.gd = gd;
-  return gs;
-}
+const game = createChoiceGame({
+  id: 'wiss-oberbegriffe',
+  minLevel: 1,
+  maxLevel: 5,
+  startLevel: 1,
 
-export function render(gs) {
-  const gd = gs.gd;
-  if (!gd || !gd.current) { init(gs); return render(gs); }
+  genRound: (gd) => {
+    const pool = QUESTIONS.filter(q => q.t === gd.level);
+    const list = pool.length ? pool : QUESTIONS;
+    const q = list[Math.floor(Math.random() * list.length)];
+    const choices = shuffle([q.a, ...q.w]);
 
-  if (!gd.answered) {
-    return `<div style="width:100%;max-width:500px">
-      <p style="font-size:1.2em">🏷️ <b>Was haben diese gemeinsam?</b></p>
-      <div style="font-size:1.3em;margin:16px 0;padding:16px;background:var(--bg);border-radius:var(--radius-sm);text-align:center;letter-spacing:2px">
-        ${gd.current.items}
-      </div>
-      <p style="color:var(--text-light);font-size:0.95em">Sie sind alle...</p>
-      <div class="options-vertical">
-        ${gd.current.opts.map((o, i) => {
-          const sel = gd.userPick === i;
-          return `<button class="option-btn${sel?' option-correct':''}" onclick="window._pickOberbegriff(${i},this)">${o}</button>`;
-        }).join('')}
-      </div>
-      <button class="btn btn-primary btn-small" onclick="window._checkOberbegriff()" style="margin-top:8px" ${gd.userPick===null?'disabled':''}>✅ Das ist es!</button>
-    </div>`;
+    return {
+      prompt: `<div style="text-align:center">
+        <p style="font-size:1.12em"><b>🏷️ Was haben diese gemeinsam?</b></p>
+        <div style="font-size:1.2em;margin:16px 0;padding:16px;background:var(--bg);border-radius:var(--radius-sm);letter-spacing:1px">
+          ${q.items}
+        </div>
+        <p style="color:var(--text-light);font-size:.95em">Sie sind alle …</p>
+      </div>`,
+      options: choices.map(c => ({ html: c, label: c })),
+      correct: choices.indexOf(q.a),
+      layout: 'list',
+      explain: { de: q.de, ru: q.ru }
+    };
   }
+});
 
-  return gd.feedback || '';
-}
-
-window._pickOberbegriff = function(idx, el) {
-  engine.gameState.gd.userPick = idx;
-  engine.render();
-};
-
-window._checkOberbegriff = function() {
-  const gs = engine.gameState;
-  const gd = gs.gd;
-  if (gd.userPick === null) return;
-  
-  gs.total = (gs.total || 0) + 1;
-  const correct = gd.userPick === gd.current.answer;
-  const lang = document.documentElement.lang || 'de';
-  const explain = lang === 'ru' ? gd.current.ru : gd.current.de;
-  
-  if (correct) {
-    gs.score = (gs.score || 0) + 1;
-    gd.feedback = `<div class="feedback-banner feedback-correct">🎉 Richtig! ${explain}</div>`;
-  } else {
-    gd.feedback = `<div class="feedback-banner feedback-wrong">😔 ${explain}</div>`;
-  }
-  gd.answered = true;
-  gd.qIdx++;
-  engine.render();
-};
+export const { init, render, dispose, actions, scoring } = game;

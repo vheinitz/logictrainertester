@@ -1,104 +1,85 @@
 /**
- * Was passt nicht? – 5 Bilder, eins passt nicht. Per Klick auswählen.
- * 12 Sets rotierend, kindgerechte Emoji-Bilder.
+ * Was passt nicht? – Klassifikation und Fokussierung auf relevante Merkmale
+ * (KABC-II: „Konzeptbildung")
+ *
+ * Migriert auf core/choice.js. Zwei inhaltliche Änderungen gegenüber der
+ * ersten Fassung: die Bilder werden gemischt (vorher lag der Ausreißer in 11
+ * von 12 Sets an letzter Stelle) und es gibt Sets mit mehreren möglichen
+ * Sortierlogiken für die höheren Niveaus.
  */
-import { t } from '../i18n/i18n-core.js';
-import { engine } from '../core/engine.js';
+import { createChoiceGame } from '../core/choice.js';
+import { shuffle } from '../core/html.js';
 
 const SETS = [
-  { items:['🐕','🐈','🐇','🐘','🐟'], odd:4,
-    de:'Der Fisch 🐟 lebt im Wasser – die anderen an Land',
-    ru:'Рыба 🐟 живёт в воде – остальные на суше' },
-  { items:['🍎','🍌','🍇','🍞','🍊'], odd:3,
-    de:'Das Brot 🍞 ist kein Obst',
-    ru:'Хлеб 🍞 – не фрукт' },
-  { items:['🚗','🚌','🏍️','🚲','✈️'], odd:4,
-    de:'Das Flugzeug ✈️ fliegt – die anderen fahren',
-    ru:'Самолёт ✈️ летает – остальные ездят' },
-  { items:['🔴','🔵','🟢','⬛','🔺'], odd:4,
-    de:'Das Dreieck 🔺 ist eine Form, keine Farbe',
-    ru:'Треугольник 🔺 – форма, а не цвет' },
-  { items:['👁️','👂','👃','👄','🦶'], odd:4,
-    de:'Der Fuß 🦶 ist kein Sinnesorgan im Kopf',
-    ru:'Ступня 🦶 – не орган чувств на голове' },
-  { items:['🌞','🌙','⭐','☁️','🐟'], odd:4,
-    de:'Der Fisch 🐟 gehört nicht zum Himmel',
-    ru:'Рыба 🐟 не относится к небу' },
-  { items:['🎸','🥁','🎹','🎺','📕'], odd:4,
-    de:'Das Buch 📕 ist kein Musikinstrument',
-    ru:'Книга 📕 – не музыкальный инструмент' },
-  { items:['⚽','🏀','🎾','🏈','🍕'], odd:4,
-    de:'Die Pizza 🍕 ist kein Sportgerät',
-    ru:'Пицца 🍕 – не спортивный предмет' },
-  { items:['🥛','☕','🍵','🧃','🧦'], odd:4,
-    de:'Die Socke 🧦 ist kein Getränk',
-    ru:'Носок 🧦 – не напиток' },
-  { items:['🌲','🌿','🌻','🍄','🐍'], odd:4,
-    de:'Die Schlange 🐍 ist ein Tier, keine Pflanze',
-    ru:'Змея 🐍 – животное, а не растение' },
-  { items:['👚','👖','🧥','👗','🍔'], odd:4,
-    de:'Der Burger 🍔 ist keine Kleidung',
-    ru:'Бургер 🍔 – не одежда' },
-  { items:['🛏️','🪑','📺','🛁','🍦'], odd:4,
-    de:'Das Eis 🍦 ist kein Möbelstück',
-    ru:'Мороженое 🍦 – не мебель' },
+  { t: 1, items: ['🐕','🐈','🐇','🐘','🐟'], odd: '🐟',
+    de: 'Der Fisch 🐟 lebt im Wasser – die anderen an Land',
+    ru: 'Рыба 🐟 живёт в воде – остальные на суше' },
+  { t: 1, items: ['🍎','🍌','🍇','🍞','🍊'], odd: '🍞',
+    de: 'Das Brot 🍞 ist kein Obst', ru: 'Хлеб 🍞 – не фрукт' },
+  { t: 1, items: ['🚗','🚌','🏍️','🚲','✈️'], odd: '✈️',
+    de: 'Das Flugzeug ✈️ fliegt – die anderen fahren', ru: 'Самолёт ✈️ летает – остальные ездят' },
+  { t: 1, items: ['👚','👖','🧥','👗','🍔'], odd: '🍔',
+    de: 'Der Burger 🍔 ist keine Kleidung', ru: 'Бургер 🍔 – не одежда' },
+  { t: 2, items: ['🔴','🔵','🟢','⬛','🔺'], odd: '🔺',
+    de: 'Das Dreieck 🔺 ist eine Form, keine Farbe', ru: 'Треугольник 🔺 – форма, а не цвет' },
+  { t: 2, items: ['👁️','👂','👃','👄','🦶'], odd: '🦶',
+    de: 'Der Fuß 🦶 ist kein Sinnesorgan im Kopf', ru: 'Ступня 🦶 – не орган чувств на голове' },
+  { t: 2, items: ['🎸','🥁','🎹','🎺','📕'], odd: '📕',
+    de: 'Das Buch 📕 ist kein Musikinstrument', ru: 'Книга 📕 – не музыкальный инструмент' },
+  { t: 2, items: ['🥛','☕','🍵','🧃','🧦'], odd: '🧦',
+    de: 'Die Socke 🧦 ist kein Getränk', ru: 'Носок 🧦 – не напиток' },
+  { t: 3, items: ['🌲','🌿','🌻','🍄','🐍'], odd: '🐍',
+    de: 'Die Schlange 🐍 ist ein Tier, keine Pflanze', ru: 'Змея 🐍 – животное, а не растение' },
+  { t: 3, items: ['🛏️','🪑','📺','🛁','🍦'], odd: '🍦',
+    de: 'Das Eis 🍦 ist kein Möbelstück', ru: 'Мороженое 🍦 – не мебель' },
+  { t: 3, items: ['🌞','🌙','⭐','☁️','🐟'], odd: '🐟',
+    de: 'Der Fisch 🐟 gehört nicht zum Himmel', ru: 'Рыба 🐟 не относится к небу' },
+  { t: 3, items: ['⚽','🏀','🎾','🏈','🍕'], odd: '🍕',
+    de: 'Die Pizza 🍕 ist kein Sportgerät', ru: 'Пицца 🍕 – не спортивный предмет' },
+  // Ab hier greift die naheliegende Kategorie nicht mehr – man muss das
+  // relevante Merkmal erst finden.
+  { t: 4, items: ['🐝','🦋','🐞','🕷️','🐜'], odd: '🕷️',
+    de: 'Die Spinne 🕷️ hat acht Beine – die anderen sechs (Insekten)',
+    ru: 'У паука 🕷️ восемь ног – у остальных шесть' },
+  { t: 4, items: ['🚗','🚲','🛴','🛹','⛵'], odd: '⛵',
+    de: 'Das Segelboot ⛵ hat keine Räder', ru: 'У парусника ⛵ нет колёс' },
+  { t: 4, items: ['🍅','🥒','🌽','🥕','🍓'], odd: '🍓',
+    de: 'Die Erdbeere 🍓 ist süß – die anderen isst man im Salat',
+    ru: 'Клубника 🍓 сладкая – остальное идёт в салат' },
+  { t: 5, items: ['🐋','🦇','🐬','🦅','🐘'], odd: '🦅',
+    de: 'Der Adler 🦅 ist ein Vogel – alle anderen sind Säugetiere, auch Wal und Fledermaus',
+    ru: 'Орёл 🦅 – птица, остальные млекопитающие' },
+  { t: 5, items: ['⌛','⏰','📅','🌡️','⏳'], odd: '🌡️',
+    de: 'Das Thermometer 🌡️ misst Wärme – die anderen Zeit',
+    ru: 'Термометр 🌡️ измеряет тепло – остальные время' },
+  { t: 5, items: ['🔑','🎫','🔐','🗝️','🔨'], odd: '🔨',
+    de: 'Der Hammer 🔨 verschafft keinen Zugang – die anderen schon',
+    ru: 'Молоток 🔨 не даёт доступа – остальные дают' }
 ];
 
-export function init(gs) {
-  const gd = gs.gd || {};
-  if (gd.setIdx === undefined) gd.setIdx = 0;
-  gd.current = SETS[gd.setIdx % SETS.length];
-  gd.answered = false;
-  gd.userPick = null;
-  gs.gd = gd;
-  return gs;
-}
+const game = createChoiceGame({
+  id: 'sim-konzeptbildung',
+  minLevel: 1,
+  maxLevel: 5,
+  startLevel: 1,
 
-export function render(gs) {
-  const gd = gs.gd;
-  if (!gd || !gd.current) { init(gs); return render(gs); }
+  genRound: (gd) => {
+    const pool = SETS.filter(s => s.t === gd.level);
+    const list = pool.length ? pool : SETS;
+    const s = list[Math.floor(Math.random() * list.length)];
+    const items = shuffle(s.items);
 
-  if (!gd.answered) {
-    return `<div style="width:100%;max-width:550px">
-      <p style="font-size:1.2em">❓ <b>Welches Bild passt NICHT zu den anderen?</b></p>
-      <p style="color:var(--text-light);font-size:0.9em;margin-bottom:12px">Tippe auf das Bild, das anders ist</p>
-      
-      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:16px 0">
-        ${gd.current.items.map((item, i) => {
-          const selected = gd.userPick === i;
-          return `<div onclick="window._pickKonzept(${i},this)" style="width:80px;height:80px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;font-size:2.5em;cursor:pointer;border:3px solid ${selected?'var(--primary)':'#E0DDF5'};background:${selected?'#EBE9FF':'#fff'};transition:all 0.2s">${item}</div>`;
-        }).join('')}
-      </div>
-
-      <button class="btn btn-primary btn-small" onclick="window._checkKonzeptGame()" ${gd.userPick===null?'disabled style="opacity:0.5"':''}>✅ Diese${gd.userPick!==null?'s':'s'} Bild passt nicht!</button>
-    </div>`;
+    return {
+      prompt: `<div style="text-align:center">
+        <p style="font-size:1.15em"><b>❓ Welches Bild passt NICHT zu den anderen?</b></p>
+        <p style="color:var(--text-light);font-size:.9em;margin-bottom:4px">Tippe auf das Bild, das anders ist</p>
+      </div>`,
+      options: items.map(i => ({ html: i, label: i })),
+      correct: items.indexOf(s.odd),
+      columns: 5,
+      explain: { de: s.de, ru: s.ru }
+    };
   }
+});
 
-  return gd.feedback || '';
-}
-
-window._pickKonzept = function(idx, el) {
-  engine.gameState.gd.userPick = idx;
-  engine.render();
-};
-
-window._checkKonzeptGame = function() {
-  const gs = engine.gameState;
-  const gd = gs.gd;
-  if (gd.userPick === null) return;
-  
-  gs.total = (gs.total || 0) + 1;
-  const correct = gd.userPick === gd.current.odd;
-  const lang = document.documentElement.lang || 'de';
-  const explain = lang === 'ru' ? gd.current.ru : gd.current.de;
-  
-  if (correct) {
-    gs.score = (gs.score || 0) + 1;
-    gd.feedback = `<div class="feedback-banner feedback-correct">🎉 Richtig! ${explain}</div>`;
-  } else {
-    gd.feedback = `<div class="feedback-banner feedback-wrong">😔 ${explain}</div>`;
-  }
-  gd.answered = true;
-  gd.setIdx++;
-  engine.render();
-};
+export const { init, render, dispose, actions, scoring } = game;
