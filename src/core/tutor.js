@@ -15,6 +15,7 @@
 import { engine } from './engine.js';
 import { pick } from './html.js';
 import * as settings from './settings.js';
+import { countRound, resultScreen } from './session.js';
 
 /**
  * @param {object} cfg
@@ -52,6 +53,10 @@ export function createTutorModule(cfg) {
     if (!gd || !gd._ready) { init(gs); gd = gs.gd; }
     const task = gd.task;
     if (!task) return '';
+
+    if (gd.phase === 'done') {
+      return resultScreen(gs, { score: gs.score, total: gs.total });
+    }
 
     if (gd.phase === 'rated') {
       const label = ['nicht gelungen', 'mit Hilfe gelungen', 'gelungen'][gd.lastRating];
@@ -109,14 +114,22 @@ export function createTutorModule(cfg) {
       else if (r === 0 && gd.level > minLevel) gd.level--;
       // Von selbst weiter, wie überall sonst – die Begleitperson hat schon
       // geklickt, ein zweiter Klick auf „Weiter" ist nur Reibung.
+      const vorbei = countRound(gs);
       clearTimeout(gd._weiter);
       gd._weiter = setTimeout(() => {
         if (!engine.activeGame || engine.activeGame.id !== cfg.id) return;
-        nextTask(gs); engine.renderGame();
+        if (vorbei) gd.phase = 'done'; else nextTask(gs);
+        engine.renderGame();
       }, Math.round(settings.get('feedbackOk') * 1000) + 600);
     },
     next(gs) { nextTask(gs); },
-    skip(gs) { nextTask(gs); }
+    skip(gs) { nextTask(gs); },
+    restart(gs) {
+      clearTimeout(gs.gd && gs.gd._weiter);
+      gs.gd = {};
+      gs.score = 0; gs.total = 0; gs.rounds = 0;
+      init(gs);
+    }
   };
 
   return { init, render, dispose, actions, scoring: 'count', tutor: true };

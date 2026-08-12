@@ -26,9 +26,13 @@ export function voiceLang() {
 /** Dekodier-Schlüssel: Sprache + Aufnahme-Schlüssel, damit sich DE und RU nicht überschreiben. */
 const ck = (l, k) => l + '|' + k;
 
-/** Aufnahmen dekodieren. Fehlende Schlüssel werden übersprungen. */
-export function preloadKeys(l, keys) {
-  return Promise.all([...keys, 'lead']
+/**
+ * Aufnahmen dekodieren. Fehlende Schlüssel werden übersprungen.
+ * `leadKey` ist die Ansage des jeweiligen Tests – beim Kofferpacken gehört
+ * die Spielformel dazu, nicht ein neutrales Wiederhole.
+ */
+export function preloadKeys(l, keys, leadKey = 'lead') {
+  return Promise.all([...keys, leadKey]
     .filter(k => clip(l, k))
     .map(k => loadClip(ck(l, k), clip(l, k))));
 }
@@ -51,13 +55,13 @@ export function ready(l, keys) {
  * Ansage und Folge sprechen.
  * @returns {number} geschätzte Gesamtdauer in ms, 0 wenn nichts abgespielt wurde
  */
-export function speak(l, keys, stepMs, { lead = true } = {}) {
+export function speak(l, keys, stepMs, { lead = true, leadKey = 'lead' } = {}) {
   const a = audio();
   if (!a) return 0;
   let t = a.currentTime + VORLAUF_S;
   const start = t;
-  if (lead && clip(l, 'lead')) {
-    const d = playClip(ck(l, 'lead'), t);
+  if (lead && clip(l, leadKey)) {
+    const d = playClip(ck(l, leadKey), t);
     t += (d || 0) + GAP_NACH_ANSAGE / 1000;
   }
   for (const k of keys) {
@@ -68,7 +72,7 @@ export function speak(l, keys, stepMs, { lead = true } = {}) {
 }
 
 /** Wie lange die Ansage insgesamt dauert – für die Länge der Zeigephase. */
-export function totalMs(l, keys, stepMs) {
-  const lead = clip(l, 'lead') ? longestMs(l, ['lead']) + GAP_NACH_ANSAGE : 0;
+export function totalMs(l, keys, stepMs, leadKey = 'lead') {
+  const lead = clip(l, leadKey) ? longestMs(l, [leadKey]) + GAP_NACH_ANSAGE : 0;
   return VORLAUF_S * 1000 + lead + Math.max(0, keys.length - 1) * stepMs + longestMs(l, keys);
 }

@@ -10,6 +10,7 @@
  */
 import { engine } from '../core/engine.js';
 import { shuffle, sample } from '../core/html.js';
+import { countRound, resultScreen, done } from '../core/session.js';
 
 const EMOJIS = ['🐶','🐱','🐰','🐸','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐵','🐔','🐧','🦄'];
 
@@ -44,6 +45,8 @@ export function dispose(gs) {
 export function render(gs) {
   let gd = gs.gd;
   if (!gd || !gd._ready) { init(gs); gd = gs.gd; }
+
+  if (gd.phase === 'done') return resultScreen(gs, { score: gs.score, total: gs.total });
 
   const matched = gd.cards.filter(c => c.matched).length;
   const allDone = matched === gd.cards.length;
@@ -97,6 +100,8 @@ export const actions = {
       card.matched = true;
       gd.firstPick = null;
       gs.score = (gs.score || 0) + 1;
+      // Ein abgeschlossenes Brett ist eine Übung – nicht jeder einzelne Zug.
+      if (gd.cards.every(c => c.matched) && countRound(gs)) gd.phase = 'done';
       return;
     }
 
@@ -113,6 +118,13 @@ export const actions = {
       gd.locked = false;
       engine.renderGame();
     }, 700);
+  },
+
+  restart(gs) {
+    clearFlipTimer();
+    gs.gd = { pairs: 6 };
+    gs.score = 0; gs.total = 0; gs.rounds = 0;
+    init(gs);
   },
 
   nextBoard(gs) {

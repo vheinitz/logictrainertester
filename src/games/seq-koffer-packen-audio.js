@@ -22,6 +22,9 @@ const ITEMS = listen.items;
 const byKey = k => ITEMS.find(i => i.key === k) || ITEMS[0];
 const nameOf = k => { const l = lang(); const i = byKey(k); return i[l] || i.de; };
 const aKey = k => 'i:' + k;
+// Eigene Ansage: beim Kofferpacken gehoert die Spielformel dazu,
+// ein neutrales Wiederhole wuerde das Spiel verfremden.
+const LEAD = 'lead-koffer';
 
 const test = createSpanTest({
   id: ID,
@@ -30,7 +33,7 @@ const test = createSpanTest({
   levelCap: 12,
   factor: 1.6,
   answerFactor: 3,
-  showPadMs: 1600,
+  showPadMs: 2000,   // die Koffer-Ansage ist deutlich länger als „Wiederhole"
   labelOf: k => nameOf(k),
   instruction:
     'Du <b>hörst</b>, was in den Koffer gepackt wird – bei jeder Runde kommt ein ' +
@@ -59,17 +62,17 @@ const test = createSpanTest({
     return gd.optionKeys;
   },
 
-  onInit: () => { audio(); preloadKeys(voiceLang(), ITEMS.map(i => aKey(i.key))); },
+  onInit: () => { audio(); preloadKeys(voiceLang(), ITEMS.map(i => aKey(i.key)), LEAD); },
 
   onShow: (gd) => {
     if (!settings.get('sound')) return;
     const stamp = gd.phaseStart;
     const l = voiceLang();
     const keys = gd.sequence.map(aKey);
-    preloadKeys(l, keys).then(() => {
+    preloadKeys(l, keys, LEAD).then(() => {
       if (gd.phase !== 'show' || gd.phaseStart !== stamp) return;
       if (!ready(l, keys)) return;
-      speak(l, keys, stepFor(l, keys, settings.get('tempo') * 0.8));
+      speak(l, keys, stepFor(l, keys, settings.get('tempo') * 0.8), { leadKey: LEAD });
     });
   },
 

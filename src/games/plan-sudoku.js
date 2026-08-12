@@ -13,6 +13,7 @@
  */
 import { engine } from '../core/engine.js';
 import { shuffle, randInt } from '../core/html.js';
+import { countRound, resultScreen } from '../core/session.js';
 
 const SYMBOLS = ['🍎','⭐','🐟','🌸','🔔','🍀'];
 
@@ -78,6 +79,8 @@ export function render(gs) {
   if (!gd || !gd._ready) { init(gs); gd = gs.gd; }
   const p = gd.puzzle;
   const { n, boxW, boxH } = p;
+
+  if (gd.phase === 'fertig') return resultScreen(gs, { score: gs.score, total: gs.total });
 
   if (gd.phase === 'done') {
     return `<div style="width:100%;max-width:520px;text-align:center">
@@ -208,10 +211,18 @@ export const actions = {
       gd.phase = 'done';
       gd.wrongCells = null;
       if (gd.level < 6) gd.level++;
+      // Ein gelöstes Rätsel ist eine Übung
+      if (countRound(gs)) gd.phase = 'fertig';
     } else {
       gd.wrongCells = wrong;
       if (gd.level > 1) gd.level--;
     }
+  },
+
+  restart(gs) {
+    gs.gd = { level: 1 };
+    gs.score = 0; gs.total = 0; gs.rounds = 0;
+    init(gs);
   },
 
   nextPuzzle(gs) {

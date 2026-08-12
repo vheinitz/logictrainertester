@@ -34,6 +34,7 @@ import { engine } from './engine.js';
 import { esc } from './html.js';
 import { bar, ring, stopButton, starRow, pictogram } from './shell.js';
 import * as settings from './settings.js';
+import { countRound, resultScreen, done } from './session.js';
 
 /** testId → { deadline } */
 const RUNNING = new Map();
@@ -208,8 +209,12 @@ export function createSpanTest(cfg) {
     gd.phase = 'feedback';
     publish(gs);
     engine.renderGame();
+
+    // Nach der eingestellten Zahl von Übungen ist Schluss: Ergebnis statt
+    // nächster Runde. Ohne Grenze liefe das Modul endlos weiter.
+    const vorbei = countRound(gs);
     schedule(id, Math.round((correct ? settings.get('feedbackOk') : settings.get('feedbackWrong')) * 1000),
-             () => enterShow(gs));
+             () => { if (vorbei) { gd.phase = 'done'; engine.renderGame(); } else enterShow(gs); });
   }
 
   function solution(gd) {
@@ -298,15 +303,7 @@ export function createSpanTest(cfg) {
 
     // ─── done: hier ist Text richtig, das ist das Ergebnis ───
     const best = gd.bestLevel || 0;
-    return `<div data-phase="done" style="text-align:center;width:100%">
-      <div style="font-size:3.4em;line-height:1.1">🏁</div>
-      <div style="font-size:2.6em;font-weight:800;color:var(--primary)">${computeScore(best)}%</div>
-      <div style="font-size:.9em;color:var(--text-light);margin-bottom:16px">
-        Bestes Niveau ${best || '–'} • ${gd.solved || 0} von ${gd.attempts || 0} gelöst
-      </div>
-      <button class="btn btn-primary btn-small" onclick="G('restart')">🔁</button>
-      <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">🏠</button>
-    </div>`;
+    return resultScreen(gs, { percent: computeScore(best), level: best });
   }
 
   // ─── Actions ────────────────────────────────────────
@@ -346,7 +343,7 @@ export function createSpanTest(cfg) {
 
     restart(gs) {
       gs.gd = { level: minN };
-      gs.score = 0; gs.total = 0; gs.percent = 0; gs.level = 0;
+      gs.score = 0; gs.total = 0; gs.percent = 0; gs.level = 0; gs.rounds = 0;
       init(gs);
       return false;
     }

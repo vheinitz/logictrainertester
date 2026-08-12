@@ -70,6 +70,7 @@ const methodTest = [];
 const resetTest = [];
 const einstellTest = [];
 const ablaufTest = [];
+const umfangTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -726,6 +727,65 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   await sleep(60);
 }
 
+// ─── Durchgang endet nach der eingestellten Zahl von Übungen ──────────
+{
+  const S = window.LOGIK_SETTINGS;
+  S.set('rounds', 3); S.set('feedbackOk', 0.4); S.set('feedbackWrong', 0.4);
+
+  const bereich = () => window.document.getElementById('gameArea');
+  const phase = () => { const p = bereich() && bereich().querySelector('[data-phase]');
+                        return p ? p.getAttribute('data-phase') : null; };
+  const fortschritt = () => {
+    const p = window.document.getElementById('gameProgress');
+    const d = p && p.querySelector('div');
+    return d ? d.getAttribute('aria-label') : null;
+  };
+
+  window.startModule('sim-konzeptbildung');
+  await sleep(60);
+  window._startGame();
+  await sleep(250);
+
+  check(fortschritt() === '0 von 3', `Fortschritt zeigt "${fortschritt()}" statt "0 von 3"`);
+
+  for (let i = 0; i < 3; i++) {
+    for (let t = 0; t < 9000 && phase() !== 'ask'; t += 100) await sleep(100);
+    if (phase() !== 'ask') break;
+    bereich().querySelector('[onclick^="G(\'choose\'"]')
+      .dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(700);
+  }
+  for (let t = 0; t < 5000 && phase() !== 'done'; t += 100) await sleep(100);
+
+  check(phase() === 'done', `Nach 3 Übungen ist die Phase "${phase()}" statt "done"`);
+  check(fortschritt() === '3 von 3', `Fortschritt zeigt "${fortschritt()}"`);
+  check(/Geschafft|Готово/.test(main.textContent), 'Keine Ergebnisseite am Ende');
+
+  // Zurück zur Gruppe muss zur Skala des Moduls führen, nicht ins Menü
+  const zurGruppe = bereich().querySelector('[onclick*="scale"]');
+  check(!!zurGruppe, 'Auf der Ergebnisseite fehlt der Weg zurück zur Gruppe');
+  check(zurGruppe && /simultan/.test(zurGruppe.getAttribute('onclick')),
+        'Der Weg zurück führt nicht zur richtigen Gruppe');
+
+  // Die Rundenknöpfe des Rahmens dürfen daneben nicht stehen bleiben
+  const rb = window.document.getElementById('roundButtons');
+  check(!rb || rb.style.display === 'none',
+        'Neben der Ergebnisseite stehen weiterhin die Rundenknöpfe');
+
+  // Noch eine Runde setzt den Zähler zurück und zeichnet neu
+  bereich().querySelector('[onclick*="restart"]')
+    .dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+  await sleep(400);
+  check(phase() === 'ask' || phase() === 'study',
+        `„Noch eine Runde" führt in Phase "${phase()}"`);
+  check(fortschritt() === '0 von 3', `Nach dem Neustart steht der Zähler auf "${fortschritt()}"`);
+
+  umfangTest.push(`3 Übungen → Ergebnis → zurück zur Gruppe, Neustart setzt zurück`);
+  S.reset();
+  window.navigateTo('menu');
+  await sleep(60);
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
@@ -779,6 +839,7 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
 
 einstellTest.forEach(x => console.log(`   Einstellungen: ${x}`));
 ablaufTest.forEach(x => console.log(`   Ablauf: ${x}`));
+umfangTest.forEach(x => console.log(`   Durchgang: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

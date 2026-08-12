@@ -1,55 +1,253 @@
 {
-  "_hinweis": "Gemeinsame Quelle für die App UND für tools/make-audio.py. Beide lesen diese Datei, damit gesprochene Fassung und Bildschirmtext nicht auseinanderlaufen. Neue Einträge brauchen anschließend einen Lauf von make-audio.py.",
-
-  "words": [
-    { "de": "Haus",   "ru": "дом" },
-    { "de": "Baum",   "ru": "дерево" },
-    { "de": "Sonne",  "ru": "солнце" },
-    { "de": "Mond",   "ru": "луна" },
-    { "de": "Blume",  "ru": "цветок" },
-    { "de": "Fisch",  "ru": "рыба" },
-    { "de": "Auto",   "ru": "машина" },
-    { "de": "Buch",   "ru": "книга" },
-    { "de": "Tisch",  "ru": "стол" },
-    { "de": "Stuhl",  "ru": "стул" },
-    { "de": "Katze",  "ru": "кошка" },
-    { "de": "Hund",   "ru": "собака" },
-    { "de": "Ball",   "ru": "мяч" },
-    { "de": "Apfel",  "ru": "яблоко" },
-    { "de": "Schuh",  "ru": "ботинок" },
-    { "de": "Uhr",    "ru": "часы" },
-    { "de": "Bett",   "ru": "кровать" },
-    { "de": "Lampe",  "ru": "лампа" },
-    { "de": "Vogel",  "ru": "птица" },
-    { "de": "Brot",   "ru": "хлеб" },
-    { "de": "Milch",  "ru": "молоко" },
-    { "de": "Regen",  "ru": "дождь" },
-    { "de": "Schnee", "ru": "снег" },
-    { "de": "Wind",   "ru": "ветер" },
-    { "de": "Feuer",  "ru": "огонь" },
-    { "de": "Stein",  "ru": "камень" },
-    { "de": "Wolke",  "ru": "облако" },
-    { "de": "Stern",  "ru": "звезда" },
-    { "de": "Herz",   "ru": "сердце" },
-    { "de": "Tür",    "ru": "дверь" }
-  ],
-
-  "items": [
-    { "key": "zahnbuerste", "emoji": "🪥", "de": "Zahnbürste",   "ru": "зубная щётка" },
-    { "key": "socken",      "emoji": "🧦", "de": "Socken",       "ru": "носки" },
-    { "key": "buch",        "emoji": "📕", "de": "Buch",         "ru": "книга" },
-    { "key": "ball",        "emoji": "⚽", "de": "Ball",         "ru": "мяч" },
-    { "key": "teddy",       "emoji": "🧸", "de": "Teddy",        "ru": "мишка" },
-    { "key": "schirm",      "emoji": "☂️", "de": "Regenschirm",  "ru": "зонт" },
-    { "key": "brille",      "emoji": "🕶️", "de": "Sonnenbrille", "ru": "очки" },
-    { "key": "kamera",      "emoji": "📷", "de": "Kamera",       "ru": "фотоаппарат" },
-    { "key": "hut",         "emoji": "👒", "de": "Hut",          "ru": "шляпа" },
-    { "key": "schuhe",      "emoji": "👟", "de": "Schuhe",       "ru": "ботинки" },
-    { "key": "apfel",       "emoji": "🍎", "de": "Apfel",        "ru": "яблоко" },
-    { "key": "flasche",     "emoji": "🍼", "de": "Trinkflasche", "ru": "бутылочка" },
-    { "key": "stift",       "emoji": "✏️", "de": "Stift",        "ru": "карандаш" },
-    { "key": "handtuch",    "emoji": "🧻", "de": "Handtuch",     "ru": "полотенце" },
-    { "key": "schluessel",  "emoji": "🔑", "de": "Schlüssel",    "ru": "ключ" },
-    { "key": "karte",       "emoji": "🗺️", "de": "Landkarte",    "ru": "карта" }
-  ]
+ "_hinweis": "Gemeinsame Quelle für die App UND für tools/make-audio.py. Beide lesen diese Datei, damit gesprochene Fassung und Bildschirmtext nicht auseinanderlaufen. Jedes Wort hat ein Bild, damit die Tests auch für Kinder taugen, die noch nicht lesen. Neue Einträge brauchen anschließend einen Lauf von make-audio.py.",
+ "words": [
+  {
+   "de": "Haus",
+   "ru": "дом",
+   "emoji": "🏠"
+  },
+  {
+   "de": "Baum",
+   "ru": "дерево",
+   "emoji": "🌳"
+  },
+  {
+   "de": "Sonne",
+   "ru": "солнце",
+   "emoji": "☀️"
+  },
+  {
+   "de": "Mond",
+   "ru": "луна",
+   "emoji": "🌙"
+  },
+  {
+   "de": "Blume",
+   "ru": "цветок",
+   "emoji": "🌸"
+  },
+  {
+   "de": "Fisch",
+   "ru": "рыба",
+   "emoji": "🐟"
+  },
+  {
+   "de": "Auto",
+   "ru": "машина",
+   "emoji": "🚗"
+  },
+  {
+   "de": "Buch",
+   "ru": "книга",
+   "emoji": "📕"
+  },
+  {
+   "de": "Zug",
+   "ru": "поезд",
+   "emoji": "🚂"
+  },
+  {
+   "de": "Stuhl",
+   "ru": "стул",
+   "emoji": "🪑"
+  },
+  {
+   "de": "Katze",
+   "ru": "кошка",
+   "emoji": "🐈"
+  },
+  {
+   "de": "Hund",
+   "ru": "собака",
+   "emoji": "🐕"
+  },
+  {
+   "de": "Ball",
+   "ru": "мяч",
+   "emoji": "⚽"
+  },
+  {
+   "de": "Apfel",
+   "ru": "яблоко",
+   "emoji": "🍎"
+  },
+  {
+   "de": "Schuh",
+   "ru": "ботинок",
+   "emoji": "👟"
+  },
+  {
+   "de": "Uhr",
+   "ru": "часы",
+   "emoji": "⏰"
+  },
+  {
+   "de": "Bett",
+   "ru": "кровать",
+   "emoji": "🛏️"
+  },
+  {
+   "de": "Lampe",
+   "ru": "лампа",
+   "emoji": "💡"
+  },
+  {
+   "de": "Vogel",
+   "ru": "птица",
+   "emoji": "🐦"
+  },
+  {
+   "de": "Brot",
+   "ru": "хлеб",
+   "emoji": "🍞"
+  },
+  {
+   "de": "Milch",
+   "ru": "молоко",
+   "emoji": "🥛"
+  },
+  {
+   "de": "Regen",
+   "ru": "дождь",
+   "emoji": "🌧️"
+  },
+  {
+   "de": "Schnee",
+   "ru": "снег",
+   "emoji": "❄️"
+  },
+  {
+   "de": "Wind",
+   "ru": "ветер",
+   "emoji": "💨"
+  },
+  {
+   "de": "Feuer",
+   "ru": "огонь",
+   "emoji": "🔥"
+  },
+  {
+   "de": "Stein",
+   "ru": "камень",
+   "emoji": "🪨"
+  },
+  {
+   "de": "Wolke",
+   "ru": "облако",
+   "emoji": "☁️"
+  },
+  {
+   "de": "Stern",
+   "ru": "звезда",
+   "emoji": "⭐"
+  },
+  {
+   "de": "Herz",
+   "ru": "сердце",
+   "emoji": "❤️"
+  },
+  {
+   "de": "Tür",
+   "ru": "дверь",
+   "emoji": "🚪"
+  }
+ ],
+ "items": [
+  {
+   "key": "zahnbuerste",
+   "emoji": "🪥",
+   "de": "Zahnbürste",
+   "ru": "зубная щётка"
+  },
+  {
+   "key": "socken",
+   "emoji": "🧦",
+   "de": "Socken",
+   "ru": "носки"
+  },
+  {
+   "key": "buch",
+   "emoji": "📕",
+   "de": "Buch",
+   "ru": "книга"
+  },
+  {
+   "key": "ball",
+   "emoji": "⚽",
+   "de": "Ball",
+   "ru": "мяч"
+  },
+  {
+   "key": "teddy",
+   "emoji": "🧸",
+   "de": "Teddy",
+   "ru": "мишка"
+  },
+  {
+   "key": "schirm",
+   "emoji": "☂️",
+   "de": "Regenschirm",
+   "ru": "зонт"
+  },
+  {
+   "key": "brille",
+   "emoji": "🕶️",
+   "de": "Sonnenbrille",
+   "ru": "очки"
+  },
+  {
+   "key": "kamera",
+   "emoji": "📷",
+   "de": "Kamera",
+   "ru": "фотоаппарат"
+  },
+  {
+   "key": "hut",
+   "emoji": "👒",
+   "de": "Hut",
+   "ru": "шляпа"
+  },
+  {
+   "key": "schuhe",
+   "emoji": "👟",
+   "de": "Schuhe",
+   "ru": "ботинки"
+  },
+  {
+   "key": "apfel",
+   "emoji": "🍎",
+   "de": "Apfel",
+   "ru": "яблоко"
+  },
+  {
+   "key": "flasche",
+   "emoji": "🍼",
+   "de": "Trinkflasche",
+   "ru": "бутылочка"
+  },
+  {
+   "key": "stift",
+   "emoji": "✏️",
+   "de": "Stift",
+   "ru": "карандаш"
+  },
+  {
+   "key": "handtuch",
+   "emoji": "🧻",
+   "de": "Handtuch",
+   "ru": "полотенце"
+  },
+  {
+   "key": "schluessel",
+   "emoji": "🔑",
+   "de": "Schlüssel",
+   "ru": "ключ"
+  },
+  {
+   "key": "karte",
+   "emoji": "🗺️",
+   "de": "Landkarte",
+   "ru": "карта"
+  }
+ ]
 }

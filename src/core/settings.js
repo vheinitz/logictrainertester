@@ -22,6 +22,12 @@ const KEY = 'logik-settings';
  *   group         Abschnitt auf der Seite
  */
 export const SCHEMA = {
+  rounds: {
+    def: 10, min: 3, max: 40, step: 1, unit: '', group: 'umfang',
+    de: 'Übungen je Durchgang', ru: 'Заданий за подход',
+    hintDe: 'Danach kommt das Ergebnis und es geht zurück zur Gruppe. Ein absehbares Ende hilft dem Kind – und macht Werte vergleichbar.',
+    hintRu: 'После этого показывается результат и возврат к группе. Понятный конец помогает ребёнку и делает результаты сопоставимыми.'
+  },
   tempo: {
     def: 2, min: 0.5, max: 5, step: 0.5, unit: 's', group: 'merken',
     de: 'Anzeigedauer je Element', ru: 'Время показа одного элемента',
@@ -73,6 +79,7 @@ export const SCHEMA = {
 };
 
 export const GROUPS = {
+  umfang:       { icon: '🎯', de: 'Umfang', ru: 'Объём' },
   merken:       { icon: '🧠', de: 'Merkspannen-Tests', ru: 'Тесты на запоминание' },
   auswahl:      { icon: '👆', de: 'Auswahlaufgaben', ru: 'Задания с выбором' },
   rueckmeldung: { icon: '💬', de: 'Rückmeldung', ru: 'Обратная связь' },

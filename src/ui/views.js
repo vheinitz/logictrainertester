@@ -8,6 +8,7 @@ import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
 import { lang } from '../core/html.js';
+import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
@@ -370,7 +371,9 @@ async function renderGameScreen(main, mod, header) {
   // sichtbare Niveauanzeige macht aus dem Test einen Wettbewerb.
   const minimal = game.chrome === 'minimal';
 
-  const bottom = (minimal || game.scoring === 'percent') ? '' : `<div style="margin-top:16px">
+  // Am Ende eines Durchgangs führt die Ergebnisseite selbst weiter – die
+  // Rundenknöpfe darunter wären eine zweite, widersprüchliche Navigation.
+  const bottom = (minimal || game.scoring === 'percent') ? '' : `<div id="roundButtons" style="margin-top:16px">
     <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
     <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
   </div>`;
@@ -378,6 +381,7 @@ async function renderGameScreen(main, mod, header) {
   main.innerHTML = `<div class="training-container">
     ${minimal ? '' : header}
     <div class="training-area">
+      <div id="gameProgress" style="display:flex;justify-content:center;margin-bottom:14px">${progressDots(gs)}</div>
       ${minimal ? '' : `<div class="score-display" id="gameScore">${scoreLineHtml()}</div>`}
       <div id="gameArea" style="width:100%;display:flex;flex-direction:column;align-items:center">${gameHtml}</div>
       ${bottom}
@@ -400,9 +404,22 @@ function scoreLineHtml() {
     <span class="count">Richtig ${score}/${gs.total || 0}</span>`;
 }
 
+/**
+ * Rahmen auffrischen: Fortschrittspunkte und – falls vorhanden – Punktestand.
+ * Wird nach jedem renderGame() aufgerufen. Beides liegt außerhalb von
+ * #gameArea, damit kein Modul es selbst zeichnen muss.
+ */
 export function updateScoreLine() {
   const el = document.getElementById('gameScore');
   if (el) el.innerHTML = scoreLineHtml();
+  const p = document.getElementById('gameProgress');
+  if (p) p.innerHTML = progressDots(engine.gameState);
+
+  // Am Ende eines Durchgangs führt die Ergebnisseite selbst weiter – die
+  // Rundenknöpfe darunter wären eine zweite, widersprüchliche Navigation.
+  // Der Rahmen wird beim Rundenende nicht neu gebaut, deshalb hier.
+  const rb = document.getElementById('roundButtons');
+  if (rb) rb.style.display = sessionDone(engine.gameState) ? 'none' : '';
 }
 
 // ===== Stats view =====
@@ -542,6 +559,7 @@ window._startGame = () => {
   if (g && typeof g.mod.dispose === 'function') { try { g.mod.dispose(gs); } catch (e) { /* egal */ } }
   gs.step = 'game';
   gs.round = (gs.round || 0) + 1;
+  gs.rounds = 0;              // Übungszähler des Durchgangs
   gs.gd = {};
   gs.score = gs.score || 0;
   gs.total = gs.total || 0;

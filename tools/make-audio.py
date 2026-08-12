@@ -53,9 +53,14 @@ DIGITS = {
            "пять", "шесть", "семь", "восемь", "девять"],
 }
 
-# Ansage vor einer Folge: gibt ein Startsignal, statt dass das erste Element
-# aus dem Nichts kommt – genau das ginge am ehesten verloren.
-LEADIN = {"de": "Wiederhole:", "ru": "Повтори:"}
+# Ansagen vor einer Folge: geben ein Startsignal, statt dass das erste Element
+# aus dem Nichts kommt – genau das ginge am ehesten verloren. Je Test die
+# passende Formel; beim Kofferpacken gehört die Spielformel dazu, nicht ein
+# neutrales „Wiederhole".
+LEADINS = {
+    "lead":        {"de": "Wiederhole:",              "ru": "Повтори:"},
+    "lead-koffer": {"de": "Ich packe in meinen Koffer:", "ru": "Я беру в чемодан:"},
+}
 
 WORDLISTS = "src/data/wordlists.json"
 OUTDIR = "dist"
@@ -142,7 +147,8 @@ def main():
         aufgaben = {}
         for n, w in enumerate(DIGITS[lang]):
             aufgaben[f"d{n}"] = w
-        aufgaben["lead"] = LEADIN[lang]
+        for lk, texte in LEADINS.items():
+            aufgaben[lk] = texte[lang]
         for e in listen["words"]:
             aufgaben["w:" + e["de"]] = e[lang]
         for e in listen["items"]:

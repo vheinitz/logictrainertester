@@ -349,20 +349,38 @@ for (const [id, load] of Object.entries(registry)) {
     }
   }
 
-  // Die gesprochene Folge muss in die Zeigephase passen. Ohne diese Prüfung
-  // würde ein späteres Tempo-Feintuning die letzte Ziffer abschneiden – und
-  // das merkt man erst beim Zuhören, nicht im Code.
-  const FACTOR = 1.3, PAD = 1400, GAP = 400, MIN_LUECKE = 220, VORLAUF = 150;
-  for (const l of ['de', 'ru']) {
-    const laengste = A.longestMs(l, [...Array(10).keys()].map(n => 'd' + n));
-    const takt = Math.max(FACTOR * 1000, laengste + MIN_LUECKE);
-    for (const N of [2, 5, 10]) {
-      const endeMs = VORLAUF + A.clipMs(l, 'lead') + GAP + (N - 1) * takt + laengste;
-      const phaseMs = N * FACTOR * 1000 + PAD;
-      check('audio', endeMs <= phaseMs,
-            `${l}, N=${N}: die Ansage endet bei ${Math.round(endeMs)} ms, ` +
-            `die Zeigephase schon bei ${phaseMs} ms`);
+  // Die gesprochene Folge muss in die Zeigephase passen – für JEDES Modul mit
+  // Ansage. Ohne diese Prüfung schneidet ein späteres Tempo-Feintuning oder
+  // eine längere Ansage die letzte Aufnahme ab, und das merkt man erst beim
+  // Zuhören. Genau das passierte, als die Koffer-Ansage von „Wiederhole:"
+  // auf „Ich packe in meinen Koffer:" wechselte.
+  const VORLAUF = 150, GAP = 400, MIN_LUECKE = 220, TEMPO = 2;
+  const module = [
+    { name: 'Zahlen',  praefix: 'd',  lead: 'lead',        factor: 1.3, pad: 1400, takt: TEMPO * 0.65 },
+    { name: 'Wörter',  praefix: 'w:', lead: 'lead',        factor: 1.6, pad: 1600, takt: TEMPO * 0.8 },
+    { name: 'Koffer',  praefix: 'i:', lead: 'lead-koffer', factor: 1.6, pad: 2000, takt: TEMPO * 0.8 }
+  ];
+  for (const m of module) {
+    for (const l of ['de', 'ru']) {
+      const keys = Object.keys(window.LOGIK_AUDIO[l].meta).filter(k => k.startsWith(m.praefix));
+      check('audio', keys.length > 0, `${m.name}/${l}: keine Aufnahmen gefunden`);
+      const laengste = A.longestMs(l, keys);
+      const takt = Math.max(m.takt * 1000, laengste + MIN_LUECKE);
+      const f = TEMPO * (m.factor / 2);
+      for (const N of [2, 5, 10]) {
+        const ende = VORLAUF + A.clipMs(l, m.lead) + GAP + (N - 1) * takt + laengste;
+        const phase = N * f * 1000 + m.pad;
+        check('audio', ende <= phase,
+              `${m.name}/${l}, N=${N}: die Ansage endet bei ${Math.round(ende)} ms, ` +
+              `die Zeigephase schon bei ${Math.round(phase)} ms`);
+      }
     }
+  }
+
+  // Jedes Wort braucht ein Bild – sonst ist der Test für Kinder, die noch
+  // nicht lesen, nicht durchführbar.
+  for (const w of listen.words) {
+    check('audio', !!w.emoji, `Wort "${w.de}" hat kein Bild`);
   }
 
   // Die Sprache muss der Einstellung folgen

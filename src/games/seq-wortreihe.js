@@ -15,12 +15,15 @@ import listen from '../data/wordlists.json' with { type: 'json' };
 const ALL_WORDS = listen.words.map(w => w.de);
 const TEXT = Object.fromEntries(listen.words.map(w => [w.de, w]));
 const zeige = k => { const l = lang(); return (TEXT[k] && TEXT[k][l]) || k; };
+// Bild neben dem Wort: ohne das ist der Test für Kinder, die noch nicht
+// lesen, gar nicht durchführbar. Wer liest, nutzt das Wort und ignoriert es.
+const bild = k => (TEXT[k] && TEXT[k].emoji) || '';
 
 /** Zeile aus farbigen Wortchips – für Zeigephase und Lösung. */
 function row(items, pad, fs) {
   return `<div style="display:flex;gap:10px;flex-wrap:wrap;justify-content:center">
     ${items.map((w, i) =>
-      `<div style="padding:${pad};border-radius:20px;background:${color(i)};color:#fff;font-weight:700;font-size:${fs}">${esc(zeige(w))}</div>`
+      `<div style="padding:${pad};border-radius:20px;background:${color(i)};color:#fff;font-weight:700;font-size:${fs};display:flex;align-items:center;gap:7px"><span style="font-size:1.3em">${bild(w)}</span>${esc(zeige(w))}</div>`
     ).join('')}
   </div>`;
 }
@@ -43,13 +46,13 @@ const test = createSpanTest({
     return gd.optionWords;
   },
 
-  renderShow: (gd) => row(gd.sequence, '11px 20px', '1.15em'),
+  renderShow: (gd) => row(gd.sequence, '11px 18px', '1.15em'),
   renderSolution: (gd) => row(gd.sequence, '6px 13px', '.92em'),
 
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:8px;min-height:44px;flex-wrap:wrap;align-items:center;justify-content:center;margin:0 0 20px">
       ${ctx.selected.map((w, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="padding:7px 16px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em">${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="padding:7px 16px;border-radius:18px;border:2px dashed #D8D4EE;min-width:62px">&nbsp;</div>`
@@ -58,7 +61,7 @@ const test = createSpanTest({
 
     <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
       ${(gd.optionWords || []).map(w =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(w)})" style="padding:9px 17px;border-radius:18px;background:var(--bg);color:var(--text);border:2px solid #D0CDE8;cursor:pointer;font-weight:600;font-size:1em">${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(w)})" style="padding:9px 15px;border-radius:18px;background:var(--bg);color:var(--text);border:2px solid #D0CDE8;cursor:pointer;font-weight:600;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.3em">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
     </div>`
 });

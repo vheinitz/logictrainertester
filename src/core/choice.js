@@ -27,6 +27,7 @@ import { engine } from './engine.js';
 import { esc, pick } from './html.js';
 import { bar } from './shell.js';
 import * as settings from './settings.js';
+import { countRound, resultScreen } from './session.js';
 
 const RUNNING = new Map();
 
@@ -132,10 +133,17 @@ export function createChoiceGame(cfg) {
     weiterNach(gs, false);
   }
 
-  /** Nach der Rückmeldung von selbst zur nächsten Aufgabe. */
+  /**
+   * Nach der Rückmeldung von selbst weiter – oder zum Ergebnis, wenn der
+   * Durchgang die eingestellte Zahl von Übungen erreicht hat.
+   */
   function weiterNach(gs, richtig) {
     const ms = Math.round((richtig ? settings.get('feedbackOk') : settings.get('feedbackWrong')) * 1000);
-    schedule(id, ms, () => { nextRound(gs); engine.renderGame(); });
+    const vorbei = countRound(gs);
+    schedule(id, ms, () => {
+      if (vorbei) { gs.gd.phase = 'done'; } else { nextRound(gs); }
+      engine.renderGame();
+    });
   }
 
   function init(gs) {
@@ -183,6 +191,10 @@ export function createChoiceGame(cfg) {
         ${r.prompt}
         ${optionsHtml(r, gd)}
       </div>`;
+    }
+
+    if (gd.phase === 'done') {
+      return resultScreen(gs, { score: gs.score, total: gs.total });
     }
 
     // feedback – läuft von selbst weiter, kein Knopf
@@ -241,6 +253,13 @@ export function createChoiceGame(cfg) {
     /** Bleibt für Tests und als Notausgang erreichbar. */
     next(gs) {
       nextRound(gs);
+    },
+
+    restart(gs) {
+      stopTimers(id);
+      gs.gd = {};
+      gs.score = 0; gs.total = 0; gs.rounds = 0;
+      init(gs);
     },
 
     skipStudy(gs) {
