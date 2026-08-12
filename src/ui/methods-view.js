@@ -57,7 +57,7 @@ const ui = k => { const l = lang(); return UI[k][l] || UI[k].de; };
 
 /** Karte einer Methode für Listen. */
 export function methodCard(m) {
-  return `<div class="card" style="border-left:4px solid var(--primary-light)"
+  return `<div class="card" role="button" tabindex="0" style="border-left:4px solid var(--primary-light)"
        onclick="navigateTo('method',{methodId:${jsArg(m.id)}})">
     <div class="card-icon">${m.icon || '📌'}</div>
     <div class="card-title">${esc(tx(m.title))}</div>

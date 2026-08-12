@@ -276,6 +276,37 @@ wurde — an der richtigen Stelle weiterläuft statt von vorn zu beginnen.
 klickt anschließend langsam (180 ms zwischen down und up). Mit einem
 Re-Render-Tick kommen davon 0 bis 3 von 5 Klicks an, ohne ihn 5 von 5.
 
+### Navigation: Aufgabe vorn, Erklärung dahinter
+
+Der Startbildschirm eines Moduls zeigt nur, was zum Loslegen nötig ist:
+Aufgabe, Durchführung, Hinweise für die Begleitperson, Startknopf. Alles
+Erklärende — was der Test misst, Einflüsse, Hypothesen, Förderwege — liegt
+hinter dem Symbol-Link 🎯 auf einer eigenen Seite mit Rückweg.
+
+Vorher stand das als langes Panel unter dem Startknopf. Wer mit einem Kind vor
+dem Gerät sitzt, scrollt daran vorbei; es lenkt vom Start ab und drängt sich
+demjenigen auf, der es gerade nicht braucht. Der Test hält den
+Startbildschirm jetzt unter 1400 Zeichen und prüft, dass „Einflüsse",
+„Hypothesen" und „Kognitive Faktoren" dort nicht auftauchen.
+
+Karten sind mit `role="button"` und `tabindex` versehen und per Enter oder
+Leertaste bedienbar; ein einzelner Zuhörer in `main.js` erledigt das für alle.
+Externe Links öffnen durchgehend in einem neuen Tab (`target="_blank"` mit
+`rel="noopener noreferrer"`).
+
+### Fortschritt zurücksetzen
+
+Statistik und kognitives Profil haben einen Zurücksetzen-Knopf. Er löscht
+Spielstände und Verlauf für alle Module — Sprache und Tempo bleiben, das sind
+Einstellungen und keine Ergebnisse.
+
+Bewusst zweistufig: Löschen ist endgültig und kostet im Zweifel den gesamten
+Verlauf eines Kindes. Die Abfrage benennt darum, was verschwindet und was
+bleibt, und bietet das Sichern gleich daneben an. Nach dem Löschen wird der
+Merker der Persistenz mit zurückgesetzt — sonst verglichen die nächsten
+Spielstände gegen Zahlen, die es nicht mehr gibt, und der erste Treffer danach
+ginge verloren.
+
 ### Fördermethoden-Seiten
 
 Zu jedem Förderpunkt im Info-Panel eines Tests gibt es eine eigene Seite: was

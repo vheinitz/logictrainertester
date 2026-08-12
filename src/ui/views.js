@@ -7,6 +7,7 @@ import { engine } from '../core/engine.js';
 import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
+import { lang } from '../core/html.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 
@@ -47,17 +48,21 @@ export function renderView(view) {
     case 'radar': renderRadar(m); break;
     case 'methods': renderMethods(m); break;
     case 'method': renderMethod(m); break;
+    case 'insights': renderInsights(m); break;
     default: renderMenu(m);
   }
 }
 
 function renderMenu(main) {
+  // Eine Rückmeldung zum Zurücksetzen gehört zu genau einem Besuch der
+  // Statistik – beim Weg über das Menü ist sie erledigt.
+  resetState = null;
   const ag = engine.ageFilter, sc = engine.scaleFilter;
 
   // Scale cards
   const scalesHtml = scales.map(s => {
     const count = modules.filter(m => m.scale === s.id).length;
-    return `<div class="card card-scale-${s.color}" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
+    return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
       <div class="card-icon">${s.icon}</div>
       <div class="card-title">${s.name}</div>
       <div class="card-desc">${t('scaleDesc_'+s.id, '')}</div>
@@ -82,7 +87,7 @@ function renderMenu(main) {
     const title = modI18n(m.id, 'title', m.title);
     const desc = modI18n(m.id, 'desc', '');
     const ml = t(m.mode === 'self' ? 'modeSelfLabel' : m.mode === 'tutor' ? 'modeTutorLabel' : 'modeMixedLabel');
-    return `<div class="card card-scale-${m.scale}" onclick="startModule('${m.id}')">
+    return `<div class="card card-scale-${m.scale}" role="button" tabindex="0" onclick="startModule('${m.id}')">
       <div class="card-icon">${m.icon}</div>
       <div class="card-title">${title}</div>
       <div class="card-desc">${desc}</div>
@@ -137,7 +142,7 @@ function renderScaleView(main) {
     const title = modI18n(m.id, 'title', m.title);
     const desc = modI18n(m.id, 'desc', '');
     const ml = t(m.mode === 'self' ? 'modeSelfLabel' : m.mode === 'tutor' ? 'modeTutorLabel' : 'modeMixedLabel');
-    return `<div class="card card-scale-${s.color}" onclick="startModule('${m.id}')">
+    return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="startModule('${m.id}')">
       <div class="card-icon">${m.icon}</div>
       <div class="card-title">${title}</div>
       <div class="card-desc">${desc}</div>
@@ -171,40 +176,165 @@ function renderTraining(main) {
   else renderGameScreen(main, mod, header);
 }
 
+/**
+ * Oberflächentexte für Startbildschirm und Schwerpunkte-Ansicht.
+ * Wenige Begriffe, die nur hier gebraucht werden – daneben statt in der
+ * zentralen i18n-Tabelle, wo sie schwerer zu finden wären.
+ */
+const INTRO_UI = {
+  schwerpunkte: { de: 'Schwerpunkte & Trainingswege', ru: 'Что тренируется и как' },
+  zurueck:      { de: '← Zurück zur Aufgabe', ru: '← Назад к заданию' },
+  wege:         { de: 'Trainingswege im Alltag', ru: 'Как тренировать в жизни' },
+  wegeHinweis:  { de: 'Tippe einen Punkt an – dahinter steht eine Anleitung mit Material und Links.',
+                  ru: 'Нажмите на пункт — за ним инструкция с материалами и ссылками.' },
+  alleMethoden: { de: 'Alle Methoden', ru: 'Все методы' }
+};
+const iu = k => { const l = lang(); return INTRO_UI[k][l] || INTRO_UI[k].de; };
+
+/** Texte für das Zurücksetzen der Fortschrittsdaten. */
+const RESET_UI = {
+  knopf:    { de: '🗑️ Fortschritt zurücksetzen', ru: '🗑️ Сбросить результаты' },
+  frage:    { de: 'Wirklich alle Ergebnisse löschen?', ru: 'Точно удалить все результаты?' },
+  was:      { de: 'Gelöscht werden alle Spielstände und der ganze Verlauf – für jedes Modul und damit auch das kognitive Profil. Das lässt sich nicht rückgängig machen.',
+              ru: 'Будут удалены все результаты и вся история — по каждому модулю, а значит и когнитивный профиль. Отменить это будет нельзя.' },
+  bleibt:   { de: 'Sprache und Tempo-Einstellung bleiben erhalten.',
+              ru: 'Язык и настройка темпа сохранятся.' },
+  sichern:  { de: 'Vorher sichern', ru: 'Сначала сохранить' },
+  loeschen: { de: 'Ja, löschen', ru: 'Да, удалить' },
+  abbruch:  { de: 'Abbrechen', ru: 'Отмена' },
+  fertig:   { de: 'Alle Ergebnisse wurden gelöscht.', ru: 'Все результаты удалены.' }
+};
+const ru_ = k => { const l = lang(); return RESET_UI[k][l] || RESET_UI[k].de; };
+
+/** Zustand der Sicherheitsabfrage: null | 'frage' | 'fertig' */
+let resetState = null;
+
+/**
+ * Zurücksetzen-Bereich für Statistik und Profil.
+ *
+ * Bewusst zweistufig statt eines einzelnen Knopfes: Löschen ist endgültig,
+ * und ein Fehlgriff kostet den gesamten Verlauf eines Kindes. Die Abfrage
+ * benennt darum genau, was verschwindet und was bleibt, und bietet das
+ * Sichern gleich daneben an.
+ */
+function resetPanel() {
+  if (resetState === 'fertig') {
+    return `<div class="feedback-banner feedback-correct" style="margin-top:20px">
+      ✅ ${ru_('fertig')}</div>`;
+  }
+  if (resetState !== 'frage') {
+    return `<div style="margin-top:20px">
+      <button class="btn btn-secondary btn-small" onclick="window._askReset()">${ru_('knopf')}</button>
+    </div>`;
+  }
+  return `<div style="margin-top:20px;background:#FFF0F0;border:2px solid var(--secondary);
+       border-radius:var(--radius-sm);padding:16px 18px;max-width:520px;text-align:left">
+    <div style="font-weight:800;color:#C92A2A;margin-bottom:6px">⚠️ ${ru_('frage')}</div>
+    <p style="font-size:.92em;line-height:1.6">${ru_('was')}</p>
+    <p style="font-size:.85em;color:var(--text-light);margin-top:6px">${ru_('bleibt')}</p>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <button class="btn btn-secondary btn-small" onclick="window._exportData()">💾 ${ru_('sichern')}</button>
+      <button class="btn btn-small" style="background:var(--secondary);color:#fff"
+              onclick="window._doReset()">${ru_('loeschen')}</button>
+      <button class="btn btn-secondary btn-small" onclick="window._cancelReset()">${ru_('abbruch')}</button>
+    </div>
+  </div>`;
+}
+
+/**
+ * Startbildschirm eines Moduls: groß und deutlich nur das, was zum Loslegen
+ * nötig ist – Aufgabe, Durchführung, Hinweise für die Begleitperson.
+ *
+ * Alles Erklärende (was der Test misst, Einflüsse, Hypothesen, Förderwege)
+ * liegt hinter einem Symbol auf einer eigenen Seite. Vorher stand es als
+ * langes Panel unter dem Startknopf: wer mit einem Kind vor dem Gerät sitzt,
+ * scrollt daran vorbei, und es lenkt vom eigentlichen Start ab.
+ */
 async function renderIntro(main, mod, header) {
   const desc = modI18n(mod.id, 'desc', '');
-  let body = `<p>${desc}</p>`;
-  if (mod.mode === 'tutor') {
-    body += `<div class="tutor-guide"><h3>${t('tutorGuideTitle')}</h3><p>${t('tutorGuideDesc')}</p></div>`;
-  } else if (mod.mode === 'mixed') {
-    body += `<div class="tutor-guide"><h3>${t('mixedGuideTitle')}</h3><p>${t('mixedGuideDesc')}</p></div>`;
-  }
+  const l = document.documentElement.lang || 'de';
+  const perf = getPerformanceData(mod.id, l);
 
-  // Die Spielanleitung steht genau hier – auf dem Startbildschirm. Im Spiel
-  // selbst erscheint sie nicht mehr, dort zählt nur die Aufgabe.
   let game = null;
   try { game = await engine.ensureGame(mod.id); } catch (e) { /* Stub o. ä. */ }
+
+  let body = '<div style="width:100%;max-width:560px;text-align:center">';
+
+  // Aufgabe: die Anleitung des Moduls, groß gesetzt
   if (game && game.instruction) {
-    body += `<div data-role="instruction" style="background:var(--bg);border-radius:var(--radius-sm);padding:14px 18px;margin:16px 0;max-width:520px;text-align:center;font-size:1.02em">
-      ${game.instruction}
-    </div>`;
+    body += `<p data-role="instruction" style="font-size:1.22em;line-height:1.6;margin:4px 0 18px">
+      ${game.instruction}</p>`;
+  } else if (desc) {
+    body += `<p data-role="instruction" style="font-size:1.22em;line-height:1.6;margin:4px 0 18px">${desc}</p>`;
+  }
+  if (game && game.instruction && desc) {
+    body += `<p style="color:var(--text-light);line-height:1.6;margin-bottom:18px">${desc}</p>`;
   }
 
-  const lang = document.documentElement.lang || 'de';
-  const perf = getPerformanceData(mod.id, lang);
+  // Hinweise für die Begleitperson – bei Tutor-Modulen der wichtigste Teil
+  if (mod.mode === 'tutor') {
+    body += `<div class="tutor-guide" style="text-align:left;max-width:none">
+      <h3>${t('tutorGuideTitle')}</h3><p>${t('tutorGuideDesc')}</p></div>`;
+  } else if (mod.mode === 'mixed') {
+    body += `<div class="tutor-guide" style="text-align:left;max-width:none">
+      <h3>${t('mixedGuideTitle')}</h3><p>${t('mixedGuideDesc')}</p></div>`;
+  }
+
+  body += `<button class="btn btn-primary" style="font-size:1.1em;padding:14px 36px;margin-top:8px"
+    onclick="window._startGame()">${t('startTraining')}</button>`;
+
+  // Erklärendes hinter einem Symbol
   if (perf) {
-    body += `<div class="info-panel">
-      <h3>${t('infoTabTitle')} – ${perf.subtestRef}</h3>
-      <h4>${t('infoWhat')}</h4><p style="font-size:.9em">${perf.whatItMeasures}</p>
-      <h4>${t('infoEinfluesse')}</h4><ul>${perf.einfluesse.map(e => '<li>'+e+'</li>').join('')}</ul>
-      <h4>${t('infoHypothesen')}</h4><ul>${perf.hypothesen.map(h => '<li>'+h+'</li>').join('')}</ul>
-      <h4>${t('infoFoerderung')}</h4><ul>${perf.foerderung.map(foerderPunkt).join('')}</ul>
-    </div>`;
+    body += `<div style="margin-top:22px">
+      <a href="#" class="info-link" onclick="navigateTo('insights',{moduleId:'${mod.id}',step:'intro'});return false">
+        🎯 ${iu('schwerpunkte')} ›</a></div>`;
   }
 
-  body += `<button class="btn btn-primary" onclick="window._startGame()">${t('startTraining')}</button>`;
+  body += '</div>';
   main.innerHTML = `<div class="training-container">${header}<div class="training-area">${body}</div></div>`;
 }
+
+/**
+ * Was der Test misst und wie man es im Alltag trainiert – eigene Seite,
+ * erreichbar über das Symbol auf dem Startbildschirm.
+ */
+function renderInsights(main) {
+  const mod = getModule(engine.gameState.moduleId);
+  if (!mod) { engine.navigateTo('menu'); return; }
+  const l = document.documentElement.lang || 'de';
+  const perf = getPerformanceData(mod.id, l);
+  const title = modI18n(mod.id, 'title', mod.title);
+
+  let html = `<div class="training-container">
+    <div class="training-header">
+      <span class="icon">${mod.icon}</span>
+      <div><h2>${title}</h2>
+      <div class="meta">🎯 ${iu('schwerpunkte')}</div></div>
+    </div>
+    <div style="width:100%">`;
+
+  if (perf) {
+    html += `<div class="info-panel" style="max-width:none;margin-top:0">
+      <h3>${t('infoTabTitle')} – ${perf.subtestRef}</h3>
+      <h4>${t('infoWhat')}</h4><p style="font-size:.95em;line-height:1.6">${perf.whatItMeasures}</p>
+      <h4>${t('infoEinfluesse')}</h4><ul>${perf.einfluesse.map(e => '<li>' + e + '</li>').join('')}</ul>
+      <h4>${t('infoHypothesen')}</h4><ul>${perf.hypothesen.map(h => '<li>' + h + '</li>').join('')}</ul>
+    </div>
+
+    <h3 class="section-title" style="margin-top:22px">🧰 ${iu('wege')}</h3>
+    <p style="color:var(--text-light);font-size:.9em;margin-bottom:10px">${iu('wegeHinweis')}</p>
+    <ul style="line-height:2.1;margin-left:18px">${perf.foerderung.map(foerderPunkt).join('')}</ul>`;
+  }
+
+  html += `</div></div>
+    <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button class="btn btn-primary" onclick="goBack()">${iu('zurueck')}</button>
+      <button class="btn btn-secondary" onclick="navigateTo('methods')">🧰 ${iu('alleMethoden')}</button>
+    </div>`;
+
+  main.innerHTML = html;
+}
+
 
 async function renderGameScreen(main, mod, header) {
   const gs = engine.gameState;
@@ -279,7 +409,7 @@ async function renderStats(main) {
     const scores = await storage.loadAllScores();
     const history = await storage.loadAllHistory(200);
     if (!scores.length && !history.length) {
-      html += `<div class="training-container"><div class="training-area"><p>${t('statsEmpty')}</p></div></div>`;
+      html += `<div class="training-container"><div class="training-area"><p>${t('statsEmpty')}</p>${resetState ? resetPanel() : ''}</div></div>`;
     } else {
       // Trefferquote nur aus Übungsspielen – die adaptiven Tests schreiben
       // Prozentwerte, die hier sonst als „100% richtig" durchschlagen würden.
@@ -312,6 +442,7 @@ async function renderStats(main) {
         html += `</div>`;
       }
       html += `<div style="margin-top:20px"><button class="btn btn-secondary btn-small" onclick="window._exportData()">${t('exportBackup')}</button></div>`;
+      html += resetPanel();
       html += `</div></div>`;
     }
   } catch(e) {
@@ -427,6 +558,27 @@ window._setTempo = (moduleId, val) => {
   // auch ohne geladenes Modul setzbar
   import('../core/adaptive.js').then(m => m.setFactor(moduleId, val));
 };
+window._askReset = () => { resetState = 'frage'; engine.render(); };
+window._cancelReset = () => { resetState = null; engine.render(); };
+
+/**
+ * Löschen ausführen. Danach muss auch der Merker der Persistenz zurück –
+ * sonst vergleicht der nächste Spielstand gegen Zahlen, die es nicht mehr gibt,
+ * und der erste Treffer nach dem Zurücksetzen ginge verloren.
+ */
+window._doReset = async () => {
+  try {
+    const weg = await storage.resetProgress();
+    _last = { moduleId: null, score: 0, total: 0, percent: 0 };
+    resetState = 'fertig';
+    console.info(`[reset] ${weg.scores} Spielstände, ${weg.history} Verlaufseinträge gelöscht`);
+  } catch (e) {
+    console.error('[reset]', e);
+    resetState = null;
+  }
+  engine.render();
+};
+
 window._exportData = async () => {
   try {
     const data = await storage.exportAll();
@@ -514,6 +666,7 @@ async function renderRadar(main) {
     html += `<div style="margin-top:16px;font-size:0.8em;color:var(--text-light);text-align:center;">`;
     html += `🟢 ≥70% &nbsp; 🟡 40–69% &nbsp; 🔴 <40% &nbsp; ⚪ nicht getestet`;
     html += `</div>`;
+    html += resetPanel();
     
     html += `</div></div>`;
   } catch(e) {

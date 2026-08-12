@@ -19,6 +19,9 @@ main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 .card{background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:all .25s;border:2px solid transparent;overflow:hidden}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
+/* Sichtbarer Fokus für Tastaturbedienung – ohne ihn ist nicht erkennbar,
+   wo man sich gerade befindet. :focus-visible zeigt ihn nur bei Tastatur. */
+.card:focus-visible,.info-link:focus-visible,.btn:focus-visible,.tab:focus-visible,.pick-target:focus-visible{outline:3px solid var(--primary);outline-offset:3px}
 .card-icon{font-size:2.5em;margin-bottom:8px}
 .card-title{font-weight:700;font-size:1.05em;margin-bottom:4px}
 .card-desc{font-size:.85em;color:var(--text-light);line-height:1.4}
@@ -73,6 +76,9 @@ main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .memory-card-matched{background:#E6F9EE;border:2px solid var(--green);opacity:.5;cursor:default}
 .info-panel{background:#F0EDFF;border:2px solid var(--primary-light);border-radius:var(--radius);padding:20px;margin:16px 0;width:100%;max-width:600px}
 .info-panel h3{color:var(--primary);margin-bottom:12px}
+/* Link mit Symbol, der Erklärendes auf eine eigene Seite auslagert */
+.info-link{display:inline-flex;align-items:center;gap:6px;padding:9px 18px;border-radius:22px;background:#F0EDFF;border:2px solid var(--primary-light);color:var(--primary);font-weight:700;font-size:.95em;text-decoration:none;transition:all .2s}
+.info-link:hover{background:var(--primary);color:#fff}
 .info-panel h4{color:var(--primary);margin:12px 0 4px;font-size:.95em}
 .info-panel ul{padding-left:20px;font-size:.9em;line-height:1.6}
 /* Ablaufanzeigen laufen als CSS-Animation, damit der Spielbereich während
@@ -101,7 +107,7 @@ main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
   </div>
 </header>
 <main id="mainContent"></main>
-<script src="dist/logik-trainer.min.js?v=cfd0c751"></script>
+<script src="dist/logik-trainer.min.js?v=5751315b"></script>
 <script>
 // Ohne Bundle bliebe die Seite einfach weiß – das ist der häufigste
 // Stolperstein nach einem frischen Clone.

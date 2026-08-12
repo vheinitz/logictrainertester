@@ -64,6 +64,7 @@ const rhythmTest = [];
 const audioTest = [];
 const kofferTest = [];
 const methodTest = [];
+const resetTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-handbewegungen', 'seq-koffer-packen', 'sim-gesichter',
@@ -100,6 +101,18 @@ for (const m of modules) {
 
   const intro = main.innerHTML;
   check(intro.includes('training-container'), `${m.id}: Intro nicht gerendert`);
+
+  // Der Startbildschirm zeigt nur, was zum Loslegen nötig ist. Alles
+  // Erklärende liegt hinter dem Symbol-Link auf einer eigenen Seite.
+  const introTxt = main.textContent.replace(/\s+/g, ' ');
+  for (const wort of ['Einflüsse', 'Hypothesen', 'Kognitive Faktoren']) {
+    check(!introTxt.includes(wort),
+          `${m.id}: „${wort}" steht auf dem Startbildschirm statt hinter dem Symbol`);
+  }
+  check(introTxt.length < 1400,
+        `${m.id}: Startbildschirm ist mit ${introTxt.length} Zeichen überladen`);
+  check(!!main.querySelector('.info-link'),
+        `${m.id}: Symbol-Link zu den Schwerpunkten fehlt`);
 
   window._startGame();
   await sleep(120);
@@ -574,12 +587,14 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
         'Eine unbekannte Methoden-id führt nicht zurück zur Übersicht');
 
   // Verlinkung aus dem Info-Panel eines Moduls heraus
+  // Die Förderpunkte stehen seit dem Umbau nicht mehr im Startbildschirm,
+  // sondern auf der Schwerpunkte-Seite hinter dem Symbol.
   const { FOERDERUNG_LINKS } = await import('../src/data/foerderung-links.js');
   let verlinkteModule = 0;
   const { modules: alleModule } = await import('../src/data/modules.js');
   for (const mod of alleModule) {
-    window.startModule(mod.id);
-    await sleep(70);
+    window.navigateTo('insights', { moduleId: mod.id, step: 'intro' });
+    await sleep(60);
     if (main.querySelector('a[onclick*="methodId"]')) verlinkteModule++;
     window.navigateTo('menu');
     await sleep(30);
@@ -635,6 +650,59 @@ console.log(`   Koffer nach Fehler: ${kofferTest.join(' ') || 'nicht geprüft'}`
 methodTest.forEach(x => console.log(`   Fördermethoden: ${x}`));
 // Der Punktestand darf auch nicht als leere Hülle zurückbleiben
 check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Minimal-Hülle geprüft, erwartet ${MINIMAL.length}`);
+
+// ─── Fortschritt zurücksetzen ─────────────────────────────────────────
+// Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
+// wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
+{
+  const vorher = (await storage.loadAllScores()).length;
+  check(vorher > 0, 'Für den Reset-Test liegen gar keine Spielstände vor');
+  window.localStorage.setItem('logik-factors', '{"seq-zahlenfolgen":1.5}');
+
+  window.navigateTo('stats');
+  await sleep(250);
+  check(/zurücksetzen|Сбросить/i.test(main.textContent),
+        'Die Statistik bietet kein Zurücksetzen an');
+
+  // Abbrechen darf nichts löschen
+  window._askReset();
+  await sleep(120);
+  check(/Wirklich|Точно/.test(main.textContent), 'Die Sicherheitsabfrage erscheint nicht');
+  window._cancelReset();
+  await sleep(120);
+  check((await storage.loadAllScores()).length === vorher,
+        'Abbrechen hat trotzdem Daten gelöscht');
+
+  // Löschen
+  window._askReset();
+  await sleep(80);
+  await window._doReset();
+  await sleep(250);
+  const nachher = await storage.loadAllScores();
+  const verlauf = await storage.loadAllHistory(9999);
+  check(nachher.length === 0, `Nach dem Reset sind noch ${nachher.length} Spielstände da`);
+  check(verlauf.length === 0, `Nach dem Reset sind noch ${verlauf.length} Verlaufseinträge da`);
+  check(/gelöscht|удалены/.test(main.textContent), 'Keine Rückmeldung nach dem Löschen');
+  check(window.localStorage.getItem('logik-factors') === '{"seq-zahlenfolgen":1.5}',
+        'Das Zurücksetzen hat die Tempo-Einstellung mitgelöscht');
+
+  // Profil und Statistik zeigen den leeren Zustand
+  window.navigateTo('radar');
+  await sleep(250);
+  check(/0\/89|0 Module/.test(main.textContent),
+        'Das kognitive Profil zeigt nach dem Reset noch Werte');
+
+  // Die Erfolgsmeldung darf nicht kleben bleiben
+  window.navigateTo('menu');
+  await sleep(120);
+  window.navigateTo('stats');
+  await sleep(250);
+  check(!/wurden gelöscht|результаты удалены/.test(main.textContent),
+        'Die Reset-Meldung bleibt nach dem Verlassen stehen');
+  resetTest.push(`${vorher} Spielstände gelöscht, Einstellungen erhalten`);
+}
+
+resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────
 if (problems.length) {

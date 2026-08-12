@@ -153,6 +153,28 @@ export async function loadSetting(key, def = null) {
   });
 }
 
+/**
+ * Alle Fortschrittsdaten löschen: Spielstände und Verlauf.
+ *
+ * Einstellungen bleiben absichtlich stehen – Sprache und Tempo sind keine
+ * Ergebnisse, und wer seine Statistik zurücksetzt, will nicht auch noch die
+ * Oberfläche neu einstellen müssen. Für das vollständige Leeren gibt es
+ * clearAll().
+ *
+ * @returns {Promise<{scores:number, history:number}>} Anzahl gelöschter Einträge
+ */
+export async function resetProgress() {
+  const db = await open();
+  const [scores, history] = await Promise.all([loadAllScores(), loadAllHistory(100000)]);
+  await new Promise((ok, fail) => {
+    const tx = db.transaction(['scores', 'history'], 'readwrite');
+    tx.objectStore('scores').clear();
+    tx.objectStore('history').clear();
+    tx.oncomplete = ok; tx.onerror = e => fail(e.target.error);
+  });
+  return { scores: scores.length, history: history.length };
+}
+
 export async function clearAll() {
   const db = await open();
   return new Promise((ok, fail) => {
