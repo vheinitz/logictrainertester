@@ -4,6 +4,46 @@ Kognitives Trainings- und Testprogramm für Kinder, angelehnt an die Struktur de
 KABC-II. Läuft vollständig offline im Browser, ohne Server und ohne Konto.
 Alle Daten bleiben in der IndexedDB des Geräts.
 
+## Herkunft und Abgrenzung
+
+**Ideengrundlage** dieser App sind die *Arbeitsmaterialien zur KABC-II* (2016),
+erarbeitet von einem Arbeitskreis unter Leitung von Dr. Werner Laschkowski
+(RschD, Regierung von Mittelfranken) mit Lehrkräften mittelfränkischer
+Förderschulen. Von dort stammen die Gliederung nach Skalen und Subtests sowie
+ein Teil der Fachbegriffe für Einflussfaktoren, Hypothesen und
+Fördermöglichkeiten. Dank an den Arbeitskreis für diese Vorarbeit.
+
+Übernommen wurde die **Systematik, nicht der Text**. Ein Abgleich der
+App-Texte gegen das Skript ergibt: kein einziger übernommener Satz. Die
+längste wörtliche Übereinstimmung ist 47 Zeichen lang, der Median 23 – es
+handelt sich durchweg um Fachbegriffe wie „Visuelles Kurzzeitgedächtnis".
+Übereinstimmungen ab Satzlänge: keine.
+
+**Neu entstanden** (nach Angabe des Autors mit KI-Unterstützung erarbeitet)
+sind die beiden Teile, die diese App überhaupt erst zu einem Programm machen:
+
+- Die **quantitative Auswertung** – Score-Maps je Niveau, das adaptive
+  Hoch- und Runterstufen, die Fortschreibung des besten Niveaus, die
+  Prozentbewertung. Im Skript existiert davon nichts; es ist ein rein
+  qualitatives Beobachtungs- und Interpretationshilfsmittel für
+  Testleiterinnen und Testleiter („Hypothese" 29×, „Beobachtung" 27×,
+  Auswertungsformeln: keine).
+- Das **kognitive Faktorenmodell** – die Einordnung von 89 Fähigkeiten in 14
+  Kategorien und ihre Zuordnung zu den Trainingsmodulen, aus der sich das
+  Profil errechnet. 36 der 89 Faktorbezeichnungen kommen im Skript gar nicht
+  vor, und die Zuordnung Faktor → Modul gibt es dort nicht.
+
+**Was diese App nicht ist:** kein Testverfahren und kein Ersatz für eines. Sie
+enthält keine Originalaufgaben, keine Normtabellen und keine Standardwerte.
+Die Aufgaben sind eigene Nachbauten allgemein bekannter Paradigmen
+(Zahlenspanne, Bausteine zählen, Gestaltschließen), die deutlich älter sind
+als die KABC. Ergebnisse sind Übungsrückmeldungen, keine Diagnostik.
+
+KABC-II ist eine eingetragene Marke der jeweiligen Rechteinhaber. Sie wird
+hier ausschließlich als Sachhinweis auf die Struktur verwendet, auf die sich
+die App bezieht – nicht als Produktname und ohne jede Verbindung zu oder
+Billigung durch die Rechteinhaber.
+
 ## Starten
 
 Die App ist als fertiges Bundle eingecheckt – `index.html` im Browser öffnen
