@@ -13,7 +13,7 @@
  *   node tools/build.mjs --watch    baut bei jeder Änderung neu
  */
 import { createHash } from 'node:crypto';
-import { readFileSync, writeFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
 import * as esbuild from 'esbuild';
 import { generate as generateMethodIndex } from './gen-method-index.mjs';
@@ -36,14 +36,28 @@ function sourceStamp(dir = 'src') {
   return h.digest('hex').slice(0, 8);
 }
 
-/** Script-Tag in index.html auf die aktuelle Kennung setzen. */
+/**
+ * Script-Tags in index.html auf die aktuelle Kennung setzen.
+ *
+ * Auch die Sprachaufnahmen bekommen eine – sie ändern sich seltener als der
+ * Code, aber wenn, dann muss der Browser sie ebenso neu holen. Ihre Kennung
+ * hängt am Dateiinhalt, damit ein reiner Code-Build sie nicht unnötig
+ * ungültig macht.
+ */
 function stampHtml(stamp) {
   const file = 'index.html';
   const html = readFileSync(file, 'utf8');
-  const next = html.replace(
+  let next = html.replace(
     /(<script src="dist\/logik-trainer\.min\.js)(\?v=[^"]*)?(")/,
     `$1?v=${stamp}$3`
   );
+  next = next.replace(/(<script src="dist\/(audio-[a-z]{2})\.js)(\?v=[^"]*)?(")/g,
+    (m, pfad, name, alt, ende) => {
+      const datei = `dist/${name}.js`;
+      if (!existsSync(datei)) return m;
+      const h = createHash('sha1').update(readFileSync(datei)).digest('hex').slice(0, 8);
+      return `${pfad}?v=${h}${ende}`;
+    });
   if (next !== html) writeFileSync(file, next);
   return next !== html;
 }

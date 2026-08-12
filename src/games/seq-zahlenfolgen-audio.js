@@ -16,11 +16,11 @@
  *
  * Die Sprache folgt der Einstellung der App (DE/RU).
  */
-// getFactor umbenannt: der Name wird unten als Modul-Export erneut vergeben
-import { createSpanTest, getFactor as tempoOf } from '../core/adaptive.js';
+import { createSpanTest } from '../core/adaptive.js';
 import { shuffle, color, lang } from '../core/html.js';
 import { audio, audioReady, loadClip, clipsReady, playClip } from '../core/audio.js';
-import { DIGIT_MP3, DIGIT_MS, LEAD_MP3, LEAD_MS, hasDigits } from '../data/audio-digits.js';
+import { clip, clipText, hasVoice, longestMs } from '../core/audio-assets.js';
+import * as settings from '../core/settings.js';
 
 const ID = 'seq-zahlenfolgen-audio';
 const FACTOR = 1.3;            // Sekunden je Ziffer (Voreinstellung)
@@ -31,30 +31,31 @@ const MIN_LUECKE = 220;        // ms Ruhe zwischen zwei Ziffern
 /** Sprache der App, auf vorhandene Aufnahmen eingeschränkt. */
 function voiceLang() {
   const l = lang();
-  return hasDigits(l) ? l : 'de';
+  return hasVoice(l) ? l : (hasVoice('de') ? 'de' : l);
 }
 
-const key = (l, n) => l + n;
+const dKey = n => 'd' + n;
+const key = (l, n) => l + dKey(n);
 const leadKey = l => l + 'lead';
 
 /** Ziffern und Ansage der aktuellen Sprache im Hintergrund dekodieren. */
 function preload() {
   const l = voiceLang();
   return Promise.all([
-    ...DIGITS.map(n => loadClip(key(l, n), DIGIT_MP3[l][n])),
-    loadClip(leadKey(l), LEAD_MP3[l])
+    ...DIGITS.map(n => loadClip(key(l, n), clip(l, dKey(n)))),
+    loadClip(leadKey(l), clip(l, 'lead'))
   ]);
 }
 
-/** Längste Sprechdauer der aktuellen Sprache in ms. */
-function longestMs() {
+/**
+ * Abstand von Ziffernbeginn zu Ziffernbeginn.
+ * Folgt der globalen Tempo-Einstellung, bleibt aber immer weit genug, dass
+ * das längste Wort nicht ins nächste läuft.
+ */
+function stepMs() {
   const l = voiceLang();
-  return Math.max(...DIGITS.map(n => (DIGIT_MS[l][n] || {}).ms || 600));
-}
-
-/** Abstand von Ziffernbeginn zu Ziffernbeginn. */
-function stepMs(factorS) {
-  return Math.max(factorS * 1000, longestMs() + MIN_LUECKE);
+  const f = settings.get('tempo') * (FACTOR / 2);
+  return Math.max(f * 1000, longestMs(l, DIGITS.map(dKey)) + MIN_LUECKE);
 }
 
 /**
@@ -103,21 +104,22 @@ const test = createSpanTest({
    * davor, in eine längst weitergelaufene Runde hineinzusprechen.
    */
   onShow: (gd) => {
+    if (!settings.get('sound')) return;
     const stamp = gd.phaseStart;
     preload().then(() => {
       if (gd.phase !== 'show' || gd.phaseStart !== stamp) return;
       const l = voiceLang();
       if (!clipsReady(gd.sequence.map(n => key(l, n)))) return;
-      speak(gd.sequence, stepMs(tempoOf(ID, FACTOR)));
+      speak(gd.sequence, stepMs());
     });
   },
 
   // Während der Ansage zeigt der Bildschirm nichts – sonst wäre es kein Hörtest.
   renderShow: () => {
-    const stumm = !audioReady();
+    const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
     return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
       ${stumm ? `<p style="color:var(--secondary);font-size:.9em;max-width:320px;margin:8px auto 0">
-        Für dieses Spiel muss der Ton eingeschaltet sein.</p>` : ''}`;
+        Für dieses Spiel muss der Ton eingeschaltet sein (⚙️ Einstellungen).</p>` : ''}`;
   },
 
   renderSolution: (gd) => `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
@@ -151,5 +153,5 @@ export const { init, render, dispose, actions, scoring, chrome, instruction,
 /** Nur für Tests: welche Sprache und welche Wörter kämen zum Einsatz? */
 export function _voice() {
   const l = voiceLang();
-  return { lang: l, words: DIGITS.map(n => DIGIT_MS[l][n].word) };
+  return { lang: l, words: DIGITS.map(n => clipText(l, dKey(n))) };
 }

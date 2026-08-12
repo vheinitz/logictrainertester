@@ -39,9 +39,12 @@ window.indexedDB = globalThis.indexedDB;
 window.IDBKeyRange = globalThis.IDBKeyRange;
 window.scrollTo = () => {};   // von jsdom nicht implementiert
 
-// Bundle manuell ausführen – jsdom lädt lokale <script src> nicht von selbst
-const bundle = readFileSync(root + 'dist/logik-trainer.min.js', 'utf8');
-window.eval(bundle);
+// Skripte manuell ausführen – jsdom lädt lokale <script src> nicht von selbst.
+// Reihenfolge wie in index.html: erst die Sprachaufnahmen, dann die App.
+for (const l of ['de', 'ru']) {
+  window.eval(readFileSync(root + `dist/audio-${l}.js`, 'utf8'));
+}
+window.eval(readFileSync(root + 'dist/logik-trainer.min.js', 'utf8'));
 window.document.dispatchEvent(new window.Event('DOMContentLoaded'));
 
 const sleep = ms => new Promise(r => setTimeout(r, ms));
@@ -65,10 +68,12 @@ const audioTest = [];
 const kofferTest = [];
 const methodTest = [];
 const resetTest = [];
+const einstellTest = [];
+const ablaufTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
-                 'seq-handbewegungen', 'seq-koffer-packen', 'sim-gesichter',
-                 'seq-rhythmus'];
+                 'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
+                 'seq-koffer-packen-audio', 'sim-gesichter', 'seq-rhythmus'];
 // Merkspannen-Tests mit Auswahl-Eingabe (Rhythmus klopft stattdessen)
 const ADAPTIVE = MINIMAL.filter(id => id !== 'seq-rhythmus');
 
@@ -81,7 +86,7 @@ check(typeof window.navigateTo === 'function',
       'Der Bundle installiert window.navigateTo nicht');
 check(main.innerHTML.length > 500, 'Menü wurde nicht gerendert');
 const cards = main.querySelectorAll('.card');
-check(cards.length >= 27, `Menü zeigt nur ${cards.length} Karten`);
+check(cards.length >= 29, `Menü zeigt nur ${cards.length} Karten`);
 
 // Cache-Kennung: das Script-Tag muss ein ?v= tragen und das Menü es anzeigen,
 // damit erkennbar bleibt, welcher Stand im Browser läuft.
@@ -91,6 +96,16 @@ check(!!vm, 'Das Script-Tag in index.html trägt keine Build-Kennung (?v=…)');
 check(vm && main.textContent.includes(vm[1]),
       'Das Menü zeigt die Build-Kennung nicht an');
 
+// Sprachaufnahmen: als eigene Dateien geladen, nicht im Bundle. Sie stehen
+// fest in index.html, damit sie beim Speichern der Seite mitkommen.
+check(!!window.LOGIK_AUDIO, 'window.LOGIK_AUDIO fehlt – Sprachaufnahmen nicht geladen');
+for (const l of ['de', 'ru']) {
+  check(window.LOGIK_AUDIO && window.LOGIK_AUDIO[l], `Aufnahmen für "${l}" fehlen`);
+  const tag2 = window.document.querySelector(`script[src^="dist/audio-${l}.js"]`);
+  check(!!tag2, `index.html bindet dist/audio-${l}.js nicht ein`);
+  check(tag2 && /\?v=[0-9a-f]{8}/.test(tag2.getAttribute('src')),
+        `dist/audio-${l}.js ohne Cache-Kennung eingebunden`);
+}
 // ─── Jedes Modul öffnen und anspielen ─────────────────────────────────
 const { modules } = await import('../src/data/modules.js');
 
@@ -651,6 +666,66 @@ methodTest.forEach(x => console.log(`   Fördermethoden: ${x}`));
 // Der Punktestand darf auch nicht als leere Hülle zurückbleiben
 check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Minimal-Hülle geprüft, erwartet ${MINIMAL.length}`);
 
+// ─── Einstellungen wirken und überleben ───────────────────────────────
+{
+  window.navigateTo('settings');
+  await sleep(200);
+  const regler = main.querySelectorAll('input[type=range]');
+  check(regler.length >= 6, `Einstellungsseite zeigt nur ${regler.length} Regler`);
+  check(!!main.querySelector('[aria-pressed]'), 'Ton-Schalter fehlt');
+
+  const S = window.LOGIK_SETTINGS;
+  const vorher = S.get('tempo');
+  window._setSetting('tempo', 3.5);
+  await sleep(120);
+  check(S.get('tempo') === 3.5, `tempo ist ${S.get('tempo')} statt 3.5`);
+  check(/logik-settings/.test(Object.keys(window.localStorage).join(',')) ||
+        !!window.localStorage.getItem('logik-settings'),
+        'Einstellung wurde nicht gesichert');
+
+  // Grenzen werden eingehalten
+  window._setSetting('tempo', 99);
+  check(S.get('tempo') === 5, `tempo ${S.get('tempo')} statt auf 5 begrenzt`);
+  window._resetSettings();
+  await sleep(120);
+  check(S.get('tempo') === 2, `Zurücksetzen ergab tempo ${S.get('tempo')} statt 2`);
+  void vorher;
+  einstellTest.push(`${regler.length} Regler, Grenzen und Zurücksetzen greifen`);
+
+  window.navigateTo('menu');
+  await sleep(60);
+}
+
+// ─── Auswahlaufgaben laufen ohne „Weiter" ─────────────────────────────
+{
+  window.startModule('sim-konzeptbildung');
+  await sleep(60);
+  window._startGame();
+  await sleep(200);
+  const bereich = () => window.document.getElementById('gameArea');
+  const phase = () => { const p = bereich() && bereich().querySelector('[data-phase]');
+                        return p ? p.getAttribute('data-phase') : null; };
+
+  check(phase() === 'ask', `Auswahlaufgabe startet in Phase "${phase()}"`);
+  check(!!bereich().querySelector('.adv-bar'), 'Antwortphase ohne Ablaufbalken');
+
+  const opt = bereich().querySelector('[onclick^="G(\'choose\'"]');
+  check(!!opt, 'keine Auswahlmöglichkeit gefunden');
+  opt.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+  await sleep(150);
+  check(phase() === 'feedback', `nach der Antwort Phase "${phase()}"`);
+  check(!bereich().querySelector('[onclick*="next"]'),
+        'Es gibt weiterhin einen Weiter-Knopf');
+
+  // von selbst weiter, ohne Zutun
+  for (let t = 0; t < 6000 && phase() !== 'ask'; t += 100) await sleep(100);
+  check(phase() === 'ask', 'Die Rückmeldung läuft nicht von selbst weiter');
+  ablaufTest.push('Antwort → Rückmeldung → nächste Aufgabe ohne Klick');
+
+  window.navigateTo('menu');
+  await sleep(60);
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
@@ -702,6 +777,8 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   resetTest.push(`${vorher} Spielstände gelöscht, Einstellungen erhalten`);
 }
 
+einstellTest.forEach(x => console.log(`   Einstellungen: ${x}`));
+ablaufTest.forEach(x => console.log(`   Ablauf: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

@@ -17,9 +17,11 @@ export const scales = [
 export const modules = [
   {id:'seq-zahlenfolgen',scale:'sequential',title:'Zahlenfolgen sehen',icon:'🔢',ages:'4-18',mode:'self',kabcRef:'Zahlen nachsprechen'},
   {id:'seq-zahlenfolgen-audio',scale:'sequential',title:'Zahlenfolgen hören',icon:'🔊',ages:'4-18',mode:'self',kabcRef:'Zahlen nachsprechen'},
-  {id:'seq-wortreihe',scale:'sequential',title:'Wörter-Kette',icon:'🔗',ages:'3-18',mode:'self',kabcRef:'Wortreihe'},
+  {id:'seq-wortreihe',scale:'sequential',title:'Wörter-Kette sehen',icon:'🔗',ages:'3-18',mode:'self',kabcRef:'Wortreihe'},
+  {id:'seq-wortreihe-audio',scale:'sequential',title:'Wörter-Kette hören',icon:'🔊',ages:'4-18',mode:'self',kabcRef:'Wortreihe'},
   {id:'seq-handbewegungen',scale:'sequential',title:'Händchen-Folge',icon:'✋',ages:'4-18',mode:'self',kabcRef:'Handbewegungen'},
-  {id:'seq-koffer-packen',scale:'sequential',title:'Ich packe meinen Koffer',icon:'🧳',ages:'3-18',mode:'self'},
+  {id:'seq-koffer-packen',scale:'sequential',title:'Koffer packen sehen',icon:'🧳',ages:'3-18',mode:'self'},
+  {id:'seq-koffer-packen-audio',scale:'sequential',title:'Koffer packen hören',icon:'🔊',ages:'4-18',mode:'self'},
   {id:'seq-rhythmus',scale:'sequential',title:'Rhythmus-Klopfer',icon:'🥁',ages:'4-18',mode:'self'},
   {id:'sim-konzeptbildung',scale:'simultan',title:'Was passt nicht?',icon:'❓',ages:'3-6',mode:'self',kabcRef:'Konzeptbildung'},
   {id:'sim-gesichter',scale:'simultan',title:'Gesichter-Merkspiel',icon:'😀',ages:'4-18',mode:'self',kabcRef:'Wiedererkennen von Gesichtern'},

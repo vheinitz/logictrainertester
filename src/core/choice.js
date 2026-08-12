@@ -7,6 +7,16 @@
  *
  * Phasen:  study (optional) → ask → feedback → nächste Runde
  *
+ * Kein „Weiter"-Knopf: die Rückmeldung läuft nach kurzer Zeit von selbst
+ * weiter, und die Antwortphase hat ein Zeitlimit. Das hält den Ablauf für ein
+ * Kind gleichförmig – dieselbe Erwartung wie bei den Merkspannen-Tests – und
+ * verhindert, dass eine unbeantwortete Aufgabe endlos stehen bleibt.
+ *
+ * Was hier NICHT passiert: die Aufgabe vor dem Antworten ausblenden. Bei
+ * „Was passt nicht?" oder einer Wissensfrage würde das aus einer Denk- eine
+ * Gedächtnisaufgabe machen und damit etwas anderes messen. Ausgeblendet wird
+ * nur, wo Merken das Ziel ist – das leistet die optionale `study`-Phase.
+ *
  * Schwierigkeit: gd.level steigt nach `upAfter` richtigen Antworten in Folge
  * und sinkt nach `downAfter` falschen. genRound() bekommt das Niveau und
  * entscheidet selbst, wie es das umsetzt.
@@ -15,6 +25,8 @@
  */
 import { engine } from './engine.js';
 import { esc, pick } from './html.js';
+import { bar } from './shell.js';
+import * as settings from './settings.js';
 
 const RUNNING = new Map();
 
@@ -86,15 +98,44 @@ export function createChoiceGame(cfg) {
     if (gd.round.study && gd.round.study.seconds > 0) {
       gd.phase = 'study';
       gd.phaseStart = Date.now();
-      gd.studyDuration = gd.round.study.seconds * 1000;
+      gd.studyDuration = Math.round(gd.round.study.seconds * 1000 * settings.get('studyFactor'));
       schedule(id, gd.studyDuration, () => {
-        gd.phase = 'ask';
+        beginneAntwort(gs);
         engine.renderGame();
       }, true);
     } else {
       gd.phase = 'ask';
-      stopTimers(id);
+      beginneAntwort(gs);
     }
+  }
+
+  /** Antwortphase mit Zeitlimit starten. Ohne Antwort gilt sie als nicht gelöst. */
+  function beginneAntwort(gs) {
+    const gd = gs.gd;
+    gd.phase = 'ask';
+    gd.phaseStart = Date.now();
+    gd.answerDuration = Math.round(settings.get('choiceAnswer') * 1000);
+    schedule(id, gd.answerDuration, () => zeitAbgelaufen(gs));
+  }
+
+  function zeitAbgelaufen(gs) {
+    const gd = gs.gd;
+    if (!gd || gd.phase !== 'ask') return;
+    gd.picked = null;
+    gd.answeredCorrect = false;
+    gd.timeout = true;
+    gd.phase = 'feedback';
+    gs.total = (gs.total || 0) + 1;
+    gd.streakDown++; gd.streakUp = 0;
+    if (gd.streakDown >= downAfter && gd.level > minLevel) { gd.level--; gd.streakDown = 0; }
+    engine.renderGame();
+    weiterNach(gs, false);
+  }
+
+  /** Nach der Rückmeldung von selbst zur nächsten Aufgabe. */
+  function weiterNach(gs, richtig) {
+    const ms = Math.round((richtig ? settings.get('feedbackOk') : settings.get('feedbackWrong')) * 1000);
+    schedule(id, ms, () => { nextRound(gs); engine.renderGame(); });
   }
 
   function init(gs) {
@@ -136,22 +177,24 @@ export function createChoiceGame(cfg) {
     }
 
     if (gd.phase === 'ask') {
-      return `<div style="width:100%;max-width:560px">
+      const elapsed = Date.now() - (gd.phaseStart || Date.now());
+      return `<div data-phase="ask" style="width:100%;max-width:560px">
+        ${bar(gd.answerDuration || 30000, elapsed)}
         ${r.prompt}
         ${optionsHtml(r, gd)}
       </div>`;
     }
 
-    // feedback
+    // feedback – läuft von selbst weiter, kein Knopf
     const explain = r.explain ? pick(r.explain) : '';
+    const richtig = r.options[r.correct] ? (r.options[r.correct].label || '') : '';
     const banner = gd.answeredCorrect
       ? `<div class="feedback-banner feedback-correct">🎉 <b>Richtig!</b>${explain ? ' ' + esc(explain) : ''}</div>`
-      : `<div class="feedback-banner feedback-wrong">😔 <b>Leider nicht.</b> Richtig wäre: ${r.options[r.correct].label || ''}${explain ? '<br><span style="font-size:.85em">' + esc(explain) + '</span>' : ''}</div>`;
+      : `<div class="feedback-banner feedback-wrong">${gd.timeout ? '⏰ <b>Zeit abgelaufen.</b>' : '😔 <b>Leider nicht.</b>'}
+           Richtig wäre: ${richtig}${explain ? '<br><span style="font-size:.85em">' + esc(explain) + '</span>' : ''}</div>`;
 
-    return `<div style="width:100%;max-width:560px;text-align:center">
+    return `<div data-phase="feedback" style="width:100%;max-width:560px;text-align:center">
       ${banner}
-      <div style="font-size:.8em;color:var(--text-light);margin-bottom:8px">Niveau ${gd.level}</div>
-      <button class="btn btn-primary btn-small" onclick="G('next')">▶️ Weiter</button>
     </div>`;
   }
 
@@ -191,9 +234,11 @@ export function createChoiceGame(cfg) {
         gd.streakDown++; gd.streakUp = 0;
         if (gd.streakDown >= downAfter && gd.level > minLevel) { gd.level--; gd.streakDown = 0; }
       }
-      stopTimers(id);
+      gd.timeout = false;
+      weiterNach(gs, correct);
     },
 
+    /** Bleibt für Tests und als Notausgang erreichbar. */
     next(gs) {
       nextRound(gs);
     },
@@ -201,8 +246,7 @@ export function createChoiceGame(cfg) {
     skipStudy(gs) {
       const gd = gs.gd;
       if (!gd || gd.phase !== 'study') return false;
-      stopTimers(id);
-      gd.phase = 'ask';
+      beginneAntwort(gs);
     },
 
     // Spiele können eigene Actions ergänzen (z. B. „nächsten Hinweis zeigen")

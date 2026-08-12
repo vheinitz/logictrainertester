@@ -12,28 +12,16 @@
  * Das neu hinzugekommene Ding wird umrandet statt beschriftet.
  */
 import { createSpanTest } from '../core/adaptive.js';
-import { sample, randInt, color, jsArg, esc } from '../core/html.js';
+import { sample, randInt, color, jsArg, esc, lang } from '../core/html.js';
+import listen from '../data/wordlists.json' with { type: 'json' };
 
-const ITEMS = [
-  { key: 'zahnbuerste', emoji: '🪥', name: 'Zahnbürste' },
-  { key: 'socken',      emoji: '🧦', name: 'Socken' },
-  { key: 'buch',        emoji: '📕', name: 'Buch' },
-  { key: 'ball',        emoji: '⚽', name: 'Ball' },
-  { key: 'teddy',       emoji: '🧸', name: 'Teddy' },
-  { key: 'schirm',      emoji: '☂️', name: 'Regenschirm' },
-  { key: 'brille',      emoji: '🕶️', name: 'Sonnenbrille' },
-  { key: 'kamera',      emoji: '📷', name: 'Kamera' },
-  { key: 'hut',         emoji: '👒', name: 'Hut' },
-  { key: 'schuhe',      emoji: '👟', name: 'Schuhe' },
-  { key: 'apfel',       emoji: '🍎', name: 'Apfel' },
-  { key: 'flasche',     emoji: '🍼', name: 'Trinkflasche' },
-  { key: 'stift',       emoji: '✏️', name: 'Stift' },
-  { key: 'handtuch',    emoji: '🧻', name: 'Handtuch' },
-  { key: 'schluessel',  emoji: '🔑', name: 'Schlüssel' },
-  { key: 'karte',       emoji: '🗺️', name: 'Landkarte' }
-];
+// Gegenstände aus der gemeinsamen Liste – dieselbe Quelle, aus der auch die
+// Sprachaufnahmen erzeugt werden, damit Bild und Ansage nicht auseinanderlaufen.
+const ITEMS = listen.items;
 
 const byKey = k => ITEMS.find(i => i.key === k) || ITEMS[0];
+/** Anzeigename in der eingestellten Sprache. */
+const nameOf = k => { const l = lang(); const i = byKey(k); return i[l] || i.de; };
 
 /** Zeile aus Gegenständen mit Namen; das letzte optional hervorgehoben. */
 function row(items, size, markLast) {
@@ -42,7 +30,7 @@ function row(items, size, markLast) {
       const last = markLast && i === items.length - 1 && items.length > 1;
       return `<div style="display:flex;flex-direction:column;align-items:center;gap:3px">
         <div style="width:${size}px;height:${size}px;border-radius:14px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:${Math.round(size * 0.52)}px;${last ? 'box-shadow:0 0 0 4px var(--primary)' : ''}">${byKey(k).emoji}</div>
-        <span style="font-size:${size > 50 ? '.7em' : '.62em'};color:var(--text-light);max-width:${size + 12}px;text-align:center;line-height:1.2">${esc(byKey(k).name)}</span>
+        <span style="font-size:${size > 50 ? '.7em' : '.62em'};color:var(--text-light);max-width:${size + 12}px;text-align:center;line-height:1.2">${esc(nameOf(k))}</span>
       </div>`;
     }).join('')}
   </div>`;
@@ -54,7 +42,7 @@ const test = createSpanTest({
   maxN: 10,
   levelCap: 12,
   factor: 2,
-  labelOf: k => byKey(k).name,
+  labelOf: k => nameOf(k),
   instruction: 'Der Koffer wird gepackt und bei jeder Runde kommt ein Ding dazu ' +
                '(umrandet). Merke dir alles – und tippe es danach in derselben ' +
                'Reihenfolge an.',
@@ -105,7 +93,7 @@ const test = createSpanTest({
 
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
       ${(gd.optionKeys || []).map(k =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(k)})" title="${byKey(k).name}" style="width:58px;height:58px;border-radius:14px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:1.8em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(k)})" title="${esc(nameOf(k))}" style="width:58px;height:58px;border-radius:14px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:1.8em;cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
     </div>`,
 

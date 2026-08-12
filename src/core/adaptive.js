@@ -33,6 +33,7 @@
 import { engine } from './engine.js';
 import { esc } from './html.js';
 import { bar, ring, stopButton, starRow, pictogram } from './shell.js';
+import * as settings from './settings.js';
 
 /** testId → { deadline } */
 const RUNNING = new Map();
@@ -61,27 +62,19 @@ export function nextBestLevel(best, level, correct) {
   return Math.max(0, level - 1);
 }
 
-// ─── Tempofaktor f (Sekunden pro Item) ────────────────────────────────
-// Kein Bedienelement im Spiel – das Tempo ist eine Voreinstellung, keine
-// Spieloption. Über setFactor() bzw. localStorage änderbar.
-const FACTOR_KEY = 'logik-factors';
+// ─── Tempo ────────────────────────────────────────────────────────────
+// Die Zeiten kommen aus den zentralen Einstellungen (⚙️), nicht aus
+// Konstanten in jedem Modul. Der modul-eigene `factor` wirkt dabei relativ:
+// Bei der Voreinstellung 2 s ergibt er genau seinen eigenen Wert, und wer
+// global langsamer stellt, verlangsamt alle Module im selben Verhältnis.
+const STANDARD_TEMPO = 2;
 
-function loadFactors() {
-  try { return JSON.parse(localStorage.getItem(FACTOR_KEY)) || {}; }
-  catch (e) { return {}; }
-}
-let FACTORS = loadFactors();
-
-export function getFactor(id, fallback = 2) {
-  const v = FACTORS[id] !== undefined ? FACTORS[id] : FACTORS._global;
-  return v === undefined ? fallback : v;
+export function getFactor(id, fallback = STANDARD_TEMPO) {
+  return settings.get('tempo') * (fallback / STANDARD_TEMPO);
 }
 
 export function setFactor(id, val) {
-  const v = Math.max(0.5, Math.min(5, Number(val) || 2));
-  FACTORS[id] = v;
-  try { localStorage.setItem(FACTOR_KEY, JSON.stringify(FACTORS)); } catch (e) { /* egal */ }
-  return v;
+  return settings.set('tempo', val);
 }
 
 // ─── Timerverwaltung ──────────────────────────────────────────────────
@@ -137,12 +130,13 @@ export function createSpanTest(cfg) {
   const maxN = cfg.maxN ?? 10;
   const scoreMap = cfg.scoreMap || DEFAULT_SCORE_MAP;
   const bonus = cfg.bonus ?? DEFAULT_BONUS;
-  const answerFactor = cfg.answerFactor ?? 2;
-  const pauseS = cfg.pauseS ?? PAUSE_S;
+  // Modulwerte wirken relativ zu den globalen Einstellungen
+  const answerFactor = () => settings.get('answerFactor') * ((cfg.answerFactor ?? 2) / 2);
+  const pauseS = () => (cfg.pauseS !== undefined ? cfg.pauseS : settings.get('pause'));
   const labelOf = cfg.labelOf || (x => String(x));
   const levelCap = cfg.levelCap ?? (maxN + 2);
 
-  const f = () => getFactor(id, cfg.factor ?? 2);
+  const f = () => getFactor(id, cfg.factor ?? STANDARD_TEMPO);
 
   function computeScore(level) {
     if (level > maxN) return bonus;
@@ -163,7 +157,7 @@ export function createSpanTest(cfg) {
     // showPadMs: Zuschlag für Module, die vor der Aufgabe noch etwas
     // unterbringen müssen – etwa eine gesprochene Ansage.
     gd.showDuration = Math.round(gd.sequence.length * f() * 1000) + (cfg.showPadMs || 0);
-    gd.answerDuration = Math.round(gd.sequence.length * answerFactor * f() * 1000);
+    gd.answerDuration = Math.round(gd.sequence.length * answerFactor() * f() * 1000);
     schedule(id, gd.showDuration, () => enterWait(gs));
     // Beim allerersten Durchgang aus init() heraus gibt es den Spielbereich
     // noch nicht – dann rendert views.js gleich im Anschluss.
@@ -178,7 +172,7 @@ export function createSpanTest(cfg) {
     const gd = gs.gd;
     gd.phase = 'wait';
     gd.phaseStart = Date.now();
-    schedule(id, pauseS * 1000, () => enterAnswer(gs));
+    schedule(id, pauseS() * 1000, () => enterAnswer(gs));
     engine.renderGame();
   }
 
@@ -214,7 +208,8 @@ export function createSpanTest(cfg) {
     gd.phase = 'feedback';
     publish(gs);
     engine.renderGame();
-    schedule(id, correct ? 1200 : 2500, () => enterShow(gs));
+    schedule(id, Math.round((correct ? settings.get('feedbackOk') : settings.get('feedbackWrong')) * 1000),
+             () => enterShow(gs));
   }
 
   function solution(gd) {
@@ -277,7 +272,7 @@ export function createSpanTest(cfg) {
 
     if (gd.phase === 'wait') {
       return `<div data-phase="wait" style="text-align:center;width:100%">
-        ${ring(pauseS * 1000, elapsed)}
+        ${ring(pauseS() * 1000, elapsed)}
         ${stopButton()}
         ${starRow(gd.bestLevel)}
       </div>`;

@@ -33,6 +33,13 @@ export const performanceModel = {
     hypothesen:{de:['Anstrengungsbereitschaft','Konzentration, Aufmerksamkeit, Ablenkbarkeit','Merkspanne auditiver Reize','Motorik: Überkreuzen der Körpermittellinie','Sensorische Integration','Auditive und visuelle Wahrnehmung','Umgang mit Stress'],ru:['Готовность к усилию','Концентрация, внимание, отвлекаемость','Объём слуховой памяти','Моторика: пересечение средней линии','Сенсорная интеграция','Слуховое и зрительное восприятие','Реакция на стресс']},
     foerderung:{de:['Kombination Sehen-Hören-Bewegen: Boomwhacker','Merkspiele: Memory, Kim-Spiele, Hörbücher','Intermodalität: "Activity" von Piatnik','Loci-Methode für Memorisierung','Körperteile nach Anweisung berühren','Psychomotorik, Ergotherapie'],ru:['Комбинация вижу-слышу-двигаюсь: ритмика','Игры на память: Memory, аудиокниги','Развитие интермодальности: «Activity»','Метод локусов для запоминания','Касаться частей тела по инструкции','Психомоторика, эрготерапия']}
   },
+  'seq-wortreihe-audio': {
+    scale:'sequential', subtestRef:'Wortreihe (Variante mit Ansage)',
+    whatItMeasures:{de:'Sequenzielle Verarbeitung, Kurzzeitgedächtnis (auditorisch-motorisch)',ru:'Последовательная обработка, кратковременная память (слухо-моторная)'},
+    einfluesse:{de:['Akustisches Kurzzeitgedächtnis','Akustisch-motorisches Gedächtnis','Konzentrationsfähigkeit, Fokussierung','Intermodalität: Hören-Sehen-Bewegen','Visuelle Wahrnehmung bedeutungshaltiger Reize','Okularleistungen: Fixieren, Augenfolgebewegungen'],ru:['Слуховая кратковременная память','Слухо-моторная память','Концентрация, фокусировка','Интермодальность: слух-зрение-движение','Визуальное восприятие значимых стимулов','Глазодвигательные функции']},
+    hypothesen:{de:['Anstrengungsbereitschaft','Konzentration, Aufmerksamkeit, Ablenkbarkeit','Merkspanne auditiver Reize','Motorik: Überkreuzen der Körpermittellinie','Sensorische Integration','Auditive und visuelle Wahrnehmung','Umgang mit Stress'],ru:['Готовность к усилию','Концентрация, внимание, отвлекаемость','Объём слуховой памяти','Моторика: пересечение средней линии','Сенсорная интеграция','Слуховое и зрительное восприятие','Реакция на стресс']},
+    foerderung:{de:['Kombination Sehen-Hören-Bewegen: Boomwhacker','Merkspiele: Memory, Kim-Spiele, Hörbücher','Intermodalität: "Activity" von Piatnik','Loci-Methode für Memorisierung','Körperteile nach Anweisung berühren','Psychomotorik, Ergotherapie'],ru:['Комбинация вижу-слышу-двигаюсь: ритмика','Игры на память: Memory, аудиокниги','Развитие интермодальности: «Activity»','Метод локусов для запоминания','Касаться частей тела по инструкции','Психомоторика, эрготерапия']}
+  },
 
   'seq-handbewegungen': {
     scale:'sequential', subtestRef:'Handbewegungen',
@@ -202,6 +209,13 @@ ru:['Глубина словаря','Языковая гибкость','Кре�
   // ===== TUTOR + GEMISCHT =====
   'seq-koffer-packen': {
     scale:'sequential', subtestRef:'Koffer packen (ergänzend)',
+    whatItMeasures:{de:'Auditives Gedächtnis, Merkspanne, sequentielle Verarbeitung',ru:'Слуховая память, объём памяти, последовательная обработка'},
+    einfluesse:{de:['Auditives Kurzzeitgedächtnis','Konzentration','Merkstrategien','Seriation'],ru:['Слуховая память','Концентрация','Стратегии запоминания','Сериация']},
+    hypothesen:{de:['Auditive Merkspanne','Konzentrationsfähigkeit','Strategienutzung'],ru:['Объём слуховой памяти','Концентрация','Использование стратегий']},
+    foerderung:{de:['Täglich Koffer packen spielen','Memory, Kim-Spiele','Merkaufträge im Alltag','Loci-Methode'],ru:['Ежедневно играть в «Чемодан»','Memory, игры Кима','Поручения на запоминание','Метод локусов']}
+  },
+  'seq-koffer-packen-audio': {
+    scale:'sequential', subtestRef:'Koffer packen (Variante mit Ansage)',
     whatItMeasures:{de:'Auditives Gedächtnis, Merkspanne, sequentielle Verarbeitung',ru:'Слуховая память, объём памяти, последовательная обработка'},
     einfluesse:{de:['Auditives Kurzzeitgedächtnis','Konzentration','Merkstrategien','Seriation'],ru:['Слуховая память','Концентрация','Стратегии запоминания','Сериация']},
     hypothesen:{de:['Auditive Merkspanne','Konzentrationsfähigkeit','Strategienutzung'],ru:['Объём слуховой памяти','Концентрация','Использование стратегий']},

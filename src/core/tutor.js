@@ -14,6 +14,7 @@
  */
 import { engine } from './engine.js';
 import { pick } from './html.js';
+import * as settings from './settings.js';
 
 /**
  * @param {object} cfg
@@ -43,7 +44,7 @@ export function createTutorModule(cfg) {
   }
 
   function dispose(gs) {
-    if (gs && gs.gd) gs.gd._ready = false;
+    if (gs && gs.gd) { clearTimeout(gs.gd._weiter); gs.gd._ready = false; }
   }
 
   function render(gs) {
@@ -106,6 +107,13 @@ export function createTutorModule(cfg) {
       gs.score = (gs.score || 0) + (r === 2 ? 1 : r === 1 ? 0.5 : 0);
       if (r === 2 && gd.level < maxLevel) gd.level++;
       else if (r === 0 && gd.level > minLevel) gd.level--;
+      // Von selbst weiter, wie überall sonst – die Begleitperson hat schon
+      // geklickt, ein zweiter Klick auf „Weiter" ist nur Reibung.
+      clearTimeout(gd._weiter);
+      gd._weiter = setTimeout(() => {
+        if (!engine.activeGame || engine.activeGame.id !== cfg.id) return;
+        nextTask(gs); engine.renderGame();
+      }, Math.round(settings.get('feedbackOk') * 1000) + 600);
     },
     next(gs) { nextTask(gs); },
     skip(gs) { nextTask(gs); }

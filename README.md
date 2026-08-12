@@ -276,6 +276,63 @@ wurde — an der richtigen Stelle weiterläuft statt von vorn zu beginnen.
 klickt anschließend langsam (180 ms zwischen down und up). Mit einem
 Re-Render-Tick kommen davon 0 bis 3 von 5 Klicks an, ohne ihn 5 von 5.
 
+### Warum manche Tests eine Hör-Fassung haben
+
+Fünf Faktoren der Kategorie „Auditive Wahrnehmung" wurden von Modulen gespeist,
+die ihre Aufgaben als **Text am Bildschirm** zeigen — die Zuordnung stammte aus
+der Original-Darbietung, bei der die Testleitung vorspricht. Wer nur die
+Textfassungen spielte, bekam trotzdem Werte für akustisches Gedächtnis.
+
+Stilles Lesen aktiviert zwar die phonologische Schleife, also *verbales*
+Kurzzeitgedächtnis. Aber „Auditive Wahrnehmung" und „Akustisch-motorisches
+Gedächtnis" brauchen echten Klang. Deshalb jetzt:
+
+- Textfassungen zählen auf *Visuelles Kurzzeitgedächtnis* und *Sequentielles
+  Gedächtnis*.
+- Auditive Faktoren speisen nur Module mit Tonausgabe. Ein Test in
+  `test/smoke.mjs` liest dafür den Quelltext jedes Moduls: steht dort kein
+  `core/audio.js`, darf es in keinem auditiven Faktor auftauchen.
+- Für Zahlenfolgen, Wörter-Kette und Koffer packen gibt es je eine
+  Hör-Fassung. Der Vergleich beider ist das eigentlich Interessante: dieselbe
+  Aufgabe einmal über die Augen, einmal über die Ohren.
+
+### Sprachaufnahmen liegen neben dem Bundle
+
+`dist/audio-de.js` und `dist/audio-ru.js` (je 57 Aufnahmen: Ziffern, Ansage,
+30 Wörter, 16 Kofferdinge) werden per `<script>` aus `index.html` geladen und
+füllen `window.LOGIK_AUDIO`.
+
+Nicht im Bundle, weil das App-Bundle klein bleiben und sich unabhängig ändern
+soll; der Browser lädt beide parallel und cacht sie getrennt. Nicht erst im
+Test nachgeladen, weil sie dann beim Speichern der Seite fehlen würden und von
+`file://` aus gar nicht ladbar wären — dort blockiert der Browser `fetch` und
+ES-Module. Ein statisches `<script>` funktioniert überall.
+
+Die Wortlisten stehen in `src/data/wordlists.json` — dieselbe Quelle, aus der
+die App den Bildschirmtext nimmt und `tools/make-audio.py` die Aufnahmen
+erzeugt. Zwei Listen würden auseinanderlaufen.
+
+### Alles Zeitliche steht in den Einstellungen
+
+`src/core/settings.js` hält Anzeigedauer, Antwortzeit, Pause, Lernzeit,
+Rückmeldedauer und den Ton an einer Stelle; `⚙️ Einstellungen` baut die Seite
+allein aus dem SCHEMA, eine neue Einstellung erscheint dort von selbst. Die
+Werte je Modul wirken **relativ**: bei der Voreinstellung 2 s ergibt sich genau
+der bisherige Wert, und wer global langsamer stellt, verlangsamt alle Module
+im selben Verhältnis.
+
+### Kein „Weiter" mehr
+
+Auch die Auswahlaufgaben laufen jetzt wie die Merkspannen-Tests: Rückmeldung
+läuft nach 1,2 s (richtig) bzw. 2,5 s (falsch) von selbst weiter, und die
+Antwortphase hat ein Zeitlimit mit Ablaufbalken.
+
+Bewusst **nicht** übernommen wurde das Ausblenden der Aufgabe vor dem
+Antworten. Bei „Was passt nicht?" oder einer Wissensfrage würde das aus einer
+Denk- eine Gedächtnisaufgabe machen und damit etwas anderes messen.
+Ausgeblendet wird nur, wo Merken das Ziel ist — dafür gibt es die
+`study`-Phase.
+
 ### Navigation: Aufgabe vorn, Erklärung dahinter
 
 Der Startbildschirm eines Moduls zeigt nur, was zum Loslegen nötig ist:

@@ -314,26 +314,39 @@ for (const [id, load] of Object.entries(registry)) {
   check('faktoren', !inFaktor('KF086', 'seq-zahlenfolgen-audio'),
         'Die Ansage-Variante steht beim visuellen Kurzzeitgedächtnis');
 
-  // Sprachaufnahmen: beide Sprachen, alle zehn Ziffern, plausible Dauer
-  const { DIGIT_MP3, DIGIT_MS, hasDigits } = await import('../src/data/audio-digits.js');
+  // Sprachaufnahmen liegen jetzt als eigene Dateien neben dem Bundle und
+  // füllen window.LOGIK_AUDIO. Der Smoke-Test lädt sie wie der Browser.
+  const { readFileSync: lies } = await import('node:fs');
   for (const l of ['de', 'ru']) {
-    check('audio', hasDigits(l), `Aufnahmen für "${l}" fehlen`);
-    for (let n = 0; n <= 9; n++) {
-      const b64 = DIGIT_MP3[l][n];
-      check('audio', typeof b64 === 'string' && b64.length > 500,
-            `${l}/${n}: Aufnahme fehlt oder ist zu kurz`);
-      const ms = DIGIT_MS[l][n].ms;
-      check('audio', ms > 120 && ms < 1200, `${l}/${n}: Dauer ${ms} ms ist unplausibel`);
-      check('audio', !!DIGIT_MS[l][n].word, `${l}/${n}: Wort fehlt`);
-    }
+    // eslint-disable-next-line no-eval
+    (0, eval)(lies(`dist/audio-${l}.js`, 'utf8'));
   }
-  // Ansage: sauberer Ein-/Ausstieg und Platz in der Zeigephase
-  const { LEAD_MP3, LEAD_MS } = await import('../src/data/audio-digits.js');
+  const A = await import('../src/core/audio-assets.js');
+
   for (const l of ['de', 'ru']) {
-    check('audio', typeof LEAD_MP3[l] === 'string' && LEAD_MP3[l].length > 500,
-          `Ansage für "${l}" fehlt`);
-    check('audio', LEAD_MS[l].ms > 300 && LEAD_MS[l].ms < 1500,
-          `Ansage "${l}" dauert ${LEAD_MS[l].ms} ms`);
+    check('audio', A.hasVoice(l), `Aufnahmen für "${l}" fehlen`);
+    for (let n = 0; n <= 9; n++) {
+      const b64 = A.clip(l, 'd' + n);
+      check('audio', typeof b64 === 'string' && b64.length > 500,
+            `${l}/Ziffer ${n}: Aufnahme fehlt oder ist zu kurz`);
+      const ms = A.clipMs(l, 'd' + n);
+      check('audio', ms > 120 && ms < 1500, `${l}/Ziffer ${n}: Dauer ${ms} ms ist unplausibel`);
+      check('audio', !!A.clipText(l, 'd' + n), `${l}/Ziffer ${n}: Text fehlt`);
+    }
+    check('audio', !!A.clip(l, 'lead'), `Ansage für "${l}" fehlt`);
+    check('audio', A.clipMs(l, 'lead') > 300 && A.clipMs(l, 'lead') < 1500,
+          `Ansage "${l}" dauert ${A.clipMs(l, 'lead')} ms`);
+  }
+
+  // Wörter und Kofferdinge: für jeden Listeneintrag eine Aufnahme
+  const listen = JSON.parse(lies('src/data/wordlists.json', 'utf8'));
+  for (const l of ['de', 'ru']) {
+    for (const w of listen.words) {
+      check('audio', !!A.clip(l, 'w:' + w.de), `${l}: Aufnahme für Wort "${w.de}" fehlt`);
+    }
+    for (const it of listen.items) {
+      check('audio', !!A.clip(l, 'i:' + it.key), `${l}: Aufnahme für "${it.key}" fehlt`);
+    }
   }
 
   // Die gesprochene Folge muss in die Zeigephase passen. Ohne diese Prüfung
@@ -341,10 +354,10 @@ for (const [id, load] of Object.entries(registry)) {
   // das merkt man erst beim Zuhören, nicht im Code.
   const FACTOR = 1.3, PAD = 1400, GAP = 400, MIN_LUECKE = 220, VORLAUF = 150;
   for (const l of ['de', 'ru']) {
-    const laengste = Math.max(...Object.values(DIGIT_MS[l]).map(x => x.ms));
+    const laengste = A.longestMs(l, [...Array(10).keys()].map(n => 'd' + n));
     const takt = Math.max(FACTOR * 1000, laengste + MIN_LUECKE);
     for (const N of [2, 5, 10]) {
-      const endeMs = VORLAUF + LEAD_MS[l].ms + GAP + (N - 1) * takt + laengste;
+      const endeMs = VORLAUF + A.clipMs(l, 'lead') + GAP + (N - 1) * takt + laengste;
       const phaseMs = N * FACTOR * 1000 + PAD;
       check('audio', endeMs <= phaseMs,
             `${l}, N=${N}: die Ansage endet bei ${Math.round(endeMs)} ms, ` +
@@ -388,6 +401,32 @@ for (const [id, load] of Object.entries(registry)) {
     check('methoden', !!getMethod(id),
           `Förderpunkt "${text}" verweist auf fehlende Seite "${id}"`);
   }
+}
+
+// ─── Auditive Faktoren nur für Module mit Ton ─────────────────────────
+// Genau hier lag ein Fehler: die Zuordnung stammte aus der Original-
+// Darbietung, bei der die Testleitung vorspricht. Unsere Textmodule geben
+// keinen Ton aus – trotzdem hoben sie „Auditive Wahrnehmung" auf 30 %.
+{
+  const { readFileSync } = await import('node:fs');
+  const gibtTonAus = id => {
+    try { return /core\/audio\.js/.test(readFileSync(`src/games/${id}.js`, 'utf8')); }
+    catch (e) { return false; }
+  };
+  const auditiv = Object.entries(cognitiveFactors)
+    .filter(([, f]) => f.category === 'auditive_wahrnehmung' || /Hören|auditiv|akustisch/i.test(f.de));
+
+  for (const [id, f] of auditiv) {
+    for (const mid of f.modules) {
+      check('faktoren', gibtTonAus(mid),
+            `${id} „${f.de}" führt "${mid}" – das Modul gibt aber keinen Ton aus`);
+    }
+  }
+
+  // Umgekehrt: kein Modul darf in einer Kategorie stehen, die es nicht bedient
+  const tonModule = modules.map(m => m.id).filter(gibtTonAus);
+  check('faktoren', tonModule.length >= 2,
+        `nur ${tonModule.length} Modul(e) mit Tonausgabe gefunden – Prüfung liefe ins Leere`);
 }
 
 // ─── Konsistenz der Registrierungen ───────────────────────────────────

@@ -9,6 +9,7 @@ import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../d
 import * as storage from '../core/storage.js';
 import { lang } from '../core/html.js';
 import { renderMethods, renderMethod } from './methods-view.js';
+import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 
 /**
@@ -49,6 +50,7 @@ export function renderView(view) {
     case 'methods': renderMethods(m); break;
     case 'method': renderMethod(m); break;
     case 'insights': renderInsights(m); break;
+    case 'settings': renderSettings(m); break;
     default: renderMenu(m);
   }
 }
@@ -105,6 +107,7 @@ function renderMenu(main) {
       <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">📊 ${t('statsTitle')}</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">🎯 Kognitives Profil</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">🧰 Fördermethoden</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('settings')" style="background:var(--text-light)">⚙️ Einstellungen</button>
     </div>
     <h3 class="section-title">${t('trainByScale')}</h3>
     <div class="card-grid">${scalesHtml}</div>
