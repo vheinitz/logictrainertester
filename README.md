@@ -312,6 +312,43 @@ Die Wortlisten stehen in `src/data/wordlists.json` — dieselbe Quelle, aus der
 die App den Bildschirmtext nimmt und `tools/make-audio.py` die Aufnahmen
 erzeugt. Zwei Listen würden auseinanderlaufen.
 
+### Ein Durchgang hat ein Ende
+
+Voreingestellt 10 Übungen, in den Einstellungen von 3 bis 40 wählbar. Danach
+Ergebnis und zurück zur Testgruppe. Ohne Grenze läuft jedes Modul endlos: für
+ein Kind ohne absehbares Ende, und für die Auswertung stünden Werte aus 4 und
+aus 40 Übungen unvergleichbar nebeneinander.
+
+Gezählt wird in `gs.rounds` — abgeschlossene Übungen, nicht Klicks. Was eine
+Übung ist, entscheidet die jeweilige Engine: ein Durchgang beim Merkspann,
+eine Frage bei den Auswahlaufgaben, ein **fertiges Brett** bei Memory und ein
+**gelöstes Rätsel** beim Sudoku — dort wäre Abbrechen mitten im Brett unsinnig.
+
+Der Fortschritt steht als Punktreihe über der Aufgabe, wortlos wie die
+Sternenreihe; ab 20 Übungen wird daraus ein schmaler Balken, weil 30 Punkte
+nichts mehr erkennen lassen.
+
+### Bilder zu den Wörtern
+
+Jedes Wort in `wordlists.json` hat ein Symbol, das neben dem Wort steht. Ohne
+das ist die Wörter-Kette für Kinder, die noch nicht lesen, gar nicht
+durchführbar — und in der Hörfassung könnten sie die Auswahl nicht lesen. Wer
+liest, nutzt das Wort und ignoriert das Bild.
+
+Ein Wort ist dafür aus der Liste gefallen: für Tisch gibt es kein brauchbares
+Symbol, an seiner Stelle steht jetzt Zug.
+
+### Ansage je Test passend
+
+Vor der Folge steht eine Ansage, damit das erste Element nicht aus dem Nichts
+kommt. Je Test die passende Formel — beim Kofferpacken die Spielformel statt
+eines neutralen Wiederhole.
+
+Der Smoke-Test rechnet für **jedes** Modul mit Ansage nach, dass die
+gesprochene Folge in die Zeigephase passt. Das war nötig: die längere
+Koffer-Ansage überzog die Phase auf Russisch um 67 ms und hätte die letzte
+Aufnahme abgeschnitten — hörbar, aber im Code unsichtbar.
+
 ### Alles Zeitliche steht in den Einstellungen
 
 `src/core/settings.js` hält Anzeigedauer, Antwortzeit, Pause, Lernzeit,
