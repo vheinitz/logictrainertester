@@ -59,19 +59,35 @@ const test = createSpanTest({
                '(umrandet). Merke dir alles – und tippe es danach in derselben ' +
                'Reihenfolge an.',
 
+  /**
+   * Der Koffer wächst und schrumpft – er wird nie neu gewürfelt.
+   *
+   * Vorher packte jede Stufe, die nicht genau um eins gewachsen war, einen
+   * komplett neuen Zufallskoffer. Nach dem ersten Fehler standen deshalb lauter
+   * fremde Dinge da: das Spiel fühlte sich an, als hätte es von vorn begonnen,
+   * und der kumulative Charakter – der eigentliche Kern von „Ich packe meinen
+   * Koffer" – war weg.
+   *
+   * Jetzt: bei einem Fehler fällt genau das zuletzt hinzugekommene Ding wieder
+   * heraus, der Rest bleibt stehen. Geht es wieder hoch, kommt ein NEUES Ding
+   * dazu – die Aufgabe wiederholt sich also nicht wörtlich.
+   */
   genItems: (level, gd) => {
-    const prev = gd.suitcase || [];
-    if (prev.length === level - 1) {
-      // eine Stufe weiter: alles Bisherige bleibt, genau ein Ding kommt dazu
-      const used = new Set(prev);
+    let koffer = gd.suitcase || [];
+
+    // Zu viele Dinge (Niveau gesunken): hinten abschneiden, vorne bleibt alles
+    if (koffer.length > level) koffer = koffer.slice(0, level);
+
+    // Zu wenige (Niveau gestiegen oder Start): auffüllen, ohne Wiederholung
+    while (koffer.length < level) {
+      const used = new Set(koffer);
       const rest = ITEMS.filter(i => !used.has(i.key));
-      if (rest.length) prev.push(rest[randInt(0, rest.length - 1)].key);
-      gd.suitcase = prev;
-    } else {
-      // Niveau gesunken oder Neustart: Koffer neu packen
-      gd.suitcase = sample(ITEMS, level).map(i => i.key);
+      if (!rest.length) break;                 // Vorrat erschöpft
+      koffer.push(rest[randInt(0, rest.length - 1)].key);
     }
-    return gd.suitcase.slice(0, level);
+
+    gd.suitcase = koffer;
+    return koffer.slice(0, level);
   },
 
   renderShow: (gd) => row(gd.sequence, 60, true),

@@ -73,3 +73,64 @@ export function beepNow(opt) {
   if (!a) return false;
   return beep(a.currentTime + 0.001, opt);
 }
+
+// ─── Vorbereitete Sprachaufnahmen ─────────────────────────────────────
+// base64 → AudioBuffer. Bewusst ohne fetch: von file:// aus blockiert der
+// Browser fetch/XHR, decodeAudioData auf nachgeladene Dateien schlägt dort
+// fehl. Die Daten stecken deshalb im Bundle.
+
+const decoded = new Map();      // key → AudioBuffer
+const pending = new Map();      // key → Promise
+
+function base64ToBytes(b64) {
+  const bin = atob(b64);
+  const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+
+/** Einen base64-Clip dekodieren und unter `key` merken. */
+export function loadClip(key, b64) {
+  if (decoded.has(key)) return Promise.resolve(decoded.get(key));
+  if (pending.has(key)) return pending.get(key);
+  const a = audio();
+  if (!a) return Promise.resolve(null);
+
+  const p = new Promise(resolve => {
+    let bytes;
+    try { bytes = base64ToBytes(b64); }
+    catch (e) { resolve(null); return; }
+    // Callback-Form, weil ältere Safari-Versionen kein Promise zurückgeben
+    try {
+      a.decodeAudioData(bytes.buffer,
+        buf => { decoded.set(key, buf); resolve(buf); },
+        () => resolve(null));
+    } catch (e) { resolve(null); }
+  });
+  pending.set(key, p);
+  return p;
+}
+
+/** Sind alle Clips dieser Schlüssel bereits dekodiert? */
+export function clipsReady(keys) {
+  return keys.every(k => decoded.has(k));
+}
+
+/**
+ * Einen dekodierten Clip zum Zeitpunkt `at` (Audio-Uhr) starten.
+ * Gibt die Dauer in Sekunden zurück, 0 wenn nicht abspielbar.
+ */
+export function playClip(key, at) {
+  const a = audio();
+  const buf = decoded.get(key);
+  if (!a || !buf) return 0;
+  try {
+    const src = a.createBufferSource();
+    src.buffer = buf;
+    src.connect(a.destination);
+    src.start(at);
+    return buf.duration;
+  } catch (e) {
+    return 0;
+  }
+}

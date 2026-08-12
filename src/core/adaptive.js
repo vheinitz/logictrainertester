@@ -160,12 +160,18 @@ export function createSpanTest(cfg) {
     gd.userAnswer = [];
     gd.phase = 'show';
     gd.phaseStart = Date.now();
-    gd.showDuration = Math.round(gd.sequence.length * f() * 1000);
+    // showPadMs: Zuschlag für Module, die vor der Aufgabe noch etwas
+    // unterbringen müssen – etwa eine gesprochene Ansage.
+    gd.showDuration = Math.round(gd.sequence.length * f() * 1000) + (cfg.showPadMs || 0);
     gd.answerDuration = Math.round(gd.sequence.length * answerFactor * f() * 1000);
     schedule(id, gd.showDuration, () => enterWait(gs));
     // Beim allerersten Durchgang aus init() heraus gibt es den Spielbereich
     // noch nicht – dann rendert views.js gleich im Anschluss.
     if (document.getElementById('gameArea')) engine.renderGame();
+    // Nach dem Zeichnen: hier gehören Seiteneffekte der Zeigephase hin, etwa
+    // eine Sprachansage. In renderShow() wären sie falsch aufgehoben – render
+    // kann mehrfach laufen, die Ansage käme dann doppelt.
+    if (cfg.onShow) cfg.onShow(gd, gs);
   }
 
   function enterWait(gs) {

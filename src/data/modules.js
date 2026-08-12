@@ -15,7 +15,8 @@ export const scales = [
 ];
 
 export const modules = [
-  {id:'seq-zahlenfolgen',scale:'sequential',title:'Zahlenfolgen merken',icon:'🔢',ages:'4-18',mode:'self',kabcRef:'Zahlen nachsprechen'},
+  {id:'seq-zahlenfolgen',scale:'sequential',title:'Zahlenfolgen sehen',icon:'🔢',ages:'4-18',mode:'self',kabcRef:'Zahlen nachsprechen'},
+  {id:'seq-zahlenfolgen-audio',scale:'sequential',title:'Zahlenfolgen hören',icon:'🔊',ages:'4-18',mode:'self',kabcRef:'Zahlen nachsprechen'},
   {id:'seq-wortreihe',scale:'sequential',title:'Wörter-Kette',icon:'🔗',ages:'3-18',mode:'self',kabcRef:'Wortreihe'},
   {id:'seq-handbewegungen',scale:'sequential',title:'Händchen-Folge',icon:'✋',ages:'4-18',mode:'self',kabcRef:'Handbewegungen'},
   {id:'seq-koffer-packen',scale:'sequential',title:'Ich packe meinen Koffer',icon:'🧳',ages:'3-18',mode:'self'},

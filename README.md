@@ -98,6 +98,80 @@ localStorage:
 _setTempo('seq-zahlenfolgen', 1.5)
 ```
 
+### Zahlenfolgen: zwei Varianten, zwei Messungen
+
+`seq-zahlenfolgen` zeigt die Ziffern, `seq-zahlenfolgen-audio` sagt sie an.
+Das sind nicht zwei Anzeigearten desselben Tests, sondern **zwei verschiedene
+Messungen** — und deshalb sind sie im Faktorenmodell getrennt geführt:
+
+| | sehen | hören |
+|---|---|---|
+| Faktoren | Visuelles Kurzzeitgedächtnis (KF086) | Akustisches/Auditives KZG (KF004, KF011) |
+| gemeinsam | Aufmerksamkeit, Ausdauer, Seriation, Zahlenumgang | dieselben |
+
+Stünde die Bildschirm-Variante bei den auditiven Faktoren, bekäme ein Kind mit
+Hörproblem dort einen guten Wert — das Profil würde die Schwäche verdecken.
+Die Ansage-Variante entspricht dem KABC-Originalsubtest.
+
+**Sprachaufnahmen sind vorab erzeugt** (`tools/make-audio.py`, piper offline,
+DE + RU), nicht zur Laufzeit gesprochen. `speechSynthesis` klingt auf jedem
+Gerät anders und startet zeitlich unvorhersehbar; für eine Merkspanne muss
+jede Ziffer im selben Takt kommen, sonst misst man das Gerät statt das Kind.
+Die Aufnahmen liegen als base64-MP3 im Bundle (`src/data/audio-digits.js`,
+erzeugt) — von `file://` aus blockiert der Browser `fetch`, nachgeladene
+Dateien ließen sich dort nicht dekodieren. Die Sprache folgt der
+App-Einstellung.
+
+Vor der Folge steht eine Ansage („Wiederhole:" / „Повтори:"), damit die erste
+Ziffer nicht aus dem Nichts kommt — die geht sonst am ehesten verloren.
+
+**Warum die Ziffern einzeln erzeugt werden.** Naheliegend wäre, die ganze
+Folge als einen Satz sprechen zu lassen: das klingt natürlicher. Es geht aber
+nicht, weil die Folge pro Runde neu gewürfelt wird — es gibt nichts Festes zu
+erzeugen. Der Versuch, eine Komma-Liste zu sprechen und an den Pausen zu
+schneiden, scheitert zusätzlich an der russischen Stimme: sie spricht zehn
+Ziffern in 2,7 s ohne hörbare Pause an den Kommas.
+
+**Warum es trotzdem abgehackt klang — und was es wirklich war.** Nicht der
+Player: die Clips werden über die Audio-Uhr sample-genau geplant, dort geht
+nichts verloren. Die Ursache war messbar der Stille-Schnitt bei −45 dB, der in
+die Wortanfänge geschnitten hat. Die russischen Clips begannen mit bis zu
+**15 % Amplitude** statt bei null — bei jeder Ziffer ein Knacken (Deutsch nur
+1,5 %, deshalb fiel es dort kaum auf). Behoben durch:
+
+| Maßnahme | Wirkung |
+|---|---|
+| langsamer sprechen (`length_scale` 1,15 DE / 1,45 RU) | kurze Wörter bekommen Kontur |
+| schonender Schnitt bei −55 dB | Anlaute bleiben erhalten |
+| Ein-/Ausblenden 15/45 ms | Clip beginnt und endet bei null |
+| 10 ms Stille-Polster | fängt das Nachschwingen des MP3-Kodierers auf |
+| Spitzenpegel statt `loudnorm` | `loudnorm` arbeitet unter 1 s unzuverlässig |
+
+Ergebnis: größte Randamplitude **0,18 %** statt 15,1 %. Der Generator bricht
+ab, wenn ein Clip über 2 % liegt.
+
+Neu erzeugen:
+
+```bash
+python3 tools/make-audio.py    # braucht piper-tts mit lokalen Stimmen + ffmpeg
+```
+
+Der Smoke-Test rechnet außerdem nach, dass die gesprochene Folge in die
+Zeigephase passt — sonst würde ein späteres Tempo-Feintuning die letzte Ziffer
+abschneiden, und das merkt man erst beim Zuhören.
+
+### Ich packe meinen Koffer: der Koffer wird nie neu gewürfelt
+
+Der Kern des Spiels ist, dass die Liste *dieselbe* bleibt und wächst. Eine
+frühere Fassung packte bei jedem Niveau, das nicht genau um eins gewachsen
+war, einen komplett neuen Zufallskoffer — also nach **jedem Fehler**. Damit
+standen plötzlich lauter fremde Dinge da, das Spiel fühlte sich an, als hätte
+es von vorn begonnen, und der kumulative Charakter war weg.
+
+Jetzt wächst und schrumpft der Koffer nur: bei einem Fehler fällt das zuletzt
+hinzugekommene Ding heraus, der Rest bleibt. Geht es wieder hoch, kommt ein
+neues Ding dazu — die Aufgabe wiederholt sich also nicht wörtlich.
+
 ### Rhythmus ohne Begleitperson
 
 `seq-rhythmus` klopft ein Muster als Töne vor (WebAudio, kein mitgeliefertes

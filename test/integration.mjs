@@ -61,9 +61,12 @@ const phaseTest = [];
 const dupTest = [];
 const starTest = [];
 const rhythmTest = [];
+const audioTest = [];
+const kofferTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
-const MINIMAL = ['seq-zahlenfolgen', 'seq-wortreihe', 'seq-handbewegungen',
-                 'seq-koffer-packen', 'sim-gesichter', 'seq-rhythmus'];
+const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
+                 'seq-handbewegungen', 'seq-koffer-packen', 'sim-gesichter',
+                 'seq-rhythmus'];
 // Merkspannen-Tests mit Auswahl-Eingabe (Rhythmus klopft stattdessen)
 const ADAPTIVE = MINIMAL.filter(id => id !== 'seq-rhythmus');
 
@@ -76,7 +79,7 @@ check(typeof window.navigateTo === 'function',
       'Der Bundle installiert window.navigateTo nicht');
 check(main.innerHTML.length > 500, 'Menü wurde nicht gerendert');
 const cards = main.querySelectorAll('.card');
-check(cards.length >= 26, `Menü zeigt nur ${cards.length} Karten`);
+check(cards.length >= 27, `Menü zeigt nur ${cards.length} Karten`);
 
 // Cache-Kennung: das Script-Tag muss ein ?v= tragen und das Menü es anzeigen,
 // damit erkennbar bleibt, welcher Stand im Browser läuft.
@@ -329,6 +332,87 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   await sleep(40);
 }
 
+// ─── Zahlenfolgen mit Ansage: nichts zu sehen, alles zu hören ─────────
+// Der Kern der Variante: während der Ansage dürfen keine Ziffern auf dem
+// Schirm stehen, sonst wäre es doch wieder ein Sehtest.
+{
+  window.startModule('seq-zahlenfolgen-audio');
+  await sleep(60);
+  const intro = main.innerHTML;
+  check(/data-role="instruction"/.test(intro), 'Ansage-Variante ohne Anleitung');
+  check(/hörst/.test(intro), 'Die Anleitung erwähnt das Hören nicht');
+
+  window._startGame();
+  await sleep(150);
+  const a = window.document.getElementById('gameArea');
+  const showEl = a && a.querySelector('[data-phase="show"]');
+  check(!!showEl, 'Ansage-Variante erreicht die Zeigephase nicht');
+  if (showEl) {
+    const ziffern = showEl.textContent.replace(/[^0-9]/g, '');
+    check(ziffern === '',
+          `Während der Ansage stehen Ziffern auf dem Schirm: "${ziffern}"`);
+  }
+
+  // Antwortphase: die Zifferntastatur muss trotzdem da sein
+  const btn = await waitForPicks(14000);
+  check(!!btn, 'Ansage-Variante erreicht die Antwortphase nicht');
+  const a2 = window.document.getElementById('gameArea');
+  check(a2 && a2.querySelectorAll(PICK_SEL).length === 10,
+        `Antwortphase zeigt ${a2 ? a2.querySelectorAll(PICK_SEL).length : 0} statt 10 Ziffern`);
+  audioTest.push('Ansage ohne sichtbare Ziffern, 10 Eingabetasten');
+
+  window.navigateTo('menu');
+  await sleep(40);
+}
+
+// ─── Koffer packen bleibt beim Fehler derselbe Koffer ─────────────────
+{
+  window.startModule('seq-koffer-packen');
+  await sleep(60);
+  window._startGame();
+
+  const gezeigt = async () => {
+    for (let t = 0; t < 14000; t += 100) {
+      const a = window.document.getElementById('gameArea');
+      const el = a && a.querySelector('[data-phase="show"]');
+      if (el) return [...el.querySelectorAll('span')].map(s => s.textContent.trim())
+                 .filter(Boolean);
+      await sleep(100);
+    }
+    return null;
+  };
+
+  const runde1 = await gezeigt();
+  check(!!runde1 && runde1.length >= 2, 'Koffer zeigt keine Dinge');
+
+  // absichtlich falsch antworten und die nächste Zeigephase abwarten
+  if (await waitForPicks(14000)) {
+    for (let k = 0; k < 12; k++) {
+      const a = window.document.getElementById('gameArea');
+      const opts = a ? [...a.querySelectorAll(PICK_SEL)] : [];
+      if (!opts.length) break;
+      opts[opts.length - 1].dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+      await sleep(60);
+      const b = window.document.getElementById('gameArea');
+      if (!b || !b.querySelector(PICK_SEL)) break;
+    }
+  }
+  await sleep(2900);                       // Rückmeldung abwarten
+  const runde2 = await gezeigt();
+  check(!!runde2, 'Nach dem Fehler folgt keine neue Zeigephase');
+
+  if (runde1 && runde2) {
+    const gemeinsam = runde2.filter(x => runde1.includes(x)).length;
+    check(gemeinsam >= Math.min(runde1.length, runde2.length),
+          `Nach dem Fehler wurde der Koffer neu gepackt: ` +
+          `[${runde1}] → [${runde2}] (nur ${gemeinsam} gemeinsam)`);
+    kofferTest.push(`[${runde1.join(',')}] → [${runde2.join(',')}]`);
+  }
+
+  window.navigateTo('menu');
+  await sleep(40);
+}
+
 // ─── Rhythmus: hören, nachklopfen, bewertet werden ────────────────────
 // Das Muster wird deterministisch gemacht (Math.random → 0), damit die
 // Schlagzeitpunkte im Voraus bekannt sind: Niveau 3 ergibt dann zwei gleiche
@@ -494,6 +578,8 @@ console.log(`   Sichtbarkeit der Aufgabe pro Runde: ${phaseTest.join(', ')}`);
 console.log(`   Wiederholte Eingabe angenommen: ${dupTest.join(', ')}`);
 console.log(`   Sternenreihe: ${starTest.join(', ')}`);
 console.log(`   Rhythmus: ${rhythmTest.join(', ') || 'nicht geprüft'}`);
+console.log(`   Zahlen mit Ansage: ${audioTest.join(', ') || 'nicht geprüft'}`);
+console.log(`   Koffer nach Fehler: ${kofferTest.join(' ') || 'nicht geprüft'}`);
 // Der Punktestand darf auch nicht als leere Hülle zurückbleiben
 check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Minimal-Hülle geprüft, erwartet ${MINIMAL.length}`);
 

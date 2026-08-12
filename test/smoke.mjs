@@ -254,6 +254,116 @@ for (const [id, load] of Object.entries(registry)) {
   }
 }
 
+// ─── Koffer packen bleibt kumulativ ───────────────────────────────────
+// Der Koffer darf nur wachsen und schrumpfen, nie neu gewürfelt werden.
+// Vorher wurde nach jedem Fehler ein komplett neuer Zufallskoffer gepackt –
+// das Spiel fühlte sich an, als hätte es von vorn begonnen.
+{
+  const mod = await registry['seq-koffer-packen']();
+  const gs = { moduleId: 'seq-koffer-packen', step: 'game', gd: {} };
+  engine.activeGame = { id: 'seq-koffer-packen', mod };
+  engine.gameState = gs;
+  mod.init(gs);
+
+  // Niveaus durchfahren: hoch, hoch, Fehler (runter), wieder hoch, hoch.
+  // init() erzeugt jeweils eine neue Zeigephase auf gs.gd.level.
+  const folgen = [];
+  for (const lvl of [2, 3, 4, 3, 4, 5]) {
+    gs.gd.level = lvl;
+    gs.gd._ready = false;
+    mod.init(gs);
+    folgen.push([...gs.gd.sequence]);
+  }
+
+  const [a2, a3, a4, b3, b4, b5] = folgen;
+  check('koffer', a3.slice(0, 2).join() === a2.join(),
+        `beim Wachsen 2→3 änderten sich die ersten Dinge: ${a2} → ${a3}`);
+  check('koffer', a4.slice(0, 3).join() === a3.join(),
+        `beim Wachsen 3→4 änderten sich die ersten Dinge: ${a3} → ${a4}`);
+  check('koffer', b3.join() === a4.slice(0, 3).join(),
+        `nach dem Fehler (4→3) wurde der Koffer neu gewürfelt: ${a4} → ${b3}`);
+  check('koffer', b4.slice(0, 3).join() === b3.join(),
+        `beim erneuten Wachsen 3→4 änderten sich die ersten Dinge: ${b3} → ${b4}`);
+  check('koffer', new Set(b5).size === b5.length,
+        `der Koffer enthält doppelte Dinge: ${b5}`);
+  check('koffer', b5.length === 5, `Niveau 5 zeigt ${b5.length} Dinge`);
+
+  mod.dispose(gs);
+  engine.activeGame = null;
+}
+
+// ─── Zwei Zahlenfolgen-Varianten, getrennt zugeordnet ─────────────────
+// Die Ansage-Variante misst Hören, die Bildschirm-Variante Sehen. Stünde die
+// Bildschirm-Variante bei den auditiven Faktoren, wäre das kognitive Profil
+// falsch: ein Kind mit Hörproblem sähe dort einen guten Wert.
+{
+  const { cognitiveFactors: KF } = await import('../src/data/cognitive-factors.js');
+  const inFaktor = (kf, id) => KF[kf].modules.includes(id);
+  const auditiv = Object.entries(KF)
+    .filter(([, f]) => f.category === 'auditive_wahrnehmung')
+    .map(([id]) => id);
+
+  for (const kf of auditiv) {
+    check('faktoren', !inFaktor(kf, 'seq-zahlenfolgen'),
+          `${kf} (${KF[kf].de}) führt die Bildschirm-Variante als auditiv`);
+  }
+  check('faktoren', inFaktor('KF004', 'seq-zahlenfolgen-audio'),
+        'Die Ansage-Variante fehlt beim akustischen Kurzzeitgedächtnis');
+  check('faktoren', inFaktor('KF086', 'seq-zahlenfolgen'),
+        'Die Bildschirm-Variante fehlt beim visuellen Kurzzeitgedächtnis');
+  check('faktoren', !inFaktor('KF086', 'seq-zahlenfolgen-audio'),
+        'Die Ansage-Variante steht beim visuellen Kurzzeitgedächtnis');
+
+  // Sprachaufnahmen: beide Sprachen, alle zehn Ziffern, plausible Dauer
+  const { DIGIT_MP3, DIGIT_MS, hasDigits } = await import('../src/data/audio-digits.js');
+  for (const l of ['de', 'ru']) {
+    check('audio', hasDigits(l), `Aufnahmen für "${l}" fehlen`);
+    for (let n = 0; n <= 9; n++) {
+      const b64 = DIGIT_MP3[l][n];
+      check('audio', typeof b64 === 'string' && b64.length > 500,
+            `${l}/${n}: Aufnahme fehlt oder ist zu kurz`);
+      const ms = DIGIT_MS[l][n].ms;
+      check('audio', ms > 120 && ms < 1200, `${l}/${n}: Dauer ${ms} ms ist unplausibel`);
+      check('audio', !!DIGIT_MS[l][n].word, `${l}/${n}: Wort fehlt`);
+    }
+  }
+  // Ansage: sauberer Ein-/Ausstieg und Platz in der Zeigephase
+  const { LEAD_MP3, LEAD_MS } = await import('../src/data/audio-digits.js');
+  for (const l of ['de', 'ru']) {
+    check('audio', typeof LEAD_MP3[l] === 'string' && LEAD_MP3[l].length > 500,
+          `Ansage für "${l}" fehlt`);
+    check('audio', LEAD_MS[l].ms > 300 && LEAD_MS[l].ms < 1500,
+          `Ansage "${l}" dauert ${LEAD_MS[l].ms} ms`);
+  }
+
+  // Die gesprochene Folge muss in die Zeigephase passen. Ohne diese Prüfung
+  // würde ein späteres Tempo-Feintuning die letzte Ziffer abschneiden – und
+  // das merkt man erst beim Zuhören, nicht im Code.
+  const FACTOR = 1.3, PAD = 1400, GAP = 400, MIN_LUECKE = 220, VORLAUF = 150;
+  for (const l of ['de', 'ru']) {
+    const laengste = Math.max(...Object.values(DIGIT_MS[l]).map(x => x.ms));
+    const takt = Math.max(FACTOR * 1000, laengste + MIN_LUECKE);
+    for (const N of [2, 5, 10]) {
+      const endeMs = VORLAUF + LEAD_MS[l].ms + GAP + (N - 1) * takt + laengste;
+      const phaseMs = N * FACTOR * 1000 + PAD;
+      check('audio', endeMs <= phaseMs,
+            `${l}, N=${N}: die Ansage endet bei ${Math.round(endeMs)} ms, ` +
+            `die Zeigephase schon bei ${phaseMs} ms`);
+    }
+  }
+
+  // Die Sprache muss der Einstellung folgen
+  const audioMod = await registry['seq-zahlenfolgen-audio']();
+  globalThis.localStorage.setItem('logik-lang', 'ru');
+  check('audio', audioMod._voice().lang === 'ru',
+        `Bei Einstellung RU spricht das Modul "${audioMod._voice().lang}"`);
+  check('audio', audioMod._voice().words[7] === 'семь',
+        `RU-Wort für 7 ist "${audioMod._voice().words[7]}"`);
+  globalThis.localStorage.setItem('logik-lang', 'de');
+  check('audio', audioMod._voice().words[7] === 'sieben',
+        `DE-Wort für 7 ist "${audioMod._voice().words[7]}"`);
+}
+
 // ─── Konsistenz der Registrierungen ───────────────────────────────────
 for (const m of modules) {
   check('modules.js', registry[m.id], `Modul "${m.id}" hat keinen Registry-Eintrag`);

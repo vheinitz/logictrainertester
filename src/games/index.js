@@ -13,6 +13,7 @@
  */
 export const registry = {
   'seq-zahlenfolgen':     () => import('./seq-zahlenfolgen.js'),
+  'seq-zahlenfolgen-audio': () => import('./seq-zahlenfolgen-audio.js'),
   'seq-wortreihe':        () => import('./seq-wortreihe.js'),
   'seq-handbewegungen':   () => import('./seq-handbewegungen.js'),
   'seq-koffer-packen':    () => import('./seq-koffer-packen.js'),
