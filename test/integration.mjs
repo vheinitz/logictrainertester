@@ -63,6 +63,7 @@ const starTest = [];
 const rhythmTest = [];
 const audioTest = [];
 const kofferTest = [];
+const methodTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-handbewegungen', 'seq-koffer-packen', 'sim-gesichter',
@@ -536,6 +537,57 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   await sleep(40);
 }
 
+// ─── Fördermethoden: Übersicht, Einzelseite, Verlinkung ───────────────
+{
+  window.navigateTo('menu');
+  await sleep(80);
+  check(main.innerHTML.includes("navigateTo('methods')"),
+        'Das Menü bietet keinen Zugang zu den Fördermethoden');
+
+  window.navigateTo('methods');
+  await sleep(150);
+  const karten = main.querySelectorAll('[onclick*="methodId"]');
+  check(karten.length > 0, 'Die Methodenübersicht ist leer');
+
+  // Jede Methodenseite einmal öffnen und auf Vollständigkeit prüfen
+  const { methods } = await import('../src/data/methods/index.js');
+  let mitLinks = 0, mitMaterial = 0, mitBild = 0;
+  for (const m of methods) {
+    window.navigateTo('method', { methodId: m.id });
+    await sleep(60);
+    const txt = main.textContent.replace(/\s+/g, ' ');
+    check(txt.includes('So wird geübt'), `${m.id}: Anleitung fehlt auf der Seite`);
+    check(main.querySelectorAll('a[target="_blank"]').length > 0 || !(m.links || []).length,
+          `${m.id}: Links werden nicht dargestellt`);
+    check(!/undefined|\[object Object\]/.test(txt), `${m.id}: unaufgelöste Platzhalter im Text`);
+    if ((m.links || []).length) mitLinks++;
+    if ((m.products || []).length) mitMaterial++;
+    if (m.svg) mitBild++;
+  }
+  methodTest.push(`${methods.length} Seiten · ${mitLinks} mit Links · ` +
+                  `${mitMaterial} mit Material · ${mitBild} mit Zeichnung`);
+
+  // Eine unbekannte id darf nicht ins Leere laufen
+  window.navigateTo('method', { methodId: 'gibt-es-nicht' });
+  await sleep(80);
+  check(main.textContent.includes('Fördermethoden'),
+        'Eine unbekannte Methoden-id führt nicht zurück zur Übersicht');
+
+  // Verlinkung aus dem Info-Panel eines Moduls heraus
+  const { FOERDERUNG_LINKS } = await import('../src/data/foerderung-links.js');
+  let verlinkteModule = 0;
+  const { modules: alleModule } = await import('../src/data/modules.js');
+  for (const mod of alleModule) {
+    window.startModule(mod.id);
+    await sleep(70);
+    if (main.querySelector('a[onclick*="methodId"]')) verlinkteModule++;
+    window.navigateTo('menu');
+    await sleep(30);
+  }
+  methodTest.push(`${Object.keys(FOERDERUNG_LINKS).length} Förderpunkte zugeordnet, ` +
+                  `Links in ${verlinkteModule}/${alleModule.length} Modulen`);
+}
+
 // ─── Statistik und Profil öffnen ──────────────────────────────────────
 errors.length = 0;
 window.navigateTo('stats');
@@ -580,6 +632,7 @@ console.log(`   Sternenreihe: ${starTest.join(', ')}`);
 console.log(`   Rhythmus: ${rhythmTest.join(', ') || 'nicht geprüft'}`);
 console.log(`   Zahlen mit Ansage: ${audioTest.join(', ') || 'nicht geprüft'}`);
 console.log(`   Koffer nach Fehler: ${kofferTest.join(' ') || 'nicht geprüft'}`);
+methodTest.forEach(x => console.log(`   Fördermethoden: ${x}`));
 // Der Punktestand darf auch nicht als leere Hülle zurückbleiben
 check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Minimal-Hülle geprüft, erwartet ${MINIMAL.length}`);
 

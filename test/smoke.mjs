@@ -364,6 +364,32 @@ for (const [id, load] of Object.entries(registry)) {
         `DE-Wort für 7 ist "${audioMod._voice().words[7]}"`);
 }
 
+// ─── Fördermethoden-Seiten ────────────────────────────────────────────
+// Jede Seite wird gegen das Schema aus src/data/methods/README.md geprüft.
+// Bei vielen Seiten, die nebenläufig entstehen, ist das die einzige Art,
+// Lücken zuverlässig zu finden – von Hand übersieht man die dritte fehlende
+// russische Übersetzung sicher.
+{
+  const { methods, CATEGORIES, getMethod } = await import('../src/data/methods/index.js');
+  const { FOERDERUNG_LINKS } = await import('../src/data/foerderung-links.js');
+
+  check('methoden', methods.length > 0, 'keine einzige Methodenseite vorhanden');
+
+  const { validateMethod } = await import('../tools/method-schema.mjs');
+  const gesehen = new Set();
+  for (const m of methods) {
+    check('methoden', !gesehen.has(m.id), `Methode "${m.id}": id doppelt vergeben`);
+    gesehen.add(m.id);
+    for (const p of validateMethod(m)) check('methoden', false, p);
+  }
+
+  // Die Zuordnungstabelle darf nur auf vorhandene Seiten zeigen
+  for (const [text, id] of Object.entries(FOERDERUNG_LINKS)) {
+    check('methoden', !!getMethod(id),
+          `Förderpunkt "${text}" verweist auf fehlende Seite "${id}"`);
+  }
+}
+
 // ─── Konsistenz der Registrierungen ───────────────────────────────────
 for (const m of modules) {
   check('modules.js', registry[m.id], `Modul "${m.id}" hat keinen Registry-Eintrag`);

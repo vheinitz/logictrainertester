@@ -7,6 +7,8 @@ import { engine } from '../core/engine.js';
 import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
+import { renderMethods, renderMethod } from './methods-view.js';
+import { methodLinkFor } from '../data/foerderung-links.js';
 
 /**
  * Modultext aus der i18n-Tabelle.
@@ -22,6 +24,19 @@ function modI18n(id, suffix, fallback) {
   return val === key ? (fallback || '') : val;
 }
 
+/**
+ * Ein Förderpunkt im Info-Panel. Gibt es dazu eine Methodenseite, wird der
+ * Punkt anklickbar – sonst bleibt er einfacher Text. So bricht nichts, solange
+ * noch nicht jeder Punkt eine Seite hat.
+ */
+function foerderPunkt(text) {
+  const id = methodLinkFor(text);
+  if (!id) return '<li>' + text + '</li>';
+  return `<li><a href="#" onclick="navigateTo('method',{methodId:'${id}'});return false"
+    style="color:var(--primary);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--primary-light)"
+    >${text} ›</a></li>`;
+}
+
 export function renderView(view) {
   const m = document.getElementById('mainContent');
   switch (view) {
@@ -30,6 +45,8 @@ export function renderView(view) {
     case 'training': renderTraining(m); break;
     case 'stats': renderStats(m); break;
     case 'radar': renderRadar(m); break;
+    case 'methods': renderMethods(m); break;
+    case 'method': renderMethod(m); break;
     default: renderMenu(m);
   }
 }
@@ -82,6 +99,7 @@ function renderMenu(main) {
     <div style="text-align:center;margin-bottom:20px">
       <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">📊 ${t('statsTitle')}</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">🎯 Kognitives Profil</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">🧰 Fördermethoden</button>
     </div>
     <h3 class="section-title">${t('trainByScale')}</h3>
     <div class="card-grid">${scalesHtml}</div>
@@ -180,7 +198,7 @@ async function renderIntro(main, mod, header) {
       <h4>${t('infoWhat')}</h4><p style="font-size:.9em">${perf.whatItMeasures}</p>
       <h4>${t('infoEinfluesse')}</h4><ul>${perf.einfluesse.map(e => '<li>'+e+'</li>').join('')}</ul>
       <h4>${t('infoHypothesen')}</h4><ul>${perf.hypothesen.map(h => '<li>'+h+'</li>').join('')}</ul>
-      <h4>${t('infoFoerderung')}</h4><ul>${perf.foerderung.map(f => '<li>'+f+'</li>').join('')}</ul>
+      <h4>${t('infoFoerderung')}</h4><ul>${perf.foerderung.map(foerderPunkt).join('')}</ul>
     </div>`;
   }
 

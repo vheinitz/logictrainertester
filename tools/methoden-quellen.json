@@ -1,0 +1,921 @@
+[
+ {
+  "id": "memory-spiele",
+  "titel_de": "Memory und Paarspiele",
+  "titel_ru": "Memory и игры на поиск пар",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Aufgedeckte Kartenpaare wiederfinden trainiert das visuelle Gedächtnis und die Merkspanne.",
+  "quellen_de": [
+   "Klassisches Memory in Varianten",
+   "Memory mit Symbolen",
+   "Memory-Spiele mit Gesichtern",
+   "\"Nanu?\" von Ravensburger",
+   "\"Zicke Zacke Hühnerkacke\" von Zoch",
+   "Merkspiele: Memory, Kim-Spiele, Hörbücher",
+   "Memory, Kim-Spiele",
+   "Merkspiele: \"Plumpsack\", \"Ratz-Fatz\", Memory"
+  ],
+  "produkte": [
+   "Memory (Ravensburger)",
+   "Nanu? (Ravensburger)",
+   "Zicke Zacke Hühnerkacke (Zoch)",
+   "Ratz-Fatz (HABA)",
+   "Tempo, kleine Schnecke? – Memory-Varianten (Ravensburger)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "kim-spiele",
+  "titel_de": "Kim-Spiele",
+  "titel_ru": "Игры Кима",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Eine Reihe von Gegenständen wird kurz gezeigt und abgedeckt, danach soll das Kind sie erinnern oder Veränderungen bemerken.",
+  "quellen_de": [
+   "Kim-Spiele",
+   "Kim-Spiele (Gegenstände erinnern)"
+  ],
+  "produkte": [
+   "Tablett + Alltagsgegenstände + Tuch (Eigenbau)",
+   "Was fehlt? Merkspiel (HABA)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "koffer-packen",
+  "titel_de": "Koffer packen",
+  "titel_ru": "«Я собираю чемодан»",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Reihum wird eine immer länger werdende Aufzählung wiederholt und um einen eigenen Begriff ergänzt.",
+  "quellen_de": [
+   "Koffer packen",
+   "Täglich Koffer packen spielen",
+   "Merkspiele: Koffer packen, Memory, Kim-Spiele"
+  ],
+  "produkte": [
+   "Ohne Material spielbar",
+   "Ich packe meinen Koffer – Kartenspiel (Moses Verlag)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "loci-methode",
+  "titel_de": "Loci-Methode (Gedächtnispalast)",
+  "titel_ru": "Метод локусов (дворец памяти)",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Zu merkende Inhalte werden an feste Orte einer vertrauten Route gedanklich abgelegt und dort wieder abgeholt.",
+  "quellen_de": [
+   "Loci-Methode",
+   "Loci-Methode für Memorisierung"
+  ],
+  "produkte": [
+   "Kein Material nötig (Wohnungsrundgang, Schulweg)",
+   "Bildkarten als Ablage-Anker (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "eselsbruecken-assoziationen",
+  "titel_de": "Eselsbrücken und Assoziationsketten",
+  "titel_ru": "Мнемоники и ассоциативные цепочки",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Abstrakte oder zusammenhanglose Inhalte werden über Reime, Merksätze und verrückte Bildverknüpfungen merkbar gemacht.",
+  "quellen_de": [
+   "Merkstrategien: Eselsbrücken, Assoziationen",
+   "Eselsbrücken für abstrakte Konzepte"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Merksatz-Kartei (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "leitner-system",
+  "titel_de": "Leitner-System (Lernkartei)",
+  "titel_ru": "Система Лейтнера (картотека)",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Karteikarten wandern je nach Erfolg durch mehrere Fächer, sodass Schwieriges häufiger und Gekonntes seltener wiederholt wird.",
+  "quellen_de": [
+   "Lernen lernen: Leitner-System"
+  ],
+  "produkte": [
+   "Lernkarteikasten A8 (z. B. Herlitz, Brunnen)",
+   "Blanko-Karteikarten",
+   "Schuhkarton mit Trennwänden (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "lieder-gedichte-auswendig",
+  "titel_de": "Lieder und Gedichte auswendig lernen",
+  "titel_ru": "Заучивание песен и стихов",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Regelmäßiges Auswendiglernen von Reimen, Gedichten und Liedtexten dehnt die verbale Merkspanne.",
+  "quellen_de": [
+   "Lieder, Gedichte auswendig lernen"
+  ],
+  "produkte": [
+   "Kinder-Gedichtbände (z. B. Der Kinder-Brockhaus Gedichte)",
+   "Liederbücher mit CD"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "merkauftraege-alltag",
+  "titel_de": "Merkaufträge im Alltag",
+  "titel_ru": "Поручения на запоминание в быту",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Das Kind bekommt mehrgliedrige Aufträge (\"Hol Handtuch, Becher und Zahnpasta\") und führt sie ohne Erinnerung aus.",
+  "quellen_de": [
+   "Merkaufträge im Alltag"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Einkaufsliste mit Bildern (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "multisensorische-merkhilfen",
+  "titel_de": "Multisensorische Merkhilfen: Mitsprechen, Klatschen, Mitlesen",
+  "titel_ru": "Мультисенсорные опоры: проговаривание, хлопки, чтение вместе",
+  "kategorie": "gedaechtnis",
+  "kurz_de": "Zu merkende Reihen werden gleichzeitig gesprochen, geklatscht oder mitgelesen, damit mehrere Sinneskanäle die Erinnerung stützen.",
+  "quellen_de": [
+   "Erweiterung der Merkspanne durch Mitsprechen",
+   "Motorische Unterstützung: Klatschen, Bewegungen",
+   "Visuelle Hilfen: Mitlesen"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Ziffern- und Bildkarten zum Mitlesen (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "suchbilder-wimmelbilder",
+  "titel_de": "Suchbilder, Wimmelbilder und Fehlersuche",
+  "titel_ru": "Поиск отличий, виммельбухи",
+  "kategorie": "wahrnehmung",
+  "kurz_de": "Im Bildergewimmel gezielt Details finden oder Unterschiede zwischen zwei Bildern entdecken schult genaues Hinsehen.",
+  "quellen_de": [
+   "Suchbilder, Wimmelbilder",
+   "Suchbilder in Zeitschriften/Zeitungen",
+   "Wimmelbilder/-bücher",
+   "\"Differix\" von Ravensburger"
+  ],
+  "produkte": [
+   "Differix (Ravensburger)",
+   "Wimmelbücher von Rotraut Susanne Berner (Gerstenberg)",
+   "Wo ist Walter? (Sauerländer)",
+   "Suchbild-Seiten in Kinderzeitschriften"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "puzzles",
+  "titel_de": "Puzzles mit steigender Teilezahl",
+  "titel_ru": "Пазлы с возрастающим числом деталей",
+  "kategorie": "wahrnehmung",
+  "kurz_de": "Puzzeln verbindet Teil-Ganzes-Wahrnehmung, Formvergleich und ausdauerndes Probieren.",
+  "quellen_de": [
+   "Puzzles mit steigender Teilezahl"
+  ],
+  "produkte": [
+   "Kinderpuzzles (Ravensburger, Schmidt Spiele)",
+   "Holzpuzzles (HABA, Goki)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "gestaltschliessen",
+  "titel_de": "Gestaltschließen: unvollständige Bilder ergänzen",
+  "titel_ru": "Дополнение неполных изображений",
+  "kategorie": "wahrnehmung",
+  "kurz_de": "Aus Bildfragmenten, Schattenrissen oder halbierten Bildern wird das Ganze erkannt oder ergänzt.",
+  "quellen_de": [
+   "Halbierte Bilder ergänzen lassen"
+  ],
+  "produkte": [
+   "Halbierte Bildkarten (Eigenbau aus Zeitschriften)",
+   "Was ist das? Fragment-Karten (Schubi)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "muster-nachzeichnen-fortsetzen",
+  "titel_de": "Muster nachzeichnen und fortsetzen",
+  "titel_ru": "Срисовывание и продолжение узоров",
+  "kategorie": "wahrnehmung",
+  "kurz_de": "Figuren und Musterreihen werden exakt abgezeichnet oder regelgerecht weitergeführt.",
+  "quellen_de": [
+   "Nachzeichnen von Figuren und Mustern",
+   "Muster zeichnen und fortsetzen"
+  ],
+  "produkte": [
+   "Karo- und Punkteraster-Blöcke",
+   "Schwungübungs- und Musterhefte (z. B. Persen, Klett)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "sindelar-wahrnehmungsfoerderung",
+  "titel_de": "Wahrnehmungsförderung nach Sindelar",
+  "titel_ru": "Развитие восприятия по методу Синделар",
+  "kategorie": "wahrnehmung",
+  "kurz_de": "Strukturiertes Trainingsprogramm, das gezielt einzelne Teilleistungen der visuellen und auditiven Wahrnehmung übt.",
+  "quellen_de": [
+   "Förderung visuelle Wahrnehmung nach Sindelar"
+  ],
+  "produkte": [
+   "Sindelar-Trainingsprogramme (Verlag Austria Press / Sindelar-Institut)",
+   "Begleitung durch geschulte Therapeutin empfohlen"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "nikitin-material",
+  "titel_de": "Nikitin-Material",
+  "titel_ru": "Материалы Никитина",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "Aufbauende Würfel-, Quadrat- und Bausteinsätze, mit denen Kinder Vorlagenmuster selbstkontrollierend nachlegen.",
+  "quellen_de": [
+   "Nikitin-Material: Musterwürfel, Uniwürfel",
+   "Nikitin-Material: Quadrate",
+   "Nikitin-Material: Bausteine, Geowürfel"
+  ],
+  "produkte": [
+   "Nikitin Musterwürfel N1 (LOGO Lernspielverlag)",
+   "Nikitin Uniwürfel N2",
+   "Nikitin Quadrate N3",
+   "Nikitin Bausteine / Geowürfel"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "tangram",
+  "titel_de": "Tangram und geometrische Legepuzzles",
+  "titel_ru": "Танграм и геометрические пазлы",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "Aus wenigen geometrischen Teilen werden vorgegebene Umrissfiguren gelegt.",
+  "quellen_de": [
+   "Tangram, geometrische Puzzles",
+   "Tangram in verschiedenen Schwierigkeitsstufen",
+   "Geometrische Puzzles",
+   "\"Ubongo\" von Kosmos"
+  ],
+  "produkte": [
+   "Tangram Holz (Goki, Philos)",
+   "Ubongo (Kosmos)",
+   "Katamino (Gigamic)",
+   "Pentomino-Sets"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "konstruktionsspiel-bausteine",
+  "titel_de": "Freies Bauen mit Lego und Holzbausteinen",
+  "titel_ru": "Свободное конструирование: Lego и деревянные кубики",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "Offenes Konstruieren mit Bausteinen entwickelt räumliches Vorstellen, Planung und Feinmotorik.",
+  "quellen_de": [
+   "Lego, Holzbausteine",
+   "Lego, Holzbausteine, Konstruktionsspiele"
+  ],
+  "produkte": [
+   "LEGO Classic / LEGO Technic",
+   "Holzbausteine (HABA, Grimm's)",
+   "Magnetbausteine (Magformers, Geomag)"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "bauen-nach-vorlage",
+  "titel_de": "Bauen nach Vorlage",
+  "titel_ru": "Постройка по образцу и чертежу",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "Ein Bauwerk wird exakt nach einer 2D-Karte, Skizze oder einem Modell nachgebaut.",
+  "quellen_de": [
+   "Würfelgebäude bauen und nachbauen",
+   "\"Architecto\" von Huch & Friends",
+   "\"PotzKlotz\" von Kallmeyer",
+   "Cubus / PotzKlotz",
+   "\"Make n Break\" von Ravensburger"
+  ],
+  "produkte": [
+   "Architecto (Huch & Friends)",
+   "PotzKlotz (Kallmeyer)",
+   "Cubus (Kallmeyer)",
+   "Make 'n' Break (Ravensburger)",
+   "Holzwürfelsatz + selbst gezeichnete Baupläne"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "bauklotz-zaehlen",
+  "titel_de": "Bauklötze zählen – auch verdeckte",
+  "titel_ru": "Подсчёт кубиков, включая скрытые",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "In einem Würfelgebäude werden alle Klötze gezählt, auch die, die man von außen nicht sehen kann.",
+  "quellen_de": [
+   "Bauklötze zählen (auch versteckte)"
+  ],
+  "produkte": [
+   "Gleich große Holzwürfel (z. B. Dienes-Einerwürfel)",
+   "Bildkarten mit Würfelgebäuden (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "plaene-skizzen-zeichnen",
+  "titel_de": "Pläne, Skizzen und technisches Zeichnen",
+  "titel_ru": "Планы, эскизы и техническое черчение",
+  "kategorie": "raum-konstruktion",
+  "kurz_de": "Räume und Gegenstände werden als Grundriss, Skizze oder Ansicht von oben/vorne/seitlich aufs Papier gebracht.",
+  "quellen_de": [
+   "Pläne und Skizzen anfertigen",
+   "Technisches Zeichnen"
+  ],
+  "produkte": [
+   "Karopapier, Lineal, Bleistift",
+   "Kinder-Zeichenset / Geodreieck"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "denksportaufgaben",
+  "titel_de": "Denksportaufgaben und Rätselhefte",
+  "titel_ru": "Логические задачи и сборники головоломок",
+  "kategorie": "logik-denken",
+  "kurz_de": "Kurze Knobelaufgaben und Zahlenrätsel aus Heften oder Büchern, die schlussfolgerndes Denken verlangen.",
+  "quellen_de": [
+   "Denksportaufgaben",
+   "Zahlenspiele und Rätselhefte"
+  ],
+  "produkte": [
+   "Logicals für Kinder (Persen, Auer)",
+   "Knobelblöcke (Moses Verlag)",
+   "Denksport-Kalender für Kinder"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "logik-knobelspiele",
+  "titel_de": "Logik- und Knobelspiele (Brettspiele)",
+  "titel_ru": "Логические и головоломные настольные игры",
+  "kategorie": "logik-denken",
+  "kurz_de": "Einzel- oder Familienspiele mit Aufgabenkarten in Schwierigkeitsstufen, bei denen man vorausdenken statt raten muss.",
+  "quellen_de": [
+   "\"Rush Hour\" von HCM Kinzel"
+  ],
+  "produkte": [
+   "Rush Hour (HCM Kinzel / ThinkFun)",
+   "Solitaire Chess (ThinkFun)",
+   "IQ Puzzler Pro (SmartGames)",
+   "Kobolde im Labor / Smart Games Reihe"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "klassische-strategiespiele",
+  "titel_de": "Klassische Strategiespiele",
+  "titel_ru": "Классические стратегические игры",
+  "kategorie": "logik-denken",
+  "kurz_de": "Mühle, Dame, 4 Gewinnt und Verwandte üben Züge vorausdenken und die Absicht des Gegenübers erkennen.",
+  "quellen_de": [
+   "Strategiespiele: Mühle, Dame, 4 Gewinnt"
+  ],
+  "produkte": [
+   "Mühle (Holzspielsammlung)",
+   "Dame / Schach (Philos, Weible)",
+   "4 Gewinnt (Hasbro)",
+   "Spielesammlung mit Brett und Steinen"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "sudoku",
+  "titel_de": "Sudoku in altersgerechten Stufen",
+  "titel_ru": "Судоку по возрастам",
+  "kategorie": "logik-denken",
+  "kurz_de": "Zahlen- oder Symbolraster von 4x4 bis 9x9, die durch Ausschlussdenken gefüllt werden.",
+  "quellen_de": [
+   "Sudoku in verschiedenen Stufen",
+   "Sudoku in altersgerechten Stufen"
+  ],
+  "produkte": [
+   "Kinder-Sudoku-Hefte (Moses, Tessloff)",
+   "Sudoku mit Bildsymbolen für Vorschulkinder",
+   "Holz-Sudoku-Brett"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "muster-kombinationsspiele",
+  "titel_de": "Muster- und Kombinationsspiele (SET, Qwirkle, Rummikub)",
+  "titel_ru": "Игры на узоры и комбинации (SET, Qwirkle, Rummikub)",
+  "kategorie": "logik-denken",
+  "kurz_de": "Karten- und Legespiele, bei denen Reihen nach mehreren Merkmalen gleichzeitig gebildet werden.",
+  "quellen_de": [
+   "\"SET\" von Amigo (ab 8)",
+   "\"Qwirkle\" von Schmidt Spiele",
+   "\"Rummikub\" von Hasbro"
+  ],
+  "produkte": [
+   "SET (Amigo)",
+   "Qwirkle (Schmidt Spiele)",
+   "Rummikub (Jumbo / Hasbro)"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "sortieren-kategorisieren",
+  "titel_de": "Sortieren und Kategorisieren",
+  "titel_ru": "Сортировка и категоризация",
+  "kategorie": "logik-denken",
+  "kurz_de": "Gegenstände oder Bilder werden nach Form, Farbe, Größe oder Sachgruppen geordnet und die Sortierregel benannt.",
+  "quellen_de": [
+   "Sortieren nach Merkmalen: Form, Farbe, Kategorien",
+   "Sortierspiele nach Kategorien"
+  ],
+  "produkte": [
+   "Logische Blöcke / Logische Reihen (Dienes-Material)",
+   "Sortierschalen und Knöpfe (Eigenbau)",
+   "Colorama (Ravensburger)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "kopfrechenspiele",
+  "titel_de": "Kopfrechenspiele",
+  "titel_ru": "Устный счёт и числовые игры",
+  "kategorie": "logik-denken",
+  "kurz_de": "Schnelle Rechenspiele halten Zwischenergebnisse im Kopf und trainieren so Arbeitsgedächtnis und Zahlensicherheit.",
+  "quellen_de": [
+   "Kopfrechnen mit \"LOBO 77\""
+  ],
+  "produkte": [
+   "LOBO 77 (Amigo)",
+   "Zahlenzorro / Kartenspiel Halli Galli (Amigo)",
+   "Würfel und Zettel für Rechenspiele"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "oberbegriffe",
+  "titel_de": "Ober- und Unterbegriffe",
+  "titel_ru": "Обобщающие и частные понятия",
+  "kategorie": "sprache",
+  "kurz_de": "Zu Bildern oder Alltagsdingen wird der passende Oberbegriff gesucht und umgekehrt Beispiele zum Oberbegriff genannt.",
+  "quellen_de": [
+   "Ober- und Unterbegriffe mit Bildmaterial",
+   "Oberbegriffe im Alltag benennen"
+  ],
+  "produkte": [
+   "Bildkartensätze Oberbegriffe (Schubi, ProLog)",
+   "Prospekt- und Katalogbilder (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "zuordnungsspiele",
+  "titel_de": "Zuordnungs- und Begriffsspiele (Logofix, TwinFit)",
+  "titel_ru": "Игры на соотнесение понятий (Logofix, TwinFit)",
+  "kategorie": "sprache",
+  "kurz_de": "Kartenspiele, bei denen Begriffe, Bilder und Kategorien nach einer erkannten Regel zusammengeführt werden.",
+  "quellen_de": [
+   "\"Logofix\" von Ravensburger",
+   "\"TwinFit\" von ProLog",
+   "\"TwinFit\" Serien von ProLog",
+   "Spiele: \"Die Logik-Piraten\", \"Logofix\", \"TwinFit\""
+  ],
+  "produkte": [
+   "Logofix (Ravensburger)",
+   "TwinFit Serien (ProLog)",
+   "Die Logik-Piraten (Ravensburger)"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "wortschatzspiele",
+  "titel_de": "Wortschatzspiele und Bildkarten",
+  "titel_ru": "Словарные игры и карточки",
+  "kategorie": "sprache",
+  "kurz_de": "Spielerische Übungen mit Bildkarten und Wortfeldern, die den aktiven Wortschatz erweitern.",
+  "quellen_de": [
+   "Bildkarten zur Begriffszuordnung",
+   "Wortschatzspiele",
+   "Wortschätzchen von Persen Verlag",
+   "\"Der kleine Sprechdachs\""
+  ],
+  "produkte": [
+   "Der kleine Sprechdachs (HABA)",
+   "Wortschätzchen (Persen Verlag)",
+   "Bildkarten zur Sprachförderung (Schubi, ProLog)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "taegliche-sprachfoerderung",
+  "titel_de": "Tägliche 5-Minuten-Sprachförderung",
+  "titel_ru": "Ежедневная речевая поддержка по 5 минут",
+  "kategorie": "sprache",
+  "kurz_de": "Ein kurzes, festes tägliches Sprachritual wirkt zuverlässiger als seltene lange Übungseinheiten.",
+  "quellen_de": [
+   "Täglich 5 Min. Sprachförderung"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Sprachförder-Kartenboxen für den Alltag"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "vorlesen-bilderbuecher",
+  "titel_de": "Vorlesen und Bilderbuchbetrachtung",
+  "titel_ru": "Чтение вслух и книги с картинками",
+  "kategorie": "sprache",
+  "kurz_de": "Gemeinsames Vorlesen mit Nachfragen und Erzählen zum Bild ist die breiteste Sprachförderung überhaupt.",
+  "quellen_de": [
+   "Vorlesen und Bilderbücher"
+  ],
+  "produkte": [
+   "Altersgerechte Bilderbücher",
+   "Zweisprachige Bilderbücher DE/RU",
+   "Büchereiausweis"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "teekesselchen",
+  "titel_de": "Teekesselchen und Mehrdeutigkeiten",
+  "titel_ru": "«Чайничек»: игры с многозначными словами",
+  "kategorie": "sprache",
+  "kurz_de": "Wörter mit zwei Bedeutungen werden umschrieben und erraten, was Sprachbewusstheit und Flexibilität schult.",
+  "quellen_de": [
+   "\"Teekesselchen\" von HABA",
+   "Sprachspiele mit Mehrdeutigkeiten"
+  ],
+  "produkte": [
+   "Teekesselchen (HABA)",
+   "Wortlisten mit Doppelbedeutungen (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "sprachraetsel",
+  "titel_de": "Sprachrätsel und Ratespiele",
+  "titel_ru": "Загадки и языковые головоломки",
+  "kategorie": "sprache",
+  "kurz_de": "Begriffe werden umschrieben, erfragt oder aus Rätseltexten erschlossen.",
+  "quellen_de": [
+   "Rätselbücher für Kinder",
+   "\"Das Dings\" von Kallmeyer",
+   "Denksportaufgaben mit Sprache",
+   "Geschichten mit Rätselfragen"
+  ],
+  "produkte": [
+   "Das Dings (Kallmeyer)",
+   "Rätselbücher für Kinder (Tessloff, Moses)",
+   "Black Stories Junior (Moses)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "erklaerspiele-activity",
+  "titel_de": "Erklär- und Pantomimespiele (Activity)",
+  "titel_ru": "Игры-объяснялки (Activity, пантомима)",
+  "kategorie": "sprache",
+  "kurz_de": "Begriffe werden erklärt, gezeichnet oder pantomimisch dargestellt – Wechsel zwischen Sprache, Bild und Bewegung.",
+  "quellen_de": [
+   "\"Activity\" von Piatnik",
+   "Intermodalität: \"Activity\" von Piatnik"
+  ],
+  "produkte": [
+   "Activity Junior (Piatnik)",
+   "Tabu Junior (Hasbro)",
+   "Begriffszettel selbst schreiben"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "geschichten-erfinden",
+  "titel_de": "Geschichten erfinden mit Story Cubes",
+  "titel_ru": "Придумывание историй (Story Cubes)",
+  "kategorie": "sprache",
+  "kurz_de": "Aus gewürfelten Bildsymbolen oder reihum ergänzten Sätzen entsteht gemeinsam eine zusammenhängende Geschichte.",
+  "quellen_de": [
+   "Story Cubes (9 Würfel mit 54 Bildern)",
+   "Bildergeschichten erfinden",
+   "Reihum-Geschichten erzählen"
+  ],
+  "produkte": [
+   "Rory's Story Cubes (Asmodee)",
+   "Erzählwürfel-Sets (HABA)",
+   "Bildkarten-Set selbst gebastelt"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "bildergeschichten",
+  "titel_de": "Bildergeschichten ordnen und nacherzählen",
+  "titel_ru": "Истории в картинках: расставить и пересказать",
+  "kategorie": "sprache",
+  "kurz_de": "Durcheinandergelegte Bildfolgen werden in die richtige Reihenfolge gebracht und dann in eigenen Worten erzählt.",
+  "quellen_de": [
+   "Bildergeschichten nacherzählen",
+   "Bildergeschichten ordnen und verbalisieren",
+   "\"Papa Moll\" Bildergeschichten"
+  ],
+  "produkte": [
+   "Papa Moll Bildergeschichten (Orell Füssli)",
+   "Bildfolgenkarten (Schubi, ProLog)",
+   "Comicstreifen aus Zeitungen (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "symbole-lernen",
+  "titel_de": "Symbole und ihre Bedeutung lernen",
+  "titel_ru": "Изучение символов и их значений",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Verkehrszeichen, Piktogramme und Kartenzeichen werden als feste Bild-Bedeutungs-Paare gelernt und im Alltag wiedererkannt.",
+  "quellen_de": [
+   "Symbole und Bedeutung lernen"
+  ],
+  "produkte": [
+   "Verkehrszeichen-Karten",
+   "Piktogramm-Bildkarten (Eigenbau)",
+   "Wanderkarte mit Legende"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "sachbuecher-hoerspiele",
+  "titel_de": "Sachbücher und Wissens-Hörspiele",
+  "titel_ru": "Познавательные книги и аудиоспектакли",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Sachbuchreihen und Hörspiele bauen Weltwissen auf, an das späteres Lernen andocken kann.",
+  "quellen_de": [
+   "\"Was ist was?\" Bücher, Hörspiele"
+  ],
+  "produkte": [
+   "Was ist was (Tessloff)",
+   "Wieso? Weshalb? Warum? (Ravensburger)",
+   "Was ist was Hörspiele (Tessloff), tonies"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "wissenssendungen",
+  "titel_de": "Wissenssendungen bewusst schauen",
+  "titel_ru": "Познавательные передачи",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Kurze Wissenssendungen werden gemeinsam angesehen und anschließend nacherzählt statt nur konsumiert.",
+  "quellen_de": [
+   "Wissenssendungen: Sendung mit der Maus"
+  ],
+  "produkte": [
+   "Die Sendung mit der Maus (WDR)",
+   "Löwenzahn (ZDF)",
+   "Checker Tobi (BR)"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "quizspiele",
+  "titel_de": "Quizspiele",
+  "titel_ru": "Викторины",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Frage-Antwort-Spiele machen vorhandenes Wissen abrufbar und motivieren, Lücken zu schließen.",
+  "quellen_de": [
+   "Quizspiele"
+  ],
+  "produkte": [
+   "Nobody is perfect Junior (Ravensburger)",
+   "Quiz-Karten Was ist was (Tessloff)",
+   "Selbst geschriebene Quizkarten"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "museum-naturerfahrung",
+  "titel_de": "Museumsbesuche und Naturerfahrungen",
+  "titel_ru": "Музеи и опыт природы",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Erlebtes Wissen aus Museum, Zoo, Wald oder Werkstatt verankert sich besser als angelesenes.",
+  "quellen_de": [
+   "Museumsbesuche, Naturerfahrungen"
+  ],
+  "produkte": [
+   "Kindermuseen und Science-Center",
+   "Bestimmungsbücher für Pflanzen und Tiere",
+   "Lupenglas, Fernglas"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "handlungsfolgen-alltag",
+  "titel_de": "Handlungsfolgen im Alltag: Rezepte, Anleitungen, Selbstständigkeit",
+  "titel_ru": "Последовательности действий в быту: рецепты, инструкции, самостоятельность",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Mehrschrittige Alltagsabläufe werden nach Anleitung geplant und selbstständig zu Ende gebracht.",
+  "quellen_de": [
+   "Kochrezepte, Bastelanleitungen",
+   "Handlungsfolgen üben",
+   "Selbstständigkeit in Alltagsaufgaben",
+   "Kochrezepte Schritt für Schritt",
+   "Bastelanleitungen befolgen",
+   "Vorgangsbeschreibungen"
+  ],
+  "produkte": [
+   "Kinderkochbücher mit Bildschritten",
+   "Bastelanleitungen und Origami-Hefte",
+   "Bebilderte Ablaufpläne für den Morgen (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "zaubertricks",
+  "titel_de": "Zaubertricks Schritt für Schritt",
+  "titel_ru": "Фокусы по шагам",
+  "kategorie": "wissen-alltag",
+  "kurz_de": "Einen Trick lernen heißt, eine feste Schrittfolge zu merken, sauber auszuführen und sie danach zu erklären.",
+  "quellen_de": [
+   "Zaubertricks: Schritt-für-Schritt",
+   "Zaubertricks üben"
+  ],
+  "produkte": [
+   "Zauberkasten (Kosmos)",
+   "Zauberbücher für Kinder",
+   "Tricks mit Karten, Münzen, Tuch (kein Kauf nötig)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "rhythmus-nachklatschen",
+  "titel_de": "Rhythmen nachklatschen und nachklopfen",
+  "titel_ru": "Повторение ритма хлопками и стуком",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Vorgeklopfte Rhythmusmuster werden gehört, gespeichert und exakt wiederholt.",
+  "quellen_de": [
+   "Nachklopfen eines Rhythmus",
+   "Rhythmisierung der Bewegungen",
+   "Klatschen und Stampfen"
+  ],
+  "produkte": [
+   "Kein Material nötig (Hände, Tisch, Füße)",
+   "Klanghölzer, Rasseln"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "rhythmisch-musikalische-erziehung",
+  "titel_de": "Rhythmisch-musikalische Erziehung",
+  "titel_ru": "Ритмически-музыкальное воспитание",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Musizieren mit Instrumenten koppelt Hören, Sehen und Bewegung zu einer stabilen zeitlichen Struktur.",
+  "quellen_de": [
+   "Rhythmisch-musikalische Erziehung",
+   "Boomwhacker, Trommeln",
+   "Kombination Sehen-Hören-Bewegen: Boomwhacker"
+  ],
+  "produkte": [
+   "Boomwhackers (Set diatonisch)",
+   "Handtrommel / Djembe",
+   "Orff-Instrumentarium (Sonor)",
+   "Musikalische Früherziehung an der Musikschule"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "bewegungslieder",
+  "titel_de": "Lieder mit Bewegungen",
+  "titel_ru": "Песни с движениями",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Lieder mit fester Bewegungsfolge verbinden Text, Takt und Motorik zu einer leicht merkbaren Einheit.",
+  "quellen_de": [
+   "Lieder mit Bewegungen"
+  ],
+  "produkte": [
+   "Bewegungslieder-CDs (z. B. Detlev Jöcker, Volker Rosin)",
+   "Fingerspiel- und Bewegungsliederbücher"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "bewegungen-nachmachen",
+  "titel_de": "Bewegungen nachmachen (Spiegelspiele)",
+  "titel_ru": "Повторение движений (зеркальные игры)",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Vorgemachte Hand-, Körper- oder Berührungsfolgen werden beobachtet, gemerkt und in gleicher Reihenfolge wiederholt.",
+  "quellen_de": [
+   "Bewegungen grobmotorisch nachmachen",
+   "Ganzkörperbewegungen nachmachen",
+   "Körperteile nach Anweisung berühren"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Bewegungskarten / Yoga-Karten für Kinder"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "fadenspiele-fingergeschick",
+  "titel_de": "Fadenspiele und Fingergeschicklichkeit",
+  "titel_ru": "Верёвочные фигуры и ловкость пальцев",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Fadenfiguren, Fingerspiele und Knoten schulen Beweglichkeit und Koordination beider Hände.",
+  "quellen_de": [
+   "Hand- und Fingerbeweglichkeit: Fadenspiele"
+  ],
+  "produkte": [
+   "Fadenspiel-Schnur (Abnehmspiel)",
+   "Fingerspiel-Bücher",
+   "Knotenkarten / Jonglierbälle"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "perlenketten-auffaedeln",
+  "titel_de": "Perlenketten nach Vorlage auffädeln",
+  "titel_ru": "Нанизывание бусин по образцу",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Eine vorgegebene Farb- und Formfolge wird Perle für Perle nachgefädelt – Reihenfolge merken plus Feinmotorik.",
+  "quellen_de": [
+   "Perlenketten auffädeln nach Vorlage"
+  ],
+  "produkte": [
+   "Holzperlen mit Schnur (HABA, Goki)",
+   "Fädelperlen-Set mit Vorlagenkarten",
+   "Nudeln und Wolle (Eigenbau)"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "psychomotorik-ergotherapie",
+  "titel_de": "Psychomotorik und Ergotherapie",
+  "titel_ru": "Психомоторика и эрготерапия",
+  "kategorie": "motorik-rhythmus",
+  "kurz_de": "Angeleitete Bewegungsförderung durch Fachkräfte, wenn Koordination und Handlungsplanung deutlich hinterherhinken.",
+  "quellen_de": [
+   "Psychomotorik, Ergotherapie",
+   "Psychomotorische Übungsbehandlung"
+  ],
+  "produkte": [
+   "Ergotherapie-Praxis (Verordnung über Kinderarzt)",
+   "Psychomotorik-Gruppen bei Sportvereinen",
+   "Rollbrett, Balancierkreisel, Therapiekreisel"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "marburger-konzentrationstraining",
+  "titel_de": "Marburger Konzentrationstraining",
+  "titel_ru": "Марбургский тренинг концентрации",
+  "kategorie": "aufmerksamkeit",
+  "kurz_de": "Strukturiertes Gruppen- oder Einzelprogramm, das über inneres Sprechen und feste Arbeitsschritte planvolles Arbeiten einübt.",
+  "quellen_de": [
+   "Marburger Konzentrationstraining",
+   "Konzentrationsübungen (Marburger Training)"
+  ],
+  "produkte": [
+   "Marburger Konzentrationstraining, Manual (Verlag modernes lernen)",
+   "Kurse bei Lerntherapeuten und Erziehungsberatungsstellen"
+  ],
+  "hat_diy": false
+ },
+ {
+  "id": "entspannung-konzentration",
+  "titel_de": "Konzentrations- und Entspannungsübungen",
+  "titel_ru": "Упражнения на концентрацию и расслабление",
+  "kategorie": "aufmerksamkeit",
+  "kurz_de": "Kurze Still-, Atem- und Phantasiereise-Übungen senken die Anspannung und verlängern die Aufmerksamkeitsspanne.",
+  "quellen_de": [
+   "Konzentrations- und Entspannungsübungen",
+   "Entspannungstraining"
+  ],
+  "produkte": [
+   "Autogenes Training / Progressive Muskelentspannung für Kinder (CDs)",
+   "Kinderyoga-Karten",
+   "Phantasiereisen-Bücher"
+  ],
+  "hat_diy": true
+ },
+ {
+  "id": "fehlersuche-eigene-arbeiten",
+  "titel_de": "Fehlersuche in eigenen Arbeiten",
+  "titel_ru": "Поиск ошибок в собственных работах",
+  "kategorie": "aufmerksamkeit",
+  "kurz_de": "Das Kind kontrolliert eigene Hefte und Aufgaben systematisch nach, statt sie sofort abzugeben.",
+  "quellen_de": [
+   "Fehlersuche in eigenen Arbeiten"
+  ],
+  "produkte": [
+   "Kein Material nötig",
+   "Kontroll-Checkliste am Schreibtisch (Eigenbau)",
+   "Farbige Korrekturstifte"
+  ],
+  "hat_diy": true
+ }
+]

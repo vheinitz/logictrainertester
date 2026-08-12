@@ -236,6 +236,43 @@ wurde — an der richtigen Stelle weiterläuft statt von vorn zu beginnen.
 klickt anschließend langsam (180 ms zwischen down und up). Mit einem
 Re-Render-Tick kommen davon 0 bis 3 von 5 Klicks an, ohne ihn 5 von 5.
 
+### Fördermethoden-Seiten
+
+Zu jedem Förderpunkt im Info-Panel eines Tests gibt es eine eigene Seite: was
+die Methode ist, warum sie wirkt, eine Schritt-für-Schritt-Anleitung, Material
+mit Bezugsquelle und Selbstbauhinweis, geprüfte Links. Erreichbar über den
+Punkt selbst (er wird zum Link) oder über „🧰 Fördermethoden" im Menü.
+
+```
+src/data/methods/<id>.js     eine Datei je Methode, Schema in README.md daneben
+src/data/methods/index.js    erzeugt (tools/gen-method-index.mjs)
+src/data/foerderung-links.js erzeugt (tools/gen-foerderung-links.mjs)
+src/ui/methods-view.js       Übersicht und Einzelseite
+```
+
+**Der Index wird erzeugt, nicht gepflegt.** Datei ins Verzeichnis legen genügt;
+`npm run build` sammelt sie ein. Das war die Voraussetzung dafür, die Seiten
+parallel schreiben zu lassen — an einer handgepflegten Sammeldatei hätten sich
+gleichzeitig arbeitende Autoren gegenseitig blockiert.
+
+**Prüfung.** `tools/method-schema.mjs` hält die Regeln an einer Stelle; der
+Smoke-Test prüft damit alle Seiten, `tools/check-method.mjs <datei>` einzelne.
+Geprüft werden unter anderem: DE und RU vorhanden und gleich lang (gleiche
+Schrittzahl), Links als echte `https`-URLs mit Beschriftung in beiden Sprachen,
+SVG ohne externe Verweise.
+
+**Warum keine Produktfotos.** Die App läuft offline aus einem Bundle, und
+fremde Produktfotos wären urheberrechtlich nicht frei. Stattdessen
+selbstgezeichnete Schemazeichnungen — bei Nikitin-Würfeln oder Tangram zeigen
+die ohnehin mehr als ein Werbefoto — plus Links dorthin, wo die echten Fotos
+stehen.
+
+**Ton.** Die Seiten richten sich an Erwachsene, nicht an Kinder: hier ist
+ausführlicher Text richtig, anders als auf dem Spielbildschirm. Wo die
+Wirksamkeit einer Methode nicht belegt ist, steht das auch so da — mehrere
+Seiten sagen ausdrücklich, dass der Übertrag auf Schulleistungen nicht
+nachgewiesen ist.
+
 ### Die zwei Bewertungsarten
 
 | | `count` | `percent` |

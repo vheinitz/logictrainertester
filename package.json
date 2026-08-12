@@ -9,7 +9,8 @@
     "build:dev": "node tools/build.mjs --dev",
     "watch": "node tools/build.mjs --watch",
     "serve": "python3 -m http.server 8080",
-    "test": "node test/smoke.mjs && npm run build && node test/integration.mjs"
+    "test": "node test/smoke.mjs && npm run build && node test/integration.mjs",
+    "gen:links": "node tools/gen-foerderung-links.mjs tools/methoden-quellen.json"
   },
   "devDependencies": {
     "esbuild": "^0.28.0",
