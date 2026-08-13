@@ -491,8 +491,8 @@ for (const [id, load] of Object.entries(registry)) {
 // Mittelwert. Der letzte Wert wäre die unzuverlässigste Zahl von allen –
 // ein einzelner Durchgang schwankt zu stark, um für sich zu stehen.
 {
-  const { sparkline, verdichten, mittel, serieAusHistorie, serieFuerModule, BALKEN }
-    = await import('../src/ui/spark.js');
+  const { sparkline, verdichten, mittel, BALKEN } = await import('../src/ui/spark.js');
+  const V = await import('../src/core/verlauf.js');
 
   // Verdichten darf nicht abschneiden: bei 200 Antworten sähe man sonst nur
   // den Anfang oder nur das Ende, nicht die Entwicklung dazwischen.
@@ -537,26 +537,95 @@ for (const [id, load] of Object.entries(registry)) {
         'freie Plätze sind nicht von gemessenen Balken unterscheidbar');
 
   // Beide Bewertungsarten landen auf derselben 0–100-Achse, älteste zuerst
+  // Wie echte Einträge: mit laufendem Zähler, damit sich Durchgänge
+  // trennen lassen. Absichtlich unsortiert abgelegt.
   const hist = [
-    { moduleId: 'a', kind: 'count', score: 1, total: 1, timestamp: 3 },
-    { moduleId: 'a', kind: 'count', score: 0, total: 1, timestamp: 1 },
-    { moduleId: 'a', kind: 'count', score: 1, total: 2, timestamp: 2 },
-    { moduleId: 'b', kind: 'percent', score: 70, total: 100, timestamp: 9 }
+    { moduleId: 'a', kind: 'count', score: 1, total: 1, round: 3, timestamp: 3 },
+    { moduleId: 'a', kind: 'count', score: 0, total: 1, round: 1, timestamp: 1 },
+    { moduleId: 'a', kind: 'count', score: 1, total: 2, round: 2, timestamp: 2 },
+    { moduleId: 'b', kind: 'percent', score: 70, total: 100, round: 1, timestamp: 9 }
   ];
-  check('verlauf', serieAusHistorie(hist, 'a').join(',') === '0,50,100',
-        `Serie aus count-Einträgen: ${serieAusHistorie(hist, 'a').join(',')} statt 0,50,100`);
-  check('verlauf', serieAusHistorie(hist, 'b').join(',') === '70',
-        'percent-Einträge werden nicht übernommen');
+  // Ein Balken ist ein DURCHGANG, keine Einzelantwort. Eine einzelne
+  // Antwort ist 0 oder 100 und für sich wertlos; als Balken wäre sie nur
+  // Rauschen. Drei Antworten desselben Durchgangs ergeben deshalb einen Wert.
+  const einDurchgang = V.mittelReihe(hist, ['a']);
+  check('verlauf', einDurchgang.length === 1,
+        `${einDurchgang.length} Balken für einen Durchgang statt 1`);
+  check('verlauf', Math.abs(einDurchgang[0] - 50) < 1e-9,
+        `Durchgangsmittel ${einDurchgang[0]} statt 50`);
 
   // Ein kognitiver Faktor hat keine eigene Messung – seine Reihe entsteht aus
   // allen Modulen, die auf ihn einzahlen, zeitlich verschmolzen.
-  const zusammen = serieFuerModule(hist, ['a', 'b']);
-  check('verlauf', zusammen.length === 4,
-        `verschmolzene Reihe hat ${zusammen.length} Werte statt 4`);
+  const zusammen = V.mittelReihe(hist, ['a', 'b']);
+  check('verlauf', zusammen.length === 2,
+        `verschmolzene Reihe hat ${zusammen.length} Durchgänge statt 2`);
   check('verlauf', zusammen[zusammen.length - 1] === 70,
         'die verschmolzene Reihe ist nicht zeitlich sortiert');
 
   console.log(`   Verlauf: 200 Werte → ${BALKEN} feste Plätze ohne Abschneiden, Zahl am Ende ist der Mittelwert`);
+}
+
+// ─── Ausdauer und Gleichmäßigkeit aus den Einzelantworten ─────────────
+// Der Mittelwert eines Durchgangs verschweigt, wie er zustande kam: 60 %
+// können gleichmäßig 60 % sein oder erst 90 % und dann 30 %. Genau das
+// steht in der Reihenfolge der Einzelwerte, die ohnehin gespeichert werden.
+{
+  const V = await import('../src/core/verlauf.js');
+  const bin = s => s.split('').map(c => (c === '1' ? 100 : 0));
+
+  // Ausdauer: zweite Hälfte gegen erste
+  check('ausdauer', V.ausdauer(Array(12).fill(60)).delta === 0,
+        'gleichbleibende Leistung ergibt keinen Ausdauerwert von 0');
+  const faellt = V.ausdauer([100, 100, 90, 90, 80, 70, 50, 40, 30, 20, 10, 0]).delta;
+  check('ausdauer', faellt < -40, `abfallender Verlauf ergibt nur ${faellt.toFixed(1)}`);
+  check('ausdauer', /nach$/.test(V.ausdauerText(faellt)), 'abfallender Verlauf wird nicht benannt');
+  check('ausdauer', V.ausdauer([1, 2, 3, 4, 5, 6, 7]) === null,
+        'aus sieben Werten wird eine Aussage abgeleitet');
+
+  // Gleichmäßigkeit muss um das Können bereinigt sein. Wer im Mittel die
+  // Hälfte richtig hat, MUSS wechseln – ein rohes Schwankungsmaß würde
+  // jedem mittelmäßigen Kind schlechte Konzentration bescheinigen.
+  const bloecke = V.gleichmaessigkeit(bin('1111100000')).eta;
+  const wechsel = V.gleichmaessigkeit(bin('1010101010')).eta;
+  check('ausdauer', bloecke < wechsel,
+        `Blockfolge (${bloecke.toFixed(2)}) gilt nicht als ruhiger als Dauerwechsel (${wechsel.toFixed(2)})`);
+  check('ausdauer', V.ruheText(wechsel) !== V.ruheText(bloecke),
+        'Dauerwechsel und Blockfolge werden gleich benannt');
+
+  // Der Bezugspunkt darf nicht von der Länge des Durchgangs abhängen. Ohne
+  // Normierung lag der Erwartungswert bei 10 Werten bei 2,47 statt bei 2 –
+  // eine unauffällige Zufallsfolge wurde dadurch als sprunghaft gemeldet.
+  let seed = 7;
+  const rnd = () => (seed = (seed * 1103515245 + 12345) & 0x7fffffff) / 0x7fffffff;
+  for (const n of [8, 10, 20, 40, 100]) {
+    const r = Array.from({ length: n }, () => (rnd() < 0.5 ? 100 : 0));
+    const e = V.gleichmaessigkeit(r).eta;
+    check('ausdauer', e > 0.7 && e < 1.35,
+          `Zufallsfolge der Länge ${n} ergibt η=${e.toFixed(2)} – erwartet um 1,0`);
+  }
+
+  // Durchgänge trennen: über die Kennung, bei Altbeständen über den Zähler
+  const bauen = mitKennung => {
+    const h = [];
+    for (let d = 0; d < 3; d++) for (let i = 1; i <= 10; i++) {
+      const e = { moduleId: 'm', kind: 'count', score: i % 2, total: 1, round: i, timestamp: d * 1000 + i };
+      if (mitKennung) e.sessionId = 500 + d;
+      h.push(e);
+    }
+    return h;
+  };
+  check('ausdauer', V.sitzungen(bauen(true), 'm').length === 3,
+        'Durchgänge werden über die Kennung nicht getrennt');
+  check('ausdauer', V.sitzungen(bauen(false), 'm').length === 3,
+        'Altbestand ohne Kennung wird nicht in Durchgänge getrennt');
+
+  // Aus zu wenigen Durchgängen wird nichts behauptet
+  check('ausdauer', V.verlaufsProfil(V.sitzungen(bauen(true), 'm').slice(0, 2)) === null,
+        `aus weniger als ${V.MIN_SITZUNGEN} Durchgängen wird ein Profil abgeleitet`);
+  const profil = V.verlaufsProfil(V.sitzungen(bauen(true), 'm'));
+  check('ausdauer', profil && profil.sitzungen === 3, 'Profil über drei Durchgänge fehlt');
+
+  console.log('   Ausdauer/Gleichmäßigkeit: um das Können bereinigt, längenunabhängig, ab 3 Durchgängen');
 }
 
 // ─── Altersnormierte Auswertung ───────────────────────────────────────

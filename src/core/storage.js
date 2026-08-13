@@ -111,12 +111,16 @@ export async function loadScore(moduleId) {
   });
 }
 
-export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count') {
+export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count', sessionId = 0) {
   const db = await open();
   return new Promise((ok, fail) => {
     const tx = db.transaction('history', 'readwrite');
     tx.objectStore('history').add({
-      moduleId, scale, round, score, total, correct, kind,
+      // sessionId hält zusammen, was in einem Durchgang entstanden ist.
+      // Ohne sie ließe sich später nicht mehr sagen, welche Antworten zu
+      // welchem Sitzungsverlauf gehören – und genau daraus liest man ab,
+      // ob die Leistung bis zum Schluss hält.
+      moduleId, scale, round, score, total, correct, kind, sessionId,
       timestamp: Date.now(),
       dateStr: new Date().toISOString().split('T')[0]
     });

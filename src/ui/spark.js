@@ -9,6 +9,9 @@
  * wie der Modulname und macht aus der Liste keine Diagrammsammlung. Wer den
  * genauen Wert will, liest die Zahl am Ende.
  *
+ * Was hineingegeben wird, entscheidet core/verlauf.js: ein Wert je
+ * Durchgang, nicht je Antwort. Diese Datei zeichnet nur.
+ *
  * Warum ein laufender Mittelwert am Ende und nicht der letzte Wert
  * ───────────────────────────────────────────────────────────────
  * Ein einzelner Durchgang schwankt stark mit Tagesform und Konzentration.
@@ -89,42 +92,4 @@ export function sparkline(werte, opt = {}) {
     </span>
     <span style="font-weight:800;color:${FARBE(schnitt)};margin-left:8px;min-width:2.2em;
       display:inline-block;text-align:right">${Math.round(schnitt)}</span>`;
-}
-
-/**
- * Momentanwerte eines Moduls aus der Historie, älteste zuerst.
- *
- * Beide Bewertungsarten werden auf dieselbe 0–100-Achse gebracht:
- *   percent  – der geschriebene Wert ist bereits die Bewertung
- *   count    – Anteil richtiger Antworten des jeweiligen Eintrags
- *
- * Bei `count` steht je Eintrag oft nur eine einzelne Antwort, also 0 oder
- * 100. Für sich genommen ist das nichts wert; erst das Verdichten in
- * `sparkline` macht daraus eine ablesbare Linie.
- */
-export function serieAusHistorie(history, moduleId) {
-  return serieFuerModule(history, [moduleId]);
-}
-
-/**
- * Momentanwerte mehrerer Module zu einer Reihe verschmolzen, zeitlich sortiert.
- *
- * Für einen kognitiven Faktor gibt es keine eigene Messung – er speist sich
- * aus mehreren Modulen. Die verschmolzene Reihe zeigt deshalb, wie sich alles
- * entwickelt hat, was auf diesen Faktor einzahlt.
- *
- * Einschränkung, die man kennen muss: die beteiligten Module sind
- * unterschiedlich schwer. Ein Wechsel des Moduls kann in der Reihe wie ein
- * Sprung aussehen, ohne dass sich beim Kind etwas geändert hätte. Die Reihe
- * taugt für die Form der Entwicklung, nicht für den Vergleich einzelner
- * Balken untereinander.
- */
-export function serieFuerModule(history, moduleIds) {
-  const menge = new Set(moduleIds);
-  return history
-    .filter(h => menge.has(h.moduleId))
-    .sort((a, b) => a.timestamp - b.timestamp)
-    .map(h => h.kind === 'percent'
-      ? (h.score || 0)
-      : ((h.total || 0) ? (h.score || 0) / h.total * 100 : 0));
 }

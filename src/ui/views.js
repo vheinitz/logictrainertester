@@ -14,7 +14,8 @@ import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 import * as settings from '../core/settings.js';
-import { sparkline, serieAusHistorie, serieFuerModule, mittel } from './spark.js';
+import { sparkline, mittel } from './spark.js';
+import { mittelReihe, sitzungen, verlaufsProfil, ausdauerText, ruheText, text as verlaufText, MIN_SITZUNGEN } from '../core/verlauf.js';
 
 /**
  * Modultext aus der i18n-Tabelle.
@@ -69,11 +70,108 @@ export function renderView(view) {
 }
 
 const STAT_UI = {
+  titelVerlauf: { de: 'Ausdauer und Gleichmäßigkeit',
+                  ru: 'Выносливость и ровность',
+                  en: 'Endurance and steadiness' },
+  erklaerung:   { de: 'Aus der Reihenfolge der einzelnen Antworten, nicht aus ihrem Mittelwert. Ausdauer: zweite Hälfte eines Durchgangs gegenüber der ersten, in Punkten. Gleichmäßigkeit: 1,0 heißt so wechselhaft wie zufällig, darunter ruhiger, darüber sprunghafter.',
+                  ru: 'По порядку отдельных ответов, а не по их среднему. Выносливость: вторая половина подхода против первой, в пунктах. Ровность: 1,0 — как при случайном порядке, ниже ровнее, выше скачкообразнее.',
+                  en: 'From the order of the individual answers, not their mean. Endurance: second half of a session against the first, in points. Steadiness: 1.0 means as variable as chance, below is calmer, above more erratic.' },
+  basis:        { de: 'Grundlage: {n} Durchgänge. Das ist ein Hinweis, keine Messung – Tagesform und Aufgabenwechsel wirken mit.',
+                  ru: 'Основа: {n} подходов. Это указание, а не измерение — влияют самочувствие и смена заданий.',
+                  en: 'Based on {n} sessions. This is an indication, not a measurement – daily form and task changes play in.' },
   verlauf: { de: 'Balken: einzelne Durchgänge in zeitlicher Reihenfolge. Zahl: Mittelwert über alle – ein einzelner Durchgang schwankt zu stark, um für sich zu stehen.',
              ru: 'Столбики — отдельные подходы по порядку. Число — среднее по всем: один подход слишком изменчив, чтобы судить по нему.',
              en: 'Bars: individual sessions in chronological order. Number: the average across all – a single session varies too much to stand on its own.' }
 };
 function statHinweis() { const l = lang(); return STAT_UI.verlauf[l] || STAT_UI.verlauf.de; }
+const vu = k => { const l = lang(); return STAT_UI[k][l] || STAT_UI[k].de; };
+
+/**
+ * Ausdauer und Gleichmäßigkeit aus den Einzelantworten eines Durchgangs.
+ *
+ * Der Mittelwert eines Durchgangs verschweigt, wie er zustande kam: 60 %
+ * können gleichmäßig 60 % sein oder erst 90 % und dann 30 %. Genau dieser
+ * Unterschied steht hier – er ist aus den Einzelwerten ablesbar, die
+ * ohnehin gespeichert werden.
+ *
+ * Angezeigt wird erst ab genügend Durchgängen. Aus einem einzelnen ließe
+ * sich nichts ablesen, was nicht auch reiner Zufall sein könnte.
+ */
+function verlaufsBlock(history) {
+  const profil = verlaufsProfil(sitzungen(history));
+  if (!profil) {
+    return `<p style="font-size:.78em;color:var(--text-light);margin-top:16px;text-align:center">
+      ${verlaufText('zuWenig')}</p>`;
+  }
+  const vz = profil.delta >= 0 ? '+' : '−';
+  const farbe = profil.delta >= -6 ? 'var(--green)' : profil.delta >= -18 ? 'var(--gold)' : 'var(--secondary)';
+  const farbeR = profil.eta < 0.7 ? 'var(--green)' : profil.eta <= 1.35 ? 'var(--primary)' : 'var(--secondary)';
+
+  return `<div style="width:100%;max-width:540px;margin-top:22px">
+    <h4 style="margin:0 0 4px">${vu('titelVerlauf')}</h4>
+    <p style="font-size:.74em;color:var(--text-light);margin:0 0 10px;line-height:1.5">${vu('erklaerung')}</p>
+
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <div style="flex:1;min-width:200px;background:var(--bg);border-radius:var(--radius-sm);padding:12px 14px">
+        <div style="font-size:.8em;color:var(--text-light)">${verlaufText('titelAusdauer')}</div>
+        <div style="font-size:1.5em;font-weight:800;color:${farbe}">${vz}${Math.abs(profil.delta).toFixed(0)}</div>
+        <div style="font-size:.85em">${ausdauerText(profil.delta)}</div>
+      </div>
+      <div style="flex:1;min-width:200px;background:var(--bg);border-radius:var(--radius-sm);padding:12px 14px">
+        <div style="font-size:.8em;color:var(--text-light)">${verlaufText('titelRuhe')}</div>
+        <div style="font-size:1.5em;font-weight:800;color:${farbeR}">${profil.eta.toFixed(2)}</div>
+        <div style="font-size:.85em">${ruheText(profil.eta)}</div>
+      </div>
+    </div>
+    <p style="font-size:.72em;color:var(--text-light);margin-top:8px;line-height:1.5">
+      ${vu('basis').replace('{n}', profil.sitzungen)}</p>
+  </div>`;
+}
+
+const FORTSCHRITT_UI = {
+  offen: { de: 'noch nicht gespielt', ru: 'ещё не играли', en: 'not played yet' }
+};
+
+/**
+ * Ergebnisse für die Kartenanzeige, einmal je Aufbau geladen.
+ *
+ * Menü und Skalenansicht sind dadurch asynchron. Das ist der Preis dafür,
+ * dass auf der Karte steht, ob und wie gut ein Modul schon lief – ohne das
+ * sehen 29 Karten gleich aus und man weiß nach zwei Wochen nicht mehr,
+ * was man schon probiert hat.
+ */
+async function ladeFortschritt() {
+  try {
+    const [scores, history] = await Promise.all([
+      storage.loadAllScores(), storage.loadAllHistory(2000)
+    ]);
+    return { gespielt: new Set(scores.map(s => s.moduleId)), history };
+  } catch (e) {
+    return { gespielt: new Set(), history: [] };   // ohne Speicher eben ohne Marken
+  }
+}
+
+/**
+ * Marke auf der Modulkarte: Verlauf als Balkenreihe, Mittelwert als Zahl.
+ *
+ * Dieselbe Darstellung wie in der Statistik – wer sie dort einmal gelesen
+ * hat, muss hier nichts Neues lernen. Noch nicht gespielte Module bekommen
+ * eine gestrichelte Leerzeile statt gar nichts, damit der Unterschied
+ * „noch nie" gegenüber „einmal schlecht" sichtbar bleibt.
+ */
+function kartenMarke(m, fortschritt) {
+  const l = lang();
+  const reihe = mittelReihe(fortschritt.history, [m.id]);
+  if (!reihe.length) {
+    return `<div style="margin-top:8px;font-size:.72em;color:var(--text-light);
+      border-top:1px dashed #DDD9F0;padding-top:6px">
+      ${FORTSCHRITT_UI.offen[l] || FORTSCHRITT_UI.offen.de}</div>`;
+  }
+  return `<div style="margin-top:8px;border-top:1px solid #EDEBF8;padding-top:6px;
+      font-size:.72em;display:flex;align-items:baseline;justify-content:space-between;gap:8px">
+    ${sparkline(reihe, { titel: modI18n(m.id, 'title', m.title) })}
+  </div>`;
+}
 
 const ALTER_UI = {
   titel:   { de: 'Wie alt ist das Kind?', ru: 'Сколько лет ребёнку?', en: 'How old is the child?' },
@@ -141,7 +239,7 @@ window._saveAge = () => {
   engine.render();
 };
 
-function renderMenu(main) {
+async function renderMenu(main) {
   // Eine Rückmeldung zum Zurücksetzen gehört zu genau einem Besuch der
   // Statistik – beim Weg über das Menü ist sie erledigt. Das gilt auch,
   // wenn statt der Modulliste die Altersabfrage erscheint.
@@ -163,6 +261,8 @@ function renderMenu(main) {
       </div>
     </div>`;
   }).join('');
+
+  const fortschritt = await ladeFortschritt();
 
   // Filter modules
   const alter = alterJahre();
@@ -192,6 +292,7 @@ function renderMenu(main) {
         <span class="badge badge-mode-${m.mode}">${ml}</span>
         ${m.kabcRef ? `<span class="badge" style="background:#FFF0F8;color:#C44D9A">${t('moduleLabel')}${loc(m.kabcRef)}</span>` : ''}
       </div>
+      ${kartenMarke(m, fortschritt)}
     </div>`;
   }).join('');
 
@@ -231,9 +332,10 @@ function buildId() {
   return m ? m[1] : 'dev';
 }
 
-function renderScaleView(main) {
+async function renderScaleView(main) {
   const s = getScale(engine.gameState.scaleId);
   if (!s) { engine.navigateTo('menu'); return; }
+  const fortschritt = await ladeFortschritt();
   const smods = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre()));
   const modsHtml = smods.map(m => {
     const title = modI18n(m.id, 'title', m.title);
@@ -247,6 +349,7 @@ function renderScaleView(main) {
         <span class="badge badge-age">${t('ageLabel')}${m.ages}</span>
         <span class="badge badge-mode-${m.mode}">${ml}</span>
       </div>
+      ${kartenMarke(m, fortschritt)}
     </div>`;
   }).join('');
   main.innerHTML = `<h2 class="page-title">${s.icon} ${loc(s.name)}</h2>
@@ -563,7 +666,7 @@ async function renderStats(main) {
         scores.sort((a, b) => b.updated - a.updated).forEach(s => {
           const m = getModule(s.moduleId);
           const name = m ? modI18n(m.id, 'title', m.title) : s.moduleId;
-          const serie = serieAusHistorie(history, s.moduleId);
+          const serie = mittelReihe(history, [s.moduleId]);
 
           // Ohne Verlauf in der Historie bleibt nur der gespeicherte Bestwert –
           // dann eine einzelne Marke statt einer vorgetäuschten Entwicklung.
@@ -581,6 +684,8 @@ async function renderStats(main) {
         html += `<p style="font-size:.74em;color:var(--text-light);margin-top:8px;line-height:1.5">
           ${statHinweis()}</p></div>`;
       }
+
+      html += verlaufsBlock(history);
       html += `<div style="margin-top:20px"><button class="btn btn-secondary btn-small" onclick="window._exportData()">${t('exportBackup')}</button></div>`;
       html += resetPanel();
       html += `</div></div>`;
@@ -613,7 +718,10 @@ export function autoPersist() {
   if (_last.moduleId !== gs.moduleId
       || (gs.total || 0) < _last.total
       || (gs.percent || 0) < _last.percent) {
-    _last = { moduleId: gs.moduleId, score: 0, total: 0, percent: 0 };
+    // Genau hier beginnt ein neuer Durchgang – ein anderes Modul oder
+    // dieselben Zähler wieder von vorn. Die Kennung wird einmal vergeben
+    // und liegt danach an jedem Eintrag dieses Durchgangs.
+    _last = { moduleId: gs.moduleId, score: 0, total: 0, percent: 0, sessionId: Date.now() };
   }
 
   const mod = getModule(gs.moduleId);
@@ -624,7 +732,7 @@ export function autoPersist() {
     if (percent <= _last.percent) return;      // nur Verbesserungen schreiben
     _last.percent = percent;
     persist(scale, { kind, percent, level: gs.level || 0 },
-            () => storage.saveHistory(gs.moduleId, scale, gs.attempts || 0, percent, 100, true, 'percent'));
+            () => storage.saveHistory(gs.moduleId, scale, gs.attempts || 0, percent, 100, true, 'percent', _last.sessionId));
   } else {
     const score = gs.score || 0, total = gs.total || 0;
     if (total <= _last.total) return;          // erst zählen, wenn eine Antwort dazukam
@@ -633,7 +741,7 @@ export function autoPersist() {
     const correct = addScore > 0;
     _last.score = score; _last.total = total;
     persist(scale, { kind, addScore, addTotal },
-            () => storage.saveHistory(gs.moduleId, scale, total, addScore, addTotal, correct, 'count'));
+            () => storage.saveHistory(gs.moduleId, scale, total, addScore, addTotal, correct, 'count', _last.sessionId));
   }
 }
 
@@ -793,7 +901,7 @@ async function renderRadar(main) {
       // Faktoren einzahlen. Ein waagerechter Balken stand hier vorher für
       // den Zustand – der zeigt nicht, ob es besser oder schlechter wird.
       const catModule = [...new Set(catFactors.flatMap(f => f.modules || []))];
-      const catSerie = serieFuerModule(history, catModule);
+      const catSerie = mittelReihe(history, catModule);
       if (catSerie.length) {
         html += `<div style="margin-bottom:8px;font-size:.85em;display:flex;align-items:baseline">
           ${sparkline(catSerie, { titel: cat[lang()] || cat.de })}</div>`;
@@ -807,7 +915,7 @@ async function renderRadar(main) {
           ? (f.accuracy >= 70 ? '🟢' : f.accuracy >= 40 ? '🟡' : '🔴')
           : '⚪';
         const name = f[lang()] || f.de;
-        const serie = serieFuerModule(history, f.modules || []);
+        const serie = mittelReihe(history, f.modules || []);
         html += `<div style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid #F0EFF8;">`;
         html += `<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${dot} ${name}</span>`;
         html += serie.length

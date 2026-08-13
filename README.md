@@ -526,6 +526,67 @@ kann in der Reihe wie ein Sprung aussehen, ohne dass sich beim Kind etwas
 geändert hätte. Die Reihe taugt für die **Form** der Entwicklung, nicht für
 den Vergleich einzelner Balken untereinander.
 
+### Ausdauer und Gleichmäßigkeit aus den Einzelantworten
+
+Gespeichert wird **jede einzelne Antwort**. Für die Anzeige ist das zu fein:
+in der Balkenreihe steht ein Wert je **Durchgang**, nicht je Antwort. Eine
+einzelne Antwort ist 0 oder 100 und für sich wertlos; als Balken wäre sie
+nur Rauschen.
+
+Die Einzelwerte bleiben aber erhalten, weil in ihrer *Reihenfolge* etwas
+steckt, das im Mittelwert verschwindet. 60 % können gleichmäßig 60 % sein —
+oder erst 90 % und dann 30 %. Zwei Größen greifen das ab:
+
+**Ausdauer** ist der Unterschied zwischen zweiter und erster Hälfte eines
+Durchgangs, in Punkten. Negativ heißt: es lässt gegen Ende nach. Die
+Halbierung ist robuster als eine Regressionsgerade, wenn nur zehn Werte
+vorliegen — und sie lässt sich jemandem erklären, der keine Statistik
+gelernt hat.
+
+**Gleichmäßigkeit** ist das Auf und Ab um diese Richtung herum, und zwar
+**bereinigt um das Können**. Das ist der entscheidende Punkt: wer im Mittel
+die Hälfte richtig hat, *muss* zwangsläufig wechseln. Ein rohes
+Schwankungsmaß würde deshalb Können mit Konzentration verwechseln und jedem
+mittelmäßigen Kind schlechte Konzentration bescheinigen. Verglichen wird
+darum mit einer zufälligen Reihenfolge derselben Werte (von-Neumann-Verhältnis):
+
+```
+δ² = Σ(vᵢ − vᵢ₋₁)² / (n−1)
+s² = Σ(v − v̄)²    / (n−1)
+η  = δ²/s²  geteilt durch den Erwartungswert 2n/(n−1)
+
+η ≈ 1   Reihenfolge wie zufällig – nichts Auffälliges
+η > 1   mehr Wechsel als Zufall – Aussetzer
+η < 1   ruhiger als Zufall – längere gleichbleibende Strecken
+```
+
+Die Teilung durch `2n/(n−1)` ist nicht Kosmetik, sondern eine Korrektur
+eines echten Fehlers: ohne sie hängt der Bezugspunkt von der Länge des
+Durchgangs ab. Bei zehn Werten liegt der Erwartungswert einer zufälligen
+Folge nicht bei 2, sondern bei 2,47 — eine völlig unauffällige Folge wurde
+dadurch als „sprunghaft" gemeldet. Der Testlauf prüft das jetzt für die
+Längen 8 bis 100.
+
+**Grenzen.** Mindestens 8 Werte je Durchgang und mindestens 3 Durchgänge,
+sonst wird nichts behauptet. Auch dann bleibt es ein Hinweis: Tagesform,
+Aufgabenwechsel und der Zufall kurzer Folgen wirken mit.
+
+Zusammengehalten werden die Antworten eines Durchgangs über eine
+`sessionId`, die beim Beginn eines Durchgangs vergeben wird. Ältere
+Einträge haben keine — für die wird der Bruch daran erkannt, dass der
+Zähler `round` nicht weiterläuft.
+
+### Das Aufgabenmenü zeigt, was schon dran war
+
+Jede Modulkarte trägt dieselbe Balkenreihe wie die Statistik, mit dem
+Mittelwert als Zahl. Noch nicht gespielte Module bekommen eine gestrichelte
+Leerzeile mit „noch nicht gespielt" statt gar nichts — der Unterschied
+„noch nie" gegenüber „einmal schlecht" muss sichtbar bleiben.
+
+Der Preis dafür: Menü und Skalenansicht laden Ergebnisse und sind dadurch
+asynchron. Ohne das sehen 29 Karten gleich aus, und nach zwei Wochen weiß
+niemand mehr, was schon dran war.
+
 ### Auswertung: eine Spanne ohne Alter sagt nichts
 
 Vorher zeigte die App für jede erreichte Spanne dieselbe Sternenreihe und

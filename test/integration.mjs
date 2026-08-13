@@ -638,6 +638,25 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
                   `Links in ${verlinkteModule}/${alleModule.length} Modulen`);
 }
 
+// ─── Kennzeichnung im Aufgabenmenü ────────────────────────────────────
+// Ohne Marke sehen 29 Karten gleich aus, und nach zwei Wochen weiß niemand
+// mehr, was schon dran war. Gespielte Module zeigen ihren Verlauf, noch
+// nicht gespielte sagen das ausdrücklich – der Unterschied „noch nie"
+// gegenüber „einmal schlecht" muss sichtbar bleiben.
+{
+  window.navigateTo('menu');
+  await sleep(400);
+  const karten = [...main.querySelectorAll('.card')];
+  const mitVerlauf = karten.filter(c => c.querySelector('[role="img"]'));
+  const offen = karten.filter(c => /noch nicht gespielt|ещё не играли|not played yet/.test(c.textContent));
+  check(karten.length > 0, 'Menü zeigt keine Karten');
+  check(mitVerlauf.length > 0, 'kein gespieltes Modul im Menü als gespielt gekennzeichnet');
+  check(offen.length > 0, 'kein ungespieltes Modul im Menü als offen gekennzeichnet');
+  check(mitVerlauf.length + offen.length >= karten.length - 5,
+        `${karten.length - mitVerlauf.length - offen.length} Karten ohne jede Kennzeichnung`);
+  verlaufTest.push(`Menü: ${mitVerlauf.length} gespielt, ${offen.length} offen gekennzeichnet`);
+}
+
 // ─── Statistik und Profil öffnen ──────────────────────────────────────
 errors.length = 0;
 window.navigateTo('stats');
