@@ -493,7 +493,12 @@ schwankt es? Wer den Wert braucht, liest die Zahl.
 
 Drei Entscheidungen, die man beim Nachbauen leicht anders träfe:
 
-* **Verdichten statt abschneiden.** Mehr als 28 Balken sind in einer
+* **Feste Breite: 30 Plätze, überall.** Nicht „so viele wie Messungen" —
+  nur bei fester Breite stehen die Zahlen dahinter in einer Spalte und zwei
+  Zeilen lassen sich nebeneinander lesen. Wer weniger gespielt hat, füllt die
+  Reihe noch nicht aus; die freien Plätze bleiben als blasse Sockel stehen
+  und sind von einem gemessenen Nullwert unterscheidbar.
+* **Verdichten statt abschneiden.** Mehr als 30 Balken sind in einer
   Textzeile nicht mehr unterscheidbar. Längere Reihen werden gemittelt, nicht
   gekürzt — sonst sähe man bei 200 Antworten nur den Anfang oder nur das
   Ende, also gerade nicht die Entwicklung.
@@ -508,6 +513,18 @@ Einzelne Antworten (`kind: 'count'`) sind für sich 0 oder 100 und damit
 wertlos; erst das Verdichten macht daraus eine ablesbare Linie. Module ohne
 Verlauf in der Historie zeigen eine einzelne Marke statt einer vorgetäuschten
 Entwicklung.
+
+**Dieselben Reihen im kognitiven Profil.** Ein Faktor hat keine eigene
+Messung — er speist sich aus mehreren Modulen. Seine Reihe entsteht deshalb
+aus den verschmolzenen Historien aller Module, die auf ihn einzahlen,
+zeitlich sortiert; dasselbe eine Ebene höher für die Kategorie. Dort stand
+vorher ein waagerechter Balken mit dem Zustand.
+
+Die Einschränkung dabei gehört mitgesagt und steht auch in der Oberfläche:
+die beteiligten Aufgaben sind unterschiedlich schwer. Ein Wechsel des Moduls
+kann in der Reihe wie ein Sprung aussehen, ohne dass sich beim Kind etwas
+geändert hätte. Die Reihe taugt für die **Form** der Entwicklung, nicht für
+den Vergleich einzelner Balken untereinander.
 
 ### Auswertung: eine Spanne ohne Alter sagt nichts
 

@@ -491,13 +491,14 @@ for (const [id, load] of Object.entries(registry)) {
 // Mittelwert. Der letzte Wert wäre die unzuverlässigste Zahl von allen –
 // ein einzelner Durchgang schwankt zu stark, um für sich zu stehen.
 {
-  const { sparkline, verdichten, mittel, serieAusHistorie } = await import('../src/ui/spark.js');
+  const { sparkline, verdichten, mittel, serieAusHistorie, serieFuerModule, BALKEN }
+    = await import('../src/ui/spark.js');
 
   // Verdichten darf nicht abschneiden: bei 200 Antworten sähe man sonst nur
   // den Anfang oder nur das Ende, nicht die Entwicklung dazwischen.
   const steigend = Array.from({ length: 200 }, (_, i) => i / 2);
   const v = verdichten(steigend);
-  check('verlauf', v.length <= 28, `verdichten liefert ${v.length} Balken, erlaubt sind 28`);
+  check('verlauf', v.length <= BALKEN, `verdichten liefert ${v.length} Balken, erlaubt sind ${BALKEN}`);
   check('verlauf', v.every((x, i) => i === 0 || x >= v[i - 1]),
         'verdichten zerstört die zeitliche Reihenfolge');
   check('verlauf', v[0] < 10 && v[v.length - 1] > 90,
@@ -523,6 +524,18 @@ for (const [id, load] of Object.entries(registry)) {
   check('verlauf', /height:6%/.test(sparkline([0])), 'ein Nullwert ist unsichtbar statt als Sockel erkennbar');
   check('verlauf', sparkline([]) === '', 'leere Reihe erzeugt trotzdem Ausgabe');
 
+  // Feste Breite: nur so stehen die Zahlen dahinter in einer Spalte und
+  // zwei Zeilen lassen sich nebeneinander lesen. Wenige Messungen füllen
+  // die Reihe noch nicht aus – auch das ist eine Information.
+  const plaetze = h => (h.match(/width:3px/g) || []).length;
+  const kurz = sparkline([50, 80]);
+  const lang2 = sparkline(steigend);
+  check('verlauf', plaetze(kurz) === BALKEN && plaetze(lang2) === BALKEN,
+        `Reihen sind verschieden breit: ${plaetze(kurz)} gegenüber ${plaetze(lang2)} Plätzen`);
+  // Die freien Plätze müssen als solche erkennbar bleiben, nicht als Messwert
+  check('verlauf', (kurz.match(/background:#E8E5F5/g) || []).length === BALKEN - 2,
+        'freie Plätze sind nicht von gemessenen Balken unterscheidbar');
+
   // Beide Bewertungsarten landen auf derselben 0–100-Achse, älteste zuerst
   const hist = [
     { moduleId: 'a', kind: 'count', score: 1, total: 1, timestamp: 3 },
@@ -535,7 +548,15 @@ for (const [id, load] of Object.entries(registry)) {
   check('verlauf', serieAusHistorie(hist, 'b').join(',') === '70',
         'percent-Einträge werden nicht übernommen');
 
-  console.log('   Verlauf: 200 Werte → 28 Balken ohne Abschneiden, Zahl am Ende ist der Mittelwert');
+  // Ein kognitiver Faktor hat keine eigene Messung – seine Reihe entsteht aus
+  // allen Modulen, die auf ihn einzahlen, zeitlich verschmolzen.
+  const zusammen = serieFuerModule(hist, ['a', 'b']);
+  check('verlauf', zusammen.length === 4,
+        `verschmolzene Reihe hat ${zusammen.length} Werte statt 4`);
+  check('verlauf', zusammen[zusammen.length - 1] === 70,
+        'die verschmolzene Reihe ist nicht zeitlich sortiert');
+
+  console.log(`   Verlauf: 200 Werte → ${BALKEN} feste Plätze ohne Abschneiden, Zahl am Ende ist der Mittelwert`);
 }
 
 // ─── Altersnormierte Auswertung ───────────────────────────────────────

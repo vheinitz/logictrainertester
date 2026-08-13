@@ -663,8 +663,24 @@ check(main.innerHTML.includes('training-container') || main.innerHTML.length > 2
 }
 
 window.navigateTo('radar');
-await sleep(250);
+await sleep(300);
 check(main.innerHTML.includes('Kognitives Profil'), 'Profil-Ansicht ist leer');
+
+// Auch im Profil gehört der Verlauf hin, nicht nur ein Zustandswert – und
+// die Reihen müssen dieselbe feste Breite haben wie in der Statistik, sonst
+// stehen die Zahlen dahinter nicht in einer Spalte.
+{
+  const { BALKEN } = await import('../src/ui/spark.js');
+  const reihen = [...main.querySelectorAll('[role="img"][aria-label]')];
+  check(reihen.length > 0, 'Kognitives Profil zeigt keinen Verlauf');
+  const breiten = new Set(reihen.map(z => z.querySelectorAll('span').length));
+  check(breiten.size <= 1, `Verlaufsreihen im Profil sind verschieden breit: ${[...breiten].join('/')}`);
+  if (reihen.length) {
+    check([...breiten][0] === BALKEN,
+          `Reihen haben ${[...breiten][0]} Plätze statt der festen ${BALKEN}`);
+    verlaufTest.push(`Profil: ${reihen.length} Reihen à ${BALKEN} Plätze`);
+  }
+}
 check(errors.length === 0, `Auswertungsansichten: ${errors.join(' | ')}`);
 
 // Balkenbreiten dürfen nie über 100% laufen – das war der sichtbare Effekt

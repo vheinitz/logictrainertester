@@ -14,7 +14,7 @@ import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 import * as settings from '../core/settings.js';
-import { sparkline, serieAusHistorie, mittel } from './spark.js';
+import { sparkline, serieAusHistorie, serieFuerModule, mittel } from './spark.js';
 
 /**
  * Modultext aus der i18n-Tabelle.
@@ -736,13 +736,17 @@ async function renderRadar(main) {
   const RADAR_UI = {
     getestet: { de:'Faktoren getestet', ru:'факторов проверено', en:'factors tested' },
     gespielt: { de:'Module gespielt', ru:'модулей сыграно', en:'modules played' },
-    nicht:    { de:'nicht getestet', ru:'не проверено', en:'not tested' }
+    nicht:    { de:'nicht getestet', ru:'не проверено', en:'not tested' },
+    reihen:   { de:'Balken: alle Durchgänge, die auf den Faktor einzahlen, in zeitlicher Reihenfolge. Zahl: Mittelwert. Die beteiligten Aufgaben sind unterschiedlich schwer – die Reihe zeigt die Form der Entwicklung, nicht den Vergleich einzelner Balken.',
+                ru:'Столбики — все подходы, влияющие на фактор, по порядку. Число — среднее. Задания разной сложности: важна форма развития, а не сравнение отдельных столбиков.',
+                en:'Bars: every session feeding this factor, in chronological order. Number: the average. The tasks involved differ in difficulty – the row shows the shape of development, not a comparison of single bars.' }
   };
   const ru2 = k => { const l = lang(); return RADAR_UI[k][l] || RADAR_UI[k].de; };
   let html = `<h2 class="page-title">${t('profileButton')}</h2>`;
   
   try {
     const scores = await storage.loadAllScores();
+    const history = await storage.loadAllHistory(2000);
     const scoresByModule = {};
     scores.forEach(s => { scoresByModule[s.moduleId] = s; });
     
@@ -785,23 +789,30 @@ async function renderRadar(main) {
       html += `<span style="font-size:0.85em;color:var(--text-light);">${testedInCat}/${catFactors.length}</span>`;
       html += `</div>`;
       
-      // Mini bar for category
-      if (catAcc !== null) {
-        html += `<div style="background:#F0EFF8;border-radius:4px;height:6px;margin-bottom:8px;">`;
-        html += `<div style="background:${barColor};height:100%;width:${catAcc}%;border-radius:4px;"></div></div>`;
+      // Verlauf der ganzen Kategorie: alle Module, die auf einen ihrer
+      // Faktoren einzahlen. Ein waagerechter Balken stand hier vorher für
+      // den Zustand – der zeigt nicht, ob es besser oder schlechter wird.
+      const catModule = [...new Set(catFactors.flatMap(f => f.modules || []))];
+      const catSerie = serieFuerModule(history, catModule);
+      if (catSerie.length) {
+        html += `<div style="margin-bottom:8px;font-size:.85em;display:flex;align-items:baseline">
+          ${sparkline(catSerie, { titel: cat[lang()] || cat.de })}</div>`;
       }
       
       // Individual factors
       html += `<div style="font-size:0.8em;">`;
       for (const f of catFactors) {
         const tested = f.accuracy !== null;
-        const dot = tested 
+        const dot = tested
           ? (f.accuracy >= 70 ? '🟢' : f.accuracy >= 40 ? '🟡' : '🔴')
           : '⚪';
-        const label = tested ? `${f.accuracy}%` : '—';
-        html += `<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #F0EFF8;">`;
-        html += `<span>${dot} ${f[lang()] || f.de}</span>`;
-        html += `<span style="font-weight:600;color:${tested?'var(--text)':'var(--text-light)'};">${label}</span>`;
+        const name = f[lang()] || f.de;
+        const serie = serieFuerModule(history, f.modules || []);
+        html += `<div style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid #F0EFF8;">`;
+        html += `<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${dot} ${name}</span>`;
+        html += serie.length
+          ? `<span style="flex:0 0 auto;display:inline-flex;align-items:baseline">${sparkline(serie, { titel: name })}</span>`
+          : `<span style="flex:0 0 auto;color:var(--text-light)">—</span>`;
         html += `</div>`;
       }
       html += `</div></div>`;
@@ -812,6 +823,7 @@ async function renderRadar(main) {
     // Legend
     html += `<div style="margin-top:16px;font-size:0.8em;color:var(--text-light);text-align:center;">`;
     html += `🟢 ≥70% &nbsp; 🟡 40–69% &nbsp; 🔴 <40% &nbsp; ⚪ ${ru2('nicht')}`;
+    html += `<p style="margin-top:8px;line-height:1.5">${ru2('reihen')}</p>`;
     html += `</div>`;
     html += resetPanel();
     

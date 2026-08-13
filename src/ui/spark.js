@@ -25,15 +25,22 @@
  * bleibt ungekappt.
  */
 
-/** Mehr Balken als das passen in eine Zeile nicht mehr erkennbar hinein. */
-const MAX_BALKEN = 28;
+/**
+ * Feste Anzahl Balken – überall gleich, in der Statistik wie im Profil.
+ *
+ * Fest und nicht „so viele wie Messungen": nur dann sind alle Reihen gleich
+ * breit, die Zahlen dahinter stehen untereinander und zwei Zeilen lassen
+ * sich nebeneinander lesen. Wer weniger gespielt hat, füllt die Reihe eben
+ * noch nicht aus – auch das ist eine Information.
+ */
+export const BALKEN = 30;
 
 /**
  * Reihe auf höchstens `n` Werte eindampfen, indem benachbarte gemittelt
  * werden. Wegwerfen wäre falsch: bei 200 Antworten sähe man sonst nur den
  * Anfang oder nur das Ende, nicht die Entwicklung dazwischen.
  */
-export function verdichten(werte, n = MAX_BALKEN) {
+export function verdichten(werte, n = BALKEN) {
   if (werte.length <= n) return werte.slice();
   const raus = [];
   for (let i = 0; i < n; i++) {
@@ -64,19 +71,21 @@ export function sparkline(werte, opt = {}) {
   const schnitt = mittel(werte);
   const beschriftung = `${opt.titel || ''} ${werte.length}× , ⌀ ${Math.round(schnitt)}`.trim();
 
-  // Balkenbreite schrumpft mit der Anzahl, damit die Reihe gleich breit
-  // bleibt und die Zahl dahinter nicht wandert.
-  const breite = balken.length > 20 ? 3 : balken.length > 12 ? 4 : 5;
-
   const stuecke = balken.map(w => {
     const h = Math.max(6, Math.min(100, w));       // 6 % Sockel: 0 bliebe unsichtbar
-    return `<span style="display:inline-block;width:${breite}px;height:${h}%;
+    return `<span style="display:inline-block;width:3px;height:${h}%;
       background:${FARBE(w)};border-radius:1px;vertical-align:bottom;opacity:.85"></span>`;
   }).join('');
 
+  // Noch nicht gefüllte Plätze bleiben als blasse Sockel stehen, damit jede
+  // Reihe gleich breit ist und die Zahlen dahinter eine Spalte bilden.
+  const leer = Array(Math.max(0, BALKEN - balken.length)).fill(
+    `<span style="display:inline-block;width:3px;height:6%;background:#E8E5F5;
+      border-radius:1px;vertical-align:bottom"></span>`).join('');
+
   return `<span role="img" aria-label="${beschriftung}" title="${beschriftung}"
       style="display:inline-flex;align-items:flex-end;gap:1px;height:1.15em;line-height:1">
-      ${stuecke}
+      ${stuecke}${leer}
     </span>
     <span style="font-weight:800;color:${FARBE(schnitt)};margin-left:8px;min-width:2.2em;
       display:inline-block;text-align:right">${Math.round(schnitt)}</span>`;
@@ -94,8 +103,26 @@ export function sparkline(werte, opt = {}) {
  * `sparkline` macht daraus eine ablesbare Linie.
  */
 export function serieAusHistorie(history, moduleId) {
+  return serieFuerModule(history, [moduleId]);
+}
+
+/**
+ * Momentanwerte mehrerer Module zu einer Reihe verschmolzen, zeitlich sortiert.
+ *
+ * Für einen kognitiven Faktor gibt es keine eigene Messung – er speist sich
+ * aus mehreren Modulen. Die verschmolzene Reihe zeigt deshalb, wie sich alles
+ * entwickelt hat, was auf diesen Faktor einzahlt.
+ *
+ * Einschränkung, die man kennen muss: die beteiligten Module sind
+ * unterschiedlich schwer. Ein Wechsel des Moduls kann in der Reihe wie ein
+ * Sprung aussehen, ohne dass sich beim Kind etwas geändert hätte. Die Reihe
+ * taugt für die Form der Entwicklung, nicht für den Vergleich einzelner
+ * Balken untereinander.
+ */
+export function serieFuerModule(history, moduleIds) {
+  const menge = new Set(moduleIds);
   return history
-    .filter(h => h.moduleId === moduleId)
+    .filter(h => menge.has(h.moduleId))
     .sort((a, b) => a.timestamp - b.timestamp)
     .map(h => h.kind === 'percent'
       ? (h.score || 0)
