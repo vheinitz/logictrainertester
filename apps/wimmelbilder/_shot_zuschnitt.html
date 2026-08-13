@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<!-- Startbildschirm ------------------------------------------------------->
+<!-- Auswahl --------------------------------------------------------------->
 <section id="start" class="seite">
   <header class="kopf">
     <h1>Wimmelbild-Suche</h1>
@@ -16,7 +16,13 @@
   </header>
 
   <div class="inhalt">
-    <h2>Bild wählen</h2>
+    <div class="abschnittskopf">
+      <h2>Bild wählen</h2>
+      <div class="knopfgruppe">
+        <button id="knopf-neu" class="neben klein">Neues Wimmelbild…</button>
+        <button id="knopf-import" class="neben klein">Bildsatz importieren…</button>
+      </div>
+    </div>
     <div id="satzliste" class="kartenliste"></div>
 
     <h2>Einstellungen</h2>
@@ -44,18 +50,22 @@
         <input type="checkbox" id="opt-zufall" checked>
         Zufällige Reihenfolge
       </label>
+      <label class="schalter">
+        <input type="checkbox" id="opt-nur-gesetzte">
+        Nur Fragen mit gesetztem Ziel
+      </label>
     </div>
 
-    <div id="warnung-kalibrierung" class="hinweis warnung" hidden></div>
+    <div id="warnung" class="hinweis warnung" hidden></div>
 
     <div class="knopfreihe">
       <button id="knopf-start" class="haupt">Runde starten</button>
-      <button id="knopf-kalibrieren" class="neben">Ziele kalibrieren</button>
+      <button id="knopf-bearbeiten" class="neben">Fragen bearbeiten</button>
     </div>
   </div>
 </section>
 
-<!-- Spielbildschirm ------------------------------------------------------->
+<!-- Spiel ----------------------------------------------------------------->
 <section id="spiel" class="seite" hidden>
   <header class="spielkopf">
     <div class="frageblock">
@@ -106,81 +116,90 @@
     </div>
     <div class="knopfreihe">
       <button id="knopf-nochmal" class="haupt">Nochmal</button>
-      <button id="knopf-ergebnis-speichern" class="neben">Ergebnis als JSON</button>
+      <button id="knopf-ergebnis" class="neben">Ergebnis als JSON</button>
       <button id="knopf-zurueck" class="neben">Zur Auswahl</button>
     </div>
   </div>
 </section>
 
-<!-- Kalibrierung ---------------------------------------------------------->
-<section id="kalib" class="seite" hidden>
-  <header class="spielkopf">
-    <div class="frageblock">
-      <span class="zaehler" id="kalib-zaehler">1 / 50</span>
-      <span class="frage" id="kalib-frage">…</span>
+<!-- Editor ---------------------------------------------------------------->
+<section id="editor" class="seite" hidden>
+  <header class="editorkopf">
+    <div class="titelblock">
+      <input id="ed-titel" class="titelfeld" placeholder="Titel" aria-label="Titel">
+      <label class="kennungsfeld">Kennung
+        <input id="ed-id" aria-label="Kennung">
+      </label>
+      <span id="ed-herkunft" class="kennzeichen"></span>
     </div>
     <div class="statusblock">
-      <span class="stat" id="kalib-fortschritt">0 von 50 gesetzt</span>
+      <span class="stat" id="ed-stand"></span>
+      <button id="ed-speichern" class="neben klein">Speichern</button>
     </div>
   </header>
 
-  <div class="kalib-koerper">
-    <div class="buehne" id="kalib-buehne">
-      <div class="leinwand" id="kalib-leinwand">
-        <img id="kalib-bild" alt="Wimmelbild">
-        <div class="marker-ebene" id="kalib-marker"></div>
+  <div class="editor-koerper">
+    <div class="buehne" id="ed-buehne">
+      <div class="leinwand" id="ed-leinwand">
+        <img id="ed-bild" alt="">
+        <div class="marker-ebene" id="ed-marker"></div>
       </div>
+      <p class="buehne-hinweis" id="ed-hinweis" hidden></p>
     </div>
-    <aside class="kalib-liste" id="kalib-liste"></aside>
+
+    <aside class="editor-liste">
+      <div class="listenkopf">
+        <button id="ed-neu-frage" class="neben klein">+ Frage</button>
+        <button id="ed-import" class="neben klein">Fragen importieren…</button>
+        <button id="ed-reihum" class="neben klein" aria-pressed="false">Reihum setzen</button>
+      </div>
+      <ol id="ed-fragen" class="fragenliste"></ol>
+    </aside>
   </div>
 
   <footer class="spielfuss">
-    <button id="kalib-zurueck-frage" class="neben">◀ zurück</button>
-    <button id="kalib-weiter-frage" class="neben">weiter ▶</button>
-    <div class="zoomsteuerung">
-      <button id="kalib-zoom-raus" class="rund">−</button>
-      <span id="kalib-zoom-wert">100 %</span>
-      <button id="kalib-zoom-rein" class="rund">+</button>
-      <button id="kalib-zoom-zurueck" class="neben klein">ganzes Bild</button>
+    <div class="knopfgruppe">
+      <button id="ed-export" class="haupt">Exportieren…</button>
+      <button id="ed-bild-ersetzen" class="neben klein">Bild ersetzen…</button>
+      <button id="ed-einstellungen" class="neben klein">Einstellungen…</button>
+      <button id="ed-verwerfen" class="neben klein" hidden>Änderungen verwerfen</button>
     </div>
-    <button id="kalib-loeschen" class="neben">Marke löschen</button>
-    <button id="kalib-export" class="haupt">Datei exportieren</button>
-    <button id="kalib-fertig" class="neben">Fertig</button>
+    <div class="zoomsteuerung">
+      <button id="ed-zoom-raus" class="rund">−</button>
+      <span id="ed-zoom-wert">100 %</span>
+      <button id="ed-zoom-rein" class="rund">+</button>
+      <button id="ed-zoom-zurueck" class="neben klein">ganzes Bild</button>
+    </div>
+    <button id="ed-fertig" class="neben">Fertig</button>
   </footer>
 </section>
 
-<!-- Export-Dialog --------------------------------------------------------->
-<div id="dialog" class="dialog" hidden>
-  <div class="dialog-fenster">
-    <h2 id="dialog-titel">Export</h2>
-    <p id="dialog-text" class="hinweis"></p>
-    <textarea id="dialog-text-feld" spellcheck="false" readonly></textarea>
-    <div class="knopfreihe">
-      <button id="dialog-herunterladen" class="haupt">Herunterladen</button>
-      <button id="dialog-kopieren" class="neben">In die Zwischenablage</button>
-      <button id="dialog-schliessen" class="neben">Schließen</button>
-    </div>
-  </div>
-</div>
-
+<script src="js/hilfen.js"></script>
 <script src="js/wimmelbild.js"></script>
-<!-- Datensätze: je Wimmelbild eine Datei, hier eine Zeile ergänzen. -->
+<script src="js/bild.js"></script>
+<script src="js/ansicht.js"></script>
+<!-- Fest eingebaute Bildsätze: je Wimmelbild eine Datei, hier eine Zeile. -->
 <script src="data/dorfplatz.js"></script>
+<script src="js/aufnahme.js"></script>
+<script src="js/editor.js"></script>
 <script src="js/app.js"></script>
-
 <script>
 setTimeout(function(){
-  document.getElementById('knopf-start').click();
-  setTimeout(function(){
-    var b = document.getElementById('buehne').getBoundingClientRect();
-    function klick(x,y){
-      ['pointerdown','pointerup'].forEach(function(t){
-        document.getElementById('buehne').dispatchEvent(new PointerEvent(t,{clientX:x,clientY:y,bubbles:true,pointerId:1}));
-      });
-    }
-    klick(b.left+300, b.top+300);
-  }, 300);
+  document.getElementById('knopf-neu').click();
+  var img = new Image();
+  img.onload = function(){
+    var c = document.createElement('canvas');
+    c.width = img.naturalWidth; c.height = img.naturalHeight;
+    c.getContext('2d').drawImage(img,0,0);
+    c.toBlob(function(blob){
+      var datei = new File([blob], 'dorfplatz-original.jpg', {type:'image/jpeg'});
+      var dt = new DataTransfer(); dt.items.add(datei);
+      var ein = document.querySelector('.dialog input[type=file]');
+      ein.files = dt.files;
+      ein.dispatchEvent(new Event('change', {bubbles:true}));
+    }, 'image/jpeg', 0.92);
+  };
+  img.src = 'source/dorfplatz-original.jpg';
 }, 200);
-</script>
-</body>
+</script></body>
 </html>

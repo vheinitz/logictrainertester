@@ -487,6 +487,51 @@ for (const [id, load] of Object.entries(registry)) {
   }
 }
 
+// ─── Keine Aufgabe zweimal im selben Durchgang ────────────────────────
+// Dieselbe Frage zweimal wirkt wie ein Fehler und misst beim zweiten Mal
+// etwas anderes: die Erinnerung an die vorige Antwort statt der Fähigkeit.
+{
+  const RUNDEN = 10;                       // Voreinstellung eines Durchgangs
+  const mitSperre = [];
+  for (const id of Object.keys(registry)) {
+    let mod;
+    try { mod = await registry[id](); } catch (e) { continue; }
+    if (!mod || !mod.actions || !mod.actions.next || !mod.init) continue;
+
+    const gs = { moduleId: id, step: 'game', score: 0, total: 0, gd: {} };
+    engine.activeGame = { id, mod };
+    engine.gameState = gs;
+    try {
+      mod.init(gs);
+      const r0 = gs.gd && gs.gd.round;
+      if (!r0 || r0._key == null) continue;          // Modul ohne Kennung
+      mitSperre.push(id);
+
+      const keys = [];
+      for (let i = 0; i < RUNDEN; i++) {
+        keys.push(gs.gd.round._key);
+        mod.actions.next(gs);
+      }
+
+      // Direkt hintereinander darf sich nie etwas wiederholen. Ist der
+      // Vorrat einer Stufe kleiner als der Durchgang, sind Wiederholungen
+      // unvermeidlich – aber nicht Schlag auf Schlag.
+      let direkt = 0;
+      for (let i = 1; i < keys.length; i++) if (keys[i] === keys[i - 1]) direkt++;
+      check('wiederholung', direkt === 0,
+            `${id}: ${direkt}× dieselbe Aufgabe direkt hintereinander`);
+    } catch (e) {
+      check('wiederholung', false, `${id}: ${e.message}`);
+    } finally {
+      try { mod.dispose(gs); } catch (e) { /* egal */ }
+      engine.activeGame = null;
+    }
+  }
+  check('wiederholung', mitSperre.length >= 8,
+        `nur ${mitSperre.length} Module haben eine Wiederholungssperre`);
+  console.log(`   Wiederholungssperre: ${mitSperre.length} Module, keine Aufgabe direkt doppelt`);
+}
+
 // ─── Module bringen ihre eigenen Einstellungen mit ────────────────────
 // Ein Modul weiß am besten, welche Stellschrauben es hat. Eine zentrale
 // Liste wüchse bei jedem neuen Modul und würde irgendwann unübersichtlich.
@@ -518,7 +563,17 @@ for (const [id, load] of Object.entries(registry)) {
       settings.set(key, vorher);
     }
   }
-  console.log(`   Modul-Einstellungen: ${anzahl} aus ${Object.keys(gruppen).length} Modul(en) angemeldet`);
+  // Das Wortschatz-Quiz braucht eine kurze Antwortzeit: ein Wort erkennt man
+  // oder nicht. Dreißig Sekunden Grundzeit sind dort keine Großzügigkeit,
+  // sondern Leerlauf, in dem die Aufmerksamkeit wegdriftet.
+  const kurz = settings.SCHEMA['wiss-wortschatz.antwortzeit'];
+  check('modconf', !!kurz, 'das Wortschatz-Quiz hat keine eigene Antwortzeit');
+  check('modconf', kurz && kurz.def <= 8,
+        `Antwortzeit des Wortschatz-Quiz ist auf ${kurz && kurz.def}s voreingestellt – zu lang für eine Worterkennung`);
+  check('modconf', kurz && kurz.def < settings.SCHEMA.choiceAnswer.def,
+        'die eigene Antwortzeit ist nicht kürzer als die allgemeine');
+
+  console.log(`   Modul-Einstellungen: ${anzahl} aus ${Object.keys(gruppen).length} Modul(en) angemeldet, Wortschatz ${kurz ? kurz.def : '?'}s`);
 }
 
 // ─── Bedenkzeit wächst mit dem Niveau ─────────────────────────────────

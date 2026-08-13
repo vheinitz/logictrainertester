@@ -33,10 +33,7 @@ html, body {
 
 /* --------------------------------------------------------------- Kopf */
 
-.kopf {
-  padding: 28px 24px 12px;
-  text-align: center;
-}
+.kopf { padding: 28px 24px 12px; text-align: center; }
 .kopf h1 { margin: 0; font-size: 30px; letter-spacing: -.01em; }
 .lead { margin: 6px 0 0; color: var(--schrift-leise); }
 
@@ -48,13 +45,22 @@ html, body {
   width: 100%;
   margin: 0 auto;
 }
-.inhalt h2 {
+.inhalt h2, .abschnittskopf h2 {
   font-size: 15px;
   text-transform: uppercase;
   letter-spacing: .08em;
   color: var(--schrift-leise);
   margin: 28px 0 12px;
 }
+.abschnittskopf {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.abschnittskopf h2 { margin-bottom: 8px; }
+.knopfgruppe { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
 
 /* ------------------------------------------------------------ Auswahl */
 
@@ -64,55 +70,67 @@ html, body {
   background: var(--papier);
   border: 2px solid var(--linie);
   border-radius: var(--radius);
-  padding: 0;
   overflow: hidden;
-  cursor: pointer;
-  text-align: left;
-  font: inherit;
-  color: inherit;
   box-shadow: var(--schatten);
   transition: border-color .12s, transform .12s;
+  display: flex;
+  flex-direction: column;
 }
 .karte:hover { transform: translateY(-2px); }
 .karte[aria-pressed="true"] { border-color: var(--akzent); }
+.kartenflaeche {
+  border: 0; background: none; padding: 0; margin: 0;
+  font: inherit; color: inherit; text-align: left; cursor: pointer;
+  display: block; flex: 1;
+}
 .karte img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--linie); }
 .karte .kartentext { padding: 10px 12px 12px; }
 .karte b { display: block; font-size: 17px; }
-.karte small { color: var(--schrift-leise); }
-.karte .kennzeichen {
+.karte small { color: var(--schrift-leise); display: block; margin-bottom: 6px; }
+.kennzeichen {
   display: inline-block;
-  margin-top: 6px;
+  margin-right: 5px;
   padding: 1px 7px;
   border-radius: 20px;
   font-size: 12px;
-  background: var(--akzent-hell);
-  color: var(--akzent);
+  background: var(--gut-hell);
+  color: var(--gut);
 }
-.karte .kennzeichen.offen { background: #fdf1d8; color: #8a6412; }
+.kennzeichen.offen { background: #fdf1d8; color: #8a6412; }
+.kennzeichen.lokal { background: var(--akzent-hell); color: var(--akzent); }
+.kartenwerkzeuge {
+  display: flex; gap: 6px; padding: 0 12px 10px;
+}
 
 /* --------------------------------------------------------- Einstellungen */
 
 .optionen { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 20px; }
 .optionen label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--schrift-leise); }
-.optionen label.schalter { flex-direction: row; align-items: center; gap: 8px; color: var(--schrift); font-size: 15px; }
-.optionen select {
+.optionen label.schalter, label.schalter {
+  flex-direction: row; align-items: center; gap: 8px;
+  color: var(--schrift); font-size: 15px;
+}
+select, input[type="text"], input[type="number"], input[type="file"], textarea {
   font: inherit;
   padding: 8px 10px;
   border: 1px solid var(--linie);
   border-radius: 8px;
   background: var(--papier);
   color: var(--schrift);
+  width: 100%;
 }
-.optionen input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--akzent); }
+input[type="checkbox"], input[type="radio"] { width: 18px; height: 18px; accent-color: var(--akzent); flex-shrink: 0; }
 
-.hinweis { font-size: 14px; color: var(--schrift-leise); margin: 16px 0 0; }
+.hinweis { font-size: 14px; color: var(--schrift-leise); margin: 12px 0 0; }
 .hinweis.warnung {
   background: #fdf1d8;
   border-left: 4px solid var(--neutral);
   color: #6b5010;
   padding: 10px 14px;
   border-radius: 0 8px 8px 0;
+  margin-top: 20px;
 }
+.hinweis.meckern { color: var(--schlecht); }
 
 /* ------------------------------------------------------------- Knöpfe */
 
@@ -130,13 +148,20 @@ button.haupt { background: var(--akzent); color: #fff; font-weight: 600; }
 button.haupt:hover { background: #17497f; }
 button.neben { background: var(--papier); border-color: var(--linie); color: var(--schrift); }
 button.neben:hover { border-color: var(--akzent); color: var(--akzent); }
+button.neben[aria-pressed="true"] { background: var(--akzent); color: #fff; border-color: var(--akzent); }
 button.klein { padding: 6px 10px; font-size: 14px; }
+button.winzig {
+  padding: 3px 8px; font-size: 13px;
+  background: var(--papier); border: 1px solid var(--linie); color: var(--schrift-leise);
+}
+button.winzig:hover { border-color: var(--akzent); color: var(--akzent); }
+button.winzig.gefahr:hover { border-color: var(--schlecht); color: var(--schlecht); }
 button.rund { width: 34px; height: 34px; padding: 0; font-size: 20px; line-height: 1; background: var(--papier); border-color: var(--linie); }
 button:disabled { opacity: .45; cursor: default; }
 
 /* --------------------------------------------------------- Spielkopf */
 
-.spielkopf {
+.spielkopf, .editorkopf {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -147,12 +172,7 @@ button:disabled { opacity: .45; cursor: default; }
   flex-wrap: wrap;
 }
 .frageblock { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
-.zaehler {
-  font-variant-numeric: tabular-nums;
-  color: var(--schrift-leise);
-  font-size: 14px;
-  white-space: nowrap;
-}
+.zaehler { font-variant-numeric: tabular-nums; color: var(--schrift-leise); font-size: 14px; white-space: nowrap; }
 .frage { font-size: 22px; font-weight: 600; }
 .statusblock { display: flex; gap: 14px; align-items: center; }
 .stat { font-size: 14px; color: var(--schrift-leise); white-space: nowrap; }
@@ -160,6 +180,7 @@ button:disabled { opacity: .45; cursor: default; }
 .stat.gut b { color: var(--gut); }
 .stat.schlecht b { color: var(--schlecht); }
 .stat.uhr { font-variant-numeric: tabular-nums; font-size: 18px; color: var(--schrift); }
+.stat.leise { opacity: .7; }
 
 .zeitbalken { height: 4px; background: var(--linie); }
 .zeitbalken > div { height: 100%; width: 0; background: var(--akzent); transition: width .2s linear; }
@@ -174,11 +195,28 @@ button:disabled { opacity: .45; cursor: default; }
   background: #2a2f3a;
   touch-action: none;
   cursor: crosshair;
+  min-height: 0;
 }
 .buehne.zieht { cursor: grabbing; }
 .leinwand { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
 .leinwand img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
 .marker-ebene { position: absolute; inset: 0; pointer-events: none; }
+
+.buehne-hinweis {
+  position: absolute;
+  left: 50%;
+  top: 12px;
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(20, 26, 38, .78);
+  color: #fff;
+  font-size: 14px;
+  pointer-events: none;
+  max-width: 90%;
+  text-align: center;
+}
 
 /* Marken sitzen in Prozent auf dem Bild und werden gegen den Zoom
    zurückskaliert (--gegen), damit sie beim Hineinzoomen nicht mitwachsen.
@@ -209,10 +247,7 @@ button:disabled { opacity: .45; cursor: default; }
   background: var(--akzent);
   box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--akzent);
 }
-.marke.kalibriert.aktiv {
-  background: var(--schlecht);
-  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--schlecht);
-}
+.marke.kalibriert.aktiv { background: var(--schlecht); box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--schlecht); }
 .marke .nummer {
   position: absolute;
   left: 50%;
@@ -248,6 +283,7 @@ button:disabled { opacity: .45; cursor: default; }
   background: var(--gut);
   box-shadow: var(--schatten);
   pointer-events: none;
+  text-align: center;
 }
 .rueckmeldung.daneben { background: var(--schlecht); }
 .rueckmeldung.zeit { background: var(--neutral); }
@@ -282,7 +318,8 @@ button:disabled { opacity: .45; cursor: default; }
 
 .uebersicht { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--schatten); }
 .uebersicht img { display: block; width: 100%; }
-.uebersicht .linie { position: absolute; height: 2px; transform-origin: 0 50%; background: rgba(192,57,43,.75); pointer-events: none; }
+.uebersicht svg { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.uebersicht svg line { stroke: rgba(192,57,43,.75); stroke-width: 3; stroke-dasharray: 8 6; }
 
 .tabellenrahmen { overflow-x: auto; background: var(--papier); border: 1px solid var(--linie); border-radius: var(--radius); }
 table.ergebnisse { border-collapse: collapse; width: 100%; font-size: 15px; }
@@ -291,38 +328,54 @@ table.ergebnisse th { background: #faf8f3; font-size: 13px; text-transform: uppe
 table.ergebnisse td.frage-spalte { white-space: normal; min-width: 220px; }
 table.ergebnisse tr:last-child td { border-bottom: 0; }
 table.ergebnisse td.zahl { text-align: right; font-variant-numeric: tabular-nums; }
-.abzeichen { display: inline-block; padding: 1px 9px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.abzeichen { display: inline-block; margin-right: 4px; padding: 1px 9px; border-radius: 20px; font-size: 13px; font-weight: 600; }
 .abzeichen.gut { background: var(--gut-hell); color: var(--gut); }
 .abzeichen.schlecht { background: var(--schlecht-hell); color: var(--schlecht); }
 .abzeichen.neutral { background: #f0ece1; color: #7a6a3f; }
 
-/* -------------------------------------------------------- Kalibrierung */
+/* -------------------------------------------------------------- Editor */
 
-.kalib-koerper { flex: 1; display: flex; min-height: 0; }
-.kalib-koerper .buehne { flex: 1; }
-.kalib-liste {
-  width: 300px;
+.titelblock { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; min-width: 0; }
+.titelfeld { font-size: 21px; font-weight: 600; width: auto; min-width: 200px; border-color: transparent; background: none; padding: 4px 8px; }
+.titelfeld:hover { border-color: var(--linie); }
+.titelfeld:focus { border-color: var(--akzent); background: var(--papier); }
+.kennungsfeld { font-size: 13px; color: var(--schrift-leise); display: flex; align-items: center; gap: 6px; }
+.kennungsfeld input { width: 150px; font-size: 14px; padding: 4px 8px; font-family: ui-monospace, Consolas, monospace; }
+
+.editor-koerper { flex: 1; display: flex; min-height: 0; }
+.editor-koerper .buehne { flex: 1; }
+.editor-liste {
+  width: 330px;
   flex-shrink: 0;
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
   background: var(--papier);
   border-left: 1px solid var(--linie);
+  min-height: 0;
 }
-.kalib-liste button {
-  display: block;
-  width: 100%;
-  text-align: left;
-  border: 0;
-  border-bottom: 1px solid var(--linie);
-  border-radius: 0;
-  background: none;
-  padding: 7px 12px;
-  font-size: 14px;
+.listenkopf { display: flex; gap: 6px; padding: 8px 10px; border-bottom: 1px solid var(--linie); flex-wrap: wrap; }
+.fragenliste { flex: 1; overflow-y: auto; margin: 0; padding: 0; list-style: none; }
+
+.frage-zeile { border-bottom: 1px solid var(--linie); }
+.frage-zeile .zeile-kopf {
+  display: flex; align-items: center; gap: 8px;
+  width: 100%; padding: 7px 12px;
+  border: 0; border-radius: 0; background: none;
+  font: inherit; color: inherit; text-align: left;
 }
-.kalib-liste button:hover { background: var(--akzent-hell); }
-.kalib-liste button[aria-current="true"] { background: var(--akzent); color: #fff; }
-.kalib-liste .status { float: right; font-size: 12px; opacity: .7; }
-.kalib-liste button.gesetzt { color: var(--gut); }
-.kalib-liste button.gesetzt[aria-current="true"] { color: #fff; }
+button.zeile-kopf:hover { background: var(--akzent-hell); }
+.frage-zeile .nr { font-variant-numeric: tabular-nums; color: var(--schrift-leise); font-size: 13px; min-width: 26px; }
+.frage-zeile .ziel { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 14px; }
+.frage-zeile .punkt { color: var(--linie); font-size: 12px; }
+.frage-zeile.gesetzt .punkt { color: var(--gut); }
+.frage-zeile.offen { background: var(--akzent-hell); padding-bottom: 10px; }
+.frage-zeile.offen .zeile-kopf { padding-bottom: 2px; }
+
+.feld { display: flex; flex-direction: column; gap: 3px; padding: 4px 12px; font-size: 13px; color: var(--schrift-leise); }
+.feld small { font-size: 12px; opacity: .85; }
+.feld input, .feld textarea, .feld select { font-size: 14px; }
+.zeile-fuss { display: flex; align-items: center; gap: 6px; padding: 6px 12px 0; flex-wrap: wrap; }
+.koordinate { flex: 1; font-size: 12px; color: var(--schrift-leise); font-variant-numeric: tabular-nums; }
 
 /* -------------------------------------------------------------- Dialog */
 
@@ -336,34 +389,56 @@ table.ergebnisse td.zahl { text-align: right; font-variant-numeric: tabular-nums
   padding: 24px;
   z-index: 20;
 }
-.dialog[hidden] { display: none; }
 .dialog-fenster {
   background: var(--papier);
   border-radius: var(--radius);
   padding: 20px 24px 24px;
-  width: min(820px, 100%);
+  width: min(520px, 100%);
   max-height: 100%;
   display: flex;
   flex-direction: column;
   box-shadow: 0 20px 60px rgba(0,0,0,.35);
 }
+.dialog-fenster.breit { width: min(860px, 100%); }
 .dialog-fenster h2 { margin: 0 0 8px; }
-.dialog-fenster textarea {
-  flex: 1;
-  min-height: 320px;
+.dialog-koerper { overflow-y: auto; min-height: 0; }
+.dialog-fenster .knopfreihe { margin-top: 14px; }
+
+.formular { display: flex; flex-direction: column; gap: 6px; }
+.formular .feld { padding: 4px 0; }
+.feldreihe { display: flex; gap: 10px; flex-wrap: wrap; }
+.feldreihe .feld { flex: 1; min-width: 110px; }
+.wahlreihe { display: flex; gap: 16px; flex-wrap: wrap; padding: 8px 0; }
+
+textarea.quelltext {
+  min-height: 300px;
   font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace;
-  border: 1px solid var(--linie);
-  border-radius: 8px;
-  padding: 12px;
   background: #fbfaf7;
-  color: var(--schrift);
   resize: vertical;
   white-space: pre;
 }
-.dialog-fenster .knopfreihe { margin-top: 14px; }
+.vorschau { min-height: 42px; }
+
+/* Bild und Rahmen müssen deckungsgleich sein – deshalb füllt das Bild den
+   Kasten genau aus, statt in ihm zentriert zu werden. */
+.zuschnitt-vorschau {
+  position: relative;
+  margin: 8px auto;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #2a2f3a;
+}
+.zuschnitt-vorschau img { display: block; width: 100%; height: auto; }
+.zuschnitt-kasten {
+  position: absolute;
+  border: 2px solid var(--akzent);
+  box-shadow: 0 0 0 9999px rgba(20, 26, 38, .55);
+  pointer-events: none;
+}
 
 @media (max-width: 720px) {
   .frage { font-size: 18px; }
-  .kalib-koerper { flex-direction: column; }
-  .kalib-liste { width: 100%; height: 180px; border-left: 0; border-top: 1px solid var(--linie); }
+  .editor-koerper { flex-direction: column; }
+  .editor-liste { width: 100%; height: 45%; border-left: 0; border-top: 1px solid var(--linie); }
+  .titelfeld { font-size: 18px; min-width: 140px; }
 }

@@ -30,6 +30,10 @@ const game = createChoiceGame({
   maxLevel: 6,
   startLevel: 1,
 
+  // Keine Aufgabe zweimal im selben Durchgang – beim zweiten Mal misst
+  // sie die Erinnerung an die vorige Antwort, nicht die Fähigkeit.
+  roundKey: r => r._key,
+
   genRound: (gd) => {
     const L = gd.level;
     const w = Math.min(3 + Math.floor(L * 0.8), 8);
@@ -69,6 +73,10 @@ const game = createChoiceGame({
         </div>
       </div>`,
       options: choices.map(n => ({ html: String(n), label: String(n) })),
+      // Die Lage des verdeckten Rechtecks gehört in die Kennung: dieselbe
+      // Mauer mit anderswo liegender Abdeckung ist eine andere Aufgabe.
+      // Ohne cx/cy blieben auf Stufe 1 nur zwei unterscheidbare Rätsel.
+      _key: `${w}x${h}-${cw}x${ch}@${cx},${cy}`,
       correct: choices.indexOf(total),
       columns: 4,
       explain: `${w} ${pick(UI.breite)} × ${h} ${pick(UI.hoehe)} = ${total} ${pick(UI.steine)} (${visible} ${pick(UI.sichtbar)}, ${cw * ch} ${pick(UI.verdeckt)}).`

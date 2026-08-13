@@ -418,6 +418,55 @@ Zwei Dinge, die dabei zu beachten waren:
   zuletzt gespielten, lädt sie einmal alle. Sie liegen ohnehin im selben
   Bundle; das kostet nur das Ausführen.
 
+### Keine Aufgabe zweimal hintereinander
+
+Dieselbe Frage zweimal wirkt wie ein Fehler — und misst beim zweiten Mal
+etwas anderes: die Erinnerung an die vorige Antwort statt der Fähigkeit.
+
+Sieben Module hatten dafür eine eigene Lösung, acht keine. Statt das ein
+neuntes Mal zu schreiben, kann die Auswahl-Engine es jetzt: ein Modul gibt
+`roundKey(round)` an, und die Engine würfelt neu, bis eine Aufgabe kommt,
+die im laufenden Durchgang noch nicht dran war.
+
+```js
+createChoiceGame({
+  roundKey: r => r._key,
+  genRound: gd => ({ _key: target.w.de, … })
+})
+```
+
+Das Gedächtnis ist eine **Reihenfolge, keine Menge**. Ist der Vorrat einer
+Stufe kleiner als der Durchgang, wird nicht alles vergessen, sondern nur das
+Älteste — Wiederholungen liegen dann so weit auseinander wie möglich, und
+zwei gleiche Aufgaben direkt hintereinander gibt es nie. Der Testlauf besteht
+genau darauf.
+
+**Was dabei auffiel.** Für `sim-bausteine` hatte ich zuerst
+`w×h-cw×ch` als Kennung genommen — ohne die *Lage* des verdeckten Rechtecks.
+Auf Stufe 1 gab es damit nur zwei unterscheidbare Aufgaben, und die Sperre
+lief ins Leere. Mit `cx,cy` in der Kennung sind es 10 auf Stufe 1 und 252 auf
+Stufe 6. Der Fehler lag in der Kennung, nicht im Vorrat.
+
+Bei `sim-suchbild`, `plan-muster` und `wiss-oberbegriffe` ist der Vorrat auf
+niedriger Stufe tatsächlich klein (3–4 Aufgaben). Dort sind Wiederholungen
+innerhalb von zehn Runden unvermeidlich; sie liegen jetzt nur nicht mehr
+Schlag auf Schlag. Mehr Abwechslung bräuchte dort mehr Inhalt, nicht mehr
+Technik.
+
+### Eigene Antwortzeit je Modul
+
+Ein Modul kann `answerSeconds` angeben. Die Engine meldet daraus eine
+Einstellung an, die auf der Einstellungsseite unter dem Modul erscheint:
+
+```js
+createChoiceGame({ id: 'wiss-wortschatz', answerSeconds: 5, … })
+```
+
+Das Wortschatz-Quiz steht damit auf 5 s statt der allgemeinen 30 s. Ein Wort
+erkennt man oder nicht — wer das Bild nach fünf Sekunden nicht gefunden hat,
+findet es auch nach dreißig nicht. Die übrige Zeit wäre Leerlauf, in dem die
+Aufmerksamkeit wegdriftet. Der Niveauzuschlag kommt weiterhin obendrauf.
+
 ### Bedenkzeit wächst mit dem Niveau
 
 Auf Stufe 5 ist die Aufgabe schwerer, die Uhr lief aber gleich schnell — wer

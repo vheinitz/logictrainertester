@@ -37,6 +37,10 @@ const game = createChoiceGame({
   maxLevel: 6,
   startLevel: 1,
 
+  // Keine Aufgabe zweimal im selben Durchgang – beim zweiten Mal misst
+  // sie die Erinnerung an die vorige Antwort, nicht die Fähigkeit.
+  roundKey: r => r._key,
+
   genRound: (gd) => {
     const L = gd.level;
     const cols = Math.min(3 + Math.floor(L / 2), 6);
@@ -59,6 +63,7 @@ const game = createChoiceGame({
         <p style="font-size:1.05em">${pick(UI.frage)}</p>
         <p style="font-size:.85em;color:var(--text-light);margin-bottom:6px">${pick(UI.tipp)}</p>
       </div>`,
+      _key: pair.a + '/' + pair.b,
       options,
       correct: oddIdx,
       columns: cols,

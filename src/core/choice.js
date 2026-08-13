@@ -27,6 +27,7 @@ import { engine } from './engine.js';
 import { esc, pick, lang } from './html.js';
 import { bar } from './shell.js';
 import * as settings from './settings.js';
+import { registerModuleSettings, modGet } from './settings.js';
 import { countRound, resultScreen } from './session.js';
 
 const RUNNING = new Map();
@@ -94,6 +95,14 @@ function isActive(id) {
  *     columns: Spaltenzahl im Optionsraster (default: automatisch)
  *     layout:  'grid' | 'list'
  *   }
+ *   roundKey(round, gd) → string
+ *                Kennung der Aufgabe. Ist sie gesetzt, sorgt die Engine
+ *                dafür, dass sich innerhalb eines Durchgangs nichts
+ *                wiederholt.
+ *   answerSeconds
+ *                Eigene Bedenkzeit dieses Moduls statt der allgemeinen.
+ *                Wird als Einstellung des Moduls angemeldet und ist damit
+ *                auf der Einstellungsseite verstellbar.
  */
 export function createChoiceGame(cfg) {
   const id = cfg.id;
@@ -102,9 +111,68 @@ export function createChoiceGame(cfg) {
   const upAfter = cfg.upAfter ?? 2;
   const downAfter = cfg.downAfter ?? 2;
 
+  // Eigene Bedenkzeit: manche Aufgaben sind in fünf Sekunden zu beantworten
+  // oder gar nicht. Dreißig Sekunden Grundzeit sind dort keine Großzügigkeit,
+  // sondern Leerlauf, in dem die Aufmerksamkeit wegdriftet.
+  if (typeof cfg.answerSeconds === 'number') {
+    registerModuleSettings(id, {
+      antwortzeit: {
+        def: cfg.answerSeconds, min: 2, max: 60, step: 1, unit: 's',
+        de: 'Antwortzeit', ru: 'Время на ответ', en: 'Answer time',
+        hintDe: 'Nach dieser Zeit gilt die Aufgabe als nicht gelöst. Höhere Niveaustufen bekommen zusätzlich den allgemeinen Zuschlag.',
+        hintRu: 'По истечении этого времени задание считается нерешённым. На высоких уровнях добавляется общая прибавка.',
+        hintEn: 'After this time the task counts as unsolved. Higher levels additionally get the general surcharge.'
+      }
+    });
+  }
+
+  /**
+   * Aufgabe erzeugen, die in diesem Durchgang noch nicht dran war.
+   *
+   * Ohne das kam dieselbe Frage zwei-, dreimal hintereinander – das wirkt
+   * wie ein Fehler und misst beim zweiten Mal etwas anderes, nämlich die
+   * Erinnerung an die vorige Antwort statt des Wissens.
+   *
+   * Ist der Vorrat erschöpft, wird das Gedächtnis geleert statt endlos zu
+   * würfeln: lieber eine Wiederholung als gar keine Aufgabe.
+   */
+  function frischeRunde(gd, gs) {
+    if (!cfg.roundKey) return cfg.genRound(gd, gs);
+    // Reihenfolge statt Menge: bei erschöpftem Vorrat wird gezielt das
+    // Älteste vergessen, damit Wiederholungen so weit wie möglich
+    // auseinanderliegen.
+    gd._gestellt = gd._gestellt || [];
+
+    const holen = () => {
+      const r = cfg.genRound(gd, gs);
+      return [r, cfg.roundKey(r, gd)];
+    };
+
+    for (let versuch = 0; versuch < 30; versuch++) {
+      const [r, key] = holen();
+      if (key == null) return r;
+      if (!gd._gestellt.includes(key)) { gd._gestellt.push(key); return r; }
+    }
+
+    // Der Vorrat dieser Stufe ist kleiner als der Durchgang. Dann lieber eine
+    // Wiederholung als gar keine Aufgabe – aber nicht direkt hintereinander:
+    // die beiden zuletzt gestellten bleiben gesperrt.
+    gd._gestellt = gd._gestellt.slice(-2);
+    for (let versuch = 0; versuch < 30; versuch++) {
+      const [r, key] = holen();
+      if (key == null || !gd._gestellt.includes(key)) {
+        if (key != null) gd._gestellt.push(key);
+        return r;
+      }
+    }
+    const [r, key] = holen();
+    if (key != null) gd._gestellt.push(key);
+    return r;
+  }
+
   function nextRound(gs) {
     const gd = gs.gd;
-    gd.round = cfg.genRound(gd, gs);
+    gd.round = frischeRunde(gd, gs);
     gd.picked = null;
     gd.answeredCorrect = null;
     if (gd.round.study && gd.round.study.seconds > 0) {
@@ -131,7 +199,10 @@ export function createChoiceGame(cfg) {
     // mit knapperer Zeit bestraft.
     const stufe = Math.max(1, gd.level || 1);
     const faktor = 1 + (stufe - 1) * settings.get('choiceLevelFactor');
-    gd.answerDuration = Math.round(settings.get('choiceAnswer') * faktor * 1000);
+    const grund = typeof cfg.answerSeconds === 'number'
+      ? modGet(id, 'antwortzeit')
+      : settings.get('choiceAnswer');
+    gd.answerDuration = Math.round(grund * faktor * 1000);
     schedule(id, gd.answerDuration, () => zeitAbgelaufen(gs));
   }
 
