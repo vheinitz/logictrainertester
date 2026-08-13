@@ -486,6 +486,112 @@ for (const [id, load] of Object.entries(registry)) {
   }
 }
 
+// ─── Altersnormierte Auswertung ───────────────────────────────────────
+// Eine rohe Spanne ist ohne Alter nicht deutbar: Spanne 6 ist mit sechs
+// Jahren weit überdurchschnittlich und mit fünfzehn leicht unterdurch-
+// schnittlich. Geprüft wird die Rechnung, die Deckelung und dass ohne
+// Geburtsjahr gar keine Einordnung erscheint.
+{
+  const norms = await import('../src/core/norms.js');
+  const settings = await import('../src/core/settings.js');
+  const { resultScreen } = await import('../src/core/session.js');
+
+  // Stützstellen exakt treffen
+  const f = norms.normFuer(6, 'ziffernVorwaerts');
+  check('normen', Math.abs(f.m - 4.4) < 1e-9 && Math.abs(f.s - 1.0) < 1e-9,
+        `Norm bei 6 Jahren: ${f.m}/${f.s} statt 4.4/1.0`);
+
+  // Zwischen zwei Stützstellen linear interpolieren
+  const h = norms.normFuer(6.5, 'ziffernVorwaerts');
+  check('normen', Math.abs(h.m - 4.65) < 1e-9,
+        `Interpolation bei 6;6: ${h.m} statt 4.65`);
+
+  // Dieselbe Spanne, verschiedenes Alter → verschiedener Index
+  const jung = norms.indexFuer(6, 6, 'ziffernVorwaerts');
+  const alt  = norms.indexFuer(6, 15, 'ziffernVorwaerts');
+  check('normen', jung.index === 124, `Spanne 6 mit 6 Jahren: ${jung.index} statt 124`);
+  check('normen', alt.index === 94,  `Spanne 6 mit 15 Jahren: ${alt.index} statt 94`);
+
+  // Bei jüngeren Kindern ist die Streuung kleiner, eine Ziffer wiegt schwerer
+  const schrittJung = jung.index - norms.indexFuer(5, 6, 'ziffernVorwaerts').index;
+  const schrittAlt  = alt.index  - norms.indexFuer(5, 15, 'ziffernVorwaerts').index;
+  check('normen', schrittJung > schrittAlt,
+        `Eine Ziffer wiegt bei 6 Jahren ${schrittJung}, bei 15 Jahren ${schrittAlt} Punkte – erwartet: jung mehr`);
+
+  // Unmögliche Werte werden gedeckelt UND markiert
+  const extrem = norms.indexFuer(10, 6, 'ziffernVorwaerts');
+  check('normen', extrem.index === norms.INDEX_MAX,
+        `Spanne 10 mit 6 Jahren: ${extrem.index}, erwartet Deckel ${norms.INDEX_MAX}`);
+  check('normen', extrem.auffaellig,
+        'Spanne 10 mit 6 Jahren wird nicht als auffällig markiert');
+
+  // Außerhalb der Tabelle auf den Rand klemmen statt NaN liefern
+  for (const a of [2, 30]) {
+    const r = norms.indexFuer(5, a, 'ziffernVorwaerts');
+    check('normen', r && Number.isFinite(r.index), `Alter ${a}: kein endlicher Index`);
+  }
+
+  // Der Index gehört nur auf die Ergebnisseite von Modulen mit Normtabelle
+  const jahr = new Date().getFullYear();
+  const vorher = { y: settings.get('birthYear'), m: settings.get('birthMonth') };
+  settings.set('birthYear', jahr - 7); settings.set('birthMonth', 7);
+
+  // Erwartet wird der Index zum tatsächlich hinterlegten Alter – eine feste
+  // Zahl hier wäre vom laufenden Monat abhängig und würde irgendwann grundlos
+  // rot. Die Rechnung selbst ist oben geprüft, hier geht es um die Verdrahtung.
+  const erwartet = norms.indexFuer(6, norms.alterJahre(), 'ziffernVorwaerts').index;
+  const mitNorm = resultScreen({ moduleId: 'seq-zahlenfolgen' }, { percent: 45, level: 6 });
+  check('normen', new RegExp('>' + erwartet + '<').test(mitNorm),
+        `Ergebnisseite der Zahlenfolge zeigt den Index ${erwartet} nicht`);
+  check('normen', /Literaturrichtwerte|Ориентировочная|reference values/.test(mitNorm),
+        'Ergebnisseite zeigt einen Index ohne den Hinweis, dass er nicht geeicht ist');
+
+  const ohneNorm = resultScreen({ moduleId: 'seq-koffer-packen' }, { percent: 45, level: 6 });
+  check('normen', !/Literaturrichtwerte/.test(ohneNorm),
+        'Modul ohne Normtabelle zeigt trotzdem eine normierte Einordnung');
+
+  settings.set('birthYear', 0);
+  const ohneAlter = resultScreen({ moduleId: 'seq-zahlenfolgen' }, { percent: 45, level: 6 });
+  check('normen', !/Literaturrichtwerte/.test(ohneAlter),
+        'Ohne Geburtsjahr erscheint trotzdem eine Einordnung');
+
+  // Das Geburtsdatum ist keine Ablauf-Vorliebe, sondern eine Angabe über das
+  // Kind. „Auf Voreinstellung zurücksetzen" darf es nicht mitnehmen – sonst
+  // liefert die App danach stillschweigend uneingeordnete Ergebnisse.
+  settings.set('birthYear', jahr - 8); settings.set('birthMonth', 3);
+  settings.set('tempo', 4);
+  settings.reset();
+  check('normen', settings.get('birthYear') === jahr - 8 && settings.get('birthMonth') === 3,
+        `Zurücksetzen der Einstellungen löscht das Geburtsdatum: ${settings.get('birthYear')}/${settings.get('birthMonth')}`);
+  check('normen', settings.get('tempo') === settings.SCHEMA.tempo.def,
+        'Zurücksetzen stellt das Tempo nicht auf die Voreinstellung zurück');
+
+  settings.set('birthYear', vorher.y); settings.set('birthMonth', vorher.m);
+  console.log('   Normierung: Spanne 6 → Index 124 (6 J) / 94 (15 J), Deckel und Markierung greifen');
+}
+
+// ─── Lesen und Ziffern erst ab sechs ──────────────────────────────────
+// Ein Fünfjähriger scheitert an „Was macht ein Tierarzt?" nicht am
+// Sachwissen, sondern am Text. Solche Module gehören dort nicht ins Angebot.
+{
+  const { modules, moduleFreigegeben, MIN_ALTER_SCHRIFT } = await import('../src/data/modules.js');
+  const mitSchrift = modules.filter(m => m.requires);
+  check('alter', mitSchrift.length > 0, 'kein einziges Modul als schrift- oder zahlenpflichtig markiert');
+
+  for (const m of mitSchrift) {
+    check('alter', !moduleFreigegeben(m, MIN_ALTER_SCHRIFT - 1),
+          `${m.id} (${m.requires}) wird schon unter ${MIN_ALTER_SCHRIFT} angeboten`);
+    check('alter', moduleFreigegeben(m, MIN_ALTER_SCHRIFT),
+          `${m.id} wird ab ${MIN_ALTER_SCHRIFT} nicht angeboten`);
+  }
+  // Ohne bekanntes Alter darf nichts verschwinden – gefragt wird vorher
+  check('alter', modules.every(m => moduleFreigegeben(m, null)),
+        'ohne bekanntes Alter werden Module ausgeblendet statt nachzufragen');
+
+  const frei5 = modules.filter(m => moduleFreigegeben(m, 5)).length;
+  console.log(`   Altersfreigabe: ${mitSchrift.length} Module erst ab ${MIN_ALTER_SCHRIFT}, für Fünfjährige bleiben ${frei5}/${modules.length}`);
+}
+
 // ─── Auditive Faktoren nur für Module mit Ton ─────────────────────────
 // Genau hier lag ein Fehler: die Zuordnung stammte aus der Original-
 // Darbietung, bei der die Testleitung vorspricht. Unsere Textmodule geben

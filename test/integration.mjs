@@ -58,6 +58,24 @@ await sleep(60);
 
 const main = window.document.getElementById('mainContent');
 const problems = [];
+
+// Ohne hinterlegtes Geburtsjahr fragt die App zuerst danach – ohne Alter
+// ließe sich kein Ergebnis einordnen und die Altersfilterung griffe nicht.
+// Für die übrigen Prüfungen wird ein Schulkind angenommen, damit alle
+// Module im Angebot sind.
+{
+  const S = window.LOGIK_SETTINGS;
+  const vorAbfrage = main.textContent.includes('Wie alt');
+  if (!vorAbfrage) problems.push('Ohne Geburtsjahr erscheint die Altersabfrage nicht');
+  S.set('birthYear', new Date().getFullYear() - 9);
+  S.set('birthMonth', 7);
+  window.navigateTo('menu');
+  await sleep(120);
+  if (main.textContent.includes('Wie alt')) {
+    problems.push('Die Altersabfrage bleibt stehen, obwohl ein Geburtsjahr gesetzt wurde');
+  }
+}
+
 let adaptiveSeen = 0;
 const clickTest = [];
 const phaseTest = [];

@@ -2,7 +2,8 @@
  * View renderer – menu, scale, training, stats
  */
 import { t } from '../i18n/i18n-core.js';
-import { modules, scales, getModule, getScale } from '../data/modules.js';
+import { modules, scales, getModule, getScale, moduleFreigegeben, minAlter } from '../data/modules.js';
+import { alterJahre, alterBekannt } from '../core/norms.js';
 import { engine } from '../core/engine.js';
 import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
@@ -12,6 +13,7 @@ import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
+import * as settings from '../core/settings.js';
 
 /**
  * Modultext aus der i18n-Tabelle.
@@ -65,15 +67,85 @@ export function renderView(view) {
   }
 }
 
+const ALTER_UI = {
+  titel:   { de: 'Wie alt ist das Kind?', ru: 'Сколько лет ребёнку?', en: 'How old is the child?' },
+  warum:   { de: 'Ohne Alter lässt sich ein Ergebnis nicht einordnen: dieselbe Merkspanne ist bei einem Sechsjährigen weit überdurchschnittlich und bei einer Fünfzehnjährigen leicht unterdurchschnittlich.',
+             ru: 'Без возраста результат не истолковать: одна и та же длина ряда у шестилетнего — намного выше нормы, а у пятнадцатилетней — чуть ниже.',
+             en: 'Without an age a result cannot be placed: the same span is far above average for a six-year-old and slightly below for a fifteen-year-old.' },
+  jahr:    { de: 'Geburtsjahr', ru: 'Год рождения', en: 'Year of birth' },
+  monat:   { de: 'Geburtsmonat (wenn bekannt)', ru: 'Месяц рождения (если известен)', en: 'Month of birth (if known)' },
+  unbekannt:{ de: 'weiß ich nicht', ru: 'не знаю', en: 'not sure' },
+  weiter:  { de: 'Weiter', ru: 'Дальше', en: 'Continue' },
+  aendern: { de: 'Das Geburtsdatum lässt sich später in den Einstellungen ändern.',
+             ru: 'Дату рождения можно изменить позже в настройках.',
+             en: 'The date of birth can be changed later in the settings.' }
+};
+const au = k => { const l = lang(); return ALTER_UI[k][l] || ALTER_UI[k].de; };
+
+const MONATE = {
+  de: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+  ru: ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December']
+};
+
+/**
+ * Einmalige Altersabfrage.
+ *
+ * Sie steht vor der Modulliste und nicht in den Einstellungen, weil ohne
+ * Alter weder die Auswertung noch die Auswahl der Module stimmt. Gefragt
+ * wird nach dem Geburtsjahr, nicht nach dem Alter – sonst stimmt die Angabe
+ * nach dem nächsten Geburtstag nicht mehr und niemand denkt daran.
+ */
+function renderAgeGate(main) {
+  const jetzt = new Date().getFullYear();
+  const jahre = [];
+  for (let j = jetzt - 2; j >= jetzt - 19; j--) jahre.push(j);
+  const l = lang();
+
+  main.innerHTML = `<h2 class="page-title">🎂 ${au('titel')}</h2>
+    <div class="training-container"><div class="training-area" style="align-items:stretch;max-width:520px;margin:0 auto">
+      <p style="line-height:1.65;margin-bottom:20px">${au('warum')}</p>
+
+      <label style="font-weight:700;display:block;margin-bottom:6px">${au('jahr')}</label>
+      <select id="ageYear" style="width:100%;padding:10px;border-radius:10px;border:2px solid #D0CDE8;font-size:1.05em;margin-bottom:16px">
+        <option value="0">—</option>
+        ${jahre.map(j => `<option value="${j}">${j}</option>`).join('')}
+      </select>
+
+      <label style="font-weight:700;display:block;margin-bottom:6px">${au('monat')}</label>
+      <select id="ageMonth" style="width:100%;padding:10px;border-radius:10px;border:2px solid #D0CDE8;font-size:1.05em">
+        <option value="0">${au('unbekannt')}</option>
+        ${(MONATE[l] || MONATE.de).map((n, i) => `<option value="${i + 1}">${n}</option>`).join('')}
+      </select>
+
+      <div style="text-align:center;margin-top:22px">
+        <button class="btn btn-primary" onclick="window._saveAge()">${au('weiter')}</button>
+      </div>
+      <p style="font-size:.82em;color:var(--text-light);margin-top:14px;text-align:center">${au('aendern')}</p>
+    </div></div>`;
+}
+
+window._saveAge = () => {
+  const j = Number(document.getElementById('ageYear').value) || 0;
+  if (!j) return;                       // ohne Jahr geht es nicht weiter
+  settings.set('birthYear', j);
+  settings.set('birthMonth', Number(document.getElementById('ageMonth').value) || 0);
+  engine.render();
+};
+
 function renderMenu(main) {
   // Eine Rückmeldung zum Zurücksetzen gehört zu genau einem Besuch der
-  // Statistik – beim Weg über das Menü ist sie erledigt.
+  // Statistik – beim Weg über das Menü ist sie erledigt. Das gilt auch,
+  // wenn statt der Modulliste die Altersabfrage erscheint.
   resetState = null;
+
+  // Ohne Alter zuerst danach fragen – siehe renderAgeGate.
+  if (!alterBekannt()) { renderAgeGate(main); return; }
   const ag = engine.ageFilter, sc = engine.scaleFilter;
 
   // Scale cards
   const scalesHtml = scales.map(s => {
-    const count = modules.filter(m => m.scale === s.id).length;
+    const count = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre())).length;
     return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
       <div class="card-icon">${s.icon}</div>
       <div class="card-title">${loc(s.name)}</div>
@@ -85,7 +157,11 @@ function renderMenu(main) {
   }).join('');
 
   // Filter modules
+  const alter = alterJahre();
   const visible = modules.filter(m => {
+    // Was Schrift oder Ziffern verlangt, wird jüngeren Kindern gar nicht
+    // erst angeboten – dort misst der Test das Lesen, nicht die Fähigkeit.
+    if (!moduleFreigegeben(m, alter)) return false;
     if (ag && ag !== 'all') {
       const [lo,hi] = ag.split('-').map(Number);
       const [mlo,mhi] = m.ages.split('-').map(Number);
@@ -150,7 +226,7 @@ function buildId() {
 function renderScaleView(main) {
   const s = getScale(engine.gameState.scaleId);
   if (!s) { engine.navigateTo('menu'); return; }
-  const smods = modules.filter(m => m.scale === s.id);
+  const smods = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre()));
   const modsHtml = smods.map(m => {
     const title = modI18n(m.id, 'title', m.title);
     const desc = modI18n(m.id, 'desc', '');

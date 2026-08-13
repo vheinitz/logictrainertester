@@ -12,6 +12,7 @@
 import { get } from './settings.js';
 import { getModule } from '../data/modules.js';
 import { lang } from './html.js';
+import { alterJahre, indexFuer, einordnung, hinweis } from './norms.js';
 
 const UI = {
   fertig:   { de: 'Geschafft!', ru: 'Готово!', en: 'Done!' },
@@ -20,7 +21,8 @@ const UI = {
   nochmal:  { de: '🔁 Noch eine Runde', ru: '🔁 Ещё раз', en: '🔁 One more round' },
   menue:    { de: '🏠 Menü', ru: '🏠 Меню', en: '🏠 Menu' },
   richtig:  { de: 'richtig', ru: 'верно', en: 'correct' },
-  niveau:   { de: 'Bestes Niveau', ru: 'Лучший уровень', en: 'Best level' }
+  niveau:   { de: 'Bestes Niveau', ru: 'Лучший уровень', en: 'Best level' },
+  fuerAlter:{ de: 'Für Alter', ru: 'Для возраста', en: 'For age' }
 };
 const u = k => { const l = lang(); return UI[k][l] || UI[k].de; };
 
@@ -71,6 +73,36 @@ export function progressDots(gs) {
 }
 
 /**
+ * Altersnormierter Index, wenn es für das Modul eine Normtabelle gibt.
+ *
+ * Ohne Tabelle oder ohne hinterlegtes Geburtsjahr bleibt der Block leer –
+ * dann steht auf der Ergebnisseite weiter nur die rohe Spanne. Lieber gar
+ * keine Einordnung als eine, die das Alter ignoriert.
+ *
+ * Der Hinweis darunter ist nicht schmückend: die Tabellen sind
+ * Literaturrichtwerte, keine geeichten Normen. Wer 82 liest, soll nicht
+ * glauben, ein Testverfahren habe das festgestellt.
+ */
+function normBlock(mod, opt) {
+  if (!mod || !mod.norm || typeof opt.level !== 'number' || !opt.level) return '';
+  const alter = alterJahre();
+  if (alter == null) return '';
+  const n = indexFuer(opt.level, alter, mod.norm);
+  if (!n) return '';
+
+  const farbe = n.index >= 116 ? 'var(--green)' : n.index >= 85 ? 'var(--primary)' : 'var(--secondary)';
+  const warnung = n.auffaellig ? 'auffaellig' : n.unterAltersgrenze ? 'jung' : null;
+
+  return `<div style="margin:18px auto 0;max-width:360px;padding:14px 16px;background:var(--bg);border-radius:var(--radius-sm)">
+    <div style="font-size:.8em;color:var(--text-light);letter-spacing:.03em">${u('fuerAlter')} ${alter.toFixed(1).replace('.', ',')}</div>
+    <div style="font-size:2.1em;font-weight:800;color:${farbe};line-height:1.2">${n.index}</div>
+    <div style="font-size:.95em">${einordnung(n.index)}</div>
+    ${warnung ? `<p style="font-size:.8em;color:var(--secondary);margin-top:8px;line-height:1.5">${hinweis(warnung)}</p>` : ''}
+    <p style="font-size:.72em;color:var(--text-light);margin-top:10px;line-height:1.5">${hinweis('orientierung')}</p>
+  </div>`;
+}
+
+/**
  * Ergebnisseite am Ende eines Durchgangs.
  *
  * @param {object} gs
@@ -91,6 +123,7 @@ export function resultScreen(gs, opt = {}) {
     <div style="font-size:3.4em;line-height:1.1">🏁</div>
     <div style="font-weight:800;font-size:1.15em;margin-bottom:6px">${u('fertig')}</div>
     ${wert}
+    ${normBlock(mod, opt)}
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px">
       ${scaleId ? `<button class="btn btn-primary btn-small"
         onclick="navigateTo('scale',{scaleId:'${scaleId}'})">${u('gruppe')}</button>` : ''}

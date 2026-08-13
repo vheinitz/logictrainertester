@@ -473,6 +473,74 @@ Wirksamkeit einer Methode nicht belegt ist, steht das auch so da — mehrere
 Seiten sagen ausdrücklich, dass der Übertrag auf Schulleistungen nicht
 nachgewiesen ist.
 
+### Auswertung: eine Spanne ohne Alter sagt nichts
+
+Vorher zeigte die App für jede erreichte Spanne dieselbe Sternenreihe und
+dieselbe Prozentzahl aus einer festen Punkttabelle. Das ist keine
+Auswertung, sondern eine Umbenennung des Rohwerts: **Spanne 6 ist mit sechs
+Jahren weit überdurchschnittlich und mit fünfzehn leicht unterdurch­schnittlich.**
+
+Gerechnet wird deshalb über den z-Wert gegen eine altersabhängige Norm:
+
+```
+z          = (Spanne − Mittelwert(Alter)) / Streuung(Alter)
+Index      = 100 + 15 · z        (Skala wie bei Intelligenztests)
+Skalenwert = 10  + 3  · z        (Subtest-Skala der KABC-II)
+```
+
+Wichtig ist, dass **beide** Größen mit dem Alter wandern. Nicht nur der
+Mittelwert steigt, auch die Streuung — bei jüngeren Kindern ist sie kleiner,
+eine Ziffer wiegt dort also schwerer. Ein fester Punktwert je Ziffer hätte
+Kinder systematisch falsch eingeordnet. Gemessen: bei sechs Jahren sind es
+15 Indexpunkte je Ziffer, bei achtzehn 11.
+
+Zwischen den Stützstellen wird linear interpoliert, außerhalb auf den Rand
+geklemmt. Der Index ist auf 40–160 begrenzt, und ein z über 3,5 wird
+markiert statt ausgegeben: Spanne 10 bei einem Sechsjährigen ergäbe
+rechnerisch 184 — das ist kein Messwert mehr, sondern ein Hinweis auf eine
+Merktechnik, auf Vorsagen oder auf einen Fehler im Ablauf.
+
+**Was diese Zahlen nicht sind.** Die Tabellen in `core/norms.js` sind
+Literaturrichtwerte zur Ziffernspanne, keine an einer Stichprobe geeichten
+Normen — genau daraus bezieht ein Verfahren wie die KABC-II seine
+Aussagekraft, und genau das fehlt hier. Auf der Ergebnisseite steht das
+deshalb mit dabei, und der Smoke-Test besteht darauf: ein Index ohne diesen
+Hinweis lässt den Testlauf scheitern.
+
+Und eine Einschränkung, die man nicht wegrechnen kann: gemessen wird nie die
+reine Kapazität, sondern Kapazität plus Gruppierungsstrategie plus inneres
+Mitsprechen.
+
+**Nur wo es Richtwerte gibt.** `norm` steht am Modul und ist bislang nur bei
+den beiden Ziffernspannen gesetzt. Wörter, Kofferpacken, Handzeichen und
+Gesichter brauchen je eine eigene Tabelle — beim Kofferpacken liegen die
+Mittelwerte höher, weil die Gegenstände semantisch verknüpfbar sind und jede
+Runde die vorigen wiederholt. Die Ziffernnorm darauf anzuwenden hieße, allen
+Kindern denselben falschen Wert zu geben. Diese Module zeigen weiter die
+rohe Spanne.
+
+### Geburtsdatum statt Alter
+
+Gespeichert wird das Geburtsjahr, nicht das Alter — sonst stimmte die Angabe
+nach dem nächsten Geburtstag nicht mehr und niemand dächte daran. Der Monat
+ist optional; fehlt er, wird die Jahresmitte angenommen, weil das den
+größtmöglichen Fehler bei ±6 Monaten hält. Bei Vierjährigen liegt zwischen
+4;0 und 4;11 fast eine halbe Ziffer.
+
+Gefragt wird einmal beim ersten Start, vor der Modulliste. „Auf
+Voreinstellung zurücksetzen" lässt das Geburtsdatum ausdrücklich stehen: es
+ist keine Ablauf-Vorliebe, sondern eine Angabe über das Kind.
+
+### Lesen und Ziffern erst ab sechs
+
+Module mit `requires: 'lesen'` oder `'zahlen'` werden jüngeren Kindern gar
+nicht angeboten. Ein Fünfjähriger scheitert an „Was macht ein Tierarzt?"
+nicht am Sachwissen, sondern am Text — der Wert misst dann das Lesen. Elf
+der 29 Module sind betroffen; für Fünfjährige bleiben 18.
+
+Die Wörter-Kette ist bewusst **nicht** dabei: dort steht neben jedem Wort
+ein Bild, und genau dafür ist es da.
+
 ### Die zwei Bewertungsarten
 
 | | `count` | `percent` |

@@ -9,6 +9,12 @@ import { SCHEMA, GROUPS, get, set, reset, veraendert } from '../core/settings.js
 import { engine } from '../core/engine.js';
 import { esc, lang } from '../core/html.js';
 
+const MONATE = {
+  de: ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'],
+  ru: ['январь','февраль','март','апрель','май','июнь','июль','август','сентябрь','октябрь','ноябрь','декабрь'],
+  en: ['January','February','March','April','May','June','July','August','September','October','November','December']
+};
+
 const UI = {
   titel:   { de: 'Einstellungen', ru: 'Настройки', en: 'Settings' },
   unter:   { de: 'Gelten für alle Module. Änderungen wirken sofort.',
@@ -19,6 +25,10 @@ const UI = {
   zurueck: { de: '← Zurück', ru: '← Назад', en: '← Back' },
   an:      { de: 'an', ru: 'вкл', en: 'on' },
   aus:     { de: 'aus', ru: 'выкл', en: 'off' },
+  unbekannt: { de: 'nicht angegeben', ru: 'не указан', en: 'not given' },
+  alterHinweis: { de: 'Ohne Geburtsjahr gibt es keine altersnormierte Einordnung, und Aufgaben mit Schrift oder Ziffern werden nicht gefiltert.',
+                  ru: 'Без года рождения нет возрастной оценки, и задания с текстом и цифрами не фильтруются.',
+                  en: 'Without a year of birth there is no age-normed rating, and tasks with text or digits are not filtered.' },
   hinweis: { de: 'Diese Werte betreffen nur den Ablauf, nicht die Ergebnisse. Das Zurücksetzen der Statistik lässt sie stehen.',
              ru: 'Эти значения влияют только на ход занятия, не на результаты. Сброс статистики их не затрагивает.',
              en: 'These values only affect pacing, not results. Resetting the statistics leaves them untouched.' }
@@ -42,9 +52,38 @@ export function renderSettings(main) {
     if (!felder.length) continue;
     html += `<h3 class="section-title">${g.icon} ${esc(g[l] || g.de)}</h3>`;
 
+    // Ohne Geburtsjahr fehlt beides: die Einordnung und die Altersfilterung.
+    // Das gehört sichtbar dorthin, wo man es nachtragen kann.
+    if (gid === 'kind' && !get('birthYear')) {
+      html += `<p style="font-size:.85em;color:var(--secondary);margin:-4px 0 12px;line-height:1.5">${u('alterHinweis')}</p>`;
+    }
+
     for (const [key, s] of felder) {
       const v = get(key);
       const istStandard = v === s.def;
+
+      // Geburtsjahr und -monat sind Auswahllisten, keine Regler: an einem
+      // Schieber trifft man ein bestimmtes Jahr kaum, und „nicht angegeben"
+      // ließe sich damit gar nicht ausdrücken.
+      if (s.kind === 'jahr' || s.kind === 'monat') {
+        const werte = s.kind === 'jahr'
+          ? Array.from({ length: s.max - s.min + 1 }, (_, i) => s.max - i)
+          : Array.from({ length: 12 }, (_, i) => i + 1);
+        const beschriften = n => s.kind === 'jahr' ? String(n) : (MONATE[l] || MONATE.de)[n - 1];
+        html += `<div class="setting-row">
+          <div class="setting-label">
+            <b>${esc(s[l] || s.de)}</b>
+            <span>${esc(tx(s, 'hint'))}</span>
+          </div>
+          <select onchange="window._setSetting('${key}', this.value)"
+                  aria-label="${esc(s[l] || s.de)}"
+                  style="padding:8px 10px;border-radius:10px;border:2px solid #D0CDE8;font-size:1em;min-width:140px">
+            <option value="0"${v ? '' : ' selected'}>${s.kind === 'jahr' ? '—' : esc(u('unbekannt'))}</option>
+            ${werte.map(n => `<option value="${n}"${n === v ? ' selected' : ''}>${esc(beschriften(n))}</option>`).join('')}
+          </select>
+        </div>`;
+        continue;
+      }
 
       if (s.bool) {
         html += `<div class="setting-row">

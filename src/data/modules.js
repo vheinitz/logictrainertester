@@ -55,9 +55,9 @@ const REF = {
 };
 
 export const modules = [
-  { id:'seq-zahlenfolgen', scale:'sequential', icon:'🔢', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
+  { id:'seq-zahlenfolgen', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔢', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
     title:{ de:'Zahlenfolgen sehen', ru:'Ряд чисел — смотреть', en:'Number sequence — watch' } },
-  { id:'seq-zahlenfolgen-audio', scale:'sequential', icon:'🔊', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
+  { id:'seq-zahlenfolgen-audio', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔊', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
     title:{ de:'Zahlenfolgen hören', ru:'Ряд чисел — слушать', en:'Number sequence — listen' } },
   { id:'seq-wortreihe', scale:'sequential', icon:'🔗', ages:'3-18', mode:'self', kabcRef:REF.wortreihe,
     title:{ de:'Wörter-Kette sehen', ru:'Цепочка слов — смотреть', en:'Word chain — watch' } },
@@ -79,17 +79,17 @@ export const modules = [
     title:{ de:'Rover im Labyrinth', ru:'Ровер в лабиринте', en:'Rover in the maze' } },
   { id:'sim-dreiecke', scale:'simultan', icon:'🔺', ages:'3-12', mode:'mixed', kabcRef:REF.dreiecke,
     title:{ de:'Dreiecke legen', ru:'Сложи треугольники', en:'Build with triangles' } },
-  { id:'sim-bausteine', scale:'simultan', icon:'🧱', ages:'5-18', mode:'self', kabcRef:REF.bausteine,
+  { id:'sim-bausteine', requires:'zahlen', scale:'simultan', icon:'🧱', ages:'5-18', mode:'self', kabcRef:REF.bausteine,
     title:{ de:'Bausteine zählen', ru:'Сосчитай кубики', en:'Count the blocks' } },
-  { id:'sim-gestaltschliessen', scale:'simultan', icon:'🧐', ages:'3-18', mode:'self', kabcRef:REF.gestalt,
+  { id:'sim-gestaltschliessen', requires:'lesen', scale:'simultan', icon:'🧐', ages:'3-18', mode:'self', kabcRef:REF.gestalt,
     title:{ de:'Was ist das?', ru:'Что это?', en:'What is it?' } },
   { id:'sim-tangram', scale:'simultan', icon:'🔷', ages:'6-18', mode:'self',
     title:{ de:'Tangram-Puzzle', ru:'Танграм', en:'Tangram puzzle' } },
   { id:'sim-suchbild', scale:'simultan', icon:'🔍', ages:'4-18', mode:'self',
     title:{ de:'Suchbild-Vergleich', ru:'Найди отличие', en:'Spot the difference' } },
-  { id:'lern-atlantis', scale:'lernen', icon:'🐠', ages:'3-18', mode:'self', kabcRef:REF.atlantis,
+  { id:'lern-atlantis', requires:'lesen', scale:'lernen', icon:'🐠', ages:'3-18', mode:'self', kabcRef:REF.atlantis,
     title:{ de:'Atlantis: Fisch-Namen', ru:'Атлантида: имена рыб', en:'Atlantis: fish names' } },
-  { id:'lern-symbole', scale:'lernen', icon:'⭐', ages:'4-18', mode:'self', kabcRef:REF.symbole,
+  { id:'lern-symbole', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', mode:'self', kabcRef:REF.symbole,
     title:{ de:'Symbole merken', ru:'Запомни символы', en:'Remember the symbols' } },
   { id:'lern-memory', scale:'lernen', icon:'🃏', ages:'3-18', mode:'self',
     title:{ de:'Memory', ru:'Мемори', en:'Memory' } },
@@ -103,17 +103,60 @@ export const modules = [
     title:{ de:'Bilder-Sudoku', ru:'Судоку с картинками', en:'Picture sudoku' } },
   { id:'plan-zaubertricks', scale:'planung', icon:'🪄', ages:'7-18', mode:'tutor',
     title:{ de:'Zaubertrick nachmachen', ru:'Повтори фокус', en:'Repeat the magic trick' } },
-  { id:'wiss-wortschatz', scale:'wissen', icon:'💬', ages:'3-6', mode:'self', kabcRef:REF.wortschatz,
+  { id:'wiss-wortschatz', requires:'lesen', scale:'wissen', icon:'💬', ages:'3-6', mode:'self', kabcRef:REF.wortschatz,
     title:{ de:'Wortschatz-Quiz', ru:'Словарная викторина', en:'Vocabulary quiz' } },
-  { id:'wiss-sachwissen', scale:'wissen', icon:'🌍', ages:'7-18', mode:'self', kabcRef:REF.sachwissen,
+  { id:'wiss-sachwissen', requires:'lesen', scale:'wissen', icon:'🌍', ages:'7-18', mode:'self', kabcRef:REF.sachwissen,
     title:{ de:'Was weißt du?', ru:'Что ты знаешь?', en:'What do you know?' } },
-  { id:'wiss-raetsel', scale:'wissen', icon:'🤔', ages:'3-18', mode:'self', kabcRef:REF.raetsel,
+  { id:'wiss-raetsel', requires:'lesen', scale:'wissen', icon:'🤔', ages:'3-18', mode:'self', kabcRef:REF.raetsel,
     title:{ de:'Rätsel-Raten', ru:'Отгадай загадку', en:'Guess the riddle' } },
-  { id:'wiss-oberbegriffe', scale:'wissen', icon:'🏷️', ages:'6-18', mode:'self',
+  { id:'wiss-oberbegriffe', requires:'lesen', scale:'wissen', icon:'🏷️', ages:'6-18', mode:'self',
     title:{ de:'Oberbegriffe finden', ru:'Назови одним словом', en:'Find the category' } },
-  { id:'wiss-teekesselchen', scale:'wissen', icon:'🫖', ages:'6-18', mode:'self',
+  { id:'wiss-teekesselchen', requires:'lesen', scale:'wissen', icon:'🫖', ages:'6-18', mode:'self',
     title:{ de:'Teekesselchen', ru:'Слова-двойники', en:'Double meanings' } }
 ];
+
+/**
+ * Ab diesem Alter werden Module mit Schrift oder Ziffern angeboten.
+ *
+ * Darunter misst so ein Test nicht die gemeinte Fähigkeit, sondern ob das
+ * Kind schon lesen oder Ziffern erkennen kann. Ein Fünfjähriger scheitert
+ * an „Was macht ein Tierarzt?" nicht am Sachwissen, sondern am Text.
+ *
+ * `requires` steht am Modul selbst: 'lesen' für Wortoptionen ohne Bildstütze,
+ * 'zahlen' für Ziffern. Module mit Bildern neben dem Wort – die Wörter-Kette
+ * etwa – brauchen die Sperre nicht, dafür sind die Bilder da.
+ */
+export const MIN_ALTER_SCHRIFT = 6;
+
+/**
+ * `norm` benennt die Normtabelle in core/norms.js, gegen die die erreichte
+ * Spanne verrechnet wird. Nur Module mit dieser Angabe bekommen einen
+ * altersnormierten Index; alle anderen zeigen weiter die rohe Spanne.
+ *
+ * Gesetzt ist sie bislang nur bei den beiden Ziffernspannen, weil nur dafür
+ * Richtwerte vorliegen. Für Wörter, Kofferpacken, Handzeichen und Gesichter
+ * wäre je eine eigene Tabelle nötig – die Mittelwerte liegen dort anders.
+ * Beim Kofferpacken zum Beispiel höher, weil die Gegenstände semantisch
+ * verknüpfbar sind und jede Runde die vorigen wiederholt. Die Ziffernnorm
+ * darauf anzuwenden hieße, allen Kindern denselben falschen Wert zu geben.
+ *
+ * Einschränkung auch bei den Ziffern: die Richtwerte stammen aus der
+ * gesprochenen Darbietung. Für die Bildschirmfassung ist das eine Näherung.
+ */
+
+/** Frühestes sinnvolles Alter für ein Modul. */
+export function minAlter(mod) {
+  return mod && mod.requires ? MIN_ALTER_SCHRIFT : 0;
+}
+
+/**
+ * Darf das Modul angeboten werden?
+ * Ohne bekanntes Alter wird nichts versteckt – gefragt wird vorher.
+ */
+export function moduleFreigegeben(mod, alter) {
+  if (alter == null) return true;
+  return alter >= minAlter(mod);
+}
 
 export function getModule(id) { return modules.find(m => m.id === id); }
 export function getScale(id) { return scales.find(s => s.id === id); }
