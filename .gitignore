@@ -10,6 +10,3 @@ node_modules/
 
 # Arbeitsklone und Zwischenstände, kein Quellcode
 tmp/
-
-# Auslieferungsordner, wird erzeugt: node tools/make-deploy.mjs
-deploy/
