@@ -39,18 +39,19 @@ const KIND_ICON = {
  * zentralen Tabelle wären sie schwerer zu finden als hier daneben.
  */
 const UI = {
-  titel:      { de: 'Fördermethoden', ru: 'Методы развития' },
+  titel:      { de: 'Fördermethoden', ru: 'Методы развития', en: 'Training methods' },
   untertitel: { de: 'Wege, die getesteten Fähigkeiten im Alltag zu stärken',
-                ru: 'Способы развивать проверяемые способности в повседневной жизни' },
-  alter:      { de: 'Alter', ru: 'Возраст' },
-  ueben:      { de: 'So wird geübt', ru: 'Как заниматься' },
-  ankommt:    { de: 'Worauf es ankommt', ru: 'На что обратить внимание' },
-  material:   { de: 'Material', ru: 'Материалы' },
-  selbstbau:  { de: 'Selbst herstellen', ru: 'Сделать самому' },
-  bezug:      { de: 'Hersteller / Bezug', ru: 'Производитель / где купить' },
-  weiterlesen:{ de: 'Weiterlesen', ru: 'Читать дальше' },
-  zurueck:    { de: '← Zurück', ru: '← Назад' },
-  alle:       { de: 'Alle Methoden', ru: 'Все методы' }
+                ru: 'Способы развивать проверяемые способности в повседневной жизни',
+                en: 'Ways to strengthen the tested abilities in everyday life' },
+  alter:      { de: 'Alter', ru: 'Возраст', en: 'Age' },
+  ueben:      { de: 'So wird geübt', ru: 'Как заниматься', en: 'How to practise' },
+  ankommt:    { de: 'Worauf es ankommt', ru: 'На что обратить внимание', en: 'What matters' },
+  material:   { de: 'Material', ru: 'Материалы', en: 'Materials' },
+  selbstbau:  { de: 'Selbst herstellen', ru: 'Сделать самому', en: 'Make it yourself' },
+  bezug:      { de: 'Hersteller / Bezug', ru: 'Производитель / где купить', en: 'Maker / where to buy' },
+  weiterlesen:{ de: 'Weiterlesen', ru: 'Читать дальше', en: 'Read more' },
+  zurueck:    { de: '← Zurück', ru: '← Назад', en: '← Back' },
+  alle:       { de: 'Alle Methoden', ru: 'Все методы', en: 'All methods' }
 };
 
 const ui = k => { const l = lang(); return UI[k][l] || UI[k].de; };

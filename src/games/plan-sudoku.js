@@ -12,8 +12,22 @@
  * N Möglichkeiten gewählt.
  */
 import { engine } from '../core/engine.js';
-import { shuffle, randInt } from '../core/html.js';
+import { shuffle, randInt, pick } from '../core/html.js';
 import { countRound, resultScreen } from '../core/session.js';
+
+const UI = {
+  regel: { de: '🧮 Jedes Symbol einmal pro Zeile, Spalte und Block', ru: '🧮 Каждый символ один раз в строке, столбце и блоке', en: '🧮 Each symbol once per row, column and block' },
+  waehlen: { de: 'Jetzt ein Symbol wählen', ru: 'Теперь выбери символ', en: 'Now choose a symbol' },
+  antippen: { de: 'Erst ein leeres Feld antippen', ru: 'Сначала нажми на пустую клетку', en: 'First tap an empty field' },
+  niveau: { de: 'Niveau', ru: 'Уровень', en: 'Level' },
+  geloest: { de: 'Gelöst!', ru: 'Решено!', en: 'Solved!' },
+  geloestText: { de: 'Jedes Symbol genau einmal pro Zeile, Spalte und Block.', ru: 'Каждый символ ровно один раз в строке, столбце и блоке.', en: 'Each symbol exactly once per row, column and block.' },
+  naechstes: { de: 'Nächstes Rätsel', ru: 'Следующая головоломка', en: 'Next puzzle' },
+  pruefen: { de: 'Prüfen', ru: 'Проверить', en: 'Check' },
+  leeren: { de: 'Feld leeren', ru: 'Очистить клетку', en: 'Clear field' },
+  neues: { de: 'Neues Rätsel', ru: 'Новая головоломка', en: 'New puzzle' },
+  rot: { de: 'Die rot markierten Felder passen noch nicht.', ru: 'Отмеченные красным клетки ещё не подходят.', en: 'The red-marked fields do not fit yet.' }
+};
 
 const SYMBOLS = ['🍎','⭐','🐟','🌸','🔔','🍀'];
 
@@ -84,9 +98,9 @@ export function render(gs) {
 
   if (gd.phase === 'done') {
     return `<div style="width:100%;max-width:520px;text-align:center">
-      <div class="feedback-banner feedback-correct">🎉 <b>Gelöst!</b> Jedes Symbol genau einmal pro Zeile, Spalte und Block.</div>
-      <div style="font-size:.8em;color:var(--text-light);margin-bottom:8px">Niveau ${gd.level}</div>
-      <button class="btn btn-primary btn-small" onclick="G('nextPuzzle')">▶️ Nächstes Rätsel</button>
+      <div class="feedback-banner feedback-correct">🎉 <b>${pick(UI.geloest)}</b> ${pick(UI.geloestText)}</div>
+      <div style="font-size:.8em;color:var(--text-light);margin-bottom:8px">${pick(UI.niveau)} ${gd.level}</div>
+      <button class="btn btn-primary btn-small" onclick="G('nextPuzzle')">▶️ ${pick(UI.naechstes)}</button>
     </div>`;
   }
 
@@ -121,9 +135,9 @@ export function render(gs) {
   ).join('');
 
   return `<div style="width:100%;max-width:460px">
-    <p style="font-size:1.02em;text-align:center">🧮 <b>Jedes Symbol einmal pro Zeile, Spalte und Block</b></p>
+    <p style="font-size:1.02em;text-align:center">${pick(UI.regel)}</p>
     <p style="font-size:.82em;color:var(--text-light);text-align:center;margin-bottom:10px">
-      ${gd.selected ? 'Jetzt ein Symbol wählen' : 'Erst ein leeres Feld antippen'} • Niveau ${gd.level}
+      ${gd.selected ? pick(UI.waehlen) : pick(UI.antippen)} • ${pick(UI.niveau)} ${gd.level}
     </p>
 
     <div style="display:grid;grid-template-columns:repeat(${n},1fr);max-width:${n * 56}px;margin:0 auto 14px">${cells}</div>
@@ -131,11 +145,11 @@ export function render(gs) {
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${palette}</div>
 
     <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary btn-small" onclick="G('check')" ${complete ? '' : 'disabled style="opacity:.45"'}>✅ Prüfen</button>
-      <button class="btn btn-secondary btn-small" onclick="G('clearCell')">🧽 Feld leeren</button>
-      <button class="btn btn-secondary btn-small" onclick="G('nextPuzzle')">🔄 Neues Rätsel</button>
+      <button class="btn btn-primary btn-small" onclick="G('check')" ${complete ? '' : 'disabled style="opacity:.45"'}>✅ ${pick(UI.pruefen)}</button>
+      <button class="btn btn-secondary btn-small" onclick="G('clearCell')">🧽 ${pick(UI.leeren)}</button>
+      <button class="btn btn-secondary btn-small" onclick="G('nextPuzzle')">🔄 ${pick(UI.neues)}</button>
     </div>
-    ${gd.wrongCells ? `<p style="text-align:center;color:var(--secondary);font-weight:700;font-size:.9em;margin-top:10px">Die rot markierten Felder passen noch nicht.</p>` : ''}
+    ${gd.wrongCells ? `<p style="text-align:center;color:var(--secondary);font-weight:700;font-size:.9em;margin-top:10px">${pick(UI.rot)}</p>` : ''}
   </div>`;
 }
 

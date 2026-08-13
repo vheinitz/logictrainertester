@@ -21,7 +21,7 @@
 import { engine } from '../core/engine.js';
 import { randInt } from '../core/html.js';
 import { audio, audioReady, now, beep, beepNow } from '../core/audio.js';
-import { bar, stopButton, starRow, pictogram } from '../core/shell.js';
+import { bar, stopButton, starRow, pictogram, mutedHint } from '../core/shell.js';
 import { nextBestLevel } from '../core/adaptive.js';
 
 const ID = 'seq-rhythmus';
@@ -276,8 +276,7 @@ export function render(gs) {
     return `<div data-phase="listen" style="text-align:center;width:100%">
       ${bar(gd.listenDuration, elapsed)}
       <div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
-      ${stumm ? `<p style="color:var(--secondary);font-size:.9em;max-width:320px;margin:8px auto 0">
-        Für dieses Spiel muss der Ton eingeschaltet sein.</p>` : ''}
+      ${stumm ? mutedHint() : ''}
       ${stopButton()}
       ${starRow(gd.bestLevel)}
     </div>`;
@@ -340,7 +339,8 @@ export const actions = {
 
 export const scoring = 'percent';
 export const chrome = 'minimal';
-export const instruction =
-  'Du hörst ein Klopfmuster. Klopfe es genauso nach – mit der <b>Leertaste</b> ' +
-  'oder mit dem Finger auf den großen Kreis. Wichtig ist der Rhythmus, nicht ' +
-  'die Geschwindigkeit. Hör auf zu klopfen, wenn du fertig bist.';
+export const instruction = {
+  de: 'Du hörst ein Klopfmuster. Klopfe es genauso nach – mit der <b>Leertaste</b> oder mit dem Finger auf den großen Kreis. Wichtig ist der Rhythmus, nicht die Geschwindigkeit. Hör auf zu klopfen, wenn du fertig bist.',
+  ru: 'Ты услышишь ритм. Простучи его так же — <b>пробелом</b> или пальцем по большому кругу. Важен ритм, а не скорость. Закончил — просто перестань стучать.',
+  en: 'You will hear a tapping pattern. Tap it back the same way – with the <b>space bar</b> or your finger on the big circle. The rhythm matters, not the speed. When you are done, just stop tapping.'
+};

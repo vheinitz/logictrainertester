@@ -13,6 +13,7 @@ import { createSpanTest } from '../core/adaptive.js';
 import { sample, randInt, color, jsArg, esc, lang } from '../core/html.js';
 import { audio, audioReady } from '../core/audio.js';
 import { hasVoice } from '../core/audio-assets.js';
+import { mutedHint, removeHint } from '../core/shell.js';
 import { voiceLang, preloadKeys, stepFor, ready, speak } from '../core/speech.js';
 import * as settings from '../core/settings.js';
 import listen from '../data/wordlists.json' with { type: 'json' };
@@ -35,10 +36,11 @@ const test = createSpanTest({
   answerFactor: 3,
   showPadMs: 2000,   // die Koffer-Ansage ist deutlich länger als „Wiederhole"
   labelOf: k => nameOf(k),
-  instruction:
-    'Du <b>hörst</b>, was in den Koffer gepackt wird – bei jeder Runde kommt ein ' +
-    'Ding dazu. Merke dir alles und tippe es danach in derselben Reihenfolge an. ' +
-    'Der Ton muss eingeschaltet sein.',
+  instruction: {
+    de: 'Du <b>hörst</b>, was in den Koffer gepackt wird – bei jeder Runde kommt ein Ding dazu. Merke dir alles und tippe es danach in derselben Reihenfolge an. Der Ton muss eingeschaltet sein.',
+    ru: 'Ты <b>услышишь</b>, что кладут в чемодан — с каждым кругом добавляется одна вещь. Запомни всё и потом нажми в том же порядке. Звук должен быть включён.',
+    en: 'You will <b>hear</b> what goes into the suitcase – each round one more item is added. Remember everything, then tap it in the same order. Sound must be on.'
+  },
 
   /** Der Koffer wächst und schrumpft, wird aber nie neu gewürfelt. */
   genItems: (level, gd) => {
@@ -79,8 +81,7 @@ const test = createSpanTest({
   renderShow: () => {
     const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
     return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '🧳'}</div>
-      ${stumm ? `<p style="color:var(--secondary);font-size:.9em;max-width:340px;margin:8px auto 0">
-        Für dieses Spiel muss der Ton eingeschaltet sein (⚙️ Einstellungen).</p>` : ''}`;
+      ${stumm ? mutedHint() : ''}`;
   },
 
   renderSolution: (gd) => `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
@@ -93,7 +94,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((k, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="width:46px;height:46px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="width:46px;height:46px;border-radius:12px;border:2px dashed #D8D4EE"></div>`

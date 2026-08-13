@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Marburger Konzentrationstraining',
     ru: 'Марбургский тренинг концентрации',
-    en: ''
+    en: 'Marburg Concentration Training'
   },
 
   short: {
     de: 'Strukturiertes Programm, das über lautes Selbstgespräch planvolles Arbeiten einübt.',
     ru: 'Структурированная программа: ребёнок учится работать по плану через громкое проговаривание.',
-    en: ''
+    en: 'A structured program that uses spoken self-instruction to train planned, step-by-step working.'
   },
 
   what: {
@@ -38,7 +38,14 @@ export default {
         'оценкам родителей и учителей по сравнению с группой ожидания; в более ранних работах ' +
         'контрольных групп часто не было. Доказаны прежде всего изменения в рабочем поведении, ' +
         'а не скачок школьных оценок.',
-    en: ''
+    en: 'A course program developed by the Marburg school psychologist Dieter Krowatschek in the early ' +
+        '1990s. Its core is verbal self-instruction: the child says out loud what it is doing at that ' +
+        'moment and thereby learns to pause briefly before answering. Six to eight sessions of about ' +
+        '75 minutes always run in the same order – movement, relaxation, worksheet exercises, play – ' +
+        'plus parent evenings and a points plan. The effectiveness is partly established: a controlled ' +
+        'study (Domsch et al. 2018) found less inattention, as judged by parents and teachers, compared ' +
+        'with a waiting-list control group; older studies often had no control group. What has been ' +
+        'demonstrated above all are changes in working behavior, not a jump in school grades.'
   },
 
   steps: {
@@ -62,7 +69,16 @@ export default {
       'В конце пять минут подвижной игры — бой подушками, «замри-танцуй», мяч из газеты. Это часть программы, а не награда, и её не отменяют.',
       'Одно такое занятие в неделю, шесть-восемь недель, затем перерыв. Лучше восемь чистых занятий, чем ежедневно по половинке.'
     ],
-    en: []
+    en: [
+      'Build a fixed frame: always the same time of day, an empty table, only one worksheet in sight, a kitchen timer set to 15 minutes. Everything else goes into a box next to the table.',
+      'Start with two minutes of calm: eyes closed, hands on the table, breathe slowly while counting to twenty. Only then does the task begin.',
+      'Model the five sentences while calculating or drawing yourself: "What am I supposed to do?" – "How will I do it?" – "I do it step by step." – "I check whether it is right." – "I did that well."',
+      'The child says the five sentences out loud for two weeks, then in a whisper for two weeks, and after that only in its head (the lips may move).',
+      'When a mistake happens, do not correct it – point to sentence four instead: "I check whether it is right." The child looks for the mistake itself.',
+      'Keep a points plan: a cross on a sheet on the bedroom door for every completed session. After five crosses comes a small treat agreed in advance. Crosses are never crossed out again, not even after an argument.',
+      'Finish with five minutes of active play – a pillow fight, freeze dance, a newspaper ball. That is part of the program and is not cut as if it were a reward.',
+      'One such session per week, for six to eight weeks, then a break. Eight clean sessions are better than ten half ones every day.'
+    ]
   },
 
   tips: {
@@ -78,16 +94,21 @@ export default {
       'Оригинал проводится в группах до восьми детей под руководством ведущего. Дома можно отрабатывать принцип, но полная программа требует пособия или обученного тренера.',
       'Если беспокойство и отвлекаемость сильно определяют повседневность, перед тренингом нужна нормальная диагностика — курс концентрации не заменяет обследование на СДВГ.'
     ],
-    en: []
+    en: [
+      'The active ingredient is speaking out loud, not the worksheet. If the child calculates silently, it is no longer self-instruction training.',
+      'Never mix it with homework. As soon as school material comes into play, it is about the grade and no longer about the pace of work.',
+      'The original runs in groups of up to eight children under professional guidance. The principle can be practiced at home, but the full program needs the manual or a trained instructor.',
+      'If restlessness and distractibility strongly dominate everyday life, proper diagnostics belong before the training – a concentration course is no substitute for an ADHD assessment.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Marburger_Konzentrationstraining', kind: 'wiki',
-      label: { de: 'Wikipedia: Marburger Konzentrationstraining', ru: 'Википедия (нем.): марбургский тренинг концентрации', en: '' } },
+      label: { de: 'Wikipedia: Marburger Konzentrationstraining', ru: 'Википедия (нем.): марбургский тренинг концентрации', en: 'Wikipedia (German): Marburg Concentration Training' } },
     { url: 'https://marburger-trainings.de/marburger-konzentrationstraining-mkt-fuer-schulkinder/', kind: 'hersteller',
-      label: { de: 'Marburger Trainings: MKT für Schulkinder, Kurse und Trainerausbildung', ru: 'Marburger Trainings: МКТ для школьников, курсы и обучение тренеров', en: '' } },
+      label: { de: 'Marburger Trainings: MKT für Schulkinder, Kurse und Trainerausbildung', ru: 'Marburger Trainings: МКТ для школьников, курсы и обучение тренеров', en: 'Marburger Trainings: MKT for school children, courses and trainer certification' } },
     { url: 'https://digital.hfh.ch/wissenwaswirkt/chapter/marburger-konzentrationstraining/', kind: 'community',
-      label: { de: '„Wissen, was wirkt": Bewertung der Studienlage zum MKT', ru: '«Wissen, was wirkt»: оценка доказательной базы МКТ', en: '' } }
+      label: { de: '„Wissen, was wirkt": Bewertung der Studienlage zum MKT', ru: '«Wissen, was wirkt»: оценка доказательной базы МКТ', en: '"Wissen, was wirkt": assessment of the research evidence on the MKT' } }
   ],
 
   products: [

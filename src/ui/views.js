@@ -7,7 +7,7 @@ import { engine } from '../core/engine.js';
 import { getPerformanceData } from '../data/performance-model.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
-import { lang } from '../core/html.js';
+import { lang, pick } from '../core/html.js';
 import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
@@ -21,10 +21,19 @@ import { methodLinkFor } from '../data/foerderung-links.js';
  * wörtlich „mod_seq_zahlenfolgen_desc". Fehlt der Text, ist nichts besser
  * als der Rohschlüssel.
  */
+/**
+ * Mehrsprachiges Feld aus modules.js auflösen ({de,ru,en} oder String).
+ * Fehlt die aktive Sprache, gilt Deutsch – sichtbar statt leer.
+ */
+function loc(field, fallback = '') {
+  if (!field) return fallback;
+  if (typeof field === 'string') return field;
+  const l = lang();
+  return field[l] || field.de || fallback;
+}
+
 function modI18n(id, suffix, fallback) {
-  const key = 'mod_' + id.replace(/-/g, '_') + '_' + suffix;
-  const val = t(key, fallback);
-  return val === key ? (fallback || '') : val;
+  return loc(fallback);
 }
 
 /**
@@ -32,8 +41,8 @@ function modI18n(id, suffix, fallback) {
  * Punkt anklickbar – sonst bleibt er einfacher Text. So bricht nichts, solange
  * noch nicht jeder Punkt eine Seite hat.
  */
-function foerderPunkt(text) {
-  const id = methodLinkFor(text);
+function foerderPunkt(text, keyText) {
+  const id = methodLinkFor(keyText || text);
   if (!id) return '<li>' + text + '</li>';
   return `<li><a href="#" onclick="navigateTo('method',{methodId:'${id}'});return false"
     style="color:var(--primary);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--primary-light)"
@@ -67,7 +76,7 @@ function renderMenu(main) {
     const count = modules.filter(m => m.scale === s.id).length;
     return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
       <div class="card-icon">${s.icon}</div>
-      <div class="card-title">${s.name}</div>
+      <div class="card-title">${loc(s.name)}</div>
       <div class="card-desc">${t('scaleDesc_'+s.id, '')}</div>
       <div class="card-badges">
         <span class="badge badge-age">${count} ${t('statsModules')}</span>
@@ -97,7 +106,7 @@ function renderMenu(main) {
       <div class="card-badges">
         <span class="badge badge-age">${t('ageLabel')}${m.ages}</span>
         <span class="badge badge-mode-${m.mode}">${ml}</span>
-        ${m.kabcRef ? `<span class="badge" style="background:#FFF0F8;color:#C44D9A">${t('moduleLabel')}${m.kabcRef}</span>` : ''}
+        ${m.kabcRef ? `<span class="badge" style="background:#FFF0F8;color:#C44D9A">${t('moduleLabel')}${loc(m.kabcRef)}</span>` : ''}
       </div>
     </div>`;
   }).join('');
@@ -105,10 +114,10 @@ function renderMenu(main) {
   main.innerHTML = `<h2 class="page-title">${t('menuTitle')}</h2>
     <p class="page-subtitle">${t('menuSubtitle')}</p>
     <div style="text-align:center;margin-bottom:20px">
-      <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">📊 ${t('statsTitle')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">🎯 Kognitives Profil</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">🧰 Fördermethoden</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('settings')" style="background:var(--text-light)">⚙️ Einstellungen</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">${t('statsButton')}</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">${t('profileButton')}</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">${t('methodsButton')}</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('settings')" style="background:var(--text-light)">${t('settingsButton')}</button>
     </div>
     <h3 class="section-title">${t('trainByScale')}</h3>
     <div class="card-grid">${scalesHtml}</div>
@@ -156,7 +165,7 @@ function renderScaleView(main) {
       </div>
     </div>`;
   }).join('');
-  main.innerHTML = `<h2 class="page-title">${s.icon} ${s.name}</h2>
+  main.innerHTML = `<h2 class="page-title">${s.icon} ${loc(s.name)}</h2>
     <div class="card-grid">${modsHtml}</div>
     <div style="text-align:center;margin-top:16px">
       <button class="btn btn-secondary" onclick="goBack()">${t('backToMenu')}</button>
@@ -173,7 +182,7 @@ function renderTraining(main) {
   const header = `<div class="training-header">
     <span class="icon">${mod.icon}</span>
     <div><h2>${title}</h2>
-    <div class="meta">${ml} | ${t('ageLabel')}${mod.ages}${mod.kabcRef ? ' | '+t('moduleLabel')+mod.kabcRef : ''}</div>
+    <div class="meta">${ml} | ${t('ageLabel')}${mod.ages}${mod.kabcRef ? ' | '+t('moduleLabel')+loc(mod.kabcRef) : ''}</div>
     </div></div>`;
 
   if (gs.step === 'intro') renderIntro(main, mod, header);
@@ -186,27 +195,30 @@ function renderTraining(main) {
  * zentralen i18n-Tabelle, wo sie schwerer zu finden wären.
  */
 const INTRO_UI = {
-  schwerpunkte: { de: 'Schwerpunkte & Trainingswege', ru: 'Что тренируется и как' },
-  zurueck:      { de: '← Zurück zur Aufgabe', ru: '← Назад к заданию' },
-  wege:         { de: 'Trainingswege im Alltag', ru: 'Как тренировать в жизни' },
+  schwerpunkte: { de: 'Schwerpunkte & Trainingswege', ru: 'Что тренируется и как', en: 'What is trained & how' },
+  zurueck:      { de: '← Zurück zur Aufgabe', ru: '← Назад к заданию', en: '← Back to the task' },
+  wege:         { de: 'Trainingswege im Alltag', ru: 'Как тренировать в жизни', en: 'Ways to practise in daily life' },
   wegeHinweis:  { de: 'Tippe einen Punkt an – dahinter steht eine Anleitung mit Material und Links.',
-                  ru: 'Нажмите на пункт — за ним инструкция с материалами и ссылками.' },
-  alleMethoden: { de: 'Alle Methoden', ru: 'Все методы' }
+                  ru: 'Нажмите на пункт — за ним инструкция с материалами и ссылками.',
+                  en: 'Tap an item – behind it is a guide with materials and links.' },
+  alleMethoden: { de: 'Alle Methoden', ru: 'Все методы', en: 'All methods' }
 };
 const iu = k => { const l = lang(); return INTRO_UI[k][l] || INTRO_UI[k].de; };
 
 /** Texte für das Zurücksetzen der Fortschrittsdaten. */
 const RESET_UI = {
-  knopf:    { de: '🗑️ Fortschritt zurücksetzen', ru: '🗑️ Сбросить результаты' },
-  frage:    { de: 'Wirklich alle Ergebnisse löschen?', ru: 'Точно удалить все результаты?' },
+  knopf:    { de: '🗑️ Fortschritt zurücksetzen', ru: '🗑️ Сбросить результаты', en: '🗑️ Reset progress' },
+  frage:    { de: 'Wirklich alle Ergebnisse löschen?', ru: 'Точно удалить все результаты?', en: 'Really delete all results?' },
   was:      { de: 'Gelöscht werden alle Spielstände und der ganze Verlauf – für jedes Modul und damit auch das kognitive Profil. Das lässt sich nicht rückgängig machen.',
-              ru: 'Будут удалены все результаты и вся история — по каждому модулю, а значит и когнитивный профиль. Отменить это будет нельзя.' },
+              ru: 'Будут удалены все результаты и вся история — по каждому модулю, а значит и когнитивный профиль. Отменить это будет нельзя.',
+              en: 'This deletes all scores and the entire history – for every module, and with it the cognitive profile. It cannot be undone.' },
   bleibt:   { de: 'Sprache und Tempo-Einstellung bleiben erhalten.',
-              ru: 'Язык и настройка темпа сохранятся.' },
-  sichern:  { de: 'Vorher sichern', ru: 'Сначала сохранить' },
-  loeschen: { de: 'Ja, löschen', ru: 'Да, удалить' },
-  abbruch:  { de: 'Abbrechen', ru: 'Отмена' },
-  fertig:   { de: 'Alle Ergebnisse wurden gelöscht.', ru: 'Все результаты удалены.' }
+              ru: 'Язык и настройка темпа сохранятся.',
+              en: 'Language and pacing settings are kept.' },
+  sichern:  { de: 'Vorher sichern', ru: 'Сначала сохранить', en: 'Back up first' },
+  loeschen: { de: 'Ja, löschen', ru: 'Да, удалить', en: 'Yes, delete' },
+  abbruch:  { de: 'Abbrechen', ru: 'Отмена', en: 'Cancel' },
+  fertig:   { de: 'Alle Ergebnisse wurden gelöscht.', ru: 'Все результаты удалены.', en: 'All results have been deleted.' }
 };
 const ru_ = k => { const l = lang(); return RESET_UI[k][l] || RESET_UI[k].de; };
 
@@ -267,7 +279,7 @@ async function renderIntro(main, mod, header) {
   // Aufgabe: die Anleitung des Moduls, groß gesetzt
   if (game && game.instruction) {
     body += `<p data-role="instruction" style="font-size:1.22em;line-height:1.6;margin:4px 0 18px">
-      ${game.instruction}</p>`;
+      ${pick(game.instruction)}</p>`;
   } else if (desc) {
     body += `<p data-role="instruction" style="font-size:1.22em;line-height:1.6;margin:4px 0 18px">${desc}</p>`;
   }
@@ -307,6 +319,10 @@ function renderInsights(main) {
   if (!mod) { engine.navigateTo('menu'); return; }
   const l = document.documentElement.lang || 'de';
   const perf = getPerformanceData(mod.id, l);
+  // Die Verweistabelle Förderpunkt → Methodenseite ist über die DEUTSCHEN
+  // Originalstrings verschlüsselt. Angezeigt wird die aktive Sprache, der
+  // Verweis läuft über den parallelen deutschen Eintrag gleicher Position.
+  const perfDe = l === 'de' ? perf : getPerformanceData(mod.id, 'de');
   const title = modI18n(mod.id, 'title', mod.title);
 
   let html = `<div class="training-container">
@@ -327,7 +343,8 @@ function renderInsights(main) {
 
     <h3 class="section-title" style="margin-top:22px">🧰 ${iu('wege')}</h3>
     <p style="color:var(--text-light);font-size:.9em;margin-bottom:10px">${iu('wegeHinweis')}</p>
-    <ul style="line-height:2.1;margin-left:18px">${perf.foerderung.map(foerderPunkt).join('')}</ul>`;
+    <ul style="line-height:2.1;margin-left:18px">${perf.foerderung.map((text, i) =>
+      foerderPunkt(text, perfDe && perfDe.foerderung[i])).join('')}</ul>`;
   }
 
   html += `</div></div>
@@ -347,7 +364,7 @@ async function renderGameScreen(main, mod, header) {
     game = await engine.ensureGame(mod.id);
   } catch (e) {
     main.innerHTML = `<div class="training-container">${header}<div class="training-area">
-      <p>⚠️ Spiel-Modul "${mod.id}" wird noch entwickelt.</p>
+      <p>⚠️ ${t('gameDeveloping')} "${mod.id}"</p>
       <button class="btn btn-secondary" onclick="navigateTo('menu')">${t('homeMenu')}</button>
     </div></div>`;
     return;
@@ -363,7 +380,7 @@ async function renderGameScreen(main, mod, header) {
   try { gameHtml = game.render(gs); }
   catch (e) {
     console.error('[game render] ' + mod.id, e);
-    gameHtml = `<p>⚠️ Fehler im Spielmodul – bitte zurück zum Menü.</p>`;
+    gameHtml = `<p>${t('gameError')}</p>`;
   }
 
   // Minimal-Hülle: die adaptiven Tests zeigen im Spiel nur die Aufgabe.
@@ -391,17 +408,24 @@ async function renderGameScreen(main, mod, header) {
 }
 
 /** Score-Zeile – für adaptive Tests Niveau/Prozent, sonst richtig/beantwortet. */
+const SCORE_UI = {
+  niveau:    { de:'Niveau', ru:'Уровень', en:'Level' },
+  bewertung: { de:'Bewertung', ru:'Оценка', en:'Score' },
+  richtig:   { de:'Richtig', ru:'Верно', en:'Correct' }
+};
+const su = k => { const l = lang(); return SCORE_UI[k][l] || SCORE_UI[k].de; };
+
 function scoreLineHtml() {
   const gs = engine.gameState;
   const g = engine.activeGame;
   if (g && g.mod.scoring === 'percent') {
     const lvl = gs.level || 0;
     return `<span class="stars">${'⭐'.repeat(Math.max(0, Math.min(lvl - 1, 10)))}</span>
-      <span class="count">Niveau ${lvl || '–'} • Bewertung ${gs.percent || 0}%</span>`;
+      <span class="count">${su('niveau')} ${lvl || '–'} • ${su('bewertung')} ${gs.percent || 0}%</span>`;
   }
   const score = Math.round((gs.score || 0) * 10) / 10;
   return `<span class="stars">${'⭐'.repeat(Math.min(Math.floor(gs.score || 0), 10))}</span>
-    <span class="count">Richtig ${score}/${gs.total || 0}</span>`;
+    <span class="count">${su('richtig')} ${score}/${gs.total || 0}</span>`;
 }
 
 /**
@@ -613,7 +637,13 @@ window._exportData = async () => {
 
 // ===== RADAR / KOGNITIVES PROFIL =====
 async function renderRadar(main) {
-  let html = `<h2 class="page-title">🎯 Kognitives Profil</h2>`;
+  const RADAR_UI = {
+    getestet: { de:'Faktoren getestet', ru:'факторов проверено', en:'factors tested' },
+    gespielt: { de:'Module gespielt', ru:'модулей сыграно', en:'modules played' },
+    nicht:    { de:'nicht getestet', ru:'не проверено', en:'not tested' }
+  };
+  const ru2 = k => { const l = lang(); return RADAR_UI[k][l] || RADAR_UI[k].de; };
+  let html = `<h2 class="page-title">${t('profileButton')}</h2>`;
   
   try {
     const scores = await storage.loadAllScores();
@@ -634,7 +664,7 @@ async function renderRadar(main) {
     }
     
     html += `<div class="training-container"><div class="training-area">`;
-    html += `<p style="margin-bottom:8px;">${testedCount}/${totalCount} Faktoren getestet • ${scores.length} Module gespielt</p>`;
+    html += `<p style="margin-bottom:8px;">${testedCount}/${totalCount} ${ru2('getestet')} • ${scores.length} ${ru2('gespielt')}</p>`;
     
     // ---- Compact category cards ----
     html += `<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;width:100%;">`;
@@ -655,7 +685,7 @@ async function renderRadar(main) {
       
       html += `<div style="background:var(--bg);border-radius:var(--radius-sm);padding:12px;">`;
       html += `<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">`;
-      html += `<span style="font-weight:700;">${cat.icon} ${cat.de}</span>`;
+      html += `<span style="font-weight:700;">${cat.icon} ${cat[lang()] || cat.de}</span>`;
       html += `<span style="font-size:0.85em;color:var(--text-light);">${testedInCat}/${catFactors.length}</span>`;
       html += `</div>`;
       
@@ -674,7 +704,7 @@ async function renderRadar(main) {
           : '⚪';
         const label = tested ? `${f.accuracy}%` : '—';
         html += `<div style="display:flex;justify-content:space-between;padding:2px 0;border-bottom:1px solid #F0EFF8;">`;
-        html += `<span>${dot} ${f.de}</span>`;
+        html += `<span>${dot} ${f[lang()] || f.de}</span>`;
         html += `<span style="font-weight:600;color:${tested?'var(--text)':'var(--text-light)'};">${label}</span>`;
         html += `</div>`;
       }
@@ -685,7 +715,7 @@ async function renderRadar(main) {
     
     // Legend
     html += `<div style="margin-top:16px;font-size:0.8em;color:var(--text-light);text-align:center;">`;
-    html += `🟢 ≥70% &nbsp; 🟡 40–69% &nbsp; 🔴 <40% &nbsp; ⚪ nicht getestet`;
+    html += `🟢 ≥70% &nbsp; 🟡 40–69% &nbsp; 🔴 <40% &nbsp; ⚪ ${ru2('nicht')}`;
     html += `</div>`;
     html += resetPanel();
     

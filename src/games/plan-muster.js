@@ -10,7 +10,12 @@
  * Wachstumsmuster), damit es oberhalb von ABAB überhaupt eine Steigerung gibt.
  */
 import { createChoiceGame } from '../core/choice.js';
-import { shuffle } from '../core/html.js';
+import { shuffle, pick } from '../core/html.js';
+
+const UI = {
+  frage: { de: '🔲 Was kommt als Nächstes?', ru: '🔲 Что дальше?', en: '🔲 What comes next?' },
+  erklär: { de: 'Das Muster wiederholt sich:', ru: 'Узор повторяется:', en: 'The pattern repeats:' }
+};
 
 const PATTERNS = [
   // Niveau 1 – ABAB
@@ -49,7 +54,7 @@ const game = createChoiceGame({
 
     return {
       prompt: `<div style="text-align:center">
-        <p style="font-size:1.15em"><b>🔲 Was kommt als Nächstes?</b></p>
+        <p style="font-size:1.15em"><b>${pick(UI.frage)}</b></p>
         <div style="display:flex;gap:8px;justify-content:center;align-items:center;margin:20px 0;flex-wrap:wrap">
           ${p.seq.map(s => `<div style="width:54px;height:54px;border-radius:var(--radius-sm);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.9em;font-weight:700">${s}</div>`).join('')}
           <div style="font-size:1.5em;color:var(--text-light)">→</div>
@@ -59,7 +64,7 @@ const game = createChoiceGame({
       options: choices.map(o => ({ html: o, label: o })),
       correct: choices.indexOf(p.next),
       columns: 4,
-      explain: `Das Muster wiederholt sich: ${p.seq.join(' ')} → ${p.next}`
+      explain: `${pick(UI.erklär)} ${p.seq.join(' ')} → ${p.next}`
     };
   }
 });

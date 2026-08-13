@@ -15,6 +15,7 @@ import { createSpanTest } from '../core/adaptive.js';
 import { sample, shuffle, color, jsArg, esc, lang } from '../core/html.js';
 import { audio, audioReady } from '../core/audio.js';
 import { hasVoice } from '../core/audio-assets.js';
+import { mutedHint, removeHint } from '../core/shell.js';
 import { voiceLang, preloadKeys, stepFor, ready, speak } from '../core/speech.js';
 import * as settings from '../core/settings.js';
 import listen from '../data/wordlists.json' with { type: 'json' };
@@ -36,9 +37,11 @@ const test = createSpanTest({
   factor: 1.6,          // gesprochene Wörter brauchen mehr Luft als Ziffern
   answerFactor: 3,
   showPadMs: 1600,
-  instruction:
-    'Du <b>hörst</b> Wörter, eines nach dem anderen. Merke sie dir – und tippe ' +
-    'sie danach in derselben Reihenfolge an. Der Ton muss eingeschaltet sein.',
+  instruction: {
+    de: 'Du <b>hörst</b> Wörter, eines nach dem anderen. Merke sie dir – und tippe sie danach in derselben Reihenfolge an. Der Ton muss eingeschaltet sein.',
+    ru: 'Ты <b>услышишь</b> слова, одно за другим. Запомни их — и потом нажми их в том же порядке. Звук должен быть включён.',
+    en: 'You will <b>hear</b> words, one after another. Remember them – then tap them in the same order. Sound must be on.'
+  },
 
   genItems: (level) => sample(ALL_WORDS, Math.min(level, ALL_WORDS.length)),
 
@@ -67,8 +70,7 @@ const test = createSpanTest({
   renderShow: () => {
     const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
     return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
-      ${stumm ? `<p style="color:var(--secondary);font-size:.9em;max-width:340px;margin:8px auto 0">
-        Für dieses Spiel muss der Ton eingeschaltet sein (⚙️ Einstellungen).</p>` : ''}`;
+      ${stumm ? mutedHint() : ''}`;
   },
 
   renderSolution: (gd) => `<div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
@@ -80,7 +82,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:8px;min-height:44px;flex-wrap:wrap;align-items:center;justify-content:center;margin:0 0 20px">
       ${ctx.selected.map((w, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="padding:7px 16px;border-radius:18px;border:2px dashed #D8D4EE;min-width:62px">&nbsp;</div>`

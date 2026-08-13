@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Fehlersuche in eigenen Arbeiten',
     ru: 'Поиск ошибок в собственных работах',
-    en: ''
+    en: 'Finding errors in one\'s own work'
   },
 
   short: {
     de: 'Das Kind kontrolliert eigene Hefte und Aufgaben systematisch nach, statt sie sofort abzugeben.',
     ru: 'Ребёнок систематически проверяет свои тетради и задания, а не сдаёт их сразу.',
-    en: ''
+    en: 'The child systematically checks their own notebooks and assignments instead of handing them in right away.'
   },
 
   what: {
@@ -33,7 +33,12 @@ export default {
         'отдельным этапом работы: с паузой, другой ручкой, по короткому фиксированному списку и ' +
         'в другом направлении, чем при письме. Работает это не оттого, что ребёнок дольше ' +
         'смотрит, а оттого, что он делает нечто иное, чем прежде.',
-    en: ''
+    en: 'Many errors in notebooks are not gaps in knowledge but careless slips: miscopied numbers, ' +
+        'forgotten operation signs, omitted words. Children do not find them because, when reading ' +
+        'through, they see what they meant to write. That is why checking is made a separate work ' +
+        'step: with a pause, with a different pen, with a short fixed list, and in a different ' +
+        'direction than when writing. This works not because the child looks longer, but because it ' +
+        'does something different than before.'
   },
 
   steps: {
@@ -57,7 +62,16 @@ export default {
       'Через неделю выбрать три свои самые частые ошибки и записать их на карточку у письменного стола. Больше пяти строк на карточке быть не должно.',
       'Проверка заканчивается после двух проходов, даже если что-то ещё могло остаться. После этого работу сдают.'
     ],
-    en: []
+    en: [
+      'Start with something the child can do reliably – ten arithmetic problems or a copied sentence. This is only about checking; nothing new is being learned right now.',
+      'Put two minutes between writing and checking: stand up, get some water, open the window. Without a pause the child reads its own error along as correct.',
+      'Switch pens: calculations are done in pencil, checking with a green pen. Every checked line gets a green dot in the margin – that shows how far you have gotten.',
+      'Go through from bottom to top, starting with the last problem. Backwards, you read what is actually there, not what was meant.',
+      'Ask exactly three questions, always the same ones: "Are all the problems there?", "Is the operation sign correct?", "Is the number copied correctly?" For texts: read in a low voice and follow along word by word with a finger.',
+      'Count the errors found with tally marks – but only the ones found by the child itself. This number is the result of the exercise, not the grade.',
+      'After a week, pick out the child\'s three most frequent errors and write them on a card at the desk. The card must never have more than five lines.',
+      'Checking ends after two passes, even if something might still be in there. After that, the work is handed in.'
+    ]
   },
 
   tips: {
@@ -73,7 +87,12 @@ export default {
       'Хвалят за находку, а не за отсутствие ошибок. Если за найденные ошибки ругают, ребёнок перестаёт их искать.',
       'В домашних заданиях проверять по одному заданию в день, а не всё подряд. Один аккуратно проверенный лист полезнее пяти бегло просмотренных.'
     ],
-    en: []
+    en: [
+      'Do not correct along with the child. Saying "there\'s another one" takes away exactly the step this is all about. At most, name the line: "There is something in line 4."',
+      'The child writes the checklist itself and in its own words. Someone else\'s list gets ticked off; one\'s own list gets read.',
+      'What is rewarded is finding errors, not being error-free. A child who gets in trouble for found errors stops looking.',
+      'For homework, have only one task checked per day, not everything. One carefully checked sheet is worth more than five skimmed ones.'
+    ]
   },
 
   links: [

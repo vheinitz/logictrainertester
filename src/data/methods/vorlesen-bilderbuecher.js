@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Vorlesen und Bilderbuchbetrachtung',
     ru: 'Чтение вслух и книги с картинками',
-    en: ''
+    en: 'Reading Aloud and Picture-Book Sharing'
   },
 
   short: {
     de: 'Gemeinsam lesen, dabei fragen, erzählen und die Antworten des Kindes erweitern – die breiteste Sprachförderung, die es gibt.',
     ru: 'Читать вместе, попутно спрашивать, рассказывать и расширять ответы ребёнка — самое широкое средство развития речи.',
-    en: ''
+    en: 'Reading together while asking questions, telling and expanding the child\'s answers – the broadest form of language support there is.'
   },
 
   what: {
@@ -33,7 +33,13 @@ export default {
         'диалоге ребёнок вынужден сам ими пользоваться, а не только слушать. Влияние на словарь и умение рассказывать ' +
         'хорошо изучено и относится к самым надёжным результатам в развитии речи. В двуязычной семье действует правило: ' +
         'читать на том языке, которым читающий владеет по-настоящему хорошо, — второму языку это не вредит, а помогает.',
-    en: ''
+    en: 'A picture book is looked at and read together, but not merely recited: questions are asked, stories are told and ' +
+        'every answer the child gives is expanded by a few words – professionals call this dialogic reading. It works ' +
+        'because books contain words and sentence structures that hardly ever occur in everyday conversation, and because ' +
+        'in the back-and-forth the child has to use them itself instead of just listening. The effect on vocabulary and ' +
+        'narrative skills is well studied and is among the most reliable findings in language support. In a bilingual ' +
+        'family the rule is: read aloud in the language the reader genuinely masters – this does not harm the second ' +
+        'language, it supports it.'
   },
 
   steps: {
@@ -57,7 +63,16 @@ export default {
       'Одну и ту же книгу повторять несколько вечеров подряд. Лишь на третий-четвёртый раз ребёнок начинает договаривать фразы — повторение не топтание на месте, а именно тот момент, когда речь присваивается.',
       'Двуязычно: одну и ту же историю в один вечер по-немецки, в следующий по-русски, удобнее всего с двуязычной книгой. Не переводить фразу за фразой, а рассказывать на каждом языке отдельно.'
     ],
-    en: []
+    en: [
+      'A fixed time of ten to fifteen minutes, always in the same spot, screens off. The child holds the book itself and turns the pages – whoever turns the pages sets the pace.',
+      'Before opening the book, look at the cover and ask: "What do you think happens in this book?" At the end, come back to that guess.',
+      'While reading, ask open questions instead of yes/no questions: not "Is that a bear?" but "What is the bear doing there?". One or two questions per double page are enough.',
+      'Pick up the child\'s answer and extend it by two or three words: if the child says "bear climbing", reply "Yes, the brown bear is climbing up the tall tree" – and have the child repeat the sentence once.',
+      'Choose one or two new words per book, explain them briefly and deliberately use them again in everyday life over the following days. A word has only stuck once it appears outside the book.',
+      'At the end, let the child retell the story using the pictures. Three sentences are enough: beginning, middle, end.',
+      'Repeat the same book over several evenings. Only on the third or fourth time does the child start joining in with sentences – repetition is not a step backwards but the point at which language is taken over.',
+      'Bilingual: the same story in German one evening, in Russian the next, ideally with a bilingual book. Do not translate sentence by sentence; tell the story in each language on its own.'
+    ]
   },
 
   tips: {
@@ -73,20 +88,25 @@ export default {
       'Книгу выбирает ребёнок, пусть даже в десятый раз одну и ту же. Познавательные книжки про экскаваторы, животных или деревья годятся не хуже историй.',
       'Не прекращать, когда ребёнок научился читать сам: примерно до тринадцати лет он понимает на слух тексты заметно сложнее тех, что читает бегло сам.'
     ],
-    en: []
+    en: [
+      'Do not turn reading aloud into an exam. Three questions on every page make the book unpopular – better two good questions in the whole book.',
+      'Interruptions are welcome. A child who starts talking about its own dog in the middle of the story is working with the book at that very moment.',
+      'The child picks the book, even the same one for the tenth time. Non-fiction picture books about diggers, animals or trees count just as much as stories.',
+      'Do not stop once the child can read by itself: up to about age thirteen it understands read-aloud texts that are considerably harder than those it can read fluently on its own.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Bilderbuch', kind: 'wiki',
-      label: { de: 'Wikipedia: Bilderbuch – Formen, Geschichte, Auszeichnungen', ru: 'Википедия (нем.): книга с картинками — виды, история, премии', en: '' } },
+      label: { de: 'Wikipedia: Bilderbuch – Formen, Geschichte, Auszeichnungen', ru: 'Википедия (нем.): книга с картинками — виды, история, премии', en: 'Wikipedia (German): picture books – forms, history, awards' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D1%82%D1%81%D0%BA%D0%B0%D1%8F_%D0%BB%D0%B8%D1%82%D0%B5%D1%80%D0%B0%D1%82%D1%83%D1%80%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Kinderliteratur', ru: 'Википедия: детская литература', en: '' } },
+      label: { de: 'Wikipedia (russisch): Kinderliteratur', ru: 'Википедия: детская литература', en: 'Wikipedia (Russian): children\'s literature' } },
     { url: 'https://www.stiftunglesen.de/informieren/unsere-angebote/fuer-familien/einfach-vorlesen', kind: 'anleitung',
-      label: { de: 'Stiftung Lesen: „einfach vorlesen!" – kostenlose Vorlesegeschichten und Tipps', ru: 'Stiftung Lesen: «einfach vorlesen!» — бесплатные истории для чтения вслух и советы', en: '' } },
+      label: { de: 'Stiftung Lesen: „einfach vorlesen!" – kostenlose Vorlesegeschichten und Tipps', ru: 'Stiftung Lesen: «einfach vorlesen!» — бесплатные истории для чтения вслух и советы', en: 'Stiftung Lesen: "einfach vorlesen!" – free read-aloud stories and tips' } },
     { url: 'https://www.vorlesetag.de/', kind: 'community',
-      label: { de: 'Bundesweiter Vorlesetag: Aktionen, Vorlesetipps, freie Geschichten', ru: 'Общегерманский день чтения вслух: акции, советы, бесплатные истории', en: '' } },
+      label: { de: 'Bundesweiter Vorlesetag: Aktionen, Vorlesetipps, freie Geschichten', ru: 'Общегерманский день чтения вслух: акции, советы, бесплатные истории', en: 'Germany-wide Read-Aloud Day: events, reading tips, free stories' } },
     { url: 'https://www.papmambook.ru/', kind: 'community',
-      label: { de: 'Papmambook: russischsprachiges Magazin über Kinderbücher und Lesen mit Kindern', ru: 'Папмамбук: журнал о детских книгах и чтении с детьми', en: '' } }
+      label: { de: 'Papmambook: russischsprachiges Magazin über Kinderbücher und Lesen mit Kindern', ru: 'Папмамбук: журнал о детских книгах и чтении с детьми', en: 'Papmambook: Russian-language magazine about children\'s books and reading with children' } }
   ],
 
   products: [

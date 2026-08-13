@@ -12,7 +12,14 @@
  * Wiedererkennen lösbar.
  */
 import { createChoiceGame } from '../core/choice.js';
-import { sample, shuffle, color } from '../core/html.js';
+import { sample, shuffle, color, pick } from '../core/html.js';
+
+const UI = {
+  intro: { de: '🌊 Willkommen in Atlantis!', ru: '🌊 Добро пожаловать в Атлантиду!', en: '🌊 Welcome to Atlantis!' },
+  merke: { de: 'Merke dir, wie die Bewohner heißen.', ru: 'Запомни, как зовут жителей.', en: 'Remember what the inhabitants are called.' },
+  frage: { de: '❓ Wie heißt dieser Bewohner?', ru: '❓ Как зовут этого жителя?', en: '❓ What is this inhabitant called?' },
+  heisst:{ de: 'heißt', ru: 'зовут', en: 'is called' }
+};
 
 const CREATURES = [
   { e: '🐠', k: 'Fisch' }, { e: '🐟', k: 'Fisch' }, { e: '🐡', k: 'Fisch' },
@@ -53,8 +60,8 @@ const game = createChoiceGame({
       study: {
         seconds: Math.round(3 * n),
         html: `
-          <p style="font-size:1.05em;margin-bottom:4px">🌊 <b>Willkommen in Atlantis!</b></p>
-          <p style="font-size:.88em;color:var(--text-light);margin-bottom:12px">Merke dir, wie die Bewohner heißen.</p>
+          <p style="font-size:1.05em;margin-bottom:4px">${pick(UI.intro)}</p>
+          <p style="font-size:.88em;color:var(--text-light);margin-bottom:12px">${pick(UI.merke)}</p>
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
             ${pairs.map((p, i) => `
               <div style="display:flex;flex-direction:column;align-items:center;background:var(--bg);border-radius:14px;padding:10px 14px;min-width:96px;border-bottom:3px solid ${color(i)}">
@@ -64,13 +71,13 @@ const game = createChoiceGame({
           </div>`
       },
       prompt: `<div style="text-align:center">
-        <p style="font-size:1.05em">❓ <b>Wie heißt dieser Bewohner?</b></p>
+        <p style="font-size:1.05em">${pick(UI.frage)}</p>
         <div style="font-size:3.6em;margin:10px 0">${target.e}</div>
       </div>`,
       options: choices.map(x => ({ html: x, label: x })),
       correct: choices.indexOf(target.name),
       layout: 'list',
-      explain: `${target.e} heißt ${target.name}.`
+      explain: `${target.e} ${pick(UI.heisst)} ${target.name}.`
     };
   }
 });

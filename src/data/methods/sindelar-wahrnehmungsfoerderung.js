@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Wahrnehmungsförderung nach Sindelar',
     ru: 'Развитие восприятия по методу Синделар',
-    en: ''
+    en: 'Sindelar Perceptual Training'
   },
 
   short: {
     de: 'Programm, das nach einer Testung täglich zehn Minuten genau eine schwache Teilleistung übt.',
     ru: 'Программа: после диагностики каждый день десять минут отрабатывается одна конкретная слабая функция.',
-    en: ''
+    en: 'A program that, after an assessment, practices exactly one weak sub-skill for ten minutes every day.'
   },
 
   what: {
@@ -44,7 +44,17 @@ export default {
         'верно: тренируемая функция улучшается, а перенос на чтение, письмо или счёт не доказан. ' +
         'Поэтому медицинские рекомендации при дислексии советуют заниматься самим чтением и ' +
         'письмом. Как дополнение — возможно, как замена занятиям по чтению или математике — нет.',
-    en: ''
+    en: 'A method developed by the Viennese psychologist Brigitte Sindelar. First, an assessment ' +
+        'examines individual basic functions of information processing – visual and auditory ' +
+        'discrimination, figure-ground perception, memory, sequencing, spatial orientation, and ' +
+        'the connection between seeing and hearing. Afterwards, the weakest function is practiced ' +
+        'for about ten minutes every day, in very small steps and without any link to school ' +
+        'material. The evidence is thin: there are evaluations from the author\'s own circle, but ' +
+        'hardly any independent controlled studies. For perceptual and function training in ' +
+        'general, the following holds: the trained function improves, but a transfer to reading, ' +
+        'writing or arithmetic has not been demonstrated. The medical guideline on dyslexia ' +
+        'therefore recommends working on reading and writing themselves. Possible as a ' +
+        'supplement, but not as a substitute for reading or math intervention.'
   },
 
   steps: {
@@ -68,7 +78,16 @@ export default {
       'Держать задания настолько лёгкими, чтобы получалось примерно девять раз из десяти. Если ошибок больше, шаг был слишком велик — вернуться на предыдущую ступень, без комментариев.',
       'Каждые шесть-восемь недель контрольная встреча. Только там решают, менять ли вид упражнения. Параллельно продолжать работать над самой проблемой: чтение тренируют чтением.'
     ],
-    en: []
+    en: [
+      'Before anything else, the assessment: without the profile from the examination, no one knows which function is actually weak – and then you spend weeks practicing the wrong thing. The assessment is carried out by psychologists or therapists trained for it.',
+      'Set a firm rule: ten minutes, six days a week, always at the same time of day, always only one type of exercise. Afterwards the material is put away and not talked about anymore.',
+      'Example of visual discrimination: write two rows of twelve similar characters one below the other, and slightly alter three characters in the bottom row. The child marks the deviations. Difficulty increases through the similarity of the characters – first O/X, later b/d and ei/ie.',
+      'Example of auditory memory: say five words slowly and without emphasis, and the child repeats them in the same order. Only when this succeeds reliably on three days is a sixth word added.',
+      'Example of sequencing: thread a bead necklace following a template, then cover the template with a sheet of paper after five seconds. Slowly increase the length of the sequence from four to eight beads.',
+      'Example of connecting seeing and hearing: you tap a short pattern on the table; on the sheet there are three rows of dots (such as • •• • and •• • •). The child points to the matching one.',
+      'Keep the tasks easy enough that about nine out of ten succeed. If it goes wrong more often, the step was too big – then go back to the previous level, without comment.',
+      'Schedule a check-up every six to eight weeks. Only there is it decided whether the type of exercise changes. In parallel, keep working on the actual problem: reading is practiced by reading.'
+    ]
   },
 
   tips: {
@@ -84,20 +103,25 @@ export default {
       'Осторожно с обещаниями, что тренинг восприятия устранит дислексию или дискалькулию. Доказательств этому нет; кто это обещает, продаёт больше, чем может дать.',
       'Если ребёнок конкретно застревает в школе, на первом месте должны стоять занятия чтением или математикой. Тренинг функций может идти рядом, но не вместо.'
     ],
-    en: []
+    en: [
+      'The daily short format is the core. One hour once a week achieves nothing by the program\'s own logic – in that case, better not to start at all.',
+      'The exercises are deliberately content-free and boring. Making them "more meaningful" with school material undermines the idea and turns ten minutes into a homework battle.',
+      'Beware of promises that perceptual training will fix dyslexia or dyscalculia. There is no evidence for that; anyone who promises this is selling more than they can deliver.',
+      'If the child is concretely struggling at school, reading or math intervention comes first. Function training can run alongside it, not ahead of it.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Brigitte_Sindelar', kind: 'wiki',
-      label: { de: 'Wikipedia: Brigitte Sindelar', ru: 'Википедия (нем.): Бригитта Синделар', en: '' } },
+      label: { de: 'Wikipedia: Brigitte Sindelar', ru: 'Википедия (нем.): Бригитта Синделар', en: 'Wikipedia (German): Brigitte Sindelar' } },
     { url: 'https://www.sindelarverlag.at/', kind: 'hersteller',
-      label: { de: 'Sindelar Verlag: Test- und Trainingsmaterial', ru: 'Издательство Синделар: диагностические и тренировочные материалы', en: '' } },
+      label: { de: 'Sindelar Verlag: Test- und Trainingsmaterial', ru: 'Издательство Синделар: диагностические и тренировочные материалы', en: 'Sindelar Verlag: test and training material' } },
     { url: 'https://www.sindelarcenter.at/angebot/sindelar-methode/', kind: 'anleitung',
-      label: { de: 'Sindelar Center: wie Testung und Training ablaufen', ru: 'Sindelar Center: как проходят диагностика и тренинг', en: '' } },
+      label: { de: 'Sindelar Center: wie Testung und Training ablaufen', ru: 'Sindelar Center: как проходят диагностика и тренинг', en: 'Sindelar Center: how assessment and training work' } },
     { url: 'https://www.sindelar.at/trainer/', kind: 'community',
-      label: { de: 'Verzeichnis ausgebildeter Trainerinnen und Trainer', ru: 'Каталог обученных тренеров', en: '' } },
+      label: { de: 'Verzeichnis ausgebildeter Trainerinnen und Trainer', ru: 'Каталог обученных тренеров', en: 'Directory of trained trainers' } },
     { url: 'https://register.awmf.org/de/leitlinien/detail/028-044', kind: 'anleitung',
-      label: { de: 'AWMF-Leitlinie Lese-/Rechtschreibstörung: was empfohlen wird', ru: 'Немецкие клинические рекомендации при дислексии: что рекомендуется', en: '' } }
+      label: { de: 'AWMF-Leitlinie Lese-/Rechtschreibstörung: was empfohlen wird', ru: 'Немецкие клинические рекомендации при дислексии: что рекомендуется', en: 'AWMF guideline on dyslexia: what is recommended' } }
   ],
 
   products: [

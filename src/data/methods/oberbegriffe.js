@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Ober- und Unterbegriffe',
     ru: 'Обобщающие и частные понятия',
-    en: ''
+    en: 'Category Words and Their Examples'
   },
 
   short: {
     de: 'Zu mehreren Dingen den zusammenfassenden Begriff finden – und zu einem Begriff die passenden Beispiele.',
     ru: 'К нескольким предметам подобрать обобщающее слово — и к обобщающему слову подобрать примеры.',
-    en: ''
+    en: 'Find the word that covers several things together – and find fitting examples for a given category word.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'Поэтому в логопедии работа с обобщающими понятиями — стандартный приём при бедном словаре и ' +
         'трудностях подбора слов. Начинают с наглядных бытовых предметов примерно с четырёх лет и доходят ' +
         'до отвлечённых категорий вроде «инструмент», «чувство» или «стихия» к младшей школе.',
-    en: ''
+    en: 'Apples, pears and cherries are fruit; fruit is food. Such superordinate and subordinate relations ' +
+        'form the organizing framework of vocabulary: words filed away in categories can be retrieved ' +
+        'faster and retained better than loose single words, and comparing, sorting and reasoning all ' +
+        'build on them. In speech and language therapy, work on category words is therefore part of the ' +
+        'standard approach for limited vocabulary and word-finding difficulties. It starts with visible ' +
+        'everyday objects from about age four and extends to abstract categories such as "tool", ' +
+        '"feeling" or "force of nature" by primary-school age.'
   },
 
   steps: {
@@ -59,7 +65,16 @@ export default {
       'Усложнить: понятия, которые нельзя увидеть, — транспорт, профессия, музыкальный инструмент, чувство, время года. Здесь помогает сначала собрать три надёжных примера и только потом искать название.',
       'Завести собственную картотеку: вырезать картинки из рекламных буклетов и раскладывать по подписанным конвертам. Картотека пополняется неделями и одновременно служит материалом для всех предыдущих шагов.'
     ],
-    en: []
+    en: [
+      'Place five things from one group on the table – real objects or pictures, for example an apple, banana, pear, cherry and grapes. Ask: "What are all of these called together?" If no word comes, the adult says it and has the child repeat it once.',
+      'Play it the other way round: the adult names the category word, and the child collects as many examples as possible in 30 seconds. Write down the number and let the child try to beat it next time.',
+      '"Which one doesn\'t belong?": four things from one group, one from another. The child not only points at it but gives the reason – "you can eat all the others".',
+      'Put two laundry baskets or two sheets of paper on the floor, each labelled with a category word. Twelve mixed objects lie next to them and are sorted in. At the end, the child points at each basket and says what is inside.',
+      'Draw a concept ladder on a sheet: "bulldog" at the bottom, "dog" above it, "animal" above that, "living being" at the top. Then have the child build a ladder of their own starting from a favourite object.',
+      'Practise in everyday life: in the supermarket the task is not "get milk" but "get three things from the dairy products group". While tidying up, sort out loud: tools, toys, clothes.',
+      'Make it harder: category words you cannot see – means of transport, occupation, musical instrument, feeling, season. Here it helps to collect three solid examples first and only then search for the name.',
+      'Build your own picture file: cut pictures out of advertising leaflets and sort them into labelled envelopes. The file is kept going for weeks and doubles as material for all the previous steps.'
+    ]
   },
 
   tips: {
@@ -75,18 +90,23 @@ export default {
       'Разрешать двойную принадлежность и отдельно хвалить за неё: ложка — и столовый прибор, и кухонная утварь, помидор — и овощ, и растение. Кто это замечает, уже мыслит категориями.',
       'Соблюдать порядок материала: сначала настоящие предметы, потом фотографии, потом рисунки, в конце только произнесённые слова. Последний шаг самый трудный, и его часто требуют слишком рано.'
     ],
-    en: []
+    en: [
+      'Always ask for the reasoning. Hitting the word "fruit" can be luck; "because all of these grow on a tree or bush" shows the category is really there.',
+      'Do not reject wrong answers – check them together instead: "Is the tomato a fruit? Where does it grow, and do you eat it sweet?" The child then corrects itself.',
+      'Allow multiple membership and praise it explicitly – a spoon is cutlery and kitchenware, a tomato is a vegetable and a plant. A child who notices this is already thinking in categories.',
+      'Keep the order of materials: first real objects, then photos, then drawings, and finally spoken words only. The last step is the hardest and is often demanded too early.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Oberbegriff', kind: 'wiki',
-      label: { de: 'Wikipedia: Oberbegriff (Hyperonym) und Unterbegriff', ru: 'Википедия (нем.): обобщающее и частное понятие', en: '' } },
+      label: { de: 'Wikipedia: Oberbegriff (Hyperonym) und Unterbegriff', ru: 'Википедия (нем.): обобщающее и частное понятие', en: 'Wikipedia (German): superordinate term (hypernym) and subordinate term' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%BF%D0%BE%D0%BD%D0%B8%D0%BC_%D0%B8_%D0%B3%D0%B8%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D0%BC', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Hyponym und Hyperonym', ru: 'Википедия: гипоним и гипероним', en: '' } },
+      label: { de: 'Wikipedia (russisch): Hyponym und Hyperonym', ru: 'Википедия: гипоним и гипероним', en: 'Wikipedia (Russian): hyponym and hypernym' } },
     { url: 'https://de.wikipedia.org/wiki/Wortfeld', kind: 'wiki',
-      label: { de: 'Wikipedia: Wortfeld – warum Wörter sich gegenseitig abgrenzen', ru: 'Википедия (нем.): семантическое поле — почему слова разграничивают друг друга', en: '' } },
+      label: { de: 'Wikipedia: Wortfeld – warum Wörter sich gegenseitig abgrenzen', ru: 'Википедия (нем.): семантическое поле — почему слова разграничивают друг друга', en: 'Wikipedia (German): semantic field – why words delimit each other' } },
     { url: 'https://www.prolog-shop.de/Produkte/', kind: 'hersteller',
-      label: { de: 'ProLog: Bild- und Fotokarten für die Sprachtherapie', ru: 'ProLog: наборы картинок и фотокарточек для логопедии', en: '' } }
+      label: { de: 'ProLog: Bild- und Fotokarten für die Sprachtherapie', ru: 'ProLog: наборы картинок и фотокарточек для логопедии', en: 'ProLog: picture and photo cards for speech and language therapy' } }
   ],
 
   products: [
@@ -104,7 +124,11 @@ export default {
             'одежда, игрушки, транспорт, здания, части тела, погода), по две пары на каждое, с четырьмя ' +
             'вариантами игры. Для 4–8 лет, материал родом из логопедии. Довольно дорого — кто хочет ' +
             'сэкономить, делает картотеку из буклетов и берёт те же двенадцать категорий.',
-        en: ''
+        en: '48 picture cards for 12 category words (animals, fruit, vegetables, furniture, tableware, ' +
+            'tools, clothing, toys, vehicles, buildings, body parts, weather), two pairs of cards each, ' +
+            'with four game variants. For ages 4 to 8, with roots in speech therapy. Comparatively ' +
+            'expensive – if you want to save money, build the leaflet picture file instead and use the ' +
+            'same twelve categories.'
       }
     },
     {
@@ -121,7 +145,10 @@ export default {
             'с инструкцией. Крупные карточки хорошо читаются и в группе, и детьми со слабым зрением. ' +
             'В серии есть и другие коробки (дом, одежда, еда); для начала достаточно одной, вся серия ' +
             'скорее для кабинетов и детских садов.',
-        en: ''
+        en: '84 to 88 illustrated cards in 11 × 11 cm format in a folding box, 11 topic fields, with ' +
+            'instructions. The large cards are easy to read for groups and for children with poor ' +
+            'eyesight. There are further boxes in the series (home, clothing, food); one is entirely ' +
+            'sufficient to start with – the full series is more for practices and kindergartens.'
       }
     },
     {
@@ -135,7 +162,9 @@ export default {
         ru: 'Лучший вариант для дома, потому что ребёнок делает его сам: вырезание, раскладывание и ' +
             'подписывание — это уже половина упражнения. Еженедельные рекламные буклеты дают неограниченный ' +
             'запас, а на картинках именно те вещи, которые ребёнок видит в магазине.',
-        en: ''
+        en: 'The best option for home use, because the child makes it themselves: cutting out, sorting ' +
+            'and labelling is already half the exercise. Weekly advertising leaflets provide an ' +
+            'unlimited supply, and the pictures show exactly the things the child also sees in the shop.'
       },
       diy: {
         de: 'Aus Tonpapier (160 g/m²) Karten von 9 × 9 cm schneiden – aus einem A4-Bogen (21 × 29,7 cm) ' +
@@ -154,7 +183,14 @@ export default {
             'в которых карточки 9 см стоят вертикально; конверты складывают в обувную коробку. Если ' +
             'карточки заламинировать или оклеить широким скотчем, они прослужат несколько лет. На обороте ' +
             'карандашом пометить обобщающее слово — тогда ребёнок сможет проверять себя сам.',
-        en: ''
+        en: 'Cut 9 × 9 cm cards from coloured card stock (160 g/m²) – one A4 sheet (21 × 29.7 cm) yields ' +
+            'six: two columns of 9 cm side by side, three rows of 9 cm below each other, the rest is ' +
+            'offcut. Trim pictures from advertising leaflets to size, glue them on centred, and write ' +
+            'the word in print letters underneath. At least six cards per category word, otherwise the ' +
+            'category does not hold. Twelve labelled C6 envelopes (114 × 162 mm) serve as compartments, ' +
+            'with the 9 cm cards standing upright inside; the envelopes go into a shoebox. Laminating ' +
+            'the cards or covering them with wide adhesive tape makes them last several years. Note the ' +
+            'category word in pencil on the back – then the child can check itself while sorting.'
       }
     }
   ],

@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Denksportaufgaben und Rätselhefte',
     ru: 'Логические задачи и сборники головоломок',
-    en: ''
+    en: 'Brain teasers and puzzle books'
   },
 
   short: {
     de: 'Kurze Knobelaufgaben und Zahlenrätsel, die schlussfolgerndes Denken verlangen.',
     ru: 'Короткие головоломки и числовые задачи, требующие умозаключений.',
-    en: ''
+    en: 'Short brain teasers and number puzzles that demand deductive reasoning.'
   },
 
   what: {
@@ -36,7 +36,13 @@ export default {
         'прежде всего на похожих задачах; общий «эффект тренировки ума» на школьные оценки или ' +
         'интеллект не доказан. Примерно с семи лет, как только ребёнок читает достаточно бегло, ' +
         'чтобы сам воспринимать условия.',
-    en: ''
+    en: 'A logic grid puzzle, a matchstick puzzle, a number puzzle: tasks where a single, ' +
+        'unambiguous solution follows from just a few clues – no guessing. They work because the ' +
+        'child is forced to organize the clues, rule out possibilities and check their own ' +
+        'solution; that is exactly what deductive reasoning is. The benefit shows mainly in ' +
+        'similar tasks – a general "brain training effect" on school grades or intelligence has ' +
+        'not been demonstrated. For children from about age seven, as soon as they read fluently ' +
+        'enough to take in the clues themselves.'
   },
 
   steps: {
@@ -58,7 +64,15 @@ export default {
       'В конце дать проверить самому: пройти по условиям задачи подряд и сверить каждое с готовой таблицей. Только потом заглядывать в ответы.',
       'Три–четыре задачи в неделю по 10–15 минут. После этого заканчивать, даже если сейчас всё получается.'
     ],
-    en: []
+    en: [
+      'Pick a puzzle the child can solve in five to ten minutes. Better to start one level too easy than too hard.',
+      'Have the child read the puzzle twice. On the second reading, the child underlines every statement that is a firm fact: "Anna is not wearing a hat."',
+      'Draw a grid on a sheet of paper: the names down the left, the attributes across the top. For each clue, put an ✗ in the field that is ruled out and a ✓ in the one that is certain.',
+      'After each entry, ask: "What else do you know now?" Once a row contains a ✓, all other fields in that row and column become ✗.',
+      'If the child gets stuck, do not give away the solution; point to an unused clue instead: "You have not entered sentence three yet."',
+      'At the end, have the child check the result themselves: go through every sentence of the puzzle in order and verify it against the finished grid. Only then look at the answer key.',
+      'Three to four puzzles per week, 10 to 15 minutes each. Stop after that, even if things are going well.'
+    ]
   },
 
   tips: {
@@ -74,7 +88,12 @@ export default {
       'Если подряд не выходят три задачи, сборник слишком трудный. Шаг назад — иначе пропадёт интерес, а без интереса пользы не будет.',
       'Решать вместе и иногда вслух заходить в тупик. Ребёнок увидит, что окольные пути — нормальная часть мышления.'
     ],
-    en: []
+    en: [
+      'No stopwatch. Under time pressure you train haste, not thinking.',
+      'Not everything in a puzzle book is a brain teaser. Hidden-picture and coloring pages are filler; for deductive reasoning, use logic grid puzzles, number puzzles and matchstick problems.',
+      'If three puzzles in a row fail, the book is too hard. Go one level back – otherwise the child loses interest, and without interest it achieves nothing.',
+      'Puzzle along yourself and occasionally go down a wrong path out loud. The child then sees that detours are a normal part of thinking.'
+    ]
   },
 
   links: [

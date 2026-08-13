@@ -8,6 +8,7 @@
  * Original, wo dieselbe Bewegung mehrfach vorkommen darf.
  */
 import { createSpanTest } from '../core/adaptive.js';
+import { removeHint } from '../core/shell.js';
 import { randInt, color, jsArg } from '../core/html.js';
 
 const SIGNS = [
@@ -38,8 +39,11 @@ const test = createSpanTest({
   bonus: 150,
   factor: 2,
   labelOf: k => byKey(k).emoji,
-  instruction: 'Es erscheinen Handzeichen. Merke sie dir – und tippe sie danach ' +
-               'in derselben Reihenfolge an.',
+  instruction: {
+    de: 'Es erscheinen Handzeichen. Merke sie dir – und tippe sie danach in derselben Reihenfolge an.',
+    ru: 'Появляются жесты. Запомни их — и потом нажми их в том же порядке.',
+    en: 'Hand signs appear. Remember them – then tap them in the same order.'
+  },
 
   // Kein direktes Wiederholen desselben Zeichens – sonst verschwimmt die Folge
   genItems: (level) => {
@@ -58,7 +62,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((k, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="width:48px;height:48px;border-radius:14px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:48px;height:48px;border-radius:14px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="width:48px;height:48px;border-radius:14px;border:2px dashed #D8D4EE"></div>`

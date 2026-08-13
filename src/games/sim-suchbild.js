@@ -7,20 +7,28 @@
  * Raster größer.
  */
 import { createChoiceGame } from '../core/choice.js';
-import { randInt } from '../core/html.js';
+import { randInt, pick } from '../core/html.js';
+
+const UI = {
+  frage: { de: '🔍 Ein Bild ist anders als die übrigen.', ru: '🔍 Одна картинка отличается от остальных.', en: '🔍 One picture is different from the rest.' },
+  tipp:  { de: 'Tippe es an.', ru: 'Нажми на неё.', en: 'Tap it.' },
+  gesucht: { de: 'Gesucht war', ru: 'Искомое', en: 'The answer was' },
+  zwischen: { de: 'zwischen lauter', ru: 'среди множества', en: 'among many' },
+  feld:  { de: 'Feld', ru: 'Поле', en: 'Field' }
+};
 
 /** Paare von Bildern, die sich mit steigendem Index immer stärker ähneln. */
 const PAIRS = [
-  { a: '🍎', b: '🍏', hint: 'roter und grüner Apfel' },
-  { a: '🐶', b: '🐺', hint: 'Hund und Wolf' },
-  { a: '🌕', b: '🌖', hint: 'Vollmond und abnehmender Mond' },
-  { a: '😀', b: '😃', hint: 'zwei ähnliche Smileys' },
-  { a: '🔵', b: '🔷', hint: 'Kreis und Raute' },
-  { a: '⭐', b: '🌟', hint: 'Stern mit und ohne Funkeln' },
-  { a: '🌲', b: '🌳', hint: 'Nadelbaum und Laubbaum' },
-  { a: '🚗', b: '🚙', hint: 'zwei Autos' },
-  { a: '✋', b: '🤚', hint: 'zwei Handflächen' },
-  { a: '🥚', b: '🪺', hint: 'Ei und Nest' }
+  { a: '🍎', b: '🍏', hint: { de: 'roter und grüner Apfel', ru: 'красное и зелёное яблоко', en: 'red and green apple' } },
+  { a: '🐶', b: '🐺', hint: { de: 'Hund und Wolf', ru: 'собака и волк', en: 'dog and wolf' } },
+  { a: '🌕', b: '🌖', hint: { de: 'Vollmond und abnehmender Mond', ru: 'полная и убывающая луна', en: 'full moon and waning moon' } },
+  { a: '😀', b: '😃', hint: { de: 'zwei ähnliche Smileys', ru: 'два похожих смайлика', en: 'two similar smileys' } },
+  { a: '🔵', b: '🔷', hint: { de: 'Kreis und Raute', ru: 'круг и ромб', en: 'circle and diamond' } },
+  { a: '⭐', b: '🌟', hint: { de: 'Stern mit und ohne Funkeln', ru: 'звезда с сиянием и без', en: 'star with and without sparkle' } },
+  { a: '🌲', b: '🌳', hint: { de: 'Nadelbaum und Laubbaum', ru: 'хвойное и лиственное дерево', en: 'conifer and deciduous tree' } },
+  { a: '🚗', b: '🚙', hint: { de: 'zwei Autos', ru: 'две машины', en: 'two cars' } },
+  { a: '✋', b: '🤚', hint: { de: 'zwei Handflächen', ru: 'две ладони', en: 'two palms' } },
+  { a: '🥚', b: '🪺', hint: { de: 'Ei und Nest', ru: 'яйцо и гнездо', en: 'egg and nest' } }
 ];
 
 const game = createChoiceGame({
@@ -40,20 +48,21 @@ const game = createChoiceGame({
     const pair = PAIRS[randInt(Math.max(0, maxPair - 4), maxPair - 1)];
     const oddIdx = randInt(0, n - 1);
 
+    const feld = pick(UI.feld);
     const options = [...Array(n).keys()].map(i => ({
       html: i === oddIdx ? pair.b : pair.a,
-      label: `Feld ${i + 1}`
+      label: `${feld} ${i + 1}`
     }));
 
     return {
       prompt: `<div style="text-align:center">
-        <p style="font-size:1.05em">🔍 <b>Ein Bild ist anders als die übrigen.</b></p>
-        <p style="font-size:.85em;color:var(--text-light);margin-bottom:6px">Tippe es an.</p>
+        <p style="font-size:1.05em">${pick(UI.frage)}</p>
+        <p style="font-size:.85em;color:var(--text-light);margin-bottom:6px">${pick(UI.tipp)}</p>
       </div>`,
       options,
       correct: oddIdx,
       columns: cols,
-      explain: `Gesucht war ${pair.b} zwischen lauter ${pair.a} (${pair.hint}).`
+      explain: `${pick(UI.gesucht)} ${pair.b} ${pick(UI.zwischen)} ${pair.a} (${pick(pair.hint)}).`
     };
   }
 });

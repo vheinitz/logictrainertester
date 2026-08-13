@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Kopfrechenspiele',
     ru: 'Устный счёт и числовые игры',
-    en: ''
+    en: 'Mental arithmetic games'
   },
 
   short: {
     de: 'Schnelle Rechenspiele halten Zwischenergebnisse im Kopf und trainieren so Arbeitsgedächtnis und Zahlensicherheit.',
     ru: 'Быстрые числовые игры заставляют держать промежуточный результат в уме и тренируют рабочую память и уверенность в счёте.',
-    en: ''
+    en: 'Fast arithmetic games keep a running total in the head, training working memory and number fluency.'
   },
 
   what: {
@@ -34,7 +34,12 @@ export default {
         'скорость в том числовом диапазоне, который ребёнок тренирует; широкий перенос на другие школьные ' +
         'результаты часто обещают, но он не доказан. Подходит со школьного возраста, как только освоены ' +
         'основные примеры до 20.',
-    en: ''
+    en: 'Games in which a running total has to be carried along in the head: every turn changes a number ' +
+        'that must be remembered and recalculated at the same time. Exactly this double load – holding ' +
+        'and changing – is what so often jams up in class arithmetic and word problems. What reliably ' +
+        'improves is confidence and speed within the number range the child practises; a broad transfer ' +
+        'to other school performance is often claimed but not proven. Suitable from school age, as soon ' +
+        'as the basic facts up to 20 are secure.'
   },
 
   steps: {
@@ -56,7 +61,15 @@ export default {
       'Кубики и целевое число: бросить три кубика и назвать цель (например, 12). За 30 секунд составить как можно больше примеров из выпавших чисел, дающих ровно эту цель.',
       'Заканчивать через десять минут, даже если идёт хорошо. Короткие партии в четыре дня дают больше, чем одна длинная в выходные.'
     ],
-    en: []
+    en: [
+      'Start with "Up to 77": going around the table, each player names a number from 1 to 10 and says the new total out loud. Whoever reaches or passes 77 hands in a chip. Paper and fingers are not allowed.',
+      'Adapt the target number to the child: 20 for first graders, 50 from grade 2, 77 from grade 3, 200 in steps of seven for older children.',
+      'From the third round on, have the running total said only once, not repeated – then it really has to stay in the head.',
+      '"Jumping backwards" as a second exercise: start at 100 and take turns subtracting 7. Whoever gets stuck restarts from their last correct number.',
+      'For a change of pace, play a round of Halli Galli: flip cards over and hit the bell when exactly five identical fruits are showing. Here quantity recognition counts, not arithmetic.',
+      'Dice target number: roll three dice and name a target (e.g. 12). In 30 seconds, form as many calculations as possible from the three rolled numbers that hit the target exactly.',
+      'Stop after ten minutes, even if things are going well. Short rounds on four days achieve more than one long session at the weekend.'
+    ]
   },
 
   tips: {
@@ -72,18 +85,23 @@ export default {
       'Взрослый играет вместе и может проигрывать. Если силы слишком неравны, взрослому дают гандикап — считать в обратную сторону или шагами по семь.',
       'Фишки класть на стол на виду. Когда ребёнок видит свой запас, он не бросает игру после первой ошибки.'
     ],
-    en: []
+    en: [
+      'Do not correct or interrupt while the child is calculating – the intermediate result is gone instantly. Address mistakes only at the end of the round.',
+      'Three misses in a row means the target number is too high. Cut it in half – better safe than borderline.',
+      'Adults play along and are allowed to lose. If the match is too uneven, the adult gets a handicap – calculating backwards or in steps of seven.',
+      'Put the chips on the table in plain sight. A child who can see their stock does not quit after the first mistake.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Kopfrechnen', kind: 'wiki',
-      label: { de: 'Wikipedia: Kopfrechnen – Techniken und Grenzen', ru: 'Википедия (нем.): устный счёт', en: '' } },
+      label: { de: 'Wikipedia: Kopfrechnen – Techniken und Grenzen', ru: 'Википедия (нем.): устный счёт', en: 'Wikipedia (German): mental arithmetic – techniques and limits' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A3%D1%81%D1%82%D0%BD%D1%8B%D0%B9_%D1%81%D1%87%D1%91%D1%82', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Kopfrechnen', ru: 'Википедия: устный счёт', en: '' } },
+      label: { de: 'Wikipedia (russisch): Kopfrechnen', ru: 'Википедия: устный счёт', en: 'Wikipedia (Russian): mental arithmetic' } },
     { url: 'https://de.wikipedia.org/wiki/Lobo_77', kind: 'wiki',
-      label: { de: 'Wikipedia: Lobo 77 – vollständige Spielregeln', ru: 'Википедия (нем.): Lobo 77, полные правила', en: '' } },
+      label: { de: 'Wikipedia: Lobo 77 – vollständige Spielregeln', ru: 'Википедия (нем.): Lobo 77, полные правила', en: 'Wikipedia (German): Lobo 77 – complete rules' } },
     { url: 'https://www.amigo-spiele.de/', kind: 'hersteller',
-      label: { de: 'Amigo Spiele – Hersteller von Lobo 77 und Halli Galli', ru: 'Amigo Spiele — производитель Lobo 77 и «Халли Галли»', en: '' } }
+      label: { de: 'Amigo Spiele – Hersteller von Lobo 77 und Halli Galli', ru: 'Amigo Spiele — производитель Lobo 77 и «Халли Галли»', en: 'Amigo Spiele – publisher of Lobo 77 and Halli Galli' } }
   ],
 
   products: [
@@ -101,7 +119,11 @@ export default {
             'суммируют; кто перешёл 77 или попал на «красивое» число (11, 22, 33 …), отдаёт фишку. ' +
             'Особые карты «−10» и «×2» не дают счёту остановиться. Игра сама заставляет проговаривать ' +
             'сумму вслух — именно это и нужно.',
-        en: ''
+        en: 'Card game for 2–8 players, ages 8 and up; a round takes a few minutes. Cards are laid ' +
+            'down one after another and added up; whoever exceeds 77 or lands on a double-digit ' +
+            'repdigit (11, 22, 33 …) loses a chip. Special cards such as "−10" and "×2" keep the ' +
+            'arithmetic moving. The game makes players say the total out loud all by itself – and ' +
+            'that is exactly what matters.'
       },
       diy: {
         de: 'Aus festem Karton 60 Karten zu 6 × 9 cm schneiden. Werte aufschreiben: je sechs Karten mit ' +
@@ -114,7 +136,11 @@ export default {
             'направления». Фишки — 24 пуговицы или монеты по 1 центу, по три на игрока. Обратную сторону ' +
             'закрасить одним цветом или вложить карты в непрозрачные файлы, чтобы ничего не просвечивало. ' +
             'Для первоклассников те же карты со значениями 1–5 и целью 20.',
-        en: ''
+        en: 'Cut 60 cards of 6 × 9 cm from sturdy cardboard. Write on the values: six cards each with ' +
+            '1, 2, 3, 4 and 5, four each with 10, 20 and 50, plus six "−10" cards, four "×2" and four ' +
+            '"change direction". As chips use 24 buttons or 1-cent coins, three per player. Paint the ' +
+            'backs a single colour or slip the cards into opaque sleeves so nothing shows through. ' +
+            'For first graders use the same cards with values 1–5 and a target of 20.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="8" y="20" width="30" height="44" rx="4" fill="#fff" stroke="#D0CDE8" stroke-width="2"/>
@@ -143,7 +169,12 @@ export default {
             'того, чтобы ребёнок видел небольшие количества целиком, а не пересчитывал по одному. Хорошо ' +
             'вставлять между двумя счётными кругами. Для четырёхлетних есть «Халли Галли Юниор» с ' +
             'цветами вместо количеств.',
-        en: ''
+        en: 'Reaction game for ages 6 and up, 56 cards and a table bell. Cards are turned over, and ' +
+            'when exactly five identical fruits are showing you hit the bell. It trains not ' +
+            'arithmetic but fast quantity recognition – the foundation for children seeing small ' +
+            'quantities at a glance instead of counting them one by one. Good as a break between two ' +
+            'arithmetic rounds. For four-year-olds there is Halli Galli Junior with colours instead ' +
+            'of quantities.'
       }
     },
     {
@@ -157,7 +188,9 @@ export default {
         ru: 'Для большинства числовых игр хватает двух-трёх кубиков, листа бумаги и горсти пуговиц вместо ' +
             'фишек. Преимущество перед покупной игрой: числовой диапазон и действие меняются за секунды, ' +
             'если стало слишком легко или слишком трудно.',
-        en: ''
+        en: 'For most arithmetic games, two or three dice, a sheet of paper and a handful of buttons ' +
+            'as chips are all you need. The advantage over a bought game: the number range and the ' +
+            'operation can be changed in seconds if things get too easy or too hard.'
       },
       diy: {
         de: 'Rechen-Bingo: Auf A4 quer ein Raster von 5 × 5 Feldern zeichnen, jedes Feld etwa 4 × 3 cm. ' +
@@ -172,7 +205,12 @@ export default {
             '(сложение, вычитание или умножение — договориться заранее) и закрыть клетку пуговицей. Пять ' +
             'пуговиц в ряд — победа. Для двоих нужны два листа с разными числами, но один общий бросок — ' +
             'тогда оба считают одновременно.',
-        en: ''
+        en: 'Arithmetic bingo: on A4 in landscape orientation, draw a 5 × 5 grid, each cell about ' +
+            '4 × 3 cm. The child fills in 25 different results between 1 and 36 – choosing them is ' +
+            'already an exercise in itself. Play with two dice: roll, calculate a result from the two ' +
+            'numbers (plus, minus or times – agree beforehand) and cover the matching cell with a ' +
+            'button. Five buttons in a row wins. For two players use two sheets with different ' +
+            'numbers but the same roll – then both calculate at the same time.'
       }
     },
     {
@@ -189,7 +227,10 @@ export default {
             'автоматической подстройкой сложности. Четырнадцать дней доступны бесплатно. Разумна как ' +
             'дополнение, если ребёнок должен заниматься самостоятельно, но не заменяет совместную игру ' +
             'за столом, где всё проговаривается вслух.',
-        en: ''
+        en: 'Paid online practice platform for mathematics in grades 1 to 4, with number stories and ' +
+            'automatic difficulty adjustment. A fourteen-day free trial is available. Sensible as a ' +
+            'supplement when the child is to practise alone – but it does not replace playing ' +
+            'together at the table, where everything is said out loud.'
       }
     }
   ],

@@ -13,7 +13,7 @@
  * Bewertung: gelungen = 1, mit Hilfe = 0,5, nicht gelungen = 0.
  */
 import { engine } from './engine.js';
-import { pick } from './html.js';
+import { pick, lang } from './html.js';
 import * as settings from './settings.js';
 import { countRound, resultScreen } from './session.js';
 
@@ -24,6 +24,25 @@ import { countRound, resultScreen } from './session.js';
  *   genTask(gd) → { title, instruction, material, steps: [string], note }
  *   observe   Liste der Beobachtungspunkte für die Begleitperson
  */
+const TUTOR_UI = {
+  anleitung: { de: '🧑‍🏫 Anleitung für die Begleitperson', ru: '🧑‍🏫 Инструкция для взрослого', en: '🧑‍🏫 Guide for the accompanying adult' },
+  material:  { de: 'Material:', ru: 'Материалы:', en: 'Materials:' },
+  achten:    { de: '👀 Worauf achten?', ru: '👀 На что смотреть?', en: '👀 What to look for' },
+  gelaufen:  { de: 'Wie ist es gelaufen?', ru: 'Как получилось?', en: 'How did it go?' },
+  gelungen:  { de: '✅ Gelungen', ru: '✅ Получилось', en: '✅ Succeeded' },
+  mitHilfe:  { de: '🤝 Mit Hilfe', ru: '🤝 С помощью', en: '🤝 With help' },
+  nochNicht: { de: '↩️ Noch nicht', ru: '↩️ Пока нет', en: '↩️ Not yet' },
+  andere:    { de: '⏭️ Andere Aufgabe', ru: '⏭️ Другое задание', en: '⏭️ Another task' },
+  notiert:   { de: '📝 Notiert:', ru: '📝 Записано:', en: '📝 Noted:' },
+  niveau:    { de: 'Niveau', ru: 'Уровень', en: 'Level' },
+  naechste:  { de: '▶️ Nächste Aufgabe', ru: '▶️ Следующее задание', en: '▶️ Next task' },
+  fertig:    { de: '🏠 Fertig', ru: '🏠 Готово', en: '🏠 Done' },
+  wertung:   { de: ['nicht gelungen', 'mit Hilfe gelungen', 'gelungen'],
+               ru: ['не получилось', 'получилось с помощью', 'получилось'],
+               en: ['did not succeed', 'succeeded with help', 'succeeded'] }
+};
+const tu = k => { const l = lang(); return TUTOR_UI[k][l] || TUTOR_UI[k].de; };
+
 export function createTutorModule(cfg) {
   const minLevel = cfg.minLevel ?? 1;
   const maxLevel = cfg.maxLevel ?? 5;
@@ -59,44 +78,44 @@ export function createTutorModule(cfg) {
     }
 
     if (gd.phase === 'rated') {
-      const label = ['nicht gelungen', 'mit Hilfe gelungen', 'gelungen'][gd.lastRating];
+      const label = tu('wertung')[gd.lastRating];
       const cls = gd.lastRating === 2 ? 'feedback-correct' : gd.lastRating === 1 ? 'feedback-correct' : 'feedback-wrong';
       return `<div style="width:100%;max-width:560px;text-align:center">
-        <div class="feedback-banner ${cls}">📝 Notiert: <b>${label}</b></div>
-        <div style="font-size:.8em;color:var(--text-light);margin-bottom:10px">Niveau ${gd.level}</div>
-        <button class="btn btn-primary btn-small" onclick="G('next')">▶️ Nächste Aufgabe</button>
-        <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">🏠 Fertig</button>
+        <div class="feedback-banner ${cls}">${tu('notiert')} <b>${label}</b></div>
+        <div style="font-size:.8em;color:var(--text-light);margin-bottom:10px">${tu('niveau')} ${gd.level}</div>
+        <button class="btn btn-primary btn-small" onclick="G('next')">${tu('naechste')}</button>
+        <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${tu('fertig')}</button>
       </div>`;
     }
 
     return `<div style="width:100%;max-width:600px">
       <div class="tutor-guide" style="max-width:none">
-        <h3>🧑‍🏫 Anleitung für die Begleitperson</h3>
-        <p style="font-weight:700;font-size:1.05em;margin-bottom:6px">${task.title}</p>
-        <p style="margin-bottom:10px">${task.instruction}</p>
-        ${task.material ? `<p style="font-size:.9em"><b>Material:</b> ${task.material}</p>` : ''}
+        <h3>${tu('anleitung')}</h3>
+        <p style="font-weight:700;font-size:1.05em;margin-bottom:6px">${pick(task.title)}</p>
+        <p style="margin-bottom:10px">${pick(task.instruction)}</p>
+        ${task.material ? `<p style="font-size:.9em"><b>${tu('material')}</b> ${pick(task.material)}</p>` : ''}
         ${task.steps && task.steps.length ? `<ol style="margin:10px 0 4px 20px;font-size:.92em;line-height:1.7">
-          ${task.steps.map(s => `<li>${s}</li>`).join('')}
+          ${(Array.isArray(task.steps) ? task.steps : pick(task.steps) || []).map(s => `<li>${pick(s)}</li>`).join('')}
         </ol>` : ''}
-        ${task.note ? `<p style="font-size:.85em;color:var(--text-light);margin-top:8px">💡 ${task.note}</p>` : ''}
+        ${task.note ? `<p style="font-size:.85em;color:var(--text-light);margin-top:8px">💡 ${pick(task.note)}</p>` : ''}
       </div>
 
       ${cfg.observe && cfg.observe.length ? `<div style="background:var(--bg);border-radius:var(--radius-sm);padding:12px 16px;margin:12px 0">
-        <div style="font-weight:700;font-size:.9em;margin-bottom:6px">👀 Worauf achten?</div>
+        <div style="font-weight:700;font-size:.9em;margin-bottom:6px">${tu('achten')}</div>
         <ul style="margin-left:18px;font-size:.85em;line-height:1.6">
           ${cfg.observe.map(o => `<li>${pick(o)}</li>`).join('')}
         </ul>
       </div>` : ''}
 
       <div style="text-align:center;margin-top:16px">
-        <div style="font-weight:700;margin-bottom:8px">Wie ist es gelaufen?</div>
+        <div style="font-weight:700;margin-bottom:8px">${tu('gelaufen')}</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-          <button class="btn btn-small" style="background:var(--green);color:#fff" onclick="G('rate',2)">✅ Gelungen</button>
-          <button class="btn btn-small" style="background:var(--gold);color:#4A3B00" onclick="G('rate',1)">🤝 Mit Hilfe</button>
-          <button class="btn btn-small" style="background:var(--secondary);color:#fff" onclick="G('rate',0)">↩️ Noch nicht</button>
+          <button class="btn btn-small" style="background:var(--green);color:#fff" onclick="G('rate',2)">${tu('gelungen')}</button>
+          <button class="btn btn-small" style="background:var(--gold);color:#4A3B00" onclick="G('rate',1)">${tu('mitHilfe')}</button>
+          <button class="btn btn-small" style="background:var(--secondary);color:#fff" onclick="G('rate',0)">${tu('nochNicht')}</button>
         </div>
         <div style="margin-top:10px">
-          <button class="btn btn-secondary btn-small" onclick="G('skip')">⏭️ Andere Aufgabe</button>
+          <button class="btn btn-secondary btn-small" onclick="G('skip')">${tu('andere')}</button>
         </div>
       </div>
     </div>`;

@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Handlungsfolgen im Alltag: Rezepte, Anleitungen, Selbstständigkeit',
     ru: 'Последовательности действий в быту: рецепты, инструкции, самостоятельность',
-    en: ''
+    en: 'Action Sequences in Everyday Life: Recipes, Instructions, Independence'
   },
 
   short: {
     de: 'Mehrschrittige Alltagsabläufe nach Anleitung planen und allein zu Ende bringen.',
     ru: 'Планировать многошаговые бытовые дела по инструкции и доводить их до конца самостоятельно.',
-    en: ''
+    en: 'Plan multi-step everyday tasks from instructions and see them through to the end independently.'
   },
 
   what: {
@@ -38,7 +38,13 @@ export default {
         'перерыва продолжать с нужного места. По сравнению с рабочими листами у быта два ' +
         'преимущества: результат настоящий, и обратная связь приходит от самого дела, а не от ' +
         'взрослого — кто забыл яйца, видит это по тесту.',
-    en: ''
+    en: 'A recipe, a folding guide, the morning routine: all of these are tasks with four to ' +
+        'eight steps that have to be done in a particular order and carried through to the ' +
+        'end. That is exactly what the abilities grouped under the term "executive functions" ' +
+        'demand – thinking ahead, keeping the plan in mind, tolerating one\'s own impatience, ' +
+        'picking up again at the right point after an interruption. Compared with worksheets, ' +
+        'everyday life has two advantages: the result is real, and the feedback comes from the ' +
+        'task itself, not from an adult – whoever forgets the eggs sees it in the batter.'
   },
 
   steps: {
@@ -62,7 +68,16 @@ export default {
       'Уборка и мытьё посуды входят в дело и стоят на карточках. Иначе ребёнок выучит последовательность, которую на самом деле никогда не доводит до конца.',
       'После — две минуты разговора: что получилось хорошо, какой шаг был самым трудным, что в следующий раз сделать иначе. Один и тот же ход дела повторить три-четыре раза, пока он не получится самостоятельно.'
     ],
-    en: []
+    en: [
+      'Choose a task with a visible result and four to eight steps: mixing waffle batter, cutting up a fruit salad, folding a paper plane, setting the table for four, sorting and hanging up the laundry.',
+      'Read through the instructions together beforehand and set out everything that is needed – ingredients, bowl, knife, paper. Start only once everything is on the work surface.',
+      'The child retells the procedure in their own words before starting: "First … then … at the end …". Whatever is missing here will be missing later too.',
+      'Lay the steps out visibly: one slip of paper or picture card per step, in a row. A completed card is turned over – that way the child finds their way back on their own after every interruption.',
+      'The adult sits down and keeps their hands in their lap. Intervene only when there is danger, not because of mess and not because of slowness.',
+      'If the child gets stuck, do not say the next step; ask instead: "Which card did you turn over last?" With that, the child finds the place by themselves.',
+      'Tidying up and washing up are part of the procedure and appear on the cards too. Otherwise the child learns an action sequence that in reality it never carries through to the end.',
+      'Afterwards, talk for two minutes: what went well, which step was the hardest, what to do differently next time. Repeat the same procedure three or four times until it works without help.'
+    ]
   },
 
   tips: {
@@ -78,7 +93,12 @@ export default {
       'Нож и плиту не запрещать, а договориться о правилах и быть рядом: кто никогда не режет острым ножом, не научится ни резать, ни осторожности. Маленький острый нож безопаснее большого тупого.',
       'Для утреннего распорядка брать фотографии, а не рисунки — своего ребёнка у своей раковины. Чужие пиктограммы сначала надо расшифровать, собственное фото — нет.'
     ],
-    en: []
+    en: [
+      'One procedure per week, but repeat it until the child manages it independently. Constantly new recipes look like good practice but only train reading instructions aloud.',
+      'Allow a time buffer and do not start at seven in the morning. Under time pressure the adult takes over, and then the child has watched instead of acted.',
+      'Do not ban the knife and the stove; agree on rules and stay close by: a child who is never allowed to cut with a sharp knife learns neither cutting nor caution. A small sharp knife is safer than a large blunt one.',
+      'For the morning routine use photos instead of drawings – of your own child at their own washbasin. Unfamiliar pictograms have to be decoded first; the child\'s own photo does not.'
+    ]
   },
 
   links: [

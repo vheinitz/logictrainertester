@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Puzzles mit steigender Teilezahl',
     ru: 'Пазлы с возрастающим числом деталей',
-    en: ''
+    en: 'Jigsaw puzzles with increasing piece counts'
   },
 
   short: {
     de: 'Puzzeln verbindet Teil-Ganzes-Wahrnehmung, Formvergleich und ausdauerndes Probieren.',
     ru: 'Пазлы соединяют восприятие «часть — целое», сравнение форм и терпеливый перебор.',
-    en: ''
+    en: 'Puzzling combines part-whole perception, shape comparison, and persistent trial and error.'
   },
 
   what: {
@@ -37,7 +37,14 @@ export default {
         'которые много собирают пазлы и строят, лучше справляются с пространственными задачами, ' +
         'причём причина и следствие тут не разделены. Но как спокойное, точно дозируемое занятие ' +
         'с видимым концом пазл остаётся одним из самых практичных.',
-    en: ''
+    en: 'While puzzling, the child constantly switches between detail and overall picture: they memorize ' +
+        'an edge shape or a color gradient, search the pile with it, and check the result against the ' +
+        'reference image. Anyone who just holds pieces together at random will not get far with 100 pieces – ' +
+        'which is why a search strategy emerges almost by itself (edge first, then color groups). Whether ' +
+        'this transfers to other areas is an open question; all that is established is that children who ' +
+        'puzzle and build a lot perform better on spatial tasks – cause and effect are not separated ' +
+        'there. As a calm, precisely adjustable exercise with a visible end, it is nevertheless one of ' +
+        'the most practical activities of all.'
   },
 
   steps: {
@@ -61,7 +68,16 @@ export default {
       'Большие пазлы собирать на подложке — куске гофрокартона или войлочном коврике, — чтобы работу можно было убрать и продолжить назавтра.',
       'Усложнять без покупки новых наборов: убрать картинку-образец или собирать пазл изнанкой вверх, когда решает только форма.'
     ],
-    en: []
+    en: [
+      'Choose the piece count so that one session is enough: at the start, the child should finish in 15 to 20 minutes. Better to begin one level too easy – an abandoned puzzle is rarely picked up again.',
+      'Set up the box-lid picture clearly visible next to the work surface. Working from the reference is not cheating but exactly the exercise: find the section in the picture, then find the matching piece.',
+      'Always keep the same sequence: turn all pieces picture-side up, then sort out the edge pieces with a straight side, then lay the frame. These three steps are what is actually being learned.',
+      'Sort the inner pieces into small piles by color or motif and name the piles: "sky", "red roof", "meadow". Whoever has sorted then searches among twenty pieces instead of eighty.',
+      'A rule against forcing: a piece that does not fit after two calm attempts goes back to its pile. Pieces jammed in by force ruin both the picture and the patience.',
+      'Move to the next level only after a puzzle has been completed twice without help. A workable ladder is 24 → 35 → 48 → 60 → 100 → 200 → 300 pieces.',
+      'Lay larger puzzles on a base – a piece of corrugated cardboard or a felt mat – so the work can be put away and continued the next day.',
+      'For advanced puzzlers, make it harder without buying more pieces: remove the box-lid picture, or lay the puzzle picture-side down so that only the shape decides.'
+    ]
   },
 
   tips: {
@@ -77,18 +93,23 @@ export default {
       'Малышам сначала деревянные вкладыши и пазлы с ручками на 4–9 деталей; картонные имеют смысл примерно с четырёх лет, когда детали перестают заламывать.',
       'Никакой спешки и секундомера. Пазл — одно из немногих занятий, где медлительность не является недостатком.'
     ],
-    en: []
+    en: [
+      'Do not sit next to the child pointing at pieces. If help is needed, only narrow down the area: "That piece belongs in the top half."',
+      'Missing pieces spoil everything. Count the pieces after each session or at least put them in a zip bag – loose boxes always lose one under the sofa.',
+      'For the little ones, start with wooden inset and peg puzzles with 4 to 9 pieces; cardboard puzzles are worthwhile from about age four, when the pieces no longer get bent.',
+      'No time pressure and no stopwatch. Puzzling is one of the few exercises where slowness is not a disadvantage.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Puzzle', kind: 'wiki',
-      label: { de: 'Wikipedia: Puzzle – Geschichte, Teileformen, Größen', ru: 'Википедия (нем.): пазл — история, формы деталей, размеры', en: '' } },
+      label: { de: 'Wikipedia: Puzzle – Geschichte, Teileformen, Größen', ru: 'Википедия (нем.): пазл — история, формы деталей, размеры', en: 'Wikipedia (German): Jigsaw puzzle – history, piece shapes, sizes' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9F%D0%B0%D0%B7%D0%BB', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Puzzle', ru: 'Википедия: пазл', en: '' } },
+      label: { de: 'Wikipedia (russisch): Puzzle', ru: 'Википедия: пазл', en: 'Wikipedia (Russian): Jigsaw puzzle' } },
     { url: 'https://www.ravensburger.de/produkte/puzzle/index.html', kind: 'hersteller',
-      label: { de: 'Ravensburger: Puzzles nach Alter und Teilezahl', ru: 'Ravensburger: пазлы по возрасту и числу деталей', en: '' } },
+      label: { de: 'Ravensburger: Puzzles nach Alter und Teilezahl', ru: 'Ravensburger: пазлы по возрасту и числу деталей', en: 'Ravensburger: puzzles by age and piece count' } },
     { url: 'https://www.goki.eu/de/puzzles/', kind: 'hersteller',
-      label: { de: 'goki: Holz- und Einlegepuzzles für die Kleinen', ru: 'goki: деревянные пазлы и вкладыши для малышей', en: '' } }
+      label: { de: 'goki: Holz- und Einlegepuzzles für die Kleinen', ru: 'goki: деревянные пазлы и вкладыши для малышей', en: 'goki: wooden and inset puzzles for the little ones' } }
   ],
 
   products: [
@@ -107,7 +128,10 @@ export default {
             'ступень. Детали прочные и ощутимо защёлкиваются, а это важно: щелчок и есть сигнал ' +
             '«правильно». Смотрите на размер деталей: серии XXL при том же количестве имеют ' +
             'крупные детали и удобнее для маленьких рук.',
-        en: ''
+        en: 'The manufacturer grades its sets cleanly by piece count, which makes the next level easy ' +
+            'to pick. The pieces are sturdy and click in noticeably – important, because the click is ' +
+            'the feedback for "correct". Pay attention to the size of the individual pieces: the ' +
+            'XXL lines have larger pieces at the same piece count and are better for small hands.'
       }
     },
     {
@@ -122,7 +146,9 @@ export default {
         ru: 'Похожий ассортимент, часто немного дешевле. Пазлы в рамке — картинка лежит в жёсткой ' +
             'рамке — хороший промежуточный шаг между деревянным вкладышем и свободным картонным ' +
             'пазлом: рамка уже задаёт границу.',
-        en: ''
+        en: 'A comparable range, often somewhat cheaper. Frame puzzles – the picture sits inside a ' +
+            'rigid frame – are the good intermediate step between wooden inset puzzles and free ' +
+            'cardboard puzzles, because the frame already defines the border.'
       }
     },
     {
@@ -139,7 +165,9 @@ export default {
             'вставляющиеся в готовые выемки. Здесь важна только форма, а не соединение деталей — ' +
             'заметно более лёгкий шаг. Пазлы HABA сейчас на haba-play.com, у goki — более ' +
             'дешёвые вкладыши.',
-        en: ''
+        en: 'The right start for two- to four-year-olds: thick wooden pieces with knobs that belong ' +
+            'in pre-cut recesses. Here only the shape counts, not the joining – a much easier step. ' +
+            'HABA puzzles can be found at haba-play.com; goki has the cheaper inset puzzles.'
       }
     },
     {

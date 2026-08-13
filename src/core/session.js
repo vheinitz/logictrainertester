@@ -14,13 +14,13 @@ import { getModule } from '../data/modules.js';
 import { lang } from './html.js';
 
 const UI = {
-  fertig:   { de: 'Geschafft!', ru: 'Готово!' },
-  von:      { de: 'von', ru: 'из' },
-  gruppe:   { de: '← Zurück zur Gruppe', ru: '← Назад к группе' },
-  nochmal:  { de: '🔁 Noch eine Runde', ru: '🔁 Ещё раз' },
-  menue:    { de: '🏠 Menü', ru: '🏠 Меню' },
-  richtig:  { de: 'richtig', ru: 'верно' },
-  niveau:   { de: 'Bestes Niveau', ru: 'Лучший уровень' }
+  fertig:   { de: 'Geschafft!', ru: 'Готово!', en: 'Done!' },
+  von:      { de: 'von', ru: 'из', en: 'of' },
+  gruppe:   { de: '← Zurück zur Gruppe', ru: '← Назад к группе', en: '← Back to the group' },
+  nochmal:  { de: '🔁 Noch eine Runde', ru: '🔁 Ещё раз', en: '🔁 One more round' },
+  menue:    { de: '🏠 Menü', ru: '🏠 Меню', en: '🏠 Menu' },
+  richtig:  { de: 'richtig', ru: 'верно', en: 'correct' },
+  niveau:   { de: 'Bestes Niveau', ru: 'Лучший уровень', en: 'Best level' }
 };
 const u = k => { const l = lang(); return UI[k][l] || UI[k].de; };
 

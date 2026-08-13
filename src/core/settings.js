@@ -26,64 +26,73 @@ export const SCHEMA = {
     def: 10, min: 3, max: 40, step: 1, unit: '', group: 'umfang',
     de: 'Übungen je Durchgang', ru: 'Заданий за подход',
     hintDe: 'Danach kommt das Ergebnis und es geht zurück zur Gruppe. Ein absehbares Ende hilft dem Kind – und macht Werte vergleichbar.',
-    hintRu: 'После этого показывается результат и возврат к группе. Понятный конец помогает ребёнку и делает результаты сопоставимыми.'
+    hintRu: 'После этого показывается результат и возврат к группе. Понятный конец помогает ребёнку и делает результаты сопоставимыми.',
+    en: 'Exercises per session', hintEn: 'After that, the result is shown and you return to the group. A foreseeable end helps the child – and makes results comparable.'
   },
   tempo: {
     def: 2, min: 0.5, max: 5, step: 0.5, unit: 's', group: 'merken',
     de: 'Anzeigedauer je Element', ru: 'Время показа одного элемента',
     hintDe: 'Wie lange ein Element gezeigt oder gesprochen wird. Die Merkzeit ist Anzahl × dieser Wert.',
-    hintRu: 'Как долго показывается или произносится элемент. Время запоминания = количество × это значение.'
+    hintRu: 'Как долго показывается или произносится элемент. Время запоминания = количество × это значение.',
+    en: 'Display time per element', hintEn: 'How long an element is shown or spoken. Memorising time is count × this value.'
   },
   answerFactor: {
     def: 2, min: 1, max: 5, step: 0.5, unit: '×', group: 'merken',
     de: 'Antwortzeit (Vielfaches der Merkzeit)', ru: 'Время ответа (кратно времени показа)',
     hintDe: 'Bei 2 hat das Kind doppelt so lange Zeit zum Antworten wie zum Merken.',
-    hintRu: 'При 2 на ответ даётся вдвое больше времени, чем на запоминание.'
+    hintRu: 'При 2 на ответ даётся вдвое больше времени, чем на запоминание.',
+    en: 'Answer time (multiple of memorising time)', hintEn: 'At 2, the child has twice as long to answer as to memorise.'
   },
   pause: {
     def: 1, min: 0, max: 5, step: 0.5, unit: 's', group: 'merken',
     de: 'Pause vor der Antwort', ru: 'Пауза перед ответом',
     hintDe: 'Ruhe zwischen Zeigen und Antworten.',
-    hintRu: 'Тишина между показом и ответом.'
+    hintRu: 'Тишина между показом и ответом.',
+    en: 'Pause before answering', hintEn: 'Quiet between showing and answering.'
   },
   choiceAnswer: {
     def: 30, min: 5, max: 120, step: 5, unit: 's', group: 'auswahl',
     de: 'Antwortzeit bei Auswahlaufgaben', ru: 'Время ответа в заданиях с выбором',
     hintDe: 'Nach dieser Zeit gilt die Aufgabe als nicht gelöst. Großzügig wählen – Nachdenken soll nicht bestraft werden.',
-    hintRu: 'По истечении задание считается нерешённым. Выбирайте с запасом — думать не должно быть наказуемо.'
+    hintRu: 'По истечении задание считается нерешённым. Выбирайте с запасом — думать не должно быть наказуемо.',
+    en: 'Answer time in choice tasks', hintEn: 'After this time the task counts as unsolved. Be generous – thinking should not be punished.'
   },
   studyFactor: {
     def: 1, min: 0.5, max: 3, step: 0.5, unit: '×', group: 'auswahl',
     de: 'Lernzeit bei Merkaufgaben', ru: 'Время заучивания',
     hintDe: 'Streckt oder kürzt die Zeit, in der Paare zum Einprägen gezeigt werden.',
-    hintRu: 'Растягивает или сокращает время показа пар для запоминания.'
+    hintRu: 'Растягивает или сокращает время показа пар для запоминания.',
+    en: 'Study time in memorising tasks', hintEn: 'Stretches or shortens the time pairs are shown for memorising.'
   },
   feedbackOk: {
     def: 1.2, min: 0.5, max: 5, step: 0.1, unit: 's', group: 'rueckmeldung',
     de: 'Rückmeldung bei richtig', ru: 'Обратная связь при верном ответе',
     hintDe: 'Wie lange ✅ stehen bleibt, bevor es weitergeht.',
-    hintRu: 'Как долго держится ✅ до продолжения.'
+    hintRu: 'Как долго держится ✅ до продолжения.',
+    en: 'Feedback when correct', hintEn: 'How long ✅ stays before moving on.'
   },
   feedbackWrong: {
     def: 2.5, min: 0.5, max: 8, step: 0.5, unit: 's', group: 'rueckmeldung',
     de: 'Rückmeldung bei falsch', ru: 'Обратная связь при ошибке',
     hintDe: 'Länger als bei richtig – hier wird die Lösung gezeigt und die will gelesen werden.',
-    hintRu: 'Дольше, чем при верном ответе — здесь показывается решение.'
+    hintRu: 'Дольше, чем при верном ответе — здесь показывается решение.',
+    en: 'Feedback when wrong', hintEn: 'Longer than for correct – the solution is shown and needs to be read.'
   },
   sound: {
     def: 1, min: 0, max: 1, step: 1, unit: '', group: 'ton', bool: true,
     de: 'Ton', ru: 'Звук',
     hintDe: 'Aus geschaltet bleiben die Tests mit Ansage stumm und melden das auch.',
-    hintRu: 'При выключении задания с озвучкой молчат и сообщают об этом.'
+    hintRu: 'При выключении задания с озвучкой молчат и сообщают об этом.',
+    en: 'Sound', hintEn: 'When off, the spoken tests stay silent and say so.'
   }
 };
 
 export const GROUPS = {
-  umfang:       { icon: '🎯', de: 'Umfang', ru: 'Объём' },
-  merken:       { icon: '🧠', de: 'Merkspannen-Tests', ru: 'Тесты на запоминание' },
-  auswahl:      { icon: '👆', de: 'Auswahlaufgaben', ru: 'Задания с выбором' },
-  rueckmeldung: { icon: '💬', de: 'Rückmeldung', ru: 'Обратная связь' },
-  ton:          { icon: '🔊', de: 'Ton', ru: 'Звук' }
+  umfang:       { icon: '🎯', de: 'Umfang', ru: 'Объём', en: 'Scope' },
+  merken:       { icon: '🧠', de: 'Merkspannen-Tests', ru: 'Тесты на запоминание', en: 'Memory-span tests' },
+  auswahl:      { icon: '👆', de: 'Auswahlaufgaben', ru: 'Задания с выбором', en: 'Choice tasks' },
+  rueckmeldung: { icon: '💬', de: 'Rückmeldung', ru: 'Обратная связь', en: 'Feedback' },
+  ton:          { icon: '🔊', de: 'Ton', ru: 'Звук', en: 'Sound' }
 };
 
 let werte = laden();

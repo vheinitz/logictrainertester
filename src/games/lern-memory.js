@@ -9,8 +9,18 @@
  * Zusätzlich: die Paarzahl wächst mit jedem gelösten Brett (6 → 10 Paare).
  */
 import { engine } from '../core/engine.js';
-import { shuffle, sample } from '../core/html.js';
+import { shuffle, sample, pick } from '../core/html.js';
 import { countRound, resultScreen, done } from '../core/session.js';
+
+const UI = {
+  frage: { de: '🃏 Finde die passenden Paare!', ru: '🃏 Найди парные карточки!', en: '🃏 Find the matching pairs!' },
+  zuege: { de: 'Züge', ru: 'Ходы', en: 'Moves' },
+  paare: { de: 'Paare', ru: 'Пары', en: 'Pairs' },
+  gefunden: { de: 'Alle Paare gefunden!', ru: 'Все пары найдены!', en: 'All pairs found!' },
+  in:   { de: 'In', ru: 'За', en: 'In' },
+  zuegen: { de: 'Zügen', ru: 'ходов', en: 'moves' },
+  naechstes: { de: 'Nächstes Brett', ru: 'Следующее поле', en: 'Next board' }
+};
 
 const EMOJIS = ['🐶','🐱','🐰','🐸','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐵','🐔','🐧','🦄'];
 
@@ -53,8 +63,8 @@ export function render(gs) {
   const cols = gd.pairs <= 6 ? 4 : gd.pairs <= 8 ? 4 : 5;
 
   let html = `<div style="width:100%;max-width:440px">
-    <p style="font-size:1.1em;text-align:center">🃏 <b>Finde die passenden Paare!</b></p>
-    <p style="color:var(--text-light);font-size:.9em;text-align:center">Züge: ${gd.moves} &nbsp;|&nbsp; Paare: ${matched / 2}/${gd.pairs}</p>
+    <p style="font-size:1.1em;text-align:center">${pick(UI.frage)}</p>
+    <p style="color:var(--text-light);font-size:.9em;text-align:center">${pick(UI.zuege)}: ${gd.moves} &nbsp;|&nbsp; ${pick(UI.paare)}: ${matched / 2}/${gd.pairs}</p>
     <div class="memory-grid" style="margin:12px auto;grid-template-columns:repeat(${cols},1fr)">`;
 
   gd.cards.forEach((card, i) => {
@@ -67,9 +77,9 @@ export function render(gs) {
 
   if (allDone) {
     const stars = gd.moves <= gd.pairs + 2 ? '⭐⭐⭐' : gd.moves <= gd.pairs + 5 ? '⭐⭐' : '⭐';
-    html += `<div class="feedback-banner feedback-correct">🎉 Alle Paare gefunden! ${stars}<br>In ${gd.moves} Zügen</div>
+    html += `<div class="feedback-banner feedback-correct">🎉 ${pick(UI.gefunden)} ${stars}<br>${pick(UI.in)} ${gd.moves} ${pick(UI.zuegen)}</div>
       <div style="text-align:center;margin-top:10px">
-        <button class="btn btn-primary btn-small" onclick="G('nextBoard')">▶️ Nächstes Brett (${Math.min(gd.pairs + 1, 10)} Paare)</button>
+        <button class="btn btn-primary btn-small" onclick="G('nextBoard')">▶️ ${pick(UI.naechstes)} (${Math.min(gd.pairs + 1, 10)} ${pick(UI.paare)})</button>
       </div>`;
   }
 

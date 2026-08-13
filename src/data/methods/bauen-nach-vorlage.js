@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Bauen nach Vorlage',
     ru: 'Постройка по образцу и чертежу',
-    en: ''
+    en: 'Building from a Model or Plan'
   },
 
   short: {
     de: 'Ein Bauwerk exakt nach Karte, Skizze oder Modell nachbauen.',
     ru: 'Точное воспроизведение постройки по карточке, чертежу или модели.',
-    en: ''
+    en: 'Reproduce a structure exactly from a card, sketch or model.'
   },
 
   what: {
@@ -37,7 +37,13 @@ export default {
         'вывести логически, ведь он их не видит. Эта способность называется пространственным ' +
         'мышлением и лежит в основе геометрии, чтения чертежей и позже карт. Подходит примерно ' +
         'с четырёх лет на объёмных образцах и с шести — на рисованных.',
-    en: ''
+    en: 'The child is given a picture – a perspective drawing, a side view or a top-down ' +
+        'building plan – and reproduces it exactly with cubes or building blocks. The method ' +
+        'works because a translation is needed between picture and structure: what is drawn ' +
+        'flat has to be rotated in the mind and turned into depth, and the child must infer ' +
+        'hidden blocks, because they cannot be seen. This ability is called spatial reasoning ' +
+        'and is the foundation for geometry, technical drawings and, later, maps. Suitable ' +
+        'from about age four with simple models, from six with drawn templates.'
   },
 
   steps: {
@@ -59,7 +65,15 @@ export default {
       'Обратный ход: строит ребёнок, а взрослый повторяет за ним. Намеренно допускать ошибки и давать их найти — сравнение тренируется так сильнее, чем сама постройка.',
       'В конце попросить описать словами, не показывая: «Скажи мне кубик за кубиком, как это построить». Кто может описать — тот понял.'
     ],
-    en: []
+    en: [
+      'Lay out two identical sets of cubes, at least eight per set, all with the same edge length. One set for the model, one for the child.',
+      'Level 1 – model: Build a structure from four cubes yourself and place it in plain view. The child rebuilds it alongside and afterwards compares from all four sides.',
+      'Level 2 – screen: The same, but place a book between the two building spots. The child may look behind the screen three times, then must finish building from memory.',
+      'Level 3 – drawing: Draw the model on squared paper as an oblique projection (each cube as a square with two edges going back) and put down only the drawing. Six to eight cubes are enough.',
+      'Level 4 – top-down building plan: Draw a 3 × 3 grid and write in each cell the number of cubes stacked there. The child builds from these numbers alone.',
+      'Reversal: The child builds something, the adult copies it. Deliberately build in mistakes and let the child find them – this trains comparing more than the building itself.',
+      'At the end, have the child describe it without pointing: "Tell me block by block how I have to build it." Whoever can describe it has understood it.'
+    ]
   },
 
   tips: {
@@ -75,22 +89,27 @@ export default {
       'Сравнивать всегда с того же направления, что и на образце. Заранее наклеить на стол стрелку, обозначающую «перед», — иначе спор пойдёт об ошибках, которых нет.',
       'Не начинать с деталей с шипами вроде Lego. Они держатся сами и снимают задачу устойчивости; гладкие деревянные кубики не прощают неточного представления.'
     ],
-    en: []
+    en: [
+      'Only move up a level once a template succeeds without correction. The jump from the drawing to the top-down building plan is the hardest – it is fine to stay there for two weeks.',
+      'Hidden cubes are the actual learning content. If the child forgets them, lift the finished structure together and look underneath instead of explaining it.',
+      'Always compare from the same viewing direction as the template. Stick an arrow on the table beforehand marking "front" – otherwise you argue about mistakes that are not mistakes.',
+      'Do not start with studded bricks like Lego. They hold together by themselves and remove the statics from the task; smooth wooden cubes do not forgive an imprecise mental image.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/R%C3%A4umliches_Vorstellungsverm%C3%B6gen', kind: 'wiki',
       label: { de: 'Wikipedia: Räumliches Vorstellungsvermögen – was hier trainiert wird',
-               ru: 'Википедия (нем.): пространственное воображение — что здесь тренируется', en: '' } },
+               ru: 'Википедия (нем.): пространственное воображение — что здесь тренируется', en: 'Wikipedia (German): spatial reasoning – what is trained here' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_%28%D0%B8%D0%B3%D1%80%D1%83%D1%88%D0%BA%D0%B0%29', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Konstruktionsspielzeug', ru: 'Википедия: конструктор (игрушка)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Konstruktionsspielzeug', ru: 'Википедия: конструктор (игрушка)', en: 'Wikipedia (Russian): construction toys' } },
     { url: 'https://pikas.dzlm.de/unterricht/raum-und-form/k%C3%B6rper/bauen-mit-w%C3%BCrfeln', kind: 'anleitung',
       label: { de: 'PIKAS (TU Dortmund): Würfelgebäude – kostenlose Aufgabenkarten, Baupläne und Poster als PDF',
-               ru: 'PIKAS (TU Dortmund): постройки из кубиков — бесплатные карточки заданий и планы в PDF (нем.)', en: '' } },
+               ru: 'PIKAS (TU Dortmund): постройки из кубиков — бесплатные карточки заданий и планы в PDF (нем.)', en: 'PIKAS (TU Dortmund): cube buildings – free task cards, building plans and posters as PDF (German)' } },
     { url: 'https://www.foxmind.com/products/architecto', kind: 'hersteller',
-      label: { de: 'FoxMind: Architecto – Herstellerseite', ru: 'FoxMind: Architecto — страница производителя', en: '' } },
+      label: { de: 'FoxMind: Architecto – Herstellerseite', ru: 'FoxMind: Architecto — страница производителя', en: 'FoxMind: Architecto – manufacturer page' } },
     { url: 'https://www.ravensburger.de/de-DE/produkte/spiele/gesellschaftsspiele-brettspiele/make-n-break-26750', kind: 'hersteller',
-      label: { de: 'Ravensburger: Make ’n’ Break – Herstellerseite', ru: 'Ravensburger: Make ’n’ Break — страница производителя', en: '' } }
+      label: { de: 'Ravensburger: Make ’n’ Break – Herstellerseite', ru: 'Ravensburger: Make ’n’ Break — страница производителя', en: 'Ravensburger: Make ’n’ Break – manufacturer page' } }
   ],
 
   products: [
@@ -110,7 +129,11 @@ export default {
             'одиночная, без соревнования, — потому подходит детям, которых сковывает ' +
             'наблюдение. Задания даны в косоугольной проекции, то есть это ступень 3 из ' +
             'инструкции выше; для того, кто пока на ступени 1, это слишком трудно.',
-        en: ''
+        en: 'Wooden building blocks ("geoblocks", including wedges and half-cubes) with a task ' +
+            'booklet: 50 tasks in six colour-coded levels, manufacturer rating from age 7. A ' +
+            'solitaire game with no competition – which makes it good for children who freeze ' +
+            'up when watched. The tasks are oblique-projection drawings, i.e. level 3 of the ' +
+            'instructions above; a child still at level 1 will be overwhelmed by it.'
       }
     },
     {
@@ -127,7 +150,11 @@ export default {
             'игроков. Важно: спешка заложена в правила и противоречит спокойной учебной цели. ' +
             'Для занятий лучше играть без часов и без очков — сам набор карточек очень удобен, ' +
             'потому что образцы аккуратно выстроены по сложности.',
-        en: ''
+        en: 'Ten wooden blocks, 80 double-sided building cards, sand timer. From age 8, 2–5 ' +
+            'players. Caution: the time pressure is part of the game and works against the calm ' +
+            'goal of the exercise. For practice purposes, better to play without the timer and ' +
+            'without points – the card collection is very useful for this, because the ' +
+            'templates are neatly graded in difficulty.'
       }
     },
     {
@@ -142,7 +169,10 @@ export default {
             'переводятся одна в другую перестановкой одного-единственного кубика. Сделана ' +
             'очень хорошо, но уже много лет доступна только на вторичном рынке. Если найти не ' +
             'удалось: материалы PIKAS (ссылка выше) закрывают ту же идею бесплатным PDF.',
-        en: ''
+        en: 'A card game from primary-school mathematics education: cube buildings made of five ' +
+            'cubes that are transformed into one another by moving a single cube. Very well ' +
+            'made, but for years only available second-hand. If you cannot find it: the PIKAS ' +
+            'materials (link above) cover the same idea as a free PDF.'
       }
     },
     {
@@ -158,7 +188,10 @@ export default {
             'самый дешёвый вариант. Одноцветные буковые кубики продаются в товарах для ' +
             'рукоделия; важно лишь, чтобы все кубики были строго одного размера и без лака, ' +
             'иначе они скользят.',
-        en: ''
+        en: 'The basic kit with which all four levels of the instructions work, and at the same ' +
+            'time the cheapest. Plain beechwood cubes are available in craft shops; all that ' +
+            'matters is that all cubes are exactly the same size and unvarnished, so that they ' +
+            'do not slip.'
       },
       diy: {
         de: 'Material: 16 Holzwürfel mit 3 cm Kantenlänge (Buche, unbehandelt), Karopapier mit ' +
@@ -181,7 +214,16 @@ export default {
             'другое наклеить на картон A6: лицевая сторона — задание, обратная — фотография ' +
             'готовой постройки как ответ. Двенадцати карточек трёх уровней (4, 6, 8 кубиков) ' +
             'хватает на месяцы.',
-        en: ''
+        en: 'Materials: 16 wooden cubes with 3 cm edge length (beech, untreated), squared paper ' +
+            'with a 5 mm grid, pencil, fineliner, A6 card stock for the cards. Drawing oblique ' +
+            'projections: draw each cube as a square of 2 × 2 grid squares (1 cm), from the top ' +
+            'right and bottom right corners draw a line slanting back – exactly one square to ' +
+            'the right and one up – and close the back edges; this produces a cube that can be ' +
+            'rebuilt exactly. Top-down building plans: draw a 3 × 3 grid with 1.5 cm cells and ' +
+            'write the number of storeys in each cell, leaving empty cells blank. Glue both ' +
+            'onto A6 card, task on the front, a photo of the finished structure as the answer ' +
+            'on the back. Twelve cards in three difficulty levels (4, 6, 8 cubes) last for ' +
+            'months.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <g stroke="var(--primary)" stroke-width="2" fill="none" stroke-linejoin="round">

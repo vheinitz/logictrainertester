@@ -12,6 +12,7 @@
  * Das neu hinzugekommene Ding wird umrandet statt beschriftet.
  */
 import { createSpanTest } from '../core/adaptive.js';
+import { removeHint } from '../core/shell.js';
 import { sample, randInt, color, jsArg, esc, lang } from '../core/html.js';
 import listen from '../data/wordlists.json' with { type: 'json' };
 
@@ -43,9 +44,11 @@ const test = createSpanTest({
   levelCap: 12,
   factor: 2,
   labelOf: k => nameOf(k),
-  instruction: 'Der Koffer wird gepackt und bei jeder Runde kommt ein Ding dazu ' +
-               '(umrandet). Merke dir alles – und tippe es danach in derselben ' +
-               'Reihenfolge an.',
+  instruction: {
+    de: 'Der Koffer wird gepackt und bei jeder Runde kommt ein Ding dazu (umrandet). Merke dir alles – und tippe es danach in derselben Reihenfolge an.',
+    ru: 'Мы собираем чемодан, и с каждым кругом добавляется одна вещь (обведена). Запомни всё — и потом нажми в том же порядке.',
+    en: 'The suitcase is being packed, and each round one more item is added (outlined). Remember everything – then tap it in the same order.'
+  },
 
   /**
    * Der Koffer wächst und schrumpft – er wird nie neu gewürfelt.
@@ -84,7 +87,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((k, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="width:46px;height:46px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="width:46px;height:46px;border-radius:12px;border:2px dashed #D8D4EE"></div>`

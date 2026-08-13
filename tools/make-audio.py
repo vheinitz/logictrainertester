@@ -44,6 +44,7 @@ VOICE_DIR = os.path.expanduser("~/.greetmate/piper_voices")
 VOICES = {
     "de": {"model": "de_DE-thorsten-medium.onnx", "length_scale": 1.15},
     "ru": {"model": "ru_RU-dmitri-medium.onnx",   "length_scale": 1.45},
+    "en": {"model": "en_US-amy-medium.onnx",      "length_scale": 1.15},
 }
 
 DIGITS = {
@@ -51,6 +52,8 @@ DIGITS = {
            "fünf", "sechs", "sieben", "acht", "neun"],
     "ru": ["ноль", "один", "два", "три", "четыре",
            "пять", "шесть", "семь", "восемь", "девять"],
+    "en": ["zero", "one", "two", "three", "four",
+           "five", "six", "seven", "eight", "nine"],
 }
 
 # Ansagen vor einer Folge: geben ein Startsignal, statt dass das erste Element
@@ -58,8 +61,8 @@ DIGITS = {
 # passende Formel; beim Kofferpacken gehört die Spielformel dazu, nicht ein
 # neutrales „Wiederhole".
 LEADINS = {
-    "lead":        {"de": "Wiederhole:",              "ru": "Повтори:"},
-    "lead-koffer": {"de": "Ich packe in meinen Koffer:", "ru": "Я беру в чемодан:"},
+    "lead":        {"de": "Wiederhole:",                 "ru": "Повтори:",          "en": "Repeat:"},
+    "lead-koffer": {"de": "Ich packe in meinen Koffer:", "ru": "Я беру в чемодан:", "en": "I pack in my suitcase:"},
 }
 
 WORDLISTS = "src/data/wordlists.json"

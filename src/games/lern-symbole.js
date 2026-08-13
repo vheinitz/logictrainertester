@@ -14,13 +14,33 @@
  * Niveau steuert die Anzahl der Paare (2–7) und damit die Interferenz.
  */
 import { createChoiceGame } from '../core/choice.js';
-import { sample, shuffle, color } from '../core/html.js';
+import { sample, shuffle, color, pick } from '../core/html.js';
+
+const UI = {
+  merke: { de: '🧠 Merke dir, was zusammengehört!', ru: '🧠 Запомни, что к чему относится!', en: '🧠 Remember what goes together!' },
+  frage: { de: '❓ Welches Wort gehört zu diesem Symbol?', ru: '❓ Какое слово относится к этому символу?', en: '❓ Which word belongs to this symbol?' },
+  war:   { de: 'gehörte zu', ru: 'относилось к', en: 'belonged to' }
+};
 
 const SYMBOLS = ['⭐','🔔','🌙','🍀','⚡','❤️','🔷','🎈','🔥','🌈','🎵','🦋','🌸','🍄','🔑','⛵'];
 
 const WORDS = [
-  'Nase','Tisch','Wolke','Igel','Löffel','Fenster','Berg','Wiese',
-  'Pinsel','Kissen','Nebel','Krone','Anker','Feder','Trommel','Laterne'
+  { de: 'Nase', ru: 'Нос', en: 'Nose' },
+  { de: 'Tisch', ru: 'Стол', en: 'Table' },
+  { de: 'Wolke', ru: 'Облако', en: 'Cloud' },
+  { de: 'Igel', ru: 'Ёж', en: 'Hedgehog' },
+  { de: 'Löffel', ru: 'Ложка', en: 'Spoon' },
+  { de: 'Fenster', ru: 'Окно', en: 'Window' },
+  { de: 'Berg', ru: 'Гора', en: 'Mountain' },
+  { de: 'Wiese', ru: 'Луг', en: 'Meadow' },
+  { de: 'Pinsel', ru: 'Кисть', en: 'Brush' },
+  { de: 'Kissen', ru: 'Подушка', en: 'Pillow' },
+  { de: 'Nebel', ru: 'Туман', en: 'Fog' },
+  { de: 'Krone', ru: 'Корона', en: 'Crown' },
+  { de: 'Anker', ru: 'Якорь', en: 'Anchor' },
+  { de: 'Feder', ru: 'Перо', en: 'Feather' },
+  { de: 'Trommel', ru: 'Барабан', en: 'Drum' },
+  { de: 'Laterne', ru: 'Фонарь', en: 'Lantern' }
 ];
 
 const game = createChoiceGame({
@@ -38,31 +58,32 @@ const game = createChoiceGame({
     const pairs = syms.map((s, i) => ({ sym: s, word: words[i] }));
 
     const target = pairs[Math.floor(Math.random() * pairs.length)];
-    const others = pairs.filter(p => p.word !== target.word).map(p => p.word);
+    const others = pairs.filter(p => p.word.de !== target.word.de).map(p => p.word);
     const extra = sample(WORDS.filter(w => !words.includes(w)), Math.max(0, 3 - others.length));
     const choices = shuffle([target.word, ...sample(others, 3), ...extra].slice(0, 4));
 
+    const word = pick(target.word);
     return {
       study: {
         seconds: Math.round(2.5 * n),
         html: `
-          <p style="font-size:1.05em;margin-bottom:10px">🧠 <b>Merke dir, was zusammengehört!</b></p>
+          <p style="font-size:1.05em;margin-bottom:10px">${pick(UI.merke)}</p>
           <div style="display:flex;flex-direction:column;gap:8px;align-items:center">
             ${pairs.map((p, i) => `
               <div style="display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:14px;padding:8px 18px;min-width:220px">
                 <span style="font-size:1.9em">${p.sym}</span>
                 <span style="width:3px;height:24px;background:${color(i)};border-radius:2px"></span>
-                <span style="font-weight:700;font-size:1.05em">${p.word}</span>
+                <span style="font-weight:700;font-size:1.05em">${pick(p.word)}</span>
               </div>`).join('')}
           </div>`
       },
       prompt: `<div style="text-align:center">
-        <p style="font-size:1.05em">❓ <b>Welches Wort gehört zu diesem Symbol?</b></p>
+        <p style="font-size:1.05em">${pick(UI.frage)}</p>
         <div style="font-size:3.4em;margin:12px 0">${target.sym}</div>
       </div>`,
-      options: choices.map(w => ({ html: w, label: w })),
-      correct: choices.indexOf(target.word),
-      explain: `${target.sym} gehörte zu „${target.word}".`,
+      options: choices.map(w => ({ html: pick(w), label: pick(w) })),
+      correct: choices.findIndex(w => w.de === target.word.de),
+      explain: `${target.sym} ${pick(UI.war)} „${word}".`,
       layout: 'list'
     };
   }

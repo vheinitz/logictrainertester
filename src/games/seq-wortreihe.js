@@ -7,6 +7,7 @@
  * genau dieser Vergleich ist diagnostisch interessant.
  */
 import { createSpanTest } from '../core/adaptive.js';
+import { removeHint } from '../core/shell.js';
 import { sample, shuffle, color, jsArg, esc, lang } from '../core/html.js';
 import listen from '../data/wordlists.json' with { type: 'json' };
 
@@ -34,8 +35,11 @@ const test = createSpanTest({
   maxN: 10,
   levelCap: 12,
   factor: 2,
-  instruction: 'Es erscheinen Wörter. Merke sie dir – und tippe sie danach in ' +
-               'derselben Reihenfolge an.',
+  instruction: {
+    de: 'Es erscheinen Wörter. Merke sie dir – und tippe sie danach in derselben Reihenfolge an.',
+    ru: 'Появляются слова. Запомни их — и потом нажми их в том же порядке.',
+    en: 'Words appear. Remember them – then tap them in the same order.'
+  },
 
   genItems: (level) => sample(ALL_WORDS, Math.min(level, ALL_WORDS.length)),
 
@@ -52,7 +56,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:8px;min-height:44px;flex-wrap:wrap;align-items:center;justify-content:center;margin:0 0 20px">
       ${ctx.selected.map((w, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="padding:7px 16px;border-radius:18px;border:2px dashed #D8D4EE;min-width:62px">&nbsp;</div>`

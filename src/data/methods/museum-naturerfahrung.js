@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Museumsbesuche und Naturerfahrungen',
     ru: 'Музеи и опыт природы',
-    en: ''
+    en: 'Museum Visits and Nature Experiences'
   },
 
   short: {
     de: 'Erlebtes Wissen aus Museum, Zoo, Wald oder Werkstatt verankert sich besser als angelesenes.',
     ru: 'Знание, добытое в музее, зоопарке, лесу или мастерской, закрепляется лучше вычитанного.',
-    en: ''
+    en: 'Knowledge gained first-hand in a museum, zoo, forest or workshop sticks better than knowledge read in books.'
   },
 
   what: {
@@ -34,7 +34,14 @@ export default {
         'из книги вход только один. Решает при этом не сама поездка: беготня по музею без подготовки ' +
         'и без разговора после оставляет немногим больше, чем усталые ноги. Остаётся то, что выросло ' +
         'из одного вопроса заранее и пяти минут рассказа вечером.',
-    en: ''
+    en: 'General knowledge is built for the most part outside of lessons – wherever a child has ' +
+        'seen, smelled and touched something for themselves. Such experiences leave not only the ' +
+        'thing itself in memory, but also the place, the smell and the child\'s own actions, and ' +
+        'the knowledge can later be retrieved through any of these routes; a sentence from a book ' +
+        'has only a single point of access. What matters is not the outing itself: a rushed museum ' +
+        'day without preparation and without a conversation afterwards leaves little more than ' +
+        'tired legs. What sticks grows out of the one question asked beforehand and the five ' +
+        'minutes of storytelling in the evening.'
   },
 
   steps: {
@@ -58,7 +65,16 @@ export default {
       'Примерно через неделю вернуться к теме: найти находку в определителе, нарисовать картинку, посмотреть в энциклопедии. Именно этот шаг превращает впечатление в знание.',
       'Раз в два-три месяца приходить на то же место в лесу или парке и сравнивать, что изменилось. Повторение в одной точке даёт больше, чем любая новая достопримечательность.'
     ],
-    en: []
+    en: [
+      'Before the visit, set a single goal and say it out loud: "We want to find out how the woodpecker gets at the larvae under the bark." Do not try to see everything.',
+      'Write two or three questions on a slip of paper together with the child, which the child carries and answers on site. Someone with a question in mind looks differently.',
+      'Limit the stay to 60 to 90 minutes. After that, no child takes anything in anymore. Three short visits are better than one whole day.',
+      'Let the child decide where to stop. Really touch, crank and try out at least three stations – in a science centre this is allowed, in the forest it goes without saying.',
+      'Take a keepsake home: the entrance ticket, a piece of bark, a feather, a photo. Everything goes into a shoebox or a notebook, labelled with the date.',
+      'Talk about it for five minutes the same evening. The child tells the story, the adults ask follow-up questions – not quizzing, but being curious.',
+      'Pick the topic up again after about a week: look up the find in a field guide, draw a picture of it, check the encyclopedia. This is the step that turns the experience into knowledge.',
+      'Return to the same spot in the forest or park every two to three months and compare what has changed. Repetition at a fixed place beats any new sight.'
+    ]
   },
 
   tips: {
@@ -74,20 +90,25 @@ export default {
       'Одной находки за вылазку достаточно. Десять наполовину рассмотренных вещей стоят меньше, чем один жёлудь, увиденный со всех сторон.',
       'Стоит проверять бесплатный вход: во многих музеях есть день или вторая половина дня со свободным или льготным входом для семей.'
     ],
-    en: []
+    en: [
+      'Do not read out what is written on the signs. Instead ask: "What do you think that was for?" Only afterwards check whether it is right.',
+      'The field guide belongs in the backpack and is used on site, not at home. Identifying with the find in your hand is something completely different from doing it at the kitchen table.',
+      'One find per outing is enough. Ten half-examined things are worth less than one acorn that has been looked at from all sides.',
+      'Free admission is worth checking: many museums have one afternoon or weekday with free or reduced admission for families.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Kindermuseum', kind: 'wiki',
-      label: { de: 'Wikipedia: Kindermuseum – „Anfassen ausdrücklich erwünscht"', ru: 'Википедия (нем.): детский музей — «трогать разрешено и желательно»', en: '' } },
+      label: { de: 'Wikipedia: Kindermuseum – „Anfassen ausdrücklich erwünscht"', ru: 'Википедия (нем.): детский музей — «трогать разрешено и желательно»', en: 'Wikipedia (German): children\'s museums – "touching expressly encouraged"' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%B5%D1%82%D1%81%D0%BA%D0%B8%D0%B9_%D0%BC%D1%83%D0%B7%D0%B5%D0%B9', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Kindermuseen, Geschichte und Modelle', ru: 'Википедия: детский музей — история и модели', en: '' } },
+      label: { de: 'Wikipedia (russisch): Kindermuseen, Geschichte und Modelle', ru: 'Википедия: детский музей — история и модели', en: 'Wikipedia (Russian): children\'s museums, history and models' } },
     { url: 'https://de.wikipedia.org/wiki/Science_Center', kind: 'wiki',
-      label: { de: 'Wikipedia: Science Center – mit Länderliste zum Nachschlagen', ru: 'Википедия (нем.): science-центры — со списком по странам', en: '' } },
+      label: { de: 'Wikipedia: Science Center – mit Länderliste zum Nachschlagen', ru: 'Википедия (нем.): science-центры — со списком по странам', en: 'Wikipedia (German): science centres – with a country-by-country list for reference' } },
     { url: 'https://www.bv-kindermuseum.de/', kind: 'community',
-      label: { de: 'Bundesverband Kinder- und Jugendmuseen: Übersicht und Karte der Häuser', ru: 'Союз детских и юношеских музеев: список и карта музеев', en: '' } },
+      label: { de: 'Bundesverband Kinder- und Jugendmuseen: Übersicht und Karte der Häuser', ru: 'Союз детских и юношеских музеев: список и карта музеев', en: 'German association of children\'s and youth museums: overview and map of the museums' } },
     { url: 'https://www.nabu.de/', kind: 'community',
-      label: { de: 'NABU: Naturtipps, Exkursionen und Mitmachaktionen für Familien', ru: 'NABU: советы о природе, экскурсии и акции для семей', en: '' } }
+      label: { de: 'NABU: Naturtipps, Exkursionen und Mitmachaktionen für Familien', ru: 'NABU: советы о природе, экскурсии и акции для семей', en: 'NABU: nature tips, excursions and hands-on activities for families' } }
   ],
 
   products: [
@@ -106,7 +127,11 @@ export default {
             'трогать и включать экспонаты. Для детей трёх-двенадцати лет такой музей почти всегда ' +
             'полезнее классического. Перед поездкой стоит посмотреть сайт конкретного музея: многие ' +
             'выставки сменяются и рассчитаны на узкий возрастной диапазон.',
-        en: ''
+        en: 'The association\'s map lists the museums in Germany, Austria and Switzerland where ' +
+            'children are allowed to operate the exhibits. For three- to twelve-year-olds such a ' +
+            'museum is almost always more rewarding than a classical one. Check the individual ' +
+            'museum\'s website before the trip: many exhibitions change and are tailored to a ' +
+            'narrow age band.'
       }
     },
     {
@@ -125,7 +150,11 @@ export default {
             'подходят книги с фотографиями и короткими признаками; определительные ключи взрослых ' +
             'изданий для них слишком сложны. Одна книга, которую берут с собой и пачкают, полезнее ' +
             'целой полки в гостиной.',
-        en: ''
+        en: 'The publisher carries both the classic field guides for adults ("Was blüht denn ' +
+            'da?") and nature guides for children with larger pictures and less text. For ' +
+            'children under ten, volumes with photos and short key features are suitable; the ' +
+            'identification keys of the adult volumes overwhelm them. A single book that gets ' +
+            'taken along and dirty is worth more than a whole shelf in the living room.'
       }
     },
     {
@@ -143,7 +172,12 @@ export default {
             'примерно с восьми лет; разумные варианты — 8 × 30 или 8 × 40. Не брать детские бинокли с ' +
             '20-кратным увеличением: картинка дрожит так, что ребёнок ничего не различает и бросает ' +
             'прибор.',
-        en: ''
+        en: 'The bug viewer – a plastic cup with a magnifying lid, three- to sixfold ' +
+            'magnification – is from age three the most useful nature tool of all and costs ' +
+            'almost nothing. A pair of binoculars is worthwhile from about age eight; sensible ' +
+            'sizes are 8 × 30 or 8 × 40. Stay away from children\'s binoculars with 20x ' +
+            'magnification: the image shakes so much that children cannot make anything out and ' +
+            'abandon the device.'
       }
     },
     {
@@ -156,7 +190,9 @@ export default {
         ru: 'Без постоянного места для находок всё оказывается в мусоре и забывается. Коробка и ' +
             'тетрадь превращают отдельные вылазки в собрание, которое ребёнок может перелистывать, — ' +
             'а перелистывание и есть настоящее повторение.',
-        en: ''
+        en: 'Without a fixed place for finds, everything ends up in the bin and is forgotten. Box ' +
+            'and notebook turn individual outings into a collection the child can leaf through – ' +
+            'and the leafing through is the actual repetition.'
       },
       diy: {
         de: 'Fundkiste: einen Schuhkarton mit Pappstreifen (2 cm hoch) in sechs bis acht Fächer ' +
@@ -173,7 +209,14 @@ export default {
             'зарисована находка; справа название из определителя и одна фраза ребёнка, при ' +
             'необходимости продиктованная и записанная родителями. Листья и травы предварительно две ' +
             'недели держать под прессом из стопки книг между газетами, иначе они заплесневеют.',
-        en: ''
+        en: 'Finds box: divide a shoebox into six to eight compartments with cardboard strips ' +
+            '(2 cm high) and label each compartment (stones, feathers, bark, cones, shells). ' +
+            'Fragile finds go into small screw-top jars. Nature journal: an A5 notebook with ' +
+            'blank pages, one double page per outing. On the left the date, place and weather, ' +
+            'plus the find glued in or drawn; on the right the name from the field guide and one ' +
+            'sentence by the child, dictated and written down by the parents if necessary. Press ' +
+            'leaves and grasses beforehand for two weeks between newspaper under a stack of ' +
+            'books, otherwise they go mouldy.'
       }
     }
   ],

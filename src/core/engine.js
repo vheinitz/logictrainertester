@@ -93,7 +93,7 @@ export const engine = {
     if (backBtn) backBtn.textContent = t('back');
 
     const lang = localStorage.getItem('logik-lang') || 'de';
-    ['de', 'ru'].forEach(l => {
+    ['de', 'ru', 'en'].forEach(l => {
       const el = document.getElementById('lang' + l.toUpperCase());
       if (el) el.style.background = lang === l ? 'rgba(255,255,255,0.4)' : 'rgba(255,255,255,0.15)';
     });

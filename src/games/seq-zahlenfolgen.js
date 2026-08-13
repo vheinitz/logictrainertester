@@ -10,6 +10,7 @@
  * der 150%-Bonus der Score-Map ist hier bauartbedingt nicht erreichbar.
  */
 import { createSpanTest } from '../core/adaptive.js';
+import { removeHint } from '../core/shell.js';
 import { shuffle, color } from '../core/html.js';
 
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -31,8 +32,11 @@ const test = createSpanTest({
   maxN: 10,
   levelCap: 10,          // mehr als 10 verschiedene Ziffern gibt es nicht
   factor: 2,
-  instruction: 'Es erscheinen Zahlen, eine nach der anderen. Merke sie dir – ' +
-               'und tippe sie danach in derselben Reihenfolge an.',
+  instruction: {
+    de: 'Es erscheinen Zahlen, eine nach der anderen. Merke sie dir – und tippe sie danach in derselben Reihenfolge an.',
+    ru: 'Появляются числа, одно за другим. Запомни их — и потом нажми их в том же порядке.',
+    en: 'Numbers appear one after another. Remember them – then tap them in the same order.'
+  },
 
   genItems: (level) => shuffle(DIGITS).slice(0, Math.min(level, DIGITS.length)),
 
@@ -42,7 +46,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:52px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((n, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="width:46px;height:46px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.25em;font-weight:800;cursor:pointer">${n}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.25em;font-weight:800;cursor:pointer">${n}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="width:46px;height:46px;border-radius:50%;border:2px dashed #D8D4EE"></div>`

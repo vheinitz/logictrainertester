@@ -10,7 +10,19 @@
  * Niveau steuert Mauergröße und Größe der verdeckten Fläche.
  */
 import { createChoiceGame } from '../core/choice.js';
-import { randInt, shuffle } from '../core/html.js';
+import { randInt, shuffle, pick } from '../core/html.js';
+
+const UI = {
+  frage: { de: '🧱 Wie viele Bausteine sind es insgesamt?', ru: '🧱 Сколько всего кубиков?', en: '🧱 How many blocks are there in total?' },
+  tuch:  { de: 'Das graue Tuch verdeckt einen Teil der Mauer – die Mauer ist überall gleich dicht.',
+           ru: 'Серая ткань закрывает часть стены – стена везде одинаково плотная.',
+           en: 'The grey cloth covers part of the wall – the wall is equally dense everywhere.' },
+  breite: { de: 'in der Breite', ru: 'в ширину', en: 'in width' },
+  hoehe:  { de: 'in der Höhe', ru: 'в высоту', en: 'in height' },
+  steine: { de: 'Steine', ru: 'кубиков', en: 'blocks' },
+  sichtbar: { de: 'sichtbar', ru: 'видно', en: 'visible' },
+  verdeckt: { de: 'verdeckt', ru: 'скрыто', en: 'covered' }
+};
 
 const game = createChoiceGame({
   id: 'sim-bausteine',
@@ -50,8 +62,8 @@ const game = createChoiceGame({
 
     return {
       prompt: `<div style="text-align:center">
-        <p style="font-size:1.05em">🧱 <b>Wie viele Bausteine sind es insgesamt?</b></p>
-        <p style="font-size:.85em;color:var(--text-light);margin-bottom:10px">Das graue Tuch verdeckt einen Teil der Mauer – die Mauer ist überall gleich dicht.</p>
+        <p style="font-size:1.05em">${pick(UI.frage)}</p>
+        <p style="font-size:.85em;color:var(--text-light);margin-bottom:10px">${pick(UI.tuch)}</p>
         <div style="display:grid;grid-template-columns:repeat(${w},1fr);gap:3px;max-width:${Math.min(w * 46, 380)}px;margin:0 auto;padding:10px;background:#F4F2FB;border-radius:10px">
           ${cells}
         </div>
@@ -59,7 +71,7 @@ const game = createChoiceGame({
       options: choices.map(n => ({ html: String(n), label: String(n) })),
       correct: choices.indexOf(total),
       columns: 4,
-      explain: `${w} in der Breite × ${h} in der Höhe = ${total} Steine (${visible} sichtbar, ${cw * ch} verdeckt).`
+      explain: `${w} ${pick(UI.breite)} × ${h} ${pick(UI.hoehe)} = ${total} ${pick(UI.steine)} (${visible} ${pick(UI.sichtbar)}, ${cw * ch} ${pick(UI.verdeckt)}).`
     };
   }
 });

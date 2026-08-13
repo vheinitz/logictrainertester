@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Sudoku in altersgerechten Stufen',
     ru: 'Судоку по возрастам',
-    en: ''
+    en: 'Sudoku in age-appropriate stages'
   },
 
   short: {
     de: 'Zahlen- oder Symbolraster von 4×4 bis 9×9, die durch reines Ausschlussdenken gefüllt werden.',
     ru: 'Сетки из цифр или символов от 4×4 до 9×9, которые заполняются чистым методом исключения.',
-    en: ''
+    en: 'Number or symbol grids from 4×4 to 9×9 that are filled in by pure elimination reasoning.'
   },
 
   what: {
@@ -38,7 +38,14 @@ export default {
         'смысл с девяти-десяти. Скажем честно: судоку тренирует прежде всего судоку — то, что от него ' +
         'меняются школьные оценки или общий уровень мышления, не доказано. Это хорошее упражнение в ' +
         'терпеливой работе по правилу, а не чудо-средство.',
-    en: ''
+    en: 'A sudoku is a grid in which each symbol must appear exactly once in every row, every column ' +
+        'and every box. It is solved not by arithmetic but by elimination: "A 4 cannot go here, ' +
+        'because there is already one in this column." That is exactly the benefit – the child ' +
+        'practices applying a rule systematically, holding several conditions in mind at once and ' +
+        'not guessing. With picture symbols and a 4×4 grid this works from about age five; the ' +
+        'classic 9×9 is usually worthwhile from nine or ten. To be honest: sudoku mainly trains ' +
+        'sudoku – there is no evidence that it improves school grades or general reasoning ability. ' +
+        'It is a good exercise in patient, rule-guided work, not a miracle cure.'
   },
 
   steps: {
@@ -62,7 +69,16 @@ export default {
       'Готовое задание пусть ребёнок проверит сам: пройти каждую строку, каждый столбец, каждый блок. Ответ в конце книжки открывать только после этого.',
       'Ограничивать десятью-пятнадцатью минутами и заканчивать, пока ещё интересно. Начатую сетку можно отложить.'
     ],
-    en: []
+    en: [
+      'Start with a 4×4 grid and four picture symbols – dog, cat, fish, bird. Introduce numbers only once the rule is solid; otherwise the child will try to calculate.',
+      'State the rule in one sentence and point with your finger: "In every row, in every column and in every 2×2 box, each animal appears exactly once."',
+      'Solve the first puzzle together, thinking aloud: "This row is still missing the cat. Does it fit here? No, there is already one in this column. So it goes there."',
+      'Always work with pencil and eraser. From 6×6 on, write the still-possible symbols small in the corner of a cell and cross them out one by one as soon as they are ruled out.',
+      'Fixed rule: never guess. When nothing is unambiguous any more, look together for the one cell where only a single possibility remains – if necessary, go through it row by row.',
+      'Only move up to 6×6 once two 4×4 puzzles in a row succeed without help, then to 9×9 with many given numbers ("easy").',
+      'Have the child check the finished puzzle themselves: run through every row, every column, every box. Open the solution in the book only afterwards.',
+      'Limit sessions to ten to fifteen minutes and stop while it is still fun. An unfinished puzzle may be left lying around.'
+    ]
   },
 
   tips: {
@@ -78,18 +94,23 @@ export default {
       'Если ребёнок не справился два раза подряд, уровень слишком высок — вернуться на размер назад, без комментариев.',
       'Решайте вместе, но каждый своё задание. Сидеть рядом и думать полезнее, чем заглядывать через плечо.'
     ],
-    en: []
+    en: [
+      'No timing, no racing against siblings. Sudoku rewards slowness; speed produces exactly the guessing the exercise is meant to prevent.',
+      'After a mistake, do not have the child start over – trace it back instead: "From which cell does it stop working?" That is the more instructive part.',
+      'If the child fails twice in a row, the level is too high – go one size back, without comment.',
+      'Solve along yourself, but on your own puzzle. Puzzling side by side works better than looking over the child\'s shoulder.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Sudoku', kind: 'wiki',
-      label: { de: 'Wikipedia: Sudoku – Regeln, Varianten, Lösetechniken', ru: 'Википедия (нем.): судоку, правила и техники', en: '' } },
+      label: { de: 'Wikipedia: Sudoku – Regeln, Varianten, Lösetechniken', ru: 'Википедия (нем.): судоку, правила и техники', en: 'Wikipedia (German): Sudoku – rules, variants, solving techniques' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A1%D1%83%D0%B4%D0%BE%D0%BA%D1%83', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Sudoku', ru: 'Википедия: судоку', en: '' } },
+      label: { de: 'Wikipedia (russisch): Sudoku', ru: 'Википедия: судоку', en: 'Wikipedia (Russian): Sudoku' } },
     { url: 'https://sudoku.com/de/', kind: 'anleitung',
-      label: { de: 'Kostenlos online spielen, sechs Schwierigkeitsstufen und Regelteil', ru: 'Бесплатно онлайн, шесть уровней сложности и раздел с правилами', en: '' } },
+      label: { de: 'Kostenlos online spielen, sechs Schwierigkeitsstufen und Regelteil', ru: 'Бесплатно онлайн, шесть уровней сложности и раздел с правилами', en: 'Play free online, six difficulty levels and a rules section' } },
     { url: 'https://progolovolomki.ru/sudoku/dlya-detej/', kind: 'anleitung',
-      label: { de: 'Kinder-Sudoku 4×4 und 6×6 zum Ausdrucken (russisch)', ru: 'Детские судоку 4×4 и 6×6: играть и распечатать', en: '' } }
+      label: { de: 'Kinder-Sudoku 4×4 und 6×6 zum Ausdrucken (russisch)', ru: 'Детские судоку 4×4 и 6×6: играть и распечатать', en: 'Children\'s sudoku 4×4 and 6×6 to print out (Russian)' } }
   ],
 
   products: [

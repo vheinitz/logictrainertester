@@ -8,6 +8,7 @@
  * muss und nicht nur ein auffälliges Merkmal.
  */
 import { createSpanTest } from '../core/adaptive.js';
+import { removeHint } from '../core/shell.js';
 import { sample, shuffle, jsArg } from '../core/html.js';
 
 const FACES = [
@@ -33,8 +34,11 @@ const test = createSpanTest({
   bonus: 150,
   factor: 2.5,        // Gesichter brauchen etwas länger als Ziffern
   answerFactor: 2,
-  instruction: 'Es erscheinen Gesichter. Merke sie dir – und tippe sie danach ' +
-               'in derselben Reihenfolge an.',
+  instruction: {
+    de: 'Es erscheinen Gesichter. Merke sie dir – und tippe sie danach in derselben Reihenfolge an.',
+    ru: 'Появляются лица. Запомни их — и потом нажми их в том же порядке.',
+    en: 'Faces appear. Remember them – then tap them in the same order.'
+  },
 
   genItems: (level) => sample(FACES, Math.min(level, FACES.length)),
 
@@ -51,7 +55,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((f, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="Zurücknehmen" style="width:48px;height:48px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${f}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:48px;height:48px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${f}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="width:48px;height:48px;border-radius:50%;border:2px dashed #D8D4EE"></div>`

@@ -4,152 +4,182 @@
   {
    "de": "Haus",
    "ru": "дом",
-   "emoji": "🏠"
+   "emoji": "🏠",
+   "en": "house"
   },
   {
    "de": "Baum",
    "ru": "дерево",
-   "emoji": "🌳"
+   "emoji": "🌳",
+   "en": "tree"
   },
   {
    "de": "Sonne",
    "ru": "солнце",
-   "emoji": "☀️"
+   "emoji": "☀️",
+   "en": "sun"
   },
   {
    "de": "Mond",
    "ru": "луна",
-   "emoji": "🌙"
+   "emoji": "🌙",
+   "en": "moon"
   },
   {
    "de": "Blume",
    "ru": "цветок",
-   "emoji": "🌸"
+   "emoji": "🌸",
+   "en": "flower"
   },
   {
    "de": "Fisch",
    "ru": "рыба",
-   "emoji": "🐟"
+   "emoji": "🐟",
+   "en": "fish"
   },
   {
    "de": "Auto",
    "ru": "машина",
-   "emoji": "🚗"
+   "emoji": "🚗",
+   "en": "car"
   },
   {
    "de": "Buch",
    "ru": "книга",
-   "emoji": "📕"
+   "emoji": "📕",
+   "en": "book"
   },
   {
    "de": "Zug",
    "ru": "поезд",
-   "emoji": "🚂"
+   "emoji": "🚂",
+   "en": "train"
   },
   {
    "de": "Stuhl",
    "ru": "стул",
-   "emoji": "🪑"
+   "emoji": "🪑",
+   "en": "chair"
   },
   {
    "de": "Katze",
    "ru": "кошка",
-   "emoji": "🐈"
+   "emoji": "🐈",
+   "en": "cat"
   },
   {
    "de": "Hund",
    "ru": "собака",
-   "emoji": "🐕"
+   "emoji": "🐕",
+   "en": "dog"
   },
   {
    "de": "Ball",
    "ru": "мяч",
-   "emoji": "⚽"
+   "emoji": "⚽",
+   "en": "ball"
   },
   {
    "de": "Apfel",
    "ru": "яблоко",
-   "emoji": "🍎"
+   "emoji": "🍎",
+   "en": "apple"
   },
   {
    "de": "Schuh",
    "ru": "ботинок",
-   "emoji": "👟"
+   "emoji": "👟",
+   "en": "shoe"
   },
   {
    "de": "Uhr",
    "ru": "часы",
-   "emoji": "⏰"
+   "emoji": "⏰",
+   "en": "clock"
   },
   {
    "de": "Bett",
    "ru": "кровать",
-   "emoji": "🛏️"
+   "emoji": "🛏️",
+   "en": "bed"
   },
   {
    "de": "Lampe",
    "ru": "лампа",
-   "emoji": "💡"
+   "emoji": "💡",
+   "en": "lamp"
   },
   {
    "de": "Vogel",
    "ru": "птица",
-   "emoji": "🐦"
+   "emoji": "🐦",
+   "en": "bird"
   },
   {
    "de": "Brot",
    "ru": "хлеб",
-   "emoji": "🍞"
+   "emoji": "🍞",
+   "en": "bread"
   },
   {
    "de": "Milch",
    "ru": "молоко",
-   "emoji": "🥛"
+   "emoji": "🥛",
+   "en": "milk"
   },
   {
    "de": "Regen",
    "ru": "дождь",
-   "emoji": "🌧️"
+   "emoji": "🌧️",
+   "en": "rain"
   },
   {
    "de": "Schnee",
    "ru": "снег",
-   "emoji": "❄️"
+   "emoji": "❄️",
+   "en": "snow"
   },
   {
    "de": "Wind",
    "ru": "ветер",
-   "emoji": "💨"
+   "emoji": "💨",
+   "en": "wind"
   },
   {
    "de": "Feuer",
    "ru": "огонь",
-   "emoji": "🔥"
+   "emoji": "🔥",
+   "en": "fire"
   },
   {
    "de": "Stein",
    "ru": "камень",
-   "emoji": "🪨"
+   "emoji": "🪨",
+   "en": "stone"
   },
   {
    "de": "Wolke",
    "ru": "облако",
-   "emoji": "☁️"
+   "emoji": "☁️",
+   "en": "cloud"
   },
   {
    "de": "Stern",
    "ru": "звезда",
-   "emoji": "⭐"
+   "emoji": "⭐",
+   "en": "star"
   },
   {
    "de": "Herz",
    "ru": "сердце",
-   "emoji": "❤️"
+   "emoji": "❤️",
+   "en": "heart"
   },
   {
    "de": "Tür",
    "ru": "дверь",
-   "emoji": "🚪"
+   "emoji": "🚪",
+   "en": "door"
   }
  ],
  "items": [
@@ -157,97 +187,113 @@
    "key": "zahnbuerste",
    "emoji": "🪥",
    "de": "Zahnbürste",
-   "ru": "зубная щётка"
+   "ru": "зубная щётка",
+   "en": "toothbrush"
   },
   {
    "key": "socken",
    "emoji": "🧦",
    "de": "Socken",
-   "ru": "носки"
+   "ru": "носки",
+   "en": "socks"
   },
   {
    "key": "buch",
    "emoji": "📕",
    "de": "Buch",
-   "ru": "книга"
+   "ru": "книга",
+   "en": "book"
   },
   {
    "key": "ball",
    "emoji": "⚽",
    "de": "Ball",
-   "ru": "мяч"
+   "ru": "мяч",
+   "en": "ball"
   },
   {
    "key": "teddy",
    "emoji": "🧸",
    "de": "Teddy",
-   "ru": "мишка"
+   "ru": "мишка",
+   "en": "teddy bear"
   },
   {
    "key": "schirm",
    "emoji": "☂️",
    "de": "Regenschirm",
-   "ru": "зонт"
+   "ru": "зонт",
+   "en": "umbrella"
   },
   {
    "key": "brille",
    "emoji": "🕶️",
    "de": "Sonnenbrille",
-   "ru": "очки"
+   "ru": "очки",
+   "en": "sunglasses"
   },
   {
    "key": "kamera",
    "emoji": "📷",
    "de": "Kamera",
-   "ru": "фотоаппарат"
+   "ru": "фотоаппарат",
+   "en": "camera"
   },
   {
    "key": "hut",
    "emoji": "👒",
    "de": "Hut",
-   "ru": "шляпа"
+   "ru": "шляпа",
+   "en": "hat"
   },
   {
    "key": "schuhe",
    "emoji": "👟",
    "de": "Schuhe",
-   "ru": "ботинки"
+   "ru": "ботинки",
+   "en": "shoes"
   },
   {
    "key": "apfel",
    "emoji": "🍎",
    "de": "Apfel",
-   "ru": "яблоко"
+   "ru": "яблоко",
+   "en": "apple"
   },
   {
    "key": "flasche",
    "emoji": "🍼",
    "de": "Trinkflasche",
-   "ru": "бутылочка"
+   "ru": "бутылочка",
+   "en": "bottle"
   },
   {
    "key": "stift",
    "emoji": "✏️",
    "de": "Stift",
-   "ru": "карандаш"
+   "ru": "карандаш",
+   "en": "pencil"
   },
   {
    "key": "handtuch",
    "emoji": "🧻",
    "de": "Handtuch",
-   "ru": "полотенце"
+   "ru": "полотенце",
+   "en": "towel"
   },
   {
    "key": "schluessel",
    "emoji": "🔑",
    "de": "Schlüssel",
-   "ru": "ключ"
+   "ru": "ключ",
+   "en": "key"
   },
   {
    "key": "karte",
    "emoji": "🗺️",
    "de": "Landkarte",
-   "ru": "карта"
+   "ru": "карта",
+   "en": "map"
   }
  ]
 }

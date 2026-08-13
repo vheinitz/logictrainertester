@@ -10,19 +10,26 @@ import { engine } from '../core/engine.js';
 import { esc, lang } from '../core/html.js';
 
 const UI = {
-  titel:   { de: 'Einstellungen', ru: 'Настройки' },
+  titel:   { de: 'Einstellungen', ru: 'Настройки', en: 'Settings' },
   unter:   { de: 'Gelten für alle Module. Änderungen wirken sofort.',
-             ru: 'Действуют для всех модулей. Изменения вступают в силу сразу.' },
-  standard:{ de: 'Voreinstellung', ru: 'По умолчанию' },
-  zuruecksetzen: { de: '↺ Auf Voreinstellung zurücksetzen', ru: '↺ Вернуть значения по умолчанию' },
-  zurueck: { de: '← Zurück', ru: '← Назад' },
-  an:      { de: 'an', ru: 'вкл' },
-  aus:     { de: 'aus', ru: 'выкл' },
+             ru: 'Действуют для всех модулей. Изменения вступают в силу сразу.',
+             en: 'Apply to all modules. Changes take effect immediately.' },
+  standard:{ de: 'Voreinstellung', ru: 'По умолчанию', en: 'Default' },
+  zuruecksetzen: { de: '↺ Auf Voreinstellung zurücksetzen', ru: '↺ Вернуть значения по умолчанию', en: '↺ Restore defaults' },
+  zurueck: { de: '← Zurück', ru: '← Назад', en: '← Back' },
+  an:      { de: 'an', ru: 'вкл', en: 'on' },
+  aus:     { de: 'aus', ru: 'выкл', en: 'off' },
   hinweis: { de: 'Diese Werte betreffen nur den Ablauf, nicht die Ergebnisse. Das Zurücksetzen der Statistik lässt sie stehen.',
-             ru: 'Эти значения влияют только на ход занятия, не на результаты. Сброс статистики их не затрагивает.' }
+             ru: 'Эти значения влияют только на ход занятия, не на результаты. Сброс статистики их не затрагивает.',
+             en: 'These values only affect pacing, not results. Resetting the statistics leaves them untouched.' }
 };
 const u = k => { const l = lang(); return UI[k][l] || UI[k].de; };
-const tx = (o, feld) => { const l = lang(); return o[feld + (l === 'ru' ? 'Ru' : 'De')] || o[l] || o.de; };
+/** hintDe/hintRu/hintEn bzw. de/ru/en aus einem SCHEMA-Eintrag. */
+const tx = (o, feld) => {
+  const l = lang();
+  const suffix = l.charAt(0).toUpperCase() + l.slice(1);
+  return o[feld + suffix] || o[feld + 'De'] || o[l] || o.de;
+};
 
 export function renderSettings(main) {
   const l = lang();

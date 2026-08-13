@@ -24,7 +24,7 @@
  * Bewertung: count – gs.score = richtig, gs.total = beantwortet.
  */
 import { engine } from './engine.js';
-import { esc, pick } from './html.js';
+import { esc, pick, lang } from './html.js';
 import { bar } from './shell.js';
 import * as settings from './settings.js';
 import { countRound, resultScreen } from './session.js';
@@ -63,6 +63,17 @@ function schedule(id, ms, fn, clockFor) {
   }
   RUNNING.set(id, s);
 }
+
+const CHOICE_UI = {
+  merken:   { de: 'zum Merken', ru: 'на запоминание', en: 'to memorise' },
+  noch:     { de: 'Noch', ru: 'Ещё', en: '' },
+  weiter:   { de: '⏭️ Weiter', ru: '⏭️ Дальше', en: '⏭️ Skip' },
+  richtig:  { de: '🎉 <b>Richtig!</b>', ru: '🎉 <b>Правильно!</b>', en: '🎉 <b>Correct!</b>' },
+  falsch:   { de: '😔 <b>Leider nicht.</b>', ru: '😔 <b>Не совсем.</b>', en: '😔 <b>Not quite.</b>' },
+  zeitum:   { de: '⏰ <b>Zeit abgelaufen.</b>', ru: '⏰ <b>Время вышло.</b>', en: '⏰ <b>Time is up.</b>' },
+  waere:    { de: 'Richtig wäre:', ru: 'Правильный ответ:', en: 'The answer was:' }
+};
+const cu = k => { const l = lang(); return CHOICE_UI[k][l] !== undefined && CHOICE_UI[k][l] !== '' ? CHOICE_UI[k][l] : CHOICE_UI[k].de; };
 
 function isActive(id) {
   return !!(engine.activeGame && engine.activeGame.id === id);
@@ -178,9 +189,9 @@ export function createChoiceGame(cfg) {
           <div class="adv-bar" style="animation-duration:${gd.studyDuration}ms;animation-delay:-${elapsed}ms"></div>
         </div>
         <p style="color:var(--text-light);font-size:.85em">
-          Noch <span id="advClock">${Math.ceil(remaining / 1000)}</span>s zum Merken
+          <span id="advClock">${Math.ceil(remaining / 1000)}</span>s ${cu('merken')}
         </p>
-        <button class="btn btn-secondary btn-small" onclick="G('skipStudy')">⏭️ Weiter</button>
+        <button class="btn btn-secondary btn-small" onclick="G('skipStudy')">${cu('weiter')}</button>
       </div>`;
     }
 
@@ -201,9 +212,9 @@ export function createChoiceGame(cfg) {
     const explain = r.explain ? pick(r.explain) : '';
     const richtig = r.options[r.correct] ? (r.options[r.correct].label || '') : '';
     const banner = gd.answeredCorrect
-      ? `<div class="feedback-banner feedback-correct">🎉 <b>Richtig!</b>${explain ? ' ' + esc(explain) : ''}</div>`
-      : `<div class="feedback-banner feedback-wrong">${gd.timeout ? '⏰ <b>Zeit abgelaufen.</b>' : '😔 <b>Leider nicht.</b>'}
-           Richtig wäre: ${richtig}${explain ? '<br><span style="font-size:.85em">' + esc(explain) + '</span>' : ''}</div>`;
+      ? `<div class="feedback-banner feedback-correct">${cu('richtig')}${explain ? ' ' + esc(explain) : ''}</div>`
+      : `<div class="feedback-banner feedback-wrong">${gd.timeout ? cu('zeitum') : cu('falsch')}
+           ${cu('waere')} ${richtig}${explain ? '<br><span style="font-size:.85em">' + esc(explain) + '</span>' : ''}</div>`;
 
     return `<div data-phase="feedback" style="width:100%;max-width:560px;text-align:center">
       ${banner}
