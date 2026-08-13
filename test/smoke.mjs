@@ -159,11 +159,12 @@ for (const [id, load] of Object.entries(registry)) {
           }
         }
         check(id, p.grid.flat().every(v => v !== null), 'Gitter wurde nicht vollständig gefüllt');
-        mod.actions.check(gs);
-        check(id, gs.gd.phase === 'done',
-              `korrekt gefülltes Gitter wurde nicht als gelöst erkannt (wrong=${gs.gd.wrongCells ? gs.gd.wrongCells.size : 0})`);
-        html(mod, gs, id, 'done');
-        mod.actions.nextPuzzle(gs);
+        // Kein „Prüfen"-Knopf mehr: das letzte gesetzte Symbol wertet aus.
+        check(id, gs.gd.phase === 'feedback',
+              `volles Gitter löst keine Auswertung aus (Phase "${gs.gd.phase}")`);
+        check(id, gs.gd.geloest === true,
+              `korrekt gefülltes Gitter gilt nicht als gelöst (wrong=${gs.gd.wrongCells ? gs.gd.wrongCells.size : 0})`);
+        html(mod, gs, id, 'feedback');
       }
 
     } else if (mod.actions.flip) {
@@ -484,6 +485,55 @@ for (const [id, load] of Object.entries(registry)) {
     check('methoden', !treffer.length,
           `Englischer Text warnt englische Leser vor englischen Quellen: ${treffer.join(', ')}`);
   }
+}
+
+// ─── Module bringen ihre eigenen Einstellungen mit ────────────────────
+// Ein Modul weiß am besten, welche Stellschrauben es hat. Eine zentrale
+// Liste wüchse bei jedem neuen Modul und würde irgendwann unübersichtlich.
+{
+  const settings = await import('../src/core/settings.js');
+  const { registry } = await import('../src/games/index.js');
+  await Promise.all(Object.values(registry).map(load => load().catch(() => null)));
+
+  const gruppen = settings.moduleGroups();
+  const anzahl = Object.values(gruppen).reduce((n, f) => n + f.length, 0);
+  check('modconf', anzahl > 0, 'kein einziges Modul meldet eigene Einstellungen an');
+
+  for (const [modId, felder] of Object.entries(gruppen)) {
+    for (const [key, sch] of felder) {
+      check('modconf', key.startsWith(modId + '.'),
+            `Schlüssel "${key}" trägt die Modulkennung nicht – zwei Module könnten kollidieren`);
+      check('modconf', typeof sch.def === 'number' && sch.def >= sch.min && sch.def <= sch.max,
+            `${key}: Voreinstellung ${sch.def} liegt außerhalb von ${sch.min}–${sch.max}`);
+      for (const l of ['de', 'ru', 'en']) {
+        check('modconf', !!sch[l], `${key}: Beschriftung fehlt auf ${l}`);
+      }
+      // Lesen und Schreiben über die verkürzte Form muss dasselbe treffen
+      const kurz = key.slice(modId.length + 1);
+      check('modconf', settings.modGet(modId, kurz) === settings.get(key),
+            `${key}: modGet() und get() liefern Verschiedenes`);
+      const vorher = settings.get(key);
+      settings.set(key, sch.max + 999);
+      check('modconf', settings.get(key) === sch.max, `${key}: Obergrenze greift nicht`);
+      settings.set(key, vorher);
+    }
+  }
+  console.log(`   Modul-Einstellungen: ${anzahl} aus ${Object.keys(gruppen).length} Modul(en) angemeldet`);
+}
+
+// ─── Bedenkzeit wächst mit dem Niveau ─────────────────────────────────
+// Auf Stufe 5 ist die Aufgabe schwerer, die Uhr lief aber gleich schnell –
+// wer weiter kam, wurde mit knapperer Zeit bestraft.
+{
+  const settings = await import('../src/core/settings.js');
+  const basis = settings.get('choiceAnswer');
+  const f = settings.get('choiceLevelFactor');
+  check('zeit', f > 0, 'der Zeitzuschlag je Niveaustufe ist auf 0 voreingestellt');
+  const zeit = stufe => basis * (1 + (stufe - 1) * f);
+  check('zeit', zeit(1) === basis, 'Stufe 1 bekommt bereits einen Zuschlag');
+  check('zeit', zeit(5) > zeit(3) && zeit(3) > zeit(1),
+        `Bedenkzeit wächst nicht mit dem Niveau: ${zeit(1)}/${zeit(3)}/${zeit(5)}`);
+  console.log(`   Bedenkzeit: Stufe 1 ${zeit(1).toFixed(0)}s → Stufe 5 ${zeit(5).toFixed(0)}s`);
 }
 
 // ─── Verlaufsdarstellung ──────────────────────────────────────────────

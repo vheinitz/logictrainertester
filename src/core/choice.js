@@ -126,7 +126,12 @@ export function createChoiceGame(cfg) {
     const gd = gs.gd;
     gd.phase = 'ask';
     gd.phaseStart = Date.now();
-    gd.answerDuration = Math.round(settings.get('choiceAnswer') * 1000);
+    // Bedenkzeit wächst mit dem Niveau. Auf Stufe 5 ist die Aufgabe schwerer,
+    // aber die Uhr lief bisher gleich schnell – wer weiter kam, wurde dafür
+    // mit knapperer Zeit bestraft.
+    const stufe = Math.max(1, gd.level || 1);
+    const faktor = 1 + (stufe - 1) * settings.get('choiceLevelFactor');
+    gd.answerDuration = Math.round(settings.get('choiceAnswer') * faktor * 1000);
     schedule(id, gd.answerDuration, () => zeitAbgelaufen(gs));
   }
 

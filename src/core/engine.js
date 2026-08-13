@@ -129,6 +129,10 @@ function cloneState(s) {
 }
 
 // Globale Bridge für onclick-Handler im generierten HTML
+// LOGIK_ENGINE liegt daneben, wie LOGIK_SETTINGS: für die Konsole beim
+// Suchen eines Fehlers und für Tests, die den Spielzustand brauchen, ohne
+// ihn über den Bildschirm erraten zu müssen.
+window.LOGIK_ENGINE = engine;
 window.navigateTo = (view, data) => engine.navigateTo(view, data);
 window.goBack = () => engine.goBack();
 window.G = (action, ...args) => engine.dispatch(action, ...args);

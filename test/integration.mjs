@@ -90,6 +90,7 @@ const einstellTest = [];
 const ablaufTest = [];
 const umfangTest = [];
 const verlaufTest = [];
+const sudokuTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -638,6 +639,47 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
                   `Links in ${verlinkteModule}/${alleModule.length} Modulen`);
 }
 
+// ─── Sudoku ohne Prüfen-Knopf ─────────────────────────────────────────
+// Das letzte gesetzte Symbol wertet aus. Ein zusätzlicher Klick sagt nichts
+// aus, was das volle Gitter nicht schon sagt – und der Radiergummi gehört
+// in die Symbolreihe, nicht unter das Gitter.
+{
+  const S = window.LOGIK_SETTINGS;
+  S.set('rounds', 3); S.set('feedbackOk', 0.3); S.set('feedbackWrong', 0.3);
+  window.startModule('plan-sudoku');
+  await sleep(120);
+  window._startGame();
+  await sleep(300);
+
+  const area = window.document.getElementById('gameArea');
+  const html = area.innerHTML;
+  check(!/G\('check'\)/.test(html), 'Sudoku zeigt weiterhin einen Prüfen-Knopf');
+  check(!/G\('nextPuzzle'\)/.test(html), 'Sudoku zeigt weiterhin einen Knopf für ein neues Rätsel');
+  check(/G\('clearCell'\)/.test(html) && /dashed/.test(html),
+        'in der Symbolreihe fehlt das leere Feld zum Löschen');
+  check(/adv-bar|adv-ring/.test(html), 'Sudoku zeigt keine ablaufende Zeit');
+
+  // Vollständig und richtig füllen – muss von selbst auswerten
+  const gd = window.LOGIK_ENGINE.gameState.gd;
+  const p = gd.puzzle;
+  for (let r = 0; r < p.n; r++) {
+    for (let c = 0; c < p.n; c++) {
+      if (p.given[r][c] === null) {
+        window.G('selectCell', r, c);
+        window.G('placeSymbol', p.solution[r][c]);
+      }
+    }
+  }
+  await sleep(60);
+  check(gd.phase === 'feedback',
+        `volles Gitter löst keine Auswertung aus (Phase "${gd.phase}")`);
+  check(gd.geloest === true, 'richtig gefülltes Gitter gilt nicht als gelöst');
+  sudokuTest.push('letztes Symbol wertet aus, Radiergummi in der Symbolreihe');
+  window.navigateTo('menu');
+  await sleep(120);
+  S.reset();
+}
+
 // ─── Kennzeichnung im Aufgabenmenü ────────────────────────────────────
 // Ohne Marke sehen 29 Karten gleich aus, und nach zwei Wochen weiß niemand
 // mehr, was schon dran war. Gespielte Module zeigen ihren Verlauf, noch
@@ -912,6 +954,7 @@ einstellTest.forEach(x => console.log(`   Einstellungen: ${x}`));
 ablaufTest.forEach(x => console.log(`   Ablauf: ${x}`));
 umfangTest.forEach(x => console.log(`   Durchgang: ${x}`));
 verlaufTest.forEach(x => console.log(`   Verlauf: ${x}`));
+sudokuTest.forEach(x => console.log(`   Sudoku: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

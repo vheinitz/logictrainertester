@@ -73,6 +73,13 @@ export const SCHEMA = {
     hintRu: 'Тишина между показом и ответом.',
     en: 'Pause before answering', hintEn: 'Quiet between showing and answering.'
   },
+  choiceLevelFactor: {
+    def: 0.15, min: 0, max: 0.6, step: 0.05, unit: '×', group: 'auswahl',
+    de: 'Zeitzuschlag je Niveaustufe', ru: 'Прибавка времени за уровень', en: 'Extra time per level',
+    hintDe: 'Höhere Stufen brauchen mehr Bedenkzeit. Bei 0,15 hat Stufe 3 rund 30 % mehr Zeit als Stufe 1. Auf 0 gestellt gilt für alle Stufen dieselbe Zeit.',
+    hintRu: 'Более высокие уровни требуют больше времени на раздумья. При 0,15 уровень 3 получает примерно на 30 % больше времени, чем уровень 1. При 0 время одинаково для всех уровней.',
+    hintEn: 'Higher levels need more thinking time. At 0.15, level 3 gets roughly 30 % more time than level 1. Set to 0, every level gets the same time.'
+  },
   choiceAnswer: {
     def: 30, min: 5, max: 120, step: 5, unit: 's', group: 'auswahl',
     de: 'Antwortzeit bei Auswahlaufgaben', ru: 'Время ответа в заданиях с выбором',
@@ -184,9 +191,51 @@ export function veraendert() {
   return Object.entries(SCHEMA).some(([k, s]) => werte[k] !== s.def);
 }
 
+/** Alle angemeldeten Modul-Einstellungen, nach Modul gruppiert. */
+export function moduleGroups() {
+  const raus = {};
+  for (const [k, s] of Object.entries(SCHEMA)) {
+    if (!s.modul) continue;
+    (raus[s.modul] = raus[s.modul] || []).push([k, s]);
+  }
+  return raus;
+}
+
+/**
+ * Eigene Einstellungen eines Spielmoduls anmelden.
+ *
+ * Ein Modul weiß am besten, welche Stellschrauben es hat – die Zeit je
+ * leerem Feld beim Sudoku gehört nicht in eine zentrale Liste, die bei
+ * jedem neuen Modul wächst und irgendwann niemand mehr überblickt. Das
+ * Modul exportiert stattdessen `settings` und erscheint damit von selbst
+ * auf der Einstellungsseite.
+ *
+ * Die Schlüssel werden mit der Modulkennung vorangestellt, damit zwei
+ * Module dieselbe Bezeichnung verwenden dürfen. Angemeldet wird beim Laden
+ * des Moduls; gespeicherte Werte werden dabei nachgezogen, weil laden()
+ * beim Start noch nichts von diesen Schlüsseln wusste.
+ */
+export function registerModuleSettings(moduleId, schema) {
+  let roh = {};
+  try { roh = JSON.parse(localStorage.getItem(KEY)) || {}; } catch (e) { /* egal */ }
+
+  for (const [k, def] of Object.entries(schema || {})) {
+    const key = moduleId + '.' + k;
+    if (SCHEMA[key]) continue;                       // schon angemeldet
+    SCHEMA[key] = { ...def, group: 'mod:' + moduleId, modul: moduleId };
+    const v = Number(roh[key]);
+    werte[key] = Number.isFinite(v) ? klemmen(key, v) : def.def;
+  }
+}
+
+/** Eigener Wert eines Moduls. */
+export function modGet(moduleId, k) {
+  return get(moduleId + '.' + k);
+}
+
 function sichern() {
   try { localStorage.setItem(KEY, JSON.stringify(werte)); } catch (e) { /* egal */ }
 }
 
 // Für die Konsole, wie _setTempo: settings.set('tempo', 1.5)
-if (typeof window !== 'undefined') window.LOGIK_SETTINGS = { get, set, all, reset };
+if (typeof window !== 'undefined') window.LOGIK_SETTINGS = { get, set, all, reset, modGet };

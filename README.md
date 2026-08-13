@@ -384,6 +384,76 @@ gesprochene Folge in die Zeigephase passt. Das war nötig: die längere
 Koffer-Ansage überzog die Phase auf Russisch um 67 ms und hätte die letzte
 Aufnahme abgeschnitten — hörbar, aber im Code unsichtbar.
 
+### Module bringen ihre eigenen Einstellungen mit
+
+Ein Modul weiß am besten, welche Stellschrauben es hat. Die Zeit je leerem
+Feld beim Sudoku gehört nicht in eine zentrale Liste, die bei jedem neuen
+Modul wächst und irgendwann niemand mehr überblickt.
+
+Ein Modul exportiert stattdessen ein Schema und meldet es an:
+
+```js
+export const settingsSchema = {
+  sekProFeld: {
+    def: 12, min: 3, max: 40, step: 1, unit: 's',
+    de: 'Zeit je leerem Feld', ru: '…', en: '…',
+    hintDe: '…', hintRu: '…', hintEn: '…'
+  }
+};
+registerModuleSettings(ID, settingsSchema);
+```
+
+Damit erscheint es von selbst auf der Einstellungsseite, in einem eigenen
+Abschnitt mit Symbol und Titel des Moduls. Gelesen wird mit
+`modGet(ID, 'sekProFeld')`.
+
+Zwei Dinge, die dabei zu beachten waren:
+
+* **Die Schlüssel bekommen die Modulkennung vorangestellt** (`plan-sudoku.sekProFeld`).
+  Ohne das könnten zwei Module dieselbe Bezeichnung wählen und sich
+  gegenseitig überschreiben. Der Testlauf besteht darauf.
+* **Angemeldet wird beim Laden des Moduls**, gespeicherte Werte werden dabei
+  nachgezogen — beim Start wusste `laden()` von diesen Schlüsseln noch
+  nichts. Damit die Einstellungsseite alle Module zeigt und nicht nur die
+  zuletzt gespielten, lädt sie einmal alle. Sie liegen ohnehin im selben
+  Bundle; das kostet nur das Ausführen.
+
+### Bedenkzeit wächst mit dem Niveau
+
+Auf Stufe 5 ist die Aufgabe schwerer, die Uhr lief aber gleich schnell — wer
+weiter kam, wurde mit knapperer Zeit bestraft. Die Antwortzeit der
+Auswahlaufgaben skaliert deshalb mit der Stufe:
+
+```
+Zeit = Grundzeit × (1 + (Stufe − 1) × Zuschlag)
+```
+
+Voreingestellt sind 30 s und ein Zuschlag von 0,15 — Stufe 1 bekommt 30 s,
+Stufe 5 bekommt 48 s. Auf 0 gestellt gilt für alle Stufen dieselbe Zeit.
+
+Beim Sudoku kommt der Niveaufaktor aus der Aufgabe selbst: die Zeit ist die
+Zahl der **leeren Felder** mal der eingestellten Zeit je Feld. Die leeren
+Felder sind das, was Arbeit macht, und sie wachsen ohnehin mit dem Niveau.
+Eine feste Zeit je Rätsel wäre auf Stufe 1 zu großzügig und auf Stufe 6
+unfair.
+
+### Sudoku ohne Prüfen-Knopf
+
+Ausgewertet wird, sobald das letzte Feld gefüllt ist — oder wenn die Zeit
+abläuft. Ein zusätzlicher Klick auf „Prüfen" sagt nichts aus, was das volle
+Gitter nicht schon sagt. Danach ein Zeichen, ✅ oder ❌, und von selbst
+weiter zum nächsten Rätsel; genau der Ablauf, den alle anderen Module auch
+haben.
+
+Der Radiergummi ist ein **leeres Feld in der Symbolreihe**, kein Knopf unter
+dem Gitter. Er steht damit dort, wo man ihn braucht — der Knopf zwang dazu,
+den Blick von der Auswahl wegzunehmen und wieder zurückzufinden.
+
+Ob die Zeit abgelaufen ist, muss der Auswertung nicht mitgegeben werden: bei
+Zeitablauf ist das Gitter fast immer noch nicht voll, und ein unvollständiges
+Gitter gilt ohnehin als nicht gelöst. Wer im letzten Augenblick fertig wird,
+bekommt die Lösung anerkannt.
+
 ### Alles Zeitliche steht in den Einstellungen
 
 `src/core/settings.js` hält Anzeigedauer, Antwortzeit, Pause, Lernzeit,

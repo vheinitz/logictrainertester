@@ -1,0 +1,369 @@
+/* Wimmelbild-Suche – Oberfläche */
+
+:root {
+  --grund: #f4f1ea;
+  --papier: #ffffff;
+  --linie: #d9d2c4;
+  --schrift: #23324a;
+  --schrift-leise: #6c7385;
+  --akzent: #1f5fa8;
+  --akzent-hell: #e6eefa;
+  --gut: #1f8b4c;
+  --gut-hell: #e3f4e9;
+  --schlecht: #c0392b;
+  --schlecht-hell: #fbe7e4;
+  --neutral: #b08a2e;
+  --radius: 10px;
+  --schatten: 0 1px 3px rgba(35, 50, 74, .12), 0 6px 18px rgba(35, 50, 74, .08);
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  background: var(--grund);
+  color: var(--schrift);
+  font: 16px/1.5 "Segoe UI", system-ui, -apple-system, sans-serif;
+  overscroll-behavior: none;
+}
+
+.seite { display: flex; flex-direction: column; height: 100%; }
+.seite[hidden] { display: none; }
+
+/* --------------------------------------------------------------- Kopf */
+
+.kopf {
+  padding: 28px 24px 12px;
+  text-align: center;
+}
+.kopf h1 { margin: 0; font-size: 30px; letter-spacing: -.01em; }
+.lead { margin: 6px 0 0; color: var(--schrift-leise); }
+
+.inhalt {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px 24px 32px;
+  max-width: 980px;
+  width: 100%;
+  margin: 0 auto;
+}
+.inhalt h2 {
+  font-size: 15px;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+  color: var(--schrift-leise);
+  margin: 28px 0 12px;
+}
+
+/* ------------------------------------------------------------ Auswahl */
+
+.kartenliste { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+
+.karte {
+  background: var(--papier);
+  border: 2px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 0;
+  overflow: hidden;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  box-shadow: var(--schatten);
+  transition: border-color .12s, transform .12s;
+}
+.karte:hover { transform: translateY(-2px); }
+.karte[aria-pressed="true"] { border-color: var(--akzent); }
+.karte img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--linie); }
+.karte .kartentext { padding: 10px 12px 12px; }
+.karte b { display: block; font-size: 17px; }
+.karte small { color: var(--schrift-leise); }
+.karte .kennzeichen {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 1px 7px;
+  border-radius: 20px;
+  font-size: 12px;
+  background: var(--akzent-hell);
+  color: var(--akzent);
+}
+.karte .kennzeichen.offen { background: #fdf1d8; color: #8a6412; }
+
+/* --------------------------------------------------------- Einstellungen */
+
+.optionen { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px 20px; }
+.optionen label { display: flex; flex-direction: column; gap: 4px; font-size: 14px; color: var(--schrift-leise); }
+.optionen label.schalter { flex-direction: row; align-items: center; gap: 8px; color: var(--schrift); font-size: 15px; }
+.optionen select {
+  font: inherit;
+  padding: 8px 10px;
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  background: var(--papier);
+  color: var(--schrift);
+}
+.optionen input[type="checkbox"] { width: 18px; height: 18px; accent-color: var(--akzent); }
+
+.hinweis { font-size: 14px; color: var(--schrift-leise); margin: 16px 0 0; }
+.hinweis.warnung {
+  background: #fdf1d8;
+  border-left: 4px solid var(--neutral);
+  color: #6b5010;
+  padding: 10px 14px;
+  border-radius: 0 8px 8px 0;
+}
+
+/* ------------------------------------------------------------- Knöpfe */
+
+.knopfreihe { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; align-items: center; }
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  transition: background .12s, border-color .12s;
+}
+button.haupt { background: var(--akzent); color: #fff; font-weight: 600; }
+button.haupt:hover { background: #17497f; }
+button.neben { background: var(--papier); border-color: var(--linie); color: var(--schrift); }
+button.neben:hover { border-color: var(--akzent); color: var(--akzent); }
+button.klein { padding: 6px 10px; font-size: 14px; }
+button.rund { width: 34px; height: 34px; padding: 0; font-size: 20px; line-height: 1; background: var(--papier); border-color: var(--linie); }
+button:disabled { opacity: .45; cursor: default; }
+
+/* --------------------------------------------------------- Spielkopf */
+
+.spielkopf {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 16px;
+  background: var(--papier);
+  border-bottom: 1px solid var(--linie);
+  flex-wrap: wrap;
+}
+.frageblock { display: flex; align-items: baseline; gap: 12px; min-width: 0; }
+.zaehler {
+  font-variant-numeric: tabular-nums;
+  color: var(--schrift-leise);
+  font-size: 14px;
+  white-space: nowrap;
+}
+.frage { font-size: 22px; font-weight: 600; }
+.statusblock { display: flex; gap: 14px; align-items: center; }
+.stat { font-size: 14px; color: var(--schrift-leise); white-space: nowrap; }
+.stat b { font-size: 18px; }
+.stat.gut b { color: var(--gut); }
+.stat.schlecht b { color: var(--schlecht); }
+.stat.uhr { font-variant-numeric: tabular-nums; font-size: 18px; color: var(--schrift); }
+
+.zeitbalken { height: 4px; background: var(--linie); }
+.zeitbalken > div { height: 100%; width: 0; background: var(--akzent); transition: width .2s linear; }
+.zeitbalken > div.knapp { background: var(--schlecht); }
+
+/* ------------------------------------------------------------- Bühne */
+
+.buehne {
+  position: relative;
+  flex: 1;
+  overflow: hidden;
+  background: #2a2f3a;
+  touch-action: none;
+  cursor: crosshair;
+}
+.buehne.zieht { cursor: grabbing; }
+.leinwand { position: absolute; top: 0; left: 0; transform-origin: 0 0; }
+.leinwand img { display: block; width: 100%; height: 100%; user-select: none; -webkit-user-drag: none; }
+.marker-ebene { position: absolute; inset: 0; pointer-events: none; }
+
+/* Marken sitzen in Prozent auf dem Bild und werden gegen den Zoom
+   zurückskaliert (--gegen), damit sie beim Hineinzoomen nicht mitwachsen.
+   Der Trefferradius (.zielring) skaliert dagegen absichtlich mit – er ist
+   eine Strecke im Bild. */
+.marke {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(var(--gegen, 1));
+  pointer-events: none;
+}
+.marke.ziel {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.55);
+  box-shadow: 0 0 0 3px var(--gut), 0 0 0 5px rgba(255,255,255,.85);
+  animation: puls .4s ease-out;
+}
+.marke.klick {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  background: rgba(255,255,255,.9);
+  box-shadow: 0 0 0 3px var(--schlecht);
+}
+.marke.klick.richtig { box-shadow: 0 0 0 3px var(--gut); }
+.marke.kalibriert {
+  width: 12px; height: 12px;
+  border-radius: 50%;
+  background: var(--akzent);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--akzent);
+}
+.marke.kalibriert.aktiv {
+  background: var(--schlecht);
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--schlecht);
+}
+.marke .nummer {
+  position: absolute;
+  left: 50%;
+  top: -20px;
+  transform: translateX(-50%);
+  font-size: 11px;
+  font-weight: 700;
+  color: #fff;
+  background: rgba(31,95,168,.9);
+  padding: 0 5px;
+  border-radius: 8px;
+  white-space: nowrap;
+}
+.zielring {
+  position: absolute;
+  border: 2px dashed rgba(31,139,76,.9);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+}
+@keyframes puls { from { box-shadow: 0 0 0 24px rgba(31,139,76,0), 0 0 0 26px rgba(255,255,255,0); } }
+
+.rueckmeldung {
+  position: absolute;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  padding: 10px 22px;
+  border-radius: 24px;
+  font-size: 19px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--gut);
+  box-shadow: var(--schatten);
+  pointer-events: none;
+}
+.rueckmeldung.daneben { background: var(--schlecht); }
+.rueckmeldung.zeit { background: var(--neutral); }
+
+.spielfuss {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  background: var(--papier);
+  border-top: 1px solid var(--linie);
+  flex-wrap: wrap;
+}
+.zoomsteuerung { display: flex; align-items: center; gap: 8px; }
+.zoomsteuerung span { font-variant-numeric: tabular-nums; font-size: 14px; color: var(--schrift-leise); min-width: 52px; text-align: center; }
+
+/* --------------------------------------------------------- Auswertung */
+
+.kennzahlen { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+.kennzahl {
+  background: var(--papier);
+  border: 1px solid var(--linie);
+  border-radius: var(--radius);
+  padding: 14px 16px;
+  box-shadow: var(--schatten);
+}
+.kennzahl b { display: block; font-size: 28px; line-height: 1.2; font-variant-numeric: tabular-nums; }
+.kennzahl small { color: var(--schrift-leise); }
+.kennzahl.gut b { color: var(--gut); }
+.kennzahl.schlecht b { color: var(--schlecht); }
+
+.uebersicht { position: relative; border-radius: var(--radius); overflow: hidden; box-shadow: var(--schatten); }
+.uebersicht img { display: block; width: 100%; }
+.uebersicht .linie { position: absolute; height: 2px; transform-origin: 0 50%; background: rgba(192,57,43,.75); pointer-events: none; }
+
+.tabellenrahmen { overflow-x: auto; background: var(--papier); border: 1px solid var(--linie); border-radius: var(--radius); }
+table.ergebnisse { border-collapse: collapse; width: 100%; font-size: 15px; }
+table.ergebnisse th, table.ergebnisse td { padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--linie); white-space: nowrap; }
+table.ergebnisse th { background: #faf8f3; font-size: 13px; text-transform: uppercase; letter-spacing: .05em; color: var(--schrift-leise); }
+table.ergebnisse td.frage-spalte { white-space: normal; min-width: 220px; }
+table.ergebnisse tr:last-child td { border-bottom: 0; }
+table.ergebnisse td.zahl { text-align: right; font-variant-numeric: tabular-nums; }
+.abzeichen { display: inline-block; padding: 1px 9px; border-radius: 20px; font-size: 13px; font-weight: 600; }
+.abzeichen.gut { background: var(--gut-hell); color: var(--gut); }
+.abzeichen.schlecht { background: var(--schlecht-hell); color: var(--schlecht); }
+.abzeichen.neutral { background: #f0ece1; color: #7a6a3f; }
+
+/* -------------------------------------------------------- Kalibrierung */
+
+.kalib-koerper { flex: 1; display: flex; min-height: 0; }
+.kalib-koerper .buehne { flex: 1; }
+.kalib-liste {
+  width: 300px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: var(--papier);
+  border-left: 1px solid var(--linie);
+}
+.kalib-liste button {
+  display: block;
+  width: 100%;
+  text-align: left;
+  border: 0;
+  border-bottom: 1px solid var(--linie);
+  border-radius: 0;
+  background: none;
+  padding: 7px 12px;
+  font-size: 14px;
+}
+.kalib-liste button:hover { background: var(--akzent-hell); }
+.kalib-liste button[aria-current="true"] { background: var(--akzent); color: #fff; }
+.kalib-liste .status { float: right; font-size: 12px; opacity: .7; }
+.kalib-liste button.gesetzt { color: var(--gut); }
+.kalib-liste button.gesetzt[aria-current="true"] { color: #fff; }
+
+/* -------------------------------------------------------------- Dialog */
+
+.dialog {
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 26, 38, .6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  z-index: 20;
+}
+.dialog[hidden] { display: none; }
+.dialog-fenster {
+  background: var(--papier);
+  border-radius: var(--radius);
+  padding: 20px 24px 24px;
+  width: min(820px, 100%);
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 60px rgba(0,0,0,.35);
+}
+.dialog-fenster h2 { margin: 0 0 8px; }
+.dialog-fenster textarea {
+  flex: 1;
+  min-height: 320px;
+  font: 13px/1.5 ui-monospace, "Cascadia Code", Consolas, monospace;
+  border: 1px solid var(--linie);
+  border-radius: 8px;
+  padding: 12px;
+  background: #fbfaf7;
+  color: var(--schrift);
+  resize: vertical;
+  white-space: pre;
+}
+.dialog-fenster .knopfreihe { margin-top: 14px; }
+
+@media (max-width: 720px) {
+  .frage { font-size: 18px; }
+  .kalib-koerper { flex-direction: column; }
+  .kalib-liste { width: 100%; height: 180px; border-left: 0; border-top: 1px solid var(--linie); }
+}

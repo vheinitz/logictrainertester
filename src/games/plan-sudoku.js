@@ -4,9 +4,14 @@
  * 4×4 (Niveau 1–3) bzw. 6×6 (ab Niveau 4) mit Symbolen statt Ziffern.
  * Jedes Symbol genau einmal pro Zeile, Spalte und Block.
  *
- * Bedienung: erst ein leeres Feld antippen, dann ein Symbol wählen.
- * Falsch gesetzte Symbole werden nicht sofort verraten – geprüft wird erst,
- * wenn das Gitter voll ist. Sonst wäre es Ausprobieren statt Planen.
+ * Bedienung: erst ein leeres Feld antippen, dann ein Symbol wählen. Das
+ * leere Feld in der Symbolreihe löscht – ein eigener Knopf dafür stünde
+ * weit weg von der Stelle, an der man ihn braucht.
+ *
+ * Falsch gesetzte Symbole werden nicht sofort verraten. Ausgewertet wird,
+ * sobald das letzte Feld gefüllt ist, oder wenn die Zeit abläuft. Kein
+ * „Prüfen"-Knopf: wer das Gitter voll hat, ist fertig, und ein zusätzlicher
+ * Klick sagt darüber nichts aus.
  *
  * Eigenes Modul statt choice.js: hier wird ein Gitter gefüllt, nicht eine von
  * N Möglichkeiten gewählt.
@@ -14,6 +19,30 @@
 import { engine } from '../core/engine.js';
 import { shuffle, randInt, pick } from '../core/html.js';
 import { countRound, resultScreen } from '../core/session.js';
+import { registerModuleSettings, modGet } from '../core/settings.js';
+import { bar, pictogram } from '../core/shell.js';
+import * as settings from '../core/settings.js';
+
+const ID = 'plan-sudoku';
+
+/**
+ * Eigene Stellschrauben dieses Moduls.
+ *
+ * Die Zeit richtet sich nach der Zahl der leeren Felder, nicht nach dem
+ * Niveau: die leeren Felder sind das, was tatsächlich Arbeit macht, und sie
+ * wachsen ohnehin mit dem Niveau. Eine feste Zeit je Rätsel wäre auf Stufe 1
+ * zu großzügig und auf Stufe 6 unfair.
+ */
+export const settingsSchema = {
+  sekProFeld: {
+    def: 12, min: 3, max: 40, step: 1, unit: 's',
+    de: 'Zeit je leerem Feld', ru: 'Время на пустую клетку', en: 'Time per empty field',
+    hintDe: 'Die Gesamtzeit ergibt sich aus der Zahl der leeren Felder. Läuft sie ab, gilt das Rätsel als nicht gelöst.',
+    hintRu: 'Общее время складывается из числа пустых клеток. Если оно истекло, головоломка считается нерешённой.',
+    hintEn: 'Total time follows from the number of empty fields. When it runs out, the puzzle counts as unsolved.'
+  }
+};
+registerModuleSettings(ID, settingsSchema);
 
 const UI = {
   regel: { de: '🧮 Jedes Symbol einmal pro Zeile, Spalte und Block', ru: '🧮 Каждый символ один раз в строке, столбце и блоке', en: '🧮 Each symbol once per row, column and block' },
@@ -22,11 +51,7 @@ const UI = {
   niveau: { de: 'Niveau', ru: 'Уровень', en: 'Level' },
   geloest: { de: 'Gelöst!', ru: 'Решено!', en: 'Solved!' },
   geloestText: { de: 'Jedes Symbol genau einmal pro Zeile, Spalte und Block.', ru: 'Каждый символ ровно один раз в строке, столбце и блоке.', en: 'Each symbol exactly once per row, column and block.' },
-  naechstes: { de: 'Nächstes Rätsel', ru: 'Следующая головоломка', en: 'Next puzzle' },
-  pruefen: { de: 'Prüfen', ru: 'Проверить', en: 'Check' },
-  leeren: { de: 'Feld leeren', ru: 'Очистить клетку', en: 'Clear field' },
-  neues: { de: 'Neues Rätsel', ru: 'Новая головоломка', en: 'New puzzle' },
-  rot: { de: 'Die rot markierten Felder passen noch nicht.', ru: 'Отмеченные красным клетки ещё не подходят.', en: 'The red-marked fields do not fit yet.' }
+  leeren: { de: 'Feld leeren', ru: 'Очистить клетку', en: 'Clear field' }
 };
 
 const SYMBOLS = ['🍎','⭐','🐟','🌸','🔔','🍀'];
@@ -72,19 +97,39 @@ function newPuzzle(level) {
   return { n, boxW, boxH, solution, given, grid: given.map(r => [...r]) };
 }
 
+let timer = null;
+function clearTimer() { if (timer) { clearTimeout(timer); timer = null; } }
+function isActive() { return !!(engine.activeGame && engine.activeGame.id === ID); }
+
+/** Zeitgrenze eines Rätsels: Zahl der leeren Felder × eingestellte Zeit. */
+function frist(p) {
+  const leer = p.given.flat().filter(v => v === null).length;
+  return leer * modGet(ID, 'sekProFeld') * 1000;
+}
+
+function starteRaetsel(gs) {
+  const gd = gs.gd;
+  gd.puzzle = newPuzzle(gd.level);
+  gd.selected = null;
+  gd.wrongCells = null;
+  gd.phase = 'play';
+  gd.phaseStart = Date.now();
+  gd.frist = frist(gd.puzzle);
+  clearTimer();
+  timer = setTimeout(() => { if (isActive()) auswerten(gs); }, gd.frist);
+}
+
 export function init(gs) {
   const gd = gs.gd || {};
   gs.gd = gd;
   gd.level = gd.level || 1;
-  gd.puzzle = newPuzzle(gd.level);
-  gd.selected = null;
-  gd.phase = 'play';
-  gd.wrongCells = null;
   gd._ready = true;
+  starteRaetsel(gs);
   return gs;
 }
 
 export function dispose(gs) {
+  clearTimer();
   if (gs && gs.gd) gs.gd._ready = false;
 }
 
@@ -96,16 +141,12 @@ export function render(gs) {
 
   if (gd.phase === 'fertig') return resultScreen(gs, { score: gs.score, total: gs.total });
 
-  if (gd.phase === 'done') {
-    return `<div style="width:100%;max-width:520px;text-align:center">
-      <div class="feedback-banner feedback-correct">🎉 <b>${pick(UI.geloest)}</b> ${pick(UI.geloestText)}</div>
-      <div style="font-size:.8em;color:var(--text-light);margin-bottom:8px">${pick(UI.niveau)} ${gd.level}</div>
-      <button class="btn btn-primary btn-small" onclick="G('nextPuzzle')">▶️ ${pick(UI.naechstes)}</button>
+  // Rückmeldung ohne Text: ein Zeichen, danach geht es von selbst weiter.
+  if (gd.phase === 'feedback') {
+    return `<div data-phase="feedback" style="text-align:center;width:100%">
+      ${pictogram(gd.geloest ? '✅' : '❌')}
     </div>`;
   }
-
-  const filled = p.grid.flat().filter(v => v !== null).length;
-  const complete = filled === n * n;
 
   let cells = '';
   for (let r = 0; r < n; r++) {
@@ -130,11 +171,24 @@ export function render(gs) {
     }
   }
 
-  const palette = [...Array(n).keys()].map(v =>
-    `<div class="pick-target" onclick="G('placeSymbol',${v})" style="width:52px;height:52px;border-radius:12px;background:var(--bg);border:2px solid ${gd.selected ? 'var(--primary-light)' : '#D0CDE8'};opacity:${gd.selected ? 1 : .45};display:flex;align-items:center;justify-content:center;font-size:1.7em;cursor:pointer;user-select:none">${SYMBOLS[v]}</div>`
-  ).join('');
+  // Symbolreihe, und als letzte Kachel ein leeres Feld zum Löschen. Es steht
+  // dort, wo man es braucht – ein Knopf unter dem Gitter zwang dazu, den
+  // Blick von der Auswahl wegzunehmen und wieder zurückzufinden.
+  const aktiv = !!gd.selected;
+  const rahmen = `width:52px;height:52px;border-radius:12px;display:flex;align-items:center;
+    justify-content:center;font-size:1.7em;cursor:pointer;user-select:none;
+    opacity:${aktiv ? 1 : .45}`;
 
-  return `<div style="width:100%;max-width:460px">
+  const palette = [...Array(n).keys()].map(v =>
+    `<div class="pick-target" onclick="G('placeSymbol',${v})"
+      style="${rahmen};background:var(--bg);border:2px solid ${aktiv ? 'var(--primary-light)' : '#D0CDE8'}"
+      >${SYMBOLS[v]}</div>`
+  ).join('') +
+    `<div class="pick-target" onclick="G('clearCell')" title="${pick(UI.leeren)}"
+      aria-label="${pick(UI.leeren)}"
+      style="${rahmen};background:#fff;border:2px dashed ${aktiv ? 'var(--primary-light)' : '#D0CDE8'}"></div>`;
+
+  return `<div data-phase="play" style="width:100%;max-width:460px">
     <p style="font-size:1.02em;text-align:center">${pick(UI.regel)}</p>
     <p style="font-size:.82em;color:var(--text-light);text-align:center;margin-bottom:10px">
       ${gd.selected ? pick(UI.waehlen) : pick(UI.antippen)} • ${pick(UI.niveau)} ${gd.level}
@@ -144,12 +198,7 @@ export function render(gs) {
 
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${palette}</div>
 
-    <div style="margin-top:14px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary btn-small" onclick="G('check')" ${complete ? '' : 'disabled style="opacity:.45"'}>✅ ${pick(UI.pruefen)}</button>
-      <button class="btn btn-secondary btn-small" onclick="G('clearCell')">🧽 ${pick(UI.leeren)}</button>
-      <button class="btn btn-secondary btn-small" onclick="G('nextPuzzle')">🔄 ${pick(UI.neues)}</button>
-    </div>
-    ${gd.wrongCells ? `<p style="text-align:center;color:var(--secondary);font-weight:700;font-size:.9em;margin-top:10px">${pick(UI.rot)}</p>` : ''}
+    ${bar(Date.now() - (gd.phaseStart || Date.now()), gd.frist || 1)}
   </div>`;
 }
 
@@ -168,6 +217,7 @@ export const actions = {
     const [r, c] = gd.selected;
     gd.puzzle.grid[r][c] = v;
     gd.wrongCells = null;
+
     // Weiter zum nächsten freien Feld – spart viel Tippen
     const n = gd.puzzle.n;
     for (let i = r * n + c + 1; i < n * n; i++) {
@@ -178,6 +228,10 @@ export const actions = {
       }
     }
     gd.selected = null;
+
+    // Das letzte Feld beendet das Rätsel. Ein zusätzlicher „Prüfen"-Klick
+    // sagt nichts aus, was das volle Gitter nicht schon sagt.
+    if (!gd.puzzle.grid.flat().some(x => x === null)) auswerten(gs);
   },
 
   clearCell(gs) {
@@ -189,63 +243,82 @@ export const actions = {
     gd.wrongCells = null;
   },
 
-  check(gs) {
-    const gd = gs.gd;
-    const p = gd.puzzle;
-    const n = p.n;
-    if (p.grid.flat().some(v => v === null)) return false;
-
-    // Gegen die Regeln prüfen, nicht gegen die gespeicherte Lösung: Rätsel mit
-    // vielen Lücken haben oft mehrere gültige Lösungen, und eine davon darf
-    // nicht als Fehler gelten.
-    const wrong = new Set();
-    const checkGroup = coords => {
-      const seen = new Map();
-      for (const [r, c] of coords) {
-        const v = p.grid[r][c];
-        if (seen.has(v)) { wrong.add(r * n + c); wrong.add(seen.get(v)); }
-        else seen.set(v, r * n + c);
-      }
-    };
-    for (let r = 0; r < n; r++) checkGroup([...Array(n).keys()].map(c => [r, c]));
-    for (let c = 0; c < n; c++) checkGroup([...Array(n).keys()].map(r => [r, c]));
-    for (let br = 0; br < n / p.boxH; br++) {
-      for (let bc = 0; bc < n / p.boxW; bc++) {
-        const coords = [];
-        for (let dr = 0; dr < p.boxH; dr++)
-          for (let dc = 0; dc < p.boxW; dc++)
-            coords.push([br * p.boxH + dr, bc * p.boxW + dc]);
-        checkGroup(coords);
-      }
-    }
-
-    gs.total = (gs.total || 0) + 1;
-    if (wrong.size === 0) {
-      gs.score = (gs.score || 0) + 1;
-      gd.phase = 'done';
-      gd.wrongCells = null;
-      if (gd.level < 6) gd.level++;
-      // Ein gelöstes Rätsel ist eine Übung
-      if (countRound(gs)) gd.phase = 'fertig';
-    } else {
-      gd.wrongCells = wrong;
-      if (gd.level > 1) gd.level--;
-    }
-  },
-
   restart(gs) {
+    clearTimer();
     gs.gd = { level: 1 };
     gs.score = 0; gs.total = 0; gs.rounds = 0;
     init(gs);
-  },
-
-  nextPuzzle(gs) {
-    const gd = gs.gd;
-    gd.puzzle = newPuzzle(gd.level);
-    gd.selected = null;
-    gd.wrongCells = null;
-    gd.phase = 'play';
   }
 };
+
+/**
+ * Rätsel abschließen – durch das letzte gesetzte Symbol oder durch Zeitablauf.
+ *
+ * Beide Wege enden hier. Ob die Zeit abgelaufen ist, muss nicht übergeben
+ * werden: bei Zeitablauf ist das Gitter fast immer noch nicht voll, und ein
+ * unvollständiges Gitter gilt ohnehin als nicht gelöst. Wer im letzten
+ * Augenblick fertig wird, bekommt die Lösung anerkannt – das ist richtig so.
+ *
+ * Geprüft wird gegen die Regeln, nicht gegen die gespeicherte Lösung: Rätsel
+ * mit vielen Lücken haben oft mehrere gültige Lösungen, und eine davon darf
+ * nicht als Fehler gelten.
+ */
+function auswerten(gs) {
+  const gd = gs.gd;
+  if (!gd || gd.phase !== 'play') return;
+  clearTimer();
+  const p = gd.puzzle;
+  const n = p.n;
+
+  const wrong = new Set();
+  const checkGroup = coords => {
+    const seen = new Map();
+    for (const [r, c] of coords) {
+      const v = p.grid[r][c];
+      if (v === null) continue;
+      if (seen.has(v)) { wrong.add(r * n + c); wrong.add(seen.get(v)); }
+      else seen.set(v, r * n + c);
+    }
+  };
+  for (let r = 0; r < n; r++) checkGroup([...Array(n).keys()].map(c => [r, c]));
+  for (let c = 0; c < n; c++) checkGroup([...Array(n).keys()].map(r => [r, c]));
+  for (let br = 0; br < n / p.boxH; br++) {
+    for (let bc = 0; bc < n / p.boxW; bc++) {
+      const coords = [];
+      for (let dr = 0; dr < p.boxH; dr++)
+        for (let dc = 0; dc < p.boxW; dc++)
+          coords.push([br * p.boxH + dr, bc * p.boxW + dc]);
+      checkGroup(coords);
+    }
+  }
+
+  // Bei Zeitablauf ist das Gitter meist noch nicht voll – dann zählt es als
+  // nicht gelöst, ganz gleich wie regelkonform der bisherige Teil ist.
+  const vollstaendig = !p.grid.flat().some(v => v === null);
+  const geloest = vollstaendig && wrong.size === 0;
+
+  gs.total = (gs.total || 0) + 1;
+  if (geloest) {
+    gs.score = (gs.score || 0) + 1;
+    if (gd.level < 6) gd.level++;
+  } else if (gd.level > 1) {
+    gd.level--;
+  }
+
+  gd.geloest = geloest;
+  gd.wrongCells = geloest ? null : wrong;
+  gd.phase = 'feedback';
+
+  // Ein abgeschlossenes Rätsel ist eine Übung – gelöst oder nicht.
+  const vorbei = countRound(gs);
+  engine.renderGame();
+
+  timer = setTimeout(() => {
+    if (!isActive()) return;
+    if (vorbei) gd.phase = 'fertig';
+    else starteRaetsel(gs);
+    engine.renderGame();
+  }, Math.round(settings.get(geloest ? 'feedbackOk' : 'feedbackWrong') * 1000));
+}
 
 export const scoring = 'count';

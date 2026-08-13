@@ -5,7 +5,9 @@
  * Einstellung braucht dort einen Eintrag und erscheint hier von selbst. Zwei
  * gepflegte Listen würden sonst auseinanderlaufen.
  */
-import { SCHEMA, GROUPS, get, set, reset, veraendert } from '../core/settings.js';
+import { SCHEMA, GROUPS, get, set, reset, veraendert, moduleGroups } from '../core/settings.js';
+import { registry } from '../games/index.js';
+import { getModule } from '../data/modules.js';
 import { engine } from '../core/engine.js';
 import { esc, lang } from '../core/html.js';
 
@@ -41,7 +43,44 @@ const tx = (o, feld) => {
   return o[feld + suffix] || o[feld + 'De'] || o[l] || o.de;
 };
 
-export function renderSettings(main) {
+/**
+ * Module melden ihre eigenen Einstellungen beim Laden an. Damit die Seite
+ * alle zeigt und nicht nur die der zuletzt gespielten, werden hier einmal
+ * alle Module geladen. Sie liegen ohnehin im selben Bundle – das kostet nur
+ * das Ausführen, keinen weiteren Netzzugriff.
+ */
+let alleGeladen = null;
+async function ladeAlleModule() {
+  if (!alleGeladen) {
+    alleGeladen = Promise.all(Object.values(registry).map(load => load().catch(() => null)));
+  }
+  return alleGeladen;
+}
+
+/** Ein Regler mit Beschriftung, Wert und – falls verstellt – der Voreinstellung. */
+function reglerZeile(key, s, l) {
+  const v = get(key);
+  const istStandard = v === s.def;
+  return `<div class="setting-row">
+      <div class="setting-label">
+        <b>${esc(s[l] || s.de)}</b>
+        <span>${esc(tx(s, 'hint'))}</span>
+      </div>
+      <div style="display:flex;align-items:center;gap:10px;flex:0 0 auto">
+        <input type="range" min="${s.min}" max="${s.max}" step="${s.step}" value="${v}"
+               aria-label="${esc(s[l] || s.de)}"
+               oninput="window._setSetting('${key}', this.value)"
+               style="width:150px">
+        <span style="min-width:62px;text-align:right;font-weight:800;color:var(--primary)">
+          ${v}${s.unit ? ' ' + s.unit : ''}</span>
+      </div>
+    </div>
+    ${istStandard ? '' : `<div style="text-align:right;font-size:.75em;color:var(--text-light);margin:-6px 0 6px">
+        ${u('standard')}: ${s.def}${s.unit ? ' ' + s.unit : ''}</div>`}`;
+}
+
+export async function renderSettings(main) {
+  await ladeAlleModule();
   const l = lang();
   let html = `<h2 class="page-title">⚙️ ${u('titel')}</h2>
     <p class="page-subtitle">${u('unter')}</p>
@@ -99,23 +138,17 @@ export function renderSettings(main) {
         continue;
       }
 
-      html += `<div class="setting-row">
-        <div class="setting-label">
-          <b>${esc(s[l] || s.de)}</b>
-          <span>${esc(tx(s, 'hint'))}</span>
-        </div>
-        <div style="display:flex;align-items:center;gap:10px;flex:0 0 auto">
-          <input type="range" min="${s.min}" max="${s.max}" step="${s.step}" value="${v}"
-                 aria-label="${esc(s[l] || s.de)}"
-                 oninput="window._setSetting('${key}', this.value)"
-                 style="width:150px">
-          <span style="min-width:62px;text-align:right;font-weight:800;color:var(--primary)">
-            ${v}${s.unit ? ' ' + s.unit : ''}</span>
-        </div>
-      </div>
-      ${istStandard ? '' : `<div style="text-align:right;font-size:.75em;color:var(--text-light);margin:-6px 0 6px">
-          ${u('standard')}: ${s.def}${s.unit ? ' ' + s.unit : ''}</div>`}`;
+      html += reglerZeile(key, s, l);
     }
+  }
+
+  // Einstellungen einzelner Module, je Modul ein Abschnitt. Sie stehen hinter
+  // den allgemeinen, weil sie nur eine Aufgabe betreffen.
+  for (const [modId, felder] of Object.entries(moduleGroups())) {
+    const mod = getModule(modId);
+    const titel = mod ? ((mod.title && (mod.title[l] || mod.title.de)) || modId) : modId;
+    html += `<h3 class="section-title">${mod ? mod.icon : '🎲'} ${esc(titel)}</h3>`;
+    for (const [key, s] of felder) html += reglerZeile(key, s, l);
   }
 
   html += `<p style="font-size:.85em;color:var(--text-light);margin-top:18px">${u('hinweis')}</p>`;

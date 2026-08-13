@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+<title>Wimmelbild-Suche</title>
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<!-- Startbildschirm ------------------------------------------------------->
+<section id="start" class="seite">
+  <header class="kopf">
+    <h1>Wimmelbild-Suche</h1>
+    <p class="lead">Fragen in zufälliger Reihenfolge, Antwort per Klick ins Bild.</p>
+  </header>
+
+  <div class="inhalt">
+    <h2>Bild wählen</h2>
+    <div id="satzliste" class="kartenliste"></div>
+
+    <h2>Einstellungen</h2>
+    <div class="optionen">
+      <label>Anzahl Fragen
+        <select id="opt-anzahl">
+          <option value="10">10</option>
+          <option value="20">20</option>
+          <option value="0" selected>alle</option>
+        </select>
+      </label>
+      <label>Zeit je Frage
+        <select id="opt-zeit">
+          <option value="0" selected>ohne Limit</option>
+          <option value="15">15 Sekunden</option>
+          <option value="30">30 Sekunden</option>
+          <option value="60">60 Sekunden</option>
+        </select>
+      </label>
+      <label class="schalter">
+        <input type="checkbox" id="opt-aufloesung" checked>
+        Nach falscher Antwort die richtige Stelle zeigen
+      </label>
+      <label class="schalter">
+        <input type="checkbox" id="opt-zufall" checked>
+        Zufällige Reihenfolge
+      </label>
+    </div>
+
+    <div id="warnung-kalibrierung" class="hinweis warnung" hidden></div>
+
+    <div class="knopfreihe">
+      <button id="knopf-start" class="haupt">Runde starten</button>
+      <button id="knopf-kalibrieren" class="neben">Ziele kalibrieren</button>
+    </div>
+  </div>
+</section>
+
+<!-- Spielbildschirm ------------------------------------------------------->
+<section id="spiel" class="seite" hidden>
+  <header class="spielkopf">
+    <div class="frageblock">
+      <span class="zaehler" id="spiel-zaehler">1 / 50</span>
+      <span class="frage" id="spiel-frage">…</span>
+    </div>
+    <div class="statusblock">
+      <span class="stat gut"><b id="spiel-richtig">0</b> richtig</span>
+      <span class="stat schlecht"><b id="spiel-falsch">0</b> daneben</span>
+      <span class="stat uhr" id="spiel-uhr">0:00</span>
+    </div>
+  </header>
+  <div class="zeitbalken"><div id="zeitbalken-fuellung"></div></div>
+
+  <div class="buehne" id="buehne">
+    <div class="leinwand" id="leinwand">
+      <img id="bild" alt="Wimmelbild">
+      <div class="marker-ebene" id="marker"></div>
+    </div>
+    <div class="rueckmeldung" id="rueckmeldung" hidden></div>
+  </div>
+
+  <footer class="spielfuss">
+    <button id="knopf-ueberspringen" class="neben">Überspringen (Leertaste)</button>
+    <div class="zoomsteuerung">
+      <button id="zoom-raus" class="rund" title="kleiner">−</button>
+      <span id="zoom-wert">100 %</span>
+      <button id="zoom-rein" class="rund" title="größer">+</button>
+      <button id="zoom-zurueck" class="neben klein">ganzes Bild</button>
+    </div>
+    <button id="knopf-abbrechen" class="neben">Abbrechen</button>
+  </footer>
+</section>
+
+<!-- Auswertung ------------------------------------------------------------>
+<section id="ende" class="seite" hidden>
+  <header class="kopf">
+    <h1>Auswertung</h1>
+    <p class="lead" id="ende-titel"></p>
+  </header>
+  <div class="inhalt">
+    <div class="kennzahlen" id="ende-kennzahlen"></div>
+    <h2>Übersicht im Bild</h2>
+    <div class="uebersicht" id="ende-uebersicht"></div>
+    <h2>Alle Fragen</h2>
+    <div class="tabellenrahmen">
+      <table class="ergebnisse" id="ende-tabelle"></table>
+    </div>
+    <div class="knopfreihe">
+      <button id="knopf-nochmal" class="haupt">Nochmal</button>
+      <button id="knopf-ergebnis-speichern" class="neben">Ergebnis als JSON</button>
+      <button id="knopf-zurueck" class="neben">Zur Auswahl</button>
+    </div>
+  </div>
+</section>
+
+<!-- Kalibrierung ---------------------------------------------------------->
+<section id="kalib" class="seite" hidden>
+  <header class="spielkopf">
+    <div class="frageblock">
+      <span class="zaehler" id="kalib-zaehler">1 / 50</span>
+      <span class="frage" id="kalib-frage">…</span>
+    </div>
+    <div class="statusblock">
+      <span class="stat" id="kalib-fortschritt">0 von 50 gesetzt</span>
+    </div>
+  </header>
+
+  <div class="kalib-koerper">
+    <div class="buehne" id="kalib-buehne">
+      <div class="leinwand" id="kalib-leinwand">
+        <img id="kalib-bild" alt="Wimmelbild">
+        <div class="marker-ebene" id="kalib-marker"></div>
+      </div>
+    </div>
+    <aside class="kalib-liste" id="kalib-liste"></aside>
+  </div>
+
+  <footer class="spielfuss">
+    <button id="kalib-zurueck-frage" class="neben">◀ zurück</button>
+    <button id="kalib-weiter-frage" class="neben">weiter ▶</button>
+    <div class="zoomsteuerung">
+      <button id="kalib-zoom-raus" class="rund">−</button>
+      <span id="kalib-zoom-wert">100 %</span>
+      <button id="kalib-zoom-rein" class="rund">+</button>
+      <button id="kalib-zoom-zurueck" class="neben klein">ganzes Bild</button>
+    </div>
+    <button id="kalib-loeschen" class="neben">Marke löschen</button>
+    <button id="kalib-export" class="haupt">Datei exportieren</button>
+    <button id="kalib-fertig" class="neben">Fertig</button>
+  </footer>
+</section>
+
+<!-- Export-Dialog --------------------------------------------------------->
+<div id="dialog" class="dialog" hidden>
+  <div class="dialog-fenster">
+    <h2 id="dialog-titel">Export</h2>
+    <p id="dialog-text" class="hinweis"></p>
+    <textarea id="dialog-text-feld" spellcheck="false" readonly></textarea>
+    <div class="knopfreihe">
+      <button id="dialog-herunterladen" class="haupt">Herunterladen</button>
+      <button id="dialog-kopieren" class="neben">In die Zwischenablage</button>
+      <button id="dialog-schliessen" class="neben">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script src="js/wimmelbild.js"></script>
+<!-- Datensätze: je Wimmelbild eine Datei, hier eine Zeile ergänzen. -->
+<script src="data/dorfplatz.js"></script>
+<script src="js/app.js"></script>
+
+<script>
+setTimeout(function(){
+  document.getElementById('knopf-start').click();
+  setTimeout(function(){
+    var b = document.getElementById('buehne').getBoundingClientRect();
+    function klick(x,y){
+      ['pointerdown','pointerup'].forEach(function(t){
+        document.getElementById('buehne').dispatchEvent(new PointerEvent(t,{clientX:x,clientY:y,bubbles:true,pointerId:1}));
+      });
+    }
+    klick(b.left+300, b.top+300);
+  }, 300);
+}, 200);
+</script>
+</body>
+</html>
