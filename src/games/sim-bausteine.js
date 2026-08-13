@@ -36,8 +36,11 @@ const game = createChoiceGame({
 
   genRound: (gd) => {
     const L = gd.level;
-    const w = Math.min(3 + Math.floor(L * 0.8), 8);
-    const h = Math.min(2 + Math.floor(L / 2), 5);
+    // Auch die Mauergröße wandert innerhalb einer Stufe. Vorher war sie je
+    // Stufe fest – auf Stufe 1 gab es dadurch nur eine einzige 3×2-Mauer und
+    // damit zehn unterscheidbare Rätsel, weniger als ein Durchgang lang ist.
+    const w = randInt(3, Math.min(8, 3 + L));
+    const h = randInt(2, Math.min(5, 2 + Math.ceil(L / 2)));
     const total = w * h;
 
     // verdecktes Rechteck – nie die ganze Mauer, sonst ist nichts erschließbar

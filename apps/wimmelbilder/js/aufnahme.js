@@ -134,7 +134,10 @@ var Aufnahme = (function () {
               breite: erg.breite,
               hoehe: erg.hoehe,
               name: geladen.name,
-              quelle: { datei: geladen.name, zuschnitt: b }
+              quelle: {
+                datei: geladen.name,
+                zuschnitt: { x: b.x, y: b.y, breite: b.breite, hoehe: b.hoehe }
+              }
             });
           } },
         { text: 'Abbrechen' }

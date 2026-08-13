@@ -418,6 +418,64 @@ Zwei Dinge, die dabei zu beachten waren:
   zuletzt gespielten, lädt sie einmal alle. Sie liegen ohnehin im selben
   Bundle; das kostet nur das Ausführen.
 
+### Genug Aufgaben je Stufe
+
+Eine Wiederholungssperre nützt nichts, wenn eine Stufe weniger Aufgaben
+kennt als ein Durchgang lang ist. Gemessen war der Vorrat teils lächerlich
+klein: 3 bis 4 Aufgaben bei zehn Runden.
+
+Der Smoke-Test verlangt jetzt **mindestens 20 unterscheidbare Aufgaben je
+Stufe** für jedes Modul mit Sperre — doppelt so viele wie ein Durchgang
+braucht, damit sich auch zwischen zwei Durchgängen nicht alles wiederholt.
+Er zieht dafür 400 Aufgaben je Stufe und zählt die verschiedenen.
+
+Vorher → nachher, je Stufe:
+
+| Modul | vorher | nachher |
+|---|---|---|
+| `plan-muster` | 3–4 | 600+ |
+| `sim-suchbild` | 4 | 72–200 |
+| `wiss-oberbegriffe` | 3–4 | 20 |
+| `sim-bausteine` | 10 | 84–600 |
+| `lern-symbole` | 16 | 24 |
+| `wiss-wortschatz` | 10 | 20 |
+
+Drei verschiedene Wege dorthin, je nach Art des Inhalts:
+
+**Erzeugen statt aufzählen** (`plan-muster`). Die Struktur eines Musters —
+ABAB, AABB, ABC, Zahlenreihe — ist von den Symbolen unabhängig. Aus fünf
+Bauformen je Stufe und zehn Symbolgruppen entstehen hunderte Aufgaben. Eine
+Liste zu verlängern hätte nur bis zur nächsten Beschwerde geholfen: jede
+feste Liste ist irgendwann durchgespielt.
+
+**Die Kennung verfeinern** (`sim-bausteine`, `sim-suchbild`). Beide zählten
+weniger Aufgaben, als es tatsächlich gab, weil die Kennung zu grob war. Die
+Lage des verdeckten Rechtecks bzw. die Position des abweichenden Feldes
+gehört dazu — dieselbe Mauer mit anderswo liegender Abdeckung ist eine
+andere Aufgabe.
+
+**Inhalt schreiben** (`wiss-oberbegriffe`, `wiss-wortschatz`, `lern-symbole`).
+Wo die Aufgabe aus Wissen besteht, hilft keine Technik. 84 neue Oberbegriff-
+Aufgaben und 41 neue Wörter, alle dreisprachig.
+
+Nebenbei fiel dabei auf, dass `sim-suchbild` seine neuen Paare gar nicht
+erreicht hätte: das Fenster war an eine feste Zahl gekoppelt (`3 + Niveau`)
+und endete bei Index 8. Es wandert jetzt anteilig über die ganze Liste —
+Stufe 1 nimmt die leicht unterscheidbaren Paare vorne, die höchste Stufe die
+ähnlichsten hinten.
+
+### Beim Wortschatz-Quiz ist das Bild die Antwort
+
+Deshalb prüft der Testlauf zwei Dinge, die dort besonders wehtun: **kein
+Bild zweimal in derselben Stufe** — zwei gleiche Bilder machen die Aufgabe
+unlösbar — und mindestens 20 Wörter je Stufe.
+
+Die Prüfung hat beim Schreiben drei eigene Fehler gefunden: 🔭 war zweimal
+vergeben (Fernrohr und Teleskop), 🦔 ebenfalls (Gürteltier und
+Stachelschwein), und 🦛 — ein Nilpferd — stand für „Tapir". Bei einem
+Bild-Wort-Test ist ein unpassendes Bild keine Kleinigkeit, sondern eine
+falsche Antwort.
+
 ### Keine Aufgabe zweimal hintereinander
 
 Dieselbe Frage zweimal wirkt wie ein Fehler — und misst beim zweiten Mal

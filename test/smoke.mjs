@@ -529,6 +529,57 @@ for (const [id, load] of Object.entries(registry)) {
   }
   check('wiederholung', mitSperre.length >= 8,
         `nur ${mitSperre.length} Module haben eine Wiederholungssperre`);
+
+  // Die Sperre nützt nichts, wenn eine Stufe weniger Aufgaben kennt als ein
+  // Durchgang lang ist. Dann sind Wiederholungen unvermeidlich, und zwar
+  // schon innerhalb einer Sitzung.
+  const VORRAT_MIN = 20;
+  for (const id of mitSperre) {
+    const mod = await registry[id]();
+    for (const stufe of [1, 3, 5]) {
+      const gs = { moduleId: id, step: 'game', score: 0, total: 0, gd: {} };
+      engine.activeGame = { id, mod };
+      engine.gameState = gs;
+      mod.init(gs);
+      const keys = new Set();
+      // Genug Ziehungen, um einen kleinen Vorrat sicher auszuschöpfen
+      for (let i = 0; i < 400; i++) {
+        gs.gd.level = stufe;
+        mod.actions.next(gs);
+        if (gs.gd.round && gs.gd.round._key != null) keys.add(gs.gd.round._key);
+      }
+      try { mod.dispose(gs); } catch (e) { /* egal */ }
+      engine.activeGame = null;
+      check('vorrat', keys.size >= VORRAT_MIN,
+            `${id} Stufe ${stufe}: nur ${keys.size} verschiedene Aufgaben, ` +
+            `mindestens ${VORRAT_MIN} nötig für einen Durchgang von 10`);
+    }
+  }
+  // Beim Wortschatz-Quiz IST das Bild die Antwort. Zwei gleiche Bilder in
+  // einer Stufe machen die Aufgabe unlösbar, ein Bild das nicht zum Wort
+  // passt macht sie falsch. Beides war vorhanden: 🔭 zweimal, 🦔 zweimal,
+  // und 🦛 (Nilpferd) stand für „Tapir".
+  {
+    const { readFileSync } = await import('node:fs');
+    const quelle = readFileSync('src/games/wiss-wortschatz.js', 'utf8');
+    const eintraege = [...quelle.matchAll(/w: \{ de: '([^']+)'[\s\S]*?e: '([^']+)', t: (\d)/g)]
+      .map(m => ({ wort: m[1], emoji: m[2], stufe: m[3] }));
+    check('vorrat', eintraege.length >= 60,
+          `Wortschatz-Quiz hat nur ${eintraege.length} Wörter`);
+
+    const proStufe = {};
+    for (const e of eintraege) (proStufe[e.stufe] = proStufe[e.stufe] || []).push(e);
+    for (const [stufe, liste] of Object.entries(proStufe)) {
+      check('vorrat', liste.length >= 20,
+            `Wortschatz-Quiz Stufe ${stufe}: nur ${liste.length} Wörter`);
+      const bilder = liste.map(e => e.emoji);
+      const doppelt = [...new Set(bilder.filter((b, i) => bilder.indexOf(b) !== i))];
+      check('vorrat', doppelt.length === 0,
+            `Wortschatz-Quiz Stufe ${stufe}: Bild mehrfach vergeben (${doppelt.join(' ')}) – ` +
+            `als Antwortoption nicht unterscheidbar`);
+    }
+  }
+
   console.log(`   Wiederholungssperre: ${mitSperre.length} Module, keine Aufgabe direkt doppelt`);
 }
 

@@ -2,89 +2,106 @@
 
 Sucharbeit am Wimmelbild: Die App stellt die Fragen eines Bildes in zufälliger
 Reihenfolge, die Antwort erfolgt per Klick ins Bild, und am Ende steht eine
-Auswertung mit Trefferquote und Zeiten je Frage.
+Auswertung mit Trefferquote und Zeiten je Frage. Bilder und Fragen entstehen im
+eingebauten Editor – neues Blatt hereinreichen, Fragen schreiben oder
+importieren, Stellen anklicken, exportieren.
 
 `index.html` im Browser öffnen genügt – kein Server, kein Build, keine
-Abhängigkeiten. Die Datensätze werden als gewöhnliche `<script>`-Dateien
-geladen, damit das auch über `file://` funktioniert.
+Abhängigkeiten.
 
 ## Bedienung
 
 | | |
 |---|---|
-| Klick ins Bild | Antwort abgeben |
+| Klick ins Bild | Antwort abgeben, im Editor: Stelle setzen |
 | Ziehen | Bildausschnitt verschieben |
 | Mausrad, `+` / `−` | Zoomen (nötig bei kleinen Gegenständen) |
 | `0` | ganzes Bild |
 | Leertaste | Frage überspringen |
-| `Esc` | Runde abbrechen |
+| `↑` `↓` | im Editor: Frage wechseln |
+| `Esc` | Runde abbrechen, Dialog schließen |
 
-Einstellbar sind die Anzahl der Fragen, ein Zeitlimit je Frage, ob nach einer
-falschen Antwort die richtige Stelle gezeigt wird, und ob gemischt wird. Das
-Ergebnis lässt sich als JSON sichern.
+Einstellbar sind Anzahl der Fragen, Zeitlimit je Frage, ob nach einer falschen
+Antwort die richtige Stelle gezeigt wird, ob gemischt wird, und ob Fragen ohne
+gesetztes Ziel übersprungen werden. Das Ergebnis lässt sich als JSON sichern.
 
-## Zustand der Koordinaten
+## Ein neues Wimmelbild aufnehmen
 
-**Die Koordinaten aus der Tabelle unter dem Bild sind unbrauchbar.** Das Blatt
-nennt einen Koordinatenraum von 1000×1500 (hochkant), der Bildbereich ist aber
-1152×934 (quer); die Werte sind lückenlos nach y sortiert, laufen bis y=1600 –
-fünf Ziele liegen damit unterhalb des Bildes – und treffen bei Stichproben
-nichts: Der Fußball steht mit (840,380) auf dem Dach eines Hauses, obwohl er
-unten in der Wiese liegt. Es sind erfundene Zahlen, die zum Bild passen sollen,
-aber nicht passen.
+Alles in der App, ohne Kommandozeile:
 
-Sie sind trotzdem eingetragen, damit der Datensatz vollständig ist. Solange
-`koordinatenGeprueft: false` steht, warnt die App auf dem Startbildschirm. Die
-richtigen Stellen setzt man über **Ziele kalibrieren**:
+1. **Neues Wimmelbild…** auf dem Startbildschirm, Blatt wählen. Der Bildbereich
+   wird automatisch erkannt – die Illustration ist bunt, Überschrift und
+   Fragentabelle sind grau, gesucht wird also der längste zusammenhängende
+   Streifen kräftig gefärbter Zeilen. Der Vorschlag steht als Rahmen in der
+   Vorschau und lässt sich in den vier Feldern nachstellen oder ganz abschalten.
+2. Titel und Kennung vergeben, **Anlegen** – der Editor öffnet sich.
+3. Fragen anlegen: **+ Frage** und tippen, oder **Fragen importieren…** für eine
+   ganze Liste (siehe unten). Der kurze Name („Gesuchtes") wird aus der Frage
+   abgeleitet und zieht beim Tippen mit, bis man ihn von Hand ändert.
+4. Zu jeder Frage die Stelle im Bild anklicken. **Reihum setzen** springt nach
+   jedem Klick zur nächsten Frage ohne Stelle – damit geht eine lange Liste am
+   Stück durch.
+5. **Exportieren…** – siehe *Formate*.
 
-1. Bild wählen, *Ziele kalibrieren*.
-2. Zur genannten Sache ins Bild klicken – die App springt zur nächsten offenen.
-   Mit `←`/`→` oder über die Liste rechts springt man gezielt hin und her,
-   *Marke löschen* nimmt eine Setzung zurück.
-3. *Datei exportieren* → die Datei nach `data/<id>.js` speichern, sie ersetzt
-   die alte. Danach steht `koordinatenGeprueft: true` darin.
+Gespeichert wird laufend im `localStorage` des Browsers; ein Satz aus `data/`
+wird dabei von der lokalen Fassung verdeckt und über **Änderungen verwerfen**
+wieder freigegeben. Der Export ist das, was die Arbeit dauerhaft macht.
 
-Zwischenstände liegen im `localStorage` und gelten sofort auch fürs Spielen –
-der Export macht sie nur dauerhaft.
+## Fragen importieren
 
-## Ein weiteres Wimmelbild aufnehmen
+Im Editor unter **Fragen importieren…**, als Text eingefügt oder als Datei.
+Erkannt werden unter anderem:
 
-```bash
-python3 tools/zuschneiden.py source/<blatt>.jpg <kennung>
+```
+Nr.  Frage                          Koordinaten (x,y)     ← Kopfzeilen entfallen
+1. Wo ist der rote Luftballon? (210,80)
+2) Wo ist die Katze?   80 ; 120
+Wo ist der Pilz?;50;1290
+Wo ist die Eule?                                          ← ohne Stelle, später klicken
+1. Wo ist X? (10,20)    26. Wo ist Y? (30,40)             ← zweispaltige Tabelle
 ```
 
-Das Werkzeug findet den Illustrationsbereich über die Farbsättigung (die
-Zeichnung ist bunt, Überschrift und Fragentabelle sind grau), schneidet ihn nach
-`images/<kennung>.jpg` und legt in `build/` zwei Hilfsdateien ab: den
-Tabellenbereich doppelt vergrößert zum Abtippen oder für eine OCR, und ein
-Datei-Gerüst mit den erkannten Maßen.
+Damit lässt sich eine abgetippte oder per OCR gelesene Tabelle direkt
+übernehmen. Ebenfalls als Quelle geeignet: eine `.json`-Datei aus dem Export
+und ein Modul aus `data/`.
 
-Danach:
+**Achtung beim Koordinatenraum.** Die Zahlen gelten im Koordinatenraum des
+Bildsatzes – bei selbst angelegten Sätzen ist das die Bildgröße. Stammt eine
+Liste aus einem anderen Raum (etwa „(0,0) bis (1000,1500)" unter einem Blatt),
+gehört der erst unter **Einstellungen** gesetzt, sonst landen alle Stellen
+falsch. Liegen die Zahlen sichtbar außerhalb, sagt der Import das vorher.
 
-1. `build/<kennung>-geruest.js` nach `data/<kennung>.js` kopieren und die Fragen
-   eintragen (aus `build/<kennung>-tabelle.png`).
-2. In `index.html` eine Zeile ergänzen:
-   `<script src="data/<kennung>.js"></script>`
-3. Ziele in der App kalibrieren und die Datei neu exportieren.
+## Formate
 
-Bringt ein Blatt keine brauchbaren Koordinaten mit, trägt man `x: 0, y: 0` ein
-und setzt alles im Kalibrier-Modus – die Fragetexte allein genügen als
-Ausgangspunkt.
+| Export | Inhalt | wofür |
+|---|---|---|
+| **JS-Modul** | `data/<id>.js`, Bild als Pfadangabe | fest in die App einbauen |
+| **JSON** | Bildsatz *und* Bild in einer Datei | weitergeben, sichern, wieder importieren |
+| **Text** | nur die Frageliste | weiterbearbeiten, wieder importieren |
+
+Für den festen Einbau: Modul nach `data/<id>.js` speichern, daneben über *Bild
+speichern* die Bilddatei nach `images/<id>.jpg` legen, und in `index.html` eine
+Zeile ergänzen:
+
+```html
+<script src="data/<id>.js"></script>
+```
+
+Danach ist der Satz auch ohne `localStorage` da – auf jedem Rechner, der den
+Ordner bekommt.
 
 ## Datenformat
-
-Jede Datei in `data/` meldet einen Bildsatz an:
 
 ```js
 Wimmelbild.register({
   id: 'dorfplatz',                 // eindeutig, zugleich Dateiname
   titel: 'Dorfplatz',
   untertitel: '…',
-  bild: 'images/dorfplatz.jpg',    // der zugeschnittene Bildbereich
-  bildGroesse:     { breite: 1152, hoehe: 934 },   // Pixelmaße dieses Bildes
+  bild: 'images/dorfplatz.jpg',    // Pfad oder (lokal) ein data:-URI
+  bildGroesse:     { breite: 1152, hoehe: 934 },   // Pixelmaße des Bildes
   koordinatenRaum: { breite: 1000, hoehe: 1500 },  // Raum, in dem x/y stehen
   toleranz: 0.06,                  // Trefferradius, Anteil der kurzen Bildseite
-  koordinatenGeprueft: false,      // true, sobald nachgemessen
+  koordinatenGeprueft: false,      // true, sobald alle Stellen gesichert sind
   quelle: { datei: '…', zuschnitt: { x, y, breite, hoehe } },
   fragen: [
     { nr: 1, frage: 'Wo ist der rote Luftballon?', ziel: 'roter Luftballon',
@@ -93,28 +110,62 @@ Wimmelbild.register({
 });
 ```
 
-`x`/`y` stehen immer im `koordinatenRaum` des jeweiligen Blattes, nie in
-Bildpixeln. Der Kern rechnet daraus relative Koordinaten und erst daraus
-Bildpixel. Deshalb dürfen weitere Blätter beliebig andere Maße, Seitenverhält­
-nisse und Koordinatenräume mitbringen; hat ein Blatt gar keinen eigenen Raum,
-lässt man `koordinatenRaum` weg und trägt Bildpixel ein.
+`x`/`y` stehen immer im `koordinatenRaum`, nie in Bildpixeln. Der Kern rechnet
+daraus relative Koordinaten und erst daraus Bildpixel. Deshalb dürfen weitere
+Blätter beliebig andere Maße, Seitenverhältnisse und Koordinatenräume
+mitbringen; ohne eigenen Raum gilt die Bildgröße, dann sind x/y Bildpixel.
 
-`ziel` ist der kurze Name des Gesuchten. Er steht im Kalibrier-Modus und in der
-Auswertung, wo der ganze Fragesatz zu lang wäre.
+`koordinatenGeprueft: false` heißt: die Stellen sind nicht gesichert. Die App
+rechnet dann zwar mit den eingetragenen Werten, warnt aber auf dem
+Startbildschirm, zeigt nach einem Fehlversuch keine „Auflösung", und die Fragen
+lassen sich über *nur Fragen mit gesetztem Ziel* aus der Runde nehmen.
+
+## Zustand des mitgelieferten Bildes
+
+Beim **Dorfplatz** sind die Koordinaten aus der Tabelle unter dem Bild
+eingetragen, aber unbrauchbar, daher `koordinatenGeprueft: false`. Das Blatt
+nennt einen Raum von 1000×1500 (hochkant), der Bildbereich ist 1152×934 (quer);
+die Werte sind lückenlos nach y sortiert, laufen bis y=1600 – fünf Ziele lägen
+damit unterhalb des Bildes – und treffen bei Stichproben nichts: Der Fußball
+steht mit (840,380) auf einem Hausdach, obwohl er unten in der Wiese liegt. Es
+sind erfundene Zahlen aus dem Bildgenerator. Die richtigen Stellen setzt man im
+Editor und exportiert die Datei neu.
+
+## Kommandozeile
+
+`tools/zuschneiden.py` macht denselben Zuschnitt wie die App, für viele Blätter
+am Stück:
+
+```bash
+python3 tools/zuschneiden.py source/<blatt>.jpg <kennung>
+```
+
+Erzeugt `images/<kennung>.jpg`, dazu in `build/` den Tabellenbereich vergrößert
+(zum Abtippen oder für eine OCR) und ein Datei-Gerüst. Braucht `numpy` und
+`Pillow`; die App selbst braucht nichts davon.
 
 ## Aufbau
 
 ```
-index.html                Seiten: Auswahl, Spiel, Auswertung, Kalibrierung
-js/wimmelbild.js          Kern: Registrierung, Koordinaten, Runde, Auswertung, Export
-js/app.js                 Oberfläche, Zoom/Verschieben, Spielablauf
-css/app.css
-data/<id>.js              je Wimmelbild ein Datensatz
-images/<id>.jpg           je Wimmelbild der zugeschnittene Bildbereich
-source/<id>-original.jpg  das vollständige Blatt, wie es hereinkam
-tools/zuschneiden.py      Zuschnitt und Gerüst für ein neues Blatt
-test/smoke.mjs            Test: Daten, Runde, Auswertung, Export, Oberfläche
+index.html                Seiten: Auswahl, Spiel, Auswertung, Editor
+js/hilfen.js              Seitenwechsel, Marken, Dialoge, Download
+js/wimmelbild.js          Kern: Sätze, Koordinaten, Runde, Speicher, Import, Export
+js/bild.js                Bilddatei lesen, Bildbereich finden, zuschneiden
+js/ansicht.js             Zoomen, Verschieben, Klick in Bildkoordinaten
+js/aufnahme.js            Bild hereinreichen, neuer Satz, Satz-Import
+js/editor.js              Fragen schreiben, Ziele setzen, Ex- und Import
+js/app.js                 Auswahl, Spielablauf, Auswertung
+data/<id>.js              fest eingebaute Bildsätze
+images/<id>.jpg           die zugeschnittenen Bildbereiche
+source/<id>-original.jpg  die vollständigen Blätter, wie sie hereinkamen
+tools/zuschneiden.py      Zuschnitt auf der Kommandozeile
+test/smoke.mjs            Test über den ganzen Ablauf
 ```
+
+Der Editor lädt beim Import aus `data/` den Quelltext mit einem eigenen
+`Wimmelbild`-Objekt aus, statt ihn anzumelden. Das führt Code aus einer Datei
+aus, die man selbst ausgewählt hat – dieselbe Vertrauensstellung wie beim
+Eintragen in `index.html`.
 
 ## Test
 
@@ -122,8 +173,7 @@ test/smoke.mjs            Test: Daten, Runde, Auswertung, Export, Oberfläche
 node test/smoke.mjs
 ```
 
-Prüft die Datensätze auf Vollständigkeit, spielt eine Runde mit Treffer,
-Fehlklick, Auslassung und beiden Rändern des Trefferradius durch, kontrolliert
-Mischen und Auswertung, schickt eine Kalibrierung durch Export und Neuladen und
-klickt die Oberfläche im jsdom durch. `numpy` und `Pillow` braucht nur
-`tools/zuschneiden.py`, nicht die App.
+93 Prüfungen: Datensätze, das Lesen von Frageliste und JSON, Anlegen,
+Speichern, Verwerfen, alle drei Exportwege samt Wiedereinlesen, eine Runde mit
+Treffer, Fehlklick, Auslassung und beiden Rändern des Trefferradius, und die
+Oberfläche von Auswahl, Spiel, Editor und Dialogen im jsdom.

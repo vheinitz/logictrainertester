@@ -138,10 +138,12 @@ var H = (function () {
     return fenster;
   }
 
-  function schliessen() {
-    if (offen && offen.parentNode) offen.parentNode.removeChild(offen);
-    offen = null;
+  function entfernen(el) {
+    if (el && el.parentNode) el.parentNode.removeChild(el);
+    if (offen === el) offen = null;
   }
+
+  function schliessen() { entfernen(offen); }
 
   function istOffen() { return !!offen; }
 

@@ -40,7 +40,17 @@ const WORDS = [
   { de: 'Anker', ru: 'Якорь', en: 'Anchor' },
   { de: 'Feder', ru: 'Перо', en: 'Feather' },
   { de: 'Trommel', ru: 'Барабан', en: 'Drum' },
-  { de: 'Laterne', ru: 'Фонарь', en: 'Lantern' }
+  { de: 'Laterne', ru: 'Фонарь', en: 'Lantern' },
+  // Acht weitere, damit der Vorrat länger reicht als ein Durchgang: bei
+  // sechzehn Wörtern und zehn Runden war fast jedes zweite schon dran.
+  { de: 'Brücke', ru: 'Мост', en: 'Bridge' },
+  { de: 'Schlüssel', ru: 'Ключ', en: 'Key' },
+  { de: 'Muschel', ru: 'Ракушка', en: 'Shell' },
+  { de: 'Leiter', ru: 'Лестница', en: 'Ladder' },
+  { de: 'Nadel', ru: 'Игла', en: 'Needle' },
+  { de: 'Teppich', ru: 'Ковёр', en: 'Carpet' },
+  { de: 'Schaukel', ru: 'Качели', en: 'Swing' },
+  { de: 'Brunnen', ru: 'Колодец', en: 'Well' }
 ];
 
 const game = createChoiceGame({

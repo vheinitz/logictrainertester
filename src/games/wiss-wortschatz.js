@@ -30,6 +30,16 @@ const WORDS = [
   { w: { de: 'die Blume', ru: 'цветок', en: 'the flower' }, e: '🌸', t: 1 },
   { w: { de: 'das Buch', ru: 'книга', en: 'the book' }, e: '📕', t: 1 },
   { w: { de: 'der Schuh', ru: 'ботинок', en: 'the shoe' }, e: '👟', t: 1 },
+  { w: { de: 'der Stuhl', ru: 'стул', en: 'the chair' }, e: '🪑', t: 1 },
+  { w: { de: 'die Sonne', ru: 'солнце', en: 'the sun' }, e: '☀️', t: 1 },
+  { w: { de: 'das Bett', ru: 'кровать', en: 'the bed' }, e: '🛏️', t: 1 },
+  { w: { de: 'der Fisch', ru: 'рыба', en: 'the fish' }, e: '🐟', t: 1 },
+  { w: { de: 'das Brot', ru: 'хлеб', en: 'the bread' }, e: '🍞', t: 1 },
+  { w: { de: 'der Vogel', ru: 'птица', en: 'the bird' }, e: '🐦', t: 1 },
+  { w: { de: 'die Milch', ru: 'молоко', en: 'the milk' }, e: '🥛', t: 1 },
+  { w: { de: 'die Tür', ru: 'дверь', en: 'the door' }, e: '🚪', t: 1 },
+  { w: { de: 'die Uhr', ru: 'часы', en: 'the clock' }, e: '⏰', t: 1 },
+  { w: { de: 'der Mond', ru: 'луна', en: 'the moon' }, e: '🌙', t: 1 },
   // tier 2
   { w: { de: 'der Löffel', ru: 'ложка', en: 'the spoon' }, e: '🥄', t: 2 },
   { w: { de: 'die Schere', ru: 'ножницы', en: 'the scissors' }, e: '✂️', t: 2 },
@@ -41,6 +51,16 @@ const WORDS = [
   { w: { de: 'die Leiter', ru: 'лестница', en: 'the ladder' }, e: '🪜', t: 2 },
   { w: { de: 'das Zelt', ru: 'палатка', en: 'the tent' }, e: '⛺', t: 2 },
   { w: { de: 'der Anker', ru: 'якорь', en: 'the anchor' }, e: '⚓', t: 2 },
+  { w: { de: 'der Pinsel', ru: 'кисть', en: 'the brush' }, e: '🖌️', t: 2 },
+  { w: { de: 'der Hammer', ru: 'молоток', en: 'the hammer' }, e: '🔨', t: 2 },
+  { w: { de: 'die Glocke', ru: 'колокол', en: 'the bell' }, e: '🔔', t: 2 },
+  { w: { de: 'die Krone', ru: 'корона', en: 'the crown' }, e: '👑', t: 2 },
+  { w: { de: 'der Briefkasten', ru: 'почтовый ящик', en: 'the postbox' }, e: '📮', t: 2 },
+  { w: { de: 'die Trommel', ru: 'барабан', en: 'the drum' }, e: '🥁', t: 2 },
+  { w: { de: 'die Feder', ru: 'перо', en: 'the feather' }, e: '🪶', t: 2 },
+  { w: { de: 'der Rucksack', ru: 'рюкзак', en: 'the backpack' }, e: '🎒', t: 2 },
+  { w: { de: 'die Seife', ru: 'мыло', en: 'the soap' }, e: '🧼', t: 2 },
+  { w: { de: 'der Eimer', ru: 'ведро', en: 'the bucket' }, e: '🪣', t: 2 },
   // tier 3
   { w: { de: 'der Kompass', ru: 'компас', en: 'the compass' }, e: '🧭', t: 3 },
   { w: { de: 'das Mikroskop', ru: 'микроскоп', en: 'the microscope' }, e: '🔬', t: 3 },
@@ -52,17 +72,37 @@ const WORDS = [
   { w: { de: 'das Zahnrad', ru: 'шестерня', en: 'the gear' }, e: '⚙️', t: 3 },
   { w: { de: 'der Magnet', ru: 'магнит', en: 'the magnet' }, e: '🧲', t: 3 },
   { w: { de: 'die Waage', ru: 'весы', en: 'the scale' }, e: '⚖️', t: 3 },
+  { w: { de: 'das Stethoskop', ru: 'стетоскоп', en: 'the stethoscope' }, e: '🩺', t: 3 },
+  { w: { de: 'die Taschenlampe', ru: 'фонарик', en: 'the torch' }, e: '🔦', t: 3 },
+  { w: { de: 'der Abakus', ru: 'счёты', en: 'the abacus' }, e: '🧮', t: 3 },
+  { w: { de: 'die Schriftrolle', ru: 'свиток', en: 'the scroll' }, e: '📜', t: 3 },
+  { w: { de: 'die Lupe', ru: 'лупа', en: 'the magnifying glass' }, e: '🔍', t: 3 },
+  { w: { de: 'der Satellit', ru: 'спутник', en: 'the satellite' }, e: '🛰️', t: 3 },
+  { w: { de: 'das Reagenzglas', ru: 'пробирка', en: 'the test tube' }, e: '🧪', t: 3 },
+  { w: { de: 'die Schraube', ru: 'винт', en: 'the screw' }, e: '🔩', t: 3 },
+  { w: { de: 'die Kette', ru: 'цепь', en: 'the chain' }, e: '⛓️', t: 3 },
+  { w: { de: 'das Schild', ru: 'щит', en: 'the shield' }, e: '🛡️', t: 3 },
   // tier 4 – Tiere, die man benennen können sollte
-  { w: { de: 'das Gürteltier', ru: 'броненосец', en: 'the armadillo' }, e: '🦔', t: 4 },
-  { w: { de: 'der Reiher', ru: 'цапля', en: 'the heron' }, e: '🦩', t: 4 },
+  { w: { de: 'der Igel', ru: 'ёж', en: 'the hedgehog' }, e: '🦔', t: 4 },
+  { w: { de: 'der Flamingo', ru: 'фламинго', en: 'the flamingo' }, e: '🦩', t: 4 },
   { w: { de: 'das Faultier', ru: 'ленивец', en: 'the sloth' }, e: '🦥', t: 4 },
   { w: { de: 'der Dachs', ru: 'барсук', en: 'the badger' }, e: '🦡', t: 4 },
   { w: { de: 'das Chamäleon', ru: 'хамелеон', en: 'the chameleon' }, e: '🦎', t: 4 },
   { w: { de: 'der Tintenfisch', ru: 'осьминог', en: 'the octopus' }, e: '🦑', t: 4 },
   { w: { de: 'das Nashorn', ru: 'носорог', en: 'the rhinoceros' }, e: '🦏', t: 4 },
   { w: { de: 'der Skorpion', ru: 'скорпион', en: 'the scorpion' }, e: '🦂', t: 4 },
-  { w: { de: 'das Stachelschwein', ru: 'дикобраз', en: 'the porcupine' }, e: '🦔', t: 4 },
-  { w: { de: 'der Waschbär', ru: 'енот', en: 'the raccoon' }, e: '🦝', t: 4 }
+  { w: { de: 'das Mammut', ru: 'мамонт', en: 'the mammoth' }, e: '🦣', t: 4 },
+  { w: { de: 'der Waschbär', ru: 'енот', en: 'the raccoon' }, e: '🦝', t: 4 },
+  { w: { de: 'der Biber', ru: 'бобр', en: 'the beaver' }, e: '🦫', t: 4 },
+  { w: { de: 'der Otter', ru: 'выдра', en: 'the otter' }, e: '🦦', t: 4 },
+  { w: { de: 'der Schwan', ru: 'лебедь', en: 'the swan' }, e: '🦢', t: 4 },
+  { w: { de: 'die Qualle', ru: 'медуза', en: 'the jellyfish' }, e: '🪼', t: 4 },
+  { w: { de: 'der Papagei', ru: 'попугай', en: 'the parrot' }, e: '🦜', t: 4 },
+  { w: { de: 'das Lama', ru: 'лама', en: 'the llama' }, e: '🦙', t: 4 },
+  { w: { de: 'das Stinktier', ru: 'скунс', en: 'the skunk' }, e: '🦨', t: 4 },
+  { w: { de: 'der Bison', ru: 'бизон', en: 'the bison' }, e: '🦬', t: 4 },
+  { w: { de: 'die Robbe', ru: 'тюлень', en: 'the seal' }, e: '🦭', t: 4 },
+  { w: { de: 'der Orang-Utan', ru: 'орангутан', en: 'the orangutan' }, e: '🦧', t: 4 }
 ];
 
 const game = createChoiceGame({
@@ -78,7 +118,7 @@ const game = createChoiceGame({
 
   // Kein Wort zweimal im selben Durchgang: beim zweiten Mal misst die Frage
   // die Erinnerung an die vorige Antwort, nicht den Wortschatz.
-  roundKey: r => r.zielWort,
+  roundKey: r => r._key,
 
   genRound: (gd) => {
     const tier = Math.min(4, Math.ceil(gd.level * 0.9));
@@ -93,7 +133,7 @@ const game = createChoiceGame({
     return {
       // Kennung für die Wiederholungssperre – der deutsche Eintrag, damit
       // sie beim Sprachwechsel dieselbe Aufgabe erkennt.
-      zielWort: target.w.de,
+      _key: target.w.de,
       prompt: `<div style="text-align:center">
         <p style="font-size:.95em;color:var(--text-light)">${pick(UI.zeig)}</p>
         <p style="font-size:1.6em;font-weight:800;margin:6px 0 14px">${w}</p>

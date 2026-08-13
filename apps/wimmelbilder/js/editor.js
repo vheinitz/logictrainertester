@@ -291,6 +291,9 @@ var Editor = (function () {
 
     var vorschau = neu('p', 'hinweis vorschau', 'Noch nichts eingelesen.');
     inhalt.appendChild(vorschau);
+    var raumHinweis = neu('p', 'hinweis');
+    raumHinweis.hidden = true;
+    inhalt.appendChild(raumHinweis);
 
     var gelesen = { fragen: [], satz: null };
 
@@ -316,10 +319,32 @@ var Editor = (function () {
             (r.uebergangen.length ? ' ' + r.uebergangen.length + ' Zeile(n) übergangen.' : '') +
             (r.fragen.length ? ' Erste: „' + r.fragen[0].frage + '“' : '');
         }
+        raumPruefen();
       } catch (e) {
         gelesen = { fragen: [], satz: null };
         vorschau.textContent = 'Nicht lesbar: ' + e.message;
+        raumHinweis.hidden = true;
       }
+    }
+
+    /* Importierte Zahlen gelten im Koordinatenraum dieses Satzes. Stammen sie
+       aus einem anderen (etwa aus der Tabelle unter einem Blatt), liegen sie
+       daneben – am deutlichsten zu sehen, wenn sie schlicht zu groß sind. */
+    function raumPruefen() {
+      var mitZahlen = gelesen.fragen.filter(function (f) { return f.gesetzt; });
+      if (!mitZahlen.length) { raumHinweis.hidden = true; return; }
+      var raum = satz.koordinatenRaum;
+      var draussen = mitZahlen.filter(function (f) {
+        return f.x > raum.breite || f.y > raum.hoehe;
+      }).length;
+      raumHinweis.hidden = false;
+      raumHinweis.className = 'hinweis' + (draussen ? ' meckern' : '');
+      raumHinweis.textContent = draussen
+        ? draussen + ' Koordinate(n) liegen außerhalb von ' + raum.breite + '×' + raum.hoehe +
+          ' – die Zahlen stammen offenbar aus einem anderen Koordinatenraum. Erst unter ' +
+          '„Einstellungen" den Raum passend setzen, dann importieren.'
+        : 'Die Zahlen werden im Koordinatenraum ' + raum.breite + '×' + raum.hoehe +
+          ' dieses Bildsatzes gelesen.';
     }
 
     textFeld.eingabe.addEventListener('input', function () { pruefen(textFeld.eingabe.value); });

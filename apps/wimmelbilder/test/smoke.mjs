@@ -300,8 +300,36 @@ pruefe(Editor.offenerSatz().fragen.length === 5, 'importierte Frage angehängt')
 pruefe(Editor.offenerSatz().fragen[4].ziel === 'Anker', 'importierte Frage benannt');
 pruefe(Editor.offenerSatz().fragen[4].nr === 5, 'importierte Frage neu nummeriert');
 
+// Koordinaten aus einem fremden Zahlenraum werden beim Import angemahnt.
+dok.getElementById('ed-import').click();
+const feld2 = dok.querySelector('.dialog textarea');
+feld2.value = 'Wo ist der Mond? (900,700)';   // Satz hat den Raum 800x600
+feld2.dispatchEvent(new window.Event('input', { bubbles: true }));
+const hinweise = [...dok.querySelectorAll('.dialog .hinweis')];
+pruefe(hinweise.some((p) => p.className.includes('meckern') && p.textContent.includes('800×600')),
+  'Import warnt vor Koordinaten außerhalb des Koordinatenraums');
+feld2.value = 'Wo ist der Mond? (400,300)';
+feld2.dispatchEvent(new window.Event('input', { bubbles: true }));
+pruefe(!dok.querySelector('.dialog .hinweis.meckern'), 'passende Koordinaten lösen keine Mahnung aus');
+H.schliessen();
+
 dok.getElementById('ed-fertig').click();
 pruefe(dok.getElementById('start').hidden === false, 'Fertig führt zurück zur Auswahl');
+
+/* --- Dialoge ------------------------------------------------------------ */
+
+abschnitt('Dialoge');
+
+H.dialog({
+  titel: 'Erster',
+  knoepfe: [{ text: 'weiter', tun: () => { H.dialog({ titel: 'Zweiter' }); } }]
+});
+[...dok.querySelectorAll('.dialog button')].find((b) => b.textContent === 'weiter').click();
+pruefe(dok.querySelectorAll('.dialog').length === 1, 'genau ein Dialog offen');
+pruefe(dok.querySelector('.dialog h2').textContent === 'Zweiter',
+  'ein aus dem Knopf geöffneter Folgedialog bleibt stehen');
+H.schliessen();
+pruefe(!dok.querySelector('.dialog'), 'Dialog schließt');
 
 Wimmelbild.verwerfen('test-bild');
 pruefe(!Wimmelbild.get('test-bild'), 'Testsatz wieder entfernt');
