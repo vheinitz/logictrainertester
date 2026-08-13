@@ -14,6 +14,7 @@ import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 import * as settings from '../core/settings.js';
+import { sparkline, serieAusHistorie, mittel } from './spark.js';
 
 /**
  * Modultext aus der i18n-Tabelle.
@@ -66,6 +67,13 @@ export function renderView(view) {
     default: renderMenu(m);
   }
 }
+
+const STAT_UI = {
+  verlauf: { de: 'Balken: einzelne Durchgänge in zeitlicher Reihenfolge. Zahl: Mittelwert über alle – ein einzelner Durchgang schwankt zu stark, um für sich zu stehen.',
+             ru: 'Столбики — отдельные подходы по порядку. Число — среднее по всем: один подход слишком изменчив, чтобы судить по нему.',
+             en: 'Bars: individual sessions in chronological order. Number: the average across all – a single session varies too much to stand on its own.' }
+};
+function statHinweis() { const l = lang(); return STAT_UI.verlauf[l] || STAT_UI.verlauf.de; }
 
 const ALTER_UI = {
   titel:   { de: 'Wie alt ist das Kind?', ru: 'Сколько лет ребёнку?', en: 'How old is the child?' },
@@ -546,20 +554,32 @@ async function renderStats(main) {
           <div style="text-align:center;background:var(--bg);padding:16px 24px;border-radius:var(--radius-sm)"><div style="font-size:2em;font-weight:800;color:var(--orange)">${scores.length}</div><div style="font-size:.85em;color:var(--text-light)">${t('statsModules')}</div></div>
           <div style="text-align:center;background:var(--bg);padding:16px 24px;border-radius:var(--radius-sm)"><div style="font-size:2em;font-weight:800;color:var(--accent)">${todayCount}</div><div style="font-size:.85em;color:var(--text-light)">${t('statsToday')}</div></div>
         </div>`;
-      // Per module bars
+      // Verlauf je Modul: Momentanwerte als Balkenreihe, laufender Mittelwert
+      // als Zahl dahinter. Die Balken sind absichtlich nur eine Textzeile hoch –
+      // sie sollen die Form der Entwicklung zeigen, nicht abgelesen werden.
       if (scores.length) {
-        html += `<h4 style="margin:16px 0 8px">${t('statsPerModule')}</h4><div style="width:100%;max-width:500px">`;
-        scores.sort((a,b) => b.updated - a.updated).forEach(s => {
+        html += `<h4 style="margin:16px 0 10px">${t('statsPerModule')}</h4>
+          <div style="width:100%;max-width:540px">`;
+        scores.sort((a, b) => b.updated - a.updated).forEach(s => {
           const m = getModule(s.moduleId);
           const name = m ? modI18n(m.id, 'title', m.title) : s.moduleId;
-          const bar = Math.max(0, Math.min(100, s.accuracy || 0));
-          const color = bar >= 80 ? 'var(--green)' : bar >= 50 ? 'var(--gold)' : 'var(--secondary)';
-          const detail = s.kind === 'percent'
-            ? `Niveau ${s.bestLevel || '–'} • ${s.bestPercent || 0}%`
-            : `${Math.round(s.cumScore ?? s.score ?? 0)}/${s.cumTotal ?? s.total ?? 0} (${bar}%)`;
-          html += `<div style="margin-bottom:8px"><div style="display:flex;justify-content:space-between;font-size:.85em"><span>${m?m.icon:''} ${name}</span><span>${detail}</span></div><div style="background:#F0EFF8;border-radius:6px;height:8px"><div style="background:${color};height:100%;width:${bar}%;border-radius:6px"></div></div></div>`;
+          const serie = serieAusHistorie(history, s.moduleId);
+
+          // Ohne Verlauf in der Historie bleibt nur der gespeicherte Bestwert –
+          // dann eine einzelne Marke statt einer vorgetäuschten Entwicklung.
+          const werte = serie.length ? serie
+            : [Math.max(0, Math.min(100, s.accuracy || s.bestPercent || 0))];
+
+          html += `<div style="display:flex;align-items:baseline;gap:10px;font-size:.85em;
+                      padding:5px 0;border-bottom:1px solid #F2F0FA">
+            <span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">
+              ${m ? m.icon : ''} ${name}</span>
+            <span style="flex:0 0 auto;display:inline-flex;align-items:baseline">
+              ${sparkline(werte, { titel: name })}</span>
+          </div>`;
         });
-        html += `</div>`;
+        html += `<p style="font-size:.74em;color:var(--text-light);margin-top:8px;line-height:1.5">
+          ${statHinweis()}</p></div>`;
       }
       html += `<div style="margin-top:20px"><button class="btn btn-secondary btn-small" onclick="window._exportData()">${t('exportBackup')}</button></div>`;
       html += resetPanel();

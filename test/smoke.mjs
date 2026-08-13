@@ -486,6 +486,58 @@ for (const [id, load] of Object.entries(registry)) {
   }
 }
 
+// ─── Verlaufsdarstellung ──────────────────────────────────────────────
+// Die Balken zeigen die Entwicklung, die Zahl dahinter den laufenden
+// Mittelwert. Der letzte Wert wäre die unzuverlässigste Zahl von allen –
+// ein einzelner Durchgang schwankt zu stark, um für sich zu stehen.
+{
+  const { sparkline, verdichten, mittel, serieAusHistorie } = await import('../src/ui/spark.js');
+
+  // Verdichten darf nicht abschneiden: bei 200 Antworten sähe man sonst nur
+  // den Anfang oder nur das Ende, nicht die Entwicklung dazwischen.
+  const steigend = Array.from({ length: 200 }, (_, i) => i / 2);
+  const v = verdichten(steigend);
+  check('verlauf', v.length <= 28, `verdichten liefert ${v.length} Balken, erlaubt sind 28`);
+  check('verlauf', v.every((x, i) => i === 0 || x >= v[i - 1]),
+        'verdichten zerstört die zeitliche Reihenfolge');
+  check('verlauf', v[0] < 10 && v[v.length - 1] > 90,
+        `verdichten schneidet ab: ${v[0].toFixed(1)} … ${v[v.length - 1].toFixed(1)} statt ~0 … ~99`);
+  check('verlauf', verdichten([10, 20, 30]).length === 3, 'kurze Reihen werden unnötig verdichtet');
+
+  // Der Wert am Ende ist der Mittelwert, nicht der letzte Messwert
+  const schwank = [90, 10, 90, 10, 90, 10];
+  check('verlauf', mittel(schwank) === 50, `Mittelwert ${mittel(schwank)} statt 50`);
+  const htmlSchwank = sparkline(schwank);
+  check('verlauf', />50<\/span>\s*$/.test(htmlSchwank),
+        'am Ende der Reihe steht nicht der Mittelwert');
+
+  const html = sparkline([20, 50, 80]);
+  // Volle Höhe ist genau eine Schriftzeile – die Reihe soll in der Zeile des
+  // Modulnamens sitzen und die Liste nicht zur Diagrammsammlung machen.
+  check('verlauf', /height:1\.15em/.test(html), 'Balkenreihe ist nicht eine Textzeile hoch');
+  check('verlauf', /height:20%/.test(html) && /height:80%/.test(html),
+        'Balkenhöhen bilden die Werte nicht ab');
+  // Fester Maßstab: 0–100 für alle Zeilen, damit Zeilen vergleichbar bleiben
+  check('verlauf', /height:100%/.test(sparkline([130])), 'Werte über 100 werden nicht gekappt');
+  check('verlauf', />130<\/span>/.test(sparkline([130])), 'die Zahl wird mitgekappt – sie soll ungekappt bleiben');
+  check('verlauf', /height:6%/.test(sparkline([0])), 'ein Nullwert ist unsichtbar statt als Sockel erkennbar');
+  check('verlauf', sparkline([]) === '', 'leere Reihe erzeugt trotzdem Ausgabe');
+
+  // Beide Bewertungsarten landen auf derselben 0–100-Achse, älteste zuerst
+  const hist = [
+    { moduleId: 'a', kind: 'count', score: 1, total: 1, timestamp: 3 },
+    { moduleId: 'a', kind: 'count', score: 0, total: 1, timestamp: 1 },
+    { moduleId: 'a', kind: 'count', score: 1, total: 2, timestamp: 2 },
+    { moduleId: 'b', kind: 'percent', score: 70, total: 100, timestamp: 9 }
+  ];
+  check('verlauf', serieAusHistorie(hist, 'a').join(',') === '0,50,100',
+        `Serie aus count-Einträgen: ${serieAusHistorie(hist, 'a').join(',')} statt 0,50,100`);
+  check('verlauf', serieAusHistorie(hist, 'b').join(',') === '70',
+        'percent-Einträge werden nicht übernommen');
+
+  console.log('   Verlauf: 200 Werte → 28 Balken ohne Abschneiden, Zahl am Ende ist der Mittelwert');
+}
+
 // ─── Altersnormierte Auswertung ───────────────────────────────────────
 // Eine rohe Spanne ist ohne Alter nicht deutbar: Spanne 6 ist mit sechs
 // Jahren weit überdurchschnittlich und mit fünfzehn leicht unterdurch-

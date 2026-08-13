@@ -473,6 +473,42 @@ Wirksamkeit einer Methode nicht belegt ist, steht das auch so da — mehrere
 Seiten sagen ausdrücklich, dass der Übertrag auf Schulleistungen nicht
 nachgewiesen ist.
 
+### Statistik zeigt Entwicklung, nicht den besten Tag
+
+Vorher stand je Modul ein waagerechter Balken mit der Trefferquote. Der zeigt
+einen Zustand, keine Entwicklung — und beim Bestwert sogar nur den besten Tag.
+
+Jetzt steht in jeder Zeile eine kleine senkrechte Balkenreihe: die einzelnen
+Durchgänge in zeitlicher Reihenfolge, dahinter der **laufende Mittelwert als
+Zahl**. Nicht der letzte Wert — der wäre die unzuverlässigste Zahl von allen,
+weil ein einzelner Durchgang stark mit Tagesform und Konzentration schwankt.
+Der Mittelwert ist die stabile Größe, die Streuung darum herum zeigen die
+Balken.
+
+**Volle Balkenhöhe ist genau eine Schriftzeile** der Beschreibung daneben
+(`height: 1.15em`). Die Reihe sitzt dadurch in derselben Zeile wie der
+Modulname, und die Liste bleibt eine Liste statt einer Diagrammsammlung. Die
+Balken sind zum Hinsehen da, nicht zum Ablesen — steigt es, fällt es,
+schwankt es? Wer den Wert braucht, liest die Zahl.
+
+Drei Entscheidungen, die man beim Nachbauen leicht anders träfe:
+
+* **Verdichten statt abschneiden.** Mehr als 28 Balken sind in einer
+  Textzeile nicht mehr unterscheidbar. Längere Reihen werden gemittelt, nicht
+  gekürzt — sonst sähe man bei 200 Antworten nur den Anfang oder nur das
+  Ende, also gerade nicht die Entwicklung.
+* **Fester Maßstab 0–100 für alle Zeilen.** Ein Maßstab je Zeile nutzt die
+  Höhe besser aus, aber eine Zeile mit lauter 20ern sähe dann aus wie eine
+  mit lauter 90ern. Werte über 100 — die adaptiven Tests vergeben bis 130 —
+  werden für die Höhe gekappt, die Zahl daneben bleibt ungekappt.
+* **Ein Sockel von 6 % für den Wert null.** Ohne ihn verschwindet ein
+  Nulldurchgang spurlos, und die Reihe behauptet, es hätte ihn nicht gegeben.
+
+Einzelne Antworten (`kind: 'count'`) sind für sich 0 oder 100 und damit
+wertlos; erst das Verdichten macht daraus eine ablesbare Linie. Module ohne
+Verlauf in der Historie zeigen eine einzelne Marke statt einer vorgetäuschten
+Entwicklung.
+
 ### Auswertung: eine Spanne ohne Alter sagt nichts
 
 Vorher zeigte die App für jede erreichte Spanne dieselbe Sternenreihe und

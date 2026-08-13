@@ -89,6 +89,7 @@ const resetTest = [];
 const einstellTest = [];
 const ablaufTest = [];
 const umfangTest = [];
+const verlaufTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -644,6 +645,23 @@ await sleep(250);
 check(main.innerHTML.includes('training-container') || main.innerHTML.length > 200,
       'Statistik-Ansicht ist leer');
 
+// Der Verlauf je Modul ist der eigentliche Zweck der Seite: Balken für die
+// einzelnen Durchgänge, dahinter der laufende Mittelwert als Zahl. Vorher
+// stand dort ein einzelner Balken mit dem Bestwert – der zeigt keine
+// Entwicklung, sondern nur den besten Tag.
+{
+  const reihen = [...main.querySelectorAll('[role="img"][aria-label]')];
+  check(reihen.length > 0, 'Statistik zeigt keinen Verlauf je Modul');
+  if (reihen.length) {
+    const balken = reihen[0].querySelectorAll('span').length;
+    check(balken > 0, 'Verlaufsreihe enthält keine Balken');
+    const zahl = reihen[0].nextElementSibling;
+    check(zahl && /^\d+$/.test(zahl.textContent.trim()),
+          `hinter der Balkenreihe steht kein Mittelwert, sondern "${zahl ? zahl.textContent.trim() : '–'}"`);
+    verlaufTest.push(`${reihen.length} Module mit Verlauf, erste Reihe ${balken} Balken`);
+  }
+}
+
 window.navigateTo('radar');
 await sleep(250);
 check(main.innerHTML.includes('Kognitives Profil'), 'Profil-Ansicht ist leer');
@@ -858,6 +876,7 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
 einstellTest.forEach(x => console.log(`   Einstellungen: ${x}`));
 ablaufTest.forEach(x => console.log(`   Ablauf: ${x}`));
 umfangTest.forEach(x => console.log(`   Durchgang: ${x}`));
+verlaufTest.forEach(x => console.log(`   Verlauf: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────
