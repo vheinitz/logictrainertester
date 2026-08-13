@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Wissenssendungen bewusst schauen',
     ru: 'Познавательные передачи: смотреть осознанно',
-    en: ''
+    en: 'Watching Educational Programmes Deliberately'
   },
 
   short: {
     de: 'Kurze Wissenssendungen gemeinsam ansehen und danach nacherzählen statt nur konsumieren.',
     ru: 'Короткие познавательные передачи смотреть вместе и потом пересказывать, а не просто потреблять.',
-    en: ''
+    en: 'Watch short educational programmes together and retell them afterwards instead of just consuming them.'
   },
 
   what: {
@@ -37,7 +37,13 @@ export default {
         '— один из наиболее надёжно подтверждённых приёмов обучения. Поэтому метод — не ' +
         '«телевизор как развитие», а так: короткий выпуск как материал, а настоящая работа ' +
         'начинается после выключения.',
-    en: ''
+    en: 'A good factual story explains in seven minutes how a bridge holds up or where the holes ' +
+        'in cheese come from. Watched passively, little of it sticks; but if the child then ' +
+        'passes the same thing on to someone else, it has to order it, decide what matters and ' +
+        'put it into its own words – and that is exactly where what lasts is created. Freely ' +
+        'recalling something from memory is one of the best documented learning effects there is. ' +
+        'The method is therefore not "television as support", but rather: a short episode as ' +
+        'material, and the real work happens after switching off.'
   },
 
   steps: {
@@ -61,7 +67,16 @@ export default {
       'Сохранять открытый вопрос. То, на что передача не ответила, записывают в «тетрадь вопросов» и ищут в следующий раз.',
       'На следующий день мимоходом спросить ещё раз: «А как там было с кораблём?» То, что прозвучит теперь, действительно осталось.'
     ],
-    en: []
+    en: [
+      'Pick a single episode, do not open a channel. Seven to fifteen minutes are enough – "Die Sendung mit der Maus", "Löwenzahn", "Checker Tobi", "Фиксики" or "Почемучка".',
+      'Before starting, ask a question and have it written down: "Why does a steel ship not sink?" The child then watches with an assignment rather than to pass the time.',
+      'Watch together, do not tidy up alongside. Whoever watches too can ask follow-up questions afterwards – and only that makes the difference to watching alone.',
+      'Pause once in the middle and let the child guess how it goes on. Once only, not constantly; otherwise the story falls apart.',
+      'After switching off, close the screen and let the child tell everything to a third person – the other parent, grandma on the phone, or the cuddly toy if need be. Four or five sentences are enough.',
+      'Do one thing from the episode for real: eggs in a glass of water, shaping aluminium foil into a boat, putting magnets under a sheet of paper. Ten minutes are enough, and home is laboratory enough.',
+      'Keep the open question. Whatever the programme did not answer goes into a "question notebook" and is looked up next time.',
+      'The next day, ask casually once more: "What was that about the ship again?" Whatever comes now has stuck.'
+    ]
   },
 
   tips: {
@@ -77,28 +92,39 @@ export default {
       'Не устраивать опрос как в школе. «Расскажи, что ты видел» — просьба, «Что ты выучил?» — экзамен.',
       'Если ребёнок не может ничего рассказать, значит выпуск был слишком длинным или сложным, а не ребёнок невнимательным. В следующий раз взять покороче.'
     ],
-    en: []
+    en: [
+      'One episode, then off. Autoplay and recommendation bars are the real opponent; in the media libraries of the public broadcasters there is hardly any of either, on video platforms there is constantly.',
+      'In bilingual families it is worth taking the same topic in both languages: first "Фиксики" about the fridge, later "Die Sendung mit der Maus" about the fridge. The child notices that it lacks the technical words in one language – and goes and gets them.',
+      'Do not quiz as at school. "Tell me what you saw" is a request, "What did you learn?" is an exam.',
+      'If the child cannot tell you anything, the episode was too long or too hard – the child was not inattentive. Take a shorter one next time.'
+    ]
   },
 
   links: [
     { url: 'https://www.wdrmaus.de/filme/sachgeschichten/', kind: 'video',
       label: { de: 'Die Sendung mit der Maus: Sachgeschichten in der WDR-Mediathek, kostenlos',
-               ru: 'Sendung mit der Maus: познавательные сюжеты в медиатеке WDR, бесплатно', en: '' } },
+               ru: 'Sendung mit der Maus: познавательные сюжеты в медиатеке WDR, бесплатно',
+               en: 'Die Sendung mit der Maus: factual stories in the WDR media library, free' } },
     { url: 'https://www.zdf.de/kinder/loewenzahn', kind: 'video',
       label: { de: 'Löwenzahn in der ZDF-Mediathek: Folgen zu Natur und Technik',
-               ru: 'Löwenzahn в медиатеке ZDF: выпуски о природе и технике', en: '' } },
+               ru: 'Löwenzahn в медиатеке ZDF: выпуски о природе и технике',
+               en: 'Löwenzahn in the ZDF media library: episodes on nature and technology' } },
     { url: 'https://www.kika.de/checker-welt/', kind: 'video',
       label: { de: 'Checker-Welt bei KiKA: Checker Tobi, Checkerin Marina, Checker Julian',
-               ru: '«Checker-Welt» на KiKA: выпуски с ведущими Тоби, Мариной и Юлианом', en: '' } },
+               ru: '«Checker-Welt» на KiKA: выпуски с ведущими Тоби, Мариной и Юлианом',
+               en: 'Checker-Welt on KiKA: Checker Tobi, Checkerin Marina, Checker Julian' } },
     { url: 'https://www.karusel-tv.ru/video', kind: 'video',
       label: { de: 'Karussell (russischer Kinderkanal): Mediathek mit Wissenssendungen, kostenlos',
-               ru: 'Телеканал «Карусель»: видеокаталог познавательных передач, бесплатно', en: '' } },
+               ru: 'Телеканал «Карусель»: видеокаталог познавательных передач, бесплатно',
+               en: 'Karusel (Russian children\'s channel): media library with educational programmes, free' } },
     { url: 'https://fixiki.ru/series/', kind: 'video',
       label: { de: '„Fixiki": Folgen der russischen Technik-Serie auf der offiziellen Seite',
-               ru: '«Фиксики»: серии на официальном сайте проекта', en: '' } },
+               ru: '«Фиксики»: серии на официальном сайте проекта',
+               en: '"Fixiki": episodes of the Russian technology series on the official site' } },
     { url: 'https://de.wikipedia.org/wiki/Die_Sendung_mit_der_Maus', kind: 'wiki',
       label: { de: 'Wikipedia: Die Sendung mit der Maus – Aufbau und Geschichte der Sendung',
-               ru: 'Википедия (нем.): «Sendung mit der Maus» — устройство и история передачи', en: '' } }
+               ru: 'Википедия (нем.): «Sendung mit der Maus» — устройство и история передачи',
+               en: 'Wikipedia (German): Die Sendung mit der Maus – structure and history of the programme' } }
   ],
 
   products: [
@@ -116,7 +142,10 @@ export default {
             'комментария. Примерно с четырёх лет, а сами сюжеты хватают и на младшую школу. В ' +
             'медиатеке можно искать по темам, то есть подобрать выпуск под конкретный повод. Без ' +
             'рекламы.',
-        en: ''
+        en: 'The benchmark for factual stories: one question, one sequence, not one comment too ' +
+            'many. From about age four, and the factual stories carry on into primary-school ' +
+            'years. The media library allows targeted searching by topic – "how the milk gets ' +
+            'into the carton" can therefore be picked out to suit the occasion. Ad-free.'
       }
     },
     {
@@ -132,7 +161,10 @@ export default {
         ru: 'Получасовые выпуски с сюжетной рамкой о природе, экологии и технике, примерно с шести ' +
             'лет. Длиннее «Мыши» — поэтому скорее на выходные. Для пересказа встроенная история ' +
             'полезна: у ребёнка есть нить, на которую он нанизывает фактические сведения.',
-        en: ''
+        en: 'Half-hour episodes with a framing story about nature, the environment and ' +
+            'technology, from about age six. Longer than the Maus – therefore rather at ' +
+            'weekends. For retelling, the embedded story is helpful: the child has a thread on ' +
+            'which to hang the factual information.'
       }
     },
     {
@@ -148,7 +180,10 @@ export default {
         ru: 'Ведущий разбирается в теме, задавая вопросы, и всё пробует сам; 25 минут на выпуск, ' +
             'примерно с семи лет. Плюс для этого метода: выпуск чётко делится на три-четыре ' +
             '«проверки» — ребёнок может сказать по фразе после каждой части, а не всё сразу в конце.',
-        en: ''
+        en: 'A reporter works his way through a topic by asking questions and tries everything ' +
+            'out himself, 25 minutes per episode, from about age seven. The advantage for this ' +
+            'method: the episodes are clearly divided into three or four "checks" – the child can ' +
+            'say a sentence after each section instead of everything at once at the end.'
       }
     },
     {
@@ -166,7 +201,11 @@ export default {
             'объясняют, как устроены холодильник, пылесос или велосипедный тормоз. Шесть-семь ' +
             'минут на серию, примерно с четырёх лет — ближайший русскоязычный аналог «Sendung mit ' +
             'der Maus». В конце каждой серии есть «фикси-совет», который легко повторить дома.',
-        en: ''
+        en: 'Russian-language animated series: little creatures live inside household appliances ' +
+            'and explain how a fridge, a vacuum cleaner or a bicycle brake works. Six to seven ' +
+            'minutes per episode, from about age four – the closest counterpart to the Maus in ' +
+            'the Russian-speaking world. Each episode ends with a "Fixi tip" that is easy to ' +
+            'rebuild at home.'
       }
     },
     {
@@ -183,7 +222,11 @@ export default {
             'детские вопросы по естествознанию короткими выпусками, ориентировочно 7–11 лет; рядом ' +
             'идут форматы вроде «Что, зачем и почему?». Через видеораздел сайта можно выйти на ' +
             'конкретные выпуски.',
-        en: ''
+        en: 'A Russian public-service children\'s channel with a media library carrying little ' +
+            'advertising. "Pochemuchka" answers children\'s questions about nature in short ' +
+            'episodes for roughly ages 7 to 11; alongside it run formats such as "Chto, zachem i ' +
+            'pochemu?". The site\'s video overview allows individual episodes to be selected ' +
+            'directly.'
       }
     },
     {
@@ -200,7 +243,10 @@ export default {
             'короткие ролики по физике, медицине, астрономии в свободном доступе. Это не детский ' +
             'формат — длина и лексика взрослые, зато темы свежие, и пересказ становится достаточно ' +
             'трудной задачей для подростка.',
-        en: ''
+        en: 'For older children from about age twelve: Russian-language science programmes and ' +
+            'short explanatory videos from physics, medicine and astronomy, freely available. Not ' +
+            'made as a children\'s programme – length and vocabulary are adult, but the topics are ' +
+            'current and retelling becomes demanding enough for teenagers.'
       }
     },
     {
@@ -214,7 +260,8 @@ export default {
         ru: 'Единственный материал, который нужен методу. Он удерживает то, что осталось без ' +
             'ответа, и через пару месяцев наглядно показывает, сколько ребёнок уже спросил и ' +
             'выяснил.',
-        en: ''
+        en: 'The only material the method needs. It records what has been left open and, after a ' +
+            'few months, makes visible how much the child has already asked and answered.'
       },
       diy: {
         de: 'Ein liniertes Schulheft A5. Linke Seite: Datum, Sendung, die Frage vor dem Schauen. ' +
@@ -227,7 +274,12 @@ export default {
             'пока он сам пишет медленно. Внизу строка «осталось непонятным» для вопроса, на который ' +
             'передача не ответила. Каждые десять страниц оставлять пустой разворот и собирать там ' +
             'вместе с ребёнком то, что уже выяснилось.',
-        en: ''
+        en: 'A lined A5 school exercise book. Left page: date, programme, the question asked ' +
+            'before watching. Right page: the answer in one sentence, dictated by the child and ' +
+            'written down by you as long as it does not yet write fluently. At the bottom, a line ' +
+            'headed "still open" for the question the programme did not answer. Every ten pages, ' +
+            'leave a double page free and use it to collect with the child what has been cleared ' +
+            'up in the meantime.'
       }
     }
   ],

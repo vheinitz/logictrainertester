@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Klassische Strategiespiele (Mühle, Dame, 4 Gewinnt)',
     ru: 'Классические стратегические игры (мельница, шашки, «четыре в ряд»)',
-    en: ''
+    en: 'Classic Strategy Games (Nine Men\'s Morris, Draughts, Connect 4)'
   },
 
   short: {
     de: 'Mühle, Dame und 4 Gewinnt üben, Züge vorauszudenken und die Absicht des Gegenübers zu erkennen.',
     ru: 'Мельница, шашки и «четыре в ряд» учат просчитывать ходы и разгадывать замысел соперника.',
-    en: ''
+    en: 'Nine Men\'s Morris, draughts and Connect 4 train thinking moves ahead and recognising the opponent\'s intention.'
   },
 
   what: {
@@ -33,7 +33,13 @@ export default {
         'тогда что сделаешь?». «Четыре в ряд» подходит примерно с пяти лет, мельница — с шести, ' +
         'шашки — с семи. Что такая игра переносится на школьные успехи, не доказано; доказуемо ' +
         'лишь то, что внутри самой игры ребёнок ходит всё осмысленнее — и этого достаточно.',
-    en: ''
+    en: 'Three old board games with very few rules but a genuine need for planning: whoever wants ' +
+        'to win has to think their own move through to the end while taking the other player\'s ' +
+        'move into account. That is exactly the exercise – not learning openings by heart, but ' +
+        'the question "and what will you do then?". Connect 4 works from about five years, Nine ' +
+        'Men\'s Morris from six, draughts from seven. That such play transfers to school ' +
+        'performance is not established; all that can be shown is that children make ' +
+        'increasingly planned moves within the game itself – and that is reason enough.'
   },
 
   steps: {
@@ -57,7 +63,16 @@ export default {
       'После партии минуту разобрать: какой один ход всё решил? Доску для этого не разбирать.',
       'Играть недолго: две-три партии, 10–15 минут, заканчивать, пока ещё интересно.'
     ],
-    en: []
+    en: [
+      'Start with Connect 4: seven columns, six rows, whoever gets four in a line wins. The rule is explained in half a minute.',
+      'Play the first game without any advice at all. Only once the child knows the rule confidently should you talk about tactics.',
+      'From the second game on, think out loud – but only the adult: "If I drop mine in here, I have three at the bottom. Then you will have to block at the top."',
+      'Before each of the child\'s moves, ask one single question: "What will I do if you put that there?" Wait for the answer, then let them move.',
+      'Instead of playing badly on purpose, take a handicap: in Nine Men\'s Morris start with seven pieces instead of nine, in draughts remove two of your own pieces from the board.',
+      'Announce traps instead of letting them snap shut: "Careful, I have just set up a double mill – can you find it?"',
+      'After the game, look back for one minute: which single move decided it? Leave the board standing for that.',
+      'Keep it short: two or three games, 10 to 15 minutes, stop while it is still fun.'
+    ]
   },
 
   tips: {
@@ -73,24 +88,29 @@ export default {
       'Двойная мельница — самая частая причина обиды. Лучше один раз спокойно построить её и объяснить, чем применить в бою.',
       'Если проигрыш вызвал злость, не переигрывать партию, а сменить игру. Назавтра доска снова на месте.'
     ],
-    en: []
+    en: [
+      'Do not lose on purpose in secret. Children notice, and the victory becomes worthless. An open handicap is more honest and has a stronger effect.',
+      'Agree on one take-back per game – but only if the child first says why the move was a bad one.',
+      'The double mill in Nine Men\'s Morris is the most common point of frustration. Set it up calmly once and explain it, instead of using it during a game.',
+      'If a defeat causes anger, do not replay the game but switch to a different one. The board will still be there the next day.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/M%C3%BChle_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: Mühle – Regeln und Strategie', ru: 'Википедия (нем.): мельница — правила и стратегия', en: '' } },
+      label: { de: 'Wikipedia: Mühle – Regeln und Strategie', ru: 'Википедия (нем.): мельница — правила и стратегия', en: 'Wikipedia (German): Nine Men\'s Morris – rules and strategy' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BB%D1%8C%D0%BD%D0%B8%D1%86%D0%B0_(%D0%B8%D0%B3%D1%80%D0%B0)', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Mühle', ru: 'Википедия: мельница (игра)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Mühle', ru: 'Википедия: мельница (игра)', en: 'Wikipedia (Russian): Nine Men\'s Morris' } },
     { url: 'https://de.wikipedia.org/wiki/Vier_gewinnt', kind: 'wiki',
-      label: { de: 'Wikipedia: Vier gewinnt', ru: 'Википедия (нем.): «четыре в ряд»', en: '' } },
+      label: { de: 'Wikipedia: Vier gewinnt', ru: 'Википедия (нем.): «четыре в ряд»', en: 'Wikipedia (German): Connect 4' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A7%D0%B5%D1%82%D1%8B%D1%80%D0%B5_%D0%B2_%D1%80%D1%8F%D0%B4', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Vier gewinnt', ru: 'Википедия: четыре в ряд', en: '' } },
+      label: { de: 'Wikipedia (russisch): Vier gewinnt', ru: 'Википедия: четыре в ряд', en: 'Wikipedia (Russian): Connect 4' } },
     { url: 'https://de.wikipedia.org/wiki/Dame_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: Dame – Varianten und Regeln', ru: 'Википедия (нем.): шашки — варианты и правила', en: '' } },
+      label: { de: 'Wikipedia: Dame – Varianten und Regeln', ru: 'Википедия (нем.): шашки — варианты и правила', en: 'Wikipedia (German): draughts – variants and rules' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A8%D0%B0%D1%88%D0%BA%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Dame/Schaschki', ru: 'Википедия: шашки', en: '' } },
+      label: { de: 'Wikipedia (russisch): Dame/Schaschki', ru: 'Википедия: шашки', en: 'Wikipedia (Russian): draughts/shashki' } },
     { url: 'https://instructions.hasbro.com/en-us/instruction/Connect-4-Game', kind: 'hersteller',
-      label: { de: 'Hasbro: Originalanleitung 4 Gewinnt (PDF, englisch)', ru: 'Hasbro: оригинальная инструкция Connect 4 (PDF, англ.)', en: '' } }
+      label: { de: 'Hasbro: Originalanleitung 4 Gewinnt (PDF, englisch)', ru: 'Hasbro: оригинальная инструкция Connect 4 (PDF, англ.)', en: 'Hasbro: original Connect 4 instructions (PDF, English)' } }
   ],
 
   products: [
@@ -106,7 +126,9 @@ export default {
         ru: 'Складная деревянная кассета, 18 фишек, доска 29,5 × 14,8 см, с 6 лет. Преимущество перед ' +
             'бумажной доской: фишки не сдвигаются, если кто-то заденет стол, а партию можно закрыть ' +
             'и сохранить до завтра.',
-        en: ''
+        en: 'A folding wooden case, 18 playing pieces, board 29.5 × 14.8 cm, from 6 years. The ' +
+            'advantage over a paper board: the pieces stay where they are if somebody bumps into ' +
+            'the table, and the game can be closed up and kept until tomorrow.'
       },
       diy: {
         de: 'Ein Mühlebrett ist in zehn Minuten gemacht: Auf Karton oder ein Holzbrett 24 × 24 cm drei ' +
@@ -119,7 +141,11 @@ export default {
             'центром. Затем четырьмя прямыми соединить середины противоположных сторон. Все 24 ' +
             'угловые и пересекающиеся точки обвести кружками диаметром 1 см. Фишки — 9 + 9 крышек от ' +
             'бутылок, пуговиц или прищепок двух цветов.',
-        en: ''
+        en: 'A Nine Men\'s Morris board is made in ten minutes: on cardboard or a wooden board of ' +
+            '24 × 24 cm draw three squares one inside the other – with sides of 24, 16 and 8 cm, ' +
+            'all with the same centre. Then join the midpoints of opposite sides with four ' +
+            'straight lines. Mark the 24 corner and intersection points as circles 1 cm across. ' +
+            'For pieces use 9 + 9 bottle caps, buttons or clothes pegs in two colours.'
       },
       // Mühlebrett: drei ineinanderliegende Quadrate mit Verbindungslinien
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
@@ -148,7 +174,9 @@ export default {
         ru: 'Складная доска 23 × 23 см, 12 светлых и 12 тёмных шашек, с 6 лет. Инструкция вложена на ' +
             'нескольких языках, в том числе на русском. Для начала играть по упрощённому правилу: ' +
             'бить можно, но бой не обязателен.',
-        en: ''
+        en: 'Folding board 23 × 23 cm with 12 light and 12 dark pieces, from 6 years. ' +
+            'Instructions are included in several languages, among them Russian. To begin with, ' +
+            'play the simple rule: capturing is allowed, but not compulsory.'
       }
     },
     {
@@ -163,7 +191,11 @@ export default {
         ru: 'Оригинал с вертикальной решёткой, два игрока, с 6 лет — на практике получается уже с пяти. ' +
             'По ссылке лежит оригинальная инструкция в PDF, но только на английском; правила подробно ' +
             'описаны и в статье Википедии выше.',
-        en: ''
+        // „nur auf Englisch" ist eine Einschränkung für deutsche und russische
+        // Leser, nicht für englische – der Zusatz entfällt hier.
+        en: 'The original with an upright grid, two players, from 6 years – in practice it works ' +
+            'from five. The link gives you the original instructions as a PDF; the rules are ' +
+            'also described in detail in the Wikipedia article above.'
       },
       diy: {
         de: 'Selbstbau als Flachversion: Auf Karton ein Raster von 7 Spalten × 6 Reihen mit 4 cm ' +
@@ -174,7 +206,10 @@ export default {
             '4 см (28 × 24 см). Играют монетами или пуговицами двух цветов, по 21 штуке. Главное — ' +
             'правило тяжести: фишку кладут только на самую нижнюю свободную клетку столбца, иначе это ' +
             'уже другая игра.',
-        en: ''
+        en: 'Home-made flat version: draw a grid of 7 columns × 6 rows with 4 cm squares on ' +
+            'cardboard (28 × 24 cm). Play with coins or buttons in two colours, 21 of each ' +
+            'colour. The gravity rule is essential: a piece may only be placed on the lowest ' +
+            'free square of a column – otherwise it is a different game.'
       }
     },
     {
@@ -189,7 +224,10 @@ export default {
         ru: 'Деревянный ящик с шахматами, шашками, мельницей, халмой, нардами, домино, микадо и ' +
             'кубиками, с 6 лет. Имеет смысл, если дети разного возраста. В последнее время временами ' +
             'отсутствовал на складе — перед заказом проверьте наличие.',
-        en: ''
+        en: 'A wooden box with chess, draughts, Nine Men\'s Morris, halma, backgammon, dominoes, ' +
+            'mikado and dice, from 6 years. Worth it if there are several children of different ' +
+            'ages. It has recently been out of stock at times – check availability before ' +
+            'ordering.'
       }
     }
   ],

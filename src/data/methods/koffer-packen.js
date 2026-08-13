@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Koffer packen',
     ru: '«Я собираю чемодан»',
-    en: ''
+    en: 'Packing the Suitcase'
   },
 
   short: {
     de: 'Reihum wird eine immer längere Aufzählung wiederholt und um einen eigenen Begriff ergänzt.',
     ru: 'По кругу повторяют всё более длинный список и добавляют к нему своё слово.',
-    en: ''
+    en: 'Taking turns, everyone repeats an ever longer list and adds one item of their own to it.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'заметен прежде всего в похожих заданиях на запоминание; что от этого сам собой улучшится ' +
         'учёба по всем предметам, не доказано. Играть можно примерно с четырёх лет — тогда с трёх-' +
         'четырёх предметов.',
-    en: ''
+    en: 'A game that needs no material: the first player says what they are putting in the suitcase, ' +
+        'the next repeats everything and adds an item of their own. The list grows by one link every ' +
+        'round. It works because it trains exactly what verbal working memory has to do: hold a ' +
+        'sequence in the right order while something new is being added at the same time. The gain ' +
+        'shows up above all in similar memory tasks – that learning in every school subject ' +
+        'automatically improves as a result is not established. Playable from about four years of ' +
+        'age, then with three or four items.'
   },
 
   steps: {
@@ -57,7 +63,15 @@ export default {
       'Играть тематическими кругами: только вещи с кухни, только животные, только слова на «а». Одна тема помогает тем, кому трудно, смешанная — нагружает тех, кому легко.',
       'Вечером спросить ещё раз, что было в чемодане. Только тогда видно, что действительно осталось в памяти.'
     ],
-    en: []
+    en: [
+      'Sit in a circle and fix the order of turns. The first player says: "I am packing my suitcase and taking with me: a toothbrush."',
+      'The next player repeats the whole sentence with all the items so far in exactly the same order and adds an item of their own.',
+      'Do not knock anyone out for a mistake. Fill the gap together ("What came after the toothbrush?") and carry on playing – whoever is sitting out is no longer practising.',
+      'After each round count out loud how long the list has become and write the best result on a note on the fridge.',
+      'Once six items are secure: invent a gesture for each item and perform it while reciting – that makes the sequence memorable for longer.',
+      'Play themed rounds: only things from the kitchen, only animals, only words starting with A. A fixed theme helps weaker children, a mixed one challenges stronger ones.',
+      'In the evening ask once more what was in the suitcase. Only then does it show whether anything has stuck.'
+    ]
   },
 
   tips: {
@@ -73,18 +87,23 @@ export default {
       'Дозировать длину: четыре-пять предметов для пятилетнего, восемь-десять для десятилетнего. Если сбой случился трижды подряд — закончить и начать заново завтра.',
       'Нелепые предметы разрешены и даже полезны: крокодил в чемодане запоминается легче, чем носок.'
     ],
-    en: []
+    en: [
+      'Speak slowly and pronounce every word clearly. Rushing takes away the time the child needs to say the sequence over inwardly.',
+      'As a prompt give only the first letter or a gesture, never the whole word. What is found without help lasts longer.',
+      'Dose the length: four to five items for a five-year-old, eight to ten for a ten-year-old. If it breaks down three times in a row, end the round and start afresh tomorrow.',
+      'Absurd objects are allowed and even useful – a crocodile in the suitcase is easier to remember than a sock.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Kofferpacken', kind: 'wiki',
-      label: { de: 'Wikipedia: Kofferpacken – Regeln und Varianten', ru: 'Википедия (нем.): «Kofferpacken» — правила и варианты', en: '' } },
+      label: { de: 'Wikipedia: Kofferpacken – Regeln und Varianten', ru: 'Википедия (нем.): «Kofferpacken» — правила и варианты', en: 'Wikipedia (German): Kofferpacken – rules and variants' } },
     { url: 'https://de.wikipedia.org/wiki/Kim-Spiel', kind: 'wiki',
-      label: { de: 'Wikipedia: Kim-Spiele – verwandte Merkspiele für alle Sinne', ru: 'Википедия (нем.): игры Кима — родственные игры на запоминание', en: '' } },
+      label: { de: 'Wikipedia: Kim-Spiele – verwandte Merkspiele für alle Sinne', ru: 'Википедия (нем.): игры Кима — родственные игры на запоминание', en: 'Wikipedia (German): Kim games – related memory games for all the senses' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%BD%D0%B5%D0%BC%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Mnemotechnik', ru: 'Википедия: мнемоника — приёмы запоминания', en: '' } },
+      label: { de: 'Wikipedia (russisch): Mnemotechnik', ru: 'Википедия: мнемоника — приёмы запоминания', en: 'Wikipedia (Russian): mnemonics' } },
     { url: 'https://www.moses-verlag.de/spielanleitungen/ich-packe-meinen-koffer/', kind: 'anleitung',
-      label: { de: 'moses. Verlag: Spielanleitung als PDF (deutsch und englisch)', ru: 'Издательство moses: правила игры в PDF (нем. и англ.)', en: '' } }
+      label: { de: 'moses. Verlag: Spielanleitung als PDF (deutsch und englisch)', ru: 'Издательство moses: правила игры в PDF (нем. и англ.)', en: 'moses. Verlag: game instructions as a PDF (German and English)' } }
   ],
 
   products: [
@@ -98,7 +117,9 @@ export default {
         ru: 'Игре не нужно ничего, кроме двух человек и спокойной минуты. Она годится в очереди, в ' +
             'машине и перед сном. Кто хочет фиксировать рекорд, кладёт рядом листок и карандаш: ' +
             'видимый прогресс удерживает ребёнка дольше, чем похвала.',
-        en: ''
+        en: 'The game needs nothing but two people and a quiet minute. It fits into a queue, into the ' +
+            'car and into bedtime. Anyone who wants to record the best result adds a slip of paper ' +
+            'and a pencil – visible progress keeps children going longer than praise does.'
       }
     },
     {
@@ -116,7 +137,11 @@ export default {
             '10 минут. Карточки снимают с ребёнка задачу придумывать: не знаешь, что сказать, — просто ' +
             'тяни карту. Для детей, которые в свободной игре каждый раз застревают на поиске слова, ' +
             'это разница между досадой и удовольствием. Кто играет уверенно, в карточках уже не нуждается.',
-        en: ''
+        en: '39 picture cards in a metal tin (7 × 10 × 2 cm), from age 4, 2 to 5 players, about ' +
+            '10 minutes. The cards take the inventing off the children: whoever does not know what ' +
+            'to say simply draws one. For children who get stuck searching for a word every time in ' +
+            'the free version, that is the difference between frustration and fun. Once a child ' +
+            'plays confidently, the cards are no longer needed.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="14" y="16" width="40" height="52" rx="4" fill="#D0CDE8"/>
@@ -135,7 +160,9 @@ export default {
             'Wortschatzübung.',
         ru: 'Собственный набор карточек можно подогнать под интересы ребёнка — экскаваторы, лошади, ' +
             'космос — и он ничего не стоит. Само изготовление уже является упражнением на словарный запас.',
-        en: ''
+        en: 'A home-made set of cards can be tailored to the child\'s interests – diggers, horses, ' +
+            'outer space – and costs nothing. On top of that, making them is already a vocabulary ' +
+            'exercise in itself.'
       },
       diy: {
         de: '40 Karten aus fester Pappe (etwa 200 g/m²) im Format 6 × 9 cm schneiden. Auf jede Karte ' +
@@ -148,7 +175,11 @@ export default {
             'один предмет на карточку, чётко узнаваемый, без фона. Углы скруглить ножницами, чтобы не ' +
             'обтрёпывались. Хранить в пустой жестянке из-под чая. Для варианта с жестами оборот ' +
             'оставить свободным и карандашом записать там условленный жест.',
-        en: ''
+        en: 'Cut 40 cards from stiff card (about 200 g/m²) in a 6 × 9 cm format. On each card draw a ' +
+            'single object or glue on a picture from an old catalogue – only one thing per card, ' +
+            'clearly recognisable, without a background. Round off the corners with scissors so ' +
+            'nothing tears. Storage: an empty dental floss or tea tin. For the gesture variant leave ' +
+            'the back blank and note the agreed gesture there in pencil.'
       }
     }
   ],

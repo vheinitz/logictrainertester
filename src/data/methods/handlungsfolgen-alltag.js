@@ -103,13 +103,13 @@ export default {
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Exekutive_Funktionen', kind: 'wiki',
-      label: { de: 'Wikipedia: Exekutive Funktionen – was beim Planen beteiligt ist', ru: 'Википедия (нем.): управляющие функции — что участвует в планировании', en: '' } },
+      label: { de: 'Wikipedia: Exekutive Funktionen – was beim Planen beteiligt ist', ru: 'Википедия (нем.): управляющие функции — что участвует в планировании', en: 'Wikipedia (German): executive functions – what is involved in planning' } },
     { url: 'https://www.bzfe.de/schule-und-kita/material-fuer-die-schule/grundschule/der-ernaehrungsfuehrerschein', kind: 'anleitung',
-      label: { de: 'Ernährungsführerschein: kostenlose Rezepte und Arbeitsblätter (BZfE)', ru: '«Права по питанию»: бесплатные рецепты и рабочие листы (BZfE, Германия)', en: '' } },
+      label: { de: 'Ernährungsführerschein: kostenlose Rezepte und Arbeitsblätter (BZfE)', ru: '«Права по питанию»: бесплатные рецепты и рабочие листы (BZfE, Германия)', en: 'Ernährungsführerschein ("nutrition licence"): free recipes and worksheets (BZfE, Germany)' } },
     { url: 'https://de.wikipedia.org/wiki/Origami', kind: 'wiki',
-      label: { de: 'Wikipedia: Origami – Faltzeichen und Grundformen', ru: 'Википедия (нем.): оригами — условные знаки и базовые формы', en: '' } },
+      label: { de: 'Wikipedia: Origami – Faltzeichen und Grundformen', ru: 'Википедия (нем.): оригами — условные знаки и базовые формы', en: 'Wikipedia (German): origami – folding symbols and basic forms' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9E%D1%80%D0%B8%D0%B3%D0%B0%D0%BC%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Origami', ru: 'Википедия: оригами', en: '' } }
+      label: { de: 'Wikipedia (russisch): Origami', ru: 'Википедия: оригами', en: 'Wikipedia (Russian): origami' } }
   ],
 
   products: [
@@ -124,7 +124,9 @@ export default {
         ru: 'Главный инструмент этого метода, и купить его лучше, чем сделать самому, нигде ' +
             'нельзя: ряд карточек, который держит ход дела на виду. Годится и для утра, и для ' +
             'рецепта, и для инструкции по поделке.',
-        en: ''
+        en: 'The most important tool of this method, and there is no shop version better than ' +
+            'the home-made one: a row of cards that keeps the procedure visible. Works equally ' +
+            'well for the morning routine, for the recipe and for the craft instructions.'
       },
       diy: {
         de: 'Sechs bis acht Karten von 8 × 8 cm aus fester Pappe schneiden. Auf jede vorne ein ' +
@@ -146,7 +148,16 @@ export default {
             'При готовке карточки кладут в файл и вытирают брызги. Ламинатор не нужен — две ' +
             'полосы широкого скотча по лицевой стороне держатся год. Пользоваться карточками ' +
             'только пока дело не получается без них, потом убрать.',
-        en: ''
+        en: 'Cut six to eight cards of 8 × 8 cm from stiff cardboard. On the front of each put a ' +
+            'photo of the child doing exactly that step (taken with a phone, printed at 7 × 7 cm ' +
+            'or glued straight onto the card) and a keyword underneath; the back stays plain. A ' +
+            'typical morning routine: get up, make the bed, get dressed, brush teeth, have ' +
+            'breakfast, pack the school bag, put shoes on. In the kitchen, hang the row with ' +
+            'clothes pegs on a string about 80 cm long at the child\'s eye level; a completed ' +
+            'card is turned over. When cooking, put the cards in a clear plastic sleeve and wipe ' +
+            'off splashes. A laminator is not needed – two strips of wide adhesive tape across ' +
+            'the front last a year. Use the cards only until the procedure works without them, ' +
+            'then put them away.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <line x1="6" y1="18" x2="114" y2="18" stroke="#D0CDE8" stroke-width="2"/>
@@ -180,7 +191,11 @@ export default {
             'поделок. Всё рассчитано на обычный кухонный уголок без школьной кухни и потому ' +
             'прямо годится дома. Письма для родителей приложены на десяти языках, в том числе ' +
             'на русском.',
-        en: ''
+        en: 'A free downloadable teaching pack for primary school from year 3 onwards: sixteen ' +
+            'simple recipes, worksheets for preparation and follow-up, craft templates. ' +
+            'Everything is designed for an ordinary kitchen unit without a school kitchen and is ' +
+            'therefore directly usable at home. Letters to parents are included in ten ' +
+            'languages, among them Russian.'
       }
     },
     {
@@ -198,7 +213,11 @@ export default {
             'Книги, где ход дела написан сплошным текстом, для этого упражнения не годятся — ' +
             'тогда взрослый читает вслух, а ребёнок только мешает ложкой. Книги с двадцатью ' +
             'пригодными рецептами хватает на год.',
-        en: ''
+        en: 'When buying, look for three things: every step has its own picture, the ingredients ' +
+            'with quantities and the utensils are listed at the beginning, and the recipes manage ' +
+            'with no more than eight steps. Books in which the procedure is written as continuous ' +
+            'prose are no good for this exercise – then the adult reads aloud and the child only ' +
+            'stirs. One book with twenty usable recipes lasts a year.'
       }
     },
     {
@@ -215,7 +234,11 @@ export default {
             'результат, никакой грязи. Стандартный лист 15 × 15 см; новичкам легче 20 × 20 см, ' +
             'потому что по краям проще попадать. Начинать с условных знаков (складка «долина» — ' +
             'пунктир, «гора» — штрихпунктир), иначе любая инструкция нечитаема.',
-        en: ''
+        en: 'Folding is the cheapest action sequence there is: clear steps, an immediately ' +
+            'visible result, no mess. The standard sheet is 15 × 15 cm; for beginners 20 × 20 cm ' +
+            'is easier, because the edges are simpler to line up. Start with the folding symbols ' +
+            '(valley fold dashed, mountain fold dash-dotted), otherwise every set of ' +
+            'instructions is unreadable.'
       },
       diy: {
         de: 'Faltpapier lässt sich aus normalem Druckerpapier machen: Ein A4-Blatt an der ' +
@@ -231,7 +254,13 @@ export default {
             'они тоньше и складываются лучше, чем цветной картон. Для собственной инструкции ' +
             'сфотографировать каждый шаг складывания, наклеить снимки по номерам на лист A4 и ' +
             'вложить в файл — по нему ребёнок потом сам повторит уже выученную фигурку.',
-        en: ''
+        en: 'Folding paper can be made from ordinary printer paper: fold an A4 sheet diagonally ' +
+            'from the short edge and cut off the 8 cm overhang – what remains is a clean square ' +
+            'of 21 × 21 cm. If you want coloured paper, use old magazines or advertising ' +
+            'brochures; they are thinner and fold better than construction paper. For your own ' +
+            'set of instructions, photograph every folding step, glue the numbered pictures onto ' +
+            'a sheet of A4 and put it in a clear plastic sleeve – with that the child can later ' +
+            'repeat a figure it has already learned on its own.'
       }
     }
   ],

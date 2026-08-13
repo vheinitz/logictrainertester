@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Muster- und Kombinationsspiele (SET, Qwirkle, Rummikub)',
     ru: 'Игры на узоры и комбинации (SET, Qwirkle, Rummikub)',
-    en: ''
+    en: 'Pattern and combination games (SET, Qwirkle, Rummikub)'
   },
 
   short: {
     de: 'Karten- und Legespiele, bei denen Reihen nach mehreren Merkmalen gleichzeitig gebildet werden.',
     ru: 'Карточные и настольные игры, где ряды строят сразу по нескольким признакам.',
-    en: ''
+    en: 'Card and tile-laying games in which rows are built according to several attributes at once.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'Перенос на школьные оценки не доказан, и ждать его не стоит; ценность в том, что ребёнок ' +
         'добровольно проводит полчаса над мыслительной задачей и нащупывает правила сам, а не ' +
         'получает их в виде объяснения.',
-    en: ''
+    en: 'In these games a single attribute is never enough: in SET, colour, shape, number and ' +
+        'shading all have to match at the same time; in Qwirkle it is colour and shape; in ' +
+        'Rummikub, number sequence and colour. The child has to hold a rule in mind, scan the ' +
+        'whole layout against it, and rethink after every turn because the situation has ' +
+        'changed. A transfer to school grades is not proven and should not be expected; the ' +
+        'value lies in the fact that children voluntarily stay with a thinking task for half ' +
+        'an hour and try rules out for themselves instead of having them explained.'
   },
 
   steps: {
@@ -57,7 +63,15 @@ export default {
       '«Руммикуб» — примерно с восьми лет: 106 фишек с числами от 1 до 13 в четырёх цветах, каждое число дважды. Выкладывают либо ряды одного цвета (5-6-7 синие), либо группы одинаковых чисел разного цвета. Первый выход должен давать в сумме не меньше 30 очков.',
       'После игры минута разбора, всегда один и тот же вопрос: «Какую комбинацию ты увидел первой — и по какому признаку?» Так случайная находка превращается в стратегию поиска.'
     ],
-    en: []
+    en: [
+      'Start with SET, but pared down: take only the 27 red cards and lay out nine of them face up. That removes colour as the fourth attribute, leaving number, shape and shading.',
+      'Do not explain the rule — show it: lay down three cards that go together and, for each attribute, say out loud "all the same" or "all different". Then lay down three cards that are not a set and say what makes them fail.',
+      'Play without time pressure: whoever spots a set puts a hand on it and explains it attribute by attribute. Only once that is solid, use all 81 cards with twelve laid out face up.',
+      'Qwirkle as the second game: 108 tiles, six colours and six shapes. A line may be either the same colour with all different shapes, or the same shape with all different colours — and no tile may appear twice in a line. Six tiles in a line (a "Qwirkle") score twelve points.',
+      'Play the first Qwirkle games without keeping score: just keep placing tiles until they run out. The arithmetic comes in once the placing is secure.',
+      'Rummikub for children from about eight: 106 tiles with the numbers 1 to 13 in four colours, each number twice. You lay either runs of one colour (5-6-7 blue) or groups of the same number in different colours. The first meld must add up to at least 30 points.',
+      'After the game, debrief for one minute, always with the same question: "Which combination did you see first — and what gave it away?" That turns a lucky find into a search strategy.'
+    ]
   },
 
   tips: {
@@ -73,20 +87,25 @@ export default {
       'В «Руммикубе» убрать таймер и держать свои фишки открыто на подставке. Прятать их — лишняя нагрузка на рабочую память, которой не хватит на комбинации.',
       'После неверного хода разрешить его вернуть и вместе разобрать, почему не подходит. Разобранная ошибка полезнее выигранной партии.'
     ],
-    en: []
+    en: [
+      'Adults do not play to win. With SET there is a simple handicap: the child may collect three cards before the adult is allowed to start looking at all.',
+      'Speed is not the goal in SET. Whoever rushes grabs blindly; whoever calmly checks one attribute after another finds more.',
+      'With Rummikub, leave out the timer and stand your own tiles openly in front of you. Keeping them hidden costs working memory that is then missing for combining.',
+      'After a wrong move, let it be taken back and look together at why it does not fit. An explained mistake is worth more than a won game.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Set_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: SET – Regeln und Kartenaufbau', ru: 'Википедия (нем.): SET, правила и устройство колоды', en: '' } },
+      label: { de: 'Wikipedia: SET – Regeln und Kartenaufbau', ru: 'Википедия (нем.): SET, правила и устройство колоды', en: 'Wikipedia (German): SET – rules and structure of the deck' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A1%D0%B5%D1%82_(%D0%B8%D0%B3%D1%80%D0%B0)', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): SET', ru: 'Википедия: Сет (игра)', en: '' } },
+      label: { de: 'Wikipedia (russisch): SET', ru: 'Википедия: Сет (игра)', en: 'Wikipedia (Russian): SET (game)' } },
     { url: 'https://de.wikipedia.org/wiki/Qwirkle', kind: 'wiki',
-      label: { de: 'Wikipedia: Qwirkle', ru: 'Википедия (нем.): Qwirkle', en: '' } },
+      label: { de: 'Wikipedia: Qwirkle', ru: 'Википедия (нем.): Qwirkle', en: 'Wikipedia (German): Qwirkle' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A0%D1%83%D0%BC%D0%BC%D0%B8%D0%BA%D1%83%D0%B1', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Rummikub', ru: 'Википедия: Руммикуб', en: '' } },
+      label: { de: 'Wikipedia (russisch): Rummikub', ru: 'Википедия: Руммикуб', en: 'Wikipedia (Russian): Rummikub' } },
     { url: 'https://rummikub.com/rules/', kind: 'anleitung',
-      label: { de: 'Offizielle Rummikub-Spielregeln (englisch)', ru: 'Официальные правила «Руммикуба» (на английском)', en: '' } }
+      label: { de: 'Offizielle Rummikub-Spielregeln (englisch)', ru: 'Официальные правила «Руммикуба» (на английском)', en: 'Official Rummikub game rules (in English)' } }
   ],
 
   products: [
@@ -104,7 +123,10 @@ export default {
             'лет»; в облегчённом одноцветном варианте можно примерно с шести. Немецкое издание ' +
             'AMIGO сейчас отсутствует в их каталоге, международное издание идёт с правилами на ' +
             'нескольких языках и с теми же картами.',
-        en: ''
+        en: '81 cards, one rule, no board – fits in a jacket pocket. Stated as from eight years; ' +
+            'with the reduced single-colour variant it works from about six. The German AMIGO ' +
+            'edition is currently no longer in their catalogue; the international edition has ' +
+            'multilingual rules and identical cards.'
       },
       // Drei Karten: ein gültiges Set (Anzahl verschieden, Form gleich, Farbe gleich)
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
@@ -133,7 +155,10 @@ export default {
             'это честно: без подсчёта очков выкладывать может и дошкольник, счёт добавляется ' +
             'позже. Игра года 2011 (Германия). Есть дорожная версия с мелкими фишками — для ' +
             'маленьких рук и для раскладки лучше большое издание.',
-        en: ''
+        en: '108 thick wooden tiles, six colours in six shapes. Stated as from six years, and ' +
+            'that is fair: without keeping score, preschool children can place tiles too, the ' +
+            'arithmetic comes later. Spiel des Jahres 2011. There is a travel version with ' +
+            'smaller tiles – for small hands and for sorting, the large edition is better.'
       }
     },
     {
@@ -150,7 +175,10 @@ export default {
             'реально имеет смысл при уверенном счёте до 13 — обычно с восьми. Для младших есть ' +
             '«Rummikub Junior» с картинками вместо чисел. Стоит брать оригинальное издание: у ' +
             'дешёвых копий фишки слишком тонкие и скользят.',
-        en: ''
+        en: '106 tiles, four racks, numbers 1–13 in four colours. Stated as from seven years; it ' +
+            'makes sense once the number range up to 13 is secure – usually from eight. For ' +
+            'younger children there is "Rummikub Junior" with pictures instead of numbers. Look ' +
+            'for the original edition: cheap copies have slippery tiles that are too thin.'
       }
     },
     {
@@ -163,7 +191,9 @@ export default {
             'auf Bänkchen zu stehen.',
         ru: 'Если покупать «Руммикуб» не хочется, вполне хватит двух обычных колод: ряды и группы ' +
             'выкладываются точно так же, только карты лежат на столе, а не стоят на подставке.',
-        en: ''
+        en: 'If you do not want to buy Rummikub, two ordinary decks of cards will take you a long ' +
+            'way: runs and groups can be laid in exactly the same way, only the cards lie flat ' +
+            'instead of standing on racks.'
       },
       diy: {
         de: 'Aus zwei Blatt Romméekarten alle Bilder und Joker aussortieren, sodass die Werte 1 ' +
@@ -180,7 +210,13 @@ export default {
             'пополам, тогда карты стоят. Для самодельного SET хватит 27 карточек формата A7: ' +
             'тремя фломастерами рисуют один, два или три круга, треугольника или квадрата — ' +
             'каждое сочетание ровно один раз.',
-        en: ''
+        en: 'From two rummy decks, sort out all the picture cards and jokers so that the values 1 ' +
+            'to 10 in four suits remain twice over – that is a small Rummikub with 80 cards. ' +
+            'Everyone draws 14 cards, the first meld has to add up to 30 points, and you lay ' +
+            'runs of one suit or groups of the same number. As a rack, fold a strip of ' +
+            'corrugated cardboard 30 × 6 cm in half lengthwise, then the cards stand up. For a ' +
+            'home-made SET, 27 index cards (A7) are enough: with three felt pens you draw one, ' +
+            'two or three circles, triangles or squares – each combination exactly once.'
       }
     }
   ],

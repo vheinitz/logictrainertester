@@ -123,7 +123,10 @@ export default {
             'с повторяющимися фразами; с шести лет — первые главы с иллюстрациями. Важнее названия то, чтобы на каждой ' +
             'странице было достаточно видно, о чём можно поговорить: книги со скупыми иллюстрациями хороши для чтения ' +
             'вслух, но плохи для совместного рассказывания.',
-        en: ''
+        en: 'Rule of thumb: up to age three, sturdy board pages and one object per picture; three to five years, short ' +
+            'stories with recurring sentences; from age six, first chapters with pictures. More important than the title ' +
+            'is that every page shows enough to talk about – books with very sparse pictures are fine for reading aloud ' +
+            'but poor for telling stories together.'
       }
     },
     {
@@ -138,7 +141,9 @@ export default {
         ru: 'Оба языка идут параллельно на одной странице, ко многим книгам есть аудиозапись, начитанная носителями. ' +
             'Удобно, когда читающий уверенно владеет только одним из двух языков. Немецко-русская серия — около двух ' +
             'десятков наименований — самая крупная у издательства.',
-        en: ''
+        en: 'Both languages appear side by side on the same page, and many titles come with an audio book read by ' +
+            'native speakers. Practical when a reading adult speaks only one of the two languages confidently. ' +
+            'German/Russian, with around two dozen titles, is the publisher\'s largest range.'
       }
     },
     {
@@ -152,7 +157,9 @@ export default {
         ru: 'Самое дешёвое решение: взять сразу двадцать книжек с картинками и за четыре недели увидеть, какие три ребёнок ' +
             'приносит снова и снова. Покупать стоит только их. Во многих библиотеках есть отдел иноязычных и двуязычных ' +
             'детских книг, а также аудиокниги на дом.',
-        en: ''
+        en: 'The cheapest solution: borrow twenty picture books at once and see over four weeks which three the child ' +
+            'keeps coming back to. Only those are worth buying. Many libraries have a section with foreign-language ' +
+            'and bilingual children\'s books and also lend out audio books.'
       }
     },
     {
@@ -166,7 +173,9 @@ export default {
             'Bücher gekauft werden.',
         ru: 'Каждую неделю три новые иллюстрированные истории для чтения вслух — на три, пять и семь лет, в браузере или в ' +
             'приложении, можно и распечатать. Удобно в дороге и чтобы понять, какие истории заходят, прежде чем покупать книги.',
-        en: ''
+        en: 'Three new illustrated read-aloud stories every week, for ages three, five and seven, in the browser or as ' +
+            'an app, and printable as well. Good for when you are out and about and for finding out which kind of ' +
+            'story goes down well before buying books.'
       }
     },
     {
@@ -180,7 +189,9 @@ export default {
         ru: 'Книга про собственную жизнь ребёнка — отпуск, бабушка, первый день в саду. По такой книге дети рассказывают ' +
             'заметно больше, чем по чужим историям, потому что предыстория им уже известна; для молчаливых детей и для ' +
             'начала работы с рассказом это лучший первый вариант.',
-        en: ''
+        en: 'A book about the child\'s own life – the holiday, grandma, the first day at kindergarten. Children say ' +
+            'considerably more about this than about someone else\'s stories, because they already have the background ' +
+            'knowledge; for quiet children and as a way into narrating, this is the best first choice.'
       },
       diy: {
         de: 'Acht bis zwölf Fotos auf 10 × 15 cm ausdrucken, je eines mittig auf ein Blatt festen Papiers (A5, mindestens ' +
@@ -193,7 +204,11 @@ export default {
             '«Аня строит замок». Листы дважды пробить по левому краю и скрепить кольцами для переплёта или шнурком, ' +
             'чтобы можно было добавлять страницы. Расположить снимки в хронологическом порядке — тогда при пересказе ' +
             'можно отрабатывать «сначала — потом — в конце».',
-        en: ''
+        en: 'Print eight to twelve photos at 10 × 15 cm and glue each one in the middle of a sheet of firm paper ' +
+            '(A5, at least 160 g/m²). Under every picture write a single short sentence in print letters, for example ' +
+            '"Anna is building a castle". Punch two holes along the left edge of the sheets and bind them with book ' +
+            'rings or a cord so that pages can be added later. Put them in chronological order – then retelling can ' +
+            'be used to practise "first – then – finally".'
       }
     }
   ],

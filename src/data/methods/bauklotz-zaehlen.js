@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Bauklötze zählen – auch verdeckte',
     ru: 'Подсчёт кубиков, включая скрытые',
-    en: ''
+    en: 'Counting building blocks – including hidden ones'
   },
 
   short: {
     de: 'In einem Würfelgebäude werden alle Klötze gezählt, auch die, die man von außen nicht sieht.',
     ru: 'В постройке из кубиков считают все кубики, включая те, которых снаружи не видно.',
-    en: ''
+    en: 'In a cube building, all blocks are counted, including those that cannot be seen from the outside.'
   },
 
   what: {
@@ -35,7 +35,14 @@ export default {
         'тренировке. У задания есть редкое достоинство: оно проверяет само себя, ведь в конце ' +
         'постройку разбирают и пересчитывают. Влияет ли такая тренировка на оценки по математике, ' +
         'неизвестно; а вот то, что дети увереннее описывают и воспроизводят постройки, видно быстро.',
-    en: ''
+    en: 'A small building is made from cubes of equal size; the child is asked to say how many ' +
+        'blocks it consists of. The appeal lies in the blocks you cannot see: if one sits on top, ' +
+        'there has to be one underneath, even if it is hidden. The child therefore has to fill in ' +
+        'what the eye does not supply – that is exactly what spatial visualization is, and it is ' +
+        'considered trainable. The task has a rare advantage: it checks itself, because at the end ' +
+        'the building is taken apart and the blocks are recounted. Whether the training affects ' +
+        'math grades is an open question; that children describe and rebuild structures more ' +
+        'confidently afterwards shows quickly.'
   },
 
   steps: {
@@ -59,7 +66,16 @@ export default {
       'Усложнять: постройка с пустотой внутри, затем счёт только по рисунку или фотографии, без самой постройки.',
       'Поменяться ролями. Ребёнок строит и считает, взрослый угадывает — и один раз ошибается нарочно, чтобы можно было возразить.'
     ],
-    en: []
+    en: [
+      'Lay out ten to twenty cubes of equal size, edge length 2 to 3 cm. Different sizes or colors only get in the way at the beginning.',
+      'Behind an upright book, build a structure of five cubes: four side by side in a row, one on top – this way no block is hidden.',
+      'Remove the book; the child may walk around the table and look, but not touch anything. The child names a number before anything is counted.',
+      'Take the building apart together and recount the blocks in a row. Always let the child count, even if the number was already correct.',
+      'Now hide a block: two blocks side by side, two behind them, one crosswise on top – now one is no longer visible from the front. Ask the question: "How do you know there is one back there?"',
+      'Offer a counting strategy if the child is guessing: by levels ("four at the bottom, two on top, makes six") or by towers ("two towers of three").',
+      'Make it harder: buildings with a hollow space, then counting a building only from a drawing or a photo, without the original.',
+      'Swap roles. The child builds and counts, the adult guesses – and deliberately miscounts once, so that the child gets to object.'
+    ]
   },
 
   tips: {
@@ -75,18 +91,23 @@ export default {
       'Неверное число не исправлять, а дать разобрать постройку. Учит именно противоречие между догадкой и действительностью.',
       'Не дольше десяти минут подряд. Потом лучше дать построить что-нибудь свободно — это тоже тренирует пространственное представление.'
     ],
-    en: []
+    en: [
+      'Forbid touching and turning, allow walking around. Whoever takes the building apart is counting – there is nothing left to imagine.',
+      'The real mental work lies in the justification, not in the number. "There has to be one, otherwise the top one would fall down" is the answer that matters.',
+      'Do not correct wrong numbers; let the child take the building apart instead. The contradiction between guess and reality is the teacher.',
+      'Ten minutes at a stretch at most. After that, better to let the child build freely – that trains spatial visualization too.'
+    ]
   },
 
   links: [
     { url: 'https://pikas.dzlm.de/unterricht/raum-und-form/k%C3%B6rper/bauen-mit-w%C3%BCrfeln', kind: 'anleitung',
-      label: { de: 'PIKAS (TU Dortmund): Bauen mit Würfeln – kostenlose Arbeitsblätter', ru: 'PIKAS (ТУ Дортмунд): постройки из кубиков — бесплатные рабочие листы', en: '' } },
+      label: { de: 'PIKAS (TU Dortmund): Bauen mit Würfeln – kostenlose Arbeitsblätter', ru: 'PIKAS (ТУ Дортмунд): постройки из кубиков — бесплатные рабочие листы', en: 'PIKAS (TU Dortmund): building with cubes – free worksheets (German)' } },
     { url: 'https://de.wikipedia.org/wiki/R%C3%A4umliches_Vorstellungsverm%C3%B6gen', kind: 'wiki',
-      label: { de: 'Wikipedia: Räumliches Vorstellungsvermögen', ru: 'Википедия (нем.): пространственное представление', en: '' } },
+      label: { de: 'Wikipedia: Räumliches Vorstellungsvermögen', ru: 'Википедия (нем.): пространственное представление', en: 'Wikipedia (German): spatial visualization ability' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9F%D1%80%D0%BE%D1%81%D1%82%D1%80%D0%B0%D0%BD%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5_%D1%81%D0%BF%D0%BE%D1%81%D0%BE%D0%B1%D0%BD%D0%BE%D1%81%D1%82%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Räumliche Fähigkeiten', ru: 'Википедия: пространственные способности', en: '' } },
+      label: { de: 'Wikipedia (russisch): Räumliche Fähigkeiten', ru: 'Википедия: пространственные способности', en: 'Wikipedia (Russian): spatial abilities' } },
     { url: 'https://de.wikipedia.org/wiki/Soma-W%C3%BCrfel', kind: 'wiki',
-      label: { de: 'Wikipedia: Somawürfel – Fortsetzung für Fortgeschrittene', ru: 'Википедия (нем.): куб Сома — продолжение для продвинутых', en: '' } }
+      label: { de: 'Wikipedia: Somawürfel – Fortsetzung für Fortgeschrittene', ru: 'Википедия (нем.): куб Сома — продолжение для продвинутых', en: 'Wikipedia (German): Soma cube – a follow-up for advanced builders' } }
   ],
 
   products: [
@@ -101,7 +122,10 @@ export default {
         ru: 'Главное требование — одинаковость: все кубики точно одного размера, лучше всего одного ' +
             'цвета. Разноцветные подталкивают считать по цветам, а не по положению. Ребро 3 см удобно ' +
             'лежит в детской руке; 20 штук хватает на постройки примерно до двенадцати кубиков.',
-        en: ''
+        en: 'The most important feature is sameness: all cubes exactly the same size, ideally all in ' +
+            'the same color. Colored cubes tempt the child to count by color instead of by position. ' +
+            '3 cm sits well in children\'s hands; 20 pieces are enough for buildings of up to about ' +
+            'twelve blocks.'
       },
       diy: {
         de: 'Aus einer Kantholzleiste 30 × 30 mm (Fichte, im Baumarkt meterweise) 20 Stück à 3 cm ' +
@@ -114,7 +138,11 @@ export default {
             'кололись занозы. Оставить необработанными или протереть растительным маслом; лак делает ' +
             'кубики скользкими, и башни разваливаются. Кто не хочет пилить, возьмёт 20 одинаковых ' +
             'спичечных коробков или пустых гильз от чайных свечей.',
-        en: ''
+        en: 'From a square timber batten 30 × 30 mm (spruce, sold by the meter at any DIY store), saw ' +
+            'off 20 pieces of 3 cm each – a miter box ensures right angles. Break the edges with 120-grit ' +
+            'sandpaper so that nothing splinters. Leave them untreated or rub them with cooking oil; ' +
+            'varnish makes the cubes slippery and the towers fall over. Anyone who does not want to saw ' +
+            'can use 20 identical matchboxes or empty tea light cups.'
       },
       // Würfelgebäude in Schrägbild, ein Klotz verdeckt
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
@@ -149,7 +177,10 @@ export default {
             'через десяток. С ребром 1 см они мелковаты для маленьких рук, зато позволяют строить ' +
             'большие постройки, и связь со счётом возникает сама собой. У производителя больше нет ' +
             'собственной страницы заказа, поэтому ссылка на магазин учебных пособий.',
-        en: ''
+        en: 'A hundred exactly identical cubes made of RE-Wood, actually arithmetic material for ' +
+            'crossing the ten. At 1 cm they are fiddly for small hands, but they allow large buildings, ' +
+            'and the link to arithmetic arises by itself. The manufacturer no longer has its own order ' +
+            'page, hence the link to the educational supplies retailer.'
       }
     },
     {
@@ -163,7 +194,9 @@ export default {
         ru: 'Как только счёт по настоящей постройке освоен, наступает следующий шаг: только картинка, ' +
             'никакой постройки. Готовые шаблоны бесплатно есть у PIKAS (ссылка выше); самодельные ' +
             'карточки хороши тем, что сложность можно точно подобрать.',
-        en: ''
+        en: 'As soon as counting on a real building is secure, the next step follows: only a picture, ' +
+            'no structure. Ready-made templates are available free of charge from PIKAS (link above); ' +
+            'home-made cards have the advantage that you can control the difficulty precisely.'
       },
       diy: {
         de: 'Karteikarten A6 nehmen. Auf Isometriepapier (Dreiecksraster, kostenlos ausdruckbar) das ' +
@@ -176,7 +209,11 @@ export default {
             'параллелограмма по бокам, ребро около 1,5 см. На обороте написать количество, чтобы ' +
             'ребёнок мог проверить себя сам. Десяти карточек хватит на недели: пять с тремя-пятью ' +
             'кубиками, три с шестью-восемью, две с полостью внутри.',
-        en: ''
+        en: 'Take A6 index cards. On isometric paper (triangular grid, free to print out), draw the ' +
+            'building as an oblique view: each cube gets a rhombus on top and two parallelograms at the ' +
+            'sides, edge length about 1.5 cm. Write the number on the back so the child can check ' +
+            'itself. Ten cards are enough for weeks: five with three to five blocks, three with six to ' +
+            'eight, two with a hollow space.'
       }
     }
   ],

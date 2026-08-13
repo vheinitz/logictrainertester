@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Sortieren und Kategorisieren',
     ru: 'Сортировка и категоризация',
-    en: ''
+    en: 'Sorting and Categorizing'
   },
 
   short: {
     de: 'Dinge nach Form, Farbe, Größe oder Sachgruppe ordnen – und die Regel dazu benennen.',
     ru: 'Раскладывать предметы по форме, цвету, размеру или смысловой группе — и называть правило.',
-    en: ''
+    en: 'Arranging things by shape, color, size or category – and naming the rule behind it.'
   },
 
   what: {
@@ -35,7 +35,14 @@ export default {
         'по форме требует отпустить только что действовавшее правило. Именно на этом младшие ' +
         'дети надёжно спотыкаются, и именно это тренируется. Подходит примерно с трёх лет для ' +
         'двух признаков, с шести-семи — и для двух признаков одновременно.',
-    en: ''
+    en: 'A pile of buttons turns into three small heaps, and the child says what it sorted them ' +
+        'by. That sounds trivial, but it is the basic exercise of conceptual thinking: whoever ' +
+        'sorts has to decide which feature counts right now and which is irrelevant. What is ' +
+        'particularly effective is not the sorting itself but the change of rule – arranging the ' +
+        'same material first by color and then by shape requires letting go of a rule that was ' +
+        'valid a moment ago. This is precisely where younger children reliably fail, and ' +
+        'precisely what can be practiced. Suitable from about three years of age with two ' +
+        'features, and at six to seven years also with two features at the same time.'
   },
 
   steps: {
@@ -59,7 +66,16 @@ export default {
       'Два признака сразу: нарисовать на листе сетку 3×3, строки — цвета, столбцы — формы. В каждую клетку кладётся предмет, подходящий по обоим признакам.',
       'Продолжать в быту: раскладывать покупки по полкам и называть — «фрукты, молочное, стиральные средства». Разбирать бельё по членам семьи — то же самое.'
     ],
-    en: []
+    en: [
+      'Fifteen to twenty things from the kitchen drawer onto the table: buttons, lids, clothes pegs, spoons, building blocks. Plus three shallow bowls.',
+      'First let the child sort freely, without any instruction. Then the decisive question: "What did you sort by?" The answer matters more than the heaps.',
+      'Now set the rule: "Everything that is round goes into this bowl." The child sorts, then you go through the bowl together and check every piece.',
+      'Change of rule with the same material: everything back into one pile, now by color, then by size. This switching is the actual exercise – three times is enough.',
+      'Swap roles: the adult sorts according to a secret rule and lays out five examples. The child guesses the rule and adds the next pieces itself.',
+      'Look for the odd one out: lay out four things, one of which does not fit. The child points to it and has to give a reason why. Without a reason it does not count.',
+      'Two features at once: draw a 3×3 grid on a sheet of paper, rows are colors, columns are shapes. Every cell gets a piece that fits both.',
+      'Carry on in everyday life: put the shopping away on the shelves and name the groups while doing so – "fruit, dairy products, detergents". Sorting the laundry by family member works the same way.'
+    ]
   },
 
   tips: {
@@ -75,18 +91,23 @@ export default {
       'Не говорить «неправильно», а взять спорный предмет в руки: «А вот этот — куда он идёт по твоему правилу?»',
       'Пяти-десяти минут достаточно. Сортировка быстро превращается в механическую работу, и тогда никто уже ничему не учится.'
     ],
-    en: []
+    en: [
+      'If the child sorts according to an unusual but consistently maintained rule ("the ones I like"), that is correct. It only has to be consistent.',
+      'First put only two features into the material (for example just red/blue and round/angular), later three. Twenty colorful things with six features are nothing but chaos for a four-year-old.',
+      'Do not say "wrong", but pick up the disputed piece: "And this one here – where does it belong according to your rule?"',
+      'Five to ten minutes are enough. Sorting quickly turns into busywork, and then nobody learns anything anymore.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Zoltan_Dienes', kind: 'wiki',
-      label: { de: 'Wikipedia: Zoltan Dienes, Erfinder der Logischen Blöcke', ru: 'Википедия (нем.): Золтан Дьенеш, создатель логических блоков', en: '' } },
+      label: { de: 'Wikipedia: Zoltan Dienes, Erfinder der Logischen Blöcke', ru: 'Википедия (нем.): Золтан Дьенеш, создатель логических блоков', en: 'Wikipedia (German): Zoltan Dienes, inventor of the logic blocks' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%94%D1%8C%D0%B5%D0%BD%D0%B5%D1%88,_%D0%97%D0%BE%D0%BB%D1%82%D0%B0%D0%BD_%D0%9F%D0%B0%D0%BB', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Dienes und die Blöcke', ru: 'Википедия: Дьенеш, Золтан Пал — блоки Дьенеша', en: '' } },
+      label: { de: 'Wikipedia (russisch): Dienes und die Blöcke', ru: 'Википедия: Дьенеш, Золтан Пал — блоки Дьенеша', en: 'Wikipedia (Russian): Dienes and the blocks' } },
     { url: 'https://corvet-igra.ru/product/logicheskie-bloki-denesha/', kind: 'hersteller',
-      label: { de: 'Korvet: Logische Blöcke nach Dienes, 48 Teile', ru: '«Корвет»: логические блоки Дьенеша, 48 фигур', en: '' } },
+      label: { de: 'Korvet: Logische Blöcke nach Dienes, 48 Teile', ru: '«Корвет»: логические блоки Дьенеша, 48 фигур', en: 'Korvet: Dienes logic blocks, 48 pieces' } },
     { url: 'https://www.ravensburger.de/produkte/spiele/kinderspiele/colorama-24921/index.html', kind: 'hersteller',
-      label: { de: 'Ravensburger: Colorama, Farben und Formen ab 3', ru: 'Ravensburger: Colorama, цвета и формы с 3 лет', en: '' } }
+      label: { de: 'Ravensburger: Colorama, Farben und Formen ab 3', ru: 'Ravensburger: Colorama, цвета и формы с 3 лет', en: 'Ravensburger: Colorama, colors and shapes from 3' } }
   ],
 
   products: [
@@ -108,7 +129,12 @@ export default {
             'один раз, поэтому игры на правила работают безупречно. С трёх лет; в России есть ' +
             'почти в каждом детском саду. Внимание: бывают наборы всего с тремя признаками — для ' +
             'заданий на два признака они бедноваты.',
-        en: ''
+        en: 'The standard material: 48 pieces that differ in exactly four features – shape ' +
+            '(circle, triangle, square, rectangle), color (red, blue, yellow), size (large, ' +
+            'small) and thickness (thick, thin). Every combination occurs exactly once, which ' +
+            'is why rule games work cleanly with it. From three years of age; in Russia, under ' +
+            'the name "Блоки Дьенеша", it is found in almost every kindergarten. Careful: there ' +
+            'are sets with only three features – those are too poor for the two-feature tasks.'
       },
       diy: {
         de: 'Aus 2 mm Bastelfilz oder fester Pappe: vier Formen (Kreis Ø 6 cm, Quadrat 5×5 cm, ' +
@@ -125,7 +151,13 @@ export default {
             'признака «толстый/тонкий» половину фигур склеить вдвое. В качестве шаблонов взять ' +
             'крышку, линейку и стакан. Хранение: обувная коробка с четырьмя отделениями из ' +
             'картонных полосок.',
-        en: ''
+        en: 'From 2 mm craft felt or stiff cardboard: four shapes (circle Ø 6 cm, square 5×5 cm, ' +
+            'equilateral triangle with 6 cm sides, rectangle 6×3 cm) in three colors and two ' +
+            'sizes each – the small version gets two thirds of the measurements (circle Ø 4 cm, ' +
+            'square 3.5 cm and so on). That gives 24 pieces with three features. For the fourth ' +
+            'feature "thick/thin", glue half of the pieces together in pairs. Use a lid, a ruler ' +
+            'and a glass as templates. Storage: a shoebox with four compartments made from ' +
+            'cardboard strips.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <circle cx="20" cy="22" r="11" fill="var(--secondary)"/>
@@ -151,7 +183,11 @@ export default {
             'четырёх цветов и пяти форм. Ценность для упражнения в том, что должны совпасть оба ' +
             'признака сразу — это вход в задания на два признака. В коробке несколько вариантов ' +
             'правил, самый лёгкий обходится без соревнования.',
-        en: ''
+        en: 'A classic for 3- to 6-year-olds: two dice, one showing the color, one the shape, ' +
+            'plus 40 tiles in four colors and five shapes. What makes it valuable for this ' +
+            'exercise is that both features have to match at the same time – that is the entry ' +
+            'point into the two-feature task. Several game variants are included; the easiest ' +
+            'one works without competition.'
       }
     },
     {
@@ -163,7 +199,8 @@ export default {
             'nur, dass sich die Stücke in wenigen, klar sichtbaren Merkmalen unterscheiden.',
         ru: 'Самый честный материал для этого метода уже лежит дома. Важно лишь, чтобы предметы ' +
             'различались немногими и хорошо заметными признаками.',
-        en: ''
+        en: 'The most honest material for this method is already lying around the house. All ' +
+            'that matters is that the pieces differ in a few clearly visible features.'
       },
       diy: {
         de: 'Muffinblech mit sechs Mulden oder sechs Marmeladendeckel als Sortierschalen. Dazu ' +
@@ -176,7 +213,11 @@ export default {
             'макароны, прищепки. Хранить раздельно в стеклянных банках. Для игр на правила ' +
             'подписать карточки 5×5 см: «круглое», «угловатое», «красное», «большое» — их кладут ' +
             'перед миской, и правило становится видимым.',
-        en: ''
+        en: 'A muffin tin with six hollows or six jam jar lids as sorting bowls. Alongside them, ' +
+            'build up a collection: 60–80 buttons from the flea market, bottle caps, chestnuts, ' +
+            'types of pasta, clothes pegs. Store them separately in a set of screw-top jars. For ' +
+            'the rule games, additionally label cards of 5×5 cm: "round", "angular", "red", ' +
+            '"large" – they are placed in front of the bowl and make the rule visible.'
       }
     }
   ],

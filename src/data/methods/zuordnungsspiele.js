@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Zuordnungs- und Begriffsspiele (Logofix, TwinFit)',
     ru: 'Игры на соотнесение понятий (Logofix, TwinFit)',
-    en: ''
+    en: 'Matching and Concept Games (Logofix, TwinFit)'
   },
 
   short: {
     de: 'Kartenspiele, bei denen Begriffe, Bilder und Kategorien nach einer erkannten Regel zusammengeführt werden.',
     ru: 'Карточные игры, где понятия, картинки и категории соединяются по найденному правилу.',
-    en: ''
+    en: 'Card games in which terms, pictures and categories are brought together according to a rule the child has spotted.'
   },
 
   what: {
@@ -34,7 +34,14 @@ export default {
         'проговаривание расширяет словарь: слова хранятся не поодиночке, а сетями, и тот, кто ' +
         'называет связи, потом быстрее находит нужное слово. Такие игры пришли из логопедии и ' +
         'годятся также для двуязычных детей, потому что на карточках картинки, а не текст.',
-    en: ''
+    en: 'Two cards belong together – but not because they look alike, rather because there is a ' +
+        'relationship between them: trunk and elephant (part and whole), baker and bakery ' +
+        '(person and place), apple and fruit (example and category term). The child has to ' +
+        'recognise the rule and say it out loud, and it is exactly this saying it out loud that ' +
+        'builds vocabulary: words are not stored singly but in networks, and whoever names the ' +
+        'connections finds the words again more quickly later. Such games come from speech ' +
+        'therapy and are also usable for multilingual children, because the cards show pictures ' +
+        'and no writing.'
   },
 
   steps: {
@@ -58,7 +65,16 @@ export default {
       'Продолжать без карточек — в автобусе, в очереди: «Я вижу то, что относится к пекарю». Так выученное отрывается от материала.',
       'Новый тип связи брать только тогда, когда прежний идёт без усилий, а в конце перемешать оба.'
     ],
-    en: []
+    en: [
+      'Choose a single type of relationship for the session, for example part and whole. Several types at once are confusing.',
+      'Lay six to eight pairs face up on the table, well spread out. More than sixteen cards overwhelm the eye.',
+      'The child looks for a pair and has to give a reason before being allowed to take the cards: "The trunk belongs to the elephant, it is its nose."',
+      'Repeat the reason as a full sentence without correcting: if the child says "trunk – elephant", the adult replies "Yes, the trunk belongs to the elephant."',
+      'Afterwards play the same cards face down as a memory game. The pairs are now in the child\'s head because they were put into words beforehand.',
+      'Do a counter-test: add a wrong pair (trunk and car) and ask whether that works. The child should explain why not.',
+      'Carry on playing without cards – on the bus, while waiting: "I can see something that belongs to a baker." This detaches what has been learnt from the material.',
+      'Only once one type of relationship runs effortlessly, add the next one, and at the end mix both.'
+    ]
   },
 
   tips: {
@@ -74,20 +90,25 @@ export default {
       'У двуязычных детей принимать оба языка. Кто знает понятие по-русски, но не по-немецки, понятие уже имеет — слово придёт следом.',
       'Десяти-пятнадцати минут достаточно. Игра утомительнее, чем кажется, потому что каждый ход требует объяснения.'
     ],
-    en: []
+    en: [
+      'Points are given for the sentence, not for the fast hand. Whoever just grabs and says nothing puts the cards back.',
+      'Do not immediately call an unusual match "wrong", but ask for the reason. "Lemon and sun" is not a mix-up but a logic of its own – and that counts too.',
+      'With multilingual children, allow both languages. A child who has the concept in Russian but not in German has the concept – the word comes afterwards.',
+      'Ten to fifteen minutes are enough. The game is more demanding than it looks, because every move calls for an explanation.'
+    ]
   },
 
   links: [
     { url: 'https://www.prolog-shop.de/shop/serienreihen/twinfit/389/twinfit-elementa', kind: 'hersteller',
-      label: { de: 'ProLog: TwinFit-Reihe, Beispiel „Elementa"', ru: 'ProLog: серия TwinFit, пример «Elementa»', en: '' } },
+      label: { de: 'ProLog: TwinFit-Reihe, Beispiel „Elementa"', ru: 'ProLog: серия TwinFit, пример «Elementa»', en: 'ProLog: the TwinFit series, example "Elementa"' } },
     { url: 'https://www.ravensburger.de/de-DE/produkte/spiele/kinderspiele/die-logikpiraten-24969', kind: 'hersteller',
-      label: { de: 'Ravensburger: Die Logik-Piraten', ru: 'Ravensburger: «Логические пираты»', en: '' } },
+      label: { de: 'Ravensburger: Die Logik-Piraten', ru: 'Ravensburger: «Логические пираты»', en: 'Ravensburger: Die Logik-Piraten' } },
     { url: 'https://de.wikipedia.org/wiki/Oberbegriff', kind: 'wiki',
-      label: { de: 'Wikipedia: Oberbegriff – worum es beim Zuordnen geht', ru: 'Википедия (нем.): родовое понятие — суть соотнесения', en: '' } },
+      label: { de: 'Wikipedia: Oberbegriff – worum es beim Zuordnen geht', ru: 'Википедия (нем.): родовое понятие — суть соотнесения', en: 'Wikipedia (German): category term – what matching is about' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%93%D0%B8%D0%BF%D0%B5%D1%80%D0%BE%D0%BD%D0%B8%D0%BC', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Hyponym und Hyperonym', ru: 'Википедия: гипоним и гипероним', en: '' } },
+      label: { de: 'Wikipedia (russisch): Hyponym und Hyperonym', ru: 'Википедия: гипоним и гипероним', en: 'Wikipedia (Russian): hyponym and hypernym' } },
     { url: 'https://de.wikipedia.org/wiki/Memory_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: Memory – die Spielform dahinter', ru: 'Википедия (нем.): мемори — лежащая в основе форма игры', en: '' } }
+      label: { de: 'Wikipedia: Memory – die Spielform dahinter', ru: 'Википедия (нем.): мемори — лежащая в основе форма игры', en: 'Wikipedia (German): memory – the game form behind it' } }
   ],
 
   products: [
@@ -104,7 +125,9 @@ export default {
         ru: '48 карточек, 24 пары на тему «часть — целое»: хобот к слону, звонок к велосипеду. Без ' +
             'текста и потому не зависят от языка, примерно с четырёх лет. На карточках напечатаны ' +
             'коды для звуковой ручки Anybook — ручка покупается отдельно и для игры не нужна.',
-        en: ''
+        en: '48 cards, 24 pairs on the theme of part and whole: the trunk to the elephant, the bell to the ' +
+            'bicycle. Without writing and therefore language-independent, from about age four. The cards carry ' +
+            'printed codes for the Anybook audio pen – the pen costs extra and is not needed for the game.'
       }
     },
     {
@@ -119,7 +142,9 @@ export default {
         ru: '48 карточек, 24 пары на свободную ассоциацию: зима и снеговик, пляж и солнце. Легче, чем ' +
             'Elementa, потому что верными могут быть несколько обоснований, — хорошее начало для ' +
             'детей, которым объяснять пока трудно.',
-        en: ''
+        en: '48 cards, 24 pairs based on free association: winter and snowman, beach and sun. Easier than ' +
+            'Elementa, because several reasons can be right – a good start for children who still find ' +
+            'explaining difficult.'
       }
     },
     {
@@ -136,7 +161,10 @@ export default {
             'ряды: чего не хватает в последовательности «две мыши, два попугая, обезьяна»? Здесь ' +
             'соотнесение спрятано в узорах, а не в понятиях, а корабль с ядром удерживает и тех ' +
             'детей, кому карточные игры кажутся скучными.',
-        en: ''
+        en: 'A board game for 1 to 4 players, ages 5 to 8, around 20 minutes. 19 cards with 38 sequence ' +
+            'puzzles: what is missing in the series two mice, two parrots, one monkey? Here the matching lies ' +
+            'in patterns rather than in terms, and the ship with the cannonball also keeps children engaged ' +
+            'who find card games boring.'
       }
     },
     {
@@ -156,7 +184,11 @@ export default {
             'больше не выпускает эту игру, купить её можно только с рук, поэтому ссылки нет. При ' +
             'необходимости заменяется самодельными карточками (см. ниже) или классическим принципом ' +
             'игры «Кто это?».',
-        en: ''
+        en: 'A question-and-answer game for 2 to 4 players from age 6: a chip lies under one of the picture ' +
+            'tiles and is found with well-aimed yes/no questions ("Is it an animal?"). This trains category ' +
+            'terms from the other side – you have to form categories in order to ask. Ravensburger no longer ' +
+            'carries the title; it is only available second-hand, which is why there is no link here. If need ' +
+            'be it can be replaced by home-made cards (see below) or the classic "Guess Who?" principle.'
       }
     },
     {
@@ -169,7 +201,8 @@ export default {
             'reichen zwölf Karten.',
         ru: 'Самодельные карточки выигрывают у покупных в одном: на них вещи из жизни самого ребёнка — ' +
             'его трамвай, его собака. Для первого раза хватит двенадцати карточек.',
-        en: ''
+        en: 'Home-made cards beat bought ones on one point: they show the things from the child\'s own life – ' +
+            'its own tram, its own dog. Twelve cards are enough for a first attempt.'
       },
       diy: {
         de: 'Karton in 24 gleiche Rechtecke 6 × 9 cm schneiden. Aus Werbeprospekten, Katalogen oder ' +
@@ -184,7 +217,12 @@ export default {
             'пример–родовое понятие (банан–фрукты). На обороте всех карточек одного комплекта ' +
             'поставить точку одного цвета — тогда после игры разные комплекты легко разделить. ' +
             'Карточки заламинировать или оклеить широким скотчем, иначе они не проживут и трёх недель.',
-        en: ''
+        en: 'Cut cardboard into 24 identical rectangles of 6 × 9 cm. From advertising leaflets, catalogues or ' +
+            'printed-out phone photos, put together and glue on twelve pairs, one type of relationship per ' +
+            'set: part–whole (tyre–car), person–place (doctor–surgery), example–category term (banana–fruit). ' +
+            'Draw the same coloured dot on the backs of all cards in one set, then different sets can be ' +
+            'separated again after playing. Laminate the cards or cover them with wide adhesive tape, ' +
+            'otherwise they will not survive three weeks.'
       }
     }
   ],

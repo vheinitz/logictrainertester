@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Bewegungen nachmachen (Spiegelspiele)',
     ru: 'Повторение движений (зеркальные игры)',
-    en: ''
+    en: 'Copying movements (mirror games)'
   },
 
   short: {
     de: 'Vorgemachte Hand- und Körperfolgen beobachten, merken und in gleicher Reihenfolge wiederholen.',
     ru: 'Наблюдать показанные последовательности движений рук и тела, запоминать и повторять в том же порядке.',
-    en: ''
+    en: 'Watch demonstrated sequences of hand and body movements, memorize them and repeat them in the same order.'
   },
 
   what: {
@@ -38,7 +38,13 @@ export default {
         'распространённые тесты развития как задание «движения рук». Что точно улучшается — это ' +
         'само повторение и выдержка при наблюдении; общий перенос на школьные достижения не ' +
         'доказан и ожидать его не стоит.',
-    en: ''
+    en: 'An adult shows a short sequence of movements – fist, flat hand, edge of the hand on the ' +
+        'table – and the child watches and then repeats it in the same order. The exercise combines ' +
+        'three things that are otherwise practised separately: looking closely, keeping an order in ' +
+        'mind and reproducing it with one\'s own body. That is exactly why it appears as the "hand ' +
+        'movements" task in common developmental tests. What definitely improves is the copying ' +
+        'itself and the stamina for watching; a general transfer to school performance has not been ' +
+        'demonstrated and should not be expected either.'
   },
 
   steps: {
@@ -62,7 +68,16 @@ export default {
       'Поменяться ролями. Ребёнок показывает, взрослый повторяет — и намеренно делает ошибку, которую ребёнок должен найти. Так внимательное наблюдение становится главным.',
       'В конце настоящее зеркало: минуту делать медленные движения, которые ребёнок повторяет одновременно, ничего не запоминая. Это расслабляет и завершает занятие по-доброму.'
     ],
-    en: []
+    en: [
+      'Sit down opposite each other at an empty table, about a meter apart. Clarify the rule beforehand: "I show it, you only watch. It is your turn when I put my hands in my lap."',
+      'Start with three basic shapes: fist on the table, flat hand on the table, edge of the hand on the table. Show each one once and have the child name it, so it is clear what is meant.',
+      'Show a sequence of two movements – fist, flat hand – at a rate of about one movement per second, without a pause in between. The child repeats it.',
+      'Correct twice in a row: extend the sequence by one movement. Wrong twice: shorten it by one. Six movements are already a lot for primary school children.',
+      'Switch to the whole body: hands on the head – one clap – hands on the shoulders – one stamp. First three elements, then four.',
+      'Touch parts of the body on instruction, without a demonstration: "Right hand to the left ear." Later two instructions in a row, which the child carries out only after the second one.',
+      'Swap roles. The child demonstrates, the adult copies – and deliberately builds in a mistake for the child to find. Looking closely thus becomes the main thing.',
+      'Finish with real mirroring: one minute of slow movements that the child joins in with at the same time, without having to memorize anything. That relaxes and ends the exercise on a friendly note.'
+    ]
   },
 
   tips: {
@@ -78,16 +93,21 @@ export default {
       'Вопрос о стороне решить заранее: зеркальность (моя правая рука — твоя левая) для детей младше шести лет слишком сложна. Тогда сядьте рядом или договоритесь «всегда одна и та же рука».',
       'При разочаровании не прекращать, а укоротить последовательность вдвое. Последняя попытка занятия должна быть удачной.'
     ],
-    en: []
+    en: [
+      'Do not speak along while demonstrating. Otherwise the child memorizes the words instead of the movements, and the task becomes a different one. Later, naming may be offered deliberately as a strategy.',
+      'Keep an even tempo, about one movement per second. Anyone who pauses between two movements gives away the structure and makes the task easier than it looks.',
+      'Settle the question of sides beforehand: mirror-inverted (my right hand is your left) is too hard for children under six. In that case sit side by side or agree on "always the same hand".',
+      'If frustration arises, do not break off but halve the sequence. The last attempt of the session should be one that succeeds.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Psychomotorik', kind: 'wiki',
-      label: { de: 'Wikipedia: Psychomotorik – Wahrnehmung und Bewegung zusammen', ru: 'Википедия (нем.): психомоторика — восприятие и движение вместе', en: '' } },
+      label: { de: 'Wikipedia: Psychomotorik – Wahrnehmung und Bewegung zusammen', ru: 'Википедия (нем.): психомоторика — восприятие и движение вместе', en: 'Wikipedia (German): psychomotricity – perception and movement together' } },
     { url: 'https://de.wikipedia.org/wiki/Spiegelneuron', kind: 'wiki',
-      label: { de: 'Wikipedia: Spiegelneurone – auch die Kritik daran', ru: 'Википедия (нем.): зеркальные нейроны и критика теории', en: '' } },
+      label: { de: 'Wikipedia: Spiegelneurone – auch die Kritik daran', ru: 'Википедия (нем.): зеркальные нейроны и критика теории', en: 'Wikipedia (German): mirror neurons – including the criticism of them' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B5%D1%80%D0%BA%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D0%BD%D0%B5%D0%B9%D1%80%D0%BE%D0%BD%D1%8B', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Spiegelneurone', ru: 'Википедия: зеркальные нейроны', en: '' } }
+      label: { de: 'Wikipedia (russisch): Spiegelneurone', ru: 'Википедия: зеркальные нейроны', en: 'Wikipedia (Russian): mirror neurons' } }
   ],
 
   products: [
@@ -102,7 +122,9 @@ export default {
         ru: 'Хватает двух рук и стола. Кто хочет запас движений, чтобы через десять минут не ' +
             'иссякнуть, выписывает их на карточки — это единственный разумный повод здесь ' +
             'что-то покупать или мастерить.',
-        en: ''
+        en: 'Two hands and a table are enough. Anyone who wants a stock of movements, so as not to ' +
+            'run out of ideas after ten minutes, writes a supply of them on cards – that is the only ' +
+            'sensible reason to buy or make anything for this method.'
       },
       diy: {
         de: 'Zwölf Bewegungskarten in DIN A6 (10,5 × 14,8 cm) aus Karton schneiden oder ' +
@@ -122,7 +144,14 @@ export default {
             'тело. Для игры вытянуть три-пять карточек рубашкой вверх и выложить в ряд — это и ' +
             'есть последовательность. Так взрослому не нужно держать порядок в голове, и он не ' +
             'подскажет случайно.',
-        en: ''
+        en: 'Cut twelve movement cards in A6 format (10.5 × 14.8 cm) out of cardboard, or use index ' +
+            'cards. On each one draw a movement as a stick figure with a keyword: clap, knock on the ' +
+            'table, fist, flat hand, edge of the hand, tap the shoulders, tap the nose, circle the ' +
+            'arms, stamp, squat, turn around, wave. Color the back with one color per difficulty ' +
+            'level: green for hands on the table, yellow for movements while seated, red for whole ' +
+            'body. To play, draw three to five cards face down and lay them out in a row – that is ' +
+            'the sequence. This way the adult does not have to remember the order and will not cheat ' +
+            'unintentionally.'
       }
     },
     {
@@ -141,7 +170,10 @@ export default {
             'движений: вытянуть три карточки, выложить в ряд, ребёнок повторяет ' +
             'последовательность по памяти. При повторении стишки не читать — они помогают ' +
             'выучить позу, но выдают порядок.',
-        en: ''
+        en: 'Thirty-two sturdy A5 cards, each with one body posture as a picture and a short rhyme, ' +
+            'specified for ages four to ten. Usable as a stock of movements: draw three cards, lay ' +
+            'them in a row, and the child copies the sequence from memory. Leave out the rhymes when ' +
+            'copying – they help in learning the posture, but they give away the order.'
       }
     }
   ],

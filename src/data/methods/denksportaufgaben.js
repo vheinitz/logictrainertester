@@ -99,15 +99,15 @@ export default {
   links: [
     { url: 'https://de.wikipedia.org/wiki/Denksport', kind: 'wiki',
       label: { de: 'Wikipedia: Denksport – Überblick über die Aufgabenarten',
-               ru: 'Википедия (нем.): виды задач на смекалку', en: '' } },
+               ru: 'Википедия (нем.): виды задач на смекалку', en: 'Wikipedia (German): brain teasers – an overview of the types of puzzle' } },
     { url: 'https://de.wikipedia.org/wiki/Logical', kind: 'wiki',
       label: { de: 'Wikipedia: Logical – mit zwei durchgerechneten Beispielen',
-               ru: 'Википедия (нем.): задача на соответствия, с разбором примеров', en: '' } },
+               ru: 'Википедия (нем.): задача на соответствия, с разбором примеров', en: 'Wikipedia (German): logic grid puzzle – with two worked examples' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%B3%D0%BE%D0%BB%D0%BE%D0%B2%D0%BE%D0%BB%D0%BE%D0%BC%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Logikrätsel', ru: 'Википедия: логическая головоломка', en: '' } },
+      label: { de: 'Wikipedia (russisch): Logikrätsel', ru: 'Википедия: логическая головоломка', en: 'Wikipedia (Russian): logic puzzle' } },
     { url: 'https://www.janko.at/Raetsel/', kind: 'anleitung',
       label: { de: 'janko.at: über 300 Rätselarten, Regeln und Lösungstechniken, kostenlos',
-               ru: 'janko.at: свыше 300 видов головоломок с правилами, бесплатно (нем.)', en: '' } }
+               ru: 'janko.at: свыше 300 видов головоломок с правилами, бесплатно (нем.)', en: 'janko.at: over 300 types of puzzle with rules and solving techniques, free (German)' } }
   ],
 
   products: [
@@ -123,7 +123,10 @@ export default {
         ru: 'Сборник задач с 8 лет, от лёгких заданий на поиск до настоящих логических задач. ' +
             'Хорош для начала: одна задача на страницу, ребёнок сам выбирает. Ответы в конце ' +
             'лучше сразу заклеить, иначе будут подглядывать.',
-        en: ''
+        en: 'A puzzle book from age 8, with mixed difficulty from easy search tasks to real logic grid ' +
+            'puzzles. Good for getting started, because there is one puzzle per page and the child may ' +
+            'turn the pages itself. Tape over the answer pages at the back first, otherwise the child ' +
+            'will peek.'
       }
     },
     {
@@ -138,7 +141,9 @@ export default {
         ru: 'Та же серия с упором на числа: числовые пирамиды, задачи со спичками и с весами. ' +
             'Разумно взять вторым сборником, если словесные задачи ребёнку уже нравятся, а счёт ' +
             'он избегает.',
-        en: ''
+        en: 'The same series with a focus on numbers: number walls, number pyramids, matchstick and ' +
+            'balance-scale problems. Sensible as a second book if the child already likes word ' +
+            'puzzles but avoids arithmetic.'
       }
     },
     {
@@ -154,7 +159,10 @@ export default {
             '5–6). Преимущество перед обычными сборниками: один и тот же тип задачи во множестве ' +
             'вариантов, так что приём с таблицей действительно закрепляется. Заказ через ' +
             'издательство или книжный магазин.',
-        en: ''
+        en: 'School material as photocopiable worksheets, graded by school year (grades 1/2, 3/4, ' +
+            '5/6). The advantage over commercial puzzle books: the same type of task in many ' +
+            'variants, so that the grid procedure really becomes second nature. Available through the ' +
+            'publisher or bookshops; the publishers\' pages cannot be linked to directly.'
       }
     },
     {
@@ -167,7 +175,9 @@ export default {
         ru: 'Ничего не стоит и точно подгоняется под ребёнка — свои имена, своё домашнее ' +
             'животное, свой класс. Как правило, именно здесь ребёнок переходит от решения к ' +
             'пониманию: чтобы составить задачу, надо знать её логику изнутри.',
-        en: ''
+        en: 'Costs nothing and can be tailored precisely to the child – its own names, its own pet, ' +
+            'its own class. In practice this is the point at which children switch from solving to ' +
+            'understanding: anyone who writes one has to know the logic from the inside.'
       },
       diy: {
         de: 'Material: Karton A4, Lineal, Bleistift, Klarsichthülle, abwischbarer Folienstift. ' +
@@ -188,7 +198,15 @@ export default {
             'пять–шесть предложений, половина из которых — исключения («Бен не любит кошку»). В ' +
             'конце решить самому: если решение неоднозначно, не хватает предложения; если какое-то ' +
             'предложение ни разу не понадобилось, его можно убрать.',
-        en: ''
+        en: 'Materials: A4 cardboard, ruler, pencil, clear plastic sleeve, wipeable marker for film. ' +
+            'Procedure: draw a grid with 4 rows and 4 columns on the cardboard, fields of 2 × 2 cm, ' +
+            'a 4 cm wide strip on the left for the names, a 2 cm high strip at the top for the ' +
+            'attributes – put this blank grid in the plastic sleeve; it is reused for every puzzle. ' +
+            'The puzzle itself: fix four names and four attributes (e.g. four children, four favorite ' +
+            'animals), first write the correct assignment on a slip of paper, then formulate five to ' +
+            'six sentences, half of which are exclusions ("Ben does not like the cat"). Finally solve ' +
+            'it yourself: if the solution is not unambiguous, a sentence is missing; if a sentence is ' +
+            'never needed, it can go.'
       }
     }
   ],

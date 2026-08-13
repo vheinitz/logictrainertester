@@ -419,6 +419,71 @@ for (const [id, load] of Object.entries(registry)) {
     check('methoden', !!getMethod(id),
           `Förderpunkt "${text}" verweist auf fehlende Seite "${id}"`);
   }
+
+  // Jede Seite muss in allen drei Sprachen vollständig sein. Bei 54 Seiten,
+  // die nebenläufig entstehen, übersieht man von Hand sicher die dritte
+  // fehlende Übersetzung.
+  {
+    const luecken = [];
+    const leer = v => v === '' || v === undefined || (Array.isArray(v) && !v.length);
+    const pruefe = (o, wo) => {
+      if (!o || typeof o !== 'object') return;
+      for (const l of ['de', 'ru', 'en']) if (l in o && leer(o[l])) luecken.push(`${wo}.${l}`);
+    };
+    for (const m of methods) {
+      pruefe(m.title, m.id + '.title');
+      pruefe(m.short, m.id + '.short');
+      pruefe(m.what, m.id + '.what');
+      pruefe(m.steps, m.id + '.steps');
+      pruefe(m.tips, m.id + '.tips');
+      (m.links || []).forEach((k, i) => pruefe(k.label, `${m.id}.links[${i}]`));
+      (m.products || []).forEach((p, i) => {
+        pruefe(p.note, `${m.id}.products[${i}].note`);
+        pruefe(p.diy, `${m.id}.products[${i}].diy`);
+      });
+      // Schritte und Tipps müssen je Sprache gleich viele sein – sonst fehlt
+      // in einer Sprache ein Arbeitsschritt, ohne dass etwas leer aussieht.
+      for (const f of ['steps', 'tips']) {
+        const o = m[f];
+        if (!o || !Array.isArray(o.de)) continue;
+        for (const l of ['ru', 'en']) {
+          if (!Array.isArray(o[l])) continue;
+          check('methoden', o[l].length === o.de.length,
+                `${m.id}.${f}: ${o.de.length} auf Deutsch, aber ${o[l].length} auf ${l}`);
+        }
+      }
+    }
+    check('methoden', !luecken.length,
+          `${luecken.length} leere Übersetzungsfelder: ${luecken.slice(0, 6).join(', ')}${luecken.length > 6 ? ' …' : ''}`);
+    console.log(`   Fördermethoden: ${methods.length} Seiten × 3 Sprachen lückenlos`);
+  }
+
+  // Sprachhinweise sind immer aus Sicht des Lesers formuliert. „Die Seite
+  // gibt es nur auf Englisch" ist eine Warnung für deutsche und russische
+  // Leser – im englischen Text steht dann eine Einschränkung, die für den
+  // Leser keine ist. Genau das war zweimal wörtlich mitübersetzt worden.
+  {
+    const leserbezug = /only (available )?in English/i;
+    const treffer = [];
+    const suche = (o, wo) => {
+      if (!o || typeof o !== 'object') return;
+      if (typeof o.en === 'string' && leserbezug.test(o.en)) treffer.push(wo);
+      if (Array.isArray(o.en)) o.en.forEach((t, i) => {
+        if (typeof t === 'string' && leserbezug.test(t)) treffer.push(`${wo}[${i}]`);
+      });
+    };
+    for (const m of methods) {
+      suche(m.what, m.id + '.what');
+      suche(m.steps, m.id + '.steps');
+      suche(m.tips, m.id + '.tips');
+      (m.products || []).forEach((p, i) => {
+        suche(p.note, `${m.id}.products[${i}].note`);
+        suche(p.diy, `${m.id}.products[${i}].diy`);
+      });
+    }
+    check('methoden', !treffer.length,
+          `Englischer Text warnt englische Leser vor englischen Quellen: ${treffer.join(', ')}`);
+  }
 }
 
 // ─── Auditive Faktoren nur für Module mit Ton ─────────────────────────

@@ -98,7 +98,7 @@ src/
     performance-model.js  Was misst ein Subtest, Einflüsse, Hypothesen, Förderung
   games/           ein Modul je Datei + index.js als Registry
   ui/views.js      Menü, Training, Statistik, kognitives Profil
-  i18n/            Oberflächentexte DE/RU
+  i18n/            Oberflächentexte DE/RU/EN
 ```
 
 ### Kontrakt eines Spielmoduls
@@ -295,6 +295,41 @@ Gedächtnis" brauchen echten Klang. Deshalb jetzt:
 - Für Zahlenfolgen, Wörter-Kette und Koffer packen gibt es je eine
   Hör-Fassung. Der Vergleich beider ist das eigentlich Interessante: dieselbe
   Aufgabe einmal über die Augen, einmal über die Ohren.
+
+### Drei Sprachen, und wie Lücken sichtbar werden
+
+Deutsch, Russisch, Englisch. Fehlt ein Schlüssel in der aktiven Sprache,
+fällt `t()` auf Deutsch zurück — absichtlich: ein deutscher Satz mitten in
+der russischen Oberfläche ist ein sichtbarer, meldbarer Mangel, ein leerer
+Knopf wäre ein stiller.
+
+Genau dieser Fall trat auf. Übersetzt war nur die zentrale Texttabelle;
+Modultitel, Skalennamen, Aufgabentexte, Quizfragen und die Beschriftungen
+der Ablauf-Engines standen fest auf Deutsch im Code. Auf Russisch war
+dadurch die halbe Oberfläche deutsch, ohne dass irgendetwas kaputt aussah.
+
+Dagegen stehen jetzt drei Messungen statt Durchsehen:
+
+* **`tools/check-lang.mjs`** rendert jedes Spielmodul in RU und EN durch
+  seine Hauptphasen und schlägt bei deutschen Spuren an (Umlaute, ß,
+  deutsche Stoppwörter). Aufruf für ein Modul oder mit `--alle`.
+* Der Smoke-Test besteht darauf, dass **jede Methodenseite in allen drei
+  Sprachen lückenlos** ist — 763 Felder — und dass `steps` und `tips` je
+  Sprache gleich viele Einträge haben. Sonst fehlt in einer Sprache ein
+  Arbeitsschritt, ohne dass etwas leer aussieht.
+* Ein Wächter gegen **leserbezogene Sprachhinweise**: „Die Seite gibt es
+  nur auf Englisch" ist eine Warnung für deutsche und russische Leser. Im
+  englischen Text steht dann eine Einschränkung, die für den Leser keine
+  ist. Zweimal wörtlich mitübersetzt worden, beide Male gefunden.
+
+Mehrsprachige Felder sind durchweg `{de, ru, en}` und werden über `pick()`
+aus `core/html.js` aufgelöst. Kleine, ortsgebundene Wörterbücher stehen
+bewusst neben ihrer Ansicht statt in der zentralen Tabelle — bei einem
+Dutzend Begriffen, die nur eine Seite braucht, findet man sie dort leichter.
+
+Ein Sonderfall: die Verweistabelle Förderpunkt → Methodenseite ist über die
+**deutschen** Originaltexte verschlüsselt. Angezeigt wird die aktive Sprache,
+verlinkt wird über den deutschen Eintrag derselben Position.
 
 ### Sprachaufnahmen liegen neben dem Bundle
 

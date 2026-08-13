@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Tangram und geometrische Legepuzzles',
     ru: 'Танграм и геометрические пазлы',
-    en: ''
+    en: 'Tangram and geometric tiling puzzles'
   },
 
   short: {
     de: 'Aus sieben Teilen eines zerschnittenen Quadrats vorgegebene Umrissfiguren legen.',
     ru: 'Из семи частей разрезанного квадрата складывать заданные фигуры-силуэты.',
-    en: ''
+    en: 'Laying out given outline figures from the seven pieces of a cut-up square.'
   },
 
   what: {
@@ -36,7 +36,13 @@ export default {
         'видно верна или нет. Головоломка пришла из Китая и известна в Европе примерно с 1813 ' +
         'года. Примерно с пяти лет — с образцами в натуральную величину, с восьми — с одними ' +
         'силуэтами.',
-    en: ''
+    en: 'A square is cut along fixed lines into seven pieces: two large and two small triangles, one ' +
+        'medium triangle, a square and a parallelogram. Out of these seven pieces – all of them must ' +
+        'be used, none may overlap – outline figures emerge: a hare, a sailing boat, a running ' +
+        'person. The value of the exercise lies in the fact that the child has to turn and flip ' +
+        'pieces in its head before laying them down, and that every attempt is immediately visibly ' +
+        'right or wrong. The puzzle comes from China and has been known in Europe since about 1813. ' +
+        'From roughly five years on with templates at original size, from eight with plain outlines.'
   },
 
   steps: {
@@ -60,7 +66,16 @@ export default {
       'Вместо решения давать подсказку: положить на нужное место одну-единственную деталь и убрать руку. Никогда не показывать фигуру целиком.',
       'В конце придумывать самим: сложить фигуру, обвести карандашом снаружи, внутренние линии не рисовать. Загадку потом решают родители.'
     ],
-    en: []
+    en: [
+      'Start with the original square: jumble all seven pieces and put them back together into the square. Anyone who cannot manage that is not yet ready for figures.',
+      'First stage: templates at original size with the dividing lines drawn in. The child places the pieces directly onto the sheet – it is only about matching and turning.',
+      'Second stage: the same figure, but only as a black outline at original size. The sheet stays in place as an underlay.',
+      'Third stage: the outline reduced on a small card, and the figure is laid out beside it on the table. Only here does it become genuinely hard.',
+      'Repeat the three rules aloud before every figure: all seven pieces, flat on the table, no overlapping.',
+      'When things get stuck, place the two large triangles first – they almost always form the body or head and set the scale.',
+      'Give a hint instead of the solution: put a single piece in the right place and take your hand away again. Never demonstrate the whole figure.',
+      'Finish by inventing your own: lay out a figure, trace around the outside with a pencil, leave out the inner lines. The parents then get the puzzle.'
+    ]
   },
 
   tips: {
@@ -76,18 +91,23 @@ export default {
       'Не говорить «подумай». Крутить и пробовать руками в этой головоломке — правильная стратегия, а не ленивая.',
       'Удавшиеся фигуры фотографировать и распечатывать — собственная коллекция мотивирует сильнее любой книжки.'
     ],
-    en: []
+    en: [
+      'The template has to match the set. An outline from the internet that is two centimetres too large makes the task unsolvable and leaves the child at a loss.',
+      'The parallelogram is the only piece without mirror symmetry – in some figures it has to be turned over. This is the most common place where children get stuck, and a good hint.',
+      'Do not say “think about it”. Turning pieces and trying them out by hand is the right strategy for this puzzle, not the lazy one.',
+      'Photograph successful figures and print them out – your own collection motivates more than any booklet.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Tangram', kind: 'wiki',
-      label: { de: 'Wikipedia: Tangram', ru: 'Википедия (нем.): танграм', en: '' } },
+      label: { de: 'Wikipedia: Tangram', ru: 'Википедия (нем.): танграм', en: 'Wikipedia (German): Tangram' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A2%D0%B0%D0%BD%D0%B3%D1%80%D0%B0%D0%BC', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Tangram', ru: 'Википедия: танграм', en: '' } },
+      label: { de: 'Wikipedia (russisch): Tangram', ru: 'Википедия: танграм', en: 'Wikipedia (Russian): Tangram' } },
     { url: 'https://www.mathematische-basteleien.de/tangram.htm', kind: 'anleitung',
-      label: { de: 'Mathematische Basteleien: Herstellung, hunderte Figuren, Tangram-Paradoxa', ru: 'Mathematische Basteleien: изготовление, сотни фигур, парадоксы танграма', en: '' } },
+      label: { de: 'Mathematische Basteleien: Herstellung, hunderte Figuren, Tangram-Paradoxa', ru: 'Mathematische Basteleien: изготовление, сотни фигур, парадоксы танграма', en: 'Mathematische Basteleien: how to make one, hundreds of figures, tangram paradoxes (German)' } },
     { url: 'https://www.philosshop.de/Denk-Knobelspiele/Tangram/', kind: 'hersteller',
-      label: { de: 'Philos: Tangram-Sets aus Holz', ru: 'Philos: деревянные наборы танграма', en: '' } }
+      label: { de: 'Philos: Tangram-Sets aus Holz', ru: 'Philos: деревянные наборы танграма', en: 'Philos: wooden tangram sets' } }
   ],
 
   products: [
@@ -108,7 +128,12 @@ export default {
             'вариант около 20 см. Однотонные наборы лучше цветных — с цветными деталями дети ' +
             'складывают по цвету, а не по форме. Приложенные книжечки с образцами почти всегда ' +
             'уменьшены; первое время лучше обвести собственные образцы в натуральную величину.',
-        en: ''
+        en: 'Wood rather than plastic: the pieces stay where you put them and do not slide away. From ' +
+            '6 years, the square usually 10–12 cm along the edge; for small hands the maxi version at ' +
+            'around 20 cm is worthwhile. Single-colour sets are better than colourful ones – with ' +
+            'coloured pieces children arrange by colour instead of by shape. Template booklets that ' +
+            'come with the set are almost always reduced in size; for the first while it is better to ' +
+            'trace your own templates at original size.'
       },
       diy: {
         de: 'Ein Tangram lässt sich in einer halben Stunde selbst herstellen und ist dann genau ' +
@@ -145,7 +170,22 @@ export default {
             '(катеты около 5,7 см), квадрат (сторона около 5,7 см) и параллелограмм (стороны 8 ' +
             'см и около 5,7 см). Края обработать наждачной бумагой. Образцы получаются, если ' +
             'обвести карандашом сложенную фигуру снаружи.',
-        en: ''
+        en: 'A tangram can be made yourself in half an hour and is then exactly as large as you need ' +
+            'it. Material: 4 mm plywood, greyboard or an old cardboard box, a ruler, a pencil, a ' +
+            'fretsaw or a cutter.\n' +
+            'Draw a square of 16 × 16 cm. Put a mark every 4 cm along all four edges. The bottom left ' +
+            'corner is the origin; a point (x|y) means: x cm to the right, y cm upwards.\n' +
+            'Now draw exactly five lines:\n' +
+            '1. The long diagonal from the top left corner (0|16) to the bottom right corner (16|0).\n' +
+            '2. From (4|4) through the centre (8|8) and on to the top right corner (16|16).\n' +
+            '3. From the middle of the left edge (0|8) to the middle of the bottom edge (8|0).\n' +
+            '4. From (4|4) horizontally to the right as far as (12|4).\n' +
+            '5. From (0|8) diagonally up to the right as far as (4|12) – that point lies on line 1.\n' +
+            'Sawing along these lines gives exactly the seven pieces: two large triangles (legs about ' +
+            '11.3 cm), one medium triangle (legs 8 cm), two small triangles (legs about 5.7 cm), a ' +
+            'square (side about 5.7 cm) and a parallelogram (sides 8 cm and about 5.7 cm). Take the ' +
+            'edges off with sandpaper. Templates are made by tracing around the outside of a ' +
+            'completed figure with a pencil.'
       },
       // Die fünf Schnittlinien und die sieben Teile am 16-cm-Quadrat
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
@@ -184,7 +224,12 @@ export default {
             'проблема: с ребёнком, который под давлением замирает, лучше играть без часов, ' +
             'карточки прекрасно работают и как обычная головоломка. Ubongo Mini — самый дешёвый ' +
             'способ попробовать принцип.',
-        en: ''
+        en: 'A tiling puzzle as a race: everyone lays out at the same time while the sand timer runs. ' +
+            'Ubongo Junior is for 5- to 8-year-olds and manages with three to four pieces, the ' +
+            'Classic version from 8 years with up to four pieces per task. The time limit is appeal ' +
+            'and problem at once – with a child who freezes under pressure it is better to play ' +
+            'without the timer; the task cards work perfectly well as a plain tiling puzzle. Ubongo ' +
+            'Mini is the cheapest way to try out the principle.'
       }
     },
     {
@@ -203,7 +248,10 @@ export default {
             'и есть главное преимущество перед россыпью пентамино — ребёнок поднимается ступень ' +
             'за ступенью, а не проваливается сразу на полном задании. С 6 лет, можно играть ' +
             'одному или вдвоём.',
-        en: ''
+        en: 'Twelve wooden pentominoes and a slider with which the playing area can be made smaller: ' +
+            'start with three pieces, then four, then five. This built-in grading of difficulty is ' +
+            'the real advantage over a loose set of pentominoes – the child works its way up instead ' +
+            'of failing at the full task straight away. From 6 years, playable alone or in pairs.'
       }
     },
     {
@@ -218,7 +266,9 @@ export default {
         ru: 'Двенадцать пентамино — это все фигуры, которые можно сложить из пяти одинаковых ' +
             'квадратов. Вместе они покрывают 60 клеток, то есть прямоугольник 6 × 10, 5 × 12, ' +
             '4 × 15 или 3 × 20. Хорошее продолжение, когда танграм стал слишком лёгким.',
-        en: ''
+        en: 'The twelve pentominoes are all the shapes that can be laid out from five equally sized ' +
+            'squares. Together they cover 60 cells – so, among other things, a rectangle of 6 × 10, ' +
+            '5 × 12, 4 × 15 or 3 × 20 cells. A good continuation once tangram has become too easy.'
       },
       diy: {
         de: 'Kariertes Papier auf feste Pappe kleben oder direkt Pappe mit 3-cm-Raster ' +
@@ -233,7 +283,12 @@ export default {
             'К ним нарисовать на картоне поле 18 × 30 см (6 × 10 клеток). Если обе стороны ' +
             'деталей одного цвета, их можно переворачивать; кто хочет сложнее — красит лицевую и ' +
             'обратную сторону по-разному.',
-        en: ''
+        en: 'Glue squared paper onto stiff card, or mark out a 3 cm grid on card directly. Draw the ' +
+            'twelve shapes of five cells each – they are named F, I, L, N, P, T, U, V, W, X, Y, Z ' +
+            'after what they look like – and cut them out. A piece is then at most 15 cm long. Add a ' +
+            'playing field of 18 × 30 cm (6 × 10 cells) drawn on a piece of cardboard. Colour both ' +
+            'sides of the pieces the same and mirroring is allowed; whoever wants it harder colours ' +
+            'front and back differently.'
       }
     }
   ],

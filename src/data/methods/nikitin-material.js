@@ -15,13 +15,13 @@ export default {
   title: {
     de: 'Nikitin-Material',
     ru: 'Материалы Никитина',
-    en: ''
+    en: 'Nikitin material'
   },
 
   short: {
     de: 'Aufbauende Würfel-, Quadrat- und Bausteinsätze, mit denen Kinder Vorlagenmuster selbstkontrollierend nachlegen.',
     ru: 'Наборы кубиков, квадратов и брусков с нарастающей сложностью: ребёнок выкладывает узоры по образцам и сам себя проверяет.',
-    en: ''
+    en: 'Graded sets of cubes, squares and blocks with which children lay out template patterns and check themselves.'
   },
 
   what: {
@@ -40,7 +40,13 @@ export default {
         'нужно. Постоянное сравнение образца и результата тренирует восприятие формы и ' +
         'пространственное воображение; более широкие утверждения самих Никитиных о раннем ' +
         'развитии доказаны не были, но материал хорош и без них.',
-    en: ''
+    en: 'Five wooden sets developed in the 1960s by the Russian educators Lena and Boris ' +
+        'Nikitin. Each set comes with a booklet whose templates range from a two-cube pattern to ' +
+        'tasks that defeat adults. The trick lies in the self-checking: the pattern laid out ' +
+        'either matches the template or it does not, and the child sees that alone – nobody has ' +
+        'to praise or correct. Because template and result are constantly compared, perception of ' +
+        'shape and spatial imagination are trained; the Nikitins themselves never proved their ' +
+        'wider claims about early development, but the material is good regardless.'
   },
 
   steps: {
@@ -64,7 +70,16 @@ export default {
       'Десяти-пятнадцати минут подряд достаточно, но несколько раз в неделю. Номер последнего решённого образца отмечать в брошюре карандашом.',
       'Когда набор пройден, добавлять следующий: N1 → N3 «Квадраты» (плоскость) → N5 «Геокубики» и N4 «Кирпичики» (объём) → N2 «Уникуб» как самый трудный набор.'
     ],
-    en: []
+    en: [
+      'Start with a single set, usually the N1 pattern cubes. All five boxes at once are overwhelming and turn into a crate on the shelf after two weeks.',
+      'Before the first template, let the child build freely: ten minutes of towers, roads, whatever the child wants. Only once it knows the cubes by feel does the booklet come out.',
+      'Begin with the first template in the booklet and put the box next to it. With N1 that means: a pattern of four cubes, printed at original size so that the cubes can be laid directly on top of it.',
+      'The child lays out the pattern alone. Do not point, do not tap a wrong cube – at most ask: "Does yours look exactly like the picture?"',
+      'Once a pattern is finished, run a finger from the template to the pattern laid out, field by field. That is the self-checking, and it has to be practiced.',
+      'Always stop with a solved pattern, never with a failed one. Better to lay out an easy template once more at the end.',
+      'Ten to fifteen minutes at a stretch is enough, but several times a week. Tick off the number of the last solved template in the booklet with a pencil.',
+      'When a set has been worked through, add the next one: N1 → N3 squares (flat) → N5 geo cubes and N4 building blocks (spatial) → N2 uni cubes as the hardest set.'
+    ]
   },
 
   tips: {
@@ -80,18 +95,23 @@ export default {
       'В N5 и N4 поздние образцы намеренно напечатаны без цвета. Если ребёнок на них застревает, это не откат назад — это и есть переход от «срисовывания» к «чтению чертежа».',
       'Самодельные наборы работают только при абсолютно одинаковой раскраске всех кубиков. Один-единственный отличающийся кубик делает всю брошюру нерешаемой.'
     ],
-    en: []
+    en: [
+      'Do not time the child. Whoever uses a stopwatch gets hectic guessing instead of careful looking – and the looking is the whole point.',
+      'The two-color cube faces of N1 are the sticking point: at first take only templates that manage with single-color faces, and introduce the diagonals afterwards.',
+      'With N5 and N4 the later templates are deliberately printed without color. If a child gets stuck on them, that is not a step backwards – it is the real jump from "copying" to "reading a plan".',
+      'Home-made sets only work if all cubes are painted exactly alike. A single deviating cube makes the whole booklet unsolvable.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Nikitin-Methode', kind: 'wiki',
-      label: { de: 'Wikipedia: Nikitin-Methode und die Spielmaterialien', ru: 'Википедия (нем.): метод Никитиных и материалы', en: '' } },
+      label: { de: 'Wikipedia: Nikitin-Methode und die Spielmaterialien', ru: 'Википедия (нем.): метод Никитиных и материалы', en: 'Wikipedia (German): the Nikitin method and its play materials' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9D%D0%B8%D0%BA%D0%B8%D1%82%D0%B8%D0%BD,_%D0%91%D0%BE%D1%80%D0%B8%D1%81_%D0%9F%D0%B0%D0%B2%D0%BB%D0%BE%D0%B2%D0%B8%D1%87', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Boris Nikitin, mit Beschreibung aller Spiele', ru: 'Википедия: Никитин Борис Павлович — описание всех игр', en: '' } },
+      label: { de: 'Wikipedia (russisch): Boris Nikitin, mit Beschreibung aller Spiele', ru: 'Википедия: Никитин Борис Павлович — описание всех игр', en: 'Wikipedia (Russian): Boris Nikitin, with a description of all the games' } },
     { url: 'https://nikitiny.ru/Slozhi-usor', kind: 'anleitung',
-      label: { de: 'Familie Nikitin: „Sloshi usor" – Aufbau und Aufgabenreihen', ru: 'Сайт семьи Никитиных: «Сложи узор» — устройство игры и серии заданий', en: '' } },
+      label: { de: 'Familie Nikitin: „Sloshi usor" – Aufbau und Aufgabenreihen', ru: 'Сайт семьи Никитиных: «Сложи узор» — устройство игры и серии заданий', en: 'The Nikitin family site: "Slozhi uzor" – how the game works and its task series (Russian)' } },
     { url: 'https://www.westermann.de/reihe/2882020/NIKITIN', kind: 'hersteller',
-      label: { de: 'Westermann: die Reihe N1 bis N11 mit Inhaltsangaben', ru: 'Westermann: серия N1–N11 с составом наборов', en: '' } }
+      label: { de: 'Westermann: die Reihe N1 bis N11 mit Inhaltsangaben', ru: 'Westermann: серия N1–N11 с составом наборов', en: 'Westermann: the N1 to N11 series with contents of each set (German)' } }
   ],
 
   products: [
@@ -111,7 +131,11 @@ export default {
             'всех шестнадцати, в конце буквы, цифры и собственные эскизы на клетчатой бумаге. ' +
             'Первые образцы напечатаны в натуральную величину, кубики можно класть прямо на них — ' +
             'для малышей это важно.',
-        en: ''
+        en: '16 wooden cubes with an edge length of 3 cm and two template booklets (78 and 62 ' +
+            'pages), from 3 years. The entry-level set and by far the most used one: first ' +
+            'patterns of four cubes, later of all sixteen, and finally letters, numbers and the ' +
+            'child\'s own designs on squared paper. The first templates are printed at original ' +
+            'size so that the cubes can be laid directly on them – important for small children.'
       },
       diy: {
         de: 'Material: 16 Buchenholzwürfel mit 3,0 cm Kantenlänge (Bastelbedarf, ca. 0,20–0,40 € ' +
@@ -148,7 +172,23 @@ export default {
             'Хранение — в плоской коробке с 4 × 4 ячейками по 3,2 см; укладывание само по себе ' +
             'упражнение. ' +
             'Важно: если хоть один кубик покрашен иначе, часть образцов станет нерешаемой.',
-        en: ''
+        en: 'Materials: 16 beech cubes with an edge length of 3.0 cm (craft supplies, about ' +
+            '0.20–0.40 € each), acrylic paint in red, blue, yellow and white conforming to ' +
+            'EN 71-3 (the toy standard), fine sandpaper (grit 240), masking tape, a pencil, a ' +
+            'size 6 brush, water-based matt clear varnish. ' +
+            'All 16 cubes are painted identically: one face entirely red, one entirely blue, one ' +
+            'entirely yellow, one entirely white. The two remaining faces, which lie opposite ' +
+            'each other, are divided diagonally from corner to corner – one half red / half ' +
+            'white, the other half blue / half yellow. Mark the diagonal with pencil and ruler, ' +
+            'mask off one half, paint the free half, let it dry, then move the tape and paint the ' +
+            'second half; that makes the edge sharp. Two coats per face, sanding lightly in ' +
+            'between, and clear varnish at the end. ' +
+            'Templates: draw squared paper with a 3 cm grid yourself or set up a 3 × 3 cm grid on ' +
+            'the computer and print it, then color in the fields. Order of difficulty: 2 × 2 ' +
+            'fields with single-color faces only, then 2 × 2 with diagonals, then 3 × 3, then ' +
+            '4 × 4. Store in a flat box with 4 × 4 compartments of 3.2 cm each – putting the ' +
+            'cubes away is an exercise in itself. ' +
+            'Important: if even one cube is painted differently, many templates can no longer be solved.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <g stroke="#2D2A4A" stroke-width="1.5">
@@ -180,7 +220,11 @@ export default {
             'Поскольку приходится держать в уме и те грани, которых сейчас не видно, ' +
             'пространственное мышление тут задействовано по-настоящему. Имеет смысл только после ' +
             'N1 и N5.',
-        en: ''
+        en: '27 colored wooden cubes and a template booklet (50 pages), from 4 years – in truth ' +
+            'the hardest set of the series. The 27 cubes are used to build a 3 × 3 × 3 cube that ' +
+            'is meant to be one color on the outside, then two colors, then with given patterns ' +
+            'on every side. Because you also have to keep in mind the faces you cannot currently ' +
+            'see, spatial thinking really is called for here. Only worthwhile after N1 and N5.'
       },
       diy: {
         de: '27 Holzwürfel mit 3 cm Kantenlänge, drei Farben: Rot, Gelb, Blau. Im Original ist ' +
@@ -206,7 +250,18 @@ export default {
             'Изготовление как у N1: разметка, акрил в два слоя, лак. Хранение — в коробке с ' +
             'внутренним размером 9,5 × 9,5 см и высотой 9,5 см: собранный куб входит в неё ' +
             'ровно, и коробка сама проверяет результат.',
-        en: ''
+        en: '27 wooden cubes with an edge length of 3 cm, three colors: red, yellow, blue. In the ' +
+            'original, each of the 27 cubes is painted differently – reproducing that ' +
+            'distribution exactly is painstaking work and hard to get right without a template. ' +
+            'For home use a simplified version is enough: every cube gets two red, two yellow and ' +
+            'two blue faces, but each in a different arrangement – nine cubes with the ' +
+            'same-colored faces opposite each other, nine with them adjacent, nine mixed. That is ' +
+            'enough for all the basic tasks: "Build a 3 × 3 × 3 cube that is completely red on ' +
+            'the outside", "…with a yellow lid and blue sides", "…where every face has a red ' +
+            'stripe down the middle". ' +
+            'Production as with N1: mark out, acrylic in two coats, clear varnish. Store in a box ' +
+            'with an inside measurement of 9.5 cm square and 9.5 cm high – then the finished cube ' +
+            'fits exactly into it and the box checks the result along with you.'
       }
     },
     {
@@ -225,7 +280,11 @@ export default {
             'две части, дальше на четыре-пять. Цвет — встроенная подсказка: одинаковый цвет — ' +
             'один квадрат. Кто освоил все 16, потом складывает из деталей свободные фигуры, как в ' +
             'танграме.',
-        en: ''
+        en: '68 wooden pieces that can be assembled into 16 squares of 8 × 8 cm, plus a booklet ' +
+            '(35 pages), from 4 years. Each square has its own color and is cut up differently: ' +
+            'first into two pieces, later into four or five. The color is the built-in aid – the ' +
+            'same color belongs together. Once a child can do all 16, the pieces are then used to ' +
+            'lay out free shapes as with a tangram.'
       },
       diy: {
         de: 'Material: Sperrholz 4 mm oder fester Fotokarton (mindestens 300 g/m²), Acrylfarbe ' +
@@ -256,7 +315,20 @@ export default {
             'Рамка и есть самопроверка: что не входит точно, то неверно. Начинать с трёх ' +
             'квадратов из двух частей, выкладывая перед ребёнком детали одного квадрата вперемешку, ' +
             'и лишь потом смешивать несколько цветов.',
-        en: ''
+        en: 'Materials: 4 mm plywood or stiff photo card (at least 300 g/m²), acrylic paint or ' +
+            'colored card, a ruler, a craft knife or fretsaw. ' +
+            'Cut 16 squares of exactly 8 × 8 cm, each in a different color (with card, simply use ' +
+            'colored card). Then divide each square with straight cuts from edge to edge, each ' +
+            'one differently: three squares into 2 pieces (one vertically down the middle, one ' +
+            'diagonally from corner to corner, one at an angle from a corner to the middle of the ' +
+            'opposite edge), five squares into 3 pieces, five into 4 pieces, three into 5 pieces. ' +
+            'One square stays whole and serves as a size reference. No two divisions may be the ' +
+            'same, otherwise the task becomes ambiguous. ' +
+            'As a laying frame, make a board with 16 square recesses of 8.2 × 8.2 cm or – far ' +
+            'simpler – draw a grid of 8.2 cm squares on an A2 sheet and laminate it. The frame is ' +
+            'the self-check: whatever does not fit exactly is wrong. Start with the three ' +
+            'two-piece squares, putting the pieces of a single square in front of the child in ' +
+            'random order, and only later mix several colors.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <g stroke="#2D2A4A" stroke-width="1.5">
@@ -287,7 +359,11 @@ export default {
             'перспективе, а тремя видами — спереди, сбоку и сверху. Ребёнок должен по ним ' +
             'восстановить объёмную постройку. Самый дешёвый набор серии и самый простой для ' +
             'самостоятельного изготовления.',
-        en: ''
+        en: '8 identical wooden blocks and a booklet with 48 building plans (54 pages), from 4 ' +
+            'years. The only set that introduces technical drawing: the plan does not show the ' +
+            'structure in perspective but as three views – from the front, from the side, from ' +
+            'above. The child has to work out the three-dimensional structure from them. The ' +
+            'cheapest set of the series and the easiest one to make yourself.'
       },
       diy: {
         de: 'Der Satz besteht aus 8 vollkommen gleichen Quadern im Seitenverhältnis 1 : 2 : 4 – ' +
@@ -314,7 +390,18 @@ export default {
             'три контура — одна клетка равна 20 мм. Начинать с двух брусков, затем три, затем все ' +
             'восемь. Обратный ход тоже возможен и ценнее: ребёнок что-то строит и сам рисует три ' +
             'вида, а взрослый по ним строит.',
-        en: ''
+        en: 'The set consists of 8 completely identical blocks with side proportions of 1 : 2 : 4 ' +
+            '– like a brick. A proven size: 20 × 40 × 80 mm. Smaller (15 × 30 × 60 mm) or larger ' +
+            '(40 × 80 × 160 mm) works too, only the proportions have to be right, otherwise the ' +
+            'building plans do not fit. ' +
+            'Easiest from a planed batten of 20 × 40 mm (hardware store): saw off eight pieces of ' +
+            '80 mm, break the edges with sandpaper, leave untreated or coat with clear varnish. ' +
+            'Paint is not needed; in the original the blocks are plain. ' +
+            'Draw the building plans yourself: on squared paper set up three fields side by side ' +
+            'headed "front", "side", "top", build a structure from two to four blocks and trace ' +
+            'the three outlines – each square corresponds to 20 mm. Start with two blocks, then ' +
+            'three, then all eight. The reverse also works and is the more valuable exercise: the ' +
+            'child builds something and draws the three views, and the adult builds it from them.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <g fill="#C9A87C" stroke="#8A6E48" stroke-width="1.5">
@@ -348,7 +435,11 @@ export default {
             'постройки и в итоге полный куб 3 × 3 × 3. Поздние образцы намеренно напечатаны без ' +
             'цвета, чтобы ребёнок сам определял, какая деталь куда идёт. После N1 — самый ' +
             'разумный второй набор.',
-        en: ''
+        en: '7 colored building pieces, glued together from 27 cubes in all, plus a template ' +
+            'booklet (76 pages), from 4 years. The entry into three dimensions: the seven pieces ' +
+            'make figures, buildings and finally the full 3 × 3 × 3 cube. The later templates are ' +
+            'deliberately printed without color so that the child has to work out for itself ' +
+            'which piece goes where. After N1, the most sensible second set.'
       },
       diy: {
         de: 'Material: 27 Holzwürfel mit 3 cm Kantenlänge, Holzleim, Acrylfarbe in sieben Farben, ' +
@@ -379,7 +470,20 @@ export default {
             'оттенках серого — так получается именно та бесцветная схема, в которой и состоит ' +
             'соль оригинала. Хранение — в коробке с внутренним размером 9,5 × 9,5 см; кто уложит ' +
             'туда все семь деталей, уже решил самую трудную задачу набора.',
-        en: ''
+        en: 'Materials: 27 wooden cubes with an edge length of 3 cm, wood glue, acrylic paint in ' +
+            'seven colors, clear varnish. ' +
+            'The 27 cubes are glued into 7 solid pieces: one piece of 3 cubes, six pieces of 4 ' +
+            'cubes each (3 + 6 × 4 = 27). The pieces are three-dimensional, that is: not just ' +
+            'straight rows and L-shapes in one plane, but shapes in which one cube juts upwards ' +
+            'out of the plane. It makes sense to lay out each piece dry before gluing and to ' +
+            'check that all seven together fit into a gap-free 3 × 3 × 3 cube (9 × 9 × 9 cm) – if ' +
+            'that works, the set is valid. Glue on a smooth surface, clamp with a rubber band, ' +
+            'let dry overnight. Then paint each piece in its own color, two coats, and finish ' +
+            'with clear varnish. ' +
+            'Templates: photograph your own structures from above at an angle and print the ' +
+            'photos in grayscale – that produces exactly the colorless template that makes the ' +
+            'original appealing. Store in a box with an inside measurement of 9.5 cm square; ' +
+            'whoever gets all seven pieces into it has already solved the hardest task of the set.'
       }
     }
   ],

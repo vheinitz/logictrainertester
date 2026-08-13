@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Suchbilder, Wimmelbilder und Fehlersuche',
     ru: 'Поиск отличий, виммельбухи и картинки-искалки',
-    en: ''
+    en: 'Hidden-object pictures, busy pictures and spot-the-difference'
   },
 
   short: {
     de: 'Im Bildergewimmel gezielt Details finden oder Unterschiede zwischen zwei Bildern entdecken.',
     ru: 'Находить нужные детали в перенасыщенной картинке или различия между двумя изображениями.',
-    en: ''
+    en: 'Finding particular details in a crowded picture, or spotting the differences between two images.'
   },
 
   what: {
@@ -40,7 +40,16 @@ export default {
         'картинках; что от них становится лучше чтение, правописание или внимание в целом, — вопреки ' +
         'частым рекламным обещаниям не доказано, эффективность классических тренингов восприятия ' +
         'давно оспаривается.',
-    en: ''
+    en: 'A busy picture shows a hundred things at once, a spot-the-difference puzzle two almost ' +
+        'identical scenes. In both cases the child has to steer its eye instead of letting the ' +
+        'picture take over – and that is the heart of the matter: not the finding, but the ' +
+        'methodical scanning. Whoever jumps back and forth at random will never find the last two ' +
+        'differences; whoever works line by line will. Along the way a busy picture provides endless ' +
+        'material for conversation, which makes it one of the best language prompts for young ' +
+        'children. The limitation that belongs with it: such exercises improve searching in ' +
+        'pictures; that reading, spelling or general concentration improve as a result is not proven, ' +
+        'despite widespread advertising claims – classic perceptual training has long been disputed ' +
+        'in this respect.'
   },
 
   steps: {
@@ -64,7 +73,16 @@ export default {
       'В виммельбухах прослеживать одного персонажа через несколько разворотов — женщину, которая опаздывает на автобус, улетевшую птицу — и просить рассказать её историю.',
       'Заканчивать через пять-десять минут, пока ещё интересно. Книга остаётся лежать; дети возвращаются к ней сами.'
     ],
-    en: []
+    en: [
+      'Open a busy picture book and just look at it together for a minute, with no task attached. The child points out what it notices, the adult asks about it.',
+      'Then give exactly one search task, precisely worded: “Find the dog with the red collar.” Not three tasks at once.',
+      'Demonstrate systematic searching: start with a finger at the top left and work down the page in strips, as when reading. On the second task, let the child say out loud where it currently is.',
+      'Swap roles: the child picks a detail and describes it so that the adult can find it. Describing is harder than searching and is worth twice as much.',
+      'Spot-the-difference: lay both pictures side by side and divide them mentally into four strips with a ruler. Compare strip by strip and circle every difference found immediately in both pictures.',
+      'Say the number in advance (“eight differences”) and count along. When only one is missing, name the strip it lies in – not the spot.',
+      'In busy picture books, follow one figure across several spreads – the woman who misses the bus, the escaped bird – and have the child tell her story.',
+      'Stop after five to ten minutes, while it is still fun. The book stays out; children come back to it by themselves.'
+    ]
   },
 
   tips: {
@@ -80,18 +98,23 @@ export default {
       'При досаде уменьшать задание, а не подбадривать: только верхняя половина картинки, только три отличия.',
       'Для малышей виммельбух — прежде всего повод поговорить. Вопрос «Как думаешь, что он сейчас сделает?» даёт больше, чем ещё одно задание на поиск.'
     ],
-    en: []
+    en: [
+      'When it stalls, do not point – narrow it down: “It is in the lower half.” The child goes on searching by itself, and that is what this is about.',
+      'The aim is the search strategy, not the number of hits. A child who has scanned neatly strip by strip and found six out of eight has practised more than one who came across eight by chance.',
+      'If frustration builds, make the task smaller instead of cheering it on: only the upper half of the picture, only three differences.',
+      'For young children the busy picture book is above all an occasion to talk. Questions such as “What do you think he is going to do next?” achieve more than another search task.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Wimmelbild', kind: 'wiki',
-      label: { de: 'Wikipedia: Wimmelbild – Geschichte des Genres', ru: 'Википедия (нем.): виммельбильд, история жанра', en: '' } },
+      label: { de: 'Wikipedia: Wimmelbild – Geschichte des Genres', ru: 'Википедия (нем.): виммельбильд, история жанра', en: 'Wikipedia (German): Wimmelbild – history of the genre' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BC%D0%BC%D0%B5%D0%BB%D1%8C%D0%B1%D1%83%D1%85', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Wimmelbuch', ru: 'Википедия: виммельбух', en: '' } },
+      label: { de: 'Wikipedia (russisch): Wimmelbuch', ru: 'Википедия: виммельбух', en: 'Wikipedia (Russian): Wimmelbuch' } },
     { url: 'https://de.wikipedia.org/wiki/Vexierbild', kind: 'wiki',
-      label: { de: 'Wikipedia: Vexierbild – Suchbilder und Kippbilder erklärt', ru: 'Википедия (нем.): картинки-обманки и искалки', en: '' } },
+      label: { de: 'Wikipedia: Vexierbild – Suchbilder und Kippbilder erklärt', ru: 'Википедия (нем.): картинки-обманки и искалки', en: 'Wikipedia (German): puzzle pictures – hidden-object and ambiguous images explained' } },
     { url: 'https://www.ravensburger.de/de-DE/produkte/spiele/kinderspiele/differix-24930', kind: 'hersteller',
-      label: { de: 'Ravensburger: Differix, Herstellerseite mit Spielinhalt', ru: 'Ravensburger: Differix, страница производителя', en: '' } }
+      label: { de: 'Ravensburger: Differix, Herstellerseite mit Spielinhalt', ru: 'Ravensburger: Differix, страница производителя', en: 'Ravensburger: Differix, manufacturer page with game contents' } }
   ],
 
   products: [
@@ -111,7 +134,11 @@ export default {
             'должен положить её на нужное место. Доски по возрастанию сложности: слон — самый лёгкий, ' +
             'затем поросёнок, клоун, лягушка. Контрольная плёнка позволяет проверять себя без ' +
             'взрослого — в этом и главная ценность.',
-        en: ''
+        en: 'Four double-sided boards, 36 double-sided cards, one control transparency; 4 to 8 years, ' +
+            'can also be played alone. Each card differs from its neighbour in only one small detail, ' +
+            'and the child has to place it in the right spot. The four boards are graded: elephant ' +
+            'easy, then piglet, clown, frog. The control transparency allows checking without an ' +
+            'adult – that is the real value.'
       }
     },
     {
@@ -128,7 +155,10 @@ export default {
             'прелесть — сквозные побочные истории: одни и те же персонажи появляются на каждом ' +
             'развороте, а через четыре книги по временам года они даже взрослеют. Идеально, чтобы ' +
             'прослеживать одного героя и просить рассказать его историю.',
-        en: ''
+        en: 'A wordless board book, seven large scenes from the small town of Wimmlingen, 2 to 6 years. ' +
+            'The appeal lies in the running side stories: the same figures reappear on every spread, ' +
+            'and across the four seasonal volumes they even grow older. Ideal for following one ' +
+            'figure and having the child tell its story.'
       }
     },
     {
@@ -145,7 +175,10 @@ export default {
             'чёткая цель и настоящая трудность — систематический осмотр окупается сразу. В серии ' +
             'около десятка книг, а также блоки с заданиями в том же стиле. Для младших слишком плотно; ' +
             'им лучше подойдёт виммельбух.',
-        en: ''
+        en: 'The hidden-object classic, from about eight years on. Unlike a busy picture book there is ' +
+            'a fixed goal here and a real difficulty – scanning by system pays off immediately. The ' +
+            'series comprises around a dozen volumes, plus puzzle pads in the same style. Too crowded ' +
+            'for younger children; a busy picture book suits them better.'
       }
     },
     {
@@ -159,7 +192,9 @@ export default {
         ru: 'У самодельных картинок на поиск отличий есть преимущество, которого нет ни у одной ' +
             'книжки: взрослый точно задаёт сложность — два крупных отличия для четырёхлетнего, ' +
             'двенадцать крошечных для десятилетнего.',
-        en: ''
+        en: 'Home-made spot-the-difference pictures have one advantage no booklet offers: the adult ' +
+            'sets the difficulty exactly – two large differences for a four-year-old, twelve tiny ' +
+            'ones for a ten-year-old.'
       },
       diy: {
         de: 'Eine detailreiche Seite aus einer Zeitschrift oder ein Foto zweimal ausdrucken bzw. ' +
@@ -179,7 +214,15 @@ export default {
             'маркером, и лист служит много раз. Виммельбух делается похоже: лист A3, 30–40 наклеек и ' +
             'несколько нарисованных между ними домов и дорожек, а задания пишут на бумажках и тянут ' +
             'из стаканчика.',
-        en: ''
+        en: 'Print or copy a detail-rich page from a magazine or a photo twice, ideally in A5. Change ' +
+            'details on one of the two copies: remove five to eight small things with correction tape ' +
+            '(a button, a window, the handle of a cup), add two or three with a coloured pencil. Glue ' +
+            'both sheets side by side onto an A4 sheet, note the number of differences at the top and ' +
+            'the solution as a small sketch on the back. Laminate it or slip it into a clear pocket, ' +
+            'then the child can circle with a wipeable pen and the sheet stays usable several times. ' +
+            'A busy picture can be built in a similar way: an A3 sheet, 30 to 40 stickers and a few ' +
+            'drawn houses and paths in between – the tasks are written on slips of paper and drawn ' +
+            'from a cup.'
       }
     }
   ],

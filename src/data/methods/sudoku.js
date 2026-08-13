@@ -126,7 +126,9 @@ export default {
         ru: 'Среди 25 типов заданий есть и судоку 4×4 — самый удобный старт, потому что между судоку ' +
             'идут другие задачи и не возникает однообразия. 128 страниц. Есть такие же выпуски ' +
             'с 7, 8 и 12 лет.',
-        en: ''
+        en: 'Among its 25 types of puzzle it also contains 4×4 sudokus – the most comfortable way in, ' +
+            'because other tasks sit between the sudokus and nothing becomes monotonous. 128 pages. ' +
+            'Comparable volumes are available from ages 7, 8 and 12.'
       }
     },
     {
@@ -139,7 +141,9 @@ export default {
             'Jahren und erst sinnvoll, wenn 6×6 sicher gelingt – der Block enthält keine Bildsymbol-Sudokus.',
         ru: 'Отрывной блок 15 × 15 см, 736 страниц, три уровня сложности с ответами. Примерно с восьми ' +
             'лет и только тогда, когда 6×6 решается уверенно, — судоку с картинками в блоке нет.',
-        en: ''
+        en: 'A tear-off pad, 15 × 15 cm, 736 pages, three difficulty levels with solutions. From about ' +
+            'eight years and only worthwhile once 6×6 grids succeed reliably – the pad contains no ' +
+            'picture-symbol sudokus.'
       }
     },
     {
@@ -156,7 +160,10 @@ export default {
             'выдвижных ящика. Преимущество перед книжкой: фишки переставляются, поэтому ребёнок может ' +
             'проверить предположение и вернуть всё назад, ничего не стирая. Сами задания надо брать из ' +
             'сборника или из интернета — в комплекте их мало.',
-        en: ''
+        en: 'A beechwood board 298 × 298 mm with 81 number chips, 90 small note chips and two drawers. ' +
+            'The advantage over a booklet: chips can be moved around, so the child can try out an ' +
+            'assumption and take it back again without erasing. The puzzles themselves have to be ' +
+            'taken from a booklet or the internet; the board comes with only a few.'
       }
     },
     {
@@ -168,7 +175,8 @@ export default {
             'Aufgabe beliebig oft neu stellen kann, ohne ein neues Heft zu kaufen.',
         ru: 'Для начала это лучший материал: символы берутся те, что нравятся ребёнку, и задание можно ' +
             'составлять заново сколько угодно раз, не покупая новую книжку.',
-        en: ''
+        en: 'The best material to begin with, because you use the symbols the child likes and can set ' +
+            'the task anew as often as you wish without buying a new booklet.'
       },
       diy: {
         de: 'Ein Quadrat von 12 × 12 cm auf feste Pappe zeichnen, in 16 Felder à 3 × 3 cm teilen; die ' +
@@ -185,7 +193,13 @@ export default {
             'сетку полностью и правильно, затем убрать шесть-восемь фишек — остальное и есть задание. ' +
             'Фото на телефон служит ответом. Для 6×6 то же самое на поле 18 × 12 см, шесть символов, ' +
             'блоки 3 × 2 клетки.',
-        en: ''
+        en: 'Draw a square of 12 × 12 cm on stiff card and divide it into 16 cells of 3 × 3 cm; go over ' +
+            'the dividing lines between the four 2×2 boxes with a thick felt pen and keep the others ' +
+            'thin. As playing pieces use 16 cardboard discs 25 mm across or bottle caps, four of each ' +
+            'carrying the same sticker (dog, cat, fish, bird). A task is set like this: first lay out ' +
+            'the whole grid correctly, then take six to eight pieces away again – what remains is the ' +
+            'puzzle. A photo taken with a phone serves as the solution. For 6×6 do the same with ' +
+            '18 × 12 cm, six symbols and boxes of 3 × 2 cells.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="30" y="6" width="60" height="60" rx="2" fill="#fff" stroke="#2D2A4A" stroke-width="2.5"/>

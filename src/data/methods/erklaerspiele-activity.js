@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Erklär- und Pantomimespiele (Activity)',
     ru: 'Игры-объяснялки (Activity, пантомима)',
-    en: ''
+    en: 'Explaining and miming games (Activity)'
   },
 
   short: {
     de: 'Begriffe erklären, zeichnen oder vorspielen – dasselbe Wort in drei Darstellungsformen.',
     ru: 'Объяснять, рисовать или показывать понятия — одно и то же слово в трёх формах представления.',
-    en: ''
+    en: 'Explaining, drawing or acting out terms – the same word in three forms of representation.'
   },
 
   what: {
@@ -36,7 +36,13 @@ export default {
         'и умение быть понятым. Смена между речью, рисунком и движением заставляет заново ' +
         'выстроить то же представление в другой форме. Для детей с трудностями подбора слов это ' +
         'одно из немногих упражнений, в которые долго играют добровольно.',
-    en: ''
+    en: 'A child draws a term and gets the others to guess it without naming it: by describing it, ' +
+        'by drawing, or by miming. Whoever explains has to take a word apart – what kind of thing ' +
+        'is it, where does it occur, what is it for – and exactly this search builds vocabulary ' +
+        'and the ability to make oneself understood. Switching between speech, picture and ' +
+        'movement forces the child to rebuild the same idea in a different form. For children ' +
+        'with word-finding difficulties this is one of the few exercises they will happily play ' +
+        'for a long time of their own accord.'
   },
 
   steps: {
@@ -60,7 +66,16 @@ export default {
       'Когда свободное объяснение налажено, ввести запретные слова: под понятием на бумажке написать два самых очевидных слова («зубная щётка — нельзя: зубы, чистить»).',
       'Раз в несколько недель менять набор слов, делая их всё более отвлечёнными: от «велосипеда» через «каникулы» к «зависти».'
     ],
-    en: []
+    en: [
+      'Write twenty terms on slips of paper and put them in a tin. At the start, only things found around the house: toothbrush, bicycle, fridge, dog, umbrella.',
+      'Draw three symbols on slips and place them next to the tin: a mouth (explain), a pencil (draw), a stick figure (act out). Before each turn, one of them is drawn.',
+      'Set an hourglass or phone to one minute. Whoever is up draws a term and a symbol and starts; the others call out their guesses.',
+      'Rules for explaining: the word itself and its parts are off limits – for "toothbrush", neither "tooth" nor "brush". When drawing: no letters, no numbers, no talking. When miming: no sounds and no real objects.',
+      'After each round, debrief for half a minute: "What could you have started with?" The useful order is always the same – first the category ("it is a tool"), then the place ("it is in the bathroom"), then the use ("you clean something with it").',
+      'Swap roles every round; adults explain in exactly the same way and are allowed to fail visibly.',
+      'Once free explaining works well, introduce taboo words: on the slip, below the term, write the two most obvious forbidden words ("toothbrush – do not say: teeth, brushing").',
+      'Replace the terms every few weeks and make them more abstract as you go: from "bicycle" via "holidays" to "envy".'
+    ]
   },
 
   tips: {
@@ -76,16 +91,21 @@ export default {
       'Пантомима для многих детей самая лёгкая форма и хороший вход, объяснение — самая трудная. Кто застрял на объяснении, может переключиться на пантомиму вместо того, чтобы сдаться.',
       'Угадывание — тоже упражнение. Угадывающий должен рассуждать вслух («что-то в ванной… что-то маленькое…»), иначе половина участников молча сидит рядом.'
     ],
-    en: []
+    en: [
+      'Keep score loosely or drop it altogether. As soon as winning matters, the child picks the easy terms and stops practising.',
+      'The type of term sets the difficulty, not the time. Concrete nouns are easy, actions are medium, feelings and time concepts are hard – the minute always stays the same.',
+      'Miming is the easiest form for many children and a good way in; explaining is the hardest. A child who gets stuck while explaining may switch to miming instead of giving up.',
+      'Guessing is an exercise too. Whoever guesses should think out loud ("something in the bathroom … something small …"), otherwise half the group just sits there in silence.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Activity', kind: 'wiki',
-      label: { de: 'Wikipedia: Activity – Regeln der drei Darstellungsarten', ru: 'Википедия (нем.): Activity — правила трёх способов показа', en: '' } },
+      label: { de: 'Wikipedia: Activity – Regeln der drei Darstellungsarten', ru: 'Википедия (нем.): Activity — правила трёх способов показа', en: 'Wikipedia (German): Activity – rules of the three forms of representation' } },
     { url: 'https://de.wikipedia.org/wiki/Tabu_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: Tabu – Erklären mit verbotenen Wörtern', ru: 'Википедия (нем.): «Табу» — объяснение с запретными словами', en: '' } },
+      label: { de: 'Wikipedia: Tabu – Erklären mit verbotenen Wörtern', ru: 'Википедия (нем.): «Табу» — объяснение с запретными словами', en: 'Wikipedia (German): Taboo – explaining with forbidden words' } },
     { url: 'https://www.piatnik.com/spiele/marken/activity/activity-junior', kind: 'hersteller',
-      label: { de: 'Piatnik: Activity Junior beim Hersteller', ru: 'Piatnik: Activity Junior на сайте производителя', en: '' } }
+      label: { de: 'Piatnik: Activity Junior beim Hersteller', ru: 'Piatnik: Activity Junior на сайте производителя', en: 'Piatnik: Activity Junior at the manufacturer' } }
   ],
 
   products: [
@@ -102,7 +122,10 @@ export default {
             'приносит тысячу слов, половина из которых не по возрасту; своя коробка содержит ' +
             'ровно то, что актуально сейчас — школьная тема, место отпуска, животные, ' +
             'профессии.',
-        en: ''
+        en: 'The best version for home use, because the terms fit the child. A bought game comes ' +
+            'with a thousand words, half of which do not match the child\'s age; your own tin ' +
+            'contains exactly what is relevant right now – the current school topic, the holiday ' +
+            'destination, animals, professions.'
       },
       diy: {
         de: 'Zettel: ein Blatt A4 in sechzehn Rechtecke von etwa 5 × 7 cm schneiden, ergibt mit ' +
@@ -123,7 +146,14 @@ export default {
             'крышкой или жестянку из-под чая. Для рисовальных ходов приготовить лист A4 и ' +
             'толстый фломастер; на маленькой бумажке тонким карандашом выходят каракули, а не ' +
             'рисунок, и никто ничего не узнаёт.',
-        en: ''
+        en: 'Slips: cut a sheet of A4 into sixteen rectangles of about 5 × 7 cm; two sheets give ' +
+            'thirty-two terms. On the front, the term in block letters, with space below for two ' +
+            'taboo words to be added later. Colour the edge in three colours: green for things, ' +
+            'yellow for actions, red for abstract terms – then you can control the difficulty ' +
+            'when drawing. Symbol cards: three cards of 5 × 5 cm with a mouth, a pencil and a ' +
+            'stick figure. Put everything in an empty screw-top jar or a tea tin. For the drawing ' +
+            'rounds, have a sheet of A4 and a thick felt-tip pen ready; on small paper with a ' +
+            'fine pen you get scribbles instead of drawings, and nobody recognises anything.'
       }
     },
     {
@@ -142,7 +172,11 @@ export default {
             'Оправдывает себя прежде всего когда регулярно играют несколько детей — вдвоём ' +
             'удобнее своя коробка со словами, потому что там можно обойтись без поля и подсчёта ' +
             'очков.',
-        en: ''
+        en: 'The children\'s version of the classic: 990 terms selected for this age group, ' +
+            'recommended by the manufacturer from eight years, four to twelve players, about ' +
+            '45 minutes. It pays off above all when several children play regularly – with just ' +
+            'two people your own tin of terms is more practical, because there you can leave out ' +
+            'the board and the scoring rules.'
       }
     },
     {
@@ -162,7 +196,12 @@ export default {
             'местом и назначением. Детское издание есть в продаже не всегда; взрослая версия ' +
             'работает так же, если заранее отобрать карточки, а запретные слова можно вписать и ' +
             'самому.',
-        en: ''
+        en: 'A pure explaining variant without drawing and miming: on every card there are five ' +
+            'forbidden words below the term. This step is considerably harder than free ' +
+            'explaining and is only worthwhile once the child uses category, place and purpose ' +
+            'on its own. The Junior edition is not consistently available in shops; the adult ' +
+            'version works just as well if you pre-select the cards, and self-written taboo ' +
+            'words do the job too.'
       }
     }
   ],

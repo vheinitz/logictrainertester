@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Quizspiele',
     ru: 'Викторины',
-    en: ''
+    en: 'Quiz games'
   },
 
   short: {
     de: 'Frage-Antwort-Runden holen vorhandenes Wissen aus dem Kopf heraus und zeigen nebenbei, wo noch Lücken sind.',
     ru: 'Раунды вопросов и ответов извлекают уже имеющиеся знания и попутно показывают, где остались пробелы.',
-    en: ''
+    en: 'Question-and-answer rounds retrieve existing knowledge from memory and incidentally show where the gaps still are.'
   },
 
   what: {
@@ -36,7 +36,13 @@ export default {
         'вопрос, который не удалось взять, запоминается лучше, чем тот, которого никто не ждал. При этом ' +
         'викторина не создаёт знаний, которых не было; она закрепляет, упорядочивает и мотивирует — и ' +
         'только при условии, что после каждого неверного ответа сразу звучит правильный с коротким пояснением.',
-    en: ''
+    en: 'A quiz is a question-and-answer game in which knowledge is not read but retrieved. That is exactly ' +
+        'where its effect lies: pulling something out of memory consolidates it measurably better than ' +
+        'reading the same thing through again – the so-called testing effect is among the best established ' +
+        'findings in learning research. On top of that, a question you cannot answer makes you curious: the ' +
+        'answer then sticks better than one nobody was waiting for. A quiz does not, however, build ' +
+        'knowledge that was never there; it consolidates, organizes, and motivates – and only if every ' +
+        'wrong answer is immediately followed by the right one with a short explanation.'
   },
 
   steps: {
@@ -60,7 +66,16 @@ export default {
       'В конце ребёнок пишет пять вопросов для следующего раунда и должен уметь подтвердить ответы. Придумывать вопросы — упражнение более сильное, чем отвечать на них.',
       'Заканчивать через 10–15 минут, пока интерес ещё есть. Записывать счёт с датой; играют против собственного прошлого результата, а не против братьев и сестёр.'
     ],
-    en: []
+    en: [
+      'Choose a topic the child is interested in anyway – animals, space, football, dinosaurs. School material comes later, once the format is established.',
+      'Prepare twenty questions and mix them: ten the child knows for sure, seven medium ones, three really hard ones. This ratio decides whether there will be another round.',
+      'Set the rules and write them down: one point for a correct answer, zero for a wrong one, never minus points. Answering time 15 seconds, measured with an hourglass, so that it is not the adult who decides when time is up.',
+      'The adult plays along and answers the same questions. They may and should visibly make mistakes – a quiz the parents always win is a test, not a game.',
+      'After every wrong answer, immediately give the correct one plus a single sentence of explanation. The card is set aside and asked again at the end of the round.',
+      'Allow one joker per round: looking it up in a book or encyclopedia. Whoever finds the answer themselves gets the full point – looking things up is the real skill.',
+      'At the end, the child writes five questions for the next round and has to be able to back up the answers. Inventing questions is the stronger exercise than answering them.',
+      'Stop after 10 to 15 minutes, while there is still appetite for it. Note the score with the date; you play against your own last score, not against siblings.'
+    ]
   },
 
   tips: {
@@ -76,18 +91,23 @@ export default {
       'Старые наборы карточек проходить снова через две-три недели. Только повторение с интервалом превращает удовольствие в прочное знание.',
       'Если детей несколько и они разного возраста, использовать раздельные стопки вопросов по сложности, а не гандикап в очках: подобранные вопросы никто не замечает, а подаренные очки заметны сразу.'
     ],
-    en: []
+    en: [
+      'Never comment on gaps in knowledge ("but you did that at school"). A single remark of this kind costs more motivation than ten rounds can build up.',
+      'No more than a quarter hard questions. A quiz where you do not know half the answers feels like a bad class test and will not be played a second time.',
+      'Play old card sets again after two to three weeks. Only repetition after a gap turns the fun into secure knowledge.',
+      'With several children of different ages, use separate question piles by difficulty rather than handicap points – graded questions go unnoticed, gifted points do not.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Quiz', kind: 'wiki',
-      label: { de: 'Wikipedia: Quiz – Formen und Geschichte', ru: 'Википедия (нем.): викторина, формы и история', en: '' } },
+      label: { de: 'Wikipedia: Quiz – Formen und Geschichte', ru: 'Википедия (нем.): викторина, формы и история', en: 'Wikipedia (German): Quiz – formats and history' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%92%D0%B8%D0%BA%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Викторина', ru: 'Википедия: викторина', en: '' } },
+      label: { de: 'Wikipedia (russisch): Викторина', ru: 'Википедия: викторина', en: 'Wikipedia (Russian): Quiz (виктори́на)' } },
     { url: 'https://www.moses-verlag.de/Buecher-Spiele/Fuer-Kinder/Kinderquiz/', kind: 'hersteller',
-      label: { de: 'moses. Verlag: Übersicht der Kinderquiz-Reihen', ru: 'Издательство moses.: обзор детских серий викторин', en: '' } },
+      label: { de: 'moses. Verlag: Übersicht der Kinderquiz-Reihen', ru: 'Издательство moses.: обзор детских серий викторин', en: 'moses. Verlag: overview of the children\'s quiz series' } },
     { url: 'https://tessloff.com/shop/was-ist-was/quizbloecke/', kind: 'hersteller',
-      label: { de: 'Tessloff: WAS IST WAS Quizblöcke, ab 8 Jahren', ru: 'Tessloff: блокноты-викторины WAS IST WAS, с 8 лет', en: '' } }
+      label: { de: 'Tessloff: WAS IST WAS Quizblöcke, ab 8 Jahren', ru: 'Tessloff: блокноты-викторины WAS IST WAS, с 8 лет', en: 'Tessloff: WAS IST WAS quiz pads, from age 8' } }
   ],
 
   products: [
@@ -105,7 +125,10 @@ export default {
             'формат примерно 7 × 10 см. Помещается в карман куртки и потому годится для ожидания и ' +
             'поездок. Серия выходит по многим отдельным темам (космос, динозавры, футбол, сказки) — ' +
             'лучше купить любимую тему ребёнка, чем общий выпуск.',
-        en: ''
+        en: '50 cards with 100 questions from geography, history, sport, and everyday knowledge, from age 8, ' +
+            'format about 7 × 10 cm. Fits in a jacket pocket and is therefore the material for waiting times ' +
+            'and car journeys. The series exists for many individual topics (space, dinosaurs, football, ' +
+            'fairy tales) – better to buy the child\'s favorite topic than the general edition.'
       }
     },
     {
@@ -122,7 +145,10 @@ export default {
             'выпускаются про животных, природу, страны, динозавров, футбол и другое. Вопросы аккуратно ' +
             'разложены по сложности, так что нужное соотношение из шага 2 получается почти само. ' +
             'Можно играть в одиночку, что удобно для тихого дня.',
-        en: ''
+        en: 'Handy pads with around 100 questions, photos, and a scoring system, from age 8; they exist on ' +
+            'animals, nature, countries, dinosaurs, football, and other topics. The questions are cleanly ' +
+            'graded, so the difficulty mix from step 2 comes about almost by itself. Can be played alone, ' +
+            'which is useful for quiet afternoons.'
       }
     },
     {
@@ -138,7 +164,10 @@ export default {
             'хороший вопрос, нужно разобраться в материале и решить, что в нём главное. Набор растёт ' +
             'вместе с ребёнком и легко соединяется с картотекой по системе Лейтнера — достаточно ' +
             'одинакового размера карточек.',
-        en: ''
+        en: 'The most effective material, because the child asks the questions: anyone who wants to formulate ' +
+            'a good question has to get to grips with the material and decide what is essential about it. ' +
+            'The card set grows along with the child and can be combined with a flashcard box (Leitner ' +
+            'system) – the same card size is enough.'
       },
       diy: {
         de: 'Karteikarten A8 (74 × 52 mm) kaufen oder aus A4-Papier (200 g/m²) selbst schneiden: ein Bogen ' +
@@ -157,7 +186,13 @@ export default {
             'точка одного из трёх цветов — лёгкий, средний, трудный; тогда двадцать карточек на раунд ' +
             'собираются за секунды. Хранить стопку в пакете с застёжкой или в плоской жестяной коробке, ' +
             'а темы разделять закладками из перегнутого скотча.',
-        en: ''
+        en: 'Buy A8 index cards (74 × 52 mm) or cut them yourself from A4 paper (200 g/m²): one sheet yields ' +
+            'eight cards of 105 × 74 mm – two columns of 10.5 cm, four rows of 7.4 cm. Front: the question, ' +
+            'in ballpoint, clearly legible in block letters. Back: the answer in no more than one line, and ' +
+            'below it in brackets the source (book title and page) – that way every question can be checked ' +
+            'and arguments are avoided. Top right, a dot in one of three colors for easy, medium, hard; then ' +
+            'the twenty cards per round can be put together in seconds. Keep the stack in a freezer bag or a ' +
+            'flat tin; separate the topics with tabs made from folded-over adhesive tape.'
       }
     }
   ],

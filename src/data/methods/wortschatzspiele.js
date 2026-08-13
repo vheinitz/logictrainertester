@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Wortschatzspiele und Bildkarten',
     ru: 'Словарные игры и карточки',
-    en: ''
+    en: 'Vocabulary Games and Picture Cards'
   },
 
   short: {
     de: 'Spiele mit Bildkarten und Wortfeldern, die den aktiv benutzten Wortschatz erweitern.',
     ru: 'Игры с карточками и тематическими группами слов, расширяющие активный словарь.',
-    en: ''
+    en: 'Games with picture cards and word fields that expand the actively used vocabulary.'
   },
 
   what: {
@@ -37,7 +37,14 @@ export default {
         'раскладывание и описание дают больше, чем простое называние, а тематически ' +
         'упорядоченные наборы лучше вперемешку собранных. Подходит примерно с трёх лет; при ' +
         'нарушении речевого развития подбор тем должен оставаться за логопедом.',
-    en: ''
+    en: 'Children understand far more words than they use themselves. Picture-card games move ' +
+        'words from the passive into the active vocabulary by making the child pronounce, sort, ' +
+        'paraphrase or guess them. They work because a word becomes more readily available the ' +
+        'more connections it has: category, feature, opposite, sound, image. That is why sorting ' +
+        'and describing achieve more than mere naming, and why card sets ordered by topic are ' +
+        'better than randomly mixed ones. Suitable from about age three; for children with a ' +
+        'language development disorder, the choice of word fields belongs in the hands of the ' +
+        'speech therapist.'
   },
 
   steps: {
@@ -59,7 +66,15 @@ export default {
       '«Собираем чемодан» с карточками: «Я кладу в чемодан…» — каждая названная карточка кладётся в ряд открыто, так цепочка запоминания поддерживается, а не проверяется.',
       'В конце недели ещё раз пройти стопку для отработки. Что теперь называется само — возвращается в коробку, остальное переходит на следующую неделю.'
     ],
-    en: []
+    en: [
+      'Set one word field for the week, no more: "kitchen", "clothing", "vehicles". Select twelve to fifteen cards from it; the rest stay in the box.',
+      'Naming: turn the cards over one after another, the child says the word. Whatever does not come, say calmly for the child and put that card on a second pile – those are the practice words.',
+      'Sorting: all cards on the table, then ask a question that contains a rule – "What goes in the fridge and what does not?" The child makes two piles and gives a reason for every doubtful case.',
+      'Describing instead of showing: draw a card without showing it and say three sentences about it – what it is for, what it looks like, where it is kept. The other person guesses. Then swap.',
+      'Memory with compulsory speaking: lay out two identical card sets face down; a pair may only be kept by whoever names both cards as they are turned over.',
+      'Packing a suitcase with cards: "I am packing in my suitcase …" – every card named is placed visibly in a row, so the memory chain is supported rather than tested.',
+      'At the end of the week, go through the practice pile once more. Whatever now comes by itself goes back into the box; the rest moves on to the next week.'
+    ]
   },
 
   tips: {
@@ -75,24 +90,34 @@ export default {
       'Десять минут в день лучше часа в выходной. Набор карточек должен лежать под рукой, а не в шкафу.',
       'Двуязычным детям: проходить одну и ту же тему на обоих языках, но по очереди и в разные дни, иначе занятие превратится в упражнение по переводу.'
     ],
-    en: []
+    en: [
+      'Do not correct, but repeat correctly. If the child says "spoon" for the fork, reply "Yes, next to the spoon lies the fork" – the correction gets through without any embarrassment.',
+      'Photo cards for everyday objects, drawings for actions and feelings. With ambiguous drawings you end up arguing about the picture instead of the word.',
+      'Ten minutes a day beat an hour at the weekend. The card set should be within reach, not in the cupboard.',
+      'Bilingual children: go through the same word field in both languages, but one after the other and on different days, otherwise the card session turns into a translation exercise.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Wortschatz', kind: 'wiki',
       label: { de: 'Wikipedia: Wortschatz – aktiver und passiver Wortschatz',
-               ru: 'Википедия (нем.): словарный запас, активный и пассивный', en: '' } },
+               ru: 'Википедия (нем.): словарный запас, активный и пассивный',
+               en: 'Wikipedia (German): vocabulary – active and passive vocabulary' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A1%D0%BB%D0%BE%D0%B2%D0%B0%D1%80%D0%BD%D1%8B%D0%B9_%D0%B7%D0%B0%D0%BF%D0%B0%D1%81', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Wortschatz', ru: 'Википедия: словарный запас', en: '' } },
+      label: { de: 'Wikipedia (russisch): Wortschatz', ru: 'Википедия: словарный запас',
+               en: 'Wikipedia (Russian): vocabulary' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5_%D1%80%D0%B5%D1%87%D0%B8', kind: 'wiki',
       label: { de: 'Wikipedia (russisch): Sprachentwicklung – Einordnung der Altersstufen',
-               ru: 'Википедия: развитие речи — возрастные ориентиры', en: '' } },
+               ru: 'Википедия: развитие речи — возрастные ориентиры',
+               en: 'Wikipedia (Russian): language development – guide to the age stages' } },
     { url: 'https://www.westermann.de/artikel/L14010', kind: 'hersteller',
       label: { de: 'Westermann/Schubi: Vocabular Wortschatzbilder – Herstellerseite',
-               ru: 'Westermann/Schubi: Vocabular — страница производителя', en: '' } },
+               ru: 'Westermann/Schubi: Vocabular — страница производителя',
+               en: 'Westermann/Schubi: Vocabular Wortschatzbilder – manufacturer page' } },
     { url: 'https://www.spiel-des-jahres.de/spiele/der-kleine-sprechdachs/', kind: 'community',
       label: { de: 'Spiel des Jahres: Der kleine Sprechdachs – Spielbeschreibung',
-               ru: 'Spiel des Jahres: «Der kleine Sprechdachs» — описание игры', en: '' } }
+               ru: 'Spiel des Jahres: «Der kleine Sprechdachs» — описание игры',
+               en: 'Spiel des Jahres: Der kleine Sprechdachs – game description' } }
   ],
 
   products: [
@@ -112,7 +137,11 @@ export default {
             'годятся и для младших школьников, и для занятий с неносителями языка. Карточки ' +
             'разделены на базовый и продвинутый словарь — именно эта структура и есть главная ' +
             'ценность, а не сами картинки.',
-        en: ''
+        en: 'Cards 11 × 11 cm, 84–88 per box on one topic area (animals and plants, food and ' +
+            'drink, clothing, school, living). The manufacturer states from age 4; in practice ' +
+            'they are also usable with primary-school children and in German-as-a-second-language ' +
+            'teaching. The cards are divided into basic and advanced vocabulary – this structure ' +
+            'is the real value, not the pictures.'
       }
     },
     {
@@ -129,7 +158,10 @@ export default {
             'темам, часть — с брошюрой-инструкцией. Имеет смысл, если на рисованных картинках ' +
             'ребёнок постоянно называет не то. Ассортимент часто меняется, отдельные наборы ' +
             'временно отсутствуют, поэтому в магазине лучше искать по теме, а не по названию.',
-        en: ''
+        en: 'A specialist publisher for speech therapy: real photographs instead of drawings, ' +
+            'sorted by word field, some with an accompanying booklet. Useful when a child keeps ' +
+            'guessing wrongly with drawn pictures. The sets change frequently; individual titles ' +
+            'are at times unavailable, so search the shop by word field rather than by title.'
       }
     },
     {
@@ -146,7 +178,11 @@ export default {
             'что было под карточкой. Соединяет словарь со связной речью. Отмечена наградой в ' +
             '2007 году, сегодня чаще всего доступна только на вторичном рынке — описание по ' +
             'ссылке выше.',
-        en: ''
+        en: 'A storytelling and memory game from age 4: cards are placed on large picture boards ' +
+            'and each player in turn tells a little story about them; whoever has told the story ' +
+            'must later remember what lay underneath the card. Combines vocabulary with connected ' +
+            'speech. Awarded in 2007, today mostly only available second-hand – see the link ' +
+            'above for a description.'
       }
     },
     {
@@ -162,7 +198,10 @@ export default {
             'игровыми шаблонами для вырезания. Полезно, если занимаешься с несколькими детьми ' +
             'сразу или нужен набор карточек в нескольких экземплярах. Заказ через издательство ' +
             'или книжный магазин.',
-        en: ''
+        en: 'Photocopiable worksheets for primary school on word fields and category terms, with ' +
+            'ready-made game templates to cut out. Useful when several children are being kept ' +
+            'busy at once or when cards are needed in several sets. Available through the ' +
+            'publisher or the book trade; the publisher\'s pages cannot be linked directly.'
       }
     },
     {
@@ -177,7 +216,10 @@ export default {
             'квартиры, с собственной дороги в школу, из собственного холодильника. Своё дети ' +
             'называют увереннее и помнят дольше. К тому же само фотографирование и вырезание — ' +
             'уже половина занятия.',
-        en: ''
+        en: 'The advantage over any bought set: these are the things from your own flat, your own ' +
+            'way to school, your own fridge. Children name their own things more reliably and ' +
+            'remember them longer. Incidentally, the photographing and cutting out is already ' +
+            'half the exercise.'
       },
       diy: {
         de: 'Material: fester Karton oder Fotokarton 300 g/m², Schere, Kleber, Laminierhülle ' +
@@ -200,7 +242,15 @@ export default {
             'карточки прослужат годы. В правом верхнем углу ставить цветную точку по теме, чтобы ' +
             'перемешанные стопки можно было снова разобрать. Для мемори каждое изображение ' +
             'печатать дважды.',
-        en: ''
+        en: 'Material: firm cardboard or photo card 300 g/m², scissors, glue, laminating pouches ' +
+            'or wide adhesive tape, a phone camera and a printer. Procedure: cut the cards to ' +
+            '9 × 9 cm, which is large enough for laying out and still fits children\'s hands. For ' +
+            'each word field, photograph twelve objects at home, always against the same light ' +
+            'background and singly – two things in one picture make the card useless. Print the ' +
+            'images at 8 × 8 cm, glue them on centred and leave the 5 mm margin free; do NOT ' +
+            'write the word on the front, but small on the back. Laminate the cards or cover them ' +
+            'with tape, then they last for years. A coloured dot at the top right for each word ' +
+            'field so that mixed piles can be sorted again. For memory, print every picture twice.'
       }
     }
   ],

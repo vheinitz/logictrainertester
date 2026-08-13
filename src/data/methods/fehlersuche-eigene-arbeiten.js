@@ -97,13 +97,13 @@ export default {
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Selbstinstruktionstraining', kind: 'wiki',
-      label: { de: 'Wikipedia: Selbstinstruktionstraining (Meichenbaum)', ru: 'Википедия (нем.): тренинг самоинструкций', en: '' } },
+      label: { de: 'Wikipedia: Selbstinstruktionstraining (Meichenbaum)', ru: 'Википедия (нем.): тренинг самоинструкций', en: 'Wikipedia (German): self-instruction training (Meichenbaum)' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A1%D0%B0%D0%BC%D0%BE%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Selbstkontrolle', ru: 'Википедия: самоконтроль', en: '' } },
+      label: { de: 'Wikipedia (russisch): Selbstkontrolle', ru: 'Википедия: самоконтроль', en: 'Wikipedia (Russian): self-monitoring' } },
     { url: 'https://de.wikipedia.org/wiki/Metakognition', kind: 'wiki',
-      label: { de: 'Wikipedia: Metakognition – das eigene Denken überwachen', ru: 'Википедия (нем.): метапознание', en: '' } },
+      label: { de: 'Wikipedia: Metakognition – das eigene Denken überwachen', ru: 'Википедия (нем.): метапознание', en: 'Wikipedia (German): metacognition – monitoring one\'s own thinking' } },
     { url: 'https://de.wikipedia.org/wiki/Korrekturlesen', kind: 'wiki',
-      label: { de: 'Wikipedia: Korrekturlesen – wie Profis Texte prüfen', ru: 'Википедия (нем.): корректура текста', en: '' } }
+      label: { de: 'Wikipedia: Korrekturlesen – wie Profis Texte prüfen', ru: 'Википедия (нем.): корректура текста', en: 'Wikipedia (German): proofreading – how professionals check texts' } }
   ],
 
   products: [
@@ -115,7 +115,8 @@ export default {
             'auffälligen Farbe. Alles Weitere ist Beiwerk.',
         ru: 'Методу нужны только уже имеющаяся тетрадь и вторая ручка заметного цвета. Всё ' +
             'остальное — дополнение.',
-        en: ''
+        en: 'The method needs nothing but the notebook that is already there and a second pen in a ' +
+            'striking colour. Everything else is an extra.'
       }
     },
     {
@@ -127,7 +128,8 @@ export default {
             'Fehler, die dieses Kind tatsächlich macht – keine allgemeinen Ratschläge.',
         ru: 'Короткая карточка, которая всегда на виду на рабочем месте. На ней только те ' +
             'ошибки, которые действительно делает этот ребёнок, — никаких общих советов.',
-        en: ''
+        en: 'A short card that always stands visible at the work place. It contains only the ' +
+            'errors this particular child actually makes – no general advice.'
       },
       diy: {
         de: 'Ein Stück fester Karton im Format A6 (105 × 148 mm) zuschneiden. Oben in Druckbuchstaben ' +
@@ -143,7 +145,13 @@ export default {
             'можно менять смываемым маркером, когда меняются типичные ошибки. Чтобы карточка ' +
             'стояла, отогнуть нижний край на 25 мм или закрепить её двумя полосками скотча на краю ' +
             'стола. Для двух предметов — две карточки разного цвета: математика зелёная, язык синяя.',
-        en: ''
+        en: 'Cut a piece of stiff cardboard in A6 format (105 × 148 mm). At the top, in block ' +
+            'letters, "Before I hand it in", below that no more than five lines with one question ' +
+            'each, written by the child. Put the card in a clear plastic sleeve or laminate it, ' +
+            'then the lines can be changed with a wipeable marker when the typical errors change. ' +
+            'To stand it up, fold the bottom edge over by 25 mm or fasten the card to the edge of ' +
+            'the desk with two strips of tape. For two subjects, two cards in different colours – ' +
+            'maths green, language blue.'
       }
     },
     {
@@ -157,7 +165,8 @@ export default {
             'gefunden hat.',
         ru: 'Ручка, которой пользуются только для проверки, — намеренно не красная, красный цвет ' +
             'принадлежит учителю. Зелёный или оранжевый показывают, сколько ребёнок нашёл сам.',
-        en: ''
+        en: 'A pen that is used only for checking – deliberately not red, that is the teacher\'s ' +
+            'colour. Green or orange make visible how much the child found by itself.'
       }
     }
   ],

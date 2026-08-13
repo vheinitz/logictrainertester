@@ -15,13 +15,13 @@ export default {
   title: {
     de: 'Loci-Methode (Gedächtnispalast)',
     ru: 'Метод локусов (дворец памяти)',
-    en: ''
+    en: 'The Method of Loci (Memory Palace)'
   },
 
   short: {
     de: 'Dinge merken, indem man sie an feste Orte eines vertrauten Weges legt.',
     ru: 'Запоминание через размещение образов вдоль знакомого маршрута.',
-    en: ''
+    en: 'Remembering things by placing them at fixed points along a familiar route.'
   },
 
   what: {
@@ -36,7 +36,12 @@ export default {
         'припоминании маршрут проходят снова и находят образы на месте. Работает потому, что ' +
         'мозг легко запоминает места и пути, но плохо — абстрактные списки. Подходит примерно ' +
         'с восьми лет; младшим нужен очень короткий маршрут, максимум пять остановок.',
-    en: ''
+    en: 'The oldest known memory technique: you walk a familiar route in your mind – from the bed to ' +
+        'the front door – and place at every station an image of what you want to retain. To recall ' +
+        'it, you walk the route once more and find the images there again. It works because the ' +
+        'brain stores places and routes effortlessly, but abstract lists it does not. Suitable for ' +
+        'children from about eight years of age; younger ones need a very short route with at most ' +
+        'five stations.'
   },
 
   steps: {
@@ -58,7 +63,15 @@ export default {
       'Спросить ещё раз позже в тот же день — только тогда видно, держится ли запоминание.',
       'Для следующего списка использовать тот же маршрут. Старые образы бледнеют сами.'
     ],
-    en: []
+    en: [
+      'Fix a route the child knows blindfolded: bed → door → bathroom → kitchen table → front door. Five stations are enough to start with.',
+      'Have the child walk the route through out loud twice, always in the same direction. The order has to be secure before anything is put into it.',
+      'Invent an image for every item to be remembered – the sillier, the better. "Milk" becomes a cow lying in the bed.',
+      'Place the image at the station and say the action out loud as you do so: "There is a cow lying in the bed, mooing."',
+      'Walk the route through once in your mind and list the images.',
+      'Test again later the same day – only then does it show whether it holds.',
+      'Reuse the same route for the next list. The old images fade of their own accord.'
+    ]
   },
 
   tips: {
@@ -72,16 +85,20 @@ export default {
       'Образы должны двигаться и шуметь — тихие образы забываются быстрее.',
       'Если образ не придумывается, слово слишком абстрактное. Сначала сделать его наглядным, потом размещать.'
     ],
-    en: []
+    en: [
+      'Do not start with school material, but with the shopping list. Success first, usefulness later.',
+      'Images have to move and make noise – silent images fade faster.',
+      'If no image comes to mind, the term was too abstract. Then make the term vivid first, and only then place it.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Loci-Methode', kind: 'wiki',
-      label: { de: 'Wikipedia: Loci-Methode', ru: 'Википедия (нем.): метод локусов', en: '' } },
+      label: { de: 'Wikipedia: Loci-Methode', ru: 'Википедия (нем.): метод локусов', en: 'Wikipedia (German): method of loci' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D1%82%D0%BE%D0%B4_%D0%BB%D0%BE%D0%BA%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch)', ru: 'Википедия: метод локализации', en: '' } },
+      label: { de: 'Wikipedia (russisch)', ru: 'Википедия: метод локализации', en: 'Wikipedia (Russian): method of loci' } },
     { url: 'https://www.gedaechtnis.org/', kind: 'community',
-      label: { de: 'Gedächtnissport-Verband: Übungen und Wettbewerbe', ru: 'Союз мнемоспорта: упражнения', en: '' } }
+      label: { de: 'Gedächtnissport-Verband: Übungen und Wettbewerbe', ru: 'Союз мнемоспорта: упражнения', en: 'German memory sport association: exercises and competitions' } }
   ],
 
   products: [
@@ -93,7 +110,8 @@ export default {
             'als Grundriss auf ein Blatt und hängt ihn auf – das hilft in den ersten Wochen.',
         ru: 'Методу не нужно ничего, кроме знакомого маршрута. При желании один раз нарисуйте ' +
             'его план на листе и повесьте на стену — это помогает в первые недели.',
-        en: ''
+        en: 'The method needs nothing but a familiar route. If you like, draw it once as a floor ' +
+            'plan on a sheet of paper and hang it up – that helps during the first few weeks.'
       },
       diy: {
         de: 'Grundriss der Wohnung auf A4 zeichnen, die Stationen nummerieren, laminieren oder ' +
@@ -101,7 +119,9 @@ export default {
             'Runde eintragen und wieder löschen.',
         ru: 'Нарисуйте план квартиры на A4, пронумеруйте остановки, заламинируйте или вложите в ' +
             'файл. Смываемым маркером можно вписывать образы и стирать их после каждого раза.',
-        en: ''
+        en: 'Draw a floor plan of the flat on A4, number the stations, and laminate it or slip it ' +
+            'into a clear plastic sleeve. With a wipeable pen the images can be entered for each ' +
+            'round and erased again.'
       }
     }
   ],

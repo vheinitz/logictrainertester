@@ -14,13 +14,13 @@ export default {
   title: {
     de: 'Psychomotorik und Ergotherapie',
     ru: 'Психомоторика и эрготерапия',
-    en: ''
+    en: 'Psychomotor therapy and occupational therapy'
   },
 
   short: {
     de: 'Angeleitete Bewegungsförderung durch Fachkräfte, wenn Koordination und Handlungsplanung deutlich hinterherhinken.',
     ru: 'Занятия с профильным специалистом, когда координация и планирование действий заметно отстают.',
-    en: ''
+    en: 'Guided movement support by trained professionals when coordination and action planning are clearly lagging behind.'
   },
 
   what: {
@@ -39,7 +39,14 @@ export default {
         'есть отработки именно того действия, которым ребёнок хочет овладеть: завязать шнурки, поехать ' +
         'на велосипеде. Общие «тренировки восприятия» в расчёте на широкий перенос работают заметно ' +
         'слабее, чем считалось раньше. Терапия — это поддержка, а не починка и не гарантия результата.',
-    en: ''
+    en: 'Psychomotor therapy and occupational therapy are not games for home use but services provided by ' +
+        'trained professionals. They come into play when a child is not merely clumsy but runs into real ' +
+        'trouble in everyday life: cannot stand on one leg at six, grips the pencil in a cramped way, lags ' +
+        'clearly behind peers in dressing or eating, or cannot put movements into a sequence. The best ' +
+        'evidence supports task-oriented practice – training exactly the activity the child wants to master, ' +
+        'such as tying laces or riding a bicycle. General perception training programs that hope for a broad ' +
+        'transfer work much less well than was once assumed. Therapy is a support, not a repair and not a ' +
+        'guarantee.'
   },
 
   steps: {
@@ -63,7 +70,16 @@ export default {
       'После десяти занятий подвести итог вместе: что ребёнок умеет сегодня, чего не умел раньше? Если ничего измеримого не изменилось, обсудить это со специалистом и при необходимости сменить практику.',
       'Между занятиями выполнять дома то, что задал специалист, — обычно пять—десять минут в день. Без этой части остальное уходит в пустоту.'
     ],
-    en: []
+    en: [
+      'For two weeks, write down what concretely does not work – with date and situation: "cannot zip up the jacket", "falls when climbing stairs", "stops drawing after three minutes". Such examples carry more weight with the doctor than "is clumsy".',
+      'Germany: make an appointment with the pediatrician, ideally combined with the next routine checkup (U8, U9). Bring the notes and explicitly ask for a therapy prescription (Heilmittelverordnung) for occupational therapy. With a matching diagnosis, ten sessions of 45 minutes each are usually prescribed – as motor-functional or sensorimotor-perceptive treatment. Children under 18 pay nothing; treatment must begin within the deadline printed on the prescription, or it expires.',
+      'Germany: find a practice through the search of the German Occupational Therapy Association (DVE) and get on the waiting lists of three to four practices at the same time – waiting times of three to six months are common. Before school entry, the early intervention center (Frühförderstelle) or a social-pediatric center (SPZ) is the additional right route.',
+      'Russia: first see the pediatrician at the polyclinic, who refers you to the neurologist. The compulsory health insurance mainly covers therapeutic exercise (ЛФК), massage, and physiotherapy; occupational therapy in the Western sense is rare and usually has to be paid privately.',
+      'Russia: to receive support in kindergarten and school – speech therapist, special educator (defectologist), psychologist, adapted physical education – you need the assessment of the ПМПК (psychological-medical-pedagogical commission). Apply through the kindergarten, the school, or directly at the local education authority; the documents needed are medical reports and your own notes.',
+      'Bring the child\'s goals to the first appointment, not the parents\': "I want to be able to ride a bike", "I want to tie my laces by myself". Good professionals work on exactly that.',
+      'After ten sessions, evaluate together: what can the child do today that it could not do before? If nothing countable has changed, raise the issue and, if necessary, switch practices.',
+      'Between appointments, do the therapy homework at home – usually five to ten minutes daily. Without this part, the rest fizzles out.'
+    ]
   },
 
   tips: {
@@ -79,26 +95,31 @@ export default {
       'Осторожно с предложениями, где называют одну причину всех трудностей и обещают быстрый результат. Серьёзный специалист называет конкретные цели, сроки и честно говорит, чего он не может.',
       'Группы психомоторики при спортивных клубах не оплачиваются страховкой и терапию не заменяют — но как дополнение в маленькой группе они часто нравятся детям больше всего.'
     ],
-    en: []
+    en: [
+      'Before therapy and alongside it, plain movement helps: walking barefoot, climbing, balancing on curbs, stairs without a handrail. This does not replace therapy, but it is the foundation therapy builds on.',
+      'Do not take everyday tasks away from the child: spreading bread, zippers, shoes, setting the table. Every activity parents take over because they are short on time is practice the child loses.',
+      'Be wary of offers that promise a single cause for everything and hold out quick results. Reputable professionals name concrete goals and a time frame, and also say what they cannot do.',
+      'Psychomotor groups at sports clubs are not covered by health insurance and do not replace therapy – but as an addition in a small group, they are often what children enjoy most.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Psychomotorik', kind: 'wiki',
-      label: { de: 'Wikipedia: Psychomotorik', ru: 'Википедия (нем.): психомоторика', en: '' } },
+      label: { de: 'Wikipedia: Psychomotorik', ru: 'Википедия (нем.): психомоторика', en: 'Wikipedia (German): Psychomotor development and therapy' } },
     { url: 'https://de.wikipedia.org/wiki/Ergotherapie', kind: 'wiki',
-      label: { de: 'Wikipedia: Ergotherapie', ru: 'Википедия (нем.): эрготерапия', en: '' } },
+      label: { de: 'Wikipedia: Ergotherapie', ru: 'Википедия (нем.): эрготерапия', en: 'Wikipedia (German): Occupational therapy' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A2%D1%80%D1%83%D0%B4%D0%BE%D0%B2%D0%B0%D1%8F_%D1%82%D0%B5%D1%80%D0%B0%D0%BF%D0%B8%D1%8F', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Ergotherapie, mit Abschnitt zu Russland', ru: 'Википедия: трудовая терапия (эрготерапия), с разделом о России', en: '' } },
+      label: { de: 'Wikipedia (russisch): Ergotherapie, mit Abschnitt zu Russland', ru: 'Википедия: трудовая терапия (эрготерапия), с разделом о России', en: 'Wikipedia (Russian): Occupational therapy, with a section on Russia' } },
     { url: 'https://www.dve.info/service/ergotherapeutische-praxen-suche', kind: 'community',
-      label: { de: 'DVE: Ergotherapie-Praxis in der Nähe suchen', ru: 'DVE: поиск кабинета эрготерапии поблизости (Германия)', en: '' } },
+      label: { de: 'DVE: Ergotherapie-Praxis in der Nähe suchen', ru: 'DVE: поиск кабинета эрготерапии поблизости (Германия)', en: 'DVE: find an occupational therapy practice nearby (Germany)' } },
     { url: 'https://www.g-ba.de/themen/veranlasste-leistungen/heilmittel/verordnung-heilmittel-vertragsaerzte/', kind: 'anleitung',
-      label: { de: 'G-BA: wie Heilmittel verordnet werden (Regeln zur Verordnung)', ru: 'G-BA: как выписываются лечебные назначения в Германии', en: '' } },
+      label: { de: 'G-BA: wie Heilmittel verordnet werden (Regeln zur Verordnung)', ru: 'G-BA: как выписываются лечебные назначения в Германии', en: 'G-BA: how therapy prescriptions are issued (prescription rules in Germany)' } },
     { url: 'https://www.psychomotorik.com/', kind: 'community',
-      label: { de: 'Aktionskreis Psychomotorik (dakp): Grundlagen, Fortbildungen, Ansprechpartner', ru: 'dakp: основы психомоторики, обучение, контакты в регионах', en: '' } },
+      label: { de: 'Aktionskreis Psychomotorik (dakp): Grundlagen, Fortbildungen, Ansprechpartner', ru: 'dakp: основы психомоторики, обучение, контакты в регионах', en: 'Aktionskreis Psychomotorik (dakp): basics, training courses, regional contacts' } },
     { url: 'https://ergotherapy.ru/', kind: 'community',
-      label: { de: 'Russische Berufsvereinigung der Ergotherapeuten', ru: 'Русская профессиональная ассоциация эрготерапевтов', en: '' } },
+      label: { de: 'Russische Berufsvereinigung der Ergotherapeuten', ru: 'Русская профессиональная ассоциация эрготерапевтов', en: 'Russian professional association of occupational therapists' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9B%D0%B5%D1%87%D0%B5%D0%B1%D0%BD%D0%B0%D1%8F_%D1%84%D0%B8%D0%B7%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B0%D1%8F_%D0%BA%D1%83%D0%BB%D1%8C%D1%82%D1%83%D1%80%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Heilgymnastik ЛФК – der übliche Weg über die Pflichtversicherung', ru: 'Википедия: лечебная физкультура (ЛФК) — обычный путь по ОМС', en: '' } }
+      label: { de: 'Wikipedia (russisch): Heilgymnastik ЛФК – der übliche Weg über die Pflichtversicherung', ru: 'Википедия: лечебная физкультура (ЛФК) — обычный путь по ОМС', en: 'Wikipedia (Russian): therapeutic exercise (ЛФК) – the usual route via compulsory health insurance' } }
   ],
 
   products: [
@@ -116,7 +137,10 @@ export default {
             'При записи спросите об опыте работы с детьми того же возраста и о том, можно ли родителю ' +
             'присутствовать на занятии, — кто видел занятие, сможет продолжить дома. Платно занятие ' +
             'стоит примерно 40–60 €.',
-        en: ''
+        en: 'The regular route in Germany: the pediatrician issues the prescription, the practice bills the ' +
+            'health insurer. When booking, ask about experience with children of your own child\'s age and ' +
+            'whether parents may attend the sessions – whoever watches can keep practicing at home. ' +
+            'Privately, a session costs about 40–60 €.'
       }
     },
     {
@@ -133,7 +157,10 @@ export default {
             'специалистов с психомоторной подготовкой. Направление не нужно, страховка не оплачивает. ' +
             'Подходит детям, которые избегают движения или теряются в обычной спортивной секции; как ' +
             'дополнение к терапии — да, как замена — нет.',
-        en: ''
+        en: 'Small groups with scooter boards, a parachute cloth, benches, and climbing landscapes, led by ' +
+            'professionals with psychomotor training. No prescription needed, not covered by health ' +
+            'insurance. Intended for children who avoid movement or get lost in a regular sports club; ' +
+            'sensible as an addition to therapy, not as a replacement.'
       }
     },
     {
@@ -149,7 +176,10 @@ export default {
             'будет стоять без дела. Роллерной доске (примерно 30 × 40 см, дерево, с защитой роликов) нужен ' +
             'гладкий пол длиной не меньше трёх метров, и вставать на неё ногами нельзя. Балансировочный ' +
             'диск имеет смысл только тогда, когда ребёнок уверенно стоит на одной ноге на ровном полу.',
-        en: ''
+        en: 'Buy equipment for home only after talking to the professional – otherwise expensive material ' +
+            'stands around unused. Scooter boards (about 30 × 40 cm, wood, with roller guards) need a smooth ' +
+            'floor at least three meters long and must never be used standing up. The balance board only ' +
+            'makes sense once the child stands securely on one leg on level ground.'
       }
     },
     {
@@ -162,7 +192,9 @@ export default {
         ru: 'Бордюры для балансирования, лестница без перил, диванные подушки как шаткая полоса препятствий, ' +
             'верёвка на полу вместо линии, прищепки для развешивания картинок. Десять минут в день в таком ' +
             'формате дают больше, чем тренажёр, который достают раз в месяц.',
-        en: ''
+        en: 'Curbs for balancing, stairs without a handrail, sofa cushions as a wobbly obstacle course, a rope ' +
+            'on the floor as a line, clothespins for hanging up pictures. Ten minutes a day in this form ' +
+            'achieve more than a piece of equipment that gets unpacked once a month.'
       }
     }
   ],

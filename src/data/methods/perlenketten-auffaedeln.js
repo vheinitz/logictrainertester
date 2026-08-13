@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Perlenketten nach Vorlage auffädeln',
     ru: 'Нанизывание бусин по образцу',
-    en: ''
+    en: 'Threading bead chains from a template'
   },
 
   short: {
     de: 'Eine vorgegebene Farb- und Formfolge Perle für Perle nachfädeln – Reihenfolge merken plus Feinmotorik.',
     ru: 'Повторить заданную последовательность цветов и форм бусина за бусиной — память на порядок плюс мелкая моторика.',
-    en: ''
+    en: 'Reproducing a given sequence of colors and shapes bead by bead – remembering the order plus fine motor skills.'
   },
 
   what: {
@@ -32,7 +32,12 @@ export default {
         'на котором ты сейчас находишься. Именно эта связь порядка и ручной работы и ценна: при ' +
         'нанизывании сразу видно, когда нить внимания рвётся. Примерно с трёх лет с крупными ' +
         'бусинами, с шести — с мелкими и более длинными узорами.',
-    en: ''
+    en: 'The child is shown a pattern – say red, blue, red, blue, yellow – and threads it bead by ' +
+        'bead. Two things run at the same time: the hand has to guide the thread precisely ' +
+        'through a small hole, and the head has to hold on to the place in the sequence where you ' +
+        'currently are. It is exactly this link between order and handwork that is valuable, ' +
+        'because when threading it shows immediately when the thread of attention breaks. From ' +
+        'about three years with large beads, from six with smaller ones and longer patterns.'
   },
 
   steps: {
@@ -56,7 +61,16 @@ export default {
       'Добавить формы: смешать круглые и длинные бусины так, чтобы узор задавали цвет и форма вместе (красная круглая, жёлтая длинная, красная круглая…).',
       'Готовую нить завязать и носить или подарить. Результат, который остаётся, поддерживает желание взяться снова.'
     ],
-    en: []
+    en: [
+      'Lay out the material: a cord about 60 cm long with a thick knot at one end, three small bowls with beads in three colors. Wrap 3 cm of the free end of the cord with tape, then it is stiff like a needle.',
+      'First let the child thread freely, without a pattern. It should hit the hole reliably before it also has to remember something.',
+      'Present the pattern: you thread four beads – red, blue, red, blue – and lay the chain down next to the child in plain view. The child threads the same sequence and is allowed to look at it.',
+      'Extend the pattern to six, then eight beads and add a third color. Always leave a real repetition in the pattern so that there is a rule and not a random sequence.',
+      'From memory: show the template for 20 seconds, then cover it with a cloth. The child threads the pattern, after which you compare together and look for the mistake.',
+      'Swap roles – the child lays out a pattern, you thread it and deliberately make a mistake. Finding the mistake is harder than threading correctly yourself.',
+      'Add shapes: mix round and long beads so that color and shape together make up the pattern (red-round, yellow-long, red-round …).',
+      'Knot the finished chain and wear it or give it away. A result that lasts keeps the appetite for the next time alive.'
+    ]
   },
 
   tips: {
@@ -72,16 +86,21 @@ export default {
       'Не подгонять. Ценится правильная последовательность и точный захват большим и указательным пальцем, а не длина нити.',
       'Если ребёнок не удерживает образец, узор слишком длинный — лучше четыре бусины, которые держатся, чем десять наугад.'
     ],
-    en: []
+    en: [
+      'Bead size by age: under four years at least 2 cm in diameter with a 5 mm hole, later they may be smaller. Beads that are too small lead to frustration, not to progress.',
+      'Small parts can be swallowed: never let children under three thread unsupervised, not even briefly.',
+      'Do not push for speed. What counts is the correct sequence and a clean grip with thumb and index finger, not the length of the chain.',
+      'If the child cannot hold on to the template, the pattern is too long – better four beads that stick than ten that are guessed.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Feinmotorik', kind: 'wiki',
-      label: { de: 'Wikipedia: Feinmotorik', ru: 'Википедия (нем.): мелкая моторика', en: '' } },
+      label: { de: 'Wikipedia: Feinmotorik', ru: 'Википедия (нем.): мелкая моторика', en: 'Wikipedia (German): fine motor skills' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BB%D0%BA%D0%B0%D1%8F_%D0%BC%D0%BE%D1%82%D0%BE%D1%80%D0%B8%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Feinmotorik', ru: 'Википедия: мелкая моторика', en: '' } },
+      label: { de: 'Wikipedia (russisch): Feinmotorik', ru: 'Википедия: мелкая моторика', en: 'Wikipedia (Russian): fine motor skills' } },
     { url: 'https://www.haba-play.com/de-de/c/spiele-buecher/lern-foerderspiele/faedelspiele--oq2n02', kind: 'hersteller',
-      label: { de: 'HABA: Fädelspiele im Überblick', ru: 'HABA: обзор игр на нанизывание', en: '' } }
+      label: { de: 'HABA: Fädelspiele im Überblick', ru: 'HABA: обзор игр на нанизывание', en: 'HABA: an overview of threading games (German)' } }
   ],
 
   products: [
@@ -100,7 +119,11 @@ export default {
             'дощечки с мотивами: из бусин можно выкладывать любые цветовые последовательности. ' +
             'При покупке смотрите на размер отверстия — тонкий шнур в узком отверстии чаще ' +
             'всего и портит настроение.',
-        en: ''
+        en: 'Wooden beads and threading figures with a firm cord, most sets from 3 years, a few ' +
+            'from 1 year. For this method the plain bead sets are more useful than the motif ' +
+            'boards, because with them you can lay out any color sequence you like. When buying, ' +
+            'pay attention to the hole size – a thin cord through a narrow hole is the most ' +
+            'common source of frustration.'
       }
     },
     {
@@ -117,7 +140,13 @@ export default {
             'ткацкие рамки, от 3 лет. Сайт производителя сейчас доступен только на английском; ' +
             'покупка — через специализированные магазины. Кубики с буквами удобны тем, что ' +
             'позволяют нанизывать не только цвета, но и слова.',
-        en: ''
+        // Der deutsche und russische Text warnt, dass die Herstellerseite nur
+        // auf Englisch ist. Für englische Leser ist das keine Einschränkung,
+        // der Hinweis entfällt hier deshalb.
+        en: 'A cheaper wooden alternative with threading sets, letter cubes for threading and ' +
+            'weaving frames, from 3 years. Available through specialist retailers. The letter ' +
+            'cubes are handy because they allow sequences of words to be threaded instead of ' +
+            'sequences of colors.'
       }
     },
     {
@@ -131,7 +160,9 @@ export default {
         ru: 'Самодельный вариант в начале часто удобнее любого покупного набора: отверстия ' +
             'большие, материал ничего не стоит, а неудача никого не расстраивает. Цветные ' +
             'макароны делаются за десять минут.',
-        en: ''
+        en: 'For a start, the home-made version is often better than any bought set: the holes ' +
+            'are large, the material costs nothing, and a mishap hurts nobody. Colored pasta can ' +
+            'be made in ten minutes.'
       },
       diy: {
         de: 'Perlen: Rigatoni oder Penne (Loch etwa 1 cm) in einen Gefrierbeutel geben, einen ' +
@@ -154,7 +185,16 @@ export default {
             'ряд кружки диаметром 1,5 см и закрасить их цветами узора. Десять карточек от ' +
             'лёгкой (два цвета, четыре бусины) до трудной (три цвета, десять бусин). В ' +
             'прозрачном файле карточки прослужат дольше.',
-        en: ''
+        en: 'Beads: put rigatoni or penne (hole about 1 cm) into a freezer bag, add a teaspoon of ' +
+            'vinegar and a few drops of food coloring, shake the bag, then let the pasta dry on ' +
+            'baking paper for two hours. Three bags for three colors. ' +
+            'Cord: a woolen thread or shoelace 60 cm long, one end tied in a thick knot, the ' +
+            'other wrapped with 3 cm of tape or dipped in glue and left to dry – that gives a ' +
+            'stiff tip. ' +
+            'Template cards: cut card into strips of 6 × 15 cm, draw circles 1.5 cm in diameter ' +
+            'in a row with a felt-tip pen and color them in the pattern colors. Ten cards from ' +
+            'easy (two colors, four beads) to hard (three colors, ten beads). Cards last longer ' +
+            'in a clear sleeve.'
       }
     }
   ],

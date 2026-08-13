@@ -180,7 +180,9 @@ export default {
             'einstellen: Man schneidet einfach gröber oder feiner.',
         ru: 'Пазл из собственной семейной фотографии часто собирают упорнее покупного, потому что ' +
             'сюжет знаком. При этом сложность настраивается точно: режут крупнее или мельче.',
-        en: ''
+        en: 'A puzzle made from the family\'s own photo is often worked at more doggedly than a bought one, ' +
+            'because the child knows the motif. At the same time the difficulty can be set precisely: ' +
+            'you simply cut coarser or finer.'
       },
       diy: {
         de: 'Ein Foto in A4 (210 × 297 mm) ausdrucken und mit Klebestift vollflächig auf ' +
@@ -198,7 +200,13 @@ export default {
             'или ножом по линейке, углы слегка скруглить. Кому нужны настоящие «замочки», тот ' +
             'дорисовывает на каждой линии реза попеременно полукруг диаметром 8 мм и вырезает его ' +
             'маникюрными ножницами. Всё сложить в пакет и написать снаружи число деталей.',
-        en: ''
+        en: 'Print a photo in A4 (210 × 297 mm) and glue it over its whole surface onto photo card ' +
+            '(at least 300 g/m²) with a glue stick, then let it dry for an hour under a stack of books, ' +
+            'otherwise it warps. On the back, draw a grid with a ruler and pencil: to start, 4 columns × ' +
+            '3 rows, which gives 12 pieces of 52 × 99 mm each; later 6 × 5 = 30 pieces. Cut with scissors ' +
+            'or a craft knife along the ruler and round the corners slightly. For real interlocking tabs, ' +
+            'draw a small semicircle 8 mm across alternately along each cut line and cut it out with nail ' +
+            'scissors. Put everything in a bag and note the number of pieces on the outside.'
       }
     }
   ],

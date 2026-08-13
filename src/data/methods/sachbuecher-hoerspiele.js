@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Sachbücher und Wissens-Hörspiele',
     ru: 'Познавательные книги и аудиоспектакли',
-    en: ''
+    en: 'Non-Fiction Books and Knowledge Audio Dramas'
   },
 
   short: {
     de: 'Sachbuchreihen und Hörspiele bauen Weltwissen auf, an das späteres Lernen andocken kann.',
     ru: 'Серии познавательных книг и аудиоспектакли создают запас знаний о мире, к которому цепляется всё, что учится позже.',
-    en: ''
+    en: 'Non-fiction book series and audio dramas build up world knowledge that later learning can attach to.'
   },
 
   what: {
@@ -34,7 +34,14 @@ export default {
         'прослушивания эффекта нет: услышанное нужно хоть раз пересказать своими словами, иначе ' +
         'это останется развлечением. Поэтому в инструкции ниже после каждого прослушивания или ' +
         'чтения стоит короткий вопрос.',
-    en: ''
+    en: 'Only those who already have something for new information to stick to will remember it: ' +
+        'a child who knows what a volcano is understands the lesson on plate tectonics in ten ' +
+        'minutes, while another first has to learn what a volcano is. Non-fiction books and audio ' +
+        'dramas build up exactly this reserve – broad, unordered and without tests, in other ' +
+        'words voluntary. The effect does not come from mere background listening, however: what ' +
+        'was heard has to be retold once in the child\'s own words, otherwise it remains ' +
+        'entertainment. That is why the instructions below include a short follow-up question ' +
+        'after every listening or reading session.'
   },
 
   steps: {
@@ -58,7 +65,16 @@ export default {
       'Одну вещь из книги потрогать в жизни: после книги о воде заставить яйцо всплыть в солёной воде, после книги о динозаврах сходить в музей естественной истории.',
       'Повесить на холодильник листок «А ты знал, что…» и каждую неделю просить ребёнка вписать одну фразу. Через год этот листок — готовый аттестат.'
     ],
-    en: []
+    en: [
+      'Let the child choose the topic, not the curriculum. Sharks, excavators, Ancient Egyptians – what matters is that the child really wants to know about it.',
+      'Before reading, have the child write three questions on a slip of paper that the book should answer ("How deep does a whale dive?"). At the end, tick off what was answered.',
+      'Do not read from front to back, but one double-page spread per day – the one the child opens. Non-fiction books are made for jumping around.',
+      'Look at the pictures and read the captions first, and only then the main text. In non-fiction, the picture carries half the information.',
+      'After reading, the child tells three things it has remembered – to someone who knows nothing about it, the little brother or grandma on the phone. This is the step that turns looking into knowing.',
+      'Use audio dramas deliberately instead of letting them run all day: one episode on the car ride or while getting dressed, followed by exactly one question about it.',
+      'Touch one thing from the book in everyday life: after the water book, make a glass of water with salt float an egg; after the dinosaur book, visit the natural history museum.',
+      'Hang a "Did you know" sheet on the fridge and have the child write one sentence on it every week. After a year, the sheet is a report card.'
+    ]
   },
 
   tips: {
@@ -74,16 +90,21 @@ export default {
       'Лучше одна книга, открытая тридцать раз, чем десять, пролистанных однажды. Пользуйтесь библиотекой и покупайте то, что себя показало.',
       'Если ребёнок не любит читать, аудиоспектакль — это вход, а не капитуляция: одна и та же серия часто существует и книгой, и записью.'
     ],
-    en: []
+    en: [
+      'An audio drama does not replace a conversation. The one question afterwards – "What was the strangest thing?" – makes the difference between background noise and knowledge.',
+      'Pay attention to the age level: the series usually come in tiers (from 2, from 4, from 7, from 8). A non-fiction book that is too hard spoils the topic for years.',
+      'Better one book that gets opened thirty times than ten that are leafed through once. Use the library and only buy what has proven itself.',
+      'If a child dislikes reading, the audio drama is the entry point, not the capitulation – the same series often exists both as a book and as an audio drama.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Was_ist_was', kind: 'wiki',
-      label: { de: 'Wikipedia: WAS IST WAS – Geschichte der Reihe', ru: 'Википедия (нем.): серия WAS IST WAS, её история', en: '' } },
+      label: { de: 'Wikipedia: WAS IST WAS – Geschichte der Reihe', ru: 'Википедия (нем.): серия WAS IST WAS, её история', en: 'Wikipedia (German): WAS IST WAS – history of the series' } },
     { url: 'https://www.tessloff.com/was-ist-was.html', kind: 'hersteller',
-      label: { de: 'Tessloff: WAS IST WAS, alle Reihen nach Alter', ru: 'Tessloff: WAS IST WAS, все серии по возрасту', en: '' } },
+      label: { de: 'Tessloff: WAS IST WAS, alle Reihen nach Alter', ru: 'Tessloff: WAS IST WAS, все серии по возрасту', en: 'Tessloff: WAS IST WAS, all series sorted by age' } },
     { url: 'https://www.ravensburger.de/de-DE/produkte/kinderbuecher/wieso-weshalb-warum', kind: 'hersteller',
-      label: { de: 'Ravensburger: Wieso? Weshalb? Warum?', ru: 'Ravensburger: серия «Wieso? Weshalb? Warum?»', en: '' } }
+      label: { de: 'Ravensburger: Wieso? Weshalb? Warum?', ru: 'Ravensburger: серия «Wieso? Weshalb? Warum?»', en: 'Ravensburger: Wieso? Weshalb? Warum?' } }
   ],
 
   products: [
@@ -101,7 +122,10 @@ export default {
             'основную линию примерно для 8–12 лет. Тома по 48 страниц, каждый на одну тему, ' +
             'после переработки 2024 года с бо́льшим числом инфографики. Покупать поштучно, а не ' +
             'комплектом: ребёнок всё равно читает только то, что его задевает.',
-        en: ''
+        en: 'The German standard series since 1961, tiered into Junior (preschool), Kids and ' +
+            'the original edition for roughly 8 to 12 years. Volumes of 48 pages, each on a ' +
+            'single topic, with more infographics since the 2024 revision. Buy individual ' +
+            'volumes rather than a bundle – a child only reads the topics that concern it anyway.'
       }
     },
     {
@@ -118,7 +142,10 @@ export default {
             'тематические боксы (космос, море, техника, история). Одна серия длится около 40 ' +
             'минут — хорошо для поездки и слишком долго перед сном, если после ещё должен быть ' +
             'вопрос.',
-        en: ''
+        en: 'Knowledge audio dramas from 6 years, on CD or as a download, sorted thematically ' +
+            'into boxes (space, sea, technology, history). One episode lasts about 40 minutes – ' +
+            'good for a car ride, too long for just before falling asleep if the follow-up ' +
+            'question is still supposed to come afterwards.'
       }
     },
     {
@@ -135,7 +162,10 @@ export default {
             'серия 4–7, для начинающих читать с 7, а также книжки с заданиями и наклейками. ' +
             'Створки здесь не украшение: ребёнок угадывает, что под ними, и сам проверяет себя. ' +
             'Для младших это лучший вход, чем чисто текстовые книги.',
-        en: ''
+        en: 'Board books with flaps, in four levels: junior from 2, the core series 4–7, ' +
+            'first readers from 7, plus activity and sticker booklets. The flaps are not mere ' +
+            'decoration – the child guesses what is underneath and checks for itself. For ' +
+            'younger children a better entry point than purely text-based non-fiction.'
       }
     },
     {
@@ -152,7 +182,10 @@ export default {
             'серии выпускаются в виде фигурок. Плюс по сравнению с телефоном: нет экрана и нет ' +
             'ленты рекомендаций, которая играет дальше. Минус: дорого в пересчёте на час. Кто ' +
             'слушает много, дешевле обойдётся с CD или библиотечным приложением.',
-        en: ''
+        en: 'An audio player without a display that children operate themselves from about ' +
+            'three years of age; knowledge series are available as figures. Advantage over a ' +
+            'phone: no screen, no recommendation list that keeps playing. Disadvantage: ' +
+            'expensive per hour. Anyone who listens a lot is better off with CDs or a library app.'
       }
     }
   ],

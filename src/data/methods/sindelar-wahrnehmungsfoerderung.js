@@ -140,7 +140,11 @@ export default {
             'по каждой функции; программы выстроены друг за другом и подбираются по результатам ' +
             'теста. Издательство продаёт преимущественно специалистам. Купленный по отдельности ' +
             'и без профиля диагностики материал мало что даёт — непонятно, какая папка нужна.',
-        en: ''
+        en: 'The material consists of an assessment procedure and matching exercise folders for ' +
+            'each sub-function; the programs build on one another and are selected according to ' +
+            'the test result. The publisher sells mainly to professionals. Bought individually ' +
+            'and without a test profile, the material is of little value – you then do not know ' +
+            'which folder is the right one.'
       }
     },
     {
@@ -158,7 +162,11 @@ export default {
             'Каталог перечисляет специалистов в Австрии, кроме того обученные тренеры есть в ' +
             'Германии и Словакии. Перед записью спросите, как часто проводятся контрольные ' +
             'встречи и входит ли тренировочный материал в цену. Страховые кассы обычно не платят.',
-        en: ''
+        en: 'Without an assessment there is no sensible training – this is the point where ' +
+            'saving money does not pay off. The directory lists professionals in Austria, and ' +
+            'there are also trained trainers in Germany and Slovakia. Before signing up, ask how ' +
+            'often check-up appointments take place and whether the exercise material is ' +
+            'included in the price. Health insurers usually do not cover it.'
       }
     },
     {
@@ -176,7 +184,10 @@ export default {
             'простукивания ритма, карточки из лишнего набора «мемори» для «фигура-фон». Чего ' +
             'заменить нельзя — так это диагностики, которая говорит, какое из этих упражнений ' +
             'вообще сейчас нужно.',
-        en: ''
+        en: 'The individual exercise types need no purchased material: squared paper for rows ' +
+            'of characters, wooden beads and string for sequences, a pencil for tapping rhythm ' +
+            'tasks, picture cards from a spare memory game for figure-ground. What cannot be ' +
+            'replaced is the assessment, which says which of these exercises is actually due.'
       }
     }
   ],

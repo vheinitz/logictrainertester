@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Konzentrations- und Entspannungsübungen',
     ru: 'Упражнения на концентрацию и расслабление',
-    en: ''
+    en: 'Concentration and relaxation exercises'
   },
 
   short: {
     de: 'Kurze Still-, Atem- und Phantasiereise-Übungen senken die Anspannung und verlängern die Aufmerksamkeitsspanne.',
     ru: 'Короткие упражнения на тишину, дыхание и воображаемое путешествие снижают напряжение и удлиняют время внимания.',
-    en: ''
+    en: 'Short stillness, breathing and guided-imagery exercises lower tension and lengthen the attention span.'
   },
 
   what: {
@@ -38,7 +38,14 @@ export default {
         'образами вместо формул. А вот стойкого роста концентрации или школьных оценок от этого ' +
         'не доказано: польза в том, что перевозбуждённый ребёнок вообще приходит в рабочее ' +
         'состояние. Лечение СДВГ или тревожного расстройства это не заменяет.',
-    en: ''
+    en: 'A fixed ritual of eight to ten minutes before the actual practice time: briefly tense the ' +
+        'muscles and let go again, breathe out calmly, sit still, listen to a guided fantasy ' +
+        'journey. Progressive muscle relaxation and autogenic training are well studied for tension, ' +
+        'restlessness and sleep problems; for children there are tried-and-tested versions using ' +
+        'images instead of formulas. That this permanently raises concentration performance or ' +
+        'school grades, however, has not been demonstrated – the benefit lies in getting a wound-up ' +
+        'child into a state where work is possible at all. It is not a substitute for treatment of ' +
+        'ADHD or an anxiety disorder.'
   },
 
   steps: {
@@ -62,7 +69,16 @@ export default {
       'Задать ровно один вопрос («Где ты был?») и оставить ответ как есть. Не оценивать, не хвалить, не толковать.',
       'Сразу после этого браться за трудное задание. Так ребёнок усваивает, что ритуал — часть работы, а не уход от неё.'
     ],
-    en: []
+    en: [
+      'Always use the same place and the same time of day, directly before homework or a practice game. Phone away, lights dimmed, plan for eight to ten minutes.',
+      'Tensing and letting go with images, each exercise twice: "squeezing a lemon" – fists clenched for five seconds, loose for ten; "turtle" – shoulders up to the ears; "standing in mud" – curl the toes.',
+      'Breathing: one hand on the belly, breathe in through the nose for a count of four, breathe out through pursed lips for a count of six, as if a candle should flicker but not go out. Six breaths.',
+      'A stillness exercise with an hourglass or a glitter jar: shake it, put it down, watch without talking until everything has settled. One minute is enough, no more.',
+      'Read out a fantasy journey of three to five minutes – slowly, quietly, with pauses between the sentences. The child may lie down and close its eyes, but does not have to.',
+      'Coming back, never leave it out: "Hands into fists, tense the arms hard, breathe in deeply, open your eyes, stretch." Only get up after that.',
+      'Ask exactly one question ("Where were you?") and leave the answer as it is. Do not judge, do not praise, do not interpret.',
+      'Tackle the difficult task immediately afterwards. That way the child learns that the ritual belongs to the work and does not lead away from it.'
+    ]
   },
 
   tips: {
@@ -78,20 +94,25 @@ export default {
       'У тревожных или переживающих детей воображаемое путешествие может вызвать неприятные образы. Разрешить не закрывать глаза, при беспокойстве прервать и вернуться к дыханию.',
       'Коротко и каждый день лучше, чем долго и раз в неделю. Пять минут шесть дней подряд дают больше, чем полчаса в воскресенье.'
     ],
-    en: []
+    en: [
+      'Never use it as a punishment or in the middle of an argument ("Now you are going to relax!"). The ritual burns up in the process and is useless afterwards.',
+      'Let a very fidgety child run itself out first: two minutes of jumping, up and down the stairs, and only then sit down. Relaxation does not work against a full urge to move.',
+      'Fantasy journeys can trigger unpleasant images in anxious or burdened children. Allow the eyes to stay open, break off if the child becomes restless and go back to the breathing exercise.',
+      'Short and daily beats long and once a week. Five minutes on six days achieve more than half an hour on a Sunday.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Progressive_Muskelentspannung', kind: 'wiki',
-      label: { de: 'Wikipedia: Progressive Muskelentspannung', ru: 'Википедия (нем.): прогрессивная мышечная релаксация', en: '' } },
+      label: { de: 'Wikipedia: Progressive Muskelentspannung', ru: 'Википедия (нем.): прогрессивная мышечная релаксация', en: 'Wikipedia (German): progressive muscle relaxation' } },
     { url: 'https://de.wikipedia.org/wiki/Autogenes_Training', kind: 'wiki',
-      label: { de: 'Wikipedia: Autogenes Training', ru: 'Википедия (нем.): аутогенная тренировка', en: '' } },
+      label: { de: 'Wikipedia: Autogenes Training', ru: 'Википедия (нем.): аутогенная тренировка', en: 'Wikipedia (German): autogenic training' } },
     { url: 'https://de.wikipedia.org/wiki/Fantasiereise', kind: 'wiki',
-      label: { de: 'Wikipedia: Fantasiereise – Aufbau in fünf Teilen', ru: 'Википедия (нем.): воображаемое путешествие, структура из пяти частей', en: '' } },
+      label: { de: 'Wikipedia: Fantasiereise – Aufbau in fünf Teilen', ru: 'Википедия (нем.): воображаемое путешествие, структура из пяти частей', en: 'Wikipedia (German): fantasy journey – its structure in five parts' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%90%D1%83%D1%82%D0%BE%D0%B3%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F_%D1%82%D1%80%D0%B5%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Autogenes Training', ru: 'Википедия: аутогенная тренировка', en: '' } },
+      label: { de: 'Wikipedia (russisch): Autogenes Training', ru: 'Википедия: аутогенная тренировка', en: 'Wikipedia (Russian): autogenic training' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A0%D0%B5%D0%BB%D0%B0%D0%BA%D1%81%D0%B0%D1%86%D0%B8%D1%8F', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Entspannung/Relaxation', ru: 'Википедия: релаксация', en: '' } }
+      label: { de: 'Wikipedia (russisch): Entspannung/Relaxation', ru: 'Википедия: релаксация', en: 'Wikipedia (Russian): relaxation' } }
   ],
 
   products: [
@@ -109,7 +130,10 @@ export default {
             'лет: капитан Немо берёт ребёнка в подводное плавание, а внутрь вплетены формулы ' +
             'тяжести и тепла из аутогенной тренировки. 113 страниц, для чтения вслух или ' +
             'самостоятельно. Одной истории в вечер достаточно; повторять одну и ту же можно.',
-        en: ''
+        en: 'The classic among relaxation stories for children of roughly five to twelve years: ' +
+            'Captain Nemo takes them out to sea in his submarine, with the heaviness and warmth ' +
+            'formulas of autogenic training built in. 113 pages, to be read aloud or read alone. One ' +
+            'story per evening is enough; the same story may be repeated.'
       }
     },
     {
@@ -128,7 +152,11 @@ export default {
             'если самому не удаётся говорить достаточно спокойно. Сопутствующее руководство ' +
             '(Hogrefe, «Training progressiver Muskelentspannung für Kinder») предназначено для ' +
             'специалистов, дома оно не требуется.',
-        en: ''
+        en: 'Three guided exercises for children from eight to twelve: the complete muscle relaxation, ' +
+            'a relaxation story and a short version for the practised. Practical if you cannot speak ' +
+            'calmly enough yourself. The accompanying training manual (Hogrefe, "Training ' +
+            'progressiver Muskelentspannung für Kinder") is aimed at professionals and is not needed ' +
+            'at home.'
       }
     },
     {
@@ -145,7 +173,10 @@ export default {
             'расположены от разминки до заключительного расслабления. Для детей четырёх–десяти ' +
             'лет и для взрослых без опыта йоги. Вытянуть три-четыре карточки и выполнить в этом ' +
             'порядке — выбирать карточки пусть будет правом ребёнка.',
-        en: ''
+        en: '32 cards in A5 format with 30 exercises, each with a picture and a rhyme, arranged from ' +
+            'warming up to final relaxation. For children aged four to ten and for adults with no ' +
+            'previous yoga experience. Draw three or four cards and do them in that order – let the ' +
+            'child pick the cards itself.'
       }
     },
     {
@@ -156,7 +187,8 @@ export default {
             'Zusehen und eine Handvoll Übungen, die immer gleich ablaufen.',
         ru: 'Самое действенное здесь почти ничего не стоит: постоянное место, «часы», за ' +
             'которыми можно наблюдать, и горстка упражнений, которые всегда идут одинаково.',
-        en: ''
+        en: 'What actually works here costs almost nothing: a fixed place, a timer to watch and a ' +
+            'handful of exercises that always run in the same way.'
       },
       diy: {
         de: 'Beruhigungsflasche: eine leere PET-Flasche mit 500 ml, glatt und durchsichtig. ' +
@@ -179,7 +211,16 @@ export default {
             'упражнение в одну фразу и схематичный рисунок — лимон, черепаха, свеча, грязь. ' +
             'Заламинировать или вложить в файлы, скрепить кольцом в верхнем углу. Ребёнок ' +
             'вытягивает три карточки и этим задаёт порядок.',
-        en: ''
+        en: 'Calming bottle: an empty 500 ml PET bottle, smooth and transparent. Pour in 400 ml of ' +
+            'warm water, add 2 tablespoons of glitter glue and 1 teaspoon of fine glitter, shake ' +
+            'until everything has dissolved, top up with water to the brim (no air bubble, otherwise ' +
+            'it gurgles) and seal the inside of the cap with hot glue. More glue = slower sinking; ' +
+            'two spoonfuls give about a minute, which is the right length for the stillness ' +
+            'exercise. ' +
+            'Exercise card file: eight A6 index cards (10.5 × 14.8 cm), on each one an exercise in a ' +
+            'single sentence plus a line drawing – lemon, turtle, candle, mud. Laminate them or put ' +
+            'them in clear sleeves and bind them together with a ring through the top corner. The ' +
+            'child draws three cards and thereby sets the order.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="46" y="10" width="28" height="60" rx="6" fill="#EAF3FB" stroke="#8FB6D6" stroke-width="2"/>

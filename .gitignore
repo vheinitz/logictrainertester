@@ -7,3 +7,6 @@ node_modules/
 # Doppelklick auf index.html laufen (Offline-Nutzung auf Tablet/Familien-PC).
 # Neu erzeugen mit: npm run build
 !dist/
+
+# Arbeitsklone und Zwischenstände, kein Quellcode
+tmp/

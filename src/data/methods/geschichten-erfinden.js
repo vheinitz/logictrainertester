@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Geschichten erfinden mit Story Cubes',
     ru: 'Придумывание историй (Story Cubes)',
-    en: ''
+    en: 'Inventing stories with Story Cubes'
   },
 
   short: {
     de: 'Aus gewürfelten Bildsymbolen oder reihum ergänzten Sätzen entsteht gemeinsam eine zusammenhängende Geschichte.',
     ru: 'Из выпавших на кубиках картинок или из добавляемых по кругу фраз вместе складывается связная история.',
-    en: ''
+    en: 'A coherent story is built together from rolled picture symbols or from sentences added in turn.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'соединить словами «сначала», «поэтому», «в конце». Без всякого материала выходит то же самое: ' +
         'по кругу каждый добавляет по фразе. Примерно с четырёх лет — с тремя кубиками, с восьми — со ' +
         'всеми девятью.',
-    en: ''
+    en: 'Nine dice, each with six picture symbols, are thrown, and a story is told from the images ' +
+        'facing up. The method works because it takes away the hardest part of free storytelling: ' +
+        'the blank page. The pictures supply the material, the child only has to connect them – ' +
+        'and in doing so it practises exactly what school asks for: establishing an order, naming ' +
+        'cause and effect, linking things with "first", "that is why", "in the end". It works just ' +
+        'as well without any material: each person in turn adds a sentence. From about four years ' +
+        'with three dice, from eight with all nine.'
   },
 
   steps: {
@@ -57,7 +63,15 @@ export default {
       'Продолжить без материала: один говорит первую фразу, следующий добавляет свою, начиная с «И тогда…» или «Но вдруг…». После десяти фраз нужно найти конец.',
       'Для детей, которые уже пишут: записать историю ровно пятью предложениями. Сокращение заставляет наводить порядок.'
     ],
-    en: []
+    en: [
+      'Throw all the dice at once and leave them lying face up. Do not re-roll anything, even if a picture is awkward – that is exactly what makes the storytelling grow.',
+      'Push the dice into three groups: three for the beginning, three for the middle, three for the end. That way the story has a shape from the start.',
+      'Begin with "Once upon a time …" and say at least one sentence for each die. Every picture may be interpreted freely – a key can be a key, a secret or a door.',
+      'Do not interrupt during the telling and do not correct anything. All follow-up questions come afterwards: "How did the dog actually get onto the ship?"',
+      'Have the finished story retold once, now without looking at the dice. If you like, record it on the phone and listen to it again in the evening.',
+      'Carry on without material: one person starts with a sentence, the next adds one beginning with "And then …" or "But suddenly …". After ten sentences an ending has to be found.',
+      'For children who can already write: write the story down in exactly five sentences. Shortening forces you to put things in order.'
+    ]
   },
 
   tips: {
@@ -73,18 +87,23 @@ export default {
       'Неправильных толкований символа не бывает. Тот, кто «поправляет» картинку, останавливает рассказ.',
       'Взрослому стоит рассказывать каждый второй кон самому — и иногда плохо, с запинками. Дети рассказывают свободнее, когда видят, что идеально быть не обязано.'
     ],
-    en: []
+    en: [
+      'If the child gets stuck, do not offer a continuation but ask: "Who else was there? What did he say? How did he feel about it?" The answer is the next sentence.',
+      'Match the number of dice to the child. Three dice for four- to six-year-olds, six for primary school, nine for the practised. Too many pictures produce lists instead of stories.',
+      'There is no wrong interpretation of a symbol. Anyone who "puts a picture right" brings the storytelling to a halt.',
+      'Adults tell the story themselves every second round – and sometimes badly and haltingly. Children tell stories more freely when they see that it does not have to be perfect.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Story_Cubes', kind: 'wiki',
-      label: { de: 'Wikipedia: Story Cubes – Aufbau und Spielweise', ru: 'Википедия (нем.): Story Cubes — устройство и ход игры', en: '' } },
+      label: { de: 'Wikipedia: Story Cubes – Aufbau und Spielweise', ru: 'Википедия (нем.): Story Cubes — устройство и ход игры', en: 'Wikipedia (German): Story Cubes – set-up and how it is played' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A1%D1%82%D0%BE%D1%80%D0%B8%D1%82%D0%B5%D0%BB%D0%BB%D0%B8%D0%BD%D0%B3', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Erzählkunst und Storytelling', ru: 'Википедия: сказительство и сторителлинг', en: '' } },
+      label: { de: 'Wikipedia (russisch): Erzählkunst und Storytelling', ru: 'Википедия: сказительство и сторителлинг', en: 'Wikipedia (Russian): the art of narration and storytelling' } },
     { url: 'https://store.asmodee.com/products/rorys-story-cubes-box', kind: 'hersteller',
-      label: { de: 'Asmodee/Zygomatic: Rory’s Story Cubes beim Hersteller', ru: 'Asmodee/Zygomatic: Rory’s Story Cubes у производителя', en: '' } },
+      label: { de: 'Asmodee/Zygomatic: Rory’s Story Cubes beim Hersteller', ru: 'Asmodee/Zygomatic: Rory’s Story Cubes у производителя', en: 'Asmodee/Zygomatic: Rory’s Story Cubes at the manufacturer' } },
     { url: 'https://www.moses-verlag.de/Geschichtenwuerfel-Maerchen/090147', kind: 'hersteller',
-      label: { de: 'moses. Verlag: Geschichtenwürfel Märchen', ru: 'Издательство moses: кубики историй «Сказки»', en: '' } }
+      label: { de: 'moses. Verlag: Geschichtenwürfel Märchen', ru: 'Издательство moses: кубики историй «Сказки»', en: 'moses. Verlag: Geschichtenwürfel Märchen (fairy-tale story dice)' } }
   ],
 
   products: [
@@ -104,7 +123,11 @@ export default {
             'подходить к любой истории. Существует много тематических наборов (путешествия, загадки, ' +
             'действия); их можно смешивать, что усложняет задачу для детей постарше. Цены заметно ' +
             'различаются в зависимости от издания и страны.',
-        en: ''
+        en: 'The original: nine dice with 54 symbols in total in a magnetic box, from 6 years, for ' +
+            '1 to 12 players. The symbols are deliberately kept general (tower, footprint, ' +
+            'question mark) so that they fit into any story. There are numerous themed sets ' +
+            '(travel, mystery, actions); they can be mixed, which makes the task harder for older ' +
+            'children. Prices vary considerably depending on the edition and the country.'
       }
     },
     {
@@ -121,7 +144,10 @@ export default {
             'узкий круг тем — преимущество для детей, которые не знают, что делать с совсем свободными ' +
             'символами: сказочные персонажи приносят свои роли с собой. У того же издательства есть ' +
             'наборы и на другие темы.',
-        en: ''
+        en: 'Nine dice with 54 fairy-tale symbols (princess, dragon, wizard), from 6 years. The ' +
+            'narrower range of themes is an advantage for children who do not know what to do ' +
+            'with completely open symbols: fairy-tale figures bring their roles with them. The ' +
+            'same publisher offers further sets on other themes.'
       }
     },
     {
@@ -133,7 +159,9 @@ export default {
             'Wortschatzarbeit.',
         ru: 'Самодельные символы превосходят покупные в одном: в них ровно те вещи, о которых хочет ' +
             'рассказывать этот ребёнок. Само изготовление — уже полчаса работы над словарным запасом.',
-        en: ''
+        en: 'Home-made symbols beat bought ones in one respect: they contain exactly the things ' +
+            'this child wants to tell stories about. Making them is already half an hour of ' +
+            'vocabulary work in itself.'
       },
       diy: {
         de: 'Würfelvariante: sechs Holzwürfel mit 3 cm Kantenlänge (Bastelbedarf, ca. 0,50 € je ' +
@@ -151,7 +179,13 @@ export default {
             'местами, один с предметами, один с действиями или чувствами. В конце покрыть прозрачным ' +
             'лаком. Вариант без инструментов: 36 карточек из картона 6 × 6 см, по одному символу на ' +
             'каждой, тянуть вслепую; маленьким рукам с ними проще, чем с кубиками.',
-        en: ''
+        en: 'Dice version: lightly sand six wooden cubes with an edge length of 3 cm (from craft ' +
+            'supplies, about 0.50 € each). Stick a square sticker of 2.5 × 2.5 cm on each face and ' +
+            'draw a single, simple symbol on it with a waterproof fineliner – line drawing, no ' +
+            'colour, no background. A sensible division: two dice with characters, two with ' +
+            'places, one with objects, one with actions or feelings. Finally, coat them with clear ' +
+            'varnish. Card version without any tools: 36 cards made of cardboard, 6 × 6 cm, one ' +
+            'symbol each, drawn face down; small hands find these easier to handle than dice.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="10" y="34" width="30" height="30" rx="5" fill="var(--primary)"/>

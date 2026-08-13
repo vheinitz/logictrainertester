@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Symbole und ihre Bedeutung lernen',
     ru: 'Изучение символов и их значений',
-    en: ''
+    en: 'Learning symbols and their meanings'
   },
 
   short: {
     de: 'Verkehrszeichen, Piktogramme und Kartenzeichen werden als feste Bild-Bedeutungs-Paare gelernt und im Alltag wiedererkannt.',
     ru: 'Дорожные знаки, пиктограммы и условные знаки карт заучиваются как устойчивые пары «изображение — значение» и узнаются в жизни.',
-    en: ''
+    en: 'Road signs, pictograms and map symbols are learned as fixed image-meaning pairs and recognised again in everyday life.'
   },
 
   what: {
@@ -33,7 +33,13 @@ export default {
         'внутренняя картинка — о теме. Кто это однажды понял, сумеет истолковать и знак, которого раньше не ' +
         'видел. Попутно это настоящие бытовые знания: знаки по дороге в школу, пиктограммы на вокзале, ' +
         'значки стирки на свитере, легенда туристической карты.',
-    en: ''
+    en: 'A symbol is an image with a meaning firmly attached to it – the red triangle warns, the blue ' +
+        'circle commands, red with a diagonal bar forbids. Children learn such pairs quickly if they ' +
+        'do not memorise thirty individual signs but grasp the system behind them: shape and colour ' +
+        'state the kind of message, the inner picture states the topic. Anyone who has understood ' +
+        'this can also interpret a sign they have never seen before. It is genuine everyday knowledge ' +
+        'into the bargain: road signs on the way to school, pictograms at the station, care symbols in ' +
+        'a jumper, legends on a hiking map.'
   },
 
   steps: {
@@ -57,7 +63,16 @@ export default {
       'Положить на стол туристическую карту и прочитать легенду: выбрать пять знаков (церковь, смотровая точка, тропа, ручей, горизонталь), найти их на карте, а в ближайшем походе — в самой местности.',
       'Раз в несколько недель перемешивать карточки и проходить их за две минуты. Что дважды подряд названо верно — уходит из стопки; остаются только сомнительные.'
     ],
-    en: []
+    en: [
+      'Start with the child’s own route, not with a textbook: pick twelve signs that really stand along the way to school or to the playground and photograph them with a phone.',
+      'Print out the photos or copy them by hand and turn them into card pairs: the sign on the front, the meaning on the back in the child’s own words (“only people on foot are allowed here”, not “special footpath”).',
+      'Show the rule before any memorising: round sign with a red rim = forbidden, blue circle = you must do this, red triangle = watch out, blue rectangle = a piece of information. Then have the twelve cards sorted into these four piles.',
+      'Present a new sign that has never been shown and let the child guess – but by the rule: “It is a red triangle, so it is a warning. What is pictured on it?” Precisely this step shows whether the system has been understood.',
+      'On the next walk, play it the other way round: “In a hundred metres there is a sign – which one?” Whoever guesses correctly gets the point, and so does whoever spots it first.',
+      'Extend to pictograms once the road signs are secure: at the station (exit, platform, luggage locker), at the swimming pool, at the emergency exit, on the care label of the child’s own jumper. Decipher one label together, then set the washing machine accordingly.',
+      'Put a hiking map on the table and read the legend: pick five symbols (church, viewpoint, footpath, stream, contour line), find them on the map, then find them again in the landscape on the next hike.',
+      'Shuffle the cards every few weeks and go through them in two minutes. Whatever is right twice in a row leaves the pile; only the shaky ones stay in.'
+    ]
   },
 
   tips: {
@@ -73,22 +88,27 @@ export default {
       'Символы культурны, а не самоочевидны: часть дорожных знаков в России и Германии различается. Если семья бывает в обеих странах, разложить оба набора рядом и поискать различия — так запоминается лучше всего.',
       'Никаких угадаек на ходу посреди дороги. Сначала остановиться у бордюра, потом спрашивать.'
     ],
-    en: []
+    en: [
+      'No more than twelve signs in the pile at any one time. A thick stack feels like a punishment; twelve cards are done in two minutes.',
+      'Always have meanings written down in a child’s words. Officialese (“give way”) is memorised and not understood – “I have to wait here” sticks.',
+      'Symbols are cultural, not self-explanatory: some road signs differ between Russia and Germany. If the family travels in both countries, lay both sets side by side and look for the differences – that is what sticks best.',
+      'No guessing games while walking in traffic. First stop at the kerb, then ask.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Verkehrszeichen_(Deutschland)', kind: 'wiki',
-      label: { de: 'Wikipedia: Verkehrszeichen in Deutschland, mit allen Zeichen', ru: 'Википедия (нем.): дорожные знаки Германии, полный перечень', en: '' } },
+      label: { de: 'Wikipedia: Verkehrszeichen in Deutschland, mit allen Zeichen', ru: 'Википедия (нем.): дорожные знаки Германии, полный перечень', en: 'Wikipedia (German): road signs in Germany, with every sign' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%94%D0%BE%D1%80%D0%BE%D0%B6%D0%BD%D1%8B%D0%B5_%D0%B7%D0%BD%D0%B0%D0%BA%D0%B8_%D0%A0%D0%BE%D1%81%D1%81%D0%B8%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Verkehrszeichen Russlands, mit allen Zeichen', ru: 'Википедия: дорожные знаки России, полный перечень', en: '' } },
+      label: { de: 'Wikipedia (russisch): Verkehrszeichen Russlands, mit allen Zeichen', ru: 'Википедия: дорожные знаки России, полный перечень', en: 'Wikipedia (Russian): road signs of Russia, with every sign' } },
     { url: 'https://de.wikipedia.org/wiki/Piktogramm', kind: 'wiki',
-      label: { de: 'Wikipedia: Piktogramm – wie Bildzeichen funktionieren', ru: 'Википедия (нем.): пиктограмма — как работают знаки-картинки', en: '' } },
+      label: { de: 'Wikipedia: Piktogramm – wie Bildzeichen funktionieren', ru: 'Википедия (нем.): пиктограмма — как работают знаки-картинки', en: 'Wikipedia (German): pictogram – how picture signs work' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9F%D0%B8%D0%BA%D1%82%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Piktogramm', ru: 'Википедия: пиктограмма', en: '' } },
+      label: { de: 'Wikipedia (russisch): Piktogramm', ru: 'Википедия: пиктограмма', en: 'Wikipedia (Russian): pictogram' } },
     { url: 'https://de.wikipedia.org/wiki/Signatur_(Kartografie)', kind: 'wiki',
-      label: { de: 'Wikipedia: Kartenzeichen und Legenden', ru: 'Википедия (нем.): условные знаки карт и легенда', en: '' } },
+      label: { de: 'Wikipedia: Kartenzeichen und Legenden', ru: 'Википедия (нем.): условные знаки карт и легенда', en: 'Wikipedia (German): map symbols and legends' } },
     { url: 'https://www.verkehrswacht-medien-service.de/', kind: 'anleitung',
-      label: { de: 'Verkehrswacht Medien & Service: kostenlose Materialien zur Verkehrserziehung', ru: 'Verkehrswacht Medien & Service: бесплатные материалы по дорожной грамотности', en: '' } }
+      label: { de: 'Verkehrswacht Medien & Service: kostenlose Materialien zur Verkehrserziehung', ru: 'Verkehrswacht Medien & Service: бесплатные материалы по дорожной грамотности', en: 'Verkehrswacht Medien & Service: free materials for road safety education' } }
   ],
 
   products: [
@@ -106,7 +126,10 @@ export default {
             'памятки для родителей о дороге в школу, велосипеде и пешеходной подготовке, плюс магазин с ' +
             'брошюрами. Покупные наборы знаков из отдела игрушек часто содержат знаки, которых ребёнок ' +
             'никогда не увидит, — сфотографированные самими почти всегда лучше.',
-        en: ''
+        en: 'The publishing house of the German road safety association provides worksheets and parent ' +
+            'guides on the way to school, cycling and pedestrian training free of charge, plus a shop ' +
+            'with booklets. Bought sign sets from toy shops often contain signs the child never sees – ' +
+            'the ones photographed yourself are almost always the better choice.'
       },
       diy: {
         de: 'Kartensatz selbst herstellen: 24 Kärtchen 7 × 10 cm aus 250-g-Karton. Vorderseite das Zeichen – ' +
@@ -123,7 +146,14 @@ export default {
             'зелёная — информация). Заламинировать или оклеить плёнкой и скрепить кольцом в верхнем углу — ' +
             'тогда набор влезает в карман куртки и используется на улице. Материалов меньше чем на 5 €, ' +
             'работы примерно на 45 минут, и рисует ребёнок вместе со взрослым.',
-        en: ''
+        en: 'Make the card set yourself: 24 cards 7 × 10 cm from 250 g card. The sign goes on the front – ' +
+            'either the printed photo (picture size about 5 × 5 cm) or drawn with a felt pen; round ' +
+            'signs with a glass as a template, triangles with a set square. On the back the meaning in ' +
+            'a child’s words plus a coloured dot for the group (red = forbidden, blue = obligation, ' +
+            'yellow = warning, green = information). Laminate them or cover them with book film and ' +
+            'hold them together with a ring through the top corner – that way the set fits in a jacket ' +
+            'pocket and gets used out and about. Materials under 5 €, one craft session of about ' +
+            '45 minutes with the child colouring along.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <circle cx="24" cy="26" r="16" fill="#fff" stroke="var(--orange)" stroke-width="6"/>
@@ -150,7 +180,9 @@ export default {
         ru: 'Пиктограммы не купишь набором, как дорожные знаки, — их собирают. На вокзале, в бассейне, в ' +
             'музее, на упаковках и ярлыках одежды. Папка с фотографиями в телефоне вполне годится как ' +
             'запас, двенадцать лучших переносят на карточки.',
-        en: ''
+        en: 'Pictograms cannot be bought as a set the way road signs can – you collect them. At the ' +
+            'station, at the swimming pool, in a museum, on packaging and care labels. A photo folder ' +
+            'on the phone is stock enough; the twelve best go onto cards.'
       },
       diy: {
         de: 'Zwölf Piktogramme unterwegs fotografieren und in Graustufen auf 5 × 5 cm ausdrucken, damit die ' +
@@ -163,7 +195,12 @@ export default {
             'значение. Дополнительно чистый круг: ребёнок придумывает собственные пиктограммы для семьи — ' +
             '«уроки сделаны», «снять обувь», «тихо, малыш спит» — и вешает их на нужную дверь. Кто сам ' +
             'придумал знак, потом лучше понимает и чужие.',
-        en: ''
+        en: 'Photograph twelve pictograms while out and about and print them in greyscale at 5 × 5 cm, ' +
+            'so that the shape and not the colour is recognised. Glue them onto cards 7 × 10 cm with ' +
+            'the meaning on the back. Add a blank round on top: the child invents its own pictograms ' +
+            'for the family – “homework finished”, “take your shoes off”, “quiet, the baby is ' +
+            'sleeping” – and hangs them on the matching door. Whoever designs a sign themselves ' +
+            'understands other people’s signs better afterwards.'
       }
     },
     {
@@ -178,7 +215,10 @@ export default {
         ru: 'Бумажная туристическая карта 1:25 000 или 1:50 000 своей местности, а не приложение: легенда ' +
             'напечатана с краю, всё видно одновременно, и карту можно складывать, вертеть и водить по ней ' +
             'пальцем. Перед походом выбрать пять знаков и по дороге искать их в местности.',
-        en: ''
+        en: 'A printed hiking map at 1:25,000 or 1:50,000 of your own area, not an app: the legend is ' +
+            'printed in the margin, everything is visible at once, and the child may fold it, turn it ' +
+            'and trace it with a finger. Pick five symbols before the hike and have the child look for ' +
+            'them along the way.'
       }
     }
   ],

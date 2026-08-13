@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Freies Bauen mit Lego und Holzbausteinen',
     ru: 'Свободное конструирование: Lego и деревянные кубики',
-    en: ''
+    en: 'Free Building with Lego and Wooden Blocks'
   },
 
   short: {
     de: 'Offenes Konstruieren mit Bausteinen entwickelt räumliches Vorstellen, Planung und Feinmotorik.',
     ru: 'Свободное конструирование из кубиков развивает пространственное представление, планирование и мелкую моторику.',
-    en: ''
+    en: 'Open-ended building with blocks develops spatial imagination, planning and fine motor skills.'
   },
 
   what: {
@@ -34,7 +34,12 @@ export default {
         'кубиками показывают связь с пространственными способностями прежде всего тогда, когда взрослый ' +
         'играет рядом и проговаривает происходящее; просто поставить коробку недостаточно. Подходит с ' +
         'детского сада и не имеет верхней границы — растёт только материал.',
-    en: ''
+    en: 'Building without instructions: the child decides what to create and has to think ahead the whole ' +
+        'time – does the brick fit, will the structure hold, what does it look like from behind. Whoever ' +
+        'builds rotates shapes in their head, compares lengths and revises plans while carrying them out. ' +
+        'Studies on block play show a link to spatial abilities above all when an adult plays along and ' +
+        'names what is being built; just putting the box down is not enough. Suitable from kindergarten ' +
+        'age with no upper limit – only the material grows with the child.'
   },
 
   steps: {
@@ -58,7 +63,16 @@ export default {
       'Испытание на прочность: построить башню, которая выдержит полный стакан воды. Потом вместе обсудить, почему широкое основание держит, а узкое нет.',
       'Сфотографировать готовое, прежде чем разбирать. Складывать снимки в одну папку — через несколько месяцев по ним видно, насколько сложнее стали постройки.'
     ],
-    en: []
+    en: [
+      'Set up a permanent building spot: a board or piece of carpet of about 80 × 80 cm where a structure may stay overnight. A child who has to clear up every evening never starts anything bigger.',
+      'First let the child build without any task: tip out the box, say nothing for twenty minutes, suggest nothing, just watch.',
+      'Afterwards describe instead of praising: "You laid the long brick across the two short ones." Spatial words – over, under, across, behind, the same length – are the active ingredient of this method.',
+      'Copy-the-model task: the adult builds a model of six bricks behind a propped-up book, shows it for 15 seconds, then covers it again. The child rebuilds it from their own bricks.',
+      'Increase the difficulty by showing the model only from the front – the back has to be imagined. Then raise the number of bricks to eight, ten, twelve.',
+      'Set a building task with a condition: "A bridge the toy car can drive under, using at most ten bricks." The condition forces planning, the free choice keeps it fun.',
+      'Load test: build a tower that carries a full cup of water. Afterwards think together about why the wide base holds and the narrow one does not.',
+      'Photograph finished builds before taking them apart. Collect the pictures in one folder – after a few months they show how much more complex the structures have become.'
+    ]
   },
 
   tips: {
@@ -74,18 +88,23 @@ export default {
       'Наборы с инструкцией (например, Lego Technic) тренируют чтение схем и хороши для этого, но не заменяют свободное конструирование. Сочетать одно с другим, а не подменять.',
       'Дерево и пластик умеют разное: деревянные кубики падают и учат устойчивости, сцепляющиеся детали держатся и позволяют делать вылеты и колёса. Стоит иметь дома и то, и другое.'
     ],
-    en: []
+    en: [
+      'Do not take over. Whoever takes the brick out of the child\'s hand and "quickly shows how it works" ends the thinking. Better to ask: "What do you think about this part wobbling?"',
+      'Too many pieces paralyse. A hundred to a hundred and fifty mixed bricks are plenty; put the rest away and swap them every few weeks.',
+      'Instruction sets (such as Lego Technic) train reading plans and are good for that – but they do not replace free building. Mix both, do not substitute one for the other.',
+      'Wood and plastic can do different things: wooden blocks fall over and teach statics, interlocking bricks hold and allow overhangs and wheels. Having both in the house is worthwhile.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Baukasten', kind: 'wiki',
-      label: { de: 'Wikipedia: Baukasten – Geschichte der Bausysteme', ru: 'Википедия (нем.): конструкторы, история систем', en: '' } },
+      label: { de: 'Wikipedia: Baukasten – Geschichte der Bausysteme', ru: 'Википедия (нем.): конструкторы, история систем', en: 'Wikipedia (German): construction kits – history of building systems' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D0%BE%D1%80_(%D0%B8%D0%B3%D1%80%D1%83%D1%88%D0%BA%D0%B0)', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Konstruktionsspielzeug', ru: 'Википедия: конструктор (игрушка)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Konstruktionsspielzeug', ru: 'Википедия: конструктор (игрушка)', en: 'Wikipedia (Russian): construction toys' } },
     { url: 'https://de.wikipedia.org/wiki/Lego', kind: 'wiki',
-      label: { de: 'Wikipedia: Lego – System und Produktlinien', ru: 'Википедия (нем.): Lego, система и линейки', en: '' } },
+      label: { de: 'Wikipedia: Lego – System und Produktlinien', ru: 'Википедия (нем.): Lego, система и линейки', en: 'Wikipedia (German): Lego – system and product lines' } },
     { url: 'https://ru.wikipedia.org/wiki/Lego', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Lego', ru: 'Википедия: Lego', en: '' } }
+      label: { de: 'Wikipedia (russisch): Lego', ru: 'Википедия: Lego', en: 'Wikipedia (Russian): Lego' } }
   ],
 
   products: [
@@ -103,7 +122,10 @@ export default {
             'пластин. Именно это нужно для свободного конструирования. С 4 лет. Для начала достаточно ' +
             'средней коробки; если детали уже есть, лучше докупать пластины и базовые кубики, а не ещё ' +
             'один тематический набор со специальными деталями.',
-        en: ''
+        en: 'The Classic boxes are deliberately put together without a fixed model: lots of basic bricks, ' +
+            'wheels, windows, plates. That is exactly what free building needs. From age 4. The medium box ' +
+            'is enough to start with; anyone who already owns bricks is better off buying supplements of ' +
+            'plates and basic bricks rather than another themed box with special parts.'
       }
     },
     {
@@ -120,7 +142,10 @@ export default {
             '7–9 лет, отдельные с 11 и старше. Польза — в понимании передачи и рычага; одно лишь ' +
             'выполнение инструкции ещё не является пространственной тренировкой. После сборки предложите ' +
             'переделать модель — вот тогда начинается мышление.',
-        en: ''
+        en: 'Beams, axles, gears and joints – this is about mechanics rather than walls. The sets are ' +
+            'labelled from age 7 to 9, some from 11 and up. The gain lies in understanding gearing and ' +
+            'leverage; merely working through the instructions is not yet spatial training. After ' +
+            'building, have the model rebuilt into something else – that is when the thinking starts.'
       }
     },
     {
@@ -137,7 +162,10 @@ export default {
             'так что всё сочетается между собой. Примерно с 1–2 лет и по-прежнему годятся в шесть-восемь. ' +
             'В отличие от сцепляющихся деталей они не прощают ошибок — башня падает. Именно на этом и ' +
             'усваивается устойчивость.',
-        en: ''
+        en: 'Classic blocks in cube, cuboid, cylinder and arch shapes, usually based on a 4 cm ' +
+            'module so that everything can be combined. From about 1 to 2 years, and still useful at ' +
+            'six or eight. Unlike interlocking bricks they forgive no mistake – the tower falls ' +
+            'over. That is exactly how statics is learnt.'
       }
     },
     {
@@ -154,7 +182,11 @@ export default {
             'формы (дуги, кольца, клинья). Ценны тем, что форма не диктует, что она изображает: дуга — это ' +
             'и мост, и туннель, и колыбель. Кто хочет сэкономить, покупает один набор дуг в дополнение к ' +
             'простым кубикам.',
-        en: ''
+        en: 'Large, colour-stained blocks and arches, considerably more expensive than the usual ' +
+            'sets and in return made of solid wood with unusual shapes (arches, rings, wedges). ' +
+            'Appealing because the shapes do not dictate what they are meant to represent – an arch ' +
+            'is a bridge, a tunnel or a cradle. Anyone wanting to save money buys a single set of ' +
+            'arches as a supplement to plain cubes.'
       }
     },
     {
@@ -171,7 +203,10 @@ export default {
             'объёмное тело. С 3 лет. Главная польза именно в этом переходе: ребёнок видит, как из шести ' +
             'квадратов на плоскости получается куб в пространстве — это материал геометрии седьмого ' +
             'класса, только на десять лет раньше и руками.',
-        en: ''
+        en: 'Squares and triangles with magnets along their edges that can be laid out flat as nets ' +
+            'and then folded up into solids. From age 3. The particular benefit lies exactly in that ' +
+            'folding up: the child sees how six squares in the plane become a cube in space – that ' +
+            'is seventh-grade geometry, ten years earlier and with the hands.'
       }
     },
     {
@@ -188,7 +223,10 @@ export default {
             'купола. Заявлено с 3 лет, но по-настоящему интересно примерно с 6, когда становится видно, ' +
             'что треугольник жёсткий, а четырёхугольник шатается. Внимание: мелкие шарики и магниты не ' +
             'должны попадать к детям младше трёх лет.',
-        en: ''
+        en: 'Magnetic rods and steel balls from which edge models are built – tetrahedra, cubes, ' +
+            'domes. Labelled from age 3, but really rewarding only from about 6, once triangles are ' +
+            'recognised as rigid and quadrilaterals as wobbly. Caution: small balls and magnets do ' +
+            'not belong within reach of children under three.'
       }
     }
   ],

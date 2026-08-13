@@ -126,7 +126,11 @@ export default {
             'материалы к родительскому собранию — в папке-скоросшивателе, листы можно вынимать и ' +
             'копировать. Рассчитано на специалистов, но написано настолько подробно, что родители ' +
             'справляются. Тому, кому нужны лишь отдельные упражнения, этого слишком много.',
-        en: ''
+        en: 'The manual for 6- to 12-year-olds: session plans, photocopy templates, hidden-picture ' +
+            'puzzles, games, notes for the parent evening, in a ring binder for taking out and ' +
+            'copying. Intended for professionals, but written in such detail that parents can ' +
+            'manage with it. Anyone looking only for individual exercises will find it more than ' +
+            'they need.'
       }
     },
     {
@@ -139,7 +143,9 @@ export default {
             'Text, die Einheiten sind kürzer. Sinnvoll, wenn das Kind noch nicht sicher liest.',
         ru: 'Версия для 5–7 лет. Самоинструкция здесь идёт через картинки, а не через текст, ' +
             'занятия короче. Имеет смысл, если ребёнок ещё не уверенно читает.',
-        en: ''
+        en: 'The version for 5- to 7-year-olds. Here the self-instruction works through pictures ' +
+            'instead of text, and the sessions are shorter. Sensible if the child does not yet ' +
+            'read confidently.'
       }
     },
     {
@@ -152,7 +158,8 @@ export default {
             'Prüfungsvorbereitung; die Selbstinstruktion bleibt dieselbe.',
         ru: 'Примерно с двенадцати лет. Вместо картинок-искалок — учебный материал, планирование ' +
             'времени и подготовка к экзаменам; принцип самоинструкции остаётся тем же.',
-        en: ''
+        en: 'From about twelve years on. Instead of hidden-picture puzzles it deals with study ' +
+            'material, time planning and exam preparation; the self-instruction stays the same.'
       }
     },
     {
@@ -169,7 +176,11 @@ export default {
             'сдерживающий фактор. Консультационные центры часто предлагают такие курсы дешевле ' +
             'или бесплатно; тренера можно искать по месту жительства. Перед записью спросите, ' +
             'входят ли родительские встречи — без них теряется половина смысла.',
-        en: ''
+        en: 'In a group the program works differently than at home: the other children are role ' +
+            'model and brake at the same time. Parenting counseling centers often offer the ' +
+            'courses at lower cost or free of charge; trainers can be searched for locally. ' +
+            'Before signing up, ask whether parent evenings are included – without them, half of ' +
+            'the program is missing.'
       }
     }
   ],

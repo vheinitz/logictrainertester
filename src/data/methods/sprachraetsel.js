@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Sprachrätsel und Ratespiele',
     ru: 'Загадки и языковые головоломки',
-    en: ''
+    en: 'Word Riddles and Guessing Games'
   },
 
   short: {
     de: 'Begriffe werden umschrieben, erfragt oder aus Rätseltexten erschlossen.',
     ru: 'Слова описывают иносказательно, выспрашивают или выводят из текста загадки.',
-    en: ''
+    en: 'Terms are described indirectly, worked out through questions, or deduced from riddle texts.'
   },
 
   what: {
@@ -33,7 +33,13 @@ export default {
         'слово в голове с другими: кто их тренирует, потом быстрее находит нужное слово и умеет ' +
         'объяснить, что имеет в виду, даже без точного термина. Устно подходит примерно с пяти ' +
         'лет, с карточками и письменными текстами — с восьми.',
-    en: ''
+    en: 'When solving riddles, a child has to describe a word without naming it – or, the other ' +
+        'way round, work out from clues which word is meant. This requires superordinate terms ' +
+        '("a tool"), features ("made of metal, has a handle") and functions ("you use it to ' +
+        'hammer in nails"). It is exactly these three approaches that connect a word in the mind ' +
+        'with others; whoever practices them will later find words again more quickly and can ' +
+        'explain what they mean even when the technical term escapes them. Suitable from about ' +
+        'five years of age orally, and from eight with riddle cards and written texts.'
   },
 
   steps: {
@@ -57,7 +63,16 @@ export default {
       'Истории-загадки: вы читаете короткую необъяснимую сцену, ребёнок восстанавливает её вопросами «да/нет». Занимает дольше и выручает в целой поездке на машине.',
       'Давать ребёнку сочинять свои загадки и складывать их в коробку. Одна написанная загадка — упражнение труднее, чем десять отгаданных.'
     ],
-    en: []
+    en: [
+      'Start with the room: you pick a visible object and describe it in exactly three sentences – first the superordinate term, then a feature, and finally what it is used for. The child guesses.',
+      'Introduce a firm rule: no part of the word being sought may appear. So for "toothbrush", neither "tooth" nor "brush". This rule turns the game into an exercise.',
+      'Swap roles. The child describes, you guess – and guess wrong on purpose whenever a clue was unclear: "A chair? That is made of wood too." That way the child notices for itself which clue was missing.',
+      'Twenty questions: you think of a term and the child may only ask yes-no questions. Count and write down how many questions it needed. Next time it should manage with fewer.',
+      'After the round, discuss which question was the most useful. Usually it is the broad one at the beginning ("Is it alive?") and not the narrow one ("Is it a dog?").',
+      'Cards with six clues: from the very general sentence to the telltale one – after each clue, one guess is allowed. Whoever gets it right early scores more points.',
+      'Riddle stories: you read out a short, inexplicable situation and the child reconstructs it with yes-no questions. Takes longer and carries a whole car journey.',
+      'Have the child write its own riddles and collect them in a box. Writing a riddle yourself is the harder exercise than solving ten.'
+    ]
   },
 
   tips: {
@@ -73,18 +88,23 @@ export default {
       'Для пяти-семилетних рифмованные загадки подходят лучше описаний: последняя строка рифмуется с отгадкой и подводит к ней.',
       'Не больше десяти минут подряд и заканчивать, пока ещё весело. Загадки держатся на желании вернуться к ним.'
     ],
-    en: []
+    en: [
+      'The order of the clues is everything: the general one first, the telltale one last. Anyone who starts with "you eat it for breakfast" has already given the riddle away.',
+      'If the child is stuck, do not reveal the answer but give another clue. Riddles that were revealed do not stick, ones the child found itself do.',
+      'For five- to seven-year-olds, rhyming riddles work better than descriptions – the last line rhymes with the solution and carries the child to it.',
+      'No more than ten minutes at a stretch, and stop while it is still fun. Riddling depends on wanting to come back to it.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/R%C3%A4tsel', kind: 'wiki',
-      label: { de: 'Wikipedia: Rätsel – Formen und Geschichte', ru: 'Википедия (нем.): загадка, виды и история', en: '' } },
+      label: { de: 'Wikipedia: Rätsel – Formen und Geschichte', ru: 'Википедия (нем.): загадка, виды и история', en: 'Wikipedia (German): the riddle – forms and history' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%97%D0%B0%D0%B3%D0%B0%D0%B4%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Rätsel', ru: 'Википедия: загадка', en: '' } },
+      label: { de: 'Wikipedia (russisch): Rätsel', ru: 'Википедия: загадка', en: 'Wikipedia (Russian): the riddle' } },
     { url: 'https://www.friedrich-verlag.de/shop/das-dings-13365', kind: 'hersteller',
-      label: { de: 'Kallmeyer Lernspiele: Das DINGS', ru: 'Kallmeyer: игра «Das DINGS»', en: '' } },
+      label: { de: 'Kallmeyer Lernspiele: Das DINGS', ru: 'Kallmeyer: игра «Das DINGS»', en: 'Kallmeyer Lernspiele: Das DINGS' } },
     { url: 'https://www.moses-verlag.de/black-stories-junior/', kind: 'hersteller',
-      label: { de: 'moses. Verlag: black stories junior', ru: 'Издательство moses: black stories junior', en: '' } }
+      label: { de: 'moses. Verlag: black stories junior', ru: 'Издательство moses: black stories junior', en: 'moses. Verlag: black stories junior' } }
   ],
 
   products: [
@@ -103,7 +123,11 @@ export default {
             'лет. Игра сделана для уроков немецкого, и это здесь плюс: подсказки выстроены по ' +
             'языковой сложности аккуратно и годятся как образец для собственных карточек. ' +
             'Лексика бытовая — профессии, одежда, животные, школа.',
-        en: ''
+        en: '120 cards with 240 terms; each card carries six clue sentences going from the ' +
+            'general to the specific; from 7 years. Originally made for German lessons, which is ' +
+            'an advantage here: the clues are cleanly graded in terms of language and can be ' +
+            'used as a model for your own cards. Everyday vocabulary – occupations, clothing, ' +
+            'animals, school.'
       }
     },
     {
@@ -120,7 +144,10 @@ export default {
             'Ребёнок восстанавливает ситуацию только вопросами «да/нет» — так тренируется ' +
             'системный расспрос, а не только словарь. Выпусков по темам несколько; одного ' +
             'хватает на много вечеров.',
-        en: ''
+        en: '50 riddle stories per box, from 8 years, without the grim motifs of the adult ' +
+            'series. The child reconstructs a situation exclusively through yes-no questions – ' +
+            'this trains systematic questioning, not just vocabulary. There are several themed ' +
+            'editions; one is enough for many evenings.'
       }
     },
     {
@@ -135,7 +162,10 @@ export default {
         ru: 'Собственная картотека — настоящая сердцевина метода: её можно точно подогнать под ' +
             'словарь ребёнка, и она растёт вместе с ним. Хорошо себя показала привычка писать ' +
             'пять новых карточек в неделю — лучше к словам, которые сейчас проходят в школе.',
-        en: ''
+        en: 'The self-written card file is the actual core of the method: it can be tailored ' +
+            'precisely to the child\'s vocabulary and grows along with it. Writing five new ' +
+            'cards every week has proven itself – ideally for words that are currently coming up ' +
+            'at school.'
       },
       diy: {
         de: 'Karteikarten A7 (74 × 105 mm) oder Karton in dieser Größe zuschneiden. Auf die ' +
@@ -154,7 +184,14 @@ export default {
             'жёлтая — школьные, красная — редкие. Хранить в обувной коробке с картонными ' +
             'разделителями. Если заламинировать или вложить в файлы, смываемым маркером можно ' +
             'записывать очки каждого кона.',
-        en: ''
+        en: 'Take A7 index cards (74 × 105 mm) or cut cardboard to that size. Write the solution ' +
+            'word at the top of the back, and six numbered lines on the front: 1 superordinate ' +
+            'term ("It is a tool"), 2 material or size, 3 where you find it, 4 what it is used ' +
+            'for, 5 who uses it, 6 a detail that makes it unambiguous. Sort the cards by ' +
+            'difficulty using a colored dot in the corner: green for everyday words, yellow for ' +
+            'school words, red for rare ones. Store them in a shoebox with cardboard dividers. ' +
+            'If you laminate them or put them in clear sleeves, you can record the points for ' +
+            'each round with a wipe-off pen.'
       }
     }
   ],

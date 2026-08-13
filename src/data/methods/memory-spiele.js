@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Memory und Paarspiele',
     ru: 'Memory и игры на поиск пар',
-    en: ''
+    en: 'Memory and Pair-Matching Games'
   },
 
   short: {
     de: 'Aufgedeckte Kartenpaare wiederfinden trainiert das visuelle Gedächtnis und die Merkspanne.',
     ru: 'Поиск пар среди перевёрнутых карточек тренирует зрительную память и объём запоминания.',
-    en: ''
+    en: 'Finding matching card pairs again trains visual memory and memory span.'
   },
 
   what: {
@@ -32,7 +32,12 @@ export default {
         'перенос на другие виды памяти ограничен — от частой игры в Memory человек становится лучше ' +
         'прежде всего в Memory. Но как короткий ежедневный ритуал, в котором попутно называют, ' +
         'проговаривают и учатся ждать своей очереди, игра себя оправдывает.',
-    en: ''
+    en: 'All cards lie face down; whoever turns over two identical ones keeps the pair. The child has to ' +
+        'hold two things at once – which picture it saw and in which spot it lay. Exactly this linking of ' +
+        'image and location is what gets practiced, and it can be built up from the age of four. To be ' +
+        'honest: the transfer to other memory skills is limited – playing a lot of Memory makes you better ' +
+        'above all at Memory. As a short daily ritual in which naming, speaking and turn-taking happen along ' +
+        'the way, it is still worthwhile.'
   },
 
   steps: {
@@ -56,7 +61,16 @@ export default {
       'Сыграть ту же раскладку второй раз, не перемешивая. Время заметно падает — так прогресс становится для ребёнка осязаемым.',
       'Для разнообразия — игра Кима: положить на поднос пять настоящих предметов, дать 20 секунд посмотреть, накрыть платком, один убрать — чего не хватает?'
     ],
-    en: []
+    en: [
+      'Adjust the number of cards to the child: six pairs at age four, ten to twelve from age six. More only once it gets too easy.',
+      'Lay the cards out in a tidy grid, for example 4 × 5. The fixed position is half the memory work – a wild heap turns the game into a game of luck.',
+      'At the start, leave all cards face up for 20 seconds and then turn them over together. That gives younger children a first anchor.',
+      'Name every card that gets turned over out loud: "Dog – and the ball was over there." What is spoken aloud sticks noticeably better.',
+      'If a pair does not match, put the cards back slowly and in exactly the same spot. Cards that shift destroy the location map in the head.',
+      'As an adult, do not play to win: deliberately miss now and then so the child does not give up before it has the technique.',
+      'Play the same layout a second time without reshuffling. The time drops visibly – that makes the progress tangible for the child.',
+      'For variety, play it as a Kim game: put five real objects on a tray, let the child look for 20 seconds, cover it with a cloth, take one away – what is missing?'
+    ]
   },
 
   tips: {
@@ -72,18 +86,23 @@ export default {
       'Не давать смотреть тонкие карточки на просвет: если картинка просвечивает, ребёнок перестаёт запоминать и начинает подглядывать.',
       'В самодельные карточки с семейными фотографиями играют почти всегда охотнее, чем в покупные.'
     ],
-    en: []
+    en: [
+      'Motifs must be clearly distinguishable. Twelve similar flower pictures overwhelm; animals, vehicles and faces anchor themselves more easily.',
+      'After the third lost round in a row, the mood tips. Better to remove cards than to make the child hold out.',
+      'Do not let thin cards be held up against the light – if the motif shines through, the child stops memorizing and starts peeking.',
+      'Home-made cards with family photos are almost always preferred over bought motifs.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Memory_(Spiel)', kind: 'wiki',
-      label: { de: 'Wikipedia: Memory (Spiel)', ru: 'Википедия (нем.): игра Memory', en: '' } },
+      label: { de: 'Wikipedia: Memory (Spiel)', ru: 'Википедия (нем.): игра Memory', en: 'Wikipedia (German): Memory (game)' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%B5%D0%BC%D0%BE_(%D0%BD%D0%B0%D1%81%D1%82%D0%BE%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F_%D0%B8%D0%B3%D1%80%D0%B0)', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Memo', ru: 'Википедия: Мемо (настольная игра)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Memo', ru: 'Википедия: Мемо (настольная игра)', en: 'Wikipedia (Russian): Memo (board game)' } },
     { url: 'https://de.wikipedia.org/wiki/Kim-Spiel', kind: 'wiki',
-      label: { de: 'Wikipedia: Kim-Spiel – Merkspiele ohne Karten', ru: 'Википедия (нем.): игра Кима — запоминание без карточек', en: '' } },
+      label: { de: 'Wikipedia: Kim-Spiel – Merkspiele ohne Karten', ru: 'Википедия (нем.): игра Кима — запоминание без карточек', en: 'Wikipedia (German): Kim\'s game – memory games without cards' } },
     { url: 'https://www.ravensburger.de/de-DE/produkte/spiele/marke-memory', kind: 'hersteller',
-      label: { de: 'Ravensburger: alle memory-Ausgaben', ru: 'Ravensburger: все выпуски memory', en: '' } }
+      label: { de: 'Ravensburger: alle memory-Ausgaben', ru: 'Ravensburger: все выпуски memory', en: 'Ravensburger: all memory editions' } }
   ],
 
   products: [
@@ -99,7 +118,9 @@ export default {
         ru: 'Оригинал на 72 карточки (36 пар) для ребёнка избыточен — просто играйте частью колоды. ' +
             '«my first memory» с 2 лет: крупные толстые карточки с немногими понятными картинками, ' +
             '«Junior» — промежуточный вариант. Обращайте внимание на плотный, непросвечивающий картон.',
-        en: ''
+        en: 'The original with 72 cards (36 pairs) is too much for children – you simply play with part ' +
+            'of it. "my first memory" from 2 years has large, thick cards with a few clear motifs, ' +
+            '"Junior" lies in between. Look for opaque cardboard.'
       },
       diy: {
         de: 'Foto-Memory selbst herstellen: 24 Kärtchen 6 × 6 cm aus 300-g-Karton schneiden. Zwölf Fotos ' +
@@ -112,7 +133,12 @@ export default {
             '5,5 × 5,5 см и наклеить по центру. На оборот всех карточек наклеить одинаковую тёмную ' +
             'бумагу, иначе картинки просвечивают. Скруглить углы, оклеить прозрачной плёнкой. Затраты — ' +
             'меньше 5 €, работы примерно на час, а сюжеты ребёнку уже знакомы, и начать проще.',
-        en: ''
+        en: 'Make a photo memory yourself: cut 24 cards of 6 × 6 cm from 300 g card stock. Print twelve ' +
+            'photos (grandma, the dog, the nursery door, the favourite spoon) twice each at 5,5 × 5,5 cm ' +
+            'and glue them on centred. Glue the same dark coloured paper onto the back of all cards, ' +
+            'otherwise the pictures show through. Round off the corners, cover with book film. Cost ' +
+            'under 5 €, about an hour of work – and the child already knows the motifs, which makes ' +
+            'getting started easier.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="8" y="10" width="26" height="26" rx="3" fill="#D0CDE8"/>
@@ -137,7 +163,9 @@ export default {
         ru: 'Вариант мемори с 4 лет: пять картинок спрятаны под цветными колпачками, кубик указывает, ' +
             'какой цвет можно поднять. Легче классического мемори, потому что удерживать нужно всего ' +
             'пять позиций — хороший первый шаг для детей, которым большая сетка пока не даётся.',
-        en: ''
+        en: 'A memory variant from 4 years: five picture cards lie under coloured lids, the die says ' +
+            'which colour may be lifted. Easier than classic Memory because only five positions have ' +
+            'to be remembered – good as a first step for children who fail at the large grid.'
       }
     },
     {
@@ -152,7 +180,9 @@ export default {
         ru: 'Гонка с 4 лет: продвинуться можно, только если помнишь, где какая картинка — работа памяти, ' +
             'которая не ощущается как занятие. Спецприз «Детская игра года» 1998. У издателя временами ' +
             'нет в наличии — тогда искать в магазинах настольных игр или на вторичном рынке.',
-        en: ''
+        en: 'A racing game from 4 years in which you only get ahead if you remember where which picture ' +
+            'tile lies – memory work that does not feel like practising. Special prize Kinderspiel 1998. ' +
+            'Temporarily out of stock at the manufacturer; then look in specialist shops or second hand.'
       }
     },
     {
@@ -169,7 +199,10 @@ export default {
             'картинку или фигурку. Одновременно тренируются слушание, словарь и реакция. Серия у HABA ' +
             'сейчас представлена не полностью — наличие лучше проверять заранее, на вторичном рынке ' +
             'находится обычно легко.',
-        en: ''
+        en: 'A listening and grabbing game from 3 years: while a short story is read aloud, the child ' +
+            'grabs the picture or figure that is named. Trains listening, vocabulary and reaction at ' +
+            'the same time. HABA no longer carries the series consistently – check availability before ' +
+            'buying, second hand it is usually easy to find.'
       }
     },
     {
@@ -182,7 +215,9 @@ export default {
         ru: 'Для варианта без карточек хватает подноса и кухонного полотенца. Преимущество перед мемори: ' +
             'настоящие предметы можно потрогать и назвать, ребёнок сам собой подключает слова и ' +
             'категории.',
-        en: ''
+        en: 'A tray and a tea towel are enough for the version without cards. The advantage over Memory: ' +
+            'real objects can be touched and named, so the child brings in words and categories all by ' +
+            'itself.'
       },
       diy: {
         de: 'Ein Tablett von etwa 30 × 40 cm, ein blickdichtes Tuch, dazu eine Kiste mit 20 kleinen ' +
@@ -193,7 +228,10 @@ export default {
             'пробка, ложка, ластик, ракушка, ключ, прищепка. Для игры выбрать пять—восемь и разложить с ' +
             'заметными промежутками. Усложнение: больше предметов, меньше времени на просмотр, убирать ' +
             'два предмета или менять два местами вместо того чтобы убирать один.',
-        en: ''
+        en: 'A tray of about 30 × 40 cm, an opaque cloth, plus a box with 20 small everyday things: ' +
+            'cork, spoon, eraser, shell, key, clothes peg. For playing, pick five to eight of them and ' +
+            'lay them out with clear gaps. To make it harder: more objects, shorter viewing time, take ' +
+            'away two things or swap two instead of removing one.'
       }
     }
   ],

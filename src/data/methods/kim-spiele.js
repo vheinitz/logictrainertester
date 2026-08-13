@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Kim-Spiele',
     ru: 'Игры Кима',
-    en: ''
+    en: 'Kim\'s Game'
   },
 
   short: {
     de: 'Gegenstände kurz zeigen, abdecken – und erinnern lassen, was da lag oder was fehlt.',
     ru: 'Показать предметы на короткое время, накрыть — и вспомнить, что лежало или чего не хватает.',
-    en: ''
+    en: 'Show objects briefly, cover them up – and have the child recall what was there or what is missing.'
   },
 
   what: {
@@ -40,7 +40,14 @@ export default {
         'историю, — и потому что эту стратегию можно потом обсудить. То, что дети становятся в ' +
         'этом лучше, хорошо видно; перенос на школьные оценки при этом не обещан. Упражнение ' +
         'существует для всех чувств: зрение, осязание, слух, обоняние.',
-    en: ''
+    en: 'The name comes from Rudyard Kipling\'s novel "Kim", in which the boy has to memorise ' +
+        'stones on a tray; the scouts turned this into a standard exercise. A tray with objects ' +
+        'on it is shown briefly and then covered, after which the child lists them, names the ' +
+        'missing one or works out what has changed. It works because in those few seconds the ' +
+        'child is forced to build a memory aid for itself – naming, grouping, making a story out ' +
+        'of it – and because that strategy can be discussed afterwards. That children get better ' +
+        'at it is easy to observe; no transfer to school grades is promised with that. There is a ' +
+        'version of the exercise for every sense: sight, touch, hearing, smell.'
   },
 
   steps: {
@@ -64,7 +71,16 @@ export default {
       'Менять органы чувств: осязательный Ким (нащупать и назвать предметы в мешочке), слуховой Ким (потрясти шумовые баночки и найти пары), обонятельный Ким (по очереди понюхать баночки с запахами и узнать их).',
       'Заканчивать не позже чем через десять минут, пока ещё интересно. В конце спросить: «Как ты это запомнил?»'
     ],
-    en: []
+    en: [
+      'Put five everyday objects on a tray that have nothing to do with one another: a spoon, an eraser, a toy car, a key, a shell.',
+      'Let the child look at them for twenty seconds. Expressly allow naming them out loud – that is not cheating but the first memory strategy.',
+      'Lay a tea towel over them. The child lists what is underneath; an adult ticks the items off on a slip of paper.',
+      'Second round, same objects: remove one from under the cloth, uncover it and ask "What is missing?".',
+      'Third round: take nothing away, but swap two objects around and ask "What has changed?".',
+      'Adjust the difficulty: all five remembered correctly – add one object. Fewer than three – take one away. The viewing time stays at twenty seconds.',
+      'Change the senses: touch Kim (feel objects in a fabric bag and name them), sound Kim (shake noise tins and find the pairs), smell Kim (sniff scent jars one after another and recognise them again).',
+      'Stop after ten minutes at the latest, while it is still fun. At the end ask: "How did you memorise it?"'
+    ]
   },
 
   tips: {
@@ -80,16 +96,21 @@ export default {
       'При осязательном, слуховом и обонятельном Киме завязывайте глаза мягким платком, а не кричите «не подглядывай!». Это избавит от споров о жульничестве.',
       'Не превращать в экзамен и не ставить оценок. Кто запомнил шесть предметов из семи, поработал хорошо — семь это исключение, а не норма.'
     ],
-    en: []
+    en: [
+      'The real exercise is the conversation afterwards. "How did you memorise it?" – a child who answers "I put the three kitchen things together" has understood what it is about.',
+      'Objects that belong together (fork, spoon, knife) are easy; for more difficulty choose ones as dissimilar as possible that cannot be grouped.',
+      'For touch, sound and smell Kim, blindfold the child with a soft cloth instead of shouting "no looking!". That saves the argument about cheating.',
+      'Do not set it up as a test and do not give marks. A child who remembers six things out of seven has worked well – seven is the exception, not the norm.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Kim-Spiel', kind: 'wiki',
-      label: { de: 'Wikipedia: Kim-Spiel mit allen Sinnesvarianten', ru: 'Википедия (нем.): игра Кима и её варианты', en: '' } },
+      label: { de: 'Wikipedia: Kim-Spiel mit allen Sinnesvarianten', ru: 'Википедия (нем.): игра Кима и её варианты', en: 'Wikipedia (German): Kim\'s Game with all the sensory variants' } },
     { url: 'https://en.wikipedia.org/wiki/Kim%27s_Game', kind: 'wiki',
-      label: { de: 'Wikipedia (englisch): Herkunft bei Kipling und den Pfadfindern', ru: 'Википедия (англ.): происхождение у Киплинга и скаутов', en: '' } },
+      label: { de: 'Wikipedia (englisch): Herkunft bei Kipling und den Pfadfindern', ru: 'Википедия (англ.): происхождение у Киплинга и скаутов', en: 'Wikipedia (English): origins in Kipling and the scouts' } },
     { url: 'https://nsportal.ru/detskiy-sad/raznoe/2015/03/28/kollektsiya-didakticheskih-igr-na-razvitie-pamyati-u-doshkolnikov', kind: 'anleitung',
-      label: { de: 'Russische Spielesammlung: „Чего не стало?" und verwandte Übungen', ru: 'Картотека игр на развитие памяти: «Чего не стало?» и другие', en: '' } }
+      label: { de: 'Russische Spielesammlung: „Чего не стало?" und verwandte Übungen', ru: 'Картотека игр на развитие памяти: «Чего не стало?» и другие', en: 'Russian collection of games: "What is gone?" and related exercises' } }
   ],
 
   products: [
@@ -104,7 +125,9 @@ export default {
         ru: 'Основной материал для зрительного Кима. Больше методу ничего не нужно — покупные ' +
             'игры на запоминание не дают ничего, чего не даст противень и кухонное полотенце, ' +
             'а свои предметы можно сделать сколь угодно сложными.',
-        en: ''
+        en: 'The basic material for visual Kim. The method needs nothing more – bought memory ' +
+            'games offer nothing that a baking tray and a tea towel cannot do as well, and your ' +
+            'own objects can be made as difficult as you like.'
       },
       diy: {
         de: 'Tablett: jedes Backblech oder ein Holzbrett ab 30 × 40 cm mit Rand, damit nichts ' +
@@ -125,7 +148,14 @@ export default {
             'пуговица, шарик, машинка). Ничего бьющегося и ничего мелкого для детей младше трёх ' +
             'лет. Коробка стоит закрытой и достаётся только для игры — тогда предметы каждый ' +
             'раз снова интересны.',
-        en: ''
+        en: 'Tray: any baking tray or a wooden board from 30 × 40 cm upwards with a rim so that ' +
+            'nothing rolls off. Cloth: an opaque tea towel of at least 50 × 50 cm; thin kitchen ' +
+            'towels are no good, you can see the outlines through them. Stock: collect fifteen to ' +
+            'twenty objects in a shoe box, all between 3 and 8 cm in size, each with an ' +
+            'unambiguous name (cork, clothes peg, dice, hair tie, matchbox, Lego brick, battery, ' +
+            'shell, tea light, key, spoon, eraser, button, marble, toy car). Nothing breakable ' +
+            'and nothing swallowable for children under three. The box stays closed and only ' +
+            'comes out to play – then the things are interesting again every time.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="6" y="50" width="108" height="20" rx="5" fill="#EFEDF9" stroke="#D0CDE8" stroke-width="2"/>
@@ -148,7 +178,9 @@ export default {
         ru: 'Для осязательного Кима: ребёнок вслепую лезет в мешочек, нащупывает предмет, ' +
             'называет его и только потом достаёт. Вторая ступень: восемь предметов только на ' +
             'ощупь вспомнить в том порядке, в каком их туда клали.',
-        en: ''
+        en: 'For touch Kim: the child reaches blindly into the bag, feels an object, names it and ' +
+            'only then pulls it out. Second level: remember eight objects by touch alone, in the ' +
+            'order in which they were put in.'
       },
       diy: {
         de: 'Variante Beutel: aus einem alten Kissenbezug ein Rechteck von 30 × 55 cm ' +
@@ -168,7 +200,14 @@ export default {
             'около 20 см) как манжету — рука проходит, глаз нет. Содержимое: восемь-десять ' +
             'предметов с явно разной поверхностью — шишка, губка, ложка, ватный шарик, шуруп, ' +
             'грецкий орех, ластик, ключ.',
-        en: ''
+        en: 'Bag version: cut a rectangle of 30 × 55 cm from an old pillowcase, fold it in half, ' +
+            'sew up both sides, turn over 3 cm at the top and thread a cord through. The result ' +
+            'is a bag of about 25 × 30 cm. Feely-box version, opaque and without sewing: cut a ' +
+            'hole 12 cm across in the narrow end of a shoe box with a lid and glue in the ' +
+            'cut-off sleeve of an old jumper (about 20 cm long) from the inside with hot glue as ' +
+            'a cuff – that way the hand can get in but the eye cannot. Contents: eight to ten ' +
+            'objects with clearly different surfaces – pine cone, sponge, spoon, cotton wool ' +
+            'ball, screw, walnut, eraser, key.'
       }
     },
     {
@@ -182,7 +221,9 @@ export default {
         ru: 'Для слухового Кима: восемь баночек, попарно звучащих одинаково. Ребёнок трясёт их ' +
             'и ищет пары; затем взрослый за спиной трясёт четыре баночки в определённом ' +
             'порядке, а ребёнок должен выложить их в том же порядке.',
-        en: ''
+        en: 'For sound Kim: eight tins that sound the same in pairs. The child shakes them and ' +
+            'looks for the pairs; afterwards the adult shakes four tins behind their back in a ' +
+            'particular order, which the child has to lay out again.'
       },
       diy: {
         de: 'Acht gleiche undurchsichtige Döschen nehmen: Überraschungsei-Kapseln, leere ' +
@@ -201,7 +242,14 @@ export default {
             'нарисовать одинаковую цветную точку: так ребёнок проверяет себя сам, и никому не ' +
             'нужно называть ответ. Для следующей ступени добавить ещё две пары — с песком и ' +
             'солью.',
-        en: ''
+        en: 'Take eight identical opaque containers: chocolate-egg capsules, empty film ' +
+            'canisters or small spice jars covered with construction paper. Fill two tins alike ' +
+            'each time, about a teaspoon each: rice, dried lentils, sand, paper clips. The ' +
+            'difference lies in the grain size – rice and lentils sound similar enough that you ' +
+            'have to listen closely. Secure the lids with a drop of hot glue. Paint the same ' +
+            'coloured dot on the bottom of each pair: that way the child can check itself ' +
+            'without anyone having to say the answer. For the next level, add two more pairs ' +
+            'with sand and salt.'
       }
     },
     {
@@ -216,7 +264,9 @@ export default {
         ru: 'Для обонятельного Кима: дать понюхать шесть баночек по очереди, затем предложить ' +
             'их в другом порядке и попросить назвать. Запахи детям называть труднее, чем ' +
             'картинки, — поиск подходящего слова здесь намеренно часть упражнения.',
-        en: ''
+        en: 'For smell Kim: let the child smell six jars one after another, then offer them again ' +
+            'in a different order and have them named. Smells are harder for children to name ' +
+            'than pictures – searching for the right word is expressly part of the exercise here.'
       },
       diy: {
         de: 'Sechs kleine Schraubgläser nehmen (Babygläschen sind ideal), außen mit Tonpapier ' +
@@ -237,7 +287,14 @@ export default {
             'хранить отдельно. Держать в темноте и обновлять наполнение каждые четыре-шесть ' +
             'недель — выдохшиеся запахи пахнут одинаково. Не использовать неразбавленные ' +
             'эфирные масла, они раздражают слизистую.',
-        en: ''
+        en: 'Take six small screw-top jars (baby food jars are ideal) and cover the outside with ' +
+            'construction paper so the contents cannot be seen. Put a cotton pad in each and add ' +
+            'a few drops or a filling: cinnamon (a pinch), ground coffee (a teaspoon), vanilla ' +
+            'sugar, peppermint tea (crumbled), grated orange peel, dried lavender. Punch five ' +
+            'holes in each lid with a nail so that nobody can reach inside. Write a number on ' +
+            'the bottom and keep the answer list separately. Store in the dark and renew the ' +
+            'filling every four to six weeks – stale scents all smell the same. Do not use ' +
+            'undiluted essential oils, they irritate the mucous membranes.'
       }
     },
     {
@@ -255,7 +312,11 @@ export default {
             'вертушка задаёт, что нужно нащупать. С трёх лет, аккуратное исполнение. Кто ' +
             'сделает мешочек сам, получит то же самое даром — плюс покупки в хорошо ' +
             'различимых формах и в вертушке, которая задаёт задание без участия взрослого.',
-        en: ''
+        en: 'A bought version of touch Kim: fifteen wooden shapes in a bag, with a spinner ' +
+            'specifying what is to be felt for. From three years, cleanly made. Anyone who builds ' +
+            'the feely bag themselves gets the same thing for nothing – the advantage of buying ' +
+            'lies in the clearly distinguishable shapes and in the spinner, which sets the task ' +
+            'without an adult having to sit alongside.'
       }
     }
   ],

@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Leitner-System (Lernkartei)',
     ru: 'Система Лейтнера (картотека)',
-    en: ''
+    en: 'The Leitner System (Flashcard Box)'
   },
 
   short: {
     de: 'Karteikarten wandern je nach Erfolg durch fünf Fächer – Schwieriges kommt oft dran, Gekonntes selten.',
     ru: 'Карточки перемещаются по пяти отделениям: трудное спрашивают часто, усвоенное — редко.',
-    en: ''
+    en: 'Flashcards travel through five compartments depending on success – hard items come up often, mastered ones rarely.'
   },
 
   what: {
@@ -34,7 +34,13 @@ export default {
         'основе лежит хорошо подтверждённый факт: распределённое повторение и активное припоминание ' +
         'дают гораздо больше, чем многократное перечитывание. Годится для всего, что образует пары — ' +
         'слова, формулы, даты, столицы — примерно с восьми лет, когда ребёнок сам читает и пишет.',
-    en: ''
+    en: 'A box with five compartments in which flashcards travel: whatever the child knew moves one ' +
+        'compartment further back and is asked less often; whatever it did not know goes back into ' +
+        'compartment 1 and comes up again the next day. Sebastian Leitner described this in 1972; ' +
+        'behind it lies the well-documented finding that spaced repetition and active recall make ' +
+        'far more stick than reading something through several times. Suitable for anything that ' +
+        'forms pairs – vocabulary, formulas, dates, capital cities – and from about eight years of ' +
+        'age, as soon as the child can read and write independently.'
   },
 
   steps: {
@@ -58,7 +64,16 @@ export default {
       'Карточка, дважды подряд успешно прошедшая отделение 5, откладывается в конверт «знаю» и проверяется ещё раз раз в месяц.',
       'Раз в неделю пять минут на уборку: карточки, трижды выпавшие из отделения 3, переформулировать или разделить на две более простые.'
     ],
-    en: []
+    en: [
+      'Write the cards: the question on the front, the answer on the back, one piece of information per card. To start with, 20 to 30 cards are enough – the child writes them itself.',
+      'Put all the cards into compartment 1. The compartments are labelled 1 to 5 from front to back.',
+      'Write the review intervals on the lid and stick to them: compartment 1 daily, compartment 2 every 2 days, compartment 3 every 4 days, compartment 4 every 9 days, compartment 5 every 14 days.',
+      'Testing: draw a card, say the answer out loud, and only then turn it over. Correct – the card goes to the back of the next higher compartment. Wrong – right back to the front of compartment 1, without exception.',
+      'A session lasts 10 to 15 minutes or until compartment 1 is empty, whichever comes first.',
+      'Only add new cards when there are fewer than 15 cards in compartment 1. Otherwise everything piles up at the front.',
+      'A card that gets through compartment 5 correctly twice in a row goes into an envelope marked "I know this" and is checked once more once a month.',
+      'Spend five minutes tidying up once a week: cards that have fallen back out of compartment 3 three times get reworded or split into two easier cards.'
+    ]
   },
 
   tips: {
@@ -74,18 +89,23 @@ export default {
       'Пропущенные дни не наверстывают. Просто продолжают на следующий день с того места, где стоит план, — иначе коробка превращается в список долгов.',
       'Перекладывает карточки сам ребёнок. Видеть, как карточки движутся вперёд, — половина мотивации.'
     ],
-    en: []
+    en: [
+      'One card = one piece of information. "Three vocabulary items on one card" is the most common beginner\'s mistake and blunts the whole system.',
+      'The answer has to be said out loud before the card is turned over. Merely looking and nodding fakes knowledge.',
+      'Missed days are not made up for. Simply carry on the next day wherever the plan currently stands – otherwise the box turns into a debt ledger.',
+      'The child does the re-sorting itself. Watching the cards travel is half the motivation gained.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Lernkartei', kind: 'wiki',
-      label: { de: 'Wikipedia: Lernkartei (Leitner-System)', ru: 'Википедия (нем.): учебная картотека', en: '' } },
+      label: { de: 'Wikipedia: Lernkartei (Leitner-System)', ru: 'Википедия (нем.): учебная картотека', en: 'Wikipedia (German): flashcard box (Leitner system)' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5_%D0%BF%D0%BE%D0%B2%D1%82%D0%BE%D1%80%D0%B5%D0%BD%D0%B8%D1%8F', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Intervallwiederholung, mit Abschnitt zu Leitner', ru: 'Википедия: интервальные повторения (раздел о системе Лейтнера)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Intervallwiederholung, mit Abschnitt zu Leitner', ru: 'Википедия: интервальные повторения (раздел о системе Лейтнера)', en: 'Wikipedia (Russian): spaced repetition, with a section on Leitner' } },
     { url: 'https://en.wikipedia.org/wiki/Leitner_system', kind: 'wiki',
-      label: { de: 'Wikipedia (englisch): Originalmaße der Fächer, 1–2–5–8–14 cm', ru: 'Википедия (англ.): исходные размеры отделений, 1–2–5–8–14 см', en: '' } },
+      label: { de: 'Wikipedia (englisch): Originalmaße der Fächer, 1–2–5–8–14 cm', ru: 'Википедия (англ.): исходные размеры отделений, 1–2–5–8–14 см', en: 'Wikipedia (English): the original compartment sizes, 1–2–5–8–14 cm' } },
     { url: 'https://apps.ankiweb.net/', kind: 'hersteller',
-      label: { de: 'Anki – kostenlose Software nach demselben Prinzip', ru: 'Anki — бесплатная программа по тому же принципу', en: '' } }
+      label: { de: 'Anki – kostenlose Software nach demselben Prinzip', ru: 'Anki — бесплатная программа по тому же принципу', en: 'Anki – free software working on the same principle' } }
   ],
 
   products: [
@@ -103,7 +123,11 @@ export default {
             'карточками и разделителем А–Я. Для системы Лейтнера алфавитный разделитель вынимают и ' +
             'ставят вместо него пять собственных перегородок с номерами от 1 до 5. Есть в разных цветах; ' +
             'в фирменном магазине временами отсутствует, в канцелярском магазине лежит почти всегда.',
-        en: ''
+        en: 'A ready-made box for A8 cards (85 × 75 × 48 mm, holds 200 cards), with 100 lined cards ' +
+            'and an A–Z index. For the Leitner system take the alphabetical index out and instead ' +
+            'label five dividers of your own with 1 to 5. It comes in several colours; in the ' +
+            'manufacturer\'s shop it is occasionally sold out, but in a stationery shop it is in ' +
+            'stock practically always.'
       }
     },
     {
@@ -118,7 +142,10 @@ export default {
         ru: 'Формат 74 × 52 мм, 190 г/м². Нелинованные лучше линованных — на них помещаются и рисунки, ' +
             'и формулы. Стоит взять карточки двух-трёх цветов и отвести каждому школьному предмету свой ' +
             'цвет: тогда одну коробку можно делить между иностранным языком и математикой.',
-        en: ''
+        en: 'Format 74 × 52 mm, 190 g/m². Blank cards are preferable to lined ones – then small ' +
+            'drawings and formulas fit on them too. Buy cards in two or three colours and use one ' +
+            'colour per school subject in each compartment; that way one box can be shared between ' +
+            'vocabulary and maths.'
       }
     },
     {
@@ -132,7 +159,9 @@ export default {
         ru: 'Самодельная коробка в одном отношении лучше покупной: пять отделений разной ширины, и ребёнок ' +
             'с одного взгляда видит, где он находится. Полное первое отделение и пустое пятое говорят ' +
             'больше любого напоминания.',
-        en: ''
+        en: 'The home-made box beats the bought one in one respect: the five compartments have ' +
+            'different widths, so the child sees at a glance where it stands. A full compartment 1 ' +
+            'and an empty compartment 5 say more than any reminder.'
       },
       diy: {
         de: 'Schuhkarton mit mindestens 32 cm Innenlänge, 8 cm Innenbreite und 7 cm Höhe nehmen (Kinder-' +
@@ -154,7 +183,16 @@ export default {
             'стороне крышки написать план повторений (ежедневно — раз в 2 дня — раз в 4 дня — раз в 9 ' +
             'дней — раз в 14 дней). Карточки формата A8 (74 × 52 мм) стоят в такой коробке вертикально, ' +
             'и их удобно перебирать большим пальцем.',
-        en: ''
+        en: 'Take a shoebox with an inner length of at least 32 cm, an inner width of 8 cm and a ' +
+            'height of 7 cm (a child\'s boot box fits well). Cut four dividers from 2 mm greyboard ' +
+            'or from the cardboard of the lid, each 8 cm wide and 6.5 cm high. Measuring from the ' +
+            'front inner edge, glue the dividers in upright at 1 cm, 3 cm, 8 cm and 16 cm (hot glue ' +
+            'or fabric tape on both sides). This creates five compartments 1, 2, 5, 8 and 14 cm ' +
+            'deep – exactly the grading from Leitner\'s book. If the box is shorter, halve ' +
+            'everything: 1, 2, 4, 6 and 10 cm make 23 cm. Label the compartments 1 to 5 at the ' +
+            'front and write the review plan on the inside of the lid (daily – every 2 days – every ' +
+            '4 days – every 9 days – every 14 days). Cards in A8 format (74 × 52 mm) stand upright ' +
+            'in it and can be flicked through with the thumb.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="4" y="20" width="112" height="52" rx="3" fill="none" stroke="#2D2A4A" stroke-width="2"/>
@@ -181,7 +219,10 @@ export default {
         ru: 'Тот же принцип в виде программы, интервалы рассчитываются автоматически. Младшим всё же ' +
             'сначала картонная коробка: возможность потрогать и переложить делает метод понятным, и ' +
             'коробка не отвлекает. Примерно с двенадцати лет, при больших объёмах, переход оправдан.',
-        en: ''
+        en: 'The same principle as a program, with intervals calculated automatically. For younger ' +
+            'children the cardboard box still comes first: handling and re-sorting the cards makes ' +
+            'the procedure tangible, and the box does not distract. From about twelve years of age, ' +
+            'with large numbers of cards, the switch is worthwhile.'
       }
     }
   ],

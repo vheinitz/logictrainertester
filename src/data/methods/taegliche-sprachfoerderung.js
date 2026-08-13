@@ -10,13 +10,13 @@ export default {
   title: {
     de: 'Tägliche 5-Minuten-Sprachförderung',
     ru: 'Ежедневная речевая поддержка по 5 минут',
-    en: ''
+    en: 'Five minutes of daily language support'
   },
 
   short: {
     de: 'Ein kurzes, festes tägliches Sprachritual wirkt zuverlässiger als seltene lange Übungseinheiten.',
     ru: 'Короткий постоянный ежедневный ритуал работает надёжнее, чем редкие длинные занятия.',
-    en: ''
+    en: 'A short, fixed daily language ritual works more reliably than rare long practice sessions.'
   },
 
   what: {
@@ -32,7 +32,13 @@ export default {
         'разговора — и они действительно продолжаются, тогда как задуманные полчаса по воскресеньям через ' +
         'три недели отменяются. Метод не заменяет логопеда: если в четыре года речь малопонятна или ребёнок ' +
         'говорит заметно меньше ровесников, нужна консультация специалиста.',
-    en: ''
+    en: 'Language grows through use, not through instruction. What matters is how often a child gets ' +
+        'to speak itself and receives an adult answer that takes up what it said and carries it a ' +
+        'little further. Five minutes that happen every day on the same occasion add up to more than ' +
+        'two hours of real conversation in a month – and they last, whereas the well-meant half hour ' +
+        'on Sunday is dropped after three weeks. The method is no substitute for speech therapy: a ' +
+        'four-year-old who is barely intelligible or says far less than peers belongs in a ' +
+        'professional assessment.'
   },
 
   steps: {
@@ -56,7 +62,16 @@ export default {
       'На календаре на стене ставить точку за каждый день. Хвалить не ребёнка, а цепочку — цель в том, чтобы месяц не прервался.',
       'В двуязычных семьях каждый взрослый остаётся при своём языке и в ритуале тоже. Два чётко разделённых языка — преимущество, смешанные фразы сбивают с толку.'
     ],
-    en: []
+    en: [
+      'Choose a fixed occasion that happens every day anyway: the walk to nursery, brushing teeth, the five minutes after dinner. A new slot in the daily schedule rarely survives longer than a week.',
+      'Screens off, including the adults’. Doing it on the side does not work – the child notices immediately whether it has your full attention.',
+      'A weekly plan with five formats, so that nothing has to be invented: Monday “tell me three things about today”, Tuesday a picture book (do not read aloud, ask instead: “What is he doing there? Why?”), Wednesday collecting words for one field – everything that rolls, everything in the fridge –, Thursday rhymes and tongue twisters, Friday a round-robin story with everyone adding one sentence.',
+      'Ask open questions instead of yes-no questions: not “Was it nice?” but “What was the most annoying thing today?”. Then stay silent for five seconds and hold out – most children need exactly this pause to get going.',
+      'Never have a mistake corrected; give it back correctly and extend it a little instead. Child: “I goed.” Adult: “You went, yes – and where did you go?” The child hears the correct form without being shamed.',
+      'Fit one or two new words into every round and explain them right away: “That is a puddle – the rain has made a little pool of water there.” Use it again casually the next day.',
+      'Mark a dot for each day on a calendar on the wall. It is not the child that should be praised but the chain – the goal is an unbroken month.',
+      'In bilingual families each adult stays with their own language, in the ritual as well. Two cleanly separated languages are an advantage; mixed sentences confuse.'
+    ]
   },
 
   tips: {
@@ -72,18 +87,23 @@ export default {
       'Пять минут действительно засекать и заканчивать, пока ещё интересно. Кто тянет до усталости, назавтра получает сопротивление.',
       'Если в четыре года речь ребёнка плохо понимают посторонние, есть сильное заикание или он говорит заметно мало, — это к педиатру, а не «подождём».'
     ],
-    en: []
+    en: [
+      'Never demand “say that again properly”. Children who are drilled on their mistakes say less – and less speaking is the opposite of the goal.',
+      'Audiobooks and children’s programmes are no substitute. They lack the part that matters: someone answering what this particular child has just said.',
+      'Actually time the five minutes and stop while it is still fun. Anyone who carries on to exhaustion is fighting resistance the next day.',
+      'If a four-year-old is hard for strangers to understand, stutters severely or speaks strikingly little, that belongs with the paediatrician – not on a wait-and-see list.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Sprachf%C3%B6rderung', kind: 'wiki',
-      label: { de: 'Wikipedia: Sprachförderung – Grundlagen und Zielgruppen', ru: 'Википедия (нем.): речевая поддержка — основы и целевые группы', en: '' } },
+      label: { de: 'Wikipedia: Sprachförderung – Grundlagen und Zielgruppen', ru: 'Википедия (нем.): речевая поддержка — основы и целевые группы', en: 'Wikipedia (German): language support – principles and target groups' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D0%B2%D0%B8%D1%82%D0%B8%D0%B5_%D1%80%D0%B5%D1%87%D0%B8', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Sprachentwicklung beim Kind', ru: 'Википедия: развитие речи у ребёнка', en: '' } },
+      label: { de: 'Wikipedia (russisch): Sprachentwicklung beim Kind', ru: 'Википедия: развитие речи у ребёнка', en: 'Wikipedia (Russian): language development in children' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9B%D0%BE%D0%B3%D0%BE%D0%BF%D0%B5%D0%B4%D0%B8%D1%8F', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Logopädie – wann Fachhilfe nötig wird', ru: 'Википедия: логопедия — когда нужна помощь специалиста', en: '' } },
+      label: { de: 'Wikipedia (russisch): Logopädie – wann Fachhilfe nötig wird', ru: 'Википедия: логопедия — когда нужна помощь специалиста', en: 'Wikipedia (Russian): speech therapy – when professional help is needed' } },
     { url: 'https://www.stiftunglesen.de/', kind: 'community',
-      label: { de: 'Stiftung Lesen: Vorlesetipps und kostenlose Materialien', ru: 'Stiftung Lesen: советы по чтению вслух и бесплатные материалы', en: '' } }
+      label: { de: 'Stiftung Lesen: Vorlesetipps und kostenlose Materialien', ru: 'Stiftung Lesen: советы по чтению вслух и бесплатные материалы', en: 'Stiftung Lesen: read-aloud tips and free materials' } }
   ],
 
   products: [
@@ -95,7 +115,8 @@ export default {
             'ist Beiwerk – wer erst Material kauft, fängt meistens gar nicht an.',
         ru: 'Ритуалу нужен только постоянный момент и взрослый без телефона. Всё остальное — приложение; ' +
             'кто сначала покупает материалы, чаще всего так и не начинает.',
-        en: ''
+        en: 'The ritual needs only a fixed occasion and an adult without a phone. Everything else is ' +
+            'trimmings – whoever buys material first usually never starts at all.'
       },
       diy: {
         de: 'Eine Sprechkarten-Box selbst bauen: 60 Kärtchen 7 × 10 cm aus Karton, in sechs Farben zu je ' +
@@ -110,7 +131,12 @@ export default {
             'рекламных буклетов, наклеенные и подписанные, фиолетовый — скороговорки. Поставить в пустую ' +
             'жестянку из-под чая и каждый день тянуть одну карточку. По десять минут работы на цвет, ' +
             'ребёнку дать написать часть самому — тогда он и пользоваться будет.',
-        en: ''
+        en: 'Build a box of talking cards yourself: 60 cards 7 × 10 cm from card stock, in six colours ' +
+            'of ten cards each. Red = prompts for telling (“What annoyed you today?”), blue = word ' +
+            'fields (“everything that beeps”), green = rhymes, yellow = what-if questions, orange = ' +
+            'pictures glued in from advertising leaflets and described, purple = tongue twisters. ' +
+            'Stand them in an empty tea tin and draw one card each day. Ten minutes of craft work per ' +
+            'colour, and the child may write along – then it will actually use the box.'
       }
     },
     {
@@ -124,7 +150,9 @@ export default {
         ru: 'Для диалогического чтения лучше всего виммельбухи — книги с обилием деталей и малым текстом: ' +
             'их не читают, а «расспрашивают» страницу. Менять книги раз в три недели; книга, которую ' +
             'ребёнок знает наизусть, для речи уже ничего не даёт.',
-        en: ''
+        en: 'For dialogic reading, busy picture books with little text are best – you do not read ' +
+            'aloud, you work your way through the page with questions. Fetch new books every three ' +
+            'weeks; a book the child knows by heart no longer contributes anything to language.'
       }
     },
     {
@@ -141,7 +169,11 @@ export default {
             'практики, а не с полки игрушек. Имеет смысл, когда есть конкретная цель — предлоги, глаголы, ' +
             'построение вопросов. Для обычного бытового ритуала хватит самодельной коробочки; и стоит ' +
             'сначала спросить, что уже рекомендует логопед.',
-        en: ''
+        en: 'A specialist publisher for speech therapy and language support; here the cards come from ' +
+            'therapeutic practice rather than from the toy shelf. Worthwhile when a particular goal is ' +
+            'on the table – prepositions, verbs, forming questions. For the plain everyday ritual the ' +
+            'home-made box is enough; before buying, it is worth checking what the speech therapist ' +
+            'already recommends.'
       }
     }
   ],

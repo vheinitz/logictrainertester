@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Lieder mit Bewegungen',
     ru: 'Песни с движениями',
-    en: ''
+    en: 'Songs with movements'
   },
 
   short: {
     de: 'Lieder mit fester Bewegungsfolge verbinden Text, Takt und Motorik zu einer leicht merkbaren Einheit.',
     ru: 'Песни с закреплённой последовательностью движений связывают текст, ритм и моторику в единое легко запоминаемое целое.',
-    en: ''
+    en: 'Songs with a fixed sequence of movements combine words, beat and motor action into a single unit that is easy to remember.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'добираются до последовательности. Эффект надёжен для самой разучиваемой песни, а также для ' +
         'чувства ритма и координации — заменой логопеду или эрготерапевту это не является, но лучшим ' +
         'домашним заданием к ним — вполне.',
-    en: ''
+    en: 'Every line of a song has a fixed movement attached to it – "Head, Shoulders, Knees and Toes" ' +
+        'is the best-known example. The child then stores the order not only as a chain of words, but ' +
+        'also as a melody and as a movement sequence; if one route fails, the other two carry it. ' +
+        'This is exactly what children live on who find plain repetition of sequences difficult: via ' +
+        'beat and hand they get at the order after all. It works for the particular song being ' +
+        'practised and for a sense of rhythm and body coordination – it is no substitute for speech ' +
+        'or occupational therapy, but it is their best homework.'
   },
 
   steps: {
@@ -57,7 +63,15 @@ export default {
       'Передать ведение ребёнку: он задаёт темп, придумывает на один куплет новое движение или меняет два движения местами.',
       'Две-три песни разучивать две недели по пять-десять минут ежедневно, потом сменить. Старую песню раз в несколько недель доставать снова.'
     ],
-    en: []
+    en: [
+      'Choose a song with a clear, recurring sequence of movements and fix no more than four different movements in it. In "Head, Shoulders, Knees and Toes" there are exactly four.',
+      'First just sing, without movement, two or three times. The child should be allowed to hum along without knowing the words.',
+      'Then show only the movements, in time, without the words – seated and at half speed. The child joins in until the sequence runs without thinking.',
+      'Put words and movement together, still at half speed. Only when two run-throughs are faultless should you pick up the tempo.',
+      'Build in a "silent verse": the movements carry on while the singing happens only in the head. At the end everyone has to come back in together.',
+      'Let the child take over: it sets the tempo, invents a new movement for one verse or swaps two movements with each other.',
+      'Practise two to three songs for five to ten minutes daily over two weeks, then change. Bring an old song back out again every few weeks.'
+    ]
   },
 
   tips: {
@@ -73,18 +87,23 @@ export default {
       'Усложнение для детей постарше: пройти последовательность движений в обратном порядке или петь вдвоём, чередуя строчки.',
       'Никакого экрана рядом. Повторять за видео — не то же самое, что уметь: для разучивания включить один раз, потом выключить.'
     ],
-    en: []
+    en: [
+      'Watch out for the mirror trap: whoever sits opposite the child has to demonstrate the other way round. It is easier to sit side by side in front of a mirror or in a row.',
+      'If the child gets tangled up, do not correct but slow down. Almost all mistakes in movement songs are tempo mistakes.',
+      'For older children as a step up: run through the movement sequence backwards, or sing the song in pairs, taking turns line by line.',
+      'No screen on the side. Copying the song from a video is something different from being able to do it – play it once for learning, then switch it off.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Fingerspiel', kind: 'wiki',
-      label: { de: 'Wikipedia: Fingerspiele – Beispiele mit Text und Bewegung', ru: 'Википедия (нем.): пальчиковые игры — примеры с текстом и движениями', en: '' } },
+      label: { de: 'Wikipedia: Fingerspiele – Beispiele mit Text und Bewegung', ru: 'Википедия (нем.): пальчиковые игры — примеры с текстом и движениями', en: 'Wikipedia (German): finger games – examples with words and movements' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9F%D0%B0%D0%BB%D1%8C%D1%87%D0%B8%D0%BA%D0%BE%D0%B2%D1%8B%D0%B5_%D0%B8%D0%B3%D1%80%D1%8B', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Fingerspiele und Feinmotorik', ru: 'Википедия: пальчиковые игры и мелкая моторика', en: '' } },
+      label: { de: 'Wikipedia (russisch): Fingerspiele und Feinmotorik', ru: 'Википедия: пальчиковые игры и мелкая моторика', en: 'Wikipedia (Russian): finger games and fine motor skills' } },
     { url: 'https://de.wikipedia.org/wiki/Kinderlied', kind: 'wiki',
-      label: { de: 'Wikipedia: Kinderlied – was ein kindgerechtes Lied ausmacht', ru: 'Википедия (нем.): детская песня — что делает песню подходящей ребёнку', en: '' } },
+      label: { de: 'Wikipedia: Kinderlied – was ein kindgerechtes Lied ausmacht', ru: 'Википедия (нем.): детская песня — что делает песню подходящей ребёнку', en: 'Wikipedia (German): children\'s song – what makes a song suitable for children' } },
     { url: 'https://liederprojekt.org/', kind: 'community',
-      label: { de: 'Das LIEDERPROJEKT (Carus/SWR2): Texte, Noten und Aufnahmen, frei zugänglich', ru: 'Проект LIEDERPROJEKT (Carus/SWR2): тексты, ноты и записи в свободном доступе', en: '' } }
+      label: { de: 'Das LIEDERPROJEKT (Carus/SWR2): Texte, Noten und Aufnahmen, frei zugänglich', ru: 'Проект LIEDERPROJEKT (Carus/SWR2): тексты, ноты и записи в свободном доступе', en: 'Das LIEDERPROJEKT (Carus/SWR2): lyrics, sheet music and recordings, freely available (German)' } }
   ],
 
   products: [
@@ -102,7 +121,10 @@ export default {
             'профессиональными записями. Лучшая отправная точка, если сам почти не помнишь песен: ' +
             'сначала послушать, потом петь без записи. Для песен с движениями особенно подходят ' +
             'разделы с детскими песнями и считалками.',
-        en: ''
+        en: 'A large, freely available collection of children\'s songs and folk songs with lyrics, ' +
+            'sheet music and professional recordings. The best starting point if you hardly know any ' +
+            'songs by heart yourself: listen first, then sing without the recording. For movement ' +
+            'songs, the sections with children\'s songs and counting rhymes are especially suitable.'
       }
     },
     {
@@ -119,7 +141,10 @@ export default {
             'песен для малышей до дошкольного возраста; тексты доступны для скачивания. Для детей ' +
             'двух-шести лет. При покупке выбирать песенники, в которых движения показаны рисунками, — ' +
             'на одних только дисках движения не описаны.',
-        en: ''
+        en: 'An extensive stock of children\'s songs with suggested movements, arranged by theme from ' +
+            'baby songs to preschool; lyrics are available for download. For two- to six-year-olds. ' +
+            'When buying, look for the songbooks in which the movements are illustrated – the audio ' +
+            'recordings alone leave the movement part open.'
       }
     },
     {
@@ -135,7 +160,10 @@ export default {
             'телеснее пальчиковых игр — хорошо подходят подвижным детям и группам. Продаются в ' +
             'магазинах и есть на обычных стриминговых сервисах; отдельные старые диски больше не ' +
             'переиздаются.',
-        en: ''
+        en: 'Dance and join-in songs for kindergarten and the first primary school years, noticeably ' +
+            'faster and more physical than finger games – good for children with a strong urge to ' +
+            'move and for groups. Available through retailers and the usual streaming services; some ' +
+            'older CDs are out of print.'
       }
     },
     {
@@ -148,7 +176,9 @@ export default {
         ru: 'Детям, которые ещё не удерживают ход песни в голове, он нужен перед глазами. Четыре-шесть ' +
             'карточек, выложенных в ряд на столе, показывают, что будет дальше, — и их можно ' +
             'переставлять для упражнения.',
-        en: ''
+        en: 'Children who cannot yet hold the course of a song in their head need it in front of their ' +
+            'eyes. Four to six cards laid out in a row on the table show what comes next – and can be ' +
+            'reordered for practice.'
       },
       diy: {
         de: 'Sechs Karten aus Pappe im Format 8 × 8 cm schneiden. Auf jede mit dickem Filzstift ein ' +
@@ -163,7 +193,12 @@ export default {
             'пальцем. Усложнение: перевернуть одну карточку (движение приходится вспоминать) или ' +
             'поменять местами две и спеть песню соответственно. В файлах или заламинированные они ' +
             'служат годами.',
-        en: ''
+        en: 'Cut six cards out of cardboard in 8 × 8 cm format. On each one draw a simple stick figure ' +
+            'with a thick felt-tip pen showing the movement: hands on the head, hands on the ' +
+            'shoulders, clap, stamp. Lay the cards on the table in the order of the song and follow ' +
+            'along with a finger while singing. To make it harder, turn one card over (the movement ' +
+            'then has to come from memory) or swap two cards and sing the song accordingly. In clear ' +
+            'sleeves or laminated they last for years.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="8" y="24" width="30" height="32" rx="4" fill="var(--primary)"/>

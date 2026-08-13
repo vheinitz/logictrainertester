@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Bildergeschichten ordnen und nacherzählen',
     ru: 'Истории в картинках: расставить и пересказать',
-    en: ''
+    en: 'Sorting and retelling picture stories'
   },
 
   short: {
     de: 'Durcheinandergelegte Bildfolgen in die richtige Reihenfolge bringen und dann in eigenen Worten erzählen.',
     ru: 'Перемешанные картинки расставить по порядку, а потом рассказать историю своими словами.',
-    en: ''
+    en: 'Put jumbled picture sequences into the right order and then tell the story in your own words.'
   },
 
   what: {
@@ -38,7 +38,14 @@ export default {
         'приёмом, потому что его легко дозировать — от двух картинок и одной фразы к каждой до ' +
         'связного рассказа по памяти. Подходит примерно с четырёх лет, а с более сложными сериями — ' +
         'и в школьном возрасте.',
-    en: ''
+    en: 'Four to eight pictures together tell a small story – someone bakes a cake, a dog runs off. ' +
+        'The child first puts them in the right order and then tells the story. Sorting them forces ' +
+        'the child to recognize cause and consequence; telling the story starts exactly where free ' +
+        'speech otherwise fails: the content is already fixed and lies visibly on the table, so the ' +
+        'whole mind is free for sentence structure, tenses and connecting words. In speech therapy ' +
+        'this has been a standard procedure for decades, because it can be graded finely – from two ' +
+        'pictures and one sentence per picture to a coherent narrative from memory. Suitable from ' +
+        'about four years of age, and with more demanding material well into school age.'
   },
 
   steps: {
@@ -62,7 +69,16 @@ export default {
       'Перевернуть картинки и попросить рассказать по памяти. Это и есть главный шаг — дальше речь держится сама.',
       'Со второго класса то же письменно: записать историю в четырёх-шести предложениях, по одному на картинку. Всегда сначала устно.'
     ],
-    en: []
+    en: [
+      'Pick a sequence of four to six pictures, shuffle them and lay them face down on the table. More pictures does not mean harder, only longer – stay with six at first until it runs smoothly.',
+      'Turn all the pictures over. The child says one sentence about each individual picture, without worrying about the order: "Here a boy is standing at the window."',
+      'Now let the child sort them, from left to right. Do not intervene, even if it looks wrong.',
+      'Ask instead of correcting: "How can you tell that this one comes first?" Often the child answers with the detail itself – the cup is still full, the snow is still lying.',
+      'Have the whole story told in one go, while the index finger travels from picture to picture. Do not interrupt, do not correct.',
+      'A second round with an assignment: "Tell it again and use first, then, suddenly, that is why, in the end." Write these five words visibly on a slip of paper.',
+      'Turn the pictures over and have the story told from memory. That is the real step – from here on language carries it alone.',
+      'From second grade on, the same thing in writing: write the story down in four to six sentences, one sentence per picture. Always do it orally first.'
+    ]
   },
 
   tips: {
@@ -78,18 +94,23 @@ export default {
       'Не поправлять грамматику, а повторять правильно: если ребёнок говорит «он ложил», взрослый отвечает «да, он положил» и продолжает историю.',
       'С двуязычными детьми проходить одну и ту же серию на обоих языках, в разные дни. Картинки те же, меняется только язык.'
     ],
-    en: []
+    en: [
+      'Endure five seconds of silence before helping. Most adults talk the story away from the child.',
+      'Do not take a wrong order away; let the child tell it anyway. While telling, the break in the story is almost always noticed by the child – and rearranging the cards is then the real mental work.',
+      'Do not correct the grammar, but repeat it correctly: if the child says "he goed away", you answer "yes, he went away" and carry on with the story.',
+      'With multilingual children, have the same sequence told in both languages, on different days. The pictures stay the same, only the language changes.'
+    ]
   },
 
   links: [
     { url: 'https://www.westermann.de/schubi/', kind: 'hersteller',
-      label: { de: 'SCHUBI (Westermann): Bilderboxen und Sprachfördermaterial', ru: 'SCHUBI (Westermann): наборы картинок для развития речи', en: '' } },
+      label: { de: 'SCHUBI (Westermann): Bilderboxen und Sprachfördermaterial', ru: 'SCHUBI (Westermann): наборы картинок для развития речи', en: 'SCHUBI (Westermann): picture boxes and language support material (German)' } },
     { url: 'https://globi.ch/ueber-papa-moll', kind: 'hersteller',
-      label: { de: 'Papa Moll beim Globi Verlag – Herkunft der Figur und Bücher', ru: 'Папа Молль в издательстве Globi — о персонаже и книгах', en: '' } },
+      label: { de: 'Papa Moll beim Globi Verlag – Herkunft der Figur und Bücher', ru: 'Папа Молль в издательстве Globi — о персонаже и книгах', en: 'Papa Moll at Globi Verlag – the origin of the character and the books (German)' } },
     { url: 'https://logoped.name/rasskaz-po-serii-syuzhetnyh-kartin/', kind: 'anleitung',
-      label: { de: 'Ausführliche Anleitung (russisch): Erzählen nach Bildserien', ru: 'Подробная методика: рассказ по серии сюжетных картин', en: '' } },
+      label: { de: 'Ausführliche Anleitung (russisch): Erzählen nach Bildserien', ru: 'Подробная методика: рассказ по серии сюжетных картин', en: 'Detailed guide (Russian): telling stories from picture series' } },
     { url: 'https://de.wikipedia.org/wiki/Nacherz%C3%A4hlung', kind: 'wiki',
-      label: { de: 'Wikipedia: Nacherzählung', ru: 'Википедия (нем.): пересказ', en: '' } }
+      label: { de: 'Wikipedia: Nacherzählung', ru: 'Википедия (нем.): пересказ', en: 'Wikipedia (German): retelling' } }
   ],
 
   products: [
@@ -108,7 +129,11 @@ export default {
             'рисованные картинки без текста, много комичного — детям самим хочется это комментировать. ' +
             'Рассчитано на 1–4 класс. У издательства временами нет в наличии; тогда стоит посмотреть ' +
             '«Abenteuer mit Papa Moll» (20 серий, с 7 лет) или комплект ProLog.',
-        en: ''
+        en: '22 stories with 5–9 picture cards each (10 × 9.2 cm), 149 cards in total. The classic of ' +
+            'language support: drawn, without text, with plenty of slapstick that children want to ' +
+            'comment on by themselves. Intended for grades 1–4. Temporarily unavailable from the ' +
+            'publisher at times – in that case it is worth looking at "Abenteuer mit Papa Moll" ' +
+            '(20 episodes, from age 7) or at the ProLog package.'
       }
     },
     {
@@ -123,7 +148,9 @@ export default {
         ru: 'Те же 22 истории плюс тетрадь с чёрно-белыми копируемыми образцами десяти самых любимых ' +
             'серий. Копии — главная польза: ребёнок может в них писать, раскрашивать, вырезать и ' +
             'забрать историю домой.',
-        en: ''
+        en: 'The same 22 stories plus a booklet with photocopiable versions of the ten most popular ' +
+            'episodes in black and white. The copies are the real gain: the child may write on them, ' +
+            'color them in, cut them out and take the story home.'
       }
     },
     {
@@ -136,7 +163,9 @@ export default {
             'auch Anleitungspiktogramme aus Möbelbauplänen.',
         ru: 'Бесплатный и неисчерпаемый материал. Лучше всего подходят полоски без слов: «Отец и сын» ' +
             'e.o.plauen, комиксы без реплик, а также пиктограммы из инструкций по сборке мебели.',
-        en: ''
+        en: 'Free and inexhaustible material. Wordless strips work best – "Vater und Sohn" by ' +
+            'e.o.plauen, Katzenjammer or Peanuts strips without speech bubbles, and also the ' +
+            'instruction pictograms from furniture assembly plans.'
       },
       diy: {
         de: 'Comicstreifen aus Zeitung oder Zeitschrift ausschneiden, Sprechblasen mit Korrekturroller ' +
@@ -152,7 +181,13 @@ export default {
             'написать одну и ту же букву истории и номер правильной позиции — так перемешавшиеся ' +
             'наборы легко разобрать, а ребёнок может проверить себя сам. Хранить в файлах или ' +
             'конвертах, по конверту на историю. Двадцать историй собираются за один вечер.',
-        en: ''
+        en: 'Cut comic strips out of a newspaper or magazine and white out the speech bubbles with ' +
+            'correction tape. Cut the strip into its single panels and glue each one onto a piece of ' +
+            'stiff cardboard measuring 7 × 7 cm (the same size for all of them, otherwise the format ' +
+            'gives away the order). On the back of each card write the same letter for the story and ' +
+            'the number of the correct position – this way mixed-up sets can be sorted out again and ' +
+            'the child can check itself. Keep them in clear sleeves or envelopes, one envelope per ' +
+            'story. Twenty stories are ready in a single afternoon.'
       }
     }
   ],

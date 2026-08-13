@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Muster nachzeichnen und fortsetzen',
     ru: 'Срисовывание и продолжение узоров',
-    en: ''
+    en: 'Copying and continuing patterns'
   },
 
   short: {
     de: 'Figuren und Musterreihen werden exakt abgezeichnet oder regelgerecht weitergeführt.',
     ru: 'Фигуры и ряды узоров точно срисовываются или продолжаются по правилу.',
-    en: ''
+    en: 'Figures and rows of patterns are copied exactly or continued according to their rule.'
   },
 
   what: {
@@ -42,7 +42,16 @@ export default {
         'доказанный. А вот как подготовка к письму и как вход в закономерности в математике это ' +
         'бесспорно полезно — поэтому упражнение уместно рядом с письмом и счётом, а не в ' +
         'отдельной «программе восприятия».',
-    en: ''
+    en: 'Two related tasks on squared or dotted paper: copying a given figure exactly, square by ' +
+        'square, and continuing a row that has been started – circle, circle, triangle, circle, ' +
+        'circle, … – according to its rule. The child first has to look closely, put the rule ' +
+        'into words and only then translate it into a movement; it is exactly this sequence that ' +
+        'is the content of the exercise, not the beauty of the result. Whether isolated ' +
+        'perception training carries over to reading and spelling has long been disputed and is ' +
+        'not proven in itself. As preparation for writing and as an introduction to regularities ' +
+        'in mathematics, on the other hand, it is unquestionably worthwhile – which is why it ' +
+        'belongs in the context of writing and arithmetic and not in a separate "perception ' +
+        'program".'
   },
 
   steps: {
@@ -66,7 +75,16 @@ export default {
       'Под конец узор без образца: взрослый только диктует — «четыре клетки вправо, две вверх, три вправо», — а ребёнок рисует вслепую. Это самая сложная ступень и самая любимая, потому что в конце получается узнаваемый зверь.',
       'Десяти минут в день достаточно. Готовый лист датировать и убрать в папку; через четыре недели сравнение с первым листом скажет больше любой похвалы.'
     ],
-    en: []
+    en: [
+      'Take squared paper with large squares: 1 cm for four- to six-year-olds, 7 mm from first grade on. Add a soft pencil (grade B or 2B) and an eraser, no ballpoint pen.',
+      'Warm up with three rows of sweeping lines across the width of the sheet: wavy line, garland, loop – each one in a single stroke without lifting the pencil, using the whole arm, not the wrist.',
+      'Copying: on the left, draw a figure made of straight lines in a field of 5 × 5 squares (house, staircase, zigzag), on the right leave an empty field of the same size. The child counts out loud: "three to the right, two down".',
+      'Let the child compare without judging: fold the sheet once so that both figures lie on top of each other and hold it up to the light. That way the child sees the deviations without being told.',
+      'Continuing: give a row of eight fields with the first four filled in – for example red, red, blue, red, red, blue … – and first have the child say the rule out loud ("twice red, once blue"), then draw on. Speak first, then draw.',
+      'Make it harder in this order: more elements in the rule (ABB → ABBC), then a change of size instead of color, then rotations of the same sign (arrow up, right, down, …).',
+      'Finish with a pattern without a template: the adult only dictates – "four squares to the right, two up, three to the right" – and the child draws blind. This is the most demanding level and the most fun, because in the end a recognizable animal appears.',
+      'Ten minutes a day is enough. Date the finished sheet and put it in a folder; after four weeks, the comparison with the first sheet says more than any praise.'
+    ]
   },
 
   tips: {
@@ -82,22 +100,27 @@ export default {
       'Если после трёх рядов рука затекает или ребёнок стискивает карандаш, клетка слишком мелкая. Взять бумагу крупнее, а не заниматься дольше.',
       'При стойких трудностях со срисовыванием, хватом карандаша или удержанием строки нужно обследование (проверка зрения, эрготерапия) — одними упражнениями тут не обойтись.'
     ],
-    en: []
+    en: [
+      'The rule has to be spoken out loud before the pencil touches the paper. A child who draws on in silence is guessing from appearance and is not practicing anything.',
+      'Do not touch up the drawing and do not trace over the child\'s line. A crooked pattern the child drew alone is worth more than a straight one guided by an adult hand.',
+      'If the hand cramps after three rows or the child clutches the pencil, the squares are too small. Take larger paper instead of practicing longer.',
+      'Persistent difficulties with copying, pencil grip or staying on the line should be looked into (eye test, occupational therapy) – practice alone will not get you any further then.'
+    ]
   },
 
   links: [
     { url: 'https://www.grundschulkoenig.de/vorschule/muster-fortsetzen-1/', kind: 'anleitung',
-      label: { de: 'Grundschulkönig: Muster fortsetzen, Arbeitsblätter als PDF', ru: 'Grundschulkönig: продолжение узоров, листы заданий в PDF', en: '' } },
+      label: { de: 'Grundschulkönig: Muster fortsetzen, Arbeitsblätter als PDF', ru: 'Grundschulkönig: продолжение узоров, листы заданий в PDF', en: 'Grundschulkönig: continuing patterns, worksheets as PDF (German)' } },
     { url: 'https://www.grundschulkoenig.de/geometrie/muster-zeichnen/', kind: 'anleitung',
-      label: { de: 'Grundschulkönig: Muster zeichnen (3./4. Klasse)', ru: 'Grundschulkönig: рисование узоров (3–4 класс)', en: '' } },
+      label: { de: 'Grundschulkönig: Muster zeichnen (3./4. Klasse)', ru: 'Grundschulkönig: рисование узоров (3–4 класс)', en: 'Grundschulkönig: drawing patterns, grades 3 and 4 (German)' } },
     { url: 'https://www.grundschulkoenig.de/mathe/4-klasse/bandornamente-und-parkette/', kind: 'anleitung',
-      label: { de: 'Grundschulkönig: Bandornamente und Parkette', ru: 'Grundschulkönig: ленточные орнаменты и паркеты', en: '' } },
+      label: { de: 'Grundschulkönig: Bandornamente und Parkette', ru: 'Grundschulkönig: ленточные орнаменты и паркеты', en: 'Grundschulkönig: border ornaments and tessellations (German)' } },
     { url: 'https://www.defectologiya.pro/zhurnal/graficheskij_diktant_dlya_doshkolnikov_risuem_po_kletochkam/', kind: 'anleitung',
-      label: { de: 'Graphisches Diktat: Anleitung und drei fertige Beispiele (russisch)', ru: 'Графический диктант для дошкольников: методика и три готовых образца', en: '' } },
+      label: { de: 'Graphisches Diktat: Anleitung und drei fertige Beispiele (russisch)', ru: 'Графический диктант для дошкольников: методика и три готовых образца', en: 'Graphic dictation for preschoolers: method and three ready-made examples (Russian)' } },
     { url: 'https://de.wikipedia.org/wiki/Ornament', kind: 'wiki',
-      label: { de: 'Wikipedia: Ornament – Musterarten und Wiederholung', ru: 'Википедия (нем.): орнамент — виды узоров и повтор', en: '' } },
+      label: { de: 'Wikipedia: Ornament – Musterarten und Wiederholung', ru: 'Википедия (нем.): орнамент — виды узоров и повтор', en: 'Wikipedia (German): ornament – types of pattern and repetition' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9E%D1%80%D0%BD%D0%B0%D0%BC%D0%B5%D0%BD%D1%82', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Ornament', ru: 'Википедия: орнамент', en: '' } }
+      label: { de: 'Wikipedia (russisch): Ornament', ru: 'Википедия: орнамент', en: 'Wikipedia (Russian): ornament' } }
   ],
 
   products: [
@@ -114,7 +137,10 @@ export default {
             '7 мм. Точечная сетка (только узлы вместо полных линий) — вариант потруднее, он имеет ' +
             'смысл, когда счёт по клеткам уже освоен. Не брать бумагу с полями и печатью: любая ' +
             'лишняя деталь на листе стоит точности.',
-        en: ''
+        en: 'The entire material this method needs. For preschoolers a pad with 1 cm squares, ' +
+            'from first grade on 7 mm. A dot grid (only the corner points instead of full lines) ' +
+            'is the harder variant and only pays off once counting squares is secure. Do not use ' +
+            'paper with a margin or printing on it – every distraction on the sheet costs accuracy.'
       },
       diy: {
         de: 'Karopapier selbst herstellen: In einem Tabellenprogramm alle Spaltenbreiten und ' +
@@ -141,7 +167,18 @@ export default {
             'заламинировать или вложить в файлы — тогда по ним можно писать смываемым маркером ' +
             'сколько угодно раз. Это экономит бумагу и снимает страх ошибки: стереть проще, чем ' +
             'вытирать ластиком.',
-        en: ''
+        en: 'Make squared paper yourself: in a spreadsheet program set all column widths and row ' +
+            'heights to 1.0 cm, switch on thin gray border lines (0.25 pt, light gray) and print ' +
+            'on A4 in landscape – that gives a sheet with about 28 × 19 squares. For a dot grid, ' +
+            'place a dot at each grid point instead of drawing lines. ' +
+            'Template folder: make twelve A5 cards (14.8 × 21 cm), on each one draw a figure on ' +
+            'the left in a field of 5 × 5 squares and leave an empty field of the same size on ' +
+            'the right. Order: 1–3 horizontal and vertical lines only (staircase, house, cross), ' +
+            '4–6 with diagonals (zigzag, star), 7–9 rows of patterns to be continued (ABAB, AABB, ' +
+            'AABC), 10–12 rotation patterns (the same sign four times, turned by 90° each time). ' +
+            'Laminate the cards or slip them into clear sleeves, then they can be used over and ' +
+            'over with a wipe-off marker – that saves paper and takes away the child\'s fear of ' +
+            'mistakes, because you can wipe instead of erase.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="6" y="8" width="50" height="64" rx="2" fill="#fff" stroke="#D0CDE8" stroke-width="1.5"/>
@@ -169,7 +206,10 @@ export default {
             'нарастающей сложности. Копировать разрешено сколько угодно — в этой методике это и ' +
             'есть главное преимущество перед одноразовой тетрадью, которая через две недели вся ' +
             'изрисована.',
-        en: ''
+        en: '56 pages of photocopiable worksheets for 4- to 6-year-olds: strokes, arcs, loops, ' +
+            'tracks and patterns in increasing difficulty. As photocopy masters, every sheet may ' +
+            'be printed as often as you like – with this method that is the real advantage over ' +
+            'a single-use workbook that is filled in after two weeks.'
       }
     },
     {
@@ -186,7 +226,10 @@ export default {
             'платных наборах примерно от 2,50 €. Для начала бесплатных вполне достаточно: они ' +
             'показывают, какие бывают типы заданий, а дальше сколько угодно таких же можно ' +
             'нарисовать самому на клетчатой бумаге.',
-        en: ''
+        en: 'For every topic at least one worksheet including the solution is available free as ' +
+            'a PDF; more come in paid packages from about 2.50 €. For a start the free sheets are ' +
+            'entirely sufficient: above all they show which types of task exist – after that you ' +
+            'can draw as many of them as you like yourself on squared paper.'
       }
     }
   ],

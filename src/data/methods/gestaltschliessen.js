@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Gestaltschließen: unvollständige Bilder ergänzen',
     ru: 'Дополнение неполных изображений',
-    en: ''
+    en: 'Gestalt Closure: Completing Incomplete Pictures'
   },
 
   short: {
     de: 'Aus Bildfragmenten, Schattenrissen oder halbierten Bildern wird das Ganze erkannt oder ergänzt.',
     ru: 'По фрагменту, силуэту или половине картинки ребёнок узнаёт или достраивает целое.',
-    en: ''
+    en: 'From picture fragments, silhouettes or halved pictures, the child recognises or completes the whole.'
   },
 
   what: {
@@ -37,7 +37,15 @@ export default {
         'лучше, но широкий перенос на чтение и счёт, который обещали более старые тренировки восприятия, ' +
         'считается спорным и не подтверждён. Как короткое упражнение с обсуждением в дошкольном и раннем ' +
         'школьном возрасте оно всё же полезно: тот, кто всматривается и обосновывает, уже кое-что выиграл.',
-    en: ''
+    en: 'The child is shown only part of a picture – one half, an outline, a few strokes – and is asked ' +
+        'to say what the whole thing is. Behind this lies a basic principle of Gestalt psychology: ' +
+        'perception fills in gaps by itself to form a meaningful shape. What is practised is forming a ' +
+        'hypothesis from a few features and justifying it, rather than guessing. An important caveat: ' +
+        'children demonstrably get better at such tasks, but the broad transfer to reading and ' +
+        'arithmetic that older perception training programmes promised is considered controversial and ' +
+        'is not established. As a short, conversation-rich exercise in preschool and the early primary ' +
+        'years it is still worthwhile – whoever looks closely and gives reasons has already gained ' +
+        'something.'
   },
 
   steps: {
@@ -61,7 +69,16 @@ export default {
       'Поменяться ролями: ребёнок режет или рисует, взрослый отгадывает и вслух обосновывает. Показанный пример рассуждения действует сильнее любых напоминаний.',
       'В конце разложить целые картинки рядом и обсудить, какие были трудными и почему. Заканчивать через восемь-десять минут.'
     ],
-    en: []
+    en: [
+      'Cut five clear pictures out of a magazine or catalogue, roughly postcard-sized – animals, vehicles, everyday objects. Cut each picture in half once crosswise with scissors.',
+      'Place one half on the table, the other face down next to it. The child should say what the whole picture shows before the second half is revealed.',
+      'Always ask: "How did you recognise that?" Only the justification turns guessing into an exercise. Then reveal the second half and check together.',
+      'Make it harder with a viewing window: lay a sheet of paper with a 3 cm hole over a complete picture and let the hole wander slowly. The child guesses as soon as it feels sure.',
+      'Outline variant without scissors: place an object – scissors, spoon, key, toy car – on a sheet, trace the outline, take the object away. The child recognises the silhouette.',
+      'Stroke variant: the adult draws three or four strokes of an animal. The child guesses and adds the missing lines itself – only then can you see whether it really had a picture in its head.',
+      'Swap roles: the child cuts or draws, the adult guesses and gives reasons out loud. Modelling the reasoning works more strongly than any admonition.',
+      'At the end, lay the complete pictures side by side and go through which ones were hard and why. Stop after eight to ten minutes.'
+    ]
   },
 
   tips: {
@@ -77,18 +94,23 @@ export default {
       'Начинать с информативной половины (голова животного, ручка чайника) и лишь потом показывать невыразительную. Так задание усложняется ступенями без смены материала.',
       'Если ребёнок регулярно не справляется даже с простыми картинками или вынужден подносить их очень близко, сначала проверьте остроту зрения и работу обоих глаз, а уже потом продолжайте занятия.'
     ],
-    en: []
+    en: [
+      'Letting the child just guess is gambling. The question "How do you recognise it?" belongs to every single picture; otherwise the child practises nothing but speed.',
+      'Only use things the child knows. An unfamiliar device tests knowledge, not perception – and merely produces failure.',
+      'Start with the telling half (the animal\'s head, the handle of the pot) and only later show the uninformative one. That way the task gets harder step by step without changing the material.',
+      'If a child regularly fails even with simple pictures or has to move in very close, have visual acuity and eye teaming checked first before practising further.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Gestaltpsychologie', kind: 'wiki',
-      label: { de: 'Wikipedia: Gestaltpsychologie – Gesetz der Geschlossenheit', ru: 'Википедия (нем.): гештальтпсихология, принцип замыкания', en: '' } },
+      label: { de: 'Wikipedia: Gestaltpsychologie – Gesetz der Geschlossenheit', ru: 'Википедия (нем.): гештальтпсихология, принцип замыкания', en: 'Wikipedia (German): Gestalt psychology – law of closure' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%93%D0%B5%D1%88%D1%82%D0%B0%D0%BB%D1%8C%D1%82%D0%BF%D1%81%D0%B8%D1%85%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Gestaltpsychologie', ru: 'Википедия: гештальтпсихология', en: '' } },
+      label: { de: 'Wikipedia (russisch): Gestaltpsychologie', ru: 'Википедия: гештальтпсихология', en: 'Wikipedia (Russian): Gestalt psychology' } },
     { url: 'https://de.wikipedia.org/wiki/Visuelle_Wahrnehmung', kind: 'wiki',
-      label: { de: 'Wikipedia: Visuelle Wahrnehmung – Einordnung', ru: 'Википедия (нем.): зрительное восприятие', en: '' } },
+      label: { de: 'Wikipedia: Visuelle Wahrnehmung – Einordnung', ru: 'Википедия (нем.): зрительное восприятие', en: 'Wikipedia (German): visual perception – background' } },
     { url: 'https://www.westermann.de/uebersicht/615/Visuelle+Wahrnehmung', kind: 'hersteller',
-      label: { de: 'Westermann/Schubi: Materialien zur visuellen Wahrnehmung', ru: 'Westermann/Schubi: материалы по зрительному восприятию', en: '' } }
+      label: { de: 'Westermann/Schubi: Materialien zur visuellen Wahrnehmung', ru: 'Westermann/Schubi: материалы по зрительному восприятию', en: 'Westermann/Schubi: materials on visual perception' } }
   ],
 
   products: [
@@ -105,7 +127,10 @@ export default {
             'ребёнок действительно знает: своего пса, свой велосипед, предметы с кухни. На покупных ' +
             'карточках часто изображено то, чего городской ребёнок никогда не видел, и они проверяют ' +
             'знания, а не восприятие.',
-        en: ''
+        en: 'The best material for this exercise is one you make yourself, because then you can ' +
+            'use subjects the child really knows – its own dog, its own bicycle, things from the ' +
+            'kitchen. Bought cards often show objects a city child has never seen, and then they ' +
+            'test knowledge instead of perception.'
       },
       diy: {
         de: 'Bildkarten: 20 Motive aus Zeitschriften, Prospekten oder ausgedruckten Familienfotos auf ' +
@@ -123,7 +148,14 @@ export default {
             'отверстие диаметром 3 см (шаблон — рулон скотча). Второй лист с отверстием всего 1,5 см — ' +
             'для сложной ступени. Силуэты: положить предмет на A4, обвести толстым чёрным маркером и ' +
             'закрасить внутри — десяти листов хватит на недели. Хранить всё в подписанном конверте.',
-        en: ''
+        en: 'Picture cards: cut 20 subjects out of magazines, brochures or printed family photos to ' +
+            'about 10 × 15 cm and glue them onto card. Cut each card once crosswise into two halves ' +
+            'of 10 × 7.5 cm; write the same number on the back of both halves, otherwise you will ' +
+            'never find the pairs again. Viewing window: take a sheet of A4 and cut a round hole ' +
+            '3 cm across in the middle (a roll of tape makes a good template). A second sheet with ' +
+            'a hole of only 1.5 cm for the hard level. Silhouettes: put an object on A4, trace ' +
+            'around it with a thick black felt-tip pen and fill in the area – ten sheets will last ' +
+            'for weeks. Keep everything in a labelled envelope.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="10" y="18" width="42" height="44" rx="3" fill="#fff" stroke="var(--primary)" stroke-width="2"/>
@@ -152,7 +184,12 @@ export default {
             'игроков, заявлено для детского сада и подготовительной группы. Преимущество перед рабочими ' +
             'листами: в конце складывается фигура-решение, которая сама показывает, всё ли верно, — ' +
             'ребёнку не нужно ждать проверки взрослого.',
-        en: ''
+        en: 'A series of laying games following domino rules with triangular cards: finding the ' +
+            'matching half of a cut-up drawing, assigning the correct mirror image or assembling ' +
+            'puzzle pieces in your head. Each box contains two games with 18 to 24 cards at two ' +
+            'levels of difficulty, for 1 to 4 players, designated for kindergarten and preschool. ' +
+            'The advantage over worksheets: at the end a solution shape emerges that itself shows ' +
+            'whether everything is correct – the child does not have to wait for an adult to check.'
       }
     },
     {
@@ -171,7 +208,11 @@ export default {
             'помощи и терапии. Имеет смысл, если нужна одна и та же задача во множестве градаций или ' +
             'если занимаются сразу с несколькими детьми. Для дома и одного ребёнка это многовато — там ' +
             'самодельные карточки справляются не хуже.',
-        en: ''
+        en: 'A volume of photocopiable masters, 88 A4 pages with 68 worksheets on visual ' +
+            'perception, designated for ages 4 to 8 and expressly intended for early intervention ' +
+            'and therapy as well. Useful if you need the same exercise in many gradations or work ' +
+            'with several children. For home use with one child it is plenty – there the ' +
+            'self-cut cards do the same job.'
       }
     }
   ],

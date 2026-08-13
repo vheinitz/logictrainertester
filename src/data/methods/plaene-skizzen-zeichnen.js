@@ -11,13 +11,13 @@ export default {
   title: {
     de: 'Pläne, Skizzen und technisches Zeichnen',
     ru: 'Планы, эскизы и техническое черчение',
-    en: ''
+    en: 'Plans, sketches and technical drawing'
   },
 
   short: {
     de: 'Räume und Gegenstände werden als Grundriss, Skizze oder Ansicht von oben, vorne und der Seite aufs Papier gebracht.',
     ru: 'Комнаты и предметы переносят на бумагу как план, эскиз или вид сверху, спереди и сбоку.',
-    en: ''
+    en: 'Rooms and objects are put on paper as a floor plan, a sketch or a view from above, from the front and from the side.'
   },
 
   what: {
@@ -32,7 +32,12 @@ export default {
         'инструкциями по сборке, картами, электрическими схемами и на уроках геометрии. В отличие ' +
         'от свободного рисования здесь всё проверяемо: дверь либо оказывается там, где нарисовано, ' +
         'либо нет. Поэтому упражнение исправляет себя само и хорошо подходит примерно с семи лет.',
-    en: ''
+    en: 'When drawing a floor plan or a view, the child has to translate a three-dimensional ' +
+        'object into a flat representation – and when reading the plan, translate it back again. ' +
+        'It is exactly this translation that is needed later for assembly instructions, maps, ' +
+        'circuit diagrams and in geometry lessons. Unlike free drawing, everything here can be ' +
+        'checked: either the door fits where it was drawn or it does not. That makes the exercise ' +
+        'self-correcting and well suited to children from about seven years on.'
   },
 
   steps: {
@@ -56,7 +61,16 @@ export default {
       'Выход к карте: нарисовать дорогу в школу — улицы двойными линиями, стрелка на север вверху, три ориентира (пекарня, светофор, мост) и примерная длина в минутах.',
       'В конце потренировать аккуратность: линии по линейке, карандаш HB, подписи всегда горизонтально, размерные числа над размерной линией. Кто один раз начертил аккуратно, дальше видит разницу сам.'
     ],
-    en: []
+    en: [
+      'Start with the child\'s own room. Take squared paper and agree beforehand: one square (5 mm) is 20 cm. Write this scale in the top right corner of the sheet, otherwise it gets forgotten along the way.',
+      'Measure the four walls with a folding rule and draw them as a rectangle. Do not draw through the door and the window, but leave them as a gap in the wall, and add a quarter circle at the door for the swing area.',
+      'Draw the furniture from above as simple rectangles: a bed of 90 × 200 cm is 4.5 × 10 squares at this scale. Measure each piece of furniture first, then convert, then draw – never by eye.',
+      'Test it: turn the plan so that it matches the direction the child is looking in. Then point to a spot on the plan and say "go and stand there". Wherever it gets stuck, something is missing from the plan.',
+      'Second exercise, three views: build a tower from six Lego bricks and draw it three times – from the front, from the right, from above. Put the three drawings on the sheet at the same size, one below the other, each one labeled.',
+      'Reverse it: the parents draw three views of a tower and the child builds it without having seen the original. Then compare and look for the difference in the plan, not in the structure.',
+      'As an excursion into maps, sketch the way to school: streets as double lines, north arrow at the top, three landmarks entered (bakery, traffic light, bridge) and the length written next to it roughly in minutes.',
+      'Practice neatness at the end: lines with a ruler, HB pencil, labels always horizontal, dimension figures above the dimension line. Once a child has drawn neatly, it sees the difference itself.'
+    ]
   },
 
   tips: {
@@ -72,22 +86,27 @@ export default {
       'Не заставлять стирать до идеала. Второй лист быстрее и спокойнее, чем протёртый насквозь первый.',
       'Угольник-транспортир имеет смысл примерно с десяти лет, когда появляются прямые углы и параллельные. До этого хватает линейки и клетчатой бумаги.'
     ],
-    en: []
+    en: [
+      'Measure first, then draw. Done by eye, nothing fits together in the end and the child gives up instead of looking for the mistake.',
+      'The scale belongs on the sheet, not in the head. "One square = 20 cm" in the top right corner saves half the follow-up questions.',
+      'Do not let the child erase in pursuit of perfection. A second sheet is quicker and less annoying than a first one rubbed through.',
+      'A set square with protractor markings only pays off from about ten years, when right angles and parallels become a topic. Before that, a ruler and squared paper are enough.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Technisches_Zeichnen', kind: 'wiki',
-      label: { de: 'Wikipedia: Technisches Zeichnen', ru: 'Википедия (нем.): техническое черчение', en: '' } },
+      label: { de: 'Wikipedia: Technisches Zeichnen', ru: 'Википедия (нем.): техническое черчение', en: 'Wikipedia (German): technical drawing' } },
     { url: 'https://de.wikipedia.org/wiki/Dreitafelprojektion', kind: 'wiki',
-      label: { de: 'Wikipedia: Dreitafelprojektion – vorne, oben, seitlich', ru: 'Википедия (нем.): три вида — спереди, сверху, сбоку', en: '' } },
+      label: { de: 'Wikipedia: Dreitafelprojektion – vorne, oben, seitlich', ru: 'Википедия (нем.): три вида — спереди, сверху, сбоку', en: 'Wikipedia (German): third-angle projection – front, top, side' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A7%D0%B5%D1%80%D1%87%D0%B5%D0%BD%D0%B8%D0%B5', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Ingenieurgrafik / Technisches Zeichnen', ru: 'Википедия: инженерная графика (черчение)', en: '' } },
+      label: { de: 'Wikipedia (russisch): Ingenieurgrafik / Technisches Zeichnen', ru: 'Википедия: инженерная графика (черчение)', en: 'Wikipedia (Russian): engineering graphics / technical drawing' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%AD%D0%BF%D1%8E%D1%80_%D0%9C%D0%BE%D0%BD%D0%B6%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Zweitafelbild nach Monge', ru: 'Википедия: эпюр Монжа', en: '' } },
+      label: { de: 'Wikipedia (russisch): Zweitafelbild nach Monge', ru: 'Википедия: эпюр Монжа', en: 'Wikipedia (Russian): Monge\'s two-plane projection' } },
     { url: 'https://de.wikipedia.org/wiki/Grundriss', kind: 'wiki',
-      label: { de: 'Wikipedia: Grundriss – der Schnitt von oben', ru: 'Википедия (нем.): план (горизонтальный разрез)', en: '' } },
+      label: { de: 'Wikipedia: Grundriss – der Schnitt von oben', ru: 'Википедия (нем.): план (горизонтальный разрез)', en: 'Wikipedia (German): floor plan – the section seen from above' } },
     { url: 'https://de.wikipedia.org/wiki/Geodreieck', kind: 'wiki',
-      label: { de: 'Wikipedia: Geodreieck – wozu die Linien darauf gut sind', ru: 'Википедия (нем.): угольник-транспортир и его разметка', en: '' } }
+      label: { de: 'Wikipedia: Geodreieck – wozu die Linien darauf gut sind', ru: 'Википедия (нем.): угольник-транспортир и его разметка', en: 'Wikipedia (German): the Geodreieck set square – what the lines on it are for' } }
   ],
 
   products: [
@@ -103,7 +122,10 @@ export default {
         ru: 'Для начала больше ничего не нужно. Настоящий инструмент здесь — бумага в клетку 5 мм: ' +
             'она избавляет от измерения каждого отрезка и делает масштаб наглядным. Карандаш HB, ' +
             'ластик, линейка 30 см и складной метр или рулетка из ящика с инструментами.',
-        en: ''
+        en: 'Nothing more is needed to begin with. Squared paper with a 5 mm grid is the real ' +
+            'tool: it saves the child from measuring every single distance and makes scales ' +
+            'tangible. An HB pencil, an eraser, a 30 cm ruler and a folding rule or tape measure ' +
+            'from the toolbox.'
       },
       diy: {
         de: 'Maßstabslineal selbst bauen: Einen Streifen fester Pappe 25 × 3 cm zuschneiden. An der ' +
@@ -122,7 +144,14 @@ export default {
             'сторону (1 клетка = 50 см) и покрасить стороны в разные цвета. Клетчатую бумагу тоже ' +
             'можно сделать самому: разлиновать лист A4 по линейке через каждые 5 мм вдоль и ' +
             'поперёк, сделать один раз, дальше копировать.',
-        en: ''
+        en: 'Build a scale ruler yourself: cut a strip of stiff cardboard 25 × 3 cm. Draw a mark ' +
+            'every 5 mm along the long edge (easiest by laying a piece of squared paper alongside ' +
+            'and transferring the squares) and label each mark with the value it stands for in ' +
+            'reality: 20 cm, 40 cm, 60 cm … With this the child measures directly in real ' +
+            'centimeters and does not have to do any arithmetic. For a second scale use the back ' +
+            '(1 square = 50 cm) and color the two sides differently. ' +
+            'Squared paper can also be made yourself: rule an A4 sheet with a ruler every 5 mm ' +
+            'lengthwise and crosswise, do it once, then photocopy it.'
       }
     },
     {
@@ -137,7 +166,9 @@ export default {
         ru: 'Имеет смысл примерно с десяти лет. Обращайте внимание на скошенный край (фаску) — ' +
             'только с ним линер не растекается. Модель с ручкой заметно удобнее для детской руки: ' +
             'угольник не съезжает, когда его поднимают.',
-        en: ''
+        en: 'Worthwhile from about ten years. Look for the inking edge (bevel) – only with it does ' +
+            'the fineliner not bleed. A model with a handle is considerably easier for children\'s ' +
+            'hands to hold, because the triangle does not slip when it is lifted.'
       }
     },
     {
@@ -154,7 +185,10 @@ export default {
             'фиксирующим колёсиком, а не на трении: дешёвый циркуль сбивается при вращении, и ' +
             'ребёнок принимает это за свою ошибку. В набор входят карандаши HB и 2H, точилка и ' +
             'мягкий ластик.',
-        en: ''
+        en: 'Needed at the latest when geometry lessons start in year 5. What matters is a ' +
+            'compass with a locking wheel rather than a friction joint – cheap compasses shift ' +
+            'while being turned, and the child takes the error for its own. Pencils in HB and 2H, ' +
+            'a sharpener and a soft eraser belong with it.'
       }
     }
   ],

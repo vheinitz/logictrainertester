@@ -12,13 +12,13 @@ export default {
   title: {
     de: 'Eselsbrücken und Assoziationsketten',
     ru: 'Мнемоники и ассоциативные цепочки',
-    en: ''
+    en: 'Mnemonics and chains of association'
   },
 
   short: {
     de: 'Zusammenhanglose Inhalte über Merksätze, Reime und verrückte Bildverknüpfungen merkbar machen.',
     ru: 'Бессвязный материал запоминается через фразы-подсказки, рифмы и нелепые образные связки.',
-    en: ''
+    en: 'Making unconnected material memorable through mnemonic sentences, rhymes and absurd picture links.'
   },
 
   what: {
@@ -35,7 +35,13 @@ export default {
         'самое со списками: первое слово связывается со вторым в один живой образ, второе — с третьим, ' +
         'и цепочка сама несёт порядок. Важно понимать: мнемоника помогает запомнить, но не понять — ' +
         'если ребёнок не знает, что такое планета, фраза-подсказка этого не заменит.',
-    en: ''
+    en: 'Some things simply have to be known by heart: the order of the planets, the lines of the ' +
+        'musical staff, the exceptions in spelling. A mnemonic hangs such arbitrary material onto ' +
+        'something the brain retains easily anyway – a rhyme, a silly sentence or an image. Chains ' +
+        'of association do the same with lists: word one is linked with word two into a moving ' +
+        'picture, word two with word three, and the chain carries the order along with it. ' +
+        'Important to know: mnemonics help with retaining, not with understanding – a child who ' +
+        'does not know what a planet is will not know it with a mnemonic either.'
   },
 
   steps: {
@@ -59,7 +65,16 @@ export default {
       'Спросить через десять минут, ещё раз вечером и третий раз через три дня. Только после этого запоминание держится.',
       'Каждую работающую подсказку записать на карточку и убрать в картотеку — иначе через две недели её не будет.'
     ],
-    en: []
+    en: [
+      'Pick material that really has to be known by heart – the order of the planets, the points of the compass, the grammatical cases. For material that has to be understood, this technique is the wrong way.',
+      'Write the initial letters one below the other on a sheet of paper: M V E M J S U N for the planets.',
+      'Let the child invent a sentence using exactly these initial letters – "My Very Educated Mother Just Served Us Noodles". Self-invented sentences stick far better than ones supplied by someone else, even when they are clumsy.',
+      'Say the sentence out loud three times and draw a picture next to it once. Two minutes are enough.',
+      'For a list where the initial-letter trick does not work, build a chain: link each pair of neighbouring words into one moving image. "Milk – newspaper": a newspaper soaks up milk and swells.',
+      'Have the child go through the chain forwards once, naming only the words, not the images.',
+      'Test after ten minutes, again in the evening, and a third time three days later. Only then does it stick.',
+      'Write every mnemonic that works on an index card and put it in the box – otherwise it will be gone in two weeks.'
+    ]
   },
 
   tips: {
@@ -75,20 +90,25 @@ export default {
       'Подсказка должна быть однозначной: «Мы Все Знаем…» задаёт порядок, простое перечисление — нет.',
       'Если ребёнок помнит фразу, но не может соотнести её с содержанием, не хватает понимания — сначала объяснить, потом запоминать.'
     ],
-    en: []
+    en: [
+      'Silly wins. A mnemonic the child laughs about sticks after one repetition; a well-behaved sentence takes five.',
+      'At most one or two new mnemonics a day. Several similar sentences at once get mixed up with each other and do damage.',
+      'The mnemonic has to be unambiguous: "My Very Educated Mother …" gives you the order, a mere list of words does not.',
+      'If a child knows the mnemonic but cannot match it to the content, understanding is missing – then explain first, memorise afterwards.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Merkspruch', kind: 'wiki',
-      label: { de: 'Wikipedia: Merkspruch (Eselsbrücke)', ru: 'Википедия (нем.): фраза-подсказка', en: '' } },
+      label: { de: 'Wikipedia: Merkspruch (Eselsbrücke)', ru: 'Википедия (нем.): фраза-подсказка', en: 'Wikipedia (German): mnemonic sentence' } },
     { url: 'https://de.wikipedia.org/wiki/Liste_von_Merkspr%C3%BCchen', kind: 'wiki',
-      label: { de: 'Wikipedia: Liste von Merksprüchen, nach Fächern sortiert', ru: 'Википедия (нем.): список подсказок по предметам', en: '' } },
+      label: { de: 'Wikipedia: Liste von Merksprüchen, nach Fächern sortiert', ru: 'Википедия (нем.): список подсказок по предметам', en: 'Wikipedia (German): list of mnemonic sentences, sorted by school subject' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%9C%D0%BD%D0%B5%D0%BC%D0%BE%D0%BD%D0%B8%D0%BA%D0%B0', kind: 'wiki',
-      label: { de: 'Wikipedia (russisch): Mnemonik mit Beispielen', ru: 'Википедия: мнемоника, с примерами', en: '' } },
+      label: { de: 'Wikipedia (russisch): Mnemonik mit Beispielen', ru: 'Википедия: мнемоника, с примерами', en: 'Wikipedia (Russian): mnemonics, with examples' } },
     { url: 'https://de.wikipedia.org/wiki/Mnemotechnik', kind: 'wiki',
-      label: { de: 'Wikipedia: Mnemotechnik – Überblick über alle Verfahren', ru: 'Википедия (нем.): мнемотехника, обзор приёмов', en: '' } },
+      label: { de: 'Wikipedia: Mnemotechnik – Überblick über alle Verfahren', ru: 'Википедия (нем.): мнемотехника, обзор приёмов', en: 'Wikipedia (German): mnemonics – overview of all the techniques' } },
     { url: 'https://de.wikipedia.org/wiki/Lernkartei', kind: 'anleitung',
-      label: { de: 'Lernkartei nach Leitner – so wird wiederholt', ru: 'Картотека Лейтнера — как организовать повторение', en: '' } }
+      label: { de: 'Lernkartei nach Leitner – so wird wiederholt', ru: 'Картотека Лейтнера — как организовать повторение', en: 'The Leitner flashcard box – how repetition is organised' } }
   ],
 
   products: [
@@ -100,7 +120,9 @@ export default {
             'Packpapier an der Küchentür – Geschwister erfinden dann von selbst welche dazu.',
         ru: 'Хватит листа и карандаша. При желании собирайте семейные подсказки на большом листе ' +
             'у кухонной двери — братья и сёстры начнут придумывать свои сами.',
-        en: ''
+        en: 'Paper and a pen are enough. If you like, collect the family\'s mnemonics on a sheet of ' +
+            'brown wrapping paper on the kitchen door – brothers and sisters will start inventing ' +
+            'their own without being asked.'
       }
     },
     {
@@ -113,7 +135,8 @@ export default {
             'Abständen wieder auftaucht.',
         ru: 'Небольшая картотека, куда попадает каждая работающая подсказка. Без повторения бледнеет ' +
             'и лучшая мнемоника — картотека возвращает её через всё большие промежутки.',
-        en: ''
+        en: 'A small card box in which every mnemonic that works ends up. Without repetition even ' +
+            'the best mnemonic fades – the box makes sure it comes up again at growing intervals.'
       },
       diy: {
         de: 'Schuhkarton (ca. 30 × 12 × 10 cm) längs stellen, aus fester Pappe vier Trennwände ' +
@@ -128,7 +151,13 @@ export default {
             'обратная — подсказка и ответ. Новые карточки кладут в отделение 1, его повторяют ' +
             'ежедневно; отвеченные верно переходят на отделение вперёд (2-е — раз в два дня, 3-е — ' +
             'раз в неделю, 4-е — раз в месяц), отвеченные неверно возвращаются в отделение 1.',
-        en: ''
+        en: 'Stand a shoebox (about 30 × 12 × 10 cm) lengthways, cut four dividers from stiff card ' +
+            'and glue them in: compartments 2, 3, 4 and 5 cm wide. Cut A7 cards (74 × 105 mm) ' +
+            'yourself or buy them. Front: the question ("Order of the planets?"), back: the ' +
+            'mnemonic and the answer. New cards go into compartment 1, which is practised daily; ' +
+            'cards answered correctly move on one compartment (compartment 2 every two days, ' +
+            'compartment 3 weekly, compartment 4 monthly), cards answered wrongly go back to ' +
+            'compartment 1.'
       }
     }
   ],

@@ -13,13 +13,13 @@ export default {
   title: {
     de: 'Merkaufträge im Alltag',
     ru: 'Поручения на запоминание в быту',
-    en: ''
+    en: 'Memory errands in everyday life'
   },
 
   short: {
     de: 'Das Kind bekommt mehrgliedrige Aufträge und führt sie ohne Erinnerung aus.',
     ru: 'Ребёнок получает поручение из нескольких пунктов и выполняет его без напоминаний.',
-    en: ''
+    en: 'The child is given errands with several parts and carries them out without being reminded.'
   },
 
   what: {
@@ -37,7 +37,13 @@ export default {
         'видимый смысл — в отличие от листа с упражнениями. Переносится ли натренированная рабочая ' +
         'память на школьные успехи, в науке спорно; непосредственная польза — поручения выполняются ' +
         'надёжно — сомнений не вызывает.',
-    en: ''
+    en: 'An errand with several parts – "Please fetch the towel, the cup and the toothpaste" – ' +
+        'has to be held in mind while the child sets off, passes the cat and opens the cupboard ' +
+        'door. That is exactly what working memory is: holding content while something else is ' +
+        'going on. It works because everyday life constantly creates real occasions for it and ' +
+        'because the task has a visible purpose for the child – unlike a worksheet. Whether ' +
+        'trained working memory transfers to school performance is disputed in research; the ' +
+        'immediate benefit – errands get done reliably – is not.'
   },
 
   steps: {
@@ -61,7 +67,16 @@ export default {
       'Иногда давать поручения с местами: «Носки в ванную, яблоко на кухню, книгу в твою комнату». Это связывает запоминание с планированием.',
       'Раз в неделю давать «большое поручение» из пяти пунктов и делать из этого маленькое событие — например, накрыть на стол к приходу гостей.'
     ],
-    en: []
+    en: [
+      'Start with two things: "Please bring me the spoon and the lid." Only when that works three times in a row does a third one come in.',
+      'Say the errand exactly once, calmly and in one sentence. Do not repeat it, not even when asked – instead: "Think again, you heard it."',
+      'Have the child say the errand out loud before setting off. Whoever has said it once themselves keeps it noticeably longer.',
+      'Build in a few seconds between the errand and carrying it out: "Put your shoes on first, then fetch the three things." That is the actual training stimulus.',
+      'When the child comes back, check it together: "What was the errand?" If something is missing, the child goes again – without reproach and without you naming the missing things.',
+      'Make the order a condition as soon as three things are secure: "Put them on the table in this order."',
+      'Now and then give errands with places: "The socks into the bathroom, the apple into the kitchen, the book into your room." That couples remembering with planning.',
+      'Once a week set a "big errand" with five parts and make a small event out of it – for example laying the table for visitors.'
+    ]
   },
 
   tips: {
@@ -77,19 +92,27 @@ export default {
       'Не тренироваться на поручениях в спешке. Утро перед школой — худший момент.',
       'Делать успех видимым: чёрточка на листке у двери кухни за каждое полностью выполненное поручение.'
     ],
-    en: []
+    en: [
+      'No more than three to four parts for children under eight. If two out of three things are missing, the errand was too long – the child was not too inattentive.',
+      'Do not pack extra information into the errand. "Fetch the towel, the blue one, not yesterday\'s, I think it is in the bathroom" is not a memory errand but a conversation.',
+      'Do not practise with errands that are under time pressure. In the morning before school is the worst opportunity.',
+      'Make success visible: a stroke on a sheet of paper on the kitchen door for every errand completed in full.'
+    ]
   },
 
   links: [
     { url: 'https://de.wikipedia.org/wiki/Arbeitsged%C3%A4chtnis', kind: 'wiki',
       label: { de: 'Wikipedia: Arbeitsgedächtnis – Modell, Kapazität, Training',
-               ru: 'Википедия (нем.): рабочая память', en: '' } },
+               ru: 'Википедия (нем.): рабочая память',
+               en: 'Wikipedia (German): working memory – model, capacity, training' } },
     { url: 'https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B1%D0%BE%D1%87%D0%B0%D1%8F_%D0%BF%D0%B0%D0%BC%D1%8F%D1%82%D1%8C', kind: 'wiki',
       label: { de: 'Wikipedia (russisch): Arbeitsgedächtnis, Abschnitt „Training"',
-               ru: 'Википедия: рабочая память — ёмкость, развитие, тренировка', en: '' } },
+               ru: 'Википедия: рабочая память — ёмкость, развитие, тренировка',
+               en: 'Wikipedia (Russian): working memory, section "Training"' } },
     { url: 'https://de.wikipedia.org/wiki/Ged%C3%A4chtnisspanne', kind: 'wiki',
       label: { de: 'Wikipedia: Gedächtnisspanne – wie viele Einheiten altersgemäß sind',
-               ru: 'Википедия (нем.): объём памяти — сколько единиц соответствует возрасту', en: '' } }
+               ru: 'Википедия (нем.): объём памяти — сколько единиц соответствует возрасту',
+               en: 'Wikipedia (German): memory span – how many units are age-appropriate' } }
   ],
 
   products: [
@@ -101,7 +124,8 @@ export default {
             'weggeräumt oder verteilt werden muss, ist ein möglicher Merkauftrag.',
         ru: 'Методу не нужно ничего, кроме собственного дома. Всё, что и так нужно принести, ' +
             'убрать или разнести по комнатам, годится как поручение на запоминание.',
-        en: ''
+        en: 'The method needs nothing but your own household. Anything that has to be fetched, ' +
+            'put away or distributed anyway is a possible memory errand.'
       }
     },
     {
@@ -116,7 +140,10 @@ export default {
         ru: 'Для похода в магазин: дома ребёнок рассматривает карточки, запоминает их и убирает — ' +
             'в магазине ищет по памяти. У полки подглядывать нельзя, сверяются вместе только на ' +
             'кассе. Годится примерно с четырёх лет, потому что читать не требуется.',
-        en: ''
+        en: 'For shopping: the child looks at the picture cards at home, memorises them and puts ' +
+            'them away – in the shop the search happens from memory. No looking things up at ' +
+            'the shelf; only at the till do you check together. Suitable from about four years, ' +
+            'because no reading ability is needed.'
       },
       diy: {
         de: 'Zwanzig Karten aus fester Pappe, 6 × 9 cm (halbe Postkarte). Auf jede ein Alltagsding ' +
@@ -130,7 +157,12 @@ export default {
             'яблоки, макароны, сыр, мыло. Оборот однотонный, чтобы ничего не просвечивало. Хранить ' +
             'в старом спичечном коробке или конверте. Для детей постарше — второй набор, где вместо ' +
             'картинки написано слово: сначала картинка, потом слово, в конце — вообще ничего.',
-        en: ''
+        en: 'Twenty cards of firm cardboard, 6 × 9 cm (half a postcard). Draw an everyday item on ' +
+            'each one or glue on a photo from a leaflet: milk, bread, apples, pasta, cheese, ' +
+            'soap. Keep the back a single colour so nothing shows through. Store them in an old ' +
+            'matchbox or an envelope. For older children a second kind of card with the written ' +
+            'word instead of the picture – first the picture, later the word, finally nothing ' +
+            'at all.'
       },
       svg: `<svg viewBox="0 0 120 80" role="img" aria-hidden="true">
         <rect x="8" y="14" width="30" height="44" rx="3" fill="#fff" stroke="var(--primary)" stroke-width="2"/>
