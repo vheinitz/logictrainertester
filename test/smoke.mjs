@@ -603,6 +603,48 @@ for (const [id, load] of Object.entries(registry)) {
   console.log(`   Wiederholungssperre: ${mitSperre.length} Module, keine Aufgabe direkt doppelt`);
 }
 
+// ─── Das Stylesheet in index.html ─────────────────────────────────────
+// Beim Umbauen der Leiste blieben zweimal Reste zerschnittener @media-Blöcke
+// stehen. Deren Regeln galten dadurch immer statt nur auf schmalen
+// Bildschirmen – die Beschriftungen der Leiste waren überall versteckt, und
+// es sah aus wie ein Entwurfsfehler.
+{
+  const { readFileSync } = await import('node:fs');
+  const html = readFileSync('index.html', 'utf8');
+  const css = html.slice(html.indexOf('<style'), html.indexOf('</style>'));
+
+  const auf = (css.match(/\{/g) || []).length;
+  const zu = (css.match(/\}/g) || []).length;
+  check('css', auf === zu, `Klammern im Stylesheet stehen ${auf} zu ${zu}`);
+
+  // Eine Regel darf nur innerhalb eines @media-Blocks stehen, wenn sie
+  // eingerückt ist – ein nicht eingerücktes Fragment nach einem } ist ein Rest.
+  const zeilen = css.split('\n');
+  let tiefe = 0;
+  const verdaechtig = [];
+  for (const z of zeilen) {
+    const trimmed = z.trim();
+    if (trimmed.startsWith('@media')) { tiefe++; continue; }
+    if (trimmed === '}') { if (tiefe > 0) tiefe--; continue; }
+    // Eingerückte Regel ohne offenen @media-Block = Rest eines zerschnittenen
+    if (tiefe === 0 && /^\s{2,}\.[a-z#]/i.test(z) && z.includes('{')) verdaechtig.push(trimmed);
+  }
+  check('css', verdaechtig.length === 0,
+        `${verdaechtig.length} Regel(n) außerhalb ihres @media-Blocks: ${verdaechtig.slice(0, 3).join(' ')}`);
+
+  // Die Beschriftungen der Leiste dürfen nirgends versteckt werden: bloße
+  // Symbole sind nicht zu verstehen, „Testen" und „Auswertung" sehen als
+  // Piktogramm gleich aus.
+  check('css', !/\.nav-label\{display:none\}/.test(css),
+        'Die Beschriftungen der Navigationsleiste werden versteckt');
+
+  // Grundlegende Regeln, die beim Aufräumen leicht mit verschwinden
+  for (const regel of ['main{max-width', '.card-grid{', 'header{background']) {
+    check('css', css.includes(regel), `Regel "${regel}…" fehlt im Stylesheet`);
+  }
+  console.log('   Stylesheet: Klammern ausgeglichen, keine Reste, Beschriftungen sichtbar');
+}
+
 // ─── Bildgröße ────────────────────────────────────────────────────────
 // Die Bilder sind die Aufgabe, nicht Schmuck. Für kleine Kinder und auf
 // Tablets waren sie zu klein; sie hängen jetzt an einer Einstellung.

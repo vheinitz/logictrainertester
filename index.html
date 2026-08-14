@@ -32,19 +32,18 @@ header h1{font-size:1.3em;font-weight:700;cursor:pointer;display:flex;align-item
 @media(max-width:760px){
   header{padding:8px 12px;gap:8px}
   header h1{font-size:1.05em}
-  #mainNav{order:3;flex-basis:100%;justify-content:space-between}
-  .nav-item{padding:7px 8px;font-size:.8em;gap:4px}
-  .nav-label{display:none}
-  .nav-icon{font-size:1.3em}
+  /* Die Leiste rutscht in eine eigene Zeile und laesst sich schieben,
+     statt die Beschriftungen zu verstecken: bloße Symbole waren nicht zu
+     verstehen – „Testen" und „Auswertung" sehen als Piktogramm gleich aus. */
+  #mainNav{order:3;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none}
+  #mainNav::-webkit-scrollbar{display:none}
+  .nav-item{padding:7px 10px;font-size:.84em;gap:5px}
 }
-  .nav-label{display:none}
-  .nav-icon{font-size:1.25em}
-  .nav-sub .nav-label{display:inline}
-}
-main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .page-title{font-size:1.8em;font-weight:800;margin-bottom:8px;text-align:center}
 .page-subtitle{font-size:1em;color:var(--text-light);text-align:center;margin-bottom:28px}
 .section-title{font-size:1.2em;font-weight:700;margin:24px 0 12px;padding-left:12px;border-left:4px solid var(--primary)}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .card-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
 .card{background:var(--card-bg);border-radius:var(--radius);padding:20px;box-shadow:var(--shadow);cursor:pointer;transition:all .25s;border:2px solid transparent;overflow:hidden}
 .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-hover)}
@@ -150,7 +149,7 @@ input[type=range]{accent-color:var(--primary);height:26px}
 <script src="dist/audio-de.js?v=613846c0"></script>
 <script src="dist/audio-en.js?v=4b8e0456"></script>
 <script src="dist/audio-ru.js?v=2f369801"></script>
-<script src="dist/logik-trainer.min.js?v=9c06a7b2"></script>
+<script src="dist/logik-trainer.min.js?v=64081a28"></script>
 <script>
 // Ohne Bundle bliebe die Seite einfach weiß – das ist der häufigste
 // Stolperstein nach einem frischen Clone.

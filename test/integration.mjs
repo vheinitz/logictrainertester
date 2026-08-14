@@ -612,7 +612,7 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   // Startseite: wer in der Statistik war, musste vorher erst zurück.
   const leiste = window.document.getElementById('mainNav');
   check(!!leiste, 'Es gibt keine Navigationsleiste');
-  check(leiste && /_nav\('methods'\)/.test(leiste.innerHTML),
+  check(leiste && /_nav\('methods'/.test(leiste.innerHTML),
         'Die Navigationsleiste führt nicht zu den Fördermethoden');
 
   window.navigateTo('methods');
@@ -714,7 +714,7 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   // nicht darin: der Titel im Kopf führt schon dorthin, und ein Eintrag, der
   // dasselbe tut wie das direkt daneben, kostet nur Breite.
   const ziele = ['plan', 'groups', 'modules', 'methods', 'stats', 'radar', 'settings'];
-  const fehlend = ziele.filter(v => !new RegExp("_nav\\('" + v + "'\\)").test(leiste.innerHTML));
+  const fehlend = ziele.filter(v => !new RegExp("_nav\\('" + v + "'").test(leiste.innerHTML));
   check(fehlend.length === 0, `Die Leiste führt nicht zu: ${fehlend.join(', ')}`);
 
   // Der aktive Eintrag muss die aktuelle Seite anzeigen, sonst weiß niemand,
@@ -736,6 +736,37 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   // Die Leiste sitzt im Kopf, nicht als eigene Zeile darunter
   check(!!window.document.querySelector('header #mainNav'),
         'Die Navigationsleiste sitzt nicht im Kopfbereich');
+
+  // Aufklappen muss wirklich funktionieren. Vorher prüfte der Test nur, dass
+  // die Ziele im HTML stehen – das Menü ging beim Klick auf und im selben
+  // Augenblick wieder zu, weil der Außenklick-Wächter den ausgetauschten
+  // Knopf für „daneben" hielt. Im HTML sah alles richtig aus.
+  const gruppenZahl = window.document.querySelectorAll('#mainNav .nav-group').length;
+  for (let i = 0; i < gruppenZahl; i++) {
+    // Über den Platz suchen, nicht über den Text: beim Aufklappen wechselt
+    // der Pfeil von ▾ auf ▴, und die Leiste wird dabei neu gezeichnet.
+    const gruppe = window.document.querySelectorAll('#mainNav .nav-group')[i];
+    const knopf = gruppe.querySelector('.nav-item');
+    const name = knopf.querySelector('.nav-label').textContent.trim();
+    knopf.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(120);
+
+    const frisch = window.document.querySelectorAll('#mainNav .nav-group')[i];
+    const drop = frisch && frisch.querySelector('.nav-drop');
+    check(drop && drop.style.display !== 'none', `Das Untermenü "${name}" klappt beim Klick nicht auf`);
+    if (drop && drop.style.display !== 'none') {
+      check(drop.querySelectorAll('.nav-sub').length >= 2,
+            `Das Untermenü "${name}" ist leer`);
+    }
+    // Ein Klick daneben schließt wieder
+    window.document.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(100);
+  }
+
+  // Jeder Eintrag trägt Text, nicht nur ein Symbol
+  const ohneText = [...window.document.querySelectorAll('#mainNav .nav-item')]
+    .filter(b => !(b.querySelector('.nav-label') || {}).textContent);
+  check(ohneText.length === 0, `${ohneText.length} Leisteneinträge ohne Beschriftung`);
 
   // Keine Seite trägt unten noch Navigationsknöpfe – die Leiste ist immer da
   for (const v of ['intro', 'background', 'plan', 'groups', 'methods', 'stats', 'radar']) {

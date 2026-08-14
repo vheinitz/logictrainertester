@@ -794,7 +794,25 @@ Der Testlauf besteht darauf und nennt jede Seite, die wieder einen bekommt.
 
 Aufgeklappt wird per **Klick, nicht beim Überfahren mit der Maus** – auf einem
 Tablet gibt es kein Überfahren, und dort läuft die App überwiegend. Auf
-schmalen Bildschirmen bleiben nur die Symbole stehen.
+schmalen Bildschirmen lässt sich die Leiste seitlich schieben; die
+Beschriftungen bleiben stehen. Bloße Symbole waren nicht zu verstehen –
+„Testen" und „Auswertung" sehen als Piktogramm gleich aus.
+
+Zwei Fehler, die dabei zu lernen gaben:
+
+**Das Untermenü ging auf und sofort wieder zu.** Der Klick wurde am Knopf
+behandelt, dabei zeichnete `renderNav` die Leiste neu und tauschte den Knopf
+aus. Wenn das Ereignis danach beim Wächter für Klicks-daneben ankam, war sein
+Ziel nicht mehr Teil der Leiste – der Wächter hielt es für einen Klick
+außerhalb und schloss wieder. Von außen sah es aus, als passiere nichts.
+`stopPropagation` löst das; die Leiste wird außerdem nicht mehr über einen
+dynamischen Import neu gezeichnet, sondern direkt.
+
+**Die Beschriftungen waren überall versteckt.** Beim Umbau blieben zweimal
+Reste zerschnittener `@media`-Blöcke stehen. Deren Regeln galten dadurch
+immer statt nur auf schmalen Bildschirmen. Der Smoke-Test zählt jetzt die
+Klammern im Stylesheet, sucht eingerückte Regeln außerhalb eines
+`@media`-Blocks und besteht darauf, dass `.nav-label` nirgends versteckt wird.
 
 Die Startseite ist dadurch in zwei geteilt: **Gruppen** zeigt die fünf Skalen
 mit ihrem Stand, **Alle Aufgaben** die vollständige Liste mit Altersfilter.

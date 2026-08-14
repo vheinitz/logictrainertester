@@ -18,6 +18,7 @@
  * verlinkt.
  */
 import { lang, esc } from '../core/html.js';
+import { engine } from '../core/engine.js';
 
 const T = {
   ueber:      { de: 'Über die App', ru: 'О приложении', en: 'About' },
@@ -69,41 +70,50 @@ export function renderNav(aktuelleView) {
     const klasse = 'nav-item' + (aktiv ? ' nav-active' : '') + (e.rechts ? ' nav-rechts' : '');
 
     if (!e.kinder) {
-      return `<button class="${klasse}" onclick="window._nav('${e.view}')">
+      return `<button class="${klasse}" onclick="window._nav('${e.view}', event)">
         <span class="nav-icon">${e.icon}</span><span class="nav-label">${esc(e.label)}</span></button>`;
     }
     const auf = offen === e.id;
     return `<div class="nav-group${e.rechts ? ' nav-rechts' : ''}">
-      <button class="${klasse}" aria-expanded="${auf}" onclick="window._navToggle('${e.id}')">
+      <button class="${klasse}" aria-expanded="${auf}" onclick="window._navToggle('${e.id}', event)">
         <span class="nav-icon">${e.icon}</span><span class="nav-label">${esc(e.label)}</span>
         <span class="nav-pfeil">${auf ? '▴' : '▾'}</span></button>
       <div class="nav-drop" style="display:${auf ? 'block' : 'none'}">
         ${e.kinder.map(k => `<button class="nav-sub${(k.view === aktuelleView) ? ' nav-active' : ''}"
-          onclick="window._nav('${k.view}')">${k.icon} ${esc(k.label)}</button>`).join('')}
+          onclick="window._nav('${k.view}', event)">${k.icon} <span class="nav-label">${esc(k.label)}</span></button>`).join('')}
       </div>
     </div>`;
   }).join('');
 }
 
-window._navToggle = id => {
+/**
+ * Auf- und zuklappen.
+ *
+ * `stopPropagation` ist hier nicht Vorsicht, sondern nötig: der Klick wird
+ * unten am Knopf behandelt, dabei zeichnet renderNav die Leiste neu und
+ * tauscht den Knopf aus. Wenn das Ereignis danach beim Wächter unten ankommt,
+ * ist sein Ziel nicht mehr Teil der Leiste – der Wächter hielte es für einen
+ * Klick daneben und machte sofort wieder zu. Genau das passierte: das Menü
+ * ging auf und im selben Augenblick wieder zu, es sah aus wie „nichts".
+ */
+window._navToggle = (id, ev) => {
+  if (ev) ev.stopPropagation();
   offen = offen === id ? null : id;
-  import('../core/engine.js').then(m => renderNav(m.engine.view));
+  renderNav(engine.view);
 };
 
-window._nav = view => {
+window._nav = (view, ev) => {
+  if (ev) ev.stopPropagation();
   offen = null;
-  import('../core/engine.js').then(m => m.engine.navigateTo(view));
+  engine.navigateTo(view);
 };
 
 // Ein Klick irgendwo sonst schließt das Aufgeklappte. Ohne das bleibt es
 // stehen, wenn man daneben tippt, und verdeckt den Seiteninhalt.
 if (typeof document !== 'undefined') {
-  document.addEventListener('click', ev => {
+  document.addEventListener('click', () => {
     if (!offen) return;
-    const nav = document.getElementById('mainNav');
-    if (nav && !nav.contains(ev.target)) {
-      offen = null;
-      import('../core/engine.js').then(m => renderNav(m.engine.view));
-    }
+    offen = null;
+    renderNav(engine.view);
   });
 }
