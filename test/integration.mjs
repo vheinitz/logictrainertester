@@ -65,8 +65,17 @@ const problems = [];
 // Module im Angebot sind.
 {
   const S = window.LOGIK_SETTINGS;
-  const vorAbfrage = main.textContent.includes('Wie alt');
-  if (!vorAbfrage) problems.push('Ohne Geburtsjahr erscheint die Altersabfrage nicht');
+  // Beim allerersten Öffnen steht die Einführung, nicht die Aufgabenliste –
+  // sonst hält man die App für eine Spielesammlung.
+  if (!/vier Schritten|four steps|четырёх шагов/.test(main.textContent)) {
+    problems.push('Beim ersten Öffnen erscheint nicht die Einführung');
+  }
+  // Sobald es ans Testen geht, wird nach dem Alter gefragt.
+  window.navigateTo('groups');
+  await sleep(150);
+  if (!main.textContent.includes('Wie alt')) {
+    problems.push('Ohne Geburtsjahr erscheint beim Testen die Altersabfrage nicht');
+  }
   S.set('birthYear', new Date().getFullYear() - 9);
   S.set('birthMonth', 7);
   window.navigateTo('menu');
@@ -92,6 +101,7 @@ const umfangTest = [];
 const verlaufTest = [];
 const sudokuTest = [];
 const planTest = [];
+const navTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -106,9 +116,18 @@ check(!main.innerHTML.includes('Bundle fehlt'),
       'Der „Bundle fehlt"-Hinweis erscheint, obwohl der Bundle geladen ist');
 check(typeof window.navigateTo === 'function',
       'Der Bundle installiert window.navigateTo nicht');
-check(main.innerHTML.length > 500, 'Menü wurde nicht gerendert');
+check(main.innerHTML.length > 300, 'Startseite wurde nicht gerendert');
+
+// Die Startseite zeigt die fünf Gruppen, die vollständige Liste steht unter
+// „Testen › Alle Aufgaben". Vorher stand beides untereinander auf einer Seite.
+{
+  const gruppen = main.querySelectorAll('.card');
+  check(gruppen.length === 5, `Gruppenseite zeigt ${gruppen.length} Karten statt 5`);
+  window.navigateTo('modules');
+  await sleep(200);
+}
 const cards = main.querySelectorAll('.card');
-check(cards.length >= 29, `Menü zeigt nur ${cards.length} Karten`);
+check(cards.length >= 29, `Aufgabenliste zeigt nur ${cards.length} Karten`);
 
 // Cache-Kennung: das Script-Tag muss ein ?v= tragen und das Menü es anzeigen,
 // damit erkennbar bleibt, welcher Stand im Browser läuft.
@@ -589,10 +608,12 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
 
 // ─── Fördermethoden: Übersicht, Einzelseite, Verlinkung ───────────────
 {
-  window.navigateTo('menu');
-  await sleep(80);
-  check(main.innerHTML.includes("navigateTo('methods')"),
-        'Das Menü bietet keinen Zugang zu den Fördermethoden');
+  // Der Zugang liegt jetzt in der Kopfleiste, nicht mehr als Knopf auf der
+  // Startseite: wer in der Statistik war, musste vorher erst zurück.
+  const leiste = window.document.getElementById('mainNav');
+  check(!!leiste, 'Es gibt keine Navigationsleiste');
+  check(leiste && /_nav\('methods'\)/.test(leiste.innerHTML),
+        'Die Navigationsleiste führt nicht zu den Fördermethoden');
 
   window.navigateTo('methods');
   await sleep(150);
@@ -681,6 +702,40 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   S.reset();
 }
 
+// ─── Kopfnavigation ───────────────────────────────────────────────────
+// Neun Seiten brauchen eine Leiste. Vorher lagen sie als Knopfreihe auf der
+// Startseite: wer in der Statistik war, musste erst zurück, um in die
+// Einstellungen zu kommen.
+{
+  const leiste = window.document.getElementById('mainNav');
+  check(!!leiste, 'Es gibt keine Navigationsleiste');
+
+  // Jede Seite muss von jeder anderen erreichbar sein
+  const ziele = ['intro', 'background', 'plan', 'groups', 'modules', 'methods', 'stats', 'radar', 'settings'];
+  const fehlend = ziele.filter(v => !new RegExp("_nav\\('" + v + "'\\)").test(leiste.innerHTML));
+  check(fehlend.length === 0, `Die Leiste führt nicht zu: ${fehlend.join(', ')}`);
+
+  // Der aktive Eintrag muss die aktuelle Seite anzeigen, sonst weiß niemand,
+  // wo er ist – die Seiten haben bewusst keine Überschrift mehr.
+  for (const v of ziele) {
+    window.navigateTo(v);
+    await sleep(220);
+    const aktiv = window.document.querySelectorAll('#mainNav .nav-active');
+    check(aktiv.length > 0, `Auf "${v}" ist kein Eintrag der Leiste als aktiv markiert`);
+  }
+
+  // Genau ein Gehirn im Kopf – appHeader trug bis eben ein zweites
+  const h1 = window.document.querySelector('header h1');
+  const hirne = (h1.textContent.match(/🧠/g) || []).length;
+  check(hirne === 1, `Der Kopfbereich zeigt ${hirne} Gehirn-Symbole statt einem`);
+  check(/navigateTo\('intro'\)/.test(h1.getAttribute('onclick') || ''),
+        'Der Titel im Kopf führt nicht zur Einführung');
+
+  navTest.push(`${ziele.length} Seiten über die Leiste erreichbar, aktiver Eintrag folgt der Seite`);
+  window.navigateTo('groups');
+  await sleep(200);
+}
+
 // ─── Einführung, Plan und der Weg von der Schwäche zur Übung ──────────
 // Die App hatte alles, was man braucht, aber nichts, was es verbindet. Wer
 // 29 Module und ein Profil mit 89 Faktoren vor sich hat, weiß nicht, womit
@@ -723,6 +778,8 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
 // Tag dieselbe. Gerade beim ersten Durchgang ist die wichtigste Frage:
 // welche Gruppe fehlt noch?
 {
+  window.navigateTo('groups');
+  await sleep(400);
   const gruppen = [...main.querySelectorAll('.card')]
     .filter(c => (c.getAttribute('onclick') || '').includes("navigateTo('scale'"));
   check(gruppen.length > 0, 'Das Menü zeigt keine Gruppenkarten');
@@ -738,17 +795,17 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
 // nicht gespielte sagen das ausdrücklich – der Unterschied „noch nie"
 // gegenüber „einmal schlecht" muss sichtbar bleiben.
 {
-  window.navigateTo('menu');
+  window.navigateTo('modules');
   await sleep(400);
   const karten = [...main.querySelectorAll('.card')];
   const mitVerlauf = karten.filter(c => c.querySelector('[role="img"]'));
   const offen = karten.filter(c => /noch nicht gespielt|ещё не играли|not played yet/.test(c.textContent));
-  check(karten.length > 0, 'Menü zeigt keine Karten');
+  check(karten.length > 0, 'Aufgabenliste zeigt keine Karten');
   check(mitVerlauf.length > 0, 'kein gespieltes Modul im Menü als gespielt gekennzeichnet');
   check(offen.length > 0, 'kein ungespieltes Modul im Menü als offen gekennzeichnet');
   check(mitVerlauf.length + offen.length >= karten.length - 5,
         `${karten.length - mitVerlauf.length - offen.length} Karten ohne jede Kennzeichnung`);
-  verlaufTest.push(`Menü: ${mitVerlauf.length} gespielt, ${offen.length} offen gekennzeichnet`);
+  verlaufTest.push(`Aufgaben: ${mitVerlauf.length} gespielt, ${offen.length} offen gekennzeichnet`);
 }
 
 // ─── Statistik und Profil öffnen ──────────────────────────────────────
@@ -1008,6 +1065,7 @@ umfangTest.forEach(x => console.log(`   Durchgang: ${x}`));
 verlaufTest.forEach(x => console.log(`   Verlauf: ${x}`));
 sudokuTest.forEach(x => console.log(`   Sudoku: ${x}`));
 planTest.forEach(x => console.log(`   Plan: ${x}`));
+navTest.forEach(x => console.log(`   Navigation: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

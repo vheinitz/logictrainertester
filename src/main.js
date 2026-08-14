@@ -1,8 +1,23 @@
 import { engine } from './core/engine.js';
 import { setLanguage, t } from './i18n/i18n-core.js';
 
-// Wait for DOM
+/**
+ * Beim allerersten Öffnen die Einführung zeigen, nicht die Aufgabenliste.
+ *
+ * Ohne sie sieht man 29 Kacheln und hält die App für eine Spielesammlung.
+ * Der Ablauf – erst durchtesten, dann üben, später wiederholen – macht aber
+ * den Zweck aus. Danach startet die App wie gewohnt bei den Gruppen; die
+ * Einführung bleibt über den Kopfbereich erreichbar.
+ */
+const ERSTBESUCH = 'logik-intro-gesehen';
+
 document.addEventListener('DOMContentLoaded', () => {
+  let ersteMal = false;
+  try { ersteMal = !localStorage.getItem(ERSTBESUCH); } catch (e) { /* ohne Speicher eben nicht */ }
+  if (ersteMal) {
+    try { localStorage.setItem(ERSTBESUCH, '1'); } catch (e) { /* egal */ }
+    engine.view = 'intro';
+  }
   engine.render();
 });
 

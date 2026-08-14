@@ -12,6 +12,33 @@ header{background:linear-gradient(135deg,#5B4FCF,#7B70E8,#4ECDC4);color:#fff;pad
 header h1{font-size:1.3em;font-weight:700;cursor:pointer;display:flex;align-items:center;gap:8px}
 .btn-back{background:rgba(255,255,255,.2);border:2px solid rgba(255,255,255,.4);color:#fff;padding:8px 16px;border-radius:20px;cursor:pointer;font-size:.9em;font-weight:600;transition:all .2s}
 .btn-back:hover{background:rgba(255,255,255,.35)}
+#mainNav{display:flex;align-items:stretch;gap:2px;flex-wrap:wrap;background:#fff;
+  border-bottom:1px solid #E6E2F5;padding:0 12px;position:sticky;top:0;z-index:20;
+  box-shadow:0 1px 4px rgba(0,0,0,.04)}
+.nav-group{position:relative;display:flex}
+.nav-rechts{margin-left:auto}
+.nav-item{background:none;border:none;border-bottom:3px solid transparent;cursor:pointer;
+  padding:11px 14px;font-size:.92em;font-weight:600;color:var(--text);display:flex;
+  align-items:center;gap:6px;font-family:inherit;white-space:nowrap}
+.nav-item:hover{background:var(--bg)}
+.nav-item.nav-active{color:var(--primary);border-bottom-color:var(--primary)}
+.nav-icon{font-size:1.05em}
+.nav-pfeil{font-size:.7em;color:var(--text-light)}
+.nav-drop{position:absolute;top:100%;left:0;background:#fff;border:1px solid #E6E2F5;
+  border-radius:0 0 12px 12px;box-shadow:0 6px 18px rgba(0,0,0,.1);min-width:200px;z-index:30;
+  overflow:hidden}
+.nav-rechts .nav-drop{left:auto;right:0}
+.nav-sub{display:block;width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:11px 16px;font-size:.9em;color:var(--text);font-family:inherit;white-space:nowrap}
+.nav-sub:hover{background:var(--bg)}
+.nav-sub.nav-active{color:var(--primary);font-weight:700}
+@media(max-width:620px){
+  #mainNav{padding:0 4px}
+  .nav-item{padding:10px 9px;font-size:.82em;gap:4px}
+  .nav-label{display:none}
+  .nav-icon{font-size:1.25em}
+  .nav-sub .nav-label{display:inline}
+}
 main{max-width:1000px;margin:0 auto;padding:24px 16px 60px}
 .page-title{font-size:1.8em;font-weight:800;margin-bottom:8px;text-align:center}
 .page-subtitle{font-size:1em;color:var(--text-light);text-align:center;margin-bottom:28px}
@@ -106,7 +133,7 @@ input[type=range]{accent-color:var(--primary);height:26px}
 </head>
 <body>
 <header>
-  <h1 onclick="navigateTo('menu')"><span class="icon">🧠</span> <span id="headerTitle">LOGIK-Trainer</span></h1>
+  <h1 onclick="navigateTo('intro')" title="Über die App"><span class="icon">🧠</span> <span id="headerTitle">LOGIK-Trainer</span></h1>
   <div style="display:flex;align-items:center;gap:8px">
     <button class="btn-back" onclick="setLanguage('de')" id="langDE" style="font-size:.8em;padding:4px 10px">DE</button>
     <button class="btn-back" onclick="setLanguage('ru')" id="langRU" style="font-size:.8em;padding:4px 10px">RU</button>
@@ -114,13 +141,14 @@ input[type=range]{accent-color:var(--primary);height:26px}
     <button id="btnBack" class="btn-back" style="display:none" onclick="goBack()">← Zurück</button>
   </div>
 </header>
+<nav id="mainNav"></nav>
 <main id="mainContent"></main>
 <!-- Sprachaufnahmen: eigene Dateien, damit das App-Bundle klein bleibt und
      beim Speichern der Seite trotzdem alles mitkommt (siehe core/audio-assets.js) -->
 <script src="dist/audio-de.js?v=613846c0"></script>
 <script src="dist/audio-en.js?v=4b8e0456"></script>
 <script src="dist/audio-ru.js?v=2f369801"></script>
-<script src="dist/logik-trainer.min.js?v=d8e5b481"></script>
+<script src="dist/logik-trainer.min.js?v=9f7da63b"></script>
 <script>
 // Ohne Bundle bliebe die Seite einfach weiß – das ist der häufigste
 // Stolperstein nach einem frischen Clone.

@@ -30,8 +30,13 @@ sind die beiden Teile, die diese App überhaupt erst zu einem Programm machen:
   Auswertungsformeln: keine).
 - Das **kognitive Faktorenmodell** – die Einordnung von 89 Fähigkeiten in 14
   Kategorien und ihre Zuordnung zu den Trainingsmodulen, aus der sich das
-  Profil errechnet. 36 der 89 Faktorbezeichnungen kommen im Skript gar nicht
-  vor, und die Zuordnung Faktor → Modul gibt es dort nicht.
+  Profil errechnet. Die Begriffe selbst stammen großenteils aus dem Skript
+  (64 wörtlich, 19 sinngemäß, 6 eigene – siehe „Woher die kognitiven
+  Faktoren stammen"), die Zuordnung Faktor → Modul gibt es dort nicht.
+
+  *Frühere Fassungen dieses Abschnitts nannten 36 nicht belegte
+  Bezeichnungen. Diese Zahl stammte aus einem groben Textvergleich; das
+  Nachzählen gegen die Faktorenlisten der 18 Subtests ergab 25.*
 
 **Was diese App nicht ist:** kein Testverfahren und kein Ersatz für eines. Sie
 enthält keine Originalaufgaben, keine Normtabellen und keine Standardwerte.
@@ -763,6 +768,36 @@ Leerzeile mit „noch nicht gespielt" statt gar nichts — der Unterschied
 Der Preis dafür: Menü und Skalenansicht laden Ergebnisse und sind dadurch
 asynchron. Ohne das sehen 29 Karten gleich aus, und nach zwei Wochen weiß
 niemand mehr, was schon dran war.
+
+### Navigation: eine Leiste statt einer Knopfreihe
+
+Neun Seiten lagen als Knopfreihe auf der Startseite. Wer in der Statistik
+war, musste erst zurück, um in die Einstellungen zu kommen. Die Kopfleiste
+(`ui/nav.js`) folgt dem Ablauf, den die Einführung beschreibt:
+
+```
+📖 Über die App ▾   🗺️ Plan   🧪 Testen ▾   🧰 Lernen   📈 Auswertung ▾        ⚙️ Einstellungen
+   ├ So ist es gedacht          ├ Gruppen                 ├ Statistik
+   └ Herkunft und Hintergrund   └ Alle Aufgaben           └ Kognitives Profil
+```
+
+Wer die Leiste liest, sieht den Weg durch die App, ohne ihn erklärt zu
+bekommen. Aufgeklappt wird per **Klick, nicht beim Überfahren mit der Maus** –
+auf einem Tablet gibt es kein Überfahren, und dort läuft die App überwiegend.
+
+Die Startseite ist dadurch in zwei geteilt: **Gruppen** zeigt die fünf Skalen
+mit ihrem Stand, **Alle Aufgaben** die vollständige Liste mit Altersfilter.
+Beide haben keine Überschrift mehr — die Leiste sagt bereits, wo man ist, und
+der Name der App steht darüber. Zwei Zeilen, die bei jedem Besuch dasselbe
+sagen, kosten nur Platz.
+
+Beim **allerersten Öffnen** erscheint die Einführung statt der Aufgabenliste;
+ohne sie hält man die App für eine Spielesammlung. Danach startet sie bei den
+Gruppen, und der Titel im Kopf führt jederzeit zurück zur Einführung.
+
+`'menu'` zeigt weiterhin auf die Gruppen: zahlreiche Knöpfe und
+Ergebnisseiten navigieren dorthin, und ein Umbenennen aller Stellen brächte
+nichts als Gelegenheit für Fehler.
 
 ### Der Weg durch die App: Einführung und Plan
 

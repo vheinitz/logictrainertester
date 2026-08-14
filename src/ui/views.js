@@ -16,6 +16,8 @@ import { renderSettings } from './settings-view.js';
 // einzelnen Aufgabe. Diese Seite erklaert das ganze Vorhaben.
 import { renderIntro as renderProjektIntro } from './intro-view.js';
 import { renderPlan, renderFactor, SCHWACH_UNTER } from './plan-view.js';
+import { renderBackground } from './background-view.js';
+import { renderNav } from './nav.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 import * as settings from '../core/settings.js';
 import { sparkline, mittel } from './spark.js';
@@ -59,8 +61,14 @@ function foerderPunkt(text, keyText) {
 
 export function renderView(view) {
   const m = document.getElementById('mainContent');
+  renderNav(view);
   switch (view) {
-    case 'menu': renderMenu(m); break;
+    // 'menu' zeigt weiter auf die Gruppen: zahlreiche Knöpfe und
+    // Ergebnisseiten navigieren dorthin, und ein Umbenennen aller Stellen
+    // brächte nichts als Gelegenheit für Fehler.
+    case 'menu':
+    case 'groups': renderGroups(m); break;
+    case 'modules': renderModules(m); break;
     case 'scale': renderScaleView(m); break;
     case 'training': renderTraining(m); break;
     case 'stats': renderStats(m); break;
@@ -70,9 +78,10 @@ export function renderView(view) {
     case 'insights': renderInsights(m); break;
     case 'settings': renderSettings(m); break;
     case 'intro': renderProjektIntro(m); break;
+    case 'background': renderBackground(m); break;
     case 'plan': renderPlan(m); break;
     case 'factor': renderFactor(m); break;
-    default: renderMenu(m);
+    default: renderGroups(m);
   }
 }
 
@@ -277,21 +286,49 @@ window._saveAge = () => {
   engine.render();
 };
 
-async function renderMenu(main) {
+/**
+ * Gemeinsamer Vorlauf beider Testseiten: ohne Alter erst danach fragen,
+ * danach den Fortschritt laden. Beide Seiten zeigen ihn an.
+ *
+ * @returns {object|null} null, wenn stattdessen die Altersabfrage steht
+ */
+async function testSeiteVorlauf(main) {
   // Eine Rückmeldung zum Zurücksetzen gehört zu genau einem Besuch der
-  // Statistik – beim Weg über das Menü ist sie erledigt. Das gilt auch,
-  // wenn statt der Modulliste die Altersabfrage erscheint.
+  // Statistik – beim Weg über eine andere Seite ist sie erledigt.
   resetState = null;
+  if (!alterBekannt()) { renderAgeGate(main); return null; }
+  return await ladeFortschritt();
+}
 
-  // Ohne Alter zuerst danach fragen – siehe renderAgeGate.
-  if (!alterBekannt()) { renderAgeGate(main); return; }
+/** Karte eines Moduls, mit Fortschritt. */
+function modulKarte(m, fortschritt) {
+  const title = modI18n(m.id, 'title', m.title);
+  const desc = modI18n(m.id, 'desc', '');
+  const ml = t(m.mode === 'self' ? 'modeSelfLabel' : m.mode === 'tutor' ? 'modeTutorLabel' : 'modeMixedLabel');
+  return `<div class="card card-scale-${m.scale}" role="button" tabindex="0" onclick="startModule('${m.id}')">
+    <div class="card-icon">${m.icon}</div>
+    <div class="card-title">${title}</div>
+    <div class="card-desc">${desc}</div>
+    <div class="card-badges">
+      <span class="badge badge-age">${t('ageLabel')}${m.ages}</span>
+      <span class="badge badge-mode-${m.mode}">${ml}</span>
+      ${m.kabcRef ? `<span class="badge" style="background:#FFF0F8;color:#C44D9A">${t('moduleLabel')}${loc(m.kabcRef)}</span>` : ''}
+    </div>
+    ${kartenMarke(m, fortschritt)}
+  </div>`;
+}
 
-  // Muss vor den Karten stehen: sowohl Gruppen- als auch Modulkarten zeigen
-  // den Fortschritt an.
-  const fortschritt = await ladeFortschritt();
-  const ag = engine.ageFilter, sc = engine.scaleFilter;
+/**
+ * Testen › Gruppen – die fünf Skalen mit ihrem Stand.
+ *
+ * Ohne Überschrift und Untertitel: die Navigationsleiste sagt bereits, wo
+ * man ist, und der Name der App steht darüber. Zwei Zeilen, die bei jedem
+ * Besuch dasselbe sagen, kosten nur Platz.
+ */
+async function renderGroups(main) {
+  const fortschritt = await testSeiteVorlauf(main);
+  if (!fortschritt) return;
 
-  // Scale cards
   const scalesHtml = scales.map(s => {
     const eigene = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre()));
     return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
@@ -302,61 +339,45 @@ async function renderMenu(main) {
     </div>`;
   }).join('');
 
-  // Filter modules
+  main.innerHTML = `<div class="card-grid" style="margin-top:20px">${scalesHtml}</div>
+    ${buildZeile()}`;
+}
+
+/** Testen › Alle Aufgaben – die vollständige Liste mit Altersfilter. */
+async function renderModules(main) {
+  const fortschritt = await testSeiteVorlauf(main);
+  if (!fortschritt) return;
+
+  const ag = engine.ageFilter, sc = engine.scaleFilter;
   const alter = alterJahre();
   const visible = modules.filter(m => {
     // Was Schrift oder Ziffern verlangt, wird jüngeren Kindern gar nicht
     // erst angeboten – dort misst der Test das Lesen, nicht die Fähigkeit.
     if (!moduleFreigegeben(m, alter)) return false;
     if (ag && ag !== 'all') {
-      const [lo,hi] = ag.split('-').map(Number);
-      const [mlo,mhi] = m.ages.split('-').map(Number);
+      const [lo, hi] = ag.split('-').map(Number);
+      const [mlo, mhi] = m.ages.split('-').map(Number);
       if (mlo > hi || mhi < lo) return false;
     }
     if (sc && sc !== 'all' && m.scale !== sc) return false;
     return true;
   });
 
-  const modHtml = visible.map(m => {
-    const title = modI18n(m.id, 'title', m.title);
-    const desc = modI18n(m.id, 'desc', '');
-    const ml = t(m.mode === 'self' ? 'modeSelfLabel' : m.mode === 'tutor' ? 'modeTutorLabel' : 'modeMixedLabel');
-    return `<div class="card card-scale-${m.scale}" role="button" tabindex="0" onclick="startModule('${m.id}')">
-      <div class="card-icon">${m.icon}</div>
-      <div class="card-title">${title}</div>
-      <div class="card-desc">${desc}</div>
-      <div class="card-badges">
-        <span class="badge badge-age">${t('ageLabel')}${m.ages}</span>
-        <span class="badge badge-mode-${m.mode}">${ml}</span>
-        ${m.kabcRef ? `<span class="badge" style="background:#FFF0F8;color:#C44D9A">${t('moduleLabel')}${loc(m.kabcRef)}</span>` : ''}
-      </div>
-      ${kartenMarke(m, fortschritt)}
-    </div>`;
-  }).join('');
+  const modHtml = visible.map(m => modulKarte(m, fortschritt)).join('');
 
-  main.innerHTML = `<h2 class="page-title">${t('menuTitle')}</h2>
-    <p class="page-subtitle">${t('menuSubtitle')}</p>
-    <div style="text-align:center;margin-bottom:20px">
-      <button class="btn btn-accent btn-small" onclick="navigateTo('plan')" style="background:var(--primary)">${t('planButton')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('intro')" style="background:var(--primary-light)">${t('introButton')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">${t('statsButton')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">${t('profileButton')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">${t('methodsButton')}</button>
-      <button class="btn btn-accent btn-small" onclick="navigateTo('settings')" style="background:var(--text-light)">${t('settingsButton')}</button>
-    </div>
-    <h3 class="section-title">${t('trainByScale')}</h3>
-    <div class="card-grid">${scalesHtml}</div>
-    <h3 class="section-title">${t('allModules')} (${visible.length})</h3>
-    <div class="tabs" id="ageTabs">
-      <button class="tab${!ag||ag==='all'?' active':''}" onclick="window._setFilter('all',this)">${t('allAges')}</button>
-      <button class="tab${ag==='3-6'?' active':''}" onclick="window._setFilter('3-6',this)">${t('age3to6')}</button>
-      <button class="tab${ag==='7-12'?' active':''}" onclick="window._setFilter('7-12',this)">${t('age7to12')}</button>
-      <button class="tab${ag==='13-18'?' active':''}" onclick="window._setFilter('13-18',this)">${t('age13to18')}</button>
+  main.innerHTML = `<div class="tabs" id="ageTabs" style="margin-top:18px">
+      <button class="tab${!ag || ag === 'all' ? ' active' : ''}" onclick="window._setFilter('all',this)">${t('allAges')}</button>
+      <button class="tab${ag === '3-6' ? ' active' : ''}" onclick="window._setFilter('3-6',this)">${t('age3to6')}</button>
+      <button class="tab${ag === '7-12' ? ' active' : ''}" onclick="window._setFilter('7-12',this)">${t('age7to12')}</button>
+      <button class="tab${ag === '13-18' ? ' active' : ''}" onclick="window._setFilter('13-18',this)">${t('age13to18')}</button>
     </div>
     <div class="card-grid">${modHtml || `<p style="text-align:center;color:var(--text-light);grid-column:1/-1">${t('noModules')}</p>`}</div>
-    <p style="text-align:center;color:var(--text-light);font-size:.72em;margin-top:28px;opacity:.7">
-      Build ${buildId()}
-    </p>`;
+    ${buildZeile()}`;
+}
+
+function buildZeile() {
+  return `<p style="text-align:center;color:var(--text-light);font-size:.72em;margin-top:28px;opacity:.7">
+    Build ${buildId()}</p>`;
 }
 
 /**

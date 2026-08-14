@@ -13,7 +13,7 @@ export const LANGS = ['de', 'ru', 'en'];
 
 // German
 i18n.de = {
-  appTitle:'LOGIK-Trainer', appHeader:'🧠 LOGIK-Trainer', back:'← Zurück',
+  appTitle:'LOGIK-Trainer', appHeader:'LOGIK-Trainer', back:'← Zurück',
   menuTitle:'🧠 LOGIK-Training',
   menuSubtitle:'Spielerisches Training aller kognitiven Fähigkeiten für Kinder von 3–18 Jahren',
   trainByScale:'📊 Training nach Skalen', allModules:'🎯 Alle Trainings-Module',
@@ -64,7 +64,7 @@ i18n.de = {
 
 // Russian
 i18n.ru = {
-  appTitle:'ЛОГИК-Тренажёр', appHeader:'🧠 ЛОГИК-Тренажёр', back:'← Назад',
+  appTitle:'ЛОГИК-Тренажёр', appHeader:'ЛОГИК-Тренажёр', back:'← Назад',
   menuTitle:'🧠 ЛОГИК-Тренировка',
   menuSubtitle:'Игровая тренировка когнитивных способностей для детей 3–18 лет',
   trainByScale:'📊 Тренировка по шкалам', allModules:'🎯 Все модули',
@@ -115,7 +115,7 @@ i18n.ru = {
 
 // English
 i18n.en = {
-  appTitle:'LOGIC Trainer', appHeader:'🧠 LOGIC Trainer', back:'← Back',
+  appTitle:'LOGIC Trainer', appHeader:'LOGIC Trainer', back:'← Back',
   menuTitle:'🧠 LOGIC Training',
   menuSubtitle:'Playful training of all cognitive abilities for children aged 3–18',
   trainByScale:'📊 Training by scale', allModules:'🎯 All training modules',
