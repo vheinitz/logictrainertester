@@ -487,6 +487,26 @@ for (const [id, load] of Object.entries(registry)) {
   }
 }
 
+// ─── Herkunft jedes kognitiven Faktors ────────────────────────────────
+// Die App lehnt sich an ein Skript an, das sie nicht ersetzt. Ein Leser muss
+// unterscheiden können, was dort steht und was wir ergänzt haben – sonst
+// wirkt jede Zeile gleich belegt.
+{
+  const { cognitiveFactors } = await import('../src/data/cognitive-factors.js');
+  const erlaubt = new Set(['skript', 'sinngemaess', 'eigen']);
+  const zaehl = {};
+  for (const [id, f] of Object.entries(cognitiveFactors)) {
+    check('herkunft', erlaubt.has(f.quelle),
+          `Faktor ${id} hat die Herkunft "${f.quelle}" – erlaubt sind ${[...erlaubt].join(', ')}`);
+    zaehl[f.quelle] = (zaehl[f.quelle] || 0) + 1;
+  }
+  // Kippt das Verhältnis, ist das Modell von der Vorlage weggelaufen
+  const gesamt = Object.keys(cognitiveFactors).length;
+  check('herkunft', (zaehl.skript || 0) / gesamt > 0.6,
+        `nur ${zaehl.skript || 0} von ${gesamt} Faktoren stehen wörtlich im Skript`);
+  console.log(`   Faktoren: ${zaehl.skript} wörtlich im Skript, ${zaehl.sinngemaess} sinngemäß, ${zaehl.eigen} eigene`);
+}
+
 // ─── Keine Aufgabe zweimal im selben Durchgang ────────────────────────
 // Dieselbe Frage zweimal wirkt wie ein Fehler und misst beim zweiten Mal
 // etwas anderes: die Erinnerung an die vorige Antwort statt der Fähigkeit.

@@ -48,7 +48,6 @@ var Wimmelbild = (function () {
         ? { breite: satz.koordinatenRaum.breite, hoehe: satz.koordinatenRaum.hoehe }
         : { breite: groesse.breite, hoehe: groesse.hoehe },
       toleranz: typeof satz.toleranz === 'number' ? satz.toleranz : 0.06,
-      koordinatenGeprueft: satz.koordinatenGeprueft === true,
       quelle: satz.quelle || null,
       herkunft: satz.herkunft || 'datei',
       bearbeitet: satz.bearbeitet || null,
@@ -56,14 +55,26 @@ var Wimmelbild = (function () {
         return {
           nr: typeof f.nr === 'number' ? f.nr : i + 1,
           frage: f.frage,
-          ziel: f.ziel || zielAusFrage(f.frage),
-          x: typeof f.x === 'number' ? f.x : 0,
-          y: typeof f.y === 'number' ? f.y : 0,
-          gesetzt: f.gesetzt === true,
+          punkte: punkteAus(f),
           toleranz: typeof f.toleranz === 'number' ? f.toleranz : null
         };
       })
     };
+  }
+
+  /* Eine Frage darf mehrere Stellen haben – es gibt den Gegenstand mehrfach
+     im Bild, oder er ist so groß, dass ein Punkt ihn nicht fasst. Ein
+     einzelnes x/y aus einer älteren Datei gilt als erste Stelle. */
+  function punkteAus(f) {
+    if (Array.isArray(f.punkte)) {
+      return f.punkte
+        .filter(function (p) { return p && isFinite(p.x) && isFinite(p.y); })
+        .map(function (p) { return { x: Math.round(p.x), y: Math.round(p.y) }; });
+    }
+    if (typeof f.x === 'number' && typeof f.y === 'number' && (f.x || f.y)) {
+      return [{ x: Math.round(f.x), y: Math.round(f.y) }];
+    }
+    return [];
   }
 
   function istDatenUri(s) { return typeof s === 'string' && s.slice(0, 5) === 'data:'; }
@@ -81,9 +92,6 @@ var Wimmelbild = (function () {
     var fragen = satz.fragen || [];
     for (var i = 0; i < fragen.length; i++) {
       if (!fragen[i].frage) return 'Frage ' + (i + 1) + ' ohne Text';
-      if (streng && (typeof fragen[i].x !== 'number' || typeof fragen[i].y !== 'number')) {
-        return 'Frage ' + (i + 1) + ' ohne Koordinaten';
-      }
     }
     return null;
   }
@@ -100,7 +108,6 @@ var Wimmelbild = (function () {
     }
     var fertig = normieren(satz);
     fertig.herkunft = 'datei';
-    fertig.fragen.forEach(function (f) { f.gesetzt = fertig.koordinatenGeprueft; });
     ausDatei.push(fertig);
     return fertig;
   }
@@ -235,18 +242,34 @@ var Wimmelbild = (function () {
 
   /* ======================================================== Koordinaten */
 
-  function ziel(satz, frage) {
-    var rx = frage.x / satz.koordinatenRaum.breite;
-    var ry = frage.y / satz.koordinatenRaum.hoehe;
-    return {
-      rx: rx,
-      ry: ry,
-      px: rx * satz.bildGroesse.breite,
-      py: ry * satz.bildGroesse.hoehe,
-      gesetzt: frage.gesetzt === true,
-      ausserhalb: rx < 0 || rx > 1 || ry < 0 || ry > 1
-    };
+  /* Alle Stellen einer Frage, umgerechnet in relative und Bildkoordinaten. */
+  function stellen(satz, frage) {
+    return frage.punkte.map(function (p) {
+      var rx = p.x / satz.koordinatenRaum.breite;
+      var ry = p.y / satz.koordinatenRaum.hoehe;
+      return {
+        x: p.x,
+        y: p.y,
+        rx: rx,
+        ry: ry,
+        px: rx * satz.bildGroesse.breite,
+        py: ry * satz.bildGroesse.hoehe,
+        ausserhalb: rx < 0 || rx > 1 || ry < 0 || ry > 1
+      };
+    });
   }
+
+  /* Die einem Klick nächstgelegene Stelle. Null, wenn keine gesetzt ist. */
+  function naechsteStelle(satz, frage, px, py) {
+    var beste = null, kuerzeste = Infinity;
+    stellen(satz, frage).forEach(function (s) {
+      var d = Math.sqrt(Math.pow(px - s.px, 2) + Math.pow(py - s.py, 2));
+      if (d < kuerzeste) { kuerzeste = d; beste = s; }
+    });
+    return beste ? { stelle: beste, abstand: kuerzeste } : null;
+  }
+
+  function hatStelle(frage) { return frage.punkte.length > 0; }
 
   /* Bildpixel -> Koordinaten im Raum des Satzes. */
   function ausBildpixel(satz, px, py) {
@@ -263,7 +286,7 @@ var Wimmelbild = (function () {
   }
 
   function offeneZiele(satz) {
-    return satz.fragen.filter(function (f) { return !f.gesetzt; }).length;
+    return satz.fragen.filter(function (f) { return !hatStelle(f); }).length;
   }
 
   /* ============================================================== Runde */
@@ -281,7 +304,7 @@ var Wimmelbild = (function () {
   function runde(satz, optionen) {
     var opt = optionen || {};
     var pool = satz.fragen.slice();
-    if (opt.nurGesetzte) pool = pool.filter(function (f) { return f.gesetzt; });
+    if (opt.nurGesetzte) pool = pool.filter(hatStelle);
     if (opt.zufall !== false) pool = mischen(pool);
     var anzahl = opt.anzahl && opt.anzahl > 0 ? Math.min(opt.anzahl, pool.length) : pool.length;
 
@@ -303,24 +326,24 @@ var Wimmelbild = (function () {
         return this;
       },
 
-      ziel: function (frage) { return ziel(this.satz, frage || this.aktuell()); },
+      stellen: function (frage) { return stellen(this.satz, frage || this.aktuell()); },
       radius: function (frage) { return radius(this.satz, frage || this.aktuell()); },
 
-      /* Klick in Bildpixeln bewerten. Liefert den Antwortsatz zurück. */
+      /* Klick in Bildpixeln bewerten. Getroffen ist, wer nahe genug an einer
+         der Stellen liegt – bei mehreren zählt die nächstgelegene. */
       pruefen: function (px, py) {
         var frage = this.aktuell();
         if (!frage) return null;
-        var z = this.ziel(frage);
         var r = this.radius(frage);
-        var abstand = px === null ? Infinity
-          : Math.sqrt(Math.pow(px - z.px, 2) + Math.pow(py - z.py, 2));
+        var naechste = px === null ? null : naechsteStelle(this.satz, frage, px, py);
         var antwort = {
           frage: frage,
-          ziel: z,
+          stellen: this.stellen(frage),
+          treffer: naechste ? naechste.stelle : null,
           radius: r,
           klick: px === null ? null : { px: px, py: py },
-          abstand: abstand,
-          richtig: abstand <= r,
+          abstand: naechste ? naechste.abstand : Infinity,
+          richtig: !!naechste && naechste.abstand <= r,
           uebersprungen: px === null,
           dauer: Date.now() - this.frageBegonnen
         };
@@ -359,102 +382,81 @@ var Wimmelbild = (function () {
 
   /* ============================================================= Import */
 
-  /* "Wo ist der rote Luftballon?" -> "roter Luftballon" */
-  function zielAusFrage(text) {
-    if (!text) return '';
-    var t = String(text).trim().replace(/\s*\?\s*$/, '');
-    t = t.replace(/^(wo\s+(ist|sind|liegt|steht|befindet\s+sich)|finde|suche|zeige)\s+/i, '');
-
-    var mit = t.match(/^(der|die|das|den|dem|des|ein|eine|einen|einem|einer)\s+(.*)$/i);
-    if (mit) {
-      t = mit[2];
-      /* Ohne Artikel braucht das Adjektiv die starke Endung: aus "der rote
-         Luftballon" wird "roter Luftballon", aus "das gelbe Haus" "gelbes
-         Haus". Klein geschrieben und auf -e endend heißt Adjektiv –
-         Substantive stehen im Deutschen groß und bleiben unberührt. */
-      var artikel = mit[1].toLowerCase();
-      var endung = artikel === 'der' ? 'er' : (artikel === 'das' ? 'es' : null);
-      if (endung) {
-        t = t.replace(/^([a-zäöüß]+)e(\s)/, function (ganz, stamm, leer) {
-          return stamm + endung + leer;
-        });
-      }
-    }
-    return t.trim() || String(text).trim();
-  }
-
   /* Liest eine Frageliste aus Text. Erkannt werden unter anderem:
 
        1. Wo ist der rote Luftballon? (210,80)
        1) Wo ist die Katze?   210 ; 80
        Wo ist der Pilz?;50;1290
-       Wo ist die Eule?                      (ohne Koordinaten)
+       Wo ist die Eule?                        (ohne Stelle)
+       Wo ist eine Ente? (100,200) (300,400)   (mehrere Stellen)
        1. Wo ist X? (10,20)   26. Wo ist Y? (30,40)   (zweispaltige Tabelle)
+
+     Eine Zeile wird an den Nummern aufgetrennt: "26." beginnt eine neue
+     Frage, alle Zahlenpaare davor gehören zur vorigen. Steht keine Nummer
+     da, gilt die ganze Zeile als eine Frage mit allen ihren Stellen.
 
      Kopfzeilen der Tabelle und Leerzeilen werden übergangen. */
   function fragenAusText(text) {
     var fragen = [];
     var uebergangen = [];
-    var zeilen = String(text || '').split(/\r?\n/);
-    /* Eintrag mit Nummer und geklammerten Koordinaten – davon können mehrere
-       nebeneinander in einer Zeile stehen. */
-    var mehrspaltig = /(\d{1,3})\s*[.)]\s*([^()\n]*?)\s*\(\s*(-?\d+(?:[.,]\d+)?)\s*[,;]\s*(-?\d+(?:[.,]\d+)?)\s*\)/g;
 
-    zeilen.forEach(function (zeile) {
+    String(text || '').split(/\r?\n/).forEach(function (zeile) {
       var roh = zeile.trim();
       if (!roh) return;
       if (/^(nr\.?|frage|koordinaten|nummer)\b/i.test(roh) && !/\?/.test(roh)) {
         uebergangen.push(roh);
         return;
       }
-
-      mehrspaltig.lastIndex = 0;
-      var treffer, gefunden = 0;
-      while ((treffer = mehrspaltig.exec(roh)) !== null) {
-        gefunden++;
-        fragen.push(eintrag(treffer[2], zahl(treffer[3]), zahl(treffer[4])));
-      }
-      if (gefunden) return;
-
-      /* Einspaltig: Koordinaten am Zeilenende, mit oder ohne Klammern. */
-      var einfach = roh.match(/^\s*(?:\d{1,3}\s*[.)]\s*)?(.*?)[\s;,:]*\(?\s*(-?\d+(?:[.,]\d+)?)\s*[,;\s]\s*(-?\d+(?:[.,]\d+)?)\s*\)?\s*$/);
-      if (einfach && einfach[1].trim() && /[a-zäöüß]/i.test(einfach[1])) {
-        fragen.push(eintrag(einfach[1], zahl(einfach[2]), zahl(einfach[3])));
-        return;
-      }
-
-      /* Ohne Koordinaten: alles, was Buchstaben enthält, gilt als Frage. */
-      var nurText = roh.replace(/^\s*\d{1,3}\s*[.)]\s*/, '').trim();
-      if (/[a-zäöüß]/i.test(nurText)) {
-        fragen.push(eintrag(nurText, null, null));
-      } else {
-        uebergangen.push(roh);
-      }
+      var vorher = fragen.length;
+      aufteilen(roh).forEach(function (stueck) {
+        var e = eintrag(stueck);
+        if (e) fragen.push(e);
+      });
+      if (fragen.length === vorher) uebergangen.push(roh);
     });
 
     fragen.forEach(function (f, i) { f.nr = i + 1; });
     return {
       fragen: fragen,
       uebergangen: uebergangen,
-      ohneKoordinaten: fragen.filter(function (f) { return !f.gesetzt; }).length
+      ohneKoordinaten: fragen.filter(function (f) { return f.punkte.length === 0; }).length
     };
+  }
+
+  /* Zerlegt eine Zeile an führenden Nummern ("1.", "26)"). */
+  function aufteilen(zeile) {
+    var marke = /(^|\s)(\d{1,3})\s*[.)]\s+/g;
+    var anfaenge = [], treffer;
+    while ((treffer = marke.exec(zeile)) !== null) {
+      anfaenge.push(treffer.index + treffer[1].length);
+    }
+    if (anfaenge.length <= 1) return [zeile];
+    return anfaenge.map(function (von, i) {
+      return zeile.slice(von, i + 1 < anfaenge.length ? anfaenge[i + 1] : zeile.length);
+    });
+  }
+
+  /* Ein Zahlenpaar, mit oder ohne Klammern: (210,80) oder 210 ; 80 */
+  var PAAR = /\(?\s*(-?\d+(?:[.,]\d+)?)\s*[,;]\s*(-?\d+(?:[.,]\d+)?)\s*\)?/g;
+
+  function eintrag(stueck) {
+    var roh = String(stueck).trim().replace(/^\s*\d{1,3}\s*[.)]\s*/, '');
+    var punkte = [];
+    var erstes = -1;
+    var treffer;
+    PAAR.lastIndex = 0;
+    while ((treffer = PAAR.exec(roh)) !== null) {
+      if (erstes < 0) erstes = treffer.index;
+      punkte.push({ x: Math.round(zahl(treffer[1])), y: Math.round(zahl(treffer[2])) });
+    }
+    /* Der Fragetext ist alles vor dem ersten Zahlenpaar. */
+    var frage = (erstes >= 0 ? roh.slice(0, erstes) : roh).trim().replace(/[\s.;,:]+$/, '');
+    if (!/[a-zäöüß]/i.test(frage)) return null;
+    if (!/\?$/.test(frage) && /^(wo|finde|such)/i.test(frage)) frage += '?';
+    return { nr: 0, frage: frage, punkte: punkte, toleranz: null };
   }
 
   function zahl(s) { return parseFloat(String(s).replace(',', '.')); }
-
-  function eintrag(text, x, y) {
-    var frage = String(text).trim().replace(/[\s.;,:]+$/, '');
-    if (!/\?$/.test(frage) && /^wo\s/i.test(frage)) frage += '?';
-    return {
-      nr: 0,
-      frage: frage,
-      ziel: zielAusFrage(frage),
-      x: x === null || isNaN(x) ? 0 : Math.round(x),
-      y: y === null || isNaN(y) ? 0 : Math.round(y),
-      gesetzt: !(x === null || isNaN(x)),
-      toleranz: null
-    };
-  }
 
   /* Nimmt ein exportiertes JSON entgegen: Vollformat, nackter Satz oder eine
      reine Frageliste. Liefert { satz, bild } oder wirft. */
@@ -488,10 +490,7 @@ var Wimmelbild = (function () {
       return {
         nr: typeof f.nr === 'number' ? f.nr : i + 1,
         frage: f.frage || String(f),
-        ziel: f.ziel || zielAusFrage(f.frage || String(f)),
-        x: typeof f.x === 'number' ? f.x : 0,
-        y: typeof f.y === 'number' ? f.y : 0,
-        gesetzt: f.gesetzt === true || (typeof f.x === 'number' && typeof f.y === 'number' && (f.x || f.y)),
+        punkte: punkteAus(f),
         toleranz: typeof f.toleranz === 'number' ? f.toleranz : null
       };
     });
@@ -504,13 +503,14 @@ var Wimmelbild = (function () {
     var offen = offeneZiele(satz);
     var zeilen = satz.fragen.map(function (f) {
       return '    { nr: ' + fuell(String(f.nr), 2) +
-        ', frage: ' + fuellRechts(hoch(f.frage) + ',', 48) +
-        ' ziel: ' + fuellRechts(hoch(f.ziel) + ',', 34) +
-        ' x: ' + fuell(String(f.x), 4) + ', y: ' + fuell(String(f.y), 4) + ' }';
+        ', frage: ' + fuellRechts(hoch(f.frage) + ',', 52) +
+        ' punkte: [' + f.punkte.map(function (p) {
+          return '{ x: ' + p.x + ', y: ' + p.y + ' }';
+        }).join(', ') + '] }';
     });
     return '// Wimmelbild "' + satz.titel + '" – ' + satz.fragen.length + ' Fragen.\n' +
       '// Im Editor der App erstellt.' +
-      (offen ? ' Noch ' + offen + ' Ziel(e) ohne gesetzte Stelle.' : ' Alle Ziele gesetzt.') + '\n\n' +
+      (offen ? ' Noch ' + offen + ' Frage(n) ohne Stelle.' : ' Zu jeder Frage ist eine Stelle gesetzt.') + '\n\n' +
       'Wimmelbild.register({\n' +
       '  id: ' + hoch(satz.id) + ',\n' +
       '  titel: ' + hoch(satz.titel) + ',\n' +
@@ -519,7 +519,6 @@ var Wimmelbild = (function () {
       '  bildGroesse: { breite: ' + satz.bildGroesse.breite + ', hoehe: ' + satz.bildGroesse.hoehe + ' },\n' +
       '  koordinatenRaum: { breite: ' + satz.koordinatenRaum.breite + ', hoehe: ' + satz.koordinatenRaum.hoehe + ' },\n' +
       '  toleranz: ' + satz.toleranz + ',\n' +
-      '  koordinatenGeprueft: ' + (offen === 0 && satz.fragen.length > 0) + ',\n' +
       (satz.quelle ? '  quelle: ' + JSON.stringify(satz.quelle) + ',\n' : '') +
       '  fragen: [\n' + zeilen.join(',\n') + '\n  ]\n});\n';
   }
@@ -530,14 +529,15 @@ var Wimmelbild = (function () {
     var bild = kopie.bild;
     delete kopie.bild;
     delete kopie.herkunft;
-    kopie.koordinatenGeprueft = offeneZiele(satz) === 0 && satz.fragen.length > 0;
     return JSON.stringify({ format: 'wimmelbild/1', satz: kopie, bild: bild }, null, 2);
   }
 
   /* Nur die Fragen, so wie sie auch wieder eingelesen werden. */
   function alsText(satz) {
     return satz.fragen.map(function (f) {
-      return f.nr + '. ' + f.frage + ' (' + f.x + ',' + f.y + ')';
+      return f.nr + '. ' + f.frage + f.punkte.map(function (p) {
+        return ' (' + p.x + ',' + p.y + ')';
+      }).join('');
     }).join('\n') + '\n';
   }
 
@@ -558,12 +558,13 @@ var Wimmelbild = (function () {
     istLokal: istLokal,
     ausDateiVorhanden: ausDateiVorhanden,
     runde: runde,
-    ziel: ziel,
+    stellen: stellen,
+    naechsteStelle: naechsteStelle,
+    hatStelle: hatStelle,
     ausBildpixel: ausBildpixel,
     radius: radius,
     offeneZiele: offeneZiele,
     mischen: mischen,
-    zielAusFrage: zielAusFrage,
     fragenAusText: fragenAusText,
     ausJson: ausJson,
     ausModulQuelltext: ausModulQuelltext,

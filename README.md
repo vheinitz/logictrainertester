@@ -764,6 +764,89 @@ Der Preis dafür: Menü und Skalenansicht laden Ergebnisse und sind dadurch
 asynchron. Ohne das sehen 29 Karten gleich aus, und nach zwei Wochen weiß
 niemand mehr, was schon dran war.
 
+### Der Weg durch die App: Einführung und Plan
+
+Die App hatte alles, was man braucht — Tests, Auswertung, 54 Methodenseiten —
+aber nichts, was sie verbindet. Wer 29 Module und ein Profil mit 89 Faktoren
+vor sich hat, weiß nicht, womit er anfangen soll. Zwei Seiten schließen das.
+
+**Die Einführung** (`ui/intro-view.js`) beschreibt den Ablauf in vier
+Schritten: alles einmal durchtesten, Ergebnis ansehen, das Fehlende üben,
+nach zwei bis drei Monaten erneut testen. Zwei Punkte stehen dort bewusst
+deutlich, weil sie die Messung stärker beeinflussen als jede Feineinstellung
+im Ablauf: dass der erste Durchgang **mehrere Stunden über mehrere Tage**
+braucht, und dass ein gehetztes oder müdes Kind nicht zeigt, was es kann.
+Die Stundenzahl wird aus der Modulzahl gerechnet, nicht geraten.
+
+**Der Plan** (`ui/plan-view.js`) beantwortet genau eine Frage: *was mache ich
+jetzt?* Er speichert nichts eigenes, sondern liest den Stand aus und leitet
+daraus einen Schritt ab:
+
+| Zustand | nächster Schritt |
+|---|---|
+| kein Geburtsjahr | eintragen — ohne Alter ist nichts einzuordnen |
+| nicht alles getestet | die nächsten offenen Aufgaben, mit Zähler |
+| alles getestet | die schwächsten Bereiche üben |
+| Übungsphase lang genug | erneut testen (nach 8 Wochen) |
+
+Bewusst **kein** Fortschrittsbalken über allem: der legte nahe, es gehe
+darum, „fertig" zu werden. Es geht darum, an der richtigen Stelle zu üben.
+
+### Von der Schwäche zur Übung
+
+Vorher endete das Profil bei der Feststellung „Auditives Kurzzeitgedächtnis
+38 %". Was man dagegen tut, stand woanders und war nicht verlinkt.
+
+Jeder Faktor ist jetzt anklickbar und führt auf eine Seite, die zwei Dinge
+zusammenbringt: die **Module**, die diesen Faktor trainieren, und die
+**Alltagswege** aus den Fördermethoden — gesammelt über die Förderpunkte
+aller beteiligten Module, Doppelte fallen weg.
+
+### Fortschritt auch bei den Gruppen
+
+Auf den fünf Skalenkarten stand vorher die Zahl ihrer Module. Die ist jeden
+Tag dieselbe und beantwortet nicht die Frage, die beim ersten Durchgang
+zählt: *welche Gruppe fehlt noch?* Jetzt steht dort ein Balken mit „3/8" und
+darunter der Verlauf über alle Aufgaben der Gruppe.
+
+### Woher die kognitiven Faktoren stammen
+
+Das Modell hat 89 Faktoren. Die naheliegende Frage ist, ob die im Skript
+stehen oder dazuerfunden sind. Nachgezählt statt geschätzt: die Abschnitte
+„Was wird geprüft", „Wesentliche Einflüsse auf die Testleistung" und
+„Hypothesen zu Stärken und Schwächen" aller **18 Subtests** enthalten
+zusammen **284 verschiedene Einzelpunkte** — deutlich mehr als unsere 89,
+nicht weniger.
+
+Jeder Faktor trägt deshalb ein Feld `quelle`:
+
+| Wert | Bedeutung | Anzahl |
+|---|---|---|
+| `skript` | wörtlich in einer Faktorenliste eines Subtests | 64 |
+| `sinngemaess` | derselbe Begriff, im Skript anders formuliert | 19 |
+| `eigen` | von uns ergänzt, dort nicht als Faktor genannt | 6 |
+
+Beispiele für `sinngemaess`: „Fokussierung der Aufmerksamkeit" →
+„Aufmerksamkeitsfokussierung", „Strategisches Vorgehen" → „Systematisches
+Vorgehen", „Rhythmische Fähigkeiten" → „Rhythmisches Gefühl".
+
+Die sechs eigenen sind: Erzählfähigkeit, Kategorisierungsfähigkeit,
+Kombinatorische Fähigkeiten, Mentale Rotationsfähigkeit, Systematisches
+Absuchen, Verständnis von Verdeckung. Vier davon gehören zu Modulen, die
+selbst keine KABC-Subtests sind (Geschichten-Würfel, Oberbegriffe,
+Suchbild, Teekesselchen); zwei sind unsere Deutung des Bausteine-Subtests,
+der im Skript „Räumliches Vorstellungsvermögen" nennt, aber weder mentale
+Rotation noch Verdeckung.
+
+Auf der Faktorseite steht bei `eigen` ein Hinweis. Der Smoke-Test besteht
+darauf, dass jeder Faktor eine Herkunft trägt und dass über 60 % wörtlich
+belegt sind — läuft das Modell von der Vorlage weg, fällt es auf.
+
+Die Zuordnung der nicht wörtlichen Treffer ist von Hand geprüft. Ein reiner
+Textvergleich hätte zu viele Fehltreffer geliefert: „Muster" steht auch in
+einem Subtestnamen, „Kombinatorik" nur in einem Spielenamen, „kreativ" in
+„kreatives Schlussfolgern".
+
 ### Auswertung: eine Spanne ohne Alter sagt nichts
 
 Vorher zeigte die App für jede erreichte Spanne dieselbe Sternenreihe und

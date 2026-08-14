@@ -67,8 +67,10 @@ var Editor = (function () {
     var el = $('ed-stand');
     if (!el || !satz) return;
     var offen = Wimmelbild.offeneZiele(satz);
+    var stellen = satz.fragen.reduce(function (n, f) { return n + f.punkte.length; }, 0);
     el.textContent = satz.fragen.length + ' Fragen · ' +
-      (satz.fragen.length - offen) + ' Ziele gesetzt' +
+      (satz.fragen.length - offen) + ' mit Stelle' +
+      (stellen > satz.fragen.length - offen ? ' (' + stellen + ' Stellen)' : '') +
       (text ? ' · ' + text : '');
     el.className = 'stat' + (text === 'gespeichert' ? ' leise' : '');
   }
@@ -103,14 +105,18 @@ var Editor = (function () {
     var ebene = $('ed-marker');
     ebene.innerHTML = '';
     satz.fragen.forEach(function (f, i) {
-      if (!f.gesetzt) return;
-      var z = Wimmelbild.ziel(satz, f);
-      H.marke(ebene, 'kalibriert' + (i === aktiv ? ' aktiv' : ''), z.rx, z.ry, String(f.nr));
+      Wimmelbild.stellen(satz, f).forEach(function (s) {
+        H.marke(ebene, 'kalibriert' + (i === aktiv ? ' aktiv' : ''), s.rx, s.ry, String(f.nr));
+      });
     });
+    /* Nur bei der offenen Frage den Trefferkreis zeigen – bei allen wäre das
+       ein Fleckenteppich. */
     var jetzt = satz.fragen[aktiv];
-    if (jetzt && jetzt.gesetzt) {
-      var z2 = Wimmelbild.ziel(satz, jetzt);
-      H.zielring(ebene, z2.rx, z2.ry, Wimmelbild.radius(satz, jetzt));
+    if (jetzt) {
+      var r = Wimmelbild.radius(satz, jetzt);
+      Wimmelbild.stellen(satz, jetzt).forEach(function (s) {
+        H.zielring(ebene, s.rx, s.ry, r);
+      });
     }
   }
 
@@ -121,11 +127,20 @@ var Editor = (function () {
       el.textContent = 'Noch keine Fragen. Rechts eine anlegen oder eine Liste importieren.';
     } else if (!f) {
       el.textContent = '';
+    } else if (!f.frage) {
+      el.textContent = 'Frage rechts eintippen, dann die Stelle im Bild anklicken.';
+    } else if (!f.punkte.length) {
+      el.textContent = 'Stelle anklicken für: ' + f.frage;
     } else {
-      el.textContent = (f.gesetzt ? 'Stelle für „' + f.ziel + '“ verschieben: '
-                                  : 'Stelle für „' + f.ziel + '“ setzen: ') + 'ins Bild klicken';
+      el.textContent = f.punkte.length + (f.punkte.length === 1 ? ' Stelle' : ' Stellen') +
+        ' für „' + kurz(f.frage, 40) + '“ – weiterklicken fügt eine dazu';
     }
     el.hidden = !el.textContent;
+  }
+
+  function kurz(text, n) {
+    var t = String(text || '');
+    return t.length > n ? t.slice(0, n - 1) + '…' : t;
   }
 
   function listeZeichnen() {
@@ -139,62 +154,68 @@ var Editor = (function () {
   }
 
   function zeileZu(f, i) {
-    var li = neu('li', 'frage-zeile' + (f.gesetzt ? ' gesetzt' : ''));
+    var li = neu('li', 'frage-zeile' + (f.punkte.length ? ' gesetzt' : ''));
     var knopf = neu('button', 'zeile-kopf');
     knopf.type = 'button';
     knopf.appendChild(neu('span', 'nr', f.nr + '.'));
-    knopf.appendChild(neu('span', 'ziel', f.ziel || '(ohne Namen)'));
-    knopf.appendChild(neu('span', 'punkt', f.gesetzt ? '●' : '○'));
+    knopf.appendChild(neu('span', 'fragetext', f.frage || '(noch keine Frage)'));
+    knopf.appendChild(neu('span', 'punkt', punktzeichen(f)));
     knopf.addEventListener('click', function () { waehlen(i); });
     li.appendChild(knopf);
     return li;
   }
 
+  /* Ein Kreis je Stelle, leer wenn keine gesetzt ist. */
+  function punktzeichen(f) {
+    if (!f.punkte.length) return '○';
+    return f.punkte.length <= 3 ? new Array(f.punkte.length + 1).join('●')
+                                : '● ×' + f.punkte.length;
+  }
+
   function zeileOffen(f, i) {
-    var li = neu('li', 'frage-zeile offen' + (f.gesetzt ? ' gesetzt' : ''));
+    var li = neu('li', 'frage-zeile offen' + (f.punkte.length ? ' gesetzt' : ''));
     li.setAttribute('aria-current', 'true');
 
     var kopf = neu('div', 'zeile-kopf');
     kopf.appendChild(neu('span', 'nr', f.nr + '.'));
-    kopf.appendChild(neu('span', 'punkt', f.gesetzt ? '●' : '○'));
+    kopf.appendChild(neu('span', 'punkt', punktzeichen(f)));
     li.appendChild(kopf);
 
     var frageFeld = H.feld('Frage', 'text', f.frage);
     frageFeld.eingabe.addEventListener('input', function () {
-      /* Der kurze Name wandert mit, solange er nicht von Hand abweicht. */
-      var mitziehen = !f.ziel || f.ziel === Wimmelbild.zielAusFrage(f.frage);
       f.frage = frageFeld.eingabe.value;
-      if (mitziehen) {
-        f.ziel = Wimmelbild.zielAusFrage(f.frage);
-        zielFeld.eingabe.value = f.ziel;
-      }
       hinweisZeichnen();
       merken();
     });
     li.appendChild(frageFeld);
 
-    var zielFeld = H.feld('Gesuchtes', 'text', f.ziel, 'kurzer Name für Liste und Auswertung');
-    zielFeld.eingabe.addEventListener('input', function () {
-      f.ziel = zielFeld.eingabe.value;
-      hinweisZeichnen();
-      merken();
-    });
-    li.appendChild(zielFeld);
-
-    var zeile = neu('div', 'zeile-fuss');
-    zeile.appendChild(neu('span', 'koordinate',
-      f.gesetzt ? 'x ' + f.x + ', y ' + f.y : 'noch keine Stelle'));
-
-    if (f.gesetzt) {
-      var weg = neu('button', 'winzig', 'Stelle löschen');
+    /* Stellen: eine Zeile je Punkt, dazu der Hinweis fürs Hinzufügen. */
+    var stellen = neu('div', 'stellenliste');
+    if (!f.punkte.length) {
+      stellen.appendChild(neu('span', 'koordinate', 'Noch keine Stelle – ins Bild klicken.'));
+    }
+    f.punkte.forEach(function (p, k) {
+      var reihe = neu('div', 'stelle');
+      reihe.appendChild(neu('span', 'koordinate',
+        (k + 1) + '. x ' + p.x + ', y ' + p.y));
+      var weg = neu('button', 'winzig', '×');
       weg.type = 'button';
+      weg.title = 'Diese Stelle löschen';
       weg.addEventListener('click', function () {
-        f.gesetzt = false; f.x = 0; f.y = 0;
+        f.punkte.splice(k, 1);
         markenZeichnen(); listeZeichnen(); hinweisZeichnen(); merken();
       });
-      zeile.appendChild(weg);
+      reihe.appendChild(weg);
+      stellen.appendChild(reihe);
+    });
+    if (f.punkte.length) {
+      stellen.appendChild(neu('small', 'koordinate',
+        'Weiterklicken fügt eine Stelle dazu – für mehrere gleiche Dinge oder ' +
+        'für ein großes (Turm, Laterne).'));
     }
+    li.appendChild(stellen);
 
+    var zeile = neu('div', 'zeile-fuss');
     var loeschen = neu('button', 'winzig gefahr', 'Frage löschen');
     loeschen.type = 'button';
     loeschen.addEventListener('click', function () { frageLoeschen(i); });
@@ -223,15 +244,14 @@ var Editor = (function () {
       H.melden('Keine Frage ausgewählt', 'Erst eine Frage anlegen, dann die Stelle im Bild setzen.');
       return;
     }
-    var k = Wimmelbild.ausBildpixel(satz, px, py);
-    f.x = k.x;
-    f.y = k.y;
-    f.gesetzt = true;
+    f.punkte.push(Wimmelbild.ausBildpixel(satz, px, py));
 
+    /* Reihum springt weiter, sobald die Frage ihre erste Stelle hat – weitere
+       Stellen setzt man gezielt bei ausgeschaltetem Reihum. */
     if (reihum) {
       for (var i = 1; i <= satz.fragen.length; i++) {
-        var k2 = (aktiv + i) % satz.fragen.length;
-        if (!satz.fragen[k2].gesetzt) { aktiv = k2; break; }
+        var k = (aktiv + i) % satz.fragen.length;
+        if (!satz.fragen[k].punkte.length) { aktiv = k; break; }
       }
     }
     markenZeichnen();
@@ -243,7 +263,7 @@ var Editor = (function () {
   function frageAnlegen() {
     satz.fragen.push({
       nr: satz.fragen.length + 1,
-      frage: '', ziel: '', x: 0, y: 0, gesetzt: false, toleranz: null
+      frage: '', punkte: [], toleranz: null
     });
     waehlen(satz.fragen.length - 1);
     merken();
@@ -331,16 +351,16 @@ var Editor = (function () {
        aus einem anderen (etwa aus der Tabelle unter einem Blatt), liegen sie
        daneben – am deutlichsten zu sehen, wenn sie schlicht zu groß sind. */
     function raumPruefen() {
-      var mitZahlen = gelesen.fragen.filter(function (f) { return f.gesetzt; });
-      if (!mitZahlen.length) { raumHinweis.hidden = true; return; }
+      var punkte = gelesen.fragen.reduce(function (alle, f) { return alle.concat(f.punkte); }, []);
+      if (!punkte.length) { raumHinweis.hidden = true; return; }
       var raum = satz.koordinatenRaum;
-      var draussen = mitZahlen.filter(function (f) {
-        return f.x > raum.breite || f.y > raum.hoehe;
+      var draussen = punkte.filter(function (p) {
+        return p.x > raum.breite || p.y > raum.hoehe;
       }).length;
       raumHinweis.hidden = false;
       raumHinweis.className = 'hinweis' + (draussen ? ' meckern' : '');
       raumHinweis.textContent = draussen
-        ? draussen + ' Koordinate(n) liegen außerhalb von ' + raum.breite + '×' + raum.hoehe +
+        ? draussen + ' Stelle(n) liegen außerhalb von ' + raum.breite + '×' + raum.hoehe +
           ' – die Zahlen stammen offenbar aus einem anderen Koordinatenraum. Erst unter ' +
           '„Einstellungen" den Raum passend setzen, dann importieren.'
         : 'Die Zahlen werden im Koordinatenraum ' + raum.breite + '×' + raum.hoehe +
@@ -521,9 +541,10 @@ var Editor = (function () {
     if (breite === satz.koordinatenRaum.breite && hoehe === satz.koordinatenRaum.hoehe) return;
     var alt = satz.koordinatenRaum;
     satz.fragen.forEach(function (f) {
-      if (!f.gesetzt) return;
-      f.x = Math.round(f.x / alt.breite * breite);
-      f.y = Math.round(f.y / alt.hoehe * hoehe);
+      f.punkte.forEach(function (p) {
+        p.x = Math.round(p.x / alt.breite * breite);
+        p.y = Math.round(p.y / alt.hoehe * hoehe);
+      });
     });
     satz.koordinatenRaum = { breite: breite, hoehe: hoehe };
   }

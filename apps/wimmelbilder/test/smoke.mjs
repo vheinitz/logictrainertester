@@ -59,9 +59,17 @@ pruefe(Wimmelbild.alle().length === datendateien.length,
 
 const dorf = Wimmelbild.alle()[0];
 pruefe(dorf.fragen.length > 0, dorf.fragen.length + ' Fragen in "' + dorf.id + '"');
-pruefe(dorf.fragen.every((f) => f.frage && f.ziel), 'jede Frage hat Text und Zielnamen');
-pruefe(dorf.fragen.every((f) => f.gesetzt === dorf.koordinatenGeprueft),
-  'gesetzt folgt koordinatenGeprueft (' + dorf.koordinatenGeprueft + ')');
+pruefe(dorf.fragen.every((f) => f.frage), 'jede Frage hat einen Text');
+pruefe(dorf.fragen.every((f) => Array.isArray(f.punkte)), 'jede Frage hat eine Punktliste');
+const mitStelle = dorf.fragen.filter((f) => f.punkte.length);
+pruefe(mitStelle.length > 0, mitStelle.length + ' Fragen mit Stelle');
+const mehrfach = dorf.fragen.filter((f) => f.punkte.length > 1);
+pruefe(mehrfach.length > 0, mehrfach.length + ' Fragen mit mehreren Stellen ('
+  + mehrfach.map((f) => f.nr + ': ' + f.punkte.length).join(', ') + ')');
+pruefe(dorf.fragen.every((f) => f.punkte.every((p) =>
+  p.x >= 0 && p.x <= dorf.koordinatenRaum.breite &&
+  p.y >= 0 && p.y <= dorf.koordinatenRaum.hoehe)), 'alle Stellen liegen im Bild');
+pruefe(dorf.fragen.every((f) => f.ziel === undefined), 'kein Gegenstandsname mehr im Modell');
 const radius = Wimmelbild.radius(dorf, dorf.fragen[0]);
 pruefe(radius > 0 && radius < Math.min(dorf.bildGroesse.breite, dorf.bildGroesse.hoehe) / 2,
   'Trefferradius plausibel (' + Math.round(radius) + ' px)');
@@ -79,24 +87,28 @@ Wo ist die Eule?
 `);
 pruefe(a.fragen.length === 4, 'vier Fragen erkannt (sind ' + a.fragen.length + ')');
 pruefe(a.uebergangen.length === 1, 'Kopfzeile übergangen');
-pruefe(a.fragen[0].x === 210 && a.fragen[0].y === 80, 'geklammerte Koordinaten');
-pruefe(a.fragen[1].x === 80 && a.fragen[1].y === 120, 'Koordinaten mit Semikolon und Leerzeichen');
-pruefe(a.fragen[2].x === 50 && a.fragen[2].y === 1290, 'Koordinaten ohne Klammern');
-pruefe(a.fragen[3].gesetzt === false && a.fragen[3].x === 0, 'Frage ohne Koordinaten bleibt offen');
+const punkt = (f, i) => f.punkte[i || 0];
+pruefe(punkt(a.fragen[0]).x === 210 && punkt(a.fragen[0]).y === 80, 'geklammerte Koordinaten');
+pruefe(punkt(a.fragen[1]).x === 80 && punkt(a.fragen[1]).y === 120, 'Koordinaten mit Semikolon');
+pruefe(punkt(a.fragen[2]).x === 50 && punkt(a.fragen[2]).y === 1290, 'Koordinaten ohne Klammern');
+pruefe(a.fragen[3].punkte.length === 0, 'Frage ohne Koordinaten bleibt ohne Stelle');
 pruefe(a.fragen.map((f) => f.nr).join(',') === '1,2,3,4', 'durchnummeriert');
-pruefe(a.fragen[0].ziel === 'roter Luftballon', 'Zielname abgeleitet: ' + a.fragen[0].ziel);
+pruefe(a.fragen[0].frage === 'Wo ist der rote Luftballon?', 'Fragetext vollständig');
 pruefe(a.fragen[3].frage === 'Wo ist die Eule?', 'Fragezeichen bleibt erhalten');
 pruefe(a.ohneKoordinaten === 1, 'eine Frage ohne Koordinaten gezählt');
+
+const viele = Wimmelbild.fragenAusText('Wo ist eine Ente? (100,200) (300,400) (50,60)');
+pruefe(viele.fragen.length === 1, 'mehrere Zahlenpaare bleiben eine Frage');
+pruefe(viele.fragen[0].punkte.length === 3, 'drei Stellen gelesen');
+pruefe(viele.fragen[0].frage === 'Wo ist eine Ente?', 'Fragetext endet vor der ersten Zahl');
 
 const zweispaltig = Wimmelbild.fragenAusText(
   '1. Wo ist der Hut? (280,340)   26. Wo ist der Hydrant? (930,870)');
 pruefe(zweispaltig.fragen.length === 2, 'zweispaltige Tabellenzeile ergibt zwei Fragen');
-pruefe(zweispaltig.fragen[1].x === 930, 'zweite Spalte richtig gelesen');
-
-pruefe(Wimmelbild.zielAusFrage('Wo ist die Gießkanne?') === 'Gießkanne', 'Artikel entfällt');
-pruefe(Wimmelbild.zielAusFrage('Wo ist der Hut auf dem Kopf einer Person?')
-  === 'Hut auf dem Kopf einer Person', 'längerer Zielname bleibt ganz');
-pruefe(Wimmelbild.zielAusFrage('Regenschirm') === 'Regenschirm', 'nackter Name bleibt stehen');
+pruefe(zweispaltig.fragen[1].punkte[0].x === 930, 'zweite Spalte richtig gelesen');
+pruefe(zweispaltig.fragen[0].punkte.length === 1,
+  'die Zahlen der zweiten Spalte wandern nicht zur ersten Frage');
+pruefe(zweispaltig.fragen[0].frage === 'Wo ist der Hut?', 'erste Frage sauber abgetrennt');
 pruefe(Wimmelbild.fragenAusText('').fragen.length === 0, 'leerer Text ergibt nichts');
 
 /* --- Anlegen, speichern, verwerfen -------------------------------------- */
@@ -116,7 +128,7 @@ pruefe(Wimmelbild.speichern(eigen) === null, 'Satz gespeichert');
 pruefe(Wimmelbild.alle().length === datendateien.length + 1, 'Satz taucht in der Liste auf');
 pruefe(Wimmelbild.istLokal('test-bild'), 'als lokal erkannt');
 pruefe(Wimmelbild.get('test-bild').herkunft === 'lokal', 'Herkunft lokal');
-pruefe(Wimmelbild.offeneZiele(Wimmelbild.get('test-bild')) === 1, 'ein Ziel noch offen');
+pruefe(Wimmelbild.offeneZiele(Wimmelbild.get('test-bild')) === 1, 'eine Frage noch ohne Stelle');
 
 pruefe(Wimmelbild.speichern({ id: 'Groß Falsch', bild: 'x' }) !== null, 'krumme Kennung abgelehnt');
 pruefe(Wimmelbild.speichern({ id: 'ok', bild: 'x' }) !== null, 'fehlende Bildgröße abgelehnt');
@@ -124,8 +136,7 @@ pruefe(Wimmelbild.speichern({ id: 'ok', bild: 'x' }) !== null, 'fehlende Bildgr�
 // Lokale Fassung eines Datei-Satzes verdeckt diesen und lässt sich zurücknehmen.
 const kopie = Wimmelbild.kopieren(dorf);
 kopie.titel = 'Dorfplatz (geändert)';
-kopie.fragen[0].gesetzt = true;
-kopie.fragen[0].x = 111;
+kopie.fragen[0].punkte = [{ x: 111, y: 222 }];
 Wimmelbild.speichern(kopie);
 pruefe(Wimmelbild.get(dorf.id).titel === 'Dorfplatz (geändert)', 'lokale Fassung verdeckt die Datei');
 pruefe(Wimmelbild.alle().length === datendateien.length + 1, 'kein doppelter Eintrag');
@@ -142,12 +153,14 @@ const modul = Wimmelbild.alsQuelltext(gespeichert);
 pruefe(modul.includes("id: 'test-bild'"), 'Modul enthält die Kennung');
 pruefe(modul.includes("bild: 'images/test-bild.jpg'"),
   'Modul zeigt auf die Bilddatei, nicht auf den data:-URI');
-pruefe(modul.includes('koordinatenGeprueft: false'), 'offene Ziele werden vermerkt');
+pruefe(modul.includes('punkte: [{ x: 210, y: 80 }]'), 'Modul schreibt die Punktliste');
+pruefe(modul.includes('punkte: []'), 'Frage ohne Stelle bleibt leer');
 const zurueck = Wimmelbild.ausModulQuelltext(modul).satz;
 pruefe(zurueck.fragen.length === gespeichert.fragen.length, 'Modul wieder einlesbar');
 pruefe(zurueck.fragen[0].frage === gespeichert.fragen[0].frage,
   'Fragetexte überstehen den Umlauf (Umlaute, Apostrophe)');
-pruefe(zurueck.fragen[0].x === gespeichert.fragen[0].x, 'Koordinaten überstehen den Umlauf');
+pruefe(zurueck.fragen[0].punkte[0].x === gespeichert.fragen[0].punkte[0].x,
+  'Stellen überstehen den Umlauf');
 
 const json = Wimmelbild.alsJson(gespeichert);
 const ausJson = Wimmelbild.ausJson(json).satz;
@@ -158,7 +171,14 @@ pruefe(ausJson.titel === gespeichert.titel, 'JSON trägt den Titel');
 const text = Wimmelbild.alsText(gespeichert);
 const ausText = Wimmelbild.fragenAusText(text).fragen;
 pruefe(ausText.length === gespeichert.fragen.length, 'Textform wieder einlesbar');
-pruefe(ausText[0].x === gespeichert.fragen[0].x, 'Koordinaten überstehen die Textform');
+pruefe(ausText[0].punkte[0].x === gespeichert.fragen[0].punkte[0].x,
+  'Stellen überstehen die Textform');
+const mehrPunkte = Wimmelbild.kopieren(gespeichert);
+mehrPunkte.fragen[0].punkte = [{ x: 10, y: 20 }, { x: 30, y: 40 }];
+pruefe(Wimmelbild.alsText(mehrPunkte).split('\n')[0].endsWith('(10,20) (30,40)'),
+  'Textform schreibt mehrere Stellen');
+pruefe(Wimmelbild.fragenAusText(Wimmelbild.alsText(mehrPunkte)).fragen[0].punkte.length === 2,
+  'mehrere Stellen überstehen die Textform');
 
 let gemeckert = false;
 try { Wimmelbild.ausJson('{"unsinn":1}'); } catch (e) { gemeckert = true; }
@@ -172,39 +192,57 @@ pruefe(gemeckert, 'Modul ohne register wird abgelehnt');
 abschnitt('Runde spielen');
 
 const spielsatz = Wimmelbild.kopieren(dorf);
-spielsatz.fragen.forEach((f) => { f.gesetzt = true; });
-const runde = Wimmelbild.runde(spielsatz, { anzahl: 5 }).starten();
+// Jede Frage bekommt eine Stelle, die vorletzte zusätzlich eine zweite.
+spielsatz.fragen.forEach((f, i) => { f.punkte = [{ x: 100 + i * 7, y: 80 + i * 5 }]; });
+spielsatz.fragen[1].punkte.push({ x: 900, y: 800 });
+
+const runde = Wimmelbild.runde(spielsatz, { anzahl: 5, zufall: false }).starten();
 pruefe(runde.fragen.length === 5, 'Runde auf 5 Fragen begrenzt');
 
-const z0 = runde.ziel();
-pruefe(runde.pruefen(z0.px, z0.py).richtig === true, 'Klick auf das Ziel zählt als Treffer');
+const s0 = runde.stellen()[0];
+pruefe(runde.pruefen(s0.px, s0.py).richtig === true, 'Klick auf die Stelle zählt als Treffer');
 
-const z1 = runde.ziel();
+// Frage 2 hat zwei Stellen – die zweite muss genauso zählen.
+const beide = runde.stellen();
+pruefe(beide.length === 2, 'zweite Frage hat zwei Stellen');
+const zweite = runde.pruefen(beide[1].px, beide[1].py);
+pruefe(zweite.richtig === true, 'auch die zweite Stelle zählt als Treffer');
+pruefe(Math.round(zweite.treffer.px) === Math.round(beide[1].px),
+  'gemeldet wird die getroffene Stelle');
+
+const s2 = runde.stellen()[0];
 pruefe(runde.pruefen(
-  z1.px > spielsatz.bildGroesse.breite / 2 ? 0 : spielsatz.bildGroesse.breite,
-  z1.py > spielsatz.bildGroesse.hoehe / 2 ? 0 : spielsatz.bildGroesse.hoehe
+  s2.px > spielsatz.bildGroesse.breite / 2 ? 0 : spielsatz.bildGroesse.breite,
+  s2.py > spielsatz.bildGroesse.hoehe / 2 ? 0 : spielsatz.bildGroesse.hoehe
 ).richtig === false, 'Klick in die gegenüberliegende Ecke zählt nicht');
 
 pruefe(runde.ueberspringen().uebersprungen === true, 'Überspringen wird als Fehler gewertet');
 
-const z3 = runde.ziel(), r3 = runde.radius();
-pruefe(runde.pruefen(z3.px + r3 * 0.95, z3.py).richtig === true, 'knapp innerhalb trifft');
-const z4 = runde.ziel(), r4 = runde.radius();
-pruefe(runde.pruefen(z4.px + r4 * 1.05, z4.py).richtig === false, 'knapp außerhalb trifft nicht');
+const s4 = runde.stellen()[0], r4 = runde.radius();
+const knapp = runde.pruefen(s4.px + r4 * 0.95, s4.py);
+pruefe(knapp.richtig === true, 'knapp innerhalb trifft');
+
+// Eine Frage ganz ohne Stelle kann nicht getroffen werden.
+const ohne = Wimmelbild.kopieren(dorf);
+ohne.fragen.forEach((f) => { f.punkte = []; });
+const leer = Wimmelbild.runde(ohne, { anzahl: 1 }).starten();
+const leerAntwort = leer.pruefen(100, 100);
+pruefe(leerAntwort.richtig === false && leerAntwort.treffer === null,
+  'Frage ohne Stelle liefert keinen Treffer');
 
 const aus = runde.auswertung();
 pruefe(runde.fertig(), 'Runde nach 5 Antworten beendet');
-pruefe(aus.richtig === 2 && aus.falsch === 2 && aus.uebersprungen === 1,
-  'Auswertung zählt 2 / 2 / 1 (ist ' + [aus.richtig, aus.falsch, aus.uebersprungen] + ')');
-pruefe(Math.abs(aus.quote - 0.4) < 1e-9, 'Quote 40 %');
+pruefe(aus.richtig === 3 && aus.falsch === 1 && aus.uebersprungen === 1,
+  'Auswertung zählt 3 / 1 / 1 (ist ' + [aus.richtig, aus.falsch, aus.uebersprungen] + ')');
+pruefe(Math.abs(aus.quote - 0.6) < 1e-9, 'Quote 60 %');
 
 const folgen = new Set();
 for (let i = 0; i < 20; i++) folgen.add(Wimmelbild.runde(dorf, {}).fragen.map((f) => f.nr).join(','));
 pruefe(folgen.size > 1, 'Reihenfolge wird gemischt (' + folgen.size + ' von 20 verschieden)');
 pruefe(Wimmelbild.runde(dorf, { zufall: false }).fragen.map((f) => f.nr).join(',')
   === dorf.fragen.map((f) => f.nr).join(','), 'zufall:false behält die Reihenfolge');
-pruefe(Wimmelbild.runde(dorf, { nurGesetzte: true }).fragen.length === 0,
-  'nurGesetzte lässt ungeprüfte Fragen weg');
+pruefe(Wimmelbild.runde(dorf, { nurGesetzte: true }).fragen.length === mitStelle.length,
+  'nurGesetzte lässt Fragen ohne Stelle weg');
 
 /* --- Oberfläche: Auswahl und Spiel -------------------------------------- */
 
@@ -215,6 +253,17 @@ pruefe(dok.querySelectorAll('#satzliste .karte').length === Wimmelbild.alle().le
   'für jeden Satz eine Karte');
 pruefe(dok.getElementById('warnung').hidden === false, 'Warnung bei ungesicherten Stellen');
 
+// Voreingestellt ist „nur Fragen mit gesetzter Stelle" – die Runde ist dann
+// so lang wie die Zahl der Fragen mit Stelle.
+pruefe(dok.getElementById('opt-nur-gesetzte').checked === true,
+  'nur Fragen mit gesetzter Stelle ist voreingestellt');
+dok.getElementById('opt-anzahl').value = '0';
+dok.getElementById('knopf-start').click();
+pruefe(dok.getElementById('spiel-zaehler').textContent === '1 / ' + mitStelle.length,
+  'Runde umfasst nur die ' + mitStelle.length + ' Fragen mit Stelle');
+dok.getElementById('knopf-abbrechen').click();
+
+dok.getElementById('opt-nur-gesetzte').checked = false;
 dok.getElementById('opt-anzahl').value = '10';
 dok.getElementById('knopf-start').click();
 pruefe(dok.getElementById('spiel').hidden === false, 'Start öffnet den Spielbildschirm');
@@ -237,7 +286,7 @@ pruefe(dok.getElementById('editor').hidden === false, 'Editor öffnet');
 pruefe(dok.getElementById('ed-titel').value === 'Testbild', 'Titel im Kopf');
 pruefe(dok.querySelectorAll('#ed-fragen li').length === 4, 'vier Fragen in der Liste');
 pruefe(dok.querySelectorAll('#ed-marker .marke').length === 3,
-  'drei gesetzte Ziele als Marken (die vierte Frage hat keine)');
+  'drei gesetzte Stellen als Marken (die vierte Frage hat keine)');
 
 // Frage anlegen und beschriften
 dok.getElementById('ed-neu-frage').click();
@@ -247,7 +296,8 @@ eingabe.value = 'Wo ist der blaue Drachen?';
 eingabe.dispatchEvent(new window.Event('input', { bubbles: true }));
 const angelegt = Editor.offenerSatz().fragen[4];
 pruefe(angelegt.frage === 'Wo ist der blaue Drachen?', 'Fragetext übernommen');
-pruefe(angelegt.ziel === 'blauer Drachen', 'Zielname zieht mit: ' + angelegt.ziel);
+pruefe(dok.querySelectorAll('#ed-fragen [aria-current="true"] input').length === 1,
+  'nur noch ein Eingabefeld je Frage – kein Gegenstandsname mehr');
 
 // Stelle im Bild setzen
 function klickInsBild(x, y) {
@@ -257,15 +307,24 @@ function klickInsBild(x, y) {
   });
 }
 klickInsBild(500, 350);
-pruefe(angelegt.gesetzt === true, 'Klick ins Bild setzt die Stelle');
-pruefe(angelegt.x > 0 && angelegt.y > 0,
-  'Koordinate im Koordinatenraum: ' + angelegt.x + ',' + angelegt.y);
+pruefe(angelegt.punkte.length === 1, 'Klick ins Bild setzt die Stelle');
 pruefe(dok.querySelectorAll('#ed-marker .marke').length === 4, 'Marke erscheint');
 
 // Der Klick trifft die Bildmitte – die Bühne ist 1000x700, das Bild 800x600.
 const mitte = Wimmelbild.ausBildpixel(Editor.offenerSatz(), 400, 300);
-pruefe(Math.abs(angelegt.x - mitte.x) < 40 && Math.abs(angelegt.y - mitte.y) < 40,
-  'Klick landet nahe der erwarteten Stelle (' + mitte.x + ',' + mitte.y + ')');
+pruefe(Math.abs(angelegt.punkte[0].x - mitte.x) < 40, 'Klick landet an der erwarteten Stelle');
+
+// Ein zweiter Klick fügt eine zweite Stelle hinzu, statt die erste zu ersetzen.
+klickInsBild(600, 400);
+pruefe(angelegt.punkte.length === 2, 'zweiter Klick fügt eine Stelle hinzu');
+pruefe(dok.querySelectorAll('#ed-marker .marke').length === 5, 'zweite Marke erscheint');
+pruefe(angelegt.punkte[1].x !== angelegt.punkte[0].x, 'die beiden Stellen sind verschieden');
+
+// Einzelne Stelle wieder löschen
+const wegKnopf = [...dok.querySelectorAll('#ed-fragen [aria-current="true"] button')]
+  .filter((b) => b.textContent === '×')[1];
+wegKnopf.click();
+pruefe(angelegt.punkte.length === 1, 'einzelne Stelle löschbar');
 
 await new Promise((r) => setTimeout(r, 800)); // Verzögerung fürs Speichern
 pruefe(Wimmelbild.get('test-bild').fragen.length === 5, 'Änderung gespeichert');
@@ -297,7 +356,7 @@ pruefe(dok.querySelector('.dialog .vorschau').textContent.includes('1 Fragen erk
   'Import-Vorschau meldet die erkannte Frage');
 [...dok.querySelectorAll('.dialog button')].find((b) => b.textContent === 'Übernehmen').click();
 pruefe(Editor.offenerSatz().fragen.length === 5, 'importierte Frage angehängt');
-pruefe(Editor.offenerSatz().fragen[4].ziel === 'Anker', 'importierte Frage benannt');
+pruefe(Editor.offenerSatz().fragen[4].frage === 'Wo ist der Anker?', 'importierte Frage benannt');
 pruefe(Editor.offenerSatz().fragen[4].nr === 5, 'importierte Frage neu nummeriert');
 
 // Koordinaten aus einem fremden Zahlenraum werden beim Import angemahnt.

@@ -12,6 +12,10 @@ import { lang, pick } from '../core/html.js';
 import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { renderSettings } from './settings-view.js';
+// In views.js heisst renderIntro schon der Startbildschirm einer
+// einzelnen Aufgabe. Diese Seite erklaert das ganze Vorhaben.
+import { renderIntro as renderProjektIntro } from './intro-view.js';
+import { renderPlan, renderFactor, SCHWACH_UNTER } from './plan-view.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
 import * as settings from '../core/settings.js';
 import { sparkline, mittel } from './spark.js';
@@ -65,6 +69,9 @@ export function renderView(view) {
     case 'method': renderMethod(m); break;
     case 'insights': renderInsights(m); break;
     case 'settings': renderSettings(m); break;
+    case 'intro': renderProjektIntro(m); break;
+    case 'plan': renderPlan(m); break;
+    case 'factor': renderFactor(m); break;
     default: renderMenu(m);
   }
 }
@@ -159,6 +166,37 @@ async function ladeFortschritt() {
  * eine gestrichelte Leerzeile statt gar nichts, damit der Unterschied
  * „noch nie" gegenüber „einmal schlecht" sichtbar bleibt.
  */
+/**
+ * Fortschritt einer ganzen Gruppe: wie viele ihrer Aufgaben schon dran waren,
+ * und der Verlauf über alle zusammen.
+ *
+ * Vorher stand dort nur die Zahl der Module – die ist jeden Tag dieselbe und
+ * sagt nichts darüber, wo man steht. Gerade beim ersten Durchgang ist das die
+ * wichtigste Frage: welche Gruppe fehlt noch?
+ */
+function gruppenMarke(eigene, fortschritt) {
+  const l = lang();
+  const fertig = eigene.filter(m => fortschritt.gespielt.has(m.id)).length;
+  const reihe = mittelReihe(fortschritt.history, eigene.map(m => m.id));
+  const anteil = eigene.length ? Math.round(fertig / eigene.length * 100) : 0;
+  const farbe = fertig === 0 ? '#DDD9F0' : fertig === eigene.length ? 'var(--green)' : 'var(--primary-light)';
+
+  return `<div style="margin-top:8px;border-top:1px solid #EDEBF8;padding-top:7px">
+    <div style="display:flex;align-items:center;gap:8px;font-size:.75em;color:var(--text-light)">
+      <div style="flex:1;height:5px;background:#F0EFF8;border-radius:3px;overflow:hidden">
+        <div style="width:${anteil}%;height:100%;background:${farbe};border-radius:3px"></div>
+      </div>
+      <span style="flex:0 0 auto">${fertig}/${eigene.length}</span>
+    </div>
+    ${reihe.length ? `<div style="margin-top:6px;font-size:.72em;display:flex;align-items:baseline">
+      ${sparkline(reihe, { titel: GRUPPE_UI.verlauf[l] || GRUPPE_UI.verlauf.de })}</div>` : ''}
+  </div>`;
+}
+
+const GRUPPE_UI = {
+  verlauf: { de: 'Gruppe', ru: 'Группа', en: 'Group' }
+};
+
 function kartenMarke(m, fortschritt) {
   const l = lang();
   const reihe = mittelReihe(fortschritt.history, [m.id]);
@@ -247,22 +285,22 @@ async function renderMenu(main) {
 
   // Ohne Alter zuerst danach fragen – siehe renderAgeGate.
   if (!alterBekannt()) { renderAgeGate(main); return; }
+
+  // Muss vor den Karten stehen: sowohl Gruppen- als auch Modulkarten zeigen
+  // den Fortschritt an.
+  const fortschritt = await ladeFortschritt();
   const ag = engine.ageFilter, sc = engine.scaleFilter;
 
   // Scale cards
   const scalesHtml = scales.map(s => {
-    const count = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre())).length;
+    const eigene = modules.filter(m => m.scale === s.id && moduleFreigegeben(m, alterJahre()));
     return `<div class="card card-scale-${s.color}" role="button" tabindex="0" onclick="navigateTo('scale',{scaleId:'${s.id}'})">
       <div class="card-icon">${s.icon}</div>
       <div class="card-title">${loc(s.name)}</div>
       <div class="card-desc">${t('scaleDesc_'+s.id, '')}</div>
-      <div class="card-badges">
-        <span class="badge badge-age">${count} ${t('statsModules')}</span>
-      </div>
+      ${gruppenMarke(eigene, fortschritt)}
     </div>`;
   }).join('');
-
-  const fortschritt = await ladeFortschritt();
 
   // Filter modules
   const alter = alterJahre();
@@ -299,6 +337,8 @@ async function renderMenu(main) {
   main.innerHTML = `<h2 class="page-title">${t('menuTitle')}</h2>
     <p class="page-subtitle">${t('menuSubtitle')}</p>
     <div style="text-align:center;margin-bottom:20px">
+      <button class="btn btn-accent btn-small" onclick="navigateTo('plan')" style="background:var(--primary)">${t('planButton')}</button>
+      <button class="btn btn-accent btn-small" onclick="navigateTo('intro')" style="background:var(--primary-light)">${t('introButton')}</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('stats')">${t('statsButton')}</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('radar')" style="background:var(--pink)">${t('profileButton')}</button>
       <button class="btn btn-accent btn-small" onclick="navigateTo('methods')" style="background:var(--orange)">${t('methodsButton')}</button>
@@ -916,8 +956,12 @@ async function renderRadar(main) {
           : '⚪';
         const name = f[lang()] || f.de;
         const serie = mittelReihe(history, f.modules || []);
-        html += `<div style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid #F0EFF8;">`;
-        html += `<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${dot} ${name}</span>`;
+        // Anklickbar: von der Feststellung „38 %" zu dem, was man dagegen tut.
+        // Ohne diesen Weg endete das Profil bei der Diagnose.
+        html += `<div role="button" tabindex="0" onclick="navigateTo('factor',{factorId:'${f.id}'})"
+          style="display:flex;align-items:baseline;gap:8px;padding:3px 0;border-bottom:1px solid #F0EFF8;cursor:pointer">`;
+        html += `<span style="flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${dot} ${name}${
+          tested && f.accuracy < SCHWACH_UNTER ? ' <span style="color:var(--secondary);font-weight:700">›</span>' : ''}</span>`;
         html += serie.length
           ? `<span style="flex:0 0 auto;display:inline-flex;align-items:baseline">${sparkline(serie, { titel: name })}</span>`
           : `<span style="flex:0 0 auto;color:var(--text-light)">—</span>`;

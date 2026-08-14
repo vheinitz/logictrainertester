@@ -47,6 +47,7 @@ i18n.de = {
   infoWhat:'🧠 Was wird trainiert?', infoEinfluesse:'⚡ Einflussfaktoren',
   infoHypothesen:'🔍 Hypothesen zu Stärken/Schwächen', infoFoerderung:'🎯 Fördermöglichkeiten',
   closeInfo:'✕ Schließen',
+  planButton:'🗺️ Plan', introButton:'📖 Anleitung',
   statsButton:'📊 Statistik', profileButton:'🎯 Kognitives Profil',
   methodsButton:'🧰 Fördermethoden', settingsButton:'⚙️ Einstellungen',
 
@@ -97,6 +98,7 @@ i18n.ru = {
   infoWhat:'🧠 Что тренируется?', infoEinfluesse:'⚡ Факторы влияния',
   infoHypothesen:'🔍 Гипотезы о сильных/слабых сторонах', infoFoerderung:'🎯 Способы развития',
   closeInfo:'✕ Закрыть',
+  planButton:'🗺️ План', introButton:'📖 Инструкция',
   statsButton:'📊 Статистика', profileButton:'🎯 Когнитивный профиль',
   methodsButton:'🧰 Методы развития', settingsButton:'⚙️ Настройки',
 
@@ -147,6 +149,7 @@ i18n.en = {
   infoWhat:'🧠 What is trained?', infoEinfluesse:'⚡ Influencing factors',
   infoHypothesen:'🔍 Hypotheses on strengths/weaknesses', infoFoerderung:'🎯 Ways to practise',
   closeInfo:'✕ Close',
+  planButton:'🗺️ Plan', introButton:'📖 Guide',
   statsButton:'📊 Statistics', profileButton:'🎯 Cognitive profile',
   methodsButton:'🧰 Training methods', settingsButton:'⚙️ Settings',
 

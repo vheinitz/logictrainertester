@@ -91,6 +91,7 @@ const ablaufTest = [];
 const umfangTest = [];
 const verlaufTest = [];
 const sudokuTest = [];
+const planTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -680,6 +681,57 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   S.reset();
 }
 
+// ─── Einführung, Plan und der Weg von der Schwäche zur Übung ──────────
+// Die App hatte alles, was man braucht, aber nichts, was es verbindet. Wer
+// 29 Module und ein Profil mit 89 Faktoren vor sich hat, weiß nicht, womit
+// er anfangen soll.
+{
+  window.navigateTo('intro');
+  await sleep(300);
+  check(/vier Schritten|четырёх шагов|four steps/.test(main.textContent),
+        'Die Einführungsseite beschreibt den Ablauf nicht');
+  check(/Stunden|часов|hours/.test(main.textContent),
+        'Die Einführung sagt nicht, dass die Tests Zeit brauchen');
+
+  window.navigateTo('plan');
+  await sleep(500);
+  check(main.textContent.length > 120, 'Die Plan-Ansicht ist leer');
+
+  // Aus dem Plan muss ein Weg in die Übung führen – sonst endet er bei der
+  // Feststellung, so wie das Profil vorher.
+  const wege = [...main.querySelectorAll('[onclick]')]
+    .map(e => e.getAttribute('onclick'))
+    .filter(o => /factor|startModule|navigateTo/.test(o));
+  check(wege.length > 0, 'Der Plan bietet keinen einzigen weiterführenden Schritt');
+
+  // Faktorseite: sie muss die Module nennen, die den Faktor trainieren
+  const { cognitiveFactors } = await import('../src/data/cognitive-factors.js');
+  const mitModulen = Object.entries(cognitiveFactors).find(([, f]) => (f.modules || []).length);
+  if (mitModulen) {
+    window.navigateTo('factor', { factorId: mitModulen[0] });
+    await sleep(400);
+    check(main.querySelectorAll('[onclick^="startModule"]').length > 0,
+          `Faktorseite ${mitModulen[0]} nennt kein Modul zum Üben`);
+    planTest.push(`Einführung, Plan und Faktorseite erreichbar, ${wege.length} Wege aus dem Plan`);
+  }
+  window.navigateTo('menu');
+  await sleep(300);
+}
+
+// ─── Fortschritt auch bei den Gruppen ─────────────────────────────────
+// Vorher stand auf den Skalenkarten nur die Zahl der Module – die ist jeden
+// Tag dieselbe. Gerade beim ersten Durchgang ist die wichtigste Frage:
+// welche Gruppe fehlt noch?
+{
+  const gruppen = [...main.querySelectorAll('.card')]
+    .filter(c => (c.getAttribute('onclick') || '').includes("navigateTo('scale'"));
+  check(gruppen.length > 0, 'Das Menü zeigt keine Gruppenkarten');
+  const mitStand = gruppen.filter(c => /\d+\/\d+/.test(c.textContent));
+  check(mitStand.length === gruppen.length,
+        `${gruppen.length - mitStand.length} Gruppenkarten ohne Angabe, wie viel davon erledigt ist`);
+  planTest.push(`${gruppen.length} Gruppen mit Fortschrittsangabe`);
+}
+
 // ─── Kennzeichnung im Aufgabenmenü ────────────────────────────────────
 // Ohne Marke sehen 29 Karten gleich aus, und nach zwei Wochen weiß niemand
 // mehr, was schon dran war. Gespielte Module zeigen ihren Verlauf, noch
@@ -955,6 +1007,7 @@ ablaufTest.forEach(x => console.log(`   Ablauf: ${x}`));
 umfangTest.forEach(x => console.log(`   Durchgang: ${x}`));
 verlaufTest.forEach(x => console.log(`   Verlauf: ${x}`));
 sudokuTest.forEach(x => console.log(`   Sudoku: ${x}`));
+planTest.forEach(x => console.log(`   Plan: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

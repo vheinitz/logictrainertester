@@ -23,7 +23,7 @@ Abhängigkeiten.
 
 Einstellbar sind Anzahl der Fragen, Zeitlimit je Frage, ob nach einer falschen
 Antwort die richtige Stelle gezeigt wird, ob gemischt wird, und ob Fragen ohne
-gesetztes Ziel übersprungen werden. Das Ergebnis lässt sich als JSON sichern.
+gesetzte Stelle draußen bleiben. Das Ergebnis lässt sich als JSON sichern.
 
 ## Ein neues Wimmelbild aufnehmen
 
@@ -36,11 +36,13 @@ Alles in der App, ohne Kommandozeile:
    Vorschau und lässt sich in den vier Feldern nachstellen oder ganz abschalten.
 2. Titel und Kennung vergeben, **Anlegen** – der Editor öffnet sich.
 3. Fragen anlegen: **+ Frage** und tippen, oder **Fragen importieren…** für eine
-   ganze Liste (siehe unten). Der kurze Name („Gesuchtes") wird aus der Frage
-   abgeleitet und zieht beim Tippen mit, bis man ihn von Hand ändert.
-4. Zu jeder Frage die Stelle im Bild anklicken. **Reihum setzen** springt nach
-   jedem Klick zur nächsten Frage ohne Stelle – damit geht eine lange Liste am
-   Stück durch.
+   ganze Liste (siehe unten).
+4. Zu jeder Frage die Stelle im Bild anklicken. Jeder weitere Klick legt eine
+   **weitere Stelle** zur selben Frage an – für Dinge, die es mehrfach gibt
+   (zwei Drachen, drei Pilze), und für große (ein Turm oder eine Laterne braucht
+   mehrere Punkte, damit ein Klick oben wie unten zählt). Einzelne Stellen
+   löscht das × daneben. **Reihum setzen** springt nach jedem Klick zur nächsten
+   Frage ohne Stelle – damit geht eine lange Liste am Stück durch.
 5. **Exportieren…** – siehe *Formate*.
 
 Gespeichert wird laufend im `localStorage` des Browsers; ein Satz aus `data/`
@@ -58,8 +60,13 @@ Nr.  Frage                          Koordinaten (x,y)     ← Kopfzeilen entfall
 2) Wo ist die Katze?   80 ; 120
 Wo ist der Pilz?;50;1290
 Wo ist die Eule?                                          ← ohne Stelle, später klicken
+Wo ist eine Ente? (100,200) (300,400)                     ← mehrere Stellen
 1. Wo ist X? (10,20)    26. Wo ist Y? (30,40)             ← zweispaltige Tabelle
 ```
+
+Eine Zeile wird an den Nummern aufgetrennt: „26." beginnt eine neue Frage, alle
+Zahlenpaare davor gehören zur vorigen. Steht keine Nummer da, gilt die ganze
+Zeile als eine Frage mit allen ihren Stellen.
 
 Damit lässt sich eine abgetippte oder per OCR gelesene Tabelle direkt
 übernehmen. Ebenfalls als Quelle geeignet: eine `.json`-Datei aus dem Export
@@ -99,37 +106,62 @@ Wimmelbild.register({
   untertitel: '…',
   bild: 'images/dorfplatz.jpg',    // Pfad oder (lokal) ein data:-URI
   bildGroesse:     { breite: 1152, hoehe: 934 },   // Pixelmaße des Bildes
-  koordinatenRaum: { breite: 1000, hoehe: 1500 },  // Raum, in dem x/y stehen
+  koordinatenRaum: { breite: 1152, hoehe: 934 },   // Raum, in dem die Punkte stehen
   toleranz: 0.06,                  // Trefferradius, Anteil der kurzen Bildseite
-  koordinatenGeprueft: false,      // true, sobald alle Stellen gesichert sind
   quelle: { datei: '…', zuschnitt: { x, y, breite, hoehe } },
   fragen: [
-    { nr: 1, frage: 'Wo ist der rote Luftballon?', ziel: 'roter Luftballon',
-      x: 210, y: 80, toleranz: 0.04 }   // toleranz je Frage ist optional
+    { nr: 1, frage: 'Wo ist der rote Luftballon?', punkte: [{ x: 582, y: 52 }] },
+    { nr: 2, frage: 'Wo ist die alte Laterne?',    punkte: [{ x: 260, y: 225 },
+                                                            { x: 260, y: 300 },
+                                                            { x: 260, y: 372 }],
+      toleranz: 0.04 }               // toleranz je Frage ist optional
   ]
 });
 ```
 
-`x`/`y` stehen immer im `koordinatenRaum`, nie in Bildpixeln. Der Kern rechnet
+Eine Frage hat eine **Liste von Stellen**. Getroffen ist, wer nahe genug an
+*einer* davon klickt; gemessen und in der Auswertung gezeigt wird die
+nächstgelegene. Eine leere Liste heißt: für diese Frage ist noch keine Stelle
+gesetzt, sie kann nicht getroffen werden. Ein einzelnes `x`/`y` aus einer
+älteren Datei wird als erste Stelle gelesen.
+
+Die Punkte stehen immer im `koordinatenRaum`, nie in Bildpixeln. Der Kern rechnet
 daraus relative Koordinaten und erst daraus Bildpixel. Deshalb dürfen weitere
 Blätter beliebig andere Maße, Seitenverhältnisse und Koordinatenräume
 mitbringen; ohne eigenen Raum gilt die Bildgröße, dann sind x/y Bildpixel.
 
-`koordinatenGeprueft: false` heißt: die Stellen sind nicht gesichert. Die App
-rechnet dann zwar mit den eingetragenen Werten, warnt aber auf dem
-Startbildschirm, zeigt nach einem Fehlversuch keine „Auflösung", und die Fragen
-lassen sich über *nur Fragen mit gesetztem Ziel* aus der Runde nehmen.
+Fragen ohne Stelle bleiben standardmäßig aus der Runde – der Haken *nur Fragen
+mit gesetzter Stelle* ist voreingestellt. Der Startbildschirm sagt, wie viele
+das betrifft.
+
+## Auswertung
+
+Oben steht ein Gesicht, darunter fünf Sterne, die Zahl der gefundenen Dinge und
+ein Balken mit der Quote – für Kinder sagt das mehr als eine Prozentzahl. Der
+angebrochene Stern füllt sich anteilig, das Gesicht hat fünf Stufen von
+nachdenklich bis begeistert. Darunter die Zeiten, das Bild mit allen Stellen und
+einer Linie von jedem Fehlklick zur nächstgelegenen richtigen Stelle, und die
+Liste aller Fragen mit Haken oder Kreuz.
 
 ## Zustand des mitgelieferten Bildes
 
-Beim **Dorfplatz** sind die Koordinaten aus der Tabelle unter dem Bild
-eingetragen, aber unbrauchbar, daher `koordinatenGeprueft: false`. Das Blatt
-nennt einen Raum von 1000×1500 (hochkant), der Bildbereich ist 1152×934 (quer);
-die Werte sind lückenlos nach y sortiert, laufen bis y=1600 – fünf Ziele lägen
-damit unterhalb des Bildes – und treffen bei Stichproben nichts: Der Fußball
-steht mit (840,380) auf einem Hausdach, obwohl er unten in der Wiese liegt. Es
-sind erfundene Zahlen aus dem Bildgenerator. Die richtigen Stellen setzt man im
-Editor und exportiert die Datei neu.
+Beim **Dorfplatz** sind 7 der 50 Fragen mit Stellen versehen – die Dinge, die
+sich im Bild zweifelsfrei wiederfinden lassen. Drei davon zeigen die mehrfachen
+Stellen: die Laterne ist zu hoch für einen Punkt (drei Punkte über die Höhe
+verteilt), Drachen und Pilz gibt es je zweimal.
+
+Die Koordinaten aus der Tabelle unter dem Bild sind **nicht** übernommen, weil
+sie unbrauchbar sind: Das Blatt nennt einen Raum von 1000×1500 (hochkant), der
+Bildbereich ist 1152×934 (quer); die Werte sind lückenlos nach y sortiert,
+laufen bis y=1600 – fünf Stellen lägen damit unterhalb des Bildes – und treffen
+bei Stichproben nichts (der Fußball stünde mit (840,380) auf einem Hausdach,
+obwohl er unten in der Wiese liegt). Zum Nachschlagen stehen sie als Kommentar
+im Kopf von `data/dorfplatz.js`.
+
+Die übrigen 43 Fragen haben keine Stelle. Etliche davon beschreiben Dinge, die
+im Bild gar nicht vorkommen – ein Segelboot etwa gibt es nicht (nur Ruderboote),
+und statt eines Fernglases steht dort ein Fernrohr. Solche Fragen setzt man im
+Editor oder löscht sie.
 
 ## Kommandozeile
 
@@ -173,7 +205,8 @@ Eintragen in `index.html`.
 node test/smoke.mjs
 ```
 
-93 Prüfungen: Datensätze, das Lesen von Frageliste und JSON, Anlegen,
-Speichern, Verwerfen, alle drei Exportwege samt Wiedereinlesen, eine Runde mit
-Treffer, Fehlklick, Auslassung und beiden Rändern des Trefferradius, und die
-Oberfläche von Auswahl, Spiel, Editor und Dialogen im jsdom.
+110 Prüfungen: Datensätze, das Lesen von Frageliste und JSON (auch mehrere
+Stellen je Frage und zweispaltige Tabellen), Anlegen, Speichern, Verwerfen, alle
+drei Exportwege samt Wiedereinlesen, eine Runde mit Treffer auf der ersten wie
+der zweiten Stelle, Fehlklick, Auslassung und dem Rand des Trefferradius, und
+die Oberfläche von Auswahl, Spiel, Editor und Dialogen im jsdom.
