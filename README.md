@@ -820,9 +820,22 @@ Beide haben keine Überschrift mehr — die Leiste sagt bereits, wo man ist, und
 der Name der App steht darüber. Zwei Zeilen, die bei jedem Besuch dasselbe
 sagen, kosten nur Platz.
 
-Beim **allerersten Öffnen** erscheint die Einführung statt der Aufgabenliste;
-ohne sie hält man die App für eine Spielesammlung. Danach startet sie bei den
-Gruppen, und der Titel im Kopf führt jederzeit zurück zur Einführung.
+### Die App öffnet mit der Einführung
+
+Bei **jedem** Start, nicht nur beim ersten. Ohne sie wirken 29 Kacheln wie
+eine Spielesammlung, und der Ablauf – erst durchtesten, dann üben, später
+erneut messen – bleibt unsichtbar, obwohl er den Zweck der App ausmacht.
+
+Kein Merker im Speicher: die App wird nicht täglich benutzt, sondern in
+Abständen von Wochen. Bis zum nächsten Mal ist der Ablauf meist wieder
+vergessen, und ein „schon gesehen" verbärge die Einführung gerade dann, wenn
+sie gebraucht wird. Wer weiterarbeiten will, ist mit einem Klick in der
+Leiste dort.
+
+Diese Entscheidung ist zweimal umgekippt, einmal davon still – weil
+gleichzeitig der Test mitgedreht wurde und danach niemand mehr etwas merkte.
+Sie steht deshalb an einer benannten Stelle (`STARTSEITE` in `main.js`), und
+der Smoke-Test liest sie dort nach.
 
 `'menu'` zeigt weiterhin auf die Gruppen: zahlreiche Knöpfe und
 Ergebnisseiten navigieren dorthin, und ein Umbenennen aller Stellen brächte

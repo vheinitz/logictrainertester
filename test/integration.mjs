@@ -65,10 +65,15 @@ const problems = [];
 // Module im Angebot sind.
 {
   const S = window.LOGIK_SETTINGS;
-  // Beim allerersten Öffnen steht die Einführung, nicht die Aufgabenliste –
-  // sonst hält man die App für eine Spielesammlung.
+  // Die App öffnet mit der Einführung, und zwar bei JEDEM Start: sie wird in
+  // Abständen von Wochen benutzt, bis dahin ist der Ablauf meist wieder
+  // vergessen. Wer weiterarbeiten will, ist mit einem Klick in der Leiste dort.
   if (!/vier Schritten|four steps|четырёх шагов/.test(main.textContent)) {
-    problems.push('Beim ersten Öffnen erscheint nicht die Einführung');
+    problems.push('Beim Öffnen erscheint nicht die Einführung, sondern: ' +
+                  main.textContent.replace(/\s+/g, ' ').trim().slice(0, 60));
+  }
+  if (window.LOGIK_ENGINE.view !== 'intro') {
+    problems.push(`Die Startansicht ist "${window.LOGIK_ENGINE.view}" statt "intro"`);
   }
   // Sobald es ans Testen geht, wird nach dem Alter gefragt.
   window.navigateTo('groups');
@@ -761,6 +766,26 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
     // Ein Klick daneben schließt wieder
     window.document.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
     await sleep(100);
+  }
+
+  // Ein Eintrag im Untermenü muss auch tatsächlich hinführen – aufklappen
+  // allein nützt nichts, wenn der Klick darauf ins Leere geht.
+  {
+    const gruppe = window.document.querySelector('#mainNav .nav-group');
+    gruppe.querySelector('.nav-item')
+      .dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(120);
+    const eintrag = [...window.document.querySelectorAll('#mainNav .nav-sub')]
+      .filter(b => b.offsetParent !== null || (b.closest('.nav-drop') || {}).style?.display !== 'none')
+      .pop();
+    const ziel = eintrag.querySelector('.nav-label').textContent.trim();
+    eintrag.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(250);
+    check(main.querySelectorAll('.card').length >= 29,
+          `Der Untermenü-Eintrag "${ziel}" führt nicht zur Aufgabenliste`);
+    const offene = [...window.document.querySelectorAll('#mainNav .nav-drop')]
+      .filter(d => d.style.display !== 'none');
+    check(offene.length === 0, 'Nach dem Klick im Untermenü bleibt es offen stehen');
   }
 
   // Jeder Eintrag trägt Text, nicht nur ein Symbol

@@ -32,12 +32,14 @@ header h1{font-size:1.3em;font-weight:700;cursor:pointer;display:flex;align-item
 @media(max-width:760px){
   header{padding:8px 12px;gap:8px}
   header h1{font-size:1.05em}
-  /* Die Leiste rutscht in eine eigene Zeile und laesst sich schieben,
-     statt die Beschriftungen zu verstecken: bloße Symbole waren nicht zu
-     verstehen – „Testen" und „Auswertung" sehen als Piktogramm gleich aus. */
-  #mainNav{order:3;flex-basis:100%;flex-wrap:nowrap;overflow-x:auto;
-    -webkit-overflow-scrolling:touch;scrollbar-width:none}
-  #mainNav::-webkit-scrollbar{display:none}
+  /* Die Leiste rutscht in eine eigene Zeile und darf umbrechen, statt die
+     Beschriftungen zu verstecken: bloße Symbole waren nicht zu verstehen –
+     „Testen" und „Auswertung" sehen als Piktogramm gleich aus.
+     Kein overflow und kein Schieben: ein Rollbereich schneidet die
+     aufgeklappten Untermenüs ab. Sie gingen auf – Pfeil klappte um,
+     aria-expanded stand auf true – waren aber nicht zu sehen und damit
+     unerreichbar. Genau das sah aus wie „das Menü tut nichts". */
+  #mainNav{order:3;flex-basis:100%;flex-wrap:wrap;row-gap:4px}
   .nav-item{padding:7px 10px;font-size:.84em;gap:5px}
 }
 .page-title{font-size:1.8em;font-weight:800;margin-bottom:8px;text-align:center}
@@ -149,7 +151,7 @@ input[type=range]{accent-color:var(--primary);height:26px}
 <script src="dist/audio-de.js?v=613846c0"></script>
 <script src="dist/audio-en.js?v=4b8e0456"></script>
 <script src="dist/audio-ru.js?v=2f369801"></script>
-<script src="dist/logik-trainer.min.js?v=64081a28"></script>
+<script src="dist/logik-trainer.min.js?v=37259bff"></script>
 <script>
 // Ohne Bundle bliebe die Seite einfach weiß – das ist der häufigste
 // Stolperstein nach einem frischen Clone.

@@ -603,6 +603,30 @@ for (const [id, load] of Object.entries(registry)) {
   console.log(`   Wiederholungssperre: ${mitSperre.length} Module, keine Aufgabe direkt doppelt`);
 }
 
+// ─── Womit die App öffnet ─────────────────────────────────────────────
+// Diese Entscheidung ist schon zweimal umgekippt – einmal davon still, weil
+// gleichzeitig der Test mitgedreht wurde und dann niemand mehr etwas merkte.
+// Sie steht deshalb an einer benannten Stelle und wird hier festgehalten.
+{
+  const { readFileSync } = await import('node:fs');
+  const quelle = readFileSync('src/main.js', 'utf8');
+
+  const m = quelle.match(/const STARTSEITE = '([a-z]+)'/);
+  check('start', !!m, 'src/main.js benennt keine Startseite');
+  check('start', m && m[1] === 'intro',
+        `Die App öffnet mit "${m && m[1]}" statt mit der Einführung`);
+  check('start', /engine\.view = STARTSEITE/.test(quelle),
+        'Die Startseite wird nirgends gesetzt – die App öffnet mit der Vorgabe der Engine');
+
+  // Kein Merker im Speicher: die App wird in Abständen von Wochen benutzt,
+  // bis dahin ist der Ablauf meist wieder vergessen. Ein „schon gesehen"
+  // verbärge die Einführung gerade dann, wenn sie gebraucht wird.
+  check('start', !/logik-intro-gesehen|ERSTBESUCH/.test(quelle),
+        'Die Einführung wird nur beim ersten Mal gezeigt statt bei jedem Start');
+
+  console.log(`   Start: die App öffnet mit "${m ? m[1] : '?'}", bei jedem Mal`);
+}
+
 // ─── Das Stylesheet in index.html ─────────────────────────────────────
 // Beim Umbauen der Leiste blieben zweimal Reste zerschnittener @media-Blöcke
 // stehen. Deren Regeln galten dadurch immer statt nur auf schmalen
@@ -638,11 +662,21 @@ for (const [id, load] of Object.entries(registry)) {
   check('css', !/\.nav-label\{display:none\}/.test(css),
         'Die Beschriftungen der Navigationsleiste werden versteckt');
 
+  // Die Leiste darf keinen Rollbereich aufmachen: overflow schneidet die
+  // Untermenüs ab, die absolut darunter hängen. Sie gehen dann zwar auf –
+  // Pfeil klappt um, aria-expanded steht auf true – sind aber nicht zu sehen
+  // und nicht zu treffen. Auf schmalen Geräten war die Leiste damit nutzlos.
+  for (const regel of css.matchAll(/#mainNav\{([^}]*)\}/g)) {
+    check('css', !/overflow/.test(regel[1]),
+          `#mainNav bekommt "overflow" – das schneidet die Untermenüs ab: ${regel[1].trim()}`);
+  }
+
   // Grundlegende Regeln, die beim Aufräumen leicht mit verschwinden
   for (const regel of ['main{max-width', '.card-grid{', 'header{background']) {
     check('css', css.includes(regel), `Regel "${regel}…" fehlt im Stylesheet`);
   }
-  console.log('   Stylesheet: Klammern ausgeglichen, keine Reste, Beschriftungen sichtbar');
+  console.log('   Stylesheet: Klammern ausgeglichen, keine Reste, Beschriftungen sichtbar, ' +
+              'Untermenüs nicht abgeschnitten');
 }
 
 // ─── Bildgröße ────────────────────────────────────────────────────────

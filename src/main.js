@@ -3,23 +3,24 @@ import { setLanguage, t } from './i18n/i18n-core.js';
 import { anwenden as einstellungenAnwenden } from './core/settings.js';
 
 /**
- * Beim allerersten Öffnen die Einführung zeigen, nicht die Aufgabenliste.
+ * Die App öffnet mit der Einführung, nicht mit der Aufgabenliste.
  *
- * Ohne sie sieht man 29 Kacheln und hält die App für eine Spielesammlung.
- * Der Ablauf – erst durchtesten, dann üben, später wiederholen – macht aber
- * den Zweck aus. Danach startet die App wie gewohnt bei den Gruppen; die
- * Einführung bleibt über den Kopfbereich erreichbar.
+ * Wer die App startet, soll zuerst lesen, worum es geht: erst alles
+ * durchtesten, dann das Fehlende üben, später erneut messen. Ohne diese
+ * Seite wirken 29 Kacheln wie eine Spielesammlung, und der Ablauf – der den
+ * Zweck der App ausmacht – bleibt unsichtbar.
+ *
+ * Bewusst bei jedem Start und nicht nur beim ersten Mal: Die App wird nicht
+ * täglich benutzt, sondern in Abständen von Wochen. Bis zum nächsten Mal ist
+ * der Ablauf meist wieder vergessen, und ein Merker im Speicher hätte ihn
+ * dann gerade dann verborgen, wenn er gebraucht wird. Wer weiterarbeiten
+ * will, ist mit einem Klick in der Leiste dort.
  */
-const ERSTBESUCH = 'logik-intro-gesehen';
+const STARTSEITE = 'intro';
 
 document.addEventListener('DOMContentLoaded', () => {
   einstellungenAnwenden();
-  let ersteMal = false;
-  try { ersteMal = !localStorage.getItem(ERSTBESUCH); } catch (e) { /* ohne Speicher eben nicht */ }
-  if (ersteMal) {
-    try { localStorage.setItem(ERSTBESUCH, '1'); } catch (e) { /* egal */ }
-    engine.view = 'intro';
-  }
+  engine.view = STARTSEITE;
   engine.render();
 });
 
