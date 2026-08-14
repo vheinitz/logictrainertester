@@ -73,7 +73,7 @@ const game = createChoiceGame({
       prompt: `<div style="text-align:center">
         <p style="font-size:1.05em;margin-bottom:10px">${pick(UI.frage)}</p>
         <div style="position:relative;width:200px;height:200px;margin:0 auto 14px;background:var(--card-bg);border-radius:14px;overflow:hidden">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:9em;line-height:1">${target.emoji}</div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:calc(9em * var(--pic));line-height:1">${target.emoji}</div>
           <div style="position:absolute;inset:0;display:grid;grid-template-columns:repeat(${GRID},1fr);grid-template-rows:repeat(${GRID},1fr)">${tiles}</div>
         </div>
       </div>`,

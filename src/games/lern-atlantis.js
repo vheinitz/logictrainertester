@@ -69,14 +69,14 @@ const game = createChoiceGame({
           <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
             ${pairs.map((p, i) => `
               <div style="display:flex;flex-direction:column;align-items:center;background:var(--bg);border-radius:14px;padding:10px 14px;min-width:96px;border-bottom:3px solid ${color(i)}">
-                <span style="font-size:2.2em">${p.e}</span>
+                <span style="font-size:calc(2.2em * var(--pic))">${p.e}</span>
                 <span style="font-weight:800;font-size:1.02em;margin-top:2px">${p.name}</span>
               </div>`).join('')}
           </div>`
       },
       prompt: `<div style="text-align:center">
         <p style="font-size:1.05em">${pick(UI.frage)}</p>
-        <div style="font-size:3.6em;margin:10px 0">${target.e}</div>
+        <div style="font-size:calc(3.6em * var(--pic));margin:10px 0">${target.e}</div>
       </div>`,
       options: choices.map(x => ({ html: x, label: x })),
       _key: target.name,

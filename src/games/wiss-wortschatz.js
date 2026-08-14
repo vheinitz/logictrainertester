@@ -136,7 +136,7 @@ const game = createChoiceGame({
       _key: target.w.de,
       prompt: `<div style="text-align:center">
         <p style="font-size:.95em;color:var(--text-light)">${pick(UI.zeig)}</p>
-        <p style="font-size:1.6em;font-weight:800;margin:6px 0 14px">${w}</p>
+        <p style="font-size:calc(1.6em * var(--pic));font-weight:800;margin:6px 0 14px">${w}</p>
       </div>`,
       options: choices.map(x => ({ html: x.e, label: pick(x.w) })),
       correct: choices.findIndex(x => x.e === target.e && x.w.de === target.w.de),

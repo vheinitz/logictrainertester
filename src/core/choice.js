@@ -309,7 +309,7 @@ export function createChoiceGame(cfg) {
     const cols = r.columns || Math.min(r.options.length, 5);
     return `<div style="display:grid;grid-template-columns:repeat(${cols},minmax(0,1fr));gap:10px;margin:16px 0;width:100%">
       ${r.options.map((o, i) =>
-        `<div class="game-card-item pick-target" onclick="G('choose',${i})" style="aspect-ratio:auto;min-height:72px;padding:8px;font-size:${o.small ? '1.1em' : '2.2em'}">${o.html}</div>`
+        `<div class="game-card-item pick-target" onclick="G('choose',${i})" style="aspect-ratio:auto;min-height:calc(36px * var(--pic));padding:8px;font-size:${o.small ? '1.1em' : 'calc(2.2em * var(--pic))'}">${o.html}</div>`
       ).join('')}
     </div>`;
   }

@@ -275,7 +275,7 @@ export function render(gs) {
     const stumm = !audioReady();
     return `<div data-phase="listen" style="text-align:center;width:100%">
       ${bar(gd.listenDuration, elapsed)}
-      <div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
+      <div style="font-size:calc(4.4em * var(--pic));line-height:1.1">${stumm ? '🔇' : '👂'}</div>
       ${stumm ? mutedHint() : ''}
       ${stopButton()}
       ${starRow(gd.bestLevel)}
@@ -289,9 +289,9 @@ export function render(gs) {
            aria-label="Hier klopfen"
            style="width:190px;height:190px;border-radius:50%;margin:0 auto;
                   background:var(--primary);color:#fff;display:flex;
-                  align-items:center;justify-content:center;font-size:4em;
+                  align-items:center;justify-content:center;font-size:calc(4em * var(--pic));
                   cursor:pointer;box-shadow:var(--shadow)">👆</div>
-      <div id="rhyDots" style="min-height:26px;margin-top:12px;font-size:1.3em;
+      <div id="rhyDots" style="min-height:26px;margin-top:12px;font-size:calc(1.3em * var(--pic));
            color:var(--primary);letter-spacing:3px"></div>
       ${stopButton()}
       ${starRow(gd.bestLevel)}
@@ -307,8 +307,8 @@ export function render(gs) {
 
   const best = gd.bestLevel || 0;
   return `<div data-phase="done" style="text-align:center;width:100%">
-    <div style="font-size:3.4em;line-height:1.1">🏁</div>
-    <div style="font-size:2.6em;font-weight:800;color:var(--primary)">${computeScore(best)}%</div>
+    <div style="font-size:calc(3.4em * var(--pic));line-height:1.1">🏁</div>
+    <div style="font-size:calc(2.6em * var(--pic));font-weight:800;color:var(--primary)">${computeScore(best)}%</div>
     <div style="font-size:.9em;color:var(--text-light);margin-bottom:16px">
       Bestes Niveau ${best || '–'} • ${gd.solved || 0} von ${gd.attempts || 0} gelöst
     </div>

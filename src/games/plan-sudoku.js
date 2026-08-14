@@ -162,7 +162,7 @@ export function render(gs) {
       const br = c === n - 1 ? '3px' : '0';
       cells += `<div class="pick-target" onclick="G('selectCell',${r},${c})" style="
         aspect-ratio:1;display:flex;align-items:center;justify-content:center;
-        font-size:${n === 4 ? '1.9em' : '1.5em'};
+        font-size:calc(${n === 4 ? '1.9em' : '1.5em'} * var(--pic));
         border-top:${bt} solid #B9B4DE;border-left:${bl} solid #B9B4DE;
         border-bottom:${bb} solid #B9B4DE;border-right:${br} solid #B9B4DE;
         background:${wrong ? '#FFE9E9' : sel ? '#EBE9FF' : isGiven ? '#F4F2FB' : '#fff'};
@@ -175,8 +175,8 @@ export function render(gs) {
   // dort, wo man es braucht – ein Knopf unter dem Gitter zwang dazu, den
   // Blick von der Auswahl wegzunehmen und wieder zurückzufinden.
   const aktiv = !!gd.selected;
-  const rahmen = `width:52px;height:52px;border-radius:12px;display:flex;align-items:center;
-    justify-content:center;font-size:1.7em;cursor:pointer;user-select:none;
+  const rahmen = `width:calc(52px * var(--pic) / 2 + 26px);height:calc(52px * var(--pic) / 2 + 26px);border-radius:12px;display:flex;align-items:center;
+    justify-content:center;font-size:calc(1.7em * var(--pic));cursor:pointer;user-select:none;
     opacity:${aktiv ? 1 : .45}`;
 
   const palette = [...Array(n).keys()].map(v =>

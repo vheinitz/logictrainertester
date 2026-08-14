@@ -62,16 +62,16 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((k, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:48px;height:48px;border-radius:14px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:calc(48px * var(--pic) / 2 + 24px);height:calc(48px * var(--pic) / 2 + 24px);border-radius:14px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:calc(1.6em * var(--pic));cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
-        `<div style="width:48px;height:48px;border-radius:14px;border:2px dashed #D8D4EE"></div>`
+        `<div style="width:calc(48px * var(--pic) / 2 + 24px);height:calc(48px * var(--pic) / 2 + 24px);border-radius:14px;border:2px dashed #D8D4EE"></div>`
       ).join('')}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:300px;margin:0 auto">
       ${SIGNS.map(s =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(s.key)})" title="${s.name}" style="width:66px;height:66px;border-radius:16px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:2.1em;cursor:pointer">${s.emoji}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(s.key)})" title="${s.name}" style="width:calc(66px * var(--pic) / 2 + 33px);height:calc(66px * var(--pic) / 2 + 33px);border-radius:16px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:calc(2.1em * var(--pic));cursor:pointer">${s.emoji}</div>`
       ).join('')}
     </div>`
 });

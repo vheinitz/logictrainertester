@@ -130,7 +130,7 @@ const game = createChoiceGame({
 
     return {
       prompt: `<div style="text-align:center">
-        <div style="font-size:2.2em;margin-bottom:6px">🫖</div>
+        <div style="font-size:calc(2.2em * var(--pic));margin-bottom:6px">🫖</div>
         <p style="font-size:1.02em;font-weight:700;margin-bottom:10px">${pick(UI.intro)}</p>
         <div style="display:flex;flex-direction:column;gap:8px;align-items:center;margin-bottom:8px">
           ${pick(p.m).map((m, i) => `<div style="background:var(--bg);border-radius:14px;padding:9px 18px;max-width:420px">

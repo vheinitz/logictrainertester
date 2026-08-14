@@ -55,16 +55,16 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((f, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:48px;height:48px;border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:1.6em;cursor:pointer">${f}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:calc(48px * var(--pic) / 2 + 24px);height:calc(48px * var(--pic) / 2 + 24px);border-radius:50%;background:var(--primary-light);display:flex;align-items:center;justify-content:center;font-size:calc(1.6em * var(--pic));cursor:pointer">${f}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
-        `<div style="width:48px;height:48px;border-radius:50%;border:2px dashed #D8D4EE"></div>`
+        `<div style="width:calc(48px * var(--pic) / 2 + 24px);height:calc(48px * var(--pic) / 2 + 24px);border-radius:50%;border:2px dashed #D8D4EE"></div>`
       ).join('')}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
       ${(gd.optionFaces || []).map(f =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(f)})" style="width:58px;height:58px;border-radius:50%;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:1.9em;cursor:pointer">${f}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(f)})" style="width:calc(58px * var(--pic) / 2 + 29px);height:calc(58px * var(--pic) / 2 + 29px);border-radius:50%;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:calc(1.9em * var(--pic));cursor:pointer">${f}</div>`
       ).join('')}
     </div>`
 });

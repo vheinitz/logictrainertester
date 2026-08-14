@@ -415,9 +415,7 @@ async function renderScaleView(main) {
   }).join('');
   main.innerHTML = `<h2 class="page-title">${s.icon} ${loc(s.name)}</h2>
     <div class="card-grid">${modsHtml}</div>
-    <div style="text-align:center;margin-top:16px">
-      <button class="btn btn-secondary" onclick="goBack()">${t('backToMenu')}</button>
-    </div>`;
+`;
 }
 
 function renderTraining(main) {
@@ -598,7 +596,6 @@ function renderInsights(main) {
   html += `</div></div>
     <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
       <button class="btn btn-primary" onclick="goBack()">${iu('zurueck')}</button>
-      <button class="btn btn-secondary" onclick="navigateTo('methods')">🧰 ${iu('alleMethoden')}</button>
     </div>`;
 
   main.innerHTML = html;
@@ -640,7 +637,6 @@ async function renderGameScreen(main, mod, header) {
   // Rundenknöpfe darunter wären eine zweite, widersprüchliche Navigation.
   const bottom = (minimal || game.scoring === 'percent') ? '' : `<div id="roundButtons" style="margin-top:16px">
     <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
-    <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${t('homeMenu')}</button>
   </div>`;
 
   main.innerHTML = `<div class="training-container">
@@ -754,7 +750,7 @@ async function renderStats(main) {
   } catch(e) {
     html += `<div class="training-container"><div class="training-area"><p>${t('statsUnavailable')}</p></div></div>`;
   }
-  html += `<div style="text-align:center;margin-top:16px"><button class="btn btn-secondary" onclick="goBack()">${t('backToMenu')}</button></div>`;
+
   main.innerHTML = html;
 }
 
@@ -1005,6 +1001,6 @@ async function renderRadar(main) {
     html += `<div class="training-container"><div class="training-area"><p>⚠️ Daten konnten nicht geladen werden.</p></div></div>`;
   }
   
-  html += `<div style="text-align:center;margin-top:16px;"><button class="btn btn-secondary" onclick="goBack()">${t('backToMenu')}</button></div>`;
+
   main.innerHTML = html;
 }

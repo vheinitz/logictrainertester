@@ -80,8 +80,6 @@ export function renderMethods(main) {
       <div class="card-grid">${list.map(methodCard).join('')}</div>`;
   }
 
-  html += `<div style="text-align:center;margin-top:24px">
-    <button class="btn btn-secondary" onclick="goBack()">${ui('zurueck')}</button></div>`;
   main.innerHTML = html;
 }
 
@@ -153,10 +151,7 @@ export function renderMethod(main) {
   }
 
   html += `</div></div>
-    <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-secondary" onclick="goBack()">${ui('zurueck')}</button>
-      <button class="btn btn-secondary" onclick="navigateTo('methods')">🧰 ${ui('alle')}</button>
-    </div>`;
+`;
 
   main.innerHTML = html;
 }

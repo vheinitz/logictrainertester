@@ -80,13 +80,13 @@ const test = createSpanTest({
 
   renderShow: () => {
     const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
-    return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '🧳'}</div>
+    return `<div style="font-size:calc(4.4em * var(--pic));line-height:1.1">${stumm ? '🔇' : '🧳'}</div>
       ${stumm ? mutedHint() : ''}`;
   },
 
   renderSolution: (gd) => `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
     ${gd.sequence.map((k, i) => `<div style="display:flex;flex-direction:column;align-items:center;gap:2px">
-      <div style="width:40px;height:40px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:21px">${byKey(k).emoji}</div>
+      <div style="width:calc(40px * var(--pic) / 2 + 20px);height:calc(40px * var(--pic) / 2 + 20px);border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:21px">${byKey(k).emoji}</div>
       <span style="font-size:.62em;color:var(--text-light);max-width:56px;text-align:center;line-height:1.2">${esc(nameOf(k))}</span>
     </div>`).join('')}
   </div>`,
@@ -94,16 +94,16 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:50px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((k, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:1.5em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:12px;background:${color(i)};display:flex;align-items:center;justify-content:center;font-size:calc(1.5em * var(--pic));cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
-        `<div style="width:46px;height:46px;border-radius:12px;border:2px dashed #D8D4EE"></div>`
+        `<div style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:12px;border:2px dashed #D8D4EE"></div>`
       ).join('')}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center">
       ${(gd.optionKeys || []).map(k =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(k)})" title="${esc(nameOf(k))}" style="width:58px;height:58px;border-radius:14px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:1.8em;cursor:pointer">${byKey(k).emoji}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(k)})" title="${esc(nameOf(k))}" style="width:calc(58px * var(--pic) / 2 + 29px);height:calc(58px * var(--pic) / 2 + 29px);border-radius:14px;background:var(--bg);border:2px solid #D0CDE8;display:flex;align-items:center;justify-content:center;font-size:calc(1.8em * var(--pic));cursor:pointer">${byKey(k).emoji}</div>`
       ).join('')}
     </div>`
 });

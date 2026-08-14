@@ -603,6 +603,45 @@ for (const [id, load] of Object.entries(registry)) {
   console.log(`   Wiederholungssperre: ${mitSperre.length} Module, keine Aufgabe direkt doppelt`);
 }
 
+// ─── Bildgröße ────────────────────────────────────────────────────────
+// Die Bilder sind die Aufgabe, nicht Schmuck. Für kleine Kinder und auf
+// Tablets waren sie zu klein; sie hängen jetzt an einer Einstellung.
+{
+  const settings = await import('../src/core/settings.js');
+  const { readFileSync } = await import('node:fs');
+
+  const sch = settings.SCHEMA.bildGroesse;
+  check('bild', !!sch, 'Es gibt keine Einstellung für die Bildgröße');
+  check('bild', sch && sch.def >= 2,
+        `Bildgröße ist auf ${sch && sch.def}× voreingestellt – gewünscht war mindestens doppelt`);
+  check('bild', sch && sch.min <= 1,
+        'Die ursprüngliche Größe (1×) lässt sich nicht mehr einstellen');
+
+  // Der Wert muss als CSS-Variable ankommen, sonst wirkt er nirgends
+  check('bild', /--pic:/.test(readFileSync('index.html', 'utf8')),
+        'index.html setzt keine Vorgabe für --pic');
+  check('bild', typeof settings.anwenden === 'function',
+        'settings.anwenden() fehlt – der Wert erreicht das Stylesheet nicht');
+
+  // Jede Stelle, die ein Bild darstellt, muss mitwachsen. Eine Größe, die
+  // fest in em oder px steht, bleibt beim Vergrößern zurück und zerreißt
+  // die Kachel.
+  const dateien = ['src/core/choice.js', 'src/core/adaptive.js']
+    .concat((await import('node:fs')).readdirSync('src/games')
+      .filter(f => f.endsWith('.js') && f !== 'index.js').map(f => 'src/games/' + f));
+  const starr = [];
+  for (const d of dateien) {
+    const quelle = readFileSync(d, 'utf8');
+    for (const m of quelle.matchAll(/font-size:([0-9.]+)em(?!\s*\*)/g)) {
+      if (Number(m[1]) >= 1.25) starr.push(`${d.replace(/^.*\//, '')}:${m[1]}em`);
+    }
+  }
+  check('bild', starr.length === 0,
+        `${starr.length} Bildgrößen wachsen nicht mit: ${starr.slice(0, 5).join(', ')}`);
+
+  console.log(`   Bilder: ${sch.def}× voreingestellt, ${sch.min}–${sch.max}× einstellbar, keine starren Größen`);
+}
+
 // ─── Module bringen ihre eigenen Einstellungen mit ────────────────────
 // Ein Modul weiß am besten, welche Stellschrauben es hat. Eine zentrale
 // Liste wüchse bei jedem neuen Modul und würde irgendwann unübersichtlich.

@@ -69,7 +69,7 @@ const test = createSpanTest({
   // Während der Ansage bleibt der Bildschirm leer – sonst wäre es kein Hörtest.
   renderShow: () => {
     const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
-    return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
+    return `<div style="font-size:calc(4.4em * var(--pic));line-height:1.1">${stumm ? '🔇' : '👂'}</div>
       ${stumm ? mutedHint() : ''}`;
   },
 
@@ -82,7 +82,7 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:8px;min-height:44px;flex-wrap:wrap;align-items:center;justify-content:center;margin:0 0 20px">
       ${ctx.selected.map((w, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.25em">${bild(w)}</span>${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="padding:7px 14px;border-radius:18px;background:${color(i)};color:#fff;font-weight:700;cursor:pointer;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:calc(1.25em * var(--pic))">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
         `<div style="padding:7px 16px;border-radius:18px;border:2px dashed #D8D4EE;min-width:62px">&nbsp;</div>`
@@ -91,7 +91,7 @@ const test = createSpanTest({
 
     <div style="display:flex;flex-wrap:wrap;gap:8px;justify-content:center">
       ${(gd.optionWords || []).map(w =>
-        `<div class="pick-target" onclick="G('pick',${jsArg(w)})" style="padding:9px 15px;border-radius:18px;background:var(--bg);color:var(--text);border:2px solid #D0CDE8;cursor:pointer;font-weight:600;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:1.3em">${bild(w)}</span>${esc(zeige(w))}</div>`
+        `<div class="pick-target" onclick="G('pick',${jsArg(w)})" style="padding:9px 15px;border-radius:18px;background:var(--bg);color:var(--text);border:2px solid #D0CDE8;cursor:pointer;font-weight:600;font-size:1em;display:flex;align-items:center;gap:6px"><span style="font-size:calc(1.3em * var(--pic))">${bild(w)}</span>${esc(zeige(w))}</div>`
       ).join('')}
     </div>`
 });

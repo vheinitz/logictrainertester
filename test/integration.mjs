@@ -710,8 +710,10 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   const leiste = window.document.getElementById('mainNav');
   check(!!leiste, 'Es gibt keine Navigationsleiste');
 
-  // Jede Seite muss von jeder anderen erreichbar sein
-  const ziele = ['intro', 'background', 'plan', 'groups', 'modules', 'methods', 'stats', 'radar', 'settings'];
+  // Die Leiste führt zu allen Arbeitsseiten. „Über die App" steht bewusst
+  // nicht darin: der Titel im Kopf führt schon dorthin, und ein Eintrag, der
+  // dasselbe tut wie das direkt daneben, kostet nur Breite.
+  const ziele = ['plan', 'groups', 'modules', 'methods', 'stats', 'radar', 'settings'];
   const fehlend = ziele.filter(v => !new RegExp("_nav\\('" + v + "'\\)").test(leiste.innerHTML));
   check(fehlend.length === 0, `Die Leiste führt nicht zu: ${fehlend.join(', ')}`);
 
@@ -724,6 +726,28 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
     check(aktiv.length > 0, `Auf "${v}" ist kein Eintrag der Leiste als aktiv markiert`);
   }
 
+  // Die beiden Seiten ohne Leisteneintrag müssen anders erreichbar sein,
+  // sonst sind sie tot.
+  window.navigateTo('intro');
+  await sleep(300);
+  check(/navigateTo\('background'\)/.test(main.innerHTML),
+        'Von der Einführung führt kein Weg zur Seite über die Herkunft');
+
+  // Die Leiste sitzt im Kopf, nicht als eigene Zeile darunter
+  check(!!window.document.querySelector('header #mainNav'),
+        'Die Navigationsleiste sitzt nicht im Kopfbereich');
+
+  // Keine Seite trägt unten noch Navigationsknöpfe – die Leiste ist immer da
+  for (const v of ['intro', 'background', 'plan', 'groups', 'methods', 'stats', 'radar']) {
+    window.navigateTo(v);
+    await sleep(300);
+    const nav = [...main.querySelectorAll('button')]
+      .map(b => b.textContent.trim())
+      .filter(b => /Zurück|Zum Menü|Zum Plan|Alle Methoden|Ganzes Profil|Назад|В меню|Back to|To the menu/.test(b));
+    check(nav.length === 0,
+          `Seite "${v}" hat unten noch Navigationsknöpfe: ${nav.join(', ')}`);
+  }
+
   // Genau ein Gehirn im Kopf – appHeader trug bis eben ein zweites
   const h1 = window.document.querySelector('header h1');
   const hirne = (h1.textContent.match(/🧠/g) || []).length;
@@ -731,7 +755,7 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   check(/navigateTo\('intro'\)/.test(h1.getAttribute('onclick') || ''),
         'Der Titel im Kopf führt nicht zur Einführung');
 
-  navTest.push(`${ziele.length} Seiten über die Leiste erreichbar, aktiver Eintrag folgt der Seite`);
+  navTest.push(`${ziele.length} Seiten in der Leiste im Kopf, keine Navigationsknöpfe am Seitenende`);
   window.navigateTo('groups');
   await sleep(200);
 }

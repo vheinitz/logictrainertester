@@ -155,7 +155,7 @@ const game = createChoiceGame({
 function renderPrompt(r, shown) {
   const hints = pick(r.h);
   return `<div style="text-align:center">
-    <div style="font-size:2.4em;margin-bottom:8px">🤔</div>
+    <div style="font-size:calc(2.4em * var(--pic));margin-bottom:8px">🤔</div>
     <div style="display:flex;flex-direction:column;gap:6px;align-items:center;margin-bottom:10px">
       ${hints.slice(0, shown).map((h, i) =>
         `<div style="background:var(--bg);border-radius:14px;padding:8px 16px;max-width:420px;font-size:1.02em">

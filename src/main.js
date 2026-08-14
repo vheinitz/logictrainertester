@@ -1,5 +1,6 @@
 import { engine } from './core/engine.js';
 import { setLanguage, t } from './i18n/i18n-core.js';
+import { anwenden as einstellungenAnwenden } from './core/settings.js';
 
 /**
  * Beim allerersten Öffnen die Einführung zeigen, nicht die Aufgabenliste.
@@ -12,6 +13,7 @@ import { setLanguage, t } from './i18n/i18n-core.js';
 const ERSTBESUCH = 'logik-intro-gesehen';
 
 document.addEventListener('DOMContentLoaded', () => {
+  einstellungenAnwenden();
   let ersteMal = false;
   try { ersteMal = !localStorage.getItem(ERSTBESUCH); } catch (e) { /* ohne Speicher eben nicht */ }
   if (ersteMal) {

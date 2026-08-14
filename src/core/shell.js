@@ -12,6 +12,19 @@
  * der bereits verstrichenen Zeit entspricht.
  */
 import { lang } from './html.js';
+import { get as einstellung } from './settings.js';
+
+/**
+ * Bildgröße auf einen in Pixel gerechneten Wert anwenden.
+ *
+ * Die meisten Stellen geben Größen in em an und werden über die
+ * CSS-Variable --pic skaliert. Wo die Größe von der Anzahl der Elemente
+ * abhängt – bei den Merkspannen wird sie mit jeder Ziffer kleiner –, muss
+ * sie gerechnet werden, und dort greift die Variable nicht.
+ */
+export function bildPx(px) {
+  return Math.round(px * (einstellung('bildGroesse') || 1));
+}
 
 /** Ablaufbalken ohne Beschriftung. */
 export function bar(total, elapsed) {
@@ -74,5 +87,5 @@ export function starRow(best) {
 
 /** Rückmeldung als großes Piktogramm statt als Satz. */
 export function pictogram(sym) {
-  return `<div style="font-size:4.4em;line-height:1.1">${sym}</div>`;
+  return `<div style="font-size:calc(4.4em * var(--pic));line-height:1.1">${sym}</div>`;
 }

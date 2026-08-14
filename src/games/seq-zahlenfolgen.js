@@ -10,7 +10,7 @@
  * der 150%-Bonus der Score-Map ist hier bauartbedingt nicht erreichbar.
  */
 import { createSpanTest } from '../core/adaptive.js';
-import { removeHint } from '../core/shell.js';
+import { removeHint, bildPx} from '../core/shell.js';
 import { shuffle, color } from '../core/html.js';
 
 const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
@@ -18,7 +18,8 @@ const DIGITS = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 const bg = n => (n === 0 ? '#94A3B8' : color(n - 1));
 
 /** Zeile aus farbigen Zahlenkreisen – für Zeigephase und Lösung. */
-function row(items, size) {
+function row(items, rohSize) {
+  const size = bildPx(rohSize);
   return `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
     ${items.map(n =>
       `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:${size * 0.5}px;font-weight:800">${n}</div>`
@@ -46,16 +47,16 @@ const test = createSpanTest({
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:52px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((n, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.25em;font-weight:800;cursor:pointer">${n}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:calc(1.25em * var(--pic));font-weight:800;cursor:pointer">${n}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
-        `<div style="width:46px;height:46px;border-radius:50%;border:2px dashed #D8D4EE"></div>`
+        `<div style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:50%;border:2px dashed #D8D4EE"></div>`
       ).join('')}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:380px;margin:0 auto">
       ${DIGITS.map(n =>
-        `<div class="pick-target" onclick="G('pick',${n})" style="width:56px;height:56px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4em;font-weight:700;cursor:pointer">${n}</div>`
+        `<div class="pick-target" onclick="G('pick',${n})" style="width:calc(56px * var(--pic) / 2 + 28px);height:calc(56px * var(--pic) / 2 + 28px);border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:calc(1.4em * var(--pic));font-weight:700;cursor:pointer">${n}</div>`
       ).join('')}
     </div>`
 });

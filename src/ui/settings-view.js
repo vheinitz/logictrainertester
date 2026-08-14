@@ -154,7 +154,6 @@ export async function renderSettings(main) {
   html += `<p style="font-size:.85em;color:var(--text-light);margin-top:18px">${u('hinweis')}</p>`;
   html += `</div></div>
     <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-secondary" onclick="goBack()">${u('zurueck')}</button>
       ${veraendert() ? `<button class="btn btn-secondary" onclick="window._resetSettings()">${u('zuruecksetzen')}</button>` : ''}
     </div>`;
 

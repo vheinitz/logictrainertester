@@ -85,7 +85,7 @@ const game = createChoiceGame({
           <div style="display:flex;flex-direction:column;gap:8px;align-items:center">
             ${pairs.map((p, i) => `
               <div style="display:flex;align-items:center;gap:12px;background:var(--bg);border-radius:14px;padding:8px 18px;min-width:220px">
-                <span style="font-size:1.9em">${p.sym}</span>
+                <span style="font-size:calc(1.9em * var(--pic))">${p.sym}</span>
                 <span style="width:3px;height:24px;background:${color(i)};border-radius:2px"></span>
                 <span style="font-weight:700;font-size:1.05em">${pick(p.word)}</span>
               </div>`).join('')}
@@ -93,7 +93,7 @@ const game = createChoiceGame({
       },
       prompt: `<div style="text-align:center">
         <p style="font-size:1.05em">${pick(UI.frage)}</p>
-        <div style="font-size:3.4em;margin:12px 0">${target.sym}</div>
+        <div style="font-size:calc(3.4em * var(--pic));margin:12px 0">${target.sym}</div>
       </div>`,
       _key: target.word.de,
       options: choices.map(w => ({ html: pick(w), label: pick(w) })),

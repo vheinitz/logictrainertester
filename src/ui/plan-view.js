@@ -154,7 +154,7 @@ export async function renderPlan(main) {
     html += karte('jetzt', '🎂', t('alterT'), t('alter'), '',
       `<div style="margin-top:12px"><button class="btn btn-primary btn-small"
         onclick="navigateTo('settings')">${t('alterKnopf')}</button></div>`);
-    html += `</div>${fussKnoepfe()}`;
+    html += `</div>`;
     main.innerHTML = html;
     return;
   }
@@ -206,16 +206,8 @@ export async function renderPlan(main) {
     html += karte(reif ? 'jetzt' : 'danach', '🔁', t('wiederT'), t('wieder'), zusatz);
   }
 
-  html += `</div>${fussKnoepfe()}`;
+  html += `</div>`;
   main.innerHTML = html;
-}
-
-function fussKnoepfe() {
-  return `<div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-    <button class="btn btn-secondary" onclick="navigateTo('intro')">${t('einfuehrung')}</button>
-    <button class="btn btn-secondary" onclick="navigateTo('radar')">${t('zumProfil')}</button>
-    <button class="btn btn-secondary" onclick="goBack()">${t('zurueck')}</button>
-  </div>`;
 }
 
 // ─── Einzelner Faktor: womit trainiert man ihn? ───────────────────────
@@ -282,9 +274,5 @@ export async function renderFactor(main) {
           }).join('')}
         </ul>` : ''}
     </div></div>
-
-    <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-secondary" onclick="navigateTo('plan')">🗺️ ${t('titel')}</button>
-      <button class="btn btn-secondary" onclick="goBack()">${t('zurueck')}</button>
-    </div>`;
+`;
 }

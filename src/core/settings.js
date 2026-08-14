@@ -52,6 +52,13 @@ export const SCHEMA = {
     hintRu: 'После этого показывается результат и возврат к группе. Понятный конец помогает ребёнку и делает результаты сопоставимыми.',
     en: 'Exercises per session', hintEn: 'After that, the result is shown and you return to the group. A foreseeable end helps the child – and makes results comparable.'
   },
+  bildGroesse: {
+    def: 2, min: 1, max: 3, step: 0.25, unit: '×', group: 'darstellung',
+    de: 'Größe der Bilder', ru: 'Размер картинок', en: 'Picture size',
+    hintDe: 'Betrifft alle Bilder in den Aufgaben. 1× ist die ursprüngliche Größe; für kleine Kinder und auf Tablets ist größer meist besser.',
+    hintRu: 'Касается всех картинок в заданиях. 1× — исходный размер; для малышей и на планшетах обычно лучше крупнее.',
+    hintEn: 'Applies to every picture in the tasks. 1× is the original size; for small children and on tablets bigger is usually better.'
+  },
   tempo: {
     def: 2, min: 0.5, max: 5, step: 0.5, unit: 's', group: 'merken',
     de: 'Anzeigedauer je Element', ru: 'Время показа одного элемента',
@@ -120,6 +127,7 @@ export const SCHEMA = {
 export const GROUPS = {
   kind:         { icon: '🎂', de: 'Kind', ru: 'Ребёнок', en: 'Child' },
   umfang:       { icon: '🎯', de: 'Umfang', ru: 'Объём', en: 'Scope' },
+  darstellung:  { icon: '🔍', de: 'Darstellung', ru: 'Отображение', en: 'Display' },
   merken:       { icon: '🧠', de: 'Merkspannen-Tests', ru: 'Тесты на запоминание', en: 'Memory-span tests' },
   auswahl:      { icon: '👆', de: 'Auswahlaufgaben', ru: 'Задания с выбором', en: 'Choice tasks' },
   rueckmeldung: { icon: '💬', de: 'Rückmeldung', ru: 'Обратная связь', en: 'Feedback' },
@@ -168,7 +176,21 @@ export function set(k, v) {
   if (!SCHEMA[k]) return undefined;
   werte[k] = klemmen(k, Number(v));
   sichern();
+  anwenden();
   return werte[k];
+}
+
+/**
+ * Werte, die nicht der Code liest, sondern das Stylesheet.
+ *
+ * Die Bildgröße als CSS-Variable statt als Zahl im Code: sonst müsste jede
+ * der vierzig Stellen, die ein Bild darstellen, den Wert einzeln abfragen
+ * und bei jeder Änderung neu zeichnen.
+ */
+export function anwenden() {
+  try {
+    document.documentElement.style.setProperty('--pic', String(get('bildGroesse')));
+  } catch (e) { /* ohne DOM egal */ }
 }
 
 /** Auf die Voreinstellungen zurücksetzen. */
@@ -181,9 +203,11 @@ export function set(k, v) {
  * bekommen. Zum Ändern gibt es die Auswahllisten direkt daneben.
  */
 export function reset() {
+  // anwenden() steht am Ende, nachdem werte neu gesetzt wurde
   werte = Object.fromEntries(Object.entries(SCHEMA).map(
     ([k, s]) => [k, (s.kind === 'jahr' || s.kind === 'monat') ? werte[k] : s.def]));
   sichern();
+  anwenden();
 }
 
 /** Weicht mindestens ein Wert von der Voreinstellung ab? */

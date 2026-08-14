@@ -11,6 +11,11 @@
  *
  * Aufklappen per Klick, nicht beim Überfahren mit der Maus: auf einem Tablet
  * gibt es kein Überfahren, und die App läuft überwiegend auf Tablets.
+ *
+ * „Über die App" steht bewusst nicht in der Leiste: der Titel im Kopf führt
+ * schon dorthin, und ein Eintrag, der dasselbe tut wie das, was direkt
+ * daneben steht, kostet nur Breite. Die Seite zur Herkunft ist von dort
+ * verlinkt.
  */
 import { lang, esc } from '../core/html.js';
 
@@ -38,10 +43,6 @@ const t = k => { const l = lang(); return T[k][l] || T[k].de; };
  */
 function aufbau() {
   return [
-    { id: 'ueber', icon: '📖', label: t('ueber'), views: ['intro', 'background'], kinder: [
-      { icon: '🧭', label: t('ueberSo'), view: 'intro' },
-      { icon: '🏛️', label: t('hintergrund'), view: 'background' }
-    ] },
     { id: 'plan', icon: '🗺️', label: t('plan'), view: 'plan', views: ['plan', 'factor'] },
     { id: 'testen', icon: '🧪', label: t('testen'), views: ['groups', 'modules', 'menu', 'scale', 'training'], kinder: [
       { icon: '📊', label: t('gruppen'), view: 'groups' },

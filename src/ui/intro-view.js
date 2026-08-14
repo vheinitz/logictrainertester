@@ -77,8 +77,9 @@ const T = {
     ru: 'Сначала укажите год рождения — без возраста результат не истолковать. Затем возьмите первую группу и проходите по порядку. План в любой момент покажет, что дальше.',
     en: 'First enter the year of birth – without an age no result can be placed. Then take the first group and work through it. The plan shows you at any time what comes next.'
   },
-  zumPlan: { de: '🗺️ Zum Plan', ru: '🗺️ К плану', en: '🗺️ To the plan' },
-  zumMenue: { de: '🏠 Zum Menü', ru: '🏠 В меню', en: '🏠 To the menu' },
+  herkunft: { de: 'Woher die Aufgaben und das Faktorenmodell stammen',
+              ru: 'Откуда взяты задания и модель факторов',
+              en: 'Where the tasks and the factor model come from' },
   module: { de: 'Aufgaben', ru: 'заданий', en: 'tasks' },
   dauer: { de: 'Stunden für den ersten Durchgang', ru: 'часов на первый проход', en: 'hours for the first pass' },
   wieder: { de: 'Monate bis zur Wiederholung', ru: 'месяца до повтора', en: 'months until repeating' }
@@ -144,10 +145,11 @@ export function renderIntro(main) {
 
       <h3 class="section-title" style="margin-top:22px">🚀 ${t('losT')}</h3>
       <p style="line-height:1.7">${esc(t('los'))}</p>
-    </div></div>
 
-    <div style="text-align:center;margin-top:16px;display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
-      <button class="btn btn-primary" onclick="navigateTo('plan')">${t('zumPlan')}</button>
-      <button class="btn btn-secondary" onclick="navigateTo('menu')">${t('zumMenue')}</button>
-    </div>`;
+      <p style="margin-top:22px;padding-top:14px;border-top:1px solid #F0EFF8">
+        <a href="#" onclick="navigateTo('background');return false"
+           style="color:var(--primary);font-weight:600;text-decoration:none;
+                  border-bottom:1px dotted var(--primary-light)">🏛️ ${esc(t('herkunft'))} ›</a></p>
+    </div></div>
+`;
 }

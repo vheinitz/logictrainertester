@@ -145,7 +145,7 @@ const game = createChoiceGame({
 
     return {
       prompt: `<div style="text-align:center">
-        <div style="font-size:2.4em;margin-bottom:6px">🌍</div>
+        <div style="font-size:calc(2.4em * var(--pic));margin-bottom:6px">🌍</div>
         <p style="font-size:1.15em;font-weight:700;margin-bottom:4px">${pick(q.q)}</p>
       </div>`,
       options: choices.map(c => ({ html: c, label: c })),

@@ -769,21 +769,32 @@ Der Preis dafür: Menü und Skalenansicht laden Ergebnisse und sind dadurch
 asynchron. Ohne das sehen 29 Karten gleich aus, und nach zwei Wochen weiß
 niemand mehr, was schon dran war.
 
-### Navigation: eine Leiste statt einer Knopfreihe
+### Navigation: eine Leiste im Kopf, sonst nichts
 
-Neun Seiten lagen als Knopfreihe auf der Startseite. Wer in der Statistik
-war, musste erst zurück, um in die Einstellungen zu kommen. Die Kopfleiste
-(`ui/nav.js`) folgt dem Ablauf, den die Einführung beschreibt:
+Neun Seiten lagen als Knopfreihe auf der Startseite, und jede Seite trug
+unten noch einmal „Zurück zum Menü". Wer in der Statistik war, musste erst
+zurück, um in die Einstellungen zu kommen. Die Leiste sitzt jetzt **im
+Kopfbereich** (`ui/nav.js`) und folgt dem Ablauf, den die Einführung
+beschreibt:
 
 ```
-📖 Über die App ▾   🗺️ Plan   🧪 Testen ▾   🧰 Lernen   📈 Auswertung ▾        ⚙️ Einstellungen
-   ├ So ist es gedacht          ├ Gruppen                 ├ Statistik
-   └ Herkunft und Hintergrund   └ Alle Aufgaben           └ Kognitives Profil
+🧠 LOGIK-Trainer   🗺️ Plan   🧪 Testen ▾   🧰 Lernen   📈 Auswertung ▾   ⚙️ Einstellungen   DE RU EN
+                              ├ Gruppen                 ├ Statistik
+                              └ Alle Aufgaben           └ Kognitives Profil
 ```
 
-Wer die Leiste liest, sieht den Weg durch die App, ohne ihn erklärt zu
-bekommen. Aufgeklappt wird per **Klick, nicht beim Überfahren mit der Maus** –
-auf einem Tablet gibt es kein Überfahren, und dort läuft die App überwiegend.
+**„Über die App" steht bewusst nicht darin**: der Titel im Kopf führt schon
+dorthin, und ein Eintrag, der dasselbe tut wie das direkt daneben, kostet nur
+Breite. Die Seite zur Herkunft ist von der Einführung aus verlinkt.
+
+**Am Seitenende steht keine Navigation mehr.** Weil die Leiste immer sichtbar
+ist, war jeder „Zurück"-Knopf darunter ein zweiter Weg zum selben Ziel. Was
+bleibt, sind Knöpfe, die etwas *tun*: sichern, zurücksetzen, neue Runde.
+Der Testlauf besteht darauf und nennt jede Seite, die wieder einen bekommt.
+
+Aufgeklappt wird per **Klick, nicht beim Überfahren mit der Maus** – auf einem
+Tablet gibt es kein Überfahren, und dort läuft die App überwiegend. Auf
+schmalen Bildschirmen bleiben nur die Symbole stehen.
 
 Die Startseite ist dadurch in zwei geteilt: **Gruppen** zeigt die fünf Skalen
 mit ihrem Stand, **Alle Aufgaben** die vollständige Liste mit Altersfilter.
@@ -798,6 +809,27 @@ Gruppen, und der Titel im Kopf führt jederzeit zurück zur Einführung.
 `'menu'` zeigt weiterhin auf die Gruppen: zahlreiche Knöpfe und
 Ergebnisseiten navigieren dorthin, und ein Umbenennen aller Stellen brächte
 nichts als Gelegenheit für Fehler.
+
+### Bilder sind die Aufgabe, nicht Schmuck
+
+Bei einem Bild-Wort-Test ist das Bild die Antwort; bei einer Merkspanne ist
+es das, was man sich merkt. Zu klein dargestellt misst man das Sehen statt
+der Fähigkeit — besonders bei kleinen Kindern und auf Tablets.
+
+Alle Bildgrößen hängen deshalb an einer Einstellung, voreingestellt auf
+**2×**, verstellbar von 1× bis 3×. Zwei Wege, weil es zwei Arten von Größen
+gibt:
+
+- **In `em` angegebene Größen** rechnen über die CSS-Variable `--pic`:
+  `font-size: calc(2.2em * var(--pic))`. Die Variable setzt
+  `settings.anwenden()` auf dem Wurzelelement — dadurch wirkt eine Änderung
+  sofort, ohne dass eine der vierzig Stellen neu gezeichnet werden muss.
+- **In Pixel gerechnete Größen** gehen durch `bildPx()`. Bei den Merkspannen
+  hängt die Größe von der Anzahl ab — bei zehn Ziffern werden die Kreise
+  kleiner —, und dort greift eine CSS-Variable nicht.
+
+Der Smoke-Test sucht nach `font-size` ab 1,25em ohne `var(--pic)` und meldet
+jede Stelle, die beim Vergrößern zurückbliebe und die Kachel zerrisse.
 
 ### Der Weg durch die App: Einführung und Plan
 

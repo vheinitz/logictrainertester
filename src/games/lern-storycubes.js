@@ -61,7 +61,7 @@ const game = createTutorModule({
         en: 'Show the child the pictures and have them tell a connected story from them. All pictures must appear.'
       },
       material: `<div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:8px">
-        ${dice.map(d => `<div style="width:64px;height:64px;border-radius:14px;background:#fff;border:2px solid #D0CDE8;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:2.1em">${d}</div>`).join('')}
+        ${dice.map(d => `<div style="width:calc(64px * var(--pic) / 2 + 32px);height:calc(64px * var(--pic) / 2 + 32px);border-radius:14px;background:#fff;border:2px solid #D0CDE8;box-shadow:var(--shadow);display:flex;align-items:center;justify-content:center;font-size:calc(2.1em * var(--pic))">${d}</div>`).join('')}
       </div>`,
       steps: [
         { de: 'Bilder gemeinsam anschauen und benennen lassen – das ist noch nicht die Geschichte.',

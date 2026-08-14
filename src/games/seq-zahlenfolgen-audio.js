@@ -120,29 +120,29 @@ const test = createSpanTest({
   // Während der Ansage zeigt der Bildschirm nichts – sonst wäre es kein Hörtest.
   renderShow: () => {
     const stumm = !settings.get('sound') || !audioReady() || !hasVoice(voiceLang());
-    return `<div style="font-size:4.4em;line-height:1.1">${stumm ? '🔇' : '👂'}</div>
+    return `<div style="font-size:calc(4.4em * var(--pic));line-height:1.1">${stumm ? '🔇' : '👂'}</div>
       ${stumm ? mutedHint() : ''}`;
   },
 
   renderSolution: (gd) => `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap">
     ${gd.sequence.map(n =>
-      `<div style="width:40px;height:40px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800">${n}</div>`
+      `<div style="width:calc(40px * var(--pic) / 2 + 20px);height:calc(40px * var(--pic) / 2 + 20px);border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800">${n}</div>`
     ).join('')}
   </div>`,
 
   renderAnswer: (gd, ctx) => `
     <div style="display:flex;gap:10px;min-height:52px;align-items:center;justify-content:center;margin:0 0 22px;flex-wrap:wrap">
       ${ctx.selected.map((n, i) =>
-        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:46px;height:46px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.25em;font-weight:800;cursor:pointer">${n}</div>`
+        `<div class="pick-target" onclick="G('remove',${i})" title="${removeHint()}" style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:calc(1.25em * var(--pic));font-weight:800;cursor:pointer">${n}</div>`
       ).join('')}
       ${Array(ctx.slotsLeft).fill(0).map(() =>
-        `<div style="width:46px;height:46px;border-radius:50%;border:2px dashed #D8D4EE"></div>`
+        `<div style="width:calc(46px * var(--pic) / 2 + 23px);height:calc(46px * var(--pic) / 2 + 23px);border-radius:50%;border:2px dashed #D8D4EE"></div>`
       ).join('')}
     </div>
 
     <div style="display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:380px;margin:0 auto">
       ${DIGITS.map(n =>
-        `<div class="pick-target" onclick="G('pick',${n})" style="width:56px;height:56px;border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:1.4em;font-weight:700;cursor:pointer">${n}</div>`
+        `<div class="pick-target" onclick="G('pick',${n})" style="width:calc(56px * var(--pic) / 2 + 28px);height:calc(56px * var(--pic) / 2 + 28px);border-radius:50%;background:${bg(n)};color:#fff;display:flex;align-items:center;justify-content:center;font-size:calc(1.4em * var(--pic));font-weight:700;cursor:pointer">${n}</div>`
       ).join('')}
     </div>`
 });

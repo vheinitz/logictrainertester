@@ -157,9 +157,9 @@ const game = createChoiceGame({
       prompt: `<div style="text-align:center">
         <p style="font-size:1.15em"><b>${pick(UI.frage)}</b></p>
         <div style="display:flex;gap:8px;justify-content:center;align-items:center;margin:20px 0;flex-wrap:wrap">
-          ${p.seq.map(s => `<div style="width:54px;height:54px;border-radius:var(--radius-sm);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.9em;font-weight:700">${s}</div>`).join('')}
-          <div style="font-size:1.5em;color:var(--text-light)">→</div>
-          <div style="width:54px;height:54px;border-radius:var(--radius-sm);border:2px dashed var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.9em">❓</div>
+          ${p.seq.map(s => `<div style="width:calc(54px * var(--pic) / 2 + 27px);height:calc(54px * var(--pic) / 2 + 27px);border-radius:var(--radius-sm);background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:calc(1.9em * var(--pic));font-weight:700">${s}</div>`).join('')}
+          <div style="font-size:calc(1.5em * var(--pic));color:var(--text-light)">→</div>
+          <div style="width:calc(54px * var(--pic) / 2 + 27px);height:calc(54px * var(--pic) / 2 + 27px);border-radius:var(--radius-sm);border:2px dashed var(--gold);display:flex;align-items:center;justify-content:center;font-size:calc(1.9em * var(--pic))">❓</div>
         </div>
       </div>`,
       options: choices.map(o => ({ html: o, label: o })),
