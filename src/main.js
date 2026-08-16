@@ -1,6 +1,7 @@
 import { engine } from './core/engine.js';
 import { setLanguage, t } from './i18n/i18n-core.js';
 import { anwenden as einstellungenAnwenden } from './core/settings.js';
+import { initZiehen } from './core/drag.js';
 
 /**
  * Die App öffnet mit der Einführung, nicht mit der Aufgabenliste.
@@ -20,6 +21,7 @@ const STARTSEITE = 'intro';
 
 document.addEventListener('DOMContentLoaded', () => {
   einstellungenAnwenden();
+  initZiehen();
   engine.view = STARTSEITE;
   engine.render();
 });

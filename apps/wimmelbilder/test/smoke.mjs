@@ -57,7 +57,7 @@ abschnitt('Datensätze aus data/');
 pruefe(Wimmelbild.alle().length === datendateien.length,
   datendateien.length + ' Datei(en), ' + Wimmelbild.alle().length + ' Sätze angemeldet');
 
-const dorf = Wimmelbild.alle()[0];
+const dorf = Wimmelbild.get('dorfplatz');
 pruefe(dorf.fragen.length > 0, dorf.fragen.length + ' Fragen in "' + dorf.id + '"');
 pruefe(dorf.fragen.every((f) => f.frage), 'jede Frage hat einen Text');
 pruefe(dorf.fragen.every((f) => Array.isArray(f.punkte)), 'jede Frage hat eine Punktliste');
@@ -73,6 +73,28 @@ pruefe(dorf.fragen.every((f) => f.ziel === undefined), 'kein Gegenstandsname meh
 const radius = Wimmelbild.radius(dorf, dorf.fragen[0]);
 pruefe(radius > 0 && radius < Math.min(dorf.bildGroesse.breite, dorf.bildGroesse.hoehe) / 2,
   'Trefferradius plausibel (' + Math.round(radius) + ' px)');
+
+const schule = Wimmelbild.get('schule');
+pruefe(!!schule, 'Schul-Satz ist angemeldet');
+pruefe(schule.bildGroesse.breite === 1152 && schule.bildGroesse.hoehe === 934,
+  'Schulbild hat dieselbe Größe wie der Dorfplatz');
+pruefe(schule.fragen.length === 50, '50 Fragen im Schul-Satz');
+pruefe(schule.fragen.every((f) => f.punkte.length > 0), 'jede Schul-Frage hat eine Stelle');
+pruefe(schule.fragen.some((f) => f.punkte.length > 1), 'Schul-Satz hat mehrfache Stellen');
+pruefe(schule.fragen.every((f) => f.punkte.every((p) =>
+  p.x >= 0 && p.x <= schule.koordinatenRaum.breite &&
+  p.y >= 0 && p.y <= schule.koordinatenRaum.hoehe)), 'alle Schul-Stellen liegen im Bild');
+
+const strand = Wimmelbild.get('strand');
+pruefe(!!strand, 'Strand-Satz ist angemeldet');
+pruefe(strand.bildGroesse.breite === 1152 && strand.bildGroesse.hoehe === 934,
+  'Strandbild hat dieselbe Größe wie der Dorfplatz');
+pruefe(strand.fragen.length === 50, '50 Fragen im Strand-Satz');
+pruefe(strand.fragen.every((f) => f.punkte.length > 0), 'jede Strand-Frage hat eine Stelle');
+pruefe(strand.fragen.some((f) => f.punkte.length > 1), 'Strand-Satz hat mehrfache Stellen');
+pruefe(strand.fragen.every((f) => f.punkte.every((p) =>
+  p.x >= 0 && p.x <= strand.koordinatenRaum.breite &&
+  p.y >= 0 && p.y <= strand.koordinatenRaum.hoehe)), 'alle Strand-Stellen liegen im Bild');
 
 /* --- Fragen aus Text lesen --------------------------------------------- */
 
@@ -251,6 +273,7 @@ abschnitt('Oberfläche: Auswahl und Spiel');
 window.App.startAufbauen();
 pruefe(dok.querySelectorAll('#satzliste .karte').length === Wimmelbild.alle().length,
   'für jeden Satz eine Karte');
+dok.querySelector('#satzliste .karte[data-id="dorfplatz"] .kartenflaeche').click();
 pruefe(dok.getElementById('warnung').hidden === false, 'Warnung bei ungesicherten Stellen');
 
 // Voreingestellt ist „nur Fragen mit gesetzter Stelle" – die Runde ist dann
@@ -272,7 +295,7 @@ pruefe(dok.getElementById('spiel-zaehler').textContent === '1 / 10', 'Zähler st
 const ersteFrage = dok.getElementById('spiel-frage').textContent;
 dok.getElementById('knopf-ueberspringen').click();
 pruefe(dok.getElementById('spiel-falsch').textContent === '1', 'Überspringen zählt hoch');
-await new Promise((r) => setTimeout(r, 1000));
+await new Promise((r) => setTimeout(r, 1800));
 pruefe(dok.getElementById('spiel-frage').textContent !== ersteFrage, 'nächste Frage erscheint');
 dok.getElementById('knopf-abbrechen').click();
 pruefe(dok.getElementById('start').hidden === false, 'Abbrechen führt zurück');

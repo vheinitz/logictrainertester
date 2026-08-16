@@ -841,6 +841,65 @@ der Smoke-Test liest sie dort nach.
 Ergebnisseiten navigieren dorthin, und ein Umbenennen aller Stellen brächte
 nichts als Gelegenheit für Fehler.
 
+### Aufnehmen, bewegen, ablegen
+
+*(Testbranch `ziehen-und-ablegen` — noch nicht auf `master`.)*
+
+Vier Module warten auf diese Bedienung: Dreiecke legen, Tangram,
+Bildergeschichte ordnen und Rover. Alle brauchen dasselbe — ein Stück
+greifen, woandershin bringen, wieder hinlegen. Das liegt deshalb einmal in
+`core/drag.js` und nicht viermal in den Modulen.
+
+**Zwei Wege zum selben Ziel.** *Antippen* — erst das Stück, dann den Platz —
+ist der verlässliche Weg: er funktioniert mit Maus, Finger und Tastatur, er
+verträgt zittrige Hände, und er geht nicht kaputt, wenn zwischendurch neu
+gezeichnet wird. Für ein Kind mit motorischen Schwierigkeiten ist er oft der
+einzig gangbare. *Ziehen* ist die Zugabe für alle, denen das zu umständlich
+ist. Beide enden in derselben Handlung, deshalb gibt es keine zweite Logik,
+die auseinanderlaufen könnte.
+
+Das Markup ist der ganze Vertrag:
+
+```html
+<div data-zieh="b3">🦋</div>          <!-- greifbar -->
+<div data-ablage="platz:2"></div>     <!-- nimmt auf -->
+```
+
+Das Modul bekommt genau eine Aktion: `verschiebe(gs, stueckId, zielId)`.
+
+**Warum das Aufheben nicht im Modul liegt.** „Was habe ich gerade in der
+Hand" ist ein Zustand der Bedienung, nicht des Spiels. Läge er im Modul,
+müsste ihn jedes Modul einzeln führen, und der Spielstand enthielte plötzlich
+Angaben darüber, wo ein Finger war.
+
+**Warum während des Ziehens nicht neu gezeichnet wird.** Aus demselben Grund,
+aus dem Countdowns den Spielbereich nicht neu bauen dürfen: ein
+ausgetauschtes Element verliert die Zeigerverfolgung, und die Bewegung reißt
+ab. Das Schattenbild hängt deshalb am Dokument, nicht im Spielbereich.
+
+Drei Kleinigkeiten, die Kindern das Leben leichter machen:
+
+* **Daneben getippt heißt nicht fallen lassen.** Wer das Stück in der Hand
+  hat und irgendwohin tippt, behält es. Sonst verliert man es durch eine
+  unbedachte Berührung.
+* **Dasselbe Stück nochmal antippen hebt nur die Auswahl auf** — es wird
+  nicht bewegt. Der Unterschied ist an der Anzahl der Stücke nicht zu sehen,
+  wohl aber an ihrer Reihenfolge; genau daran prüft der Test.
+* **Esc legt zurück.** Der Weg zurück muss ohne Zielsuche gehen.
+
+### Bildergeschichte ordnen, endlich umgesetzt
+
+Der Platzhalter hatte einen berechtigten Einwand: mit Emoji lässt sich keine
+*erzählte* Geschichte eindeutig ordnen. „Kind weint – Mutter kommt – Kind
+lacht" ließe sich ebenso gut umgekehrt lesen, und dann misst die Aufgabe, ob
+jemand dieselbe Geschichte im Kopf hat wie der Autor.
+
+Bei Abläufen, die in der Welt eine Richtung haben, gilt das nicht: eine Raupe
+wird zum Schmetterling und nicht umgekehrt, der Mond nimmt in einer Richtung
+zu, ein Kind wird älter. Genau solche Folgen stehen im Modul — die
+Reihenfolge ist dann keine Auslegung, sondern nachprüfbar, und die
+Begründung steht bei der Rückmeldung.
+
 ### Bilder sind die Aufgabe, nicht Schmuck
 
 Bei einem Bild-Wort-Test ist das Bild die Antwort; bei einer Merkspanne ist

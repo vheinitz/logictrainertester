@@ -143,7 +143,17 @@ nachdenklich bis begeistert. Darunter die Zeiten, das Bild mit allen Stellen und
 einer Linie von jedem Fehlklick zur nächstgelegenen richtigen Stelle, und die
 Liste aller Fragen mit Haken oder Kreuz.
 
-## Zustand des mitgelieferten Bildes
+## Zustand der mitgelieferten Bilder
+
+Beim **Schulhof** sind alle 50 Fragen mit Stellen versehen. Mehrfache Stellen
+haben die Dinge, die es mehrfach gibt (Drachen, Regenmantel, Fußball, Fahrrad,
+Pilz, Frosch, Springseil, Brille) und die großen (Schulbus, Rutsche, Brunnen).
+
+Beim **Strand** sind alle 50 Fragen mit Stellen versehen. Die Gegenstände sind
+absichtlich einfach gezeichnet (Ball, Eimer, Seestern, Ente, Anker), damit jedes
+Ding klar zu erkennen ist. Mehrfache Stellen haben Palme, Möwe, Drachen, Ball,
+Seestern, Orange, Banane, Schmetterling, Pilz, Flip-Flops, Schirm, Katze, Frosch,
+Schlüssel und Kompass, dazu Leuchtturm und Sandburg.
 
 Beim **Dorfplatz** sind 7 der 50 Fragen mit Stellen versehen – die Dinge, die
 sich im Bild zweifelsfrei wiederfinden lassen. Drei davon zeigen die mehrfachen
@@ -205,7 +215,7 @@ Eintragen in `index.html`.
 node test/smoke.mjs
 ```
 
-110 Prüfungen: Datensätze, das Lesen von Frageliste und JSON (auch mehrere
+122 Prüfungen: Datensätze, das Lesen von Frageliste und JSON (auch mehrere
 Stellen je Frage und zweispaltige Tabellen), Anlegen, Speichern, Verwerfen, alle
 drei Exportwege samt Wiedereinlesen, eine Runde mit Treffer auf der ersten wie
 der zweiten Stelle, Fehlklick, Auslassung und dem Rand des Trefferradius, und

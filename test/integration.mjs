@@ -107,6 +107,7 @@ const verlaufTest = [];
 const sudokuTest = [];
 const planTest = [];
 const navTest = [];
+const ziehTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -707,6 +708,95 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
   S.reset();
 }
 
+// ─── Aufnehmen, bewegen, ablegen ──────────────────────────────────────
+// Vier Module warten auf diese Bedienung. Sie hat zwei Wege zum selben Ziel:
+// Antippen (verlässlich, auch mit zittriger Hand) und Ziehen (bequemer).
+// Beide enden in derselben Handlung – geprüft wird, dass beide ankommen.
+{
+  const S = window.LOGIK_SETTINGS;
+  S.set('rounds', 9); S.set('feedbackOk', 0.3); S.set('feedbackWrong', 0.3);
+  window.startModule('plan-geschichten');
+  await sleep(150);
+  window._startGame();
+  await sleep(400);
+
+  const area = () => window.document.getElementById('gameArea');
+  const klick = el => el && el.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+  const gd = () => window.LOGIK_ENGINE.gameState.gd;
+
+  check(!!gd().loesung && gd().loesung.length >= 3,
+        'Die Reihenfolge-Aufgabe erzeugt keine Bildfolge');
+  const anzahl = gd().loesung.length;
+
+  // Antippen: erst das Bild, dann der Platz
+  klick(area().querySelector('[data-zieh]'));
+  await sleep(120);
+  klick(area().querySelector('[data-ablage^="platz:"]'));
+  await sleep(150);
+  check(gd().plaetze.filter(Boolean).length === 1,
+        'Antippen von Bild und Platz legt das Bild nicht ab');
+  check(gd().vorrat.length === anzahl - 1,
+        'Das abgelegte Bild verschwindet nicht aus dem Vorrat');
+
+  // Zurückstellen in den Vorrat
+  klick(area().querySelector('[data-zieh]'));
+  await sleep(100);
+  klick(area().querySelector('[data-ablage="vorrat"]'));
+  await sleep(150);
+  check(gd().plaetze.filter(Boolean).length === 0 && gd().vorrat.length === anzahl,
+        'Ein abgelegtes Bild lässt sich nicht zurückstellen');
+
+  // Zweimal dasselbe Bild antippen hebt nur die Auswahl auf. Das ist etwas
+  // anderes als „in den Vorrat legen": ein Zug würde das Bild ans Ende der
+  // Reihe schieben. An der Anzahl allein wäre der Unterschied nicht zu sehen –
+  // deshalb wird die Reihenfolge verglichen.
+  const vorher = gd().vorrat.join(',');
+  const kid = gd().vorrat[0];
+  klick(area().querySelector(`[data-zieh="${kid}"]`));
+  await sleep(100);
+  klick(area().querySelector(`[data-zieh="${kid}"]`));
+  await sleep(150);
+  check(gd().vorrat.join(',') === vorher,
+        `Zweimal Antippen verschiebt das Bild statt nur die Auswahl aufzuheben: ` +
+        `${vorher} → ${gd().vorrat.join(',')}`);
+
+  // Ziehen: Schattenbild folgt dem Zeiger und landet auf dem Ziel
+  if (typeof window.PointerEvent === 'function') {
+    const q = area().querySelector('[data-zieh]');
+    q.dispatchEvent(new window.PointerEvent('pointerdown', { bubbles: true, clientX: 10, clientY: 10 }));
+    window.document.dispatchEvent(new window.PointerEvent('pointermove', { bubbles: true, clientX: 90, clientY: 70 }));
+    await sleep(60);
+    check(!!window.document.querySelector('[data-schatten]'),
+          'Beim Ziehen erscheint kein Schattenbild');
+    // jsdom kennt elementFromPoint nicht – das Ziel wird hier vorgegeben
+    window.document.elementFromPoint = () => area().querySelector('[data-ablage^="platz:"]');
+    window.document.dispatchEvent(new window.PointerEvent('pointerup', { bubbles: true, clientX: 90, clientY: 70 }));
+    await sleep(200);
+    check(gd().plaetze.filter(Boolean).length === 1, 'Ziehen legt das Bild nicht ab');
+    check(!window.document.querySelector('[data-schatten]'),
+          'Das Schattenbild bleibt nach dem Ablegen liegen');
+    delete window.document.elementFromPoint;
+  }
+
+  // Richtig legen wird als gelöst erkannt
+  window.G('restart');
+  await sleep(300);
+  const soll = gd().loesung.map(x => x.id);
+  for (let i = 0; i < soll.length; i++) {
+    klick(area().querySelector(`[data-zieh="${soll[i]}"]`));
+    await sleep(60);
+    klick(area().querySelector(`[data-ablage="platz:${i}"]`));
+    await sleep(80);
+  }
+  await sleep(250);
+  check(gd().geloest === true, 'Die richtige Reihenfolge wird nicht als gelöst erkannt');
+
+  ziehTest.push(`Antippen, Zurückstellen und Ziehen führen zum selben Zug (${anzahl} Bilder)`);
+  window.navigateTo('menu');
+  await sleep(200);
+  S.reset();
+}
+
 // ─── Kopfnavigation ───────────────────────────────────────────────────
 // Neun Seiten brauchen eine Leiste. Vorher lagen sie als Knopfreihe auf der
 // Startseite: wer in der Statistik war, musste erst zurück, um in die
@@ -1146,6 +1236,7 @@ verlaufTest.forEach(x => console.log(`   Verlauf: ${x}`));
 sudokuTest.forEach(x => console.log(`   Sudoku: ${x}`));
 planTest.forEach(x => console.log(`   Plan: ${x}`));
 navTest.forEach(x => console.log(`   Navigation: ${x}`));
+ziehTest.forEach(x => console.log(`   Ziehen: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────
