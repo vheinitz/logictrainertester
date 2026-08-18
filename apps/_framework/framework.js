@@ -19,6 +19,7 @@
  */
 
 const GLOBAL_SETTINGS = {
+  sprache:     { def: 'de', kind: 'select', options: ['de', 'ru', 'en'], label: { de: 'Sprache', ru: 'Язык', en: 'Language' } },
   bildGroesse: { def: 1, min: 0.75, max: 2, step: 0.25, label: { de: 'Bildgröße', ru: 'Размер', en: 'Size' } },
   ton:         { def: 1, min: 0, max: 1, step: 1, bool: true, label: { de: 'Ton', ru: 'Звук', en: 'Sound' } },
 };
@@ -37,7 +38,6 @@ function pick(obj, fallback = '') {
   const l = localStorage.getItem('miniapp-lang') || 'de';
   return obj[l] || obj.de || fallback;
 }
-
 /** Einfache SVG-Bausteine (Sprites). */
 export const svg = {
   el(tag, attrs = {}, inner = '') {
@@ -96,6 +96,8 @@ export class MiniApp {
     const local = load(appKey, {});
     if (key in this.cfg.settingsSchema) { local[key] = val; save(appKey, local); }
     else { const g = load('miniapp-global-settings', {}); g[key] = val; save('miniapp-global-settings', g); }
+    // Sprache an pick() durchreichen, damit alle Texte sofort umschalten.
+    if (key === 'sprache') localStorage.setItem('miniapp-lang', val);
     this._render();
     if (typeof this.cfg.onSettingsChange === 'function') this.cfg.onSettingsChange(this);
   }
@@ -104,7 +106,7 @@ export class MiniApp {
   mount(root) {
     this.root = root;
     root.classList.add('miniapp');
-    this.state = {};
+    this.state = { _startZeit: Date.now() };
     this.cfg.init(this.state, this);
     this._render();
   }
@@ -116,8 +118,15 @@ export class MiniApp {
 
   /** Zustand neu aufbauen (Neustart). */
   reset() {
+    this.state._startZeit = Date.now();
     this.cfg.init(this.state, this);
     this.rerender();
+  }
+
+  /** Vergangene Sekunden seit Start/Neustart – für die Ergebnis-Auswertung. */
+  elapsedSek() {
+    const s = this.state?._startZeit;
+    return s ? Math.round((Date.now() - s) / 100) / 10 : 0;
   }
 
   // ─── Rendering ─────────────────────────────────────────────────────
@@ -142,6 +151,18 @@ export class MiniApp {
     // Knöpfe verdrahten
     r.querySelectorAll('[data-ma]').forEach(b => {
       b.onclick = () => this._toggle(b.dataset.ma);
+    });
+    // Einstellungs-Eingaben verdrahten (Slider, Checkbox, Select)
+    r.querySelectorAll('[data-set]').forEach(inp => {
+      const key = inp.dataset.set;
+      const s = this._schema[key];
+      const onChange = () => {
+        if (inp.type === 'checkbox') this.set(key, inp.checked ? 1 : 0);
+        else if (inp.tagName === 'SELECT') this.set(key, inp.value);
+        else this.set(key, Number(inp.value));
+      };
+      inp.addEventListener('change', onChange);
+      if (inp.type === 'range') inp.addEventListener('input', onChange);
     });
     // Zeiger für Canvas
     const canvas = r.querySelector('.ma-canvas');
@@ -176,6 +197,12 @@ export class MiniApp {
       if (s.bool) {
         return `<label class="ma-zeile"><span>${pick(s.label)}</span>
           <input type="checkbox" ${v ? 'checked' : ''} data-set="${k}"></label>`;
+      }
+      if (s.kind === 'select') {
+        const opts = (s.options || []).map(o =>
+          `<option value="${o}" ${v === o ? 'selected' : ''}>${o}</option>`).join('');
+        return `<label class="ma-zeile"><span>${pick(s.label)}</span>
+          <select data-set="${k}">${opts}</select></label>`;
       }
       const stufe = s.step < 1 ? ` step="${s.step}"` : '';
       return `<label class="ma-zeile"><span>${pick(s.label)}</span>
@@ -256,9 +283,10 @@ export class MiniApp {
     const art = t.auswertung || 'punkte';
     let text = '';
     if (r.fertig) {
-      const wert = art === 'zuege'
-        ? `${s.zuege ?? 0} Züge${r.optimal ? ` (optimal ${r.optimal})` : ''}`
-        : `${s.score ?? 0}/${s.total ?? 0}`;
+      const wert = r.wert !== undefined ? r.wert
+        : art === 'zuege'
+          ? `${s.zuege ?? 0} Züge${r.optimal ? ` (optimal ${r.optimal})` : ''}`
+          : `${s.score ?? 0}/${s.total ?? 0}`;
       text = `<div class="ma-result ma-fertig">🏁 ${pick(r.text) || 'Geschafft!'} — ${wert}</div>`;
     } else if (r.text) {
       text = `<div class="ma-result">${pick(r.text)}</div>`;

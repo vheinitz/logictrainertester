@@ -37,12 +37,15 @@ const app = new MiniApp({
   },
   settingsSchema: {
     scheiben: {
-      def: 3, min: 3, max: 6, step: 1,
+      def: 3, min: 3, max: 5, step: 1,
       label: { de: 'Scheiben', ru: 'Диски', en: 'Disks' },
       hint: { de: 'Mehr Scheiben = mehr Vorausplanung.', ru: 'Больше дисков — больше планирования.', en: 'More disks mean more planning.' }
     }
   },
   auswertung: 'zuege',
+
+  // Einstellung sofort wirken lassen (sonst „ohne Wirkung“).
+  onSettingsChange(app) { app.reset(); },
 
   init(state, app) {
     state.scheiben = app.get('scheiben');
@@ -56,11 +59,15 @@ const app = new MiniApp({
   render(state, app) {
     const stangen = PEG_X.map((x, i) => {
       const gewaehlt = state.gewaehlt === i;
-      const stab = svg.rect(x - 4, BASE_Y - PEG_H, 8, PEG_H, '#9b96d4',
-        { rx: 4, stroke: gewaehlt ? '#5b4fcf' : 'none', 'stroke-width': 3 });
+      const stab = svg.rect(x - 12, BASE_Y - PEG_H, 24, PEG_H, '#9b96d4',
+        { rx: 6, stroke: gewaehlt ? '#5b4fcf' : 'none', 'stroke-width': 3 });
       const fuss = svg.rect(x - 40, BASE_Y, 80, 10, '#7b76b4', { rx: 4 });
       return svg.group(stab + fuss);
     }).join('');
+
+    // Schrittanzeige in großer Schrift
+    const schritte = svg.text(24, 38, `Züge: ${state.zuege}`,
+      { 'font-size': 30, 'font-weight': 'bold', fill: '#5b4fcf' });
 
     const scheiben = state.pegs.flatMap((peg, p) =>
       peg.map((size, k) => {
@@ -73,7 +80,7 @@ const app = new MiniApp({
     ).join('');
 
     return `<svg viewBox="0 0 ${VIEW_W} ${VIEW_H}" xmlns="http://www.w3.org/2000/svg">
-      ${stangen}${scheiben}
+      ${schritte}${stangen}${scheiben}
     </svg>`;
   },
 
@@ -143,14 +150,15 @@ const app = new MiniApp({
     }
   },
 
-  evaluate(state) {
+  evaluate(state, app) {
     if (state.fertig) {
       const o = optimal(state.scheiben);
+      const sek = app ? app.elapsedSek() : 0;
       return {
         fertig: true,
         optimal: o,
         text: { de: 'Alle Scheiben sind drüben!', ru: 'Все диски перенесены!', en: 'All disks moved!' },
-        wert: `${state.zuege} Züge (optimal ${o})`,
+        wert: `${state.zuege} Züge in ${sek} s (optimal ${o})`,
       };
     }
     return { text: { de: `${state.zuege} Züge`, ru: `${state.zuege} ходов`, en: `${state.zuege} moves` } };

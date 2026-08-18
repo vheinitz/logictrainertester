@@ -53,11 +53,21 @@ check(JSON.stringify(s.pegs) === JSON.stringify([[3],[2,1],[]]),
   'Regelverstoß nicht blockiert: ' + JSON.stringify(s.pegs));
 check(s.zuege === 3, `Züge nach Verstoß=${s.zuege}, erwartet 3`);
 
-// Einstellung ändern und Neustart
+// Einstellung ändern und Neustart (max jetzt 5)
 app.set('scheiben', 5);
 app.reset();
 check(app.state.scheiben === 5, 'Scheiben-Einstellung wirkt nicht');
 check(app.state.pegs[0].length === 5, 'Neustart mit 5 Scheiben falsch');
+
+// Sprache umschalten (de → ru) und prüfen, dass pick() mitzieht
+app.set('sprache', 'ru');
+check(localStorage.getItem('miniapp-lang') === 'ru', 'Sprache nicht gespeichert');
+const titelRu = app.root.querySelector('h1').textContent;
+check(/Ханойская/.test(titelRu), 'Titel nicht auf RU umgeschaltet: ' + titelRu);
+app.set('sprache', 'de');
+
+// Zeitmessung
+check(typeof app.elapsedSek() === 'number' && app.elapsedSek() >= 0, 'elapsedSek() fehlt');
 
 // svg-Helfer
 const r = svg.rect(0, 0, 10, 10, '#f00');
