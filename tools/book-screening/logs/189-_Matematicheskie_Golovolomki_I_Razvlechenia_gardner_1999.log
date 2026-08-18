@@ -1,0 +1,18 @@
+Fertig. Ich habe das Buch gescreent und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/189-_Matematicheskie_Golovolomki_I_Razvlechenia_gardner_1999.html`**
+
+Vorgehen im Überblick:
+- Inhaltsverzeichnis (S. 445–446) gelesen und die 46 Kapitel identifiziert.
+- Gezielt die aufgaben-/spielhaltigen Kapitel gelesen: Neun-Aufgaben-Kapitel (3, 11), Tic-Tac-Toe (4), Hanoi/Ikosaeder (6), Hex (8), Polyomino (12), Nim (14), Rechts/Links (15), Soma-Würfel (21), Labyrinthe (25), Logik (26), Magische Quadrate (27), Eleusis + Figurenspiel (30), Origami (31), Papierschneiden (38).
+
+Ergebnis: **15 Tabellenzeilen** mit konkreten Stellen, jeweils mit Relevanz (★), App-Bezug (Modul/Faktor), Seitenangabe und 8–12 eigenen deutschen Sätzen zur Umsetzung als Test, Übung oder Spiel.
+
+Besonders starke Treffer (★★★★★):
+- Turm von Hanoi (Planung/Gf, exekutive Funktionen)
+- Polyomino/Pentaformen (Tangram, Bausteine zählen)
+- Soma-Würfel (Bausteine zählen, räumliches Denken)
+- Eleusis-Regelspiel (Lernen/Glr, Induktion)
+- Figuren-Klötzchen mit 4 Merkmalen („Was passt nicht?“, Oberbegriffe)
+
+Keine weiteren Dateien wurden angelegt oder verändert – nur die eine HTML-Datei mit minimalem Markup (kein CSS/JS).

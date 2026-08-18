@@ -1,0 +1,15 @@
+Fertig. Die Datei wurde erstellt: `tools/book-referenzen/Khalskiy_Konstruktor_samodelka.html`
+
+**Was ich gemacht habe:**
+- Buch vollständig gelesen (alle 65 extrahierten Seiten). Es ist ein sowjetisches Kinderbuch von 1935 (S. D. Chalski) über den Selbstbau eines genormten Holzbaukastens und das Zusammensetzen zahlreicher, teils beweglicher Modelle.
+- 13 nutzbare Stellen identifiziert und in die Tabelle aufgenommen, je mit Relevanz-Sternen, App-Bezug, Seitenangabe und 8–9 eigenen Umsetzungssätzen.
+
+**Kernideen, die ich ins App-Format übersetzt habe:**
+- Genormtes Teilraster (40-mm-Raster, Längen als Vielfache) → digitales Steckraster für „Dreiecke legen"/„Tangram"/„Bausteine zählen"
+- Mittelpunktbestimmung über Diagonalen (Bohren) → räumliche Geometrie-/Feinmotorik-Übung
+- Teile-Markierung mit Zahlen auf Zeichnungen → Suchbild/Zuordnungsspiel (2D-Symbol → 3D-Teil)
+- Richtig/falsch-Radmontage (Abb. 46/47) → „Was passt nicht?"-Fehlersuche
+- Vom Einfachen zum Schweren, Auf-/Abbau-Reihenfolge → Planung, adaptive Stufen, „Bildergeschichte ordnen"
+- Tier-/Menschensilhouetten, bewegliche Turner, Spielzeug-/Maschinen-/Hebemechanismen → Gestaltschließen, Ursache-Wirkung, Sachwissen
+
+Keine weiteren Dateien wurden angelegt oder geändert. Das Kapitel „Wehrspielzeug" (S. 45–46) habe ich bewusst ausgelassen, da es für eine Kinder-Trainings-App nicht passend ist.

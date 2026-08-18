@@ -1,0 +1,17 @@
+Ich habe das Buch gescreent und die HTML-Datei erstellt.
+
+**Buch:** *Рассказы о решении задач* (I. J. Depman, 1964) – 23 Erzählungen mit klassischen Denkaufgaben aus Arithmetik, Geometrie und Algebra für die Mittelstufe.
+
+**Vorgehen:** Inhaltsverzeichnis und alle 23 Erzählungs-Anfänge gelesen, dann die Kapitel mit den besten Aufgaben im Detail (Logikrätsel, Punkt-Anordnungen, Kreuzwort-Rätsel, Arbeitsrichtungs-Aufgaben, Tolstoi-Aufgaben, Figurenteilung, Überfahrten, „Schau!"-Aufgaben, Magnitzki).
+
+**Ergebnis:** 15 nutzbare Stellen, verteilt über alle fünf Skalen:
+
+| Skala | Stellen |
+|---|---|
+| Planung/Gf | 6 (Mützen-Logik, Ausschlussrätsel, Knoten-Trick, Rückwärts-Aufgaben, Mäher, Apfel-Falle) |
+| Simultan/Gv | 5 (Punkt-Anordnungen, Figurenteilung, Überfahrten, Billard, räumliche Planung) |
+| Sequentiell/Gsm | 2 (Gauß-Trick, Magnitzki-Muster) |
+| Lernen/Glr | 1 (Buchstaben-Ziffern-Code) |
+| Wissen/Gc | 2 (Tolstoi-Fallen, Diophant/Vogel-Gedicht) |
+
+Die HTML-Datei liegt unter `tools/book-referenzen/Rasskazy_O_Reshenii_Zadach_by_Depman_I_ya.html` – mit Titel, einem Einleitungssatz und der Tabelle (Relevanz als Sterne, App-Punkt, Seitenangabe, 8–12 Sätze eigene Umsetzungsbeschreibung pro Stelle, auf Deutsch, ohne CSS/JS).

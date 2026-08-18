@@ -1,0 +1,19 @@
+Fertig. Ich habe die Datei `tools/book-referenzen/Znachimye_Figury_Zhizn_I_Otkrytia_Velikikh_Matematikov_2017_Styuart.html` erstellt.
+
+**Vorgehen:**
+- Inhaltsverzeichnis (S. 5–6) gelesen, um die 25 Kapitel und ihre Seitenzahlen zu identifizieren.
+- Gezielt die Kapitel mit konkretem Übungs-/Rätselpotenzial gelesen: Archimedes, al-Chwarizmi, Euler, Gauß, Galois, Boole, Cantor, Turing, Mandelbrot, Ramanujan.
+- Per Stichwortsuche die exakten Fundstellen (Seite = Dateinummer) verifiziert.
+
+**Ergebnis:** 15 Tabellenzeilen mit klarer Zuordnung zu den App-Modulen und kognitiven Faktoren. Die stärksten Treffer:
+
+- **Gauß' Paarungstrick (1+2+…+100)** → Zahlenfolgen (Gsm), ★★★★★
+- **Eulers 36-Offiziere / lateinische Quadrate** → direkte Vorlage für Bilder-Sudoku, ★★★★★
+- **Königsberger Brückenproblem** → Wegeplanung / Rover im Labyrinth, ★★★★★
+- **Booles UND/ODER/NICHT-Verknüpfungen** → „Was passt nicht?" / Oberbegriffe, ★★★★★
+- **Turings Maschine mit Regeltabelle** → Zaubertrick nachmachen / algorithmisches Denken, ★★★★★
+- **Sierpinski/Koch-Fraktale** → Muster fortsetzen / Gestaltschließen, ★★★★★
+
+Dazu neun weitere passende Stellen (Syllogismen, Selbstbezug-Paradox, Symmetrien, 17-Eck, platonische Körper, modulare Arithmetik, Rinderproblem, Sieb des Eratosthenes, Cantors Eins-zu-eins-Zuordnung).
+
+Jede Zeile enthält 8–12 eigene deutsche Sätze mit konkreter Spielmechanik, Schwierigkeitsstufen, Rückmeldung und Alltagsförderung – kein wörtlicher Text aus dem Buch. Keine weiteren Dateien wurden angelegt oder geändert.

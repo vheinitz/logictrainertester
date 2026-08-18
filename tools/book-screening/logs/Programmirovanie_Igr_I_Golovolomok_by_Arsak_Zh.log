@@ -1,0 +1,19 @@
+Fertig. Ich habe das Buch gescreent und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/Programmirovanie_Igr_I_Golovolomok_by_Arsak_Zh.html`**
+
+Das Buch ist Jacques Arsacs „Программирование игр и головоломок" (1990) — eine Sammlung von Zahlen-, Deduktions-, Strategie- und Legespielen mit Aufgaben, Hilfen und Lösungen (Teil I: Aufgaben S. 9–101, Teil II: Hilfen, Teil III: Lösungen).
+
+**15 nutzbare Stellen** gefunden und in Tabellenzeilen überführt, verteilt über alle Skalen der App:
+
+| Skala/Bereich | Stellen |
+|---|---|
+| Planung/Gf | Türme von Hanoi, Nim/Streichholzspiele, Froschspiel, Peg-Solitaire, Vier gewinnt, Fuchs & Hühner, Acht-Damen, Ziffern-Maschinen 153/6174 |
+| Simultan/Gv | Pentomino (Tangram/Dreiecke legen), Weißes Rechteck (Suchbild) |
+| Sequentiell/Gsm | Zahlenfolgen (Hamming/Glückszahlen/Teufelsfolge) |
+| Lernen/Glr + Deduktion | Mastermind („Гениальный ответчик") |
+| Wissen/Gc | Verschlüsselte Rechenoperationen, Zahlenspiel Armand Jamot, Anagramm/Palindrom |
+
+Jede Zeile enthält Relevanz (1–5 Sterne), den App-Bezug, die exakte Stelle (Seite + Kapitel/Spielnummer) und 8–12 eigene deutsche Sätze zur konkreten Umsetzung als Test, Übung oder Spiel — inklusive Altersstufung, Hilfefunktionen und didaktischer Anpassung, ohne wörtliche Übernahmen.
+
+Keine weiteren Dateien wurden angelegt oder verändert.

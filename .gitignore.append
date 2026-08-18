@@ -1,0 +1,4 @@
+tools/ideen-app/ideen.db
+tools/ideen-app/__pycache__/
+tools/book-search/work/
+tools/book-search/__pycache__/

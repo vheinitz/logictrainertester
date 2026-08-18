@@ -1,0 +1,23 @@
+Ich habe das Buch gescreent und die HTML-Referenzdatei erstellt.
+
+**Ergebnis:** `tools/book-referenzen/sdelat_schastlivymi_nashikh_detey_nachal_naya_shkola_6_10_le.html`
+
+**Zum Buch:** Es ist ein russischer Elternratgeber („Сделать счастливыми наших детей. Начальная школа. 6–10 лет“, Clever, 2011, 240 S.) aus Psychologen-Artikeln des Magazins PSYCHOLOGIES. Es enthält keine klassischen Aufgabenbücher, sondern Erziehungs-/Entwicklungsratschläge – aus denen ich konkrete Übungs-, Test- und Spielideen für die App abgeleitet habe.
+
+**Vorgehen:**
+1. Inhaltsverzeichnis lokalisiert (Dateien 0238/0239) und die Kapitelstruktur extrahiert.
+2. Gezielt die relevanten Kapitel gelesen: „Научить ребенка прилагать усилия“, „Помочь ему раскрыть свой внутренний мир“, „Развить самостоятельность“, „Помочь ребенку учиться“, „Делать уроки без стресса“, „Пробудить желание узнавать новое“, „Найти дистанцию с экраном“, „Первые деньги“, „О чем говорят их мечты“.
+3. 15 passende Stellen identifiziert und je mit Seite + Abschnitt + Kapitelname belegt.
+
+**15 gefundene Stellen**, u. a.:
+- Tages-/Aufgabenplanung (S. 87) → Planung/Gf
+- „30 Minuten + Pausen“-Rhythmus (S. 91) → Aufmerksamkeit/Trainingsdesign
+- Leitfragen statt Lösungen (S. 95) → Metakognition/Zaubertrick
+- Alltagstransfer Mathe→Rezept, Wörter→Wörterbuch (S. 97) → Förderung
+- Körperwahrnehmung/Sinne (S. 29–31) → Motorik/Achtsamkeit
+- Auge-Hand-/Ohr-Bewegungs-Koordination (S. 180–181) → Motorik/auditive Wahrnehmung
+- Fantasie vs. Realität (S. 185, 211–212) → Gv / kritisches Sehen
+- Taschengeld als Budget-/Impulskontrolltraining (S. 194–195) → Planung/Gf
+- Oberbegriffe/Kategorisieren (S. 193) → Wissen/Gc
+
+Jede Zeile enthält eine 8–12-sätzige, eigene Beschreibung, wie sich die Stelle als Test, Übung oder Spiel umsetzen lässt. Kein CSS, kein JavaScript, keine weiteren Dateien geändert.

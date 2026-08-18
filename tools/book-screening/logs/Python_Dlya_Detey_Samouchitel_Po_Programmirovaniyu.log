@@ -1,0 +1,18 @@
+Fertig. Ich habe die Datei erstellt:
+
+**`tools/book-referenzen/Python_Dlya_Detey_Samouchitel_Po_Programmirovaniyu.html`**
+
+Vorgehen:
+- Inhaltsverzeichnis (S. 5–7) gelesen und daraus die Kapitel mit Übungs-/Spielwert identifiziert.
+- Gezielt die Übungsseiten aller relevanten Kapitel sowie die Kernabschnitte (Schildkröten-Grafik, Gradkreis, Stern/​Auto zeichnen, Listen, if/else, Zufallszahlen, Zeitmessung, Kollisionsprüfung, Spielplan, Animation) gelesen.
+- 15 passende Stellen in eine Tabelle überführt.
+
+Highlights der Ausbeute:
+- **S. 51–53** (Schildkröte steuern) → Rover im Labyrinth / räumliches Denken
+- **S. 109** (Giraffentanz) → Handbewegungen / Rhythmus-Klopfer
+- **S. 149–150** (Auto zeichnen) → Zaubertrick nachmachen
+- **S. 128** (verschlüsselte Botschaft) → selektive Aufmerksamkeit / Rätsel
+- **S. 133–134** (Zahlenraten) → Rätsel / logisches Schlussfolgern
+- plus 10 weitere Stellen (Zahlenfolgen, Koffer packen, Muster fortsetzen, Kollisionsprüfung, Planungsübungen …)
+
+Jede Zeile enthält Relevanz (★), App-Bezug, Buchstelle (Seite + Abschnitt) und eine eigene deutsche Umsetzungsbeschreibung (8–12 Sätze). Keine weiteren Dateien wurden angefasst, kein CSS/JS verwendet.

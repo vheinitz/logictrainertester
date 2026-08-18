@@ -1,0 +1,13 @@
+Fertig. Ich habe das Buch (168 Seiten) gescreent: zuerst Titel/Impressum und Inhaltsverzeichnis gelesen, dann gezielt die Kapitel mit Aufgaben/Übungen (Mengen, Ungleichungen/Gleichungen, Kapitel-Übungen, Geometrie, Falten, Fadenfiguren, Waage-/Knobelaufgaben).
+
+Ergebnis: **15 nutzbare Stellen** in
+`tools/book-referenzen/Markushevich_Makarychev_--_Matematika_v_nachalnykh_klassakh_II_1970.html`
+
+Die stärksten Funde (★5) und ihre App-Anbindung:
+- **S. 49 – Umkehraufgaben** (gedachte Zahl rückwärts rechnen) → Gf „Planung", exekutive Funktionen
+- **S. 51–52 – Zahlenketten & Zellensummen** → Gf „Muster fortsetzen" / Gsm „Zahlenfolgen"
+- **S. 100 – Figuren in einem Zug zeichnen** (Faden/Euler-Wege) → Gf „Planung", Feinmotorik
+- **S. 106 – Waage- & Kannenaufgaben** → Gf „Planung", logisches Schlussfolgern
+- **S. 158–160 – Streichholz- & Zahnradrätsel** → Gf „Planung", räumliches/kausales Denken
+
+Dazu u. a. Anagramme, Zahlenmengen, magische Quadrate, Spiegelsymmetrie, Papierfalten, Würfelbauwerke (direkt für „Bausteine zählen") und Tangram-Figuren — jede Zeile mit 8–12 eigenen Umsetzungssätzen. Keine weiteren Dateien wurden angelegt oder geändert.

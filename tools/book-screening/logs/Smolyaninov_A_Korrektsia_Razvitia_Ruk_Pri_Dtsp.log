@@ -1,0 +1,19 @@
+Fertig. Ich habe das gesamte Buch (32 Seiten, russischsprachiger Elternratgeber zur Neurokinesitherapie bei Zerebralparese) gelesen und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/Smolyaninov_A_Korrektsia_Razvitia_Ruk_Pri_Dtsp.html`**
+
+13 nutzbare Stellen, jeweils mit Relevanz (★), Zuordnung zu App-Modul/Faktor/Förderung, Seitenangabe und 8–12 eigenen Umsetzungssätzen. Die wichtigsten Funde:
+
+| Kernidee aus dem Buch | Umsetzung in der App |
+|---|---|
+| Daumen-Opposition (S. 5–6) | Feinmotorik-Spiel „Daumen tippt Fingerreihenfolge" |
+| Handgelenk-Stabilisierung vor dem Greifen (S. 6–7) | Achtsamkeits-/Greifstations-Spiel |
+| Sprechatmung, Ausatmen verlängern (S. 14–15) | Atem-/Sprachspiel mit animiertem Ballon |
+| Körperwahrnehmung durch Stütz (S. 15–16) | „Körperlandkarte"/Körper-Bingo |
+| Wiederholungsprinzip „Trampelpfad" (S. 17) | Streak-/Tagesziel-Trainingslogik |
+| Begrüßungstest (S. 18) | Beobachtungs-Checkliste mit Ampel (kein Diagnose-Tool) |
+| Große vor kleinen Gegenständen (S. 18) | gestufte Sortieraufgaben |
+| Übungen „Körbchen", „Rahmen", „Soldat" (Kap. 4) | bebilderte Bewegungs-/Kräftigungsspiele |
+| Daumen-/Finger-Routinen (S. 30) | „Handpflege-Roboter"-Warm-up mit Timer |
+
+Hinweis: Das Buch richtet sich an Kinder mit Zerebralparese; die Übungen habe ich konsequent auf die App-Zielgruppe (kognitives Training, Faktor Motorik, kein Diagnose-Tool) übersetzt und die Beschreibungen in eigenen Worten formuliert. Es wurden keine weiteren Dateien angelegt oder verändert.

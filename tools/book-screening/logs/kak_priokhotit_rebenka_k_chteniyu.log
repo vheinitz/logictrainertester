@@ -1,0 +1,25 @@
+Fertig. Ich habe das Buch vollständig gescreent und die Auswertung in genau eine Datei geschrieben:
+
+**`tools/book-referenzen/kak_priokhotit_rebenka_k_chteniyu.html`**
+
+Vorgehen:
+1. Buch identifiziert: „Как приохотить ребенка к чтению" (Andrej Kaschkarow, 2014) — Elternratgeber zum Lesenlernen, 55 extrahierte Seiten.
+2. Kapitelstruktur über `grep` erfasst (4 Kapitel: 0–3 Jahre, Vorschule, Grundschule, Pubertät) und alle relevanten Seiten gezielt gelesen.
+3. 15 konkrete Stellen herausgearbeitet, die echte Übungs-/Spielideen liefern.
+
+Highlights der Übertragung auf den LOGIK-Trainer:
+
+| Buchstelle | App-Umsetzung |
+|---|---|
+| Wortketten-Spiel (S. 12) | Modul **Wörter-Kette** (Sequentiell/Gsm) |
+| Kaktus-Rätsel, Assoziationskette (S. 11–12) | Modul **Rätsel** + Schlussfolgern |
+| Karten-Symbole/Piktogramme (S. 21–22) | Modul **Symbole merken** (Glr) |
+| „Der Angler" – überflüssige Dinge (S. 26) | Modul **Was passt nicht?** (Gv) |
+| Text/Absätze umstellen (S. 28) | Modul **Bildergeschichte ordnen** (Gf) |
+| Cliffhanger-Technik (S. 7–8) | **Geschichten-Würfel**/Vorhersagen |
+| Soroka-Worona-Fingerspiel (S. 5/7) | **Handbewegungen** + Motorik |
+| Zählreim „Kätzchen suchen" (S. 23) | **Zahlenfolgen** + Raumlage |
+| Ball→Sonne-Verwandlung (S. 22) | **Gestaltschließen**/Muster fortsetzen |
+| Logische Pausen/Intonation (S. 9–10) | **Rhythmus-Klopfer** + auditive Aufmerksamkeit |
+
+Alle 15 Zeilen enthalten 8–12 eigene deutsche Sätze mit konkreten Umsetzungsideen, keine wörtlichen Buchauszüge. Kein CSS/JS, keine weiteren Dateien angelegt.

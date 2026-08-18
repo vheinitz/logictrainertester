@@ -1,0 +1,22 @@
+Fertig. Ich habe das Buch „Сто задач“ (Hundert Aufgaben) von Hugo Steinhaus vollständig gescreent und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/Shteyngauz_G_-_Sto_Zadach_-_1986.html`**
+
+**Vorgehen:**
+- Inhaltsverzeichnis (S. 3–5) und alle 100 Aufgaben (S. 9–40) gelesen, dazu Kapitel 7 „Aufgaben ohne Lösung“ (S. 41–45).
+- 15 konkrete Stellen ausgewählt, die als Test-, Übungs- oder Spielgrundlage taugen.
+
+**Ausgewählte Stellen (15 Tabellenzeilen), z. B.:**
+- Aufg. 1 (S. 9) → Zahlenfolgen (Sequentiell/Gsm)
+- Aufg. 7a (S. 10–11) → Wörter-Kette/Buchstaben-Permutationen
+- Aufg. 22 (S. 14) → Bilder-Sudoku (Lateinisches Quadrat)
+- Aufg. 34 (S. 17) → Bausteine/Würfel-Abwicklungen (räumliches Denken)
+- Aufg. 41 (S. 18) → Rover im Labyrinth (Dodekaeder-Rundweg)
+- Aufg. 52 (S. 22) → Wägungen/Sortieren (exekutive Funktionen)
+- Aufg. 60 (S. 25–26) → logisches Schließen/Sprachverständnis
+- Aufg. 95 (S. 37) → 20-Fragen-Wortspiel (Wortschatz)
+- Aufg. 96a (S. 38–39) → 12-Münzen-Problem (Planung)
+- Aufg. 99 (S. 40) → Rover/Labyrinth (Euler-Rundweg)
+- Kap. 7 „Plus und Minus“ (S. 41–42) → Muster fortsetzen
+
+Jede Zeile enthält Relevanz (★), den App-Bezug (Modul/Faktor/Förderung), die Buchstelle (Seite + Kapitel/Abschnitt) und 9–10 eigene deutsche Sätze zur konkreten Umsetzung. Keine weiteren Dateien wurden angelegt oder verändert.

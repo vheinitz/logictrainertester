@@ -1,0 +1,14 @@
+Fertig. Ich habe das Buch „Секрет великих полководцев" (W. Abtschuk, 1975) vollständig gescreent — zuerst das Inhaltsverzeichnis gelesen, dann alle relevanten Kapitel (Entscheidungslogik, Manövrieren, Planungsoptimierung, Wahrscheinlichkeit, Suchtheorie, Spieltheorie).
+
+**Ergebnis:** 15 nutzbare Stellen in die Datei geschrieben:
+
+`tools/book-referenzen/Sekret_velikikh_polkovodtsev_V_Abchuk.html`
+
+Die Tabelle deckt ab (je mit Relevanz, App-Zuordnung, Seitenangabe und 8–12 eigenen Umsetzungs-Sätzen):
+
+- **Planung/Gf:** Wegwahl nach Ziel, Fracht-Kosten-Optimierung, Becken-Aufteilung (Verhältnis 3:1), Kino-Transportoptimierung, Suchstrategien (Tom-Sawyer-Kugel, Wal-Suche), Spieltheorie (Hase/Wolf-Matrix, Fernseher-Entscheidung, Zwei-Tore-Stratege)
+- **Simultan/Gv:** Abfangwinkel (30°-Dreieck), Blechzuschnitt (Verschnitt-Optimierung), Punkt-Regen/π-Schätzung (Monte-Carlo), Wachturm-Abdeckung
+- **Wissen/Gc + Simultan/Gv:** Häufigkeitsanalyse als „Code-Knacker"-Spiel
+- **Lernen/Glr + Planung:** Geburtstags-Paradoxon als Schätzspiel
+
+Keine weiteren Dateien wurden verändert oder angelegt.

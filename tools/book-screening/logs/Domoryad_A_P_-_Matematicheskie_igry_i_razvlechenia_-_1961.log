@@ -1,0 +1,21 @@
+Fertig. Ich habe das Buch gescreent und genau eine Datei erstellt:
+
+**`tools/book-referenzen/Domoryad_A_P_-_Matematicheskie_igry_i_razvlechenia_-_1961.html`**
+
+Vorgehen:
+- Inhaltsverzeichnis (S. 2–3) gelesen und die 38 Paragraphen überflogen
+- Gezielt die für die App relevanten Kapitel gelesen: Strategiespiele (§10–14), Schiebe-/Legespiele (§14, §22, §25–27), Magische Quadrate (§16), Schachbrettaufgaben (§19), Muster/Ornamente (§23–24, §29), Ein-Zug-Zeichnen (§33), Hamilton-Spiel (§34), Logikaufgaben (§36) und das Sammelkapitel (§37)
+
+Ergebnis: **15 Tabellenzeilen** mit konkreten Stellen (Seite + Paragraf), abgestimmt auf die Module des LOGIK-Trainers:
+
+| Modul | Buchquelle |
+|---|---|
+| Planung/Gf (Vorausplanen) | §14 Fünfzehner-Spiel, §12 Türme von Hanoi, §13 Solitaire, §22 Verschieben |
+| Tangram / Dreiecke legen | §25 Mosaik, §26 Parkette, §27 Zerlegungen |
+| Bilder-Sudoku / Muster fortsetzen | §16 Magische Quadrate, §23/24/29 Muster & Ornamente |
+| Rover im Labyrinth | §34 Hamilton-Spiel, §19 Schachbrett (Springer/Damen) |
+| Zaubertrick nachmachen | §7 Zahlenkunststücke |
+| Rätsel (Wissen/Gc) | §36 Logikaufgaben, §37 Allerlei |
+| Suchbild / Bausteine zählen / Gestaltschließen | §37 Formen zählen, §33 Ein-Zug-Zeichnen |
+
+Jede Zeile enthält 8–12 eigene deutsche Sätze zur konkreten Umsetzung (keine wörtlichen Übernahmen), Relevanz als Sterne und die Zuordnung zu Modul/Faktor. Es wurden keine weiteren Dateien angelegt oder geändert.

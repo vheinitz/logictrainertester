@@ -1,0 +1,15 @@
+Fertig. Ich habe das Buch (95 extrahierte Seiten) vollständig gelesen und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/Zanimatelnaya_Galvanotekhnika_-_Odnoralov.html`**
+
+Das Buch „Занимательная гальванотехника" von N. W. Odnoralow ist ein sowjetisches Schülergrundbuch zur Galvanotechnik (Elektrolyse, Formenbau, Metallbeschichtung, dekorative Veredelung). Trotz des technischen Inhalts ließen sich **14 nutzbare Stellen** extrahieren, die sich in kognitive Übungen übersetzen lassen:
+
+**Die stärksten Fundstellen (★★★★★):**
+- **Tab. 3 (Störungen → Ursache → Abhilfe, S. 15–16):** Ursache-Wirkung-Spiel für Planung/exekutive Funktionen
+- **Farbzyklen der elektrochemischen Oxidschicht (S. 77):** fertiges Muster-Fortsetzen- und Farbreihenfolge-Spiel
+
+**Weitere gute Stellen (★★★★):** Fehlersuchbild (Abb. 17), Farbtabelle Kupfer/Messing als Memory, Formenklassifikation nach Abziehbarkeit, Positiv/Negativ-Relief, Elektrolyt-Zubereitung und der 21-Schritte-Prozess als Sequenzierungsaufgaben.
+
+**Ergänzend (★★★):** Schmelztemperatur-Tabelle, Wachsrezepte als „Koffer packen", Blattabformung als Memory, Kristall-Muster und Patina-Sachwissen.
+
+Die Stellen decken alle fünf Skalen der App ab (Sequentiell, Simultan, Lernen, Planung, Wissen) — von „Koffer packen" über „Was passt nicht?" bis „Bildergeschichte ordnen". Alle Beschreibungen sind eigene deutsche Formulierungen mit konkreter Umsetzung (8–12 Sätze je Zeile), kein wörtlicher Text aus dem Buch. Es wurde nur die eine HTML-Datei angelegt, keine weiteren Dateien verändert.

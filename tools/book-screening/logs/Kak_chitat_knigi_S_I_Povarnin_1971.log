@@ -1,0 +1,19 @@
+Fertig. Ich habe das Buch vollständig durchgearbeitet (Inhaltsverzeichnis auf S. 58–60, dann gezielt die Kapitel mit den konkreten Methoden) und die Ausgabedatei erstellt:
+
+**`tools/book-referenzen/Kak_chitat_knigi_S_I_Povarnin_1971.html`**
+
+Inhalt:
+- **15 Tabellenzeilen** mit konkreten Stellen aus Powarnins „Как читать книги“ (1971)
+- Je Stelle: Relevanz (Sterne), Zuordnung zu Modul/Faktor/Förderung, Seitenzahl + Abschnitt, und eine eigene 9–10-sätzige Beschreibung, wie man daraus einen Test, eine Übung oder ein Spiel für den LOGIK-Trainer baut.
+
+Die stärksten Fundstellen (Relevanz 5):
+- **§ 16 (S. 15)** – Aufmerksamkeitstraining mit kurzen Textabschnitten → Modul „Konzentriertes Lesen“
+- **§ 26 (S. 24)** – mehrkanalige Vorstellung (Sehen/Hören/Tasten/Riechen) → Simultan/Gv, Gestaltschließen
+- **§ 30–32 (S. 28–29)** – Inhaltsverzeichnis als „Stadtplan“ → Planung/Gf, Strukturorientierung
+- **§ 38 (S. 36)** – Gedanken weiterspinnen/Folgen prüfen → schlussfolgerndes Denken
+- **§ 39 (S. 37–38)** – „Stimmt das oder nicht?“ → Was-passt-nicht-Prinzip
+- **§ 41 (S. 41–42)** – Selbstabfrage + Aufbau einer Begründung → Logik/Rätsel
+- **§ 42–43 (S. 43–44)** – Hauptaussage zusammenfassen/nacherzählen → Geschichten-Würfel
+- **§ 52–53 (S. 52–53)** – Text umstrukturieren → Bildergeschichte ordnen
+
+Hinweis: Im Zielverzeichnis existiert bereits eine ältere Datei `Kak_Chitat_Knigi_1971_Povarnin.html` (leicht anderer Name). Ich habe sie nicht angefasst und nur die in der Aufgabe geforderte Datei neu geschrieben. Keine weiteren Dateien wurden geändert.

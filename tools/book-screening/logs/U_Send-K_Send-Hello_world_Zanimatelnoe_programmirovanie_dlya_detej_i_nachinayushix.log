@@ -1,0 +1,25 @@
+Fertig. Ich habe das Buch (die russische Ausgabe von Warren & Carter Sandes „Hello World!“ – ein spielerischer Python-Kurs für Kinder) durchgesehen, gezielt die Kapitel mit Spielen, „Проверь себя“-Fragen und „Эксперименты“-Aufgaben gelesen und daraus 15 konkrete Stellen extrahiert.
+
+Ergebnis: **`tools/book-referenzen/U_Send-K_Send-Hello_world_Zanimatelnoe_programmirovanie_dlya_detej_i_nachinayushix.html`**
+
+Die 15 Treffer (Relevanz: 5× ★★★★★, 6× ★★★★☆, 4× ★★★☆☆):
+
+| Stelle | Nutzung für die App |
+|---|---|
+| S. 27/76 – Zahl-Raten | Planung/Gf: systematisches Ausschließen, Halbierungsstrategie |
+| S. 343 – Galgenmännchen | Wortschatz + Gestaltschließen (ohne Henker-Grafik) |
+| S. 111 – Skifahrer | visuelle Aufmerksamkeit + Hand-Auge-Koordination |
+| S. 257 – PyPong | räumliche Vorhersage, Reaktion, Daueraufmerksamkeit |
+| S. 362 – Crazy Eights | Regeln befolgen, Strategie, Arbeitsgedächtnis |
+| S. 377 – Mondlandung | Impulskontrolle, Ressourcenplanung |
+| S. 390 – Virtuelles Haustier | exekutive Funktionen, Priorisieren |
+| S. 125 – Kalorien-Kombinatorik | kombinatorisches Denken, Entscheidungsbäume |
+| S. 120 – Sternmuster | Muster fortsetzen + Bausteine zählen |
+| S. 104 – range()-Folgen | Zahlenfolgen (sehen + hören) – direkter Modul-Treffer |
+| S. 105 – Einmaleins | Sachwissen, arithmetische Fakten |
+| S. 90 – Tankstellen-Aufgabe | Alltagsrechnen, mehrstufiges Entscheiden |
+| S. 140 – Listen sortieren | Seriation/Ordnen, Transfer zu Bildergeschichte |
+| S. 351/375 – Zufall & Serien | Wahrscheinlichkeit, Serien erkennen |
+| S. 90 – Fußballteam-Auswahl | Oberbegriffe, Mehrfachbedingungen |
+
+Jede Zeile enthält eine kurze Stelle im Buch plus 9–11 eigene deutsche Sätze zur konkreten Umsetzung als Test/Übung/Spiel. Keine weiteren Dateien wurden angelegt oder geändert.

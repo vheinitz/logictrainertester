@@ -1,0 +1,7 @@
+Erledigt. Das Screening ergab **keine nutzbaren Stellen**.
+
+**Befund:** In allen 60 Seitendateien des extrahierten Textes sind sämtliche kyrillischen Buchstaben entfernt worden — übrig blieben nur Satzzeichen, Leerzeichen und vereinzelte Zahlen (z. B. „1995.— 96", „20-25"). Ich habe dies per Hexdump und gezielter Suche nach `[А-Яа-яЁё]` verifiziert: **0 Treffer** über alle Dateien.
+
+Es handelt sich offenbar um ein russischsprachiges Buch (Skvortsov, „Детство нервной системы", 1995), dessen Inhalt durch die fehlerhafte Textextraktion vollständig verloren gegangen ist.
+
+**Ausgabe:** `tools/book-referenzen/Skvortsov_I_a_-_Detstvo_Nervnoy_Sistemy.html` mit genau einer Tabellenzeile „keine nutzbaren Stellen" gemäß Regel („Wenn nichts passt, eine einzige Zeile …"). Keine weiteren Dateien wurden angelegt oder geändert.

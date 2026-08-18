@@ -1,0 +1,18 @@
+Fertig. Ich habe das Buch **J. I. Perelman: Geometrie (Геометрия)** gescreent und genau eine Datei erzeugt:
+
+**`tools/book-referenzen/kiku_geometria_Perelman.html`**
+
+Vorgehen:
+1. Inhaltsverzeichnis (S. 226–230) gelesen → 12 Kapitel identifiziert.
+2. Gezielt die Kapitel mit Aufgaben/Übungen gelesen (Kap. 12 Tangram-Silhouetten, Kap. 4 Sehwinkel/Sehschärfe, Kap. 5 Augenmaß, Kap. 8 Geometrie im Dunkeln, Kap. 9 Kreis/Kreiszahl, Kap. 10 groß/klein, Kap. 11 geometrische Ökonomie).
+3. 15 konkrete Stellen (Seite + Abschnitt) in die Tabelle aufgenommen.
+
+Die 15 Zeilen decken die App-Module gut ab, u. a.:
+- **Tangram** (Kap. 12) — direkt passende Silhouetten-Vorlagen, inkl. „Wo steckt der Fehler?“ und Flächen-Paradoxon
+- **Bausteine zählen / Schätzen** — Gefäßvergleich, Tangram-Flächenverhältnisse
+- **Rover im Labyrinth / Planung** — „Kürzester Weg“, „Wie Pachom Land kaufte“
+- **Rätsel / Sachwissen** — „Kopf oder Füße“, Gullivers Skalierungsgesetze
+- **Motorik / Orientierung** — „Geheimnisvolles Kreisen“, „Messen mit bloßen Händen“, rechter Winkel
+- **Aufmerksamkeit / visuelle Wahrnehmung** — Sehschärfe, Augenmaß-Wettspiel
+
+Keine anderen Dateien wurden angelegt oder verändert. Jede Zeile enthält 8–12 eigene Sätze auf Deutsch mit konkreter Umsetzungsidee, keine wörtlichen Übernahmen aus dem Buch.

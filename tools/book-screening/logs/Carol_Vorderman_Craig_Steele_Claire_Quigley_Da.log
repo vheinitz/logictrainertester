@@ -1,0 +1,18 @@
+Fertig. Ich habe das Buch gescreent und genau eine HTML-Datei angelegt:
+
+**`tools/book-referenzen/Carol_Vorderman_Craig_Steele_Claire_Quigley_Da.html`**
+
+Das Buch ist **„Coding Games in Python“** (DK, 2018) von Carol Vorderman, Craig Steele, Claire Quigley u. a. – eine Kindereinführung ins Programmieren anhand von neun selbst gebauten Spielen.
+
+Ich habe das Inhaltsverzeichnis gelesen, dann gezielt die Kapitel zu Variablen, Entscheidungen, Schleifen, Funktionen, Fehlersuche sowie alle neun Spielkapitel. Daraus entstanden **14 Tabellenzeilen** mit konkreten Übertragungen auf die App-Module, z. B.:
+
+- **Dance Challenge → Handbewegungen / Memory** (★★★★★)
+- **Follow the Numbers → Zahlenfolgen** (★★★★★)
+- **Red Alert → selektive Aufmerksamkeit / Inhibition** (★★★★☆)
+- **Making Decisions → logisches Denken / „Was passt nicht?“** (★★★★☆)
+- **Flowcharts → Bildergeschichte ordnen** (★★★★☆)
+- **Big Quiz → Wissen/Gc-Module** (★★★★☆)
+- **Fixing Bugs → Detailaufmerksamkeit** (★★★★☆)
+- u. a.
+
+Jede Zeile enthält 8–12 eigene, konkrete Umsetzungssätze auf Deutsch. Die Datei ist valides, minimales HTML (nur `h1`, `p`, `table`) ohne CSS/JS, und es wurden keine weiteren Dateien angelegt oder verändert.

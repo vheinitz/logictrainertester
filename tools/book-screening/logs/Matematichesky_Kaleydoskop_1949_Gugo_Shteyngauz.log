@@ -1,0 +1,26 @@
+Fertig. Ich habe das Buch **Hugo Steinhaus: „Mathematisches Kaleidoskop" (1949)** gescreent und die Ergebnisdatei erstellt:
+
+**`tools/book-referenzen/Matematichesky_Kaleydoskop_1949_Gugo_Shteyngauz.html`**
+
+**Vorgehen:**
+- Alle 139 extrahierten Seiten gelesen (Titel, Verlagsvorwort, Inhaltsverzeichnis am Ende, sowie die nummerierten Themen 1–125).
+- Das Buch ist eine Sammlung visueller mathematischer Rätsel/Experimente — dadurch sehr ergiebig für die Legespiele-, Planungs- und Zahlen-Module der App.
+
+**Ergebnis: 15 nutzbare Stellen** in der Tabelle, u. a.:
+
+| Top-Stellen | Modul-Anbindung |
+|---|---|
+| Thema 1 „Vier Brettchen" (S. 5) | Tangram / Dreiecke legen |
+| Thema 70 Tetraeder aus 6 Hölzern (S. 80) | Dreiecke legen, 2D→3D |
+| Thema 74 Spinne & Fliege (S. 83–85) | Rover im Labyrinth, Abwicklungen |
+| Thema 17 Fünfzehner-Spiel (S. 18–19) | Planung/Gf, exekutive Funktionen |
+| Thema 34 Umfüllen (S. 37–39) | Planung/Gf |
+| Thema 108 Ein-Strich-Zeichnen (S. 120–121) | Planung + Motorik |
+| Themen 112–113 Möbiusband (S. 126–127) | Zaubertrick nachmachen |
+| Thema 15 Springer-Rundreise (S. 17) | Zahlenfolgen + Wegplanung |
+| Themen 30–31 Fibonacci (S. 34) | Zahlenfolgen |
+| Thema 119 Pascal-Dreieck (S. 132–133) | Zahlenfolgen/Muster fortsetzen |
+| Thema 116 Vierfarben (S. 129) | Bilder-Sudoku/Logik |
+| u. a. Wiegen (24), Drei gewinnt (8), Münze (48), Billard (26) | |
+
+Jede Zeile enthält 8–12 eigene deutsche Sätze zur konkreten Umsetzung als Test/Übung/Spiel — kein wörtliches Kopieren. Keine anderen Dateien wurden verändert oder angelegt.

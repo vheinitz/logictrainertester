@@ -1,0 +1,17 @@
+Die Screening-Datei wurde erstellt:
+
+**`tools/book-referenzen/Lukashenko_Taym-menedzhment-dlya-detey_438335_fb2.html`**
+
+Was ich gemacht habe:
+1. **Buch erkundet** — es ist ein Elternratgeber zum Kinder-Zeitmanagement von Marianna Lukashenko mit 16 Kapiteln. Ich habe das Inhaltsverzeichnis (Kapitelstruktur) ermittelt und die Kapitel mit konkreten Übungen/Spielen gezielt gelesen (Kap. 1, 3, 4, 6, 7, 8, 9, 11, 12, 13).
+2. **15 passende Stellen ausgewählt** und jeder ein App-Modul/einen Faktor zugeordnet, z. B.:
+   - Morgenroutine-Kartenspiel → Sequentiell/Gsm („Koffer packen“)
+   - „Жесткие или гибкие?“ → Planung/Gf (Kategorisieren)
+   - „Запланируй субботу“ → Planung/Gf (Tagesplan)
+   - Eisenhower-Matrix „Кем быть?“ → Priorisierung
+   - Wortkarten-Memory → Lernen/Glr („Memory“)
+   - Pilz/Topf-Klassifikation → Simultan/Gv („Was passt nicht?“)
+   - TRIZ „Название одним словом“ → Wissen/Gc (Wortschatz)
+3. **HTML** mit `<h1>`, einem Ein-Satz-Zusammenfassungs-`<p>` und einer Tabelle mit den 4 geforderten Spalten (Relevanz als Sterne, Punkt in App, Stelle im Buch, 8–12 eigene deutsche Sätze zur Umsetzung) — ohne CSS/JS und ohne weitere Dateien.
+
+Keine anderen Dateien im Repo wurden geändert.

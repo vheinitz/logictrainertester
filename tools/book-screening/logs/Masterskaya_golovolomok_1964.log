@@ -1,0 +1,14 @@
+Fertig. Die Datei wurde erstellt:
+
+**`tools/book-referenzen/Masterskaya_golovolomok_1964.html`**
+
+Das Buch (N. Studenezkij, „Мастерская головоломок", 1964) ist eine Anleitung, wie Kinder selbst Rätsel bauen — jede Bauanleitung liefert zugleich die fertige Lösungsübung. Ich habe Inhaltsverzeichnis (S. 253–254) und alle sechs Kapitelgruppen gelesen und 15 konkrete Stellen ausgewählt, verteilt über die Wortketten-, Spiel-, Kreuzwort-, Rebus-, Kryptografie- und Zauberquadrat-Kapitel.
+
+Abdeckung der App-Skalen:
+- **Sequentiell/Gsm**: Wortketten (einfach, Doppel-/Dreifach-Verkettung), Zahlenfolgen über Zauberquadrate
+- **Simultan/Gv**: Suchbild (Buchstabenring), Tangram/Sammelfiguren, Streichholz-Figuren, Gestaltschließen (Pletenka)
+- **Planung/Gf**: Waage-Gleichung, Streichholz-Planung, Zauberquadrate/Bilder-Sudoku
+- **Lernen/Glr**: Symbole merken über Kryptogramme, Arbeitsgedächtnis über Pletenka-Schlüssel
+- **Wissen/Gc**: Wortschatz („25 Wörter", Buchstabenraster), Sachwissen (Rundreise), Rätsel (Rebus), Oberbegriffe (Tierjagd)
+
+Format geprüft: nur die eine HTML-Datei, kein CSS/JS, 1 Kopfzeile + 15 Tabellenzeilen, Tags sauber geschlossen, Beschreibungen auf Deutsch in eigenen Worten.

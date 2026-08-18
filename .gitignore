@@ -10,3 +10,6 @@ node_modules/
 
 # Arbeitsklone und Zwischenstände, kein Quellcode
 tmp/
+tools/ideen-app/ideen.db
+tools/book-search/work/
+__pycache__/

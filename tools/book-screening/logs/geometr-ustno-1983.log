@@ -1,0 +1,15 @@
+Fertig. Ich habe das Buch gescreent und die HTML-Datei erstellt.
+
+**Was das Buch ist:** „Устные упражнения по геометрии" (A. B. Wassilewski, 1983) — eine Sammlung nicht-standardisierter mündlicher Geometrieaufgaben für die Klassen 6–10 mit sehr vielen Zeichnungen.
+
+**Vorgehen:** Inhaltsverzeichnis (S. 80) und Vorwort gelesen, dann gezielt die relevanten Kapitel: § 5 (Vielecke), § 9 (Konstruktions-/Knobelaufgaben), § 15 (Würfel), § 21 (Würfelnetze).
+
+**Ergebnis:** 15 Tabellenzeilen in `tools/book-referenzen/geometr-ustno-1983.html`, u. a.:
+
+- **§ 9.2–9.4, 9.8, 9.14–9.15** (Streichholz-/Zerschneide-Puzzles) → „Dreiecke legen", „Tangram", Planung
+- **§ 5.1–5.2, 5.14–5.15, 5.21** (Formen zählen, Eigenschaften klassifizieren) → „Bausteine zählen", „Suchbild", „Was passt nicht?"
+- **§ 15.8, 15.10** (Würfelprojektionen, kürzester Weg) → „Gesichter", „Rover im Labyrinth"
+- **§ 21.5–21.7, 21.18** (Würfelnetze falten/zuordnen) → „Gestaltschließen", räumliches Denken
+- **§ 9.18–9.23** (Sessel, Damesteine, Lampen, Dominos) → Rätsel, logisches Denken, geteilte Aufmerksamkeit
+
+Jede Zeile enthält eine eigene, konkrete Umsetzungsbeschreibung (8–12 Sätze) auf Deutsch, ohne wörtliche Übernahmen aus dem Buch. Keine weiteren Dateien wurden verändert.

@@ -1,0 +1,14 @@
+Fertig. Ich habe das Buch „Экспериментальные физические задачи на смекалку“ von V. N. Lange (1985) gescreent und die Ausgabe geschrieben:
+
+**`tools/book-referenzen/fizika-smekalka-1985.html`**
+
+Vorgehen:
+- Inhaltsverzeichnis (S. 3/127) identifiziert: 7 Problemkapitel (Zuhause, Spaziergang, See, Reise, Schullabor, Werk, Weltraum) + Hinweise/Lösungen.
+- Die kompletten Aufgaben (S. 7–24, Dateien 0008–0025) gelesen und 14 konkrete, kindgerecht adaptierbare Stellen ausgewählt.
+
+Auswahl-Highlights (Relevanz-Sterne):
+- **★★★★★** – Aufgabe 127 (Wiege-Rätsel „eine Wägung genügt“) → Modul Rätsel
+- **★★★★☆** – Aufgaben 54, 22, 9, 5, 57, 59 → Planung, Rätsel, Simultan, Sequentiell, Sachwissen
+- **★★★☆☆** – Aufgaben 12, 97, 71, 64, 44, 133, 131 → weitere Module/Faktoren
+
+Jede Tabellenzeile enthält eine 8–12-sätzige eigene Beschreibung, wie sich die Stelle als Test, Übung oder Spiel umsetzen lässt (auf Deutsch, kein wörtlicher Textextrakt). Es wurde nur die eine HTML-Datei erstellt, kein CSS/JS und keine weiteren Dateien angefasst.

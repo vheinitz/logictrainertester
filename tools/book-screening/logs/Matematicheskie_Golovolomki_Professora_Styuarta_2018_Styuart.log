@@ -1,0 +1,15 @@
+Fertig. Ich habe das Buch gescreent und die Datei erstellt:
+
+**`tools/book-referenzen/Matematicheskie_Golovolomki_Professora_Styuarta_2018_Styuart.html`**
+
+Vorgehen:
+- Inhaltsverzeichnis gelesen (S. 6–10) und dann gezielt ~15 Kapitel mit Rätseln/Aufgaben gelesen (u. a. Zahlen-Kuriosität, RATS-Folge, Eisenbahn-Labyrinthe, geomagische Quadrate, grüne Socken, 15er-Spiel, Pseudo-Sudoku, Pfannkuchen-Zahlen, unmögliche Route).
+- Da die Dateinamen den Buchseiten minus 1 entsprechen (im ToC verifiziert), wurden die Seitenangaben aus dem ToC übernommen.
+
+Ergebnis: **15 Zeilen** mit jeweils:
+1. Relevanz (★)
+2. Punkt in App (Modul + kognitive Faktoren)
+3. Stelle im Buch (Seite + Kapitelname, russisch mit deutscher Glosse)
+4. 8–12 eigene deutsche Sätze zur konkreten Umsetzung als Test/Übung/Spiel
+
+Abdeckung aller fünf Skalen: Gsm/Zahlenfolgen (3), Gv/Räumlich (4), Glr/Gedächtnis (1), Gf/Planung & Logik (6), Gc/Wissen (1). Keine weiteren Dateien wurden angelegt oder geändert.

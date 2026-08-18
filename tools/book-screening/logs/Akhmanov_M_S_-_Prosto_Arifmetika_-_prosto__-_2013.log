@@ -1,0 +1,16 @@
+Fertig. Ich habe das Buch „Просто арифметика“ von Michail Achmanow (2013) gescreent und die HTML-Referenz erstellt.
+
+**Vorgehen:**
+- Inhaltsverzeichnis gelesen (S. 167–169 in Dateien 0090–0092) und die Kapitelstruktur erfasst: Präjudie, Zahlensysteme (Ägypten, Babylonien, Griechenland/Rom, Indien/China/Maya), Mittelalter, Neuzeit, Computer.
+- Gezielt die Kapitel mit konkreten Rechen-/Denkinhalten gelesen und die Seitenzahlen direkt aus dem Text verifiziert.
+
+**Ergebnis:** 15 nutzbare Stellen, z. B.:
+- Kerbholz-Zählen (S. 4–5) → Zähl-/Subitizing-Spiel
+- Ägyptische, babylonische, römische, Maya-Zahlzeichen (S. 8–11, 18–19, 40–43, 56–57) → „Zahlzeichen-Wandler“-Spiele
+- Papyrus-Rhind-Aufgaben, Diophantos-Grabinschrift, Waagen-Aufgabe (S. 14–15, 38–39, 54–55) → Rechenrätsel
+- Abakus (S. 30–31) → Legespiel zu Stellenwert/Motorik
+- Wolf-Ziege-Kohl & Hund-Hase (S. 62–63) → Planungs-/Überfahrt-Spiel
+- Fibonacci-Kaninchen, Prim-/vollkommene Zahlen (S. 64–65, 36–37) → Zahlenfolgen
+- Rechenturniere, Boolesche Logik, Binärsystem (S. 70–71, 104–105, 124–125) → Duell-Mechanik, Logikspiel, Muster
+
+**Ausgabe:** `tools/book-referenzen/Akhmanov_M_S_-_Prosto_Arifmetika_-_prosto__-_2013.html` (minimales Markup, nur die eine Datei, keine weiteren Änderungen).

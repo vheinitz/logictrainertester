@@ -1,0 +1,15 @@
+Fertig. Ich habe das Buch (Inhaltsverzeichnis, Theoriekapitel zu Gedächtnis/Aufmerksamkeit/Denken/Sprache sowie alle 61 Übungen) gelesen und die passenden Stellen extrahiert.
+
+**Ergebnis:** `tools/book-referenzen/Skorochtenie_Dlya_Detey_Kak_Chitat_Bystree_Zapominat_I_Ponimat_Bolshe_2017_Abdulova.html`
+
+- **15 Tabellenzeilen** (plus Kopfzeile), alle mit 8–12 eigenen deutschen Sätzen zur konkreten Umsetzung als Test/Übung/Spiel.
+- **HTML ist valide** (16 `<tr>`, keine ungeschlossenen Tags), kein CSS/JS, keine weiteren Dateien angelegt.
+
+Die ausgewählten Stellen decken alle fünf Skalen ab und mappen direkt auf bestehende Module:
+- **Simultan/Gv:** Schulte-Tabelle, „Муха" (Fliege), Labyrinthe, „Найди 10 отличий" → Suchbild / Rover im Labyrinth
+- **Lernen/Glr:** „Фотограф" → Memory/Symbole merken, multisensorisches Gedächtnisspiel, Assoziationsmethode → Atlantis
+- **Planung/Gf:** „Весёлые картинки" → Bildergeschichte ordnen, „Снимаем кино"/„Снежная лавина" → Geschichten-Würfel
+- **Wissen/Gc:** Anagramme → Wortschatz/Rätsel, „Дружные слова" → Oberbegriffe, „Придумай загадку" → Rätsel
+- **Sequentiell/Gsm:** „Шустрые пальчики" → Handbewegungen, „Доскажи словечко" → Wörter-Kette/Koffer packen
+
+Plus zwei Querschnitts-Förderungen (selektive Aufmerksamkeit via „Зачеркушки", sensorische Wahrnehmung).

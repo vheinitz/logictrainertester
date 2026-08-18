@@ -1,0 +1,20 @@
+Fertig. Ich habe das Buch „Геометрия помогает арифметике" (Ostrowski & Kordemski, 1960) gescreent und genau eine Datei erstellt:
+
+**`tools/book-referenzen/geometr-arifmet-1960.html`**
+
+Vorgehen:
+- Inhaltsverzeichnis gelesen (S. 165) und gezielt Seiten aus allen 6 Kapiteln geprüft (eindimensionale/zweidimensionale Diagramme, lineare Funktionen, Bewegungsgraphen, gebrochene Graphen, Zusatzkonstruktionen).
+- 15 konkrete Stellen ausgewählt und je in eine Tabellenzeile überführt.
+
+Inhalt:
+- `<h1>` + ein Satz zum Buch
+- Tabelle mit 15 Zeilen (Relevanz als ★, App-Modul/Faktor, Seite + Abschnitt, 8–12 eigene deutsche Sätze zur Umsetzung)
+
+Abgedeckte App-Bereiche:
+- **Wissen/Gc → Rätsel/Sachwissen**: Brüder & Schwestern, Mittagessen, Äpfel, Flugzeug & Wind, Schwimmer & Hut, Fliege
+- **Planung/Gf**: gerechtes Teilen, Entscheidungs-/Kostenvergleich, Kombinatorik, systematisches Probieren
+- **Sequentiell/Gsm**: Wasser umgießen, Bottich-Zeitplan, Kreis-Rhythmus
+- **Simultan/Gv**: Bonbon-Klassifikation, Touristen-Treffpunkt, Kreisbahn
+- **Lernen/Glr → Arbeitsgedächtnis**: „Ich und Sie"-Alterspuzzle
+
+Keine anderen Dateien wurden angelegt oder geändert.

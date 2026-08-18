@@ -1,0 +1,15 @@
+Die Datei wurde geschrieben und ist valide.
+
+**Ergebnis der Sichtung**
+
+Das Buch „Задачи на смекалку“ (Scharygin & Schewkin, 1995) ist eine russische Knobelsammlung für die 5.–6. Klasse mit 10 Kapiteln (Zahlen, Gerade/Ungerade, Raumgeometrie, Umfüllen, Wiegen, Logik, Scherzfragen, Worst-Case/Dirichlet, Geometrie auf Karopapier, Gemischtes).
+
+Ich habe alle 82 Seiten gelesen (Inhaltsverzeichnis auf S. 80) und 15 passende Stellen in `tools/book-referenzen/5-6-Matematika-Zadachi-na-smekalku-1995.html` übertragen — je Zeile mit Relevanz-Sternen, App-Zuordnung, Buchstelle und 8–12 eigenen Umsetzungssätzen.
+
+**Abdeckung der App-Module:**
+- **Sequentiell/Gsm:** Zahlenfolgen (Nr. 24–30)
+- **Simultan/Gv:** Dreiecke legen (Nr. 89), Bausteine zählen & Ansichten (Nr. 95–105), Rover im Labyrinth/Euler-Wege (Nr. 83–88), Tangram über Pentomino (Nr. 208–217) und Figuren-Zerschneiden (Nr. 196–207)
+- **Planung/Gf:** Muster fortsetzen (Nr. 191–195), Bilder-Sudoku über magische Quadrate und 4×4-Farbraster (Nr. 17–18, 58–60), Zaubertrick nachmachen (Nr. 51–52, 70), dazu drei neue Planungsspiele: Umfüllen, Turm von Hanoi, Wolf-Ziege-Kohl
+- **Wissen/Gc:** Rätsel über Rechenausdrücke/Zahlenrebusse, Logikrätsel und Scherzfragen
+
+Die Lernen/Glr-Skala (Memory & Co.) wird bewusst nicht erzwungen, da das Buch dafür keine passenden Aufgaben liefert — das ist im Sinne der Regel „nur wirklich passende Stellen“.

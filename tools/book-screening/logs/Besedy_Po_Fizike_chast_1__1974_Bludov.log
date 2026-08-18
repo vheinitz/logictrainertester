@@ -1,0 +1,22 @@
+Fertig. Ich habe das Buch „Беседы по физике. Часть I" (M. I. Bludow) durchgearbeitet — Inhaltsverzeichnis und die relevanten Kapitel gelesen — und genau eine Datei erzeugt:
+
+**`tools/book-referenzen/Besedy_Po_Fizike_chast_1__1974_Bludov.html`**
+
+Inhalt:
+- `<h1>` mit Buchtitel, ein Einleitungssatz, eine `<table>` mit Kopfzeile
+- **15 Tabellenzeilen** (plus Kopfzeile), jede mit Relevanz (★), App-Bezug, Buchstelle (Seite + Kapitel) und einer 8–12-sätzigen eigenen Umsetzungsbeschreibung
+
+Ausgewählte Stellen und ihre Zuordnung (Auswahl):
+
+| Stelle | App-Punkt |
+|---|---|
+| S. 13–16 „Математика стрелок" | Gv: Tangram/Dreiecke legen (Pfeil-Puzzle) |
+| S. 33–38 Zenons Paradoxien | Gf: Denkfehler finden, Planung |
+| S. 97–101 „Параллели" | Gf: Muster fortsetzen / Analogien |
+| S. 102–106 „Маятник" | Gsm: Rhythmus-Klopfer, Phase |
+| S. 121–125 „Неосуществимая мечта" | Gf: Perpetuum-mobile-Fehler finden |
+| S. 151–157 Symmetrie/Kristalle | Gv: Gestaltschließen, Bausteine zählen |
+| S. 165–166 „Лариган" | Gf: Bildergeschichte ordnen / Zaubertrick |
+| S. 188–190 Kühlschrank-Frage | Gc: Rätsel, Alltagslogik |
+
+Keine weiteren Dateien wurden angelegt oder verändert. Hinweis: Der Dateiname sagt „1974", der extrahierte Text ist aber die 3. Auflage von 1984 (207 S.); die Seitenangaben beziehen sich auf diese gedruckte Ausgabe.

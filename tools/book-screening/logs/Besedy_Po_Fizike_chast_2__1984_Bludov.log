@@ -1,0 +1,24 @@
+Die Datei wurde erstellt: `tools/book-referenzen/Besedy_Po_Fizike_chast_2__1984_Bludov.html`
+
+**Zusammenfassung der Arbeit:**
+
+Ich habe das Buch „Беседы по физике, Часть II“ (Bludow, 1984/85) gescreent — ein russischsprachiges populärwissenschaftliches Gesprächsbuch über Elektrizität, Optik und Atombau. Nach dem Lesen des Inhaltsverzeichnisses (S. 191) und der gezielten Kapitel mit Aufgaben/Versuchen/Denkfragen habe ich **15 nutzbare Stellen** in eine HTML-Tabelle überführt.
+
+**Ausgewählte Highlights und ihre App-Zuordnung:**
+
+| Stelle | Modul |
+|---|---|
+| „Лестница“-Aufgabe (7→49→343→2401→16807) | Zahlenfolgen, Muster fortsetzen |
+| Voltasche Spannungsreihe / Voltascher Säule | Muster fortsetzen, Symbole merken |
+| Regenbogen-Merkspruch + Wellenlängen-Tabelle | Wörter-Kette, Memory, Sachwissen |
+| Ton-Farbe-Analogie (7 Töne ↔ 7 Farben) | „Was passt nicht?“, Suchbild |
+| Pythagoras-Monochord (½, ⅔, ¾) | Rhythmus-Klopfer, Handbewegungen |
+| Zehn Wechselstrom-Versuche | Bildergeschichte ordnen, Zaubertrick nachmachen |
+| Denkfrage zur halb abgedeckten Linse | Rätsel, Sachwissen |
+| Vier Aggregatzustände (Plasma) | Oberbegriffe, „Was passt nicht?“ |
+| Quer-/Längswellen | „Was passt nicht?“, Oberbegriffe |
+| Haushaltsgeräte-Leistungsliste (2080 W) | Koffer packen, Sachwissen |
+| Stäbchen/Zapfen-Dämmerungssehen | Aufmerksamkeit, Sachwissen |
+| Ohm-Messreihe (2, 4, 6, 10, 18, 34, 66, 130) | Zahlenfolgen, Muster fortsetzen |
+
+Jede Zeile enthält Relevanz (1–5 ★), App-Punkt, genaue Stelle (Seite + Kapitel) und 8–12 eigene deutsche Sätze zur konkreten Umsetzung als Test/Übung/Spiel — ohne wörtliches Kopieren. Keine weiteren Dateien wurden verändert.

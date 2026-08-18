@@ -1,0 +1,21 @@
+Die Datei ist erstellt und validiert: **`tools/book-referenzen/Shakhmaty_I_Matematika_1983_Gik.html`**
+
+**Zusammenfassung des Screenings** (Buch: „Шахматы и математика“ von E. Gik, 1983, russisch, 15 Kapitel über Schachbrett-Mathematik):
+
+15 nutzbare Stellen identifiziert, verteilt über alle App-Skalen:
+
+| Skala | Stellen |
+|---|---|
+| **Sequentiell/Gsm** | Pascal-Dreieck der Königswege, Fünfzehnerspiel, Guarini-Springertausch, Weizenkorn-Verdopplung |
+| **Simultan/Gv** | Magisches Quadrat, Brett-Zerlegung (4 Diamanten), Domino-Überdeckung, Polyomino, Springer-Rundreise, Springer des Attila, friedliche Könige |
+| **Planung/Gf** | Acht Damen, acht Türme, Damen-Wächter, Katzen und Maus |
+| **Wissen/Gc** | Turnier-Knobeleien |
+| **Lernen/Glr** | Memory-Variante der Springer-Rundreise (in Beschreibung verankert) |
+
+Jede Zeile enthält:
+- ★-Bewertung (1–5)
+- Modul/Faktor-Zuordnung
+- Seitenangabe (gedruckte Seite = Dateinummer − 1) + Kapitelname
+- 8–12 eigene Sätze zur konkreten Umsetzung als Test/Übung/Spiel (Stufen, Hilfen, Feedback, Erweiterungen)
+
+Kein CSS/JS, nur die eine HTML-Datei, keine weiteren Dateien angelegt.

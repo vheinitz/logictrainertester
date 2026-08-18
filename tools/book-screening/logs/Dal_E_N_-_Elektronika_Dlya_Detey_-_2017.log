@@ -1,0 +1,27 @@
+Fertig. Ich habe das Buch **„Электроника для детей" (Øyvind Nydal Dahl, 2017)** gescreent und die Ausgabe erstellt:
+
+**Datei:** `tools/book-referenzen/Dal_E_N_-_Elektronika_Dlya_Detey_-_2017.html`
+
+**Vorgehen:**
+1. Inhaltsverzeichnis gelesen (S. 5–13) — das Buch hat 3 Teile, 12 Kapitel, 23 Projekte.
+2. Gezielt die Kapitel mit Aufgaben/Übungen gelesen: Kap. 1 (Stromkreis), Kap. 4 (Widerstand/Farbcode, Ohm), Kap. 8 (Musikinstrument/Töne), Kap. 9 (Binärzahlen, Farbspiel, Geheimbotschaft), Kap. 10 (Logikgatter), Kap. 11 (Speicher, Kopf-oder-Zahl), Kap. 12 (Reaktionsspiel).
+
+**Ergebnis: 13 verwertbare Stellen** in der Tabelle, darunter die stärksten:
+
+| Relevanz | Idee |
+|---|---|
+| ★★★★★ | Reaktionsspiel „Lauflicht stoppen" (Kap. 12) → Aufmerksamkeit/Reaktionszeit |
+| ★★★★★ | Binär→Dezimal-Umwandlung (Projekt 18) → Zahlenfolgen/Arbeitsgedächtnis |
+| ★★★★☆ | Logikgatter-Wahrheitstabellen (Kap. 10) → Muster fortsetzen |
+| ★★★★☆ | Geheimcode-Prüfschaltung (Kap. 10) → logisches Schließen |
+| ★★★★☆ | Widerstands-Farbcode (Kap. 4) → Symbole merken |
+| ★★★★☆ | RGB-Farbspiel „Угадай цвет" (Projekt 19) → Farbwahrnehmung |
+| ★★★★☆ | ASCII-Geheimbotschaft (Projekt 20) → Kodieren/Gedächtnis |
+| ★★★★☆ | Töne/Frequenzen (Kap. 8) → Rhythmus-Klopfer/auditiv |
+| ★★★☆☆ | Stromkreis/Schalter (Kap. 1) → Ursache-Wirkung |
+| ★★★☆☆ | Ohmsches Gesetz (Kap. 4) → Kopfrechnen |
+| ★★★☆☆ | Speicherzelle RS-/D-Trigger (Kap. 11) → Memory/Zustände |
+| ★★★☆☆ | Kopf-oder-Zahl (Projekt 22) → Impulskontrolle/Zufall |
+| ★★★☆☆ | Bits/Bytes-Einheiten (Kap. 9) → Größenordnungen |
+
+Alle Beschreibungen sind auf Deutsch, in eigenen Worten formuliert (keine wörtlichen Übernahmen), mit 8–12 Sätzen je Stelle und konkreter Umsetzung als Test/Übung/Spiel. Kein CSS/JS, nur die eine HTML-Datei; keine weiteren Dateien wurden geändert.

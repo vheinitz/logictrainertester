@@ -1,0 +1,26 @@
+Fertig. Ich habe das Buch **„Звёзды — Солнышкины сестрички“** (Jefrem Lewitan) gescreent und die Datei erstellt:
+
+**`tools/book-referenzen/kocmos_zvezdy_-Solnyshkiny_Sestrichki.html`**
+
+**Was das Buch ist:** Ein kindgerechtes Astronomie-Sachbuch, das Sterne als ferne Sonnen erklärt, die Sternbilder Großer/Kleiner Wagen, Kassiopeia, Orion und Löwe vorstellt und zum Beobachten und Spielen mit dem Sternenhimmel anregt.
+
+**Ergebnis: 14 nutzbare Stellen** (4× ★★★★★, 10× ★★★★☆), jeweils mit konkreter Umsetzungsidee:
+
+| Schwerpunkt | Modul/Faktor in der App |
+|---|---|
+| Sternbilder als Punktmuster verbinden | Gestaltschließen, Tangram |
+| Großer vs. Kleiner Wagen vergleichen | Suchbild, „Was passt nicht?“ |
+| Polarstern über Zeigersterne finden | Rover im Labyrinth, Handbewegungen |
+| Sternen-/Sonnenkompass | räumliche Orientierung, links/rechts |
+| Kassiopeia als „M/W“ | Gestaltschließen, Buchstabenkenntnis |
+| Orion als Sanduhr/Schleife | Gesichter, divergentes Denken |
+| Sternbilder legen (Würfel/Mosaik/Steinchen) | Dreiecke legen, Tangram, Motorik |
+| Orion: 8 Sterne, 2 größere | Bausteine zählen, Muster fortsetzen |
+| Sternfarbe ↔ Temperatur | Oberbegriffe, Regelverständnis |
+| Sterngrößen ordnen (Zwerg→Überriese) | Sachwissen, Seriation |
+| Lichtlaufzeiten (8 min / 9 J. / 600 J.) | Zahlenfolgen, Koffer packen |
+| Sternnamen zuordnen | Memory, Symbole merken, Atlantis |
+| Sternsagen (Kallisto, Orion, Löwe) | Geschichten-Würfel, Bildergeschichte |
+| Supernova → Nebel → Neutronenstern | Bildergeschichte ordnen, Kausalkette |
+
+Alle Beschreibungen sind auf Deutsch, in eigenen Worten formuliert (kein wörtliches Kopieren aus dem Buch) und je Stelle 8–12 Sätze. Es wurde nur die eine HTML-Datei angelegt, ohne CSS/JavaScript und ohne weitere Dateien zu verändern.

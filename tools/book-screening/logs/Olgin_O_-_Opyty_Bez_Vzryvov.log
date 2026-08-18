@@ -1,0 +1,20 @@
+Ich habe das Buch „Olgin O. – Opyty Bez Vzryvov“ (Опыты без взрывов) gescreent und die Ausgabedatei erstellt:
+
+**`tools/book-referenzen/Olgin_O_-_Opyty_Bez_Vzryvov.html`**
+
+## Vorgehen
+- Das Buch hat kein maschinell erfasstes Inhaltsverzeichnis; ich habe stattdessen die Struktur über die Kapitelüberschriften erschlossen (5 Abschnitte: Домашняя лаборатория → Первые опыты → Приятное с полезным → Ловкость рук → Своими глазами).
+- Gelesen habe ich gezielt die Kapitel mit Aufgaben/Übungen: Sicherheitsregeln, Indikatoren, Gase/Stärke-Nachweis, Oxidation-Reduktion, Adsorption, Eiweiß/Kohlenhydrate, Vitamin C, Kristalle, Zaubertricks/unsichtbare Tinte, chemische Uhr, Enzymversuche und Chromatographie.
+
+## Ergebnis: 15 Zeilen
+Jede Zeile enthält Relevanz (★★★–★★★★★), den Bezug zu App-Modul/Faktor, die konkrete Buchstelle (Seite + Kapitel) und 10 eigene deutsche Sätze zur Umsetzung.
+
+Die stärksten Treffer (★★★★★) sind:
+- **Sicherheitsregeln & Vorbereitung** (S. 2–4) → Planung/exekutive Funktionen, Koffer packen
+- **Selbstgemachte Indikatoren** (S. 9–10) → „Was passt nicht?“, Sachwissen/Oberbegriffe
+- **Stärke-Nachweis mit Jod** (S. 12/28) → Klassifikations- und Sortierspiel
+- **Unsichtbare Tinte** (S. 68–69) und **Einfache Zaubertricks** (S. 69–71) → „Zaubertrick nachmachen“
+- **Enzymversuche** (S. 75–77) → Variablen kontrollieren, Schlussfolgern
+- **Chromatographie** (S. 81–83) → „Was passt nicht?“/analytisches Denken
+
+Die Datei ist minimales Markup (nur `h1`, `p`, `table`), ohne CSS/JS, und es wurden keine weiteren Dateien angelegt oder geändert.

@@ -1,0 +1,17 @@
+Fertig. Ich habe genau eine Datei erstellt und sonst nichts verändert:
+
+**`tools/book-referenzen/Verzilin_N_m_-_Uchitel_Botaniki_Ili_Razgovor_S_Rasteniami_-_1984.html`**
+
+Vorgehen:
+1. Inhalt aus `tools/book-search/work/…/` gelesen (Titel/Impressum, Inhaltsverzeichnis S. 169, danach gezielt alle 13 Kapitel).
+2. 15 konkrete Stellen mit Seite + Kapitelname identifiziert, die echte Test-/Übungs-/Spielgrundlagen liefern.
+3. Jede Stelle in eine Tabellenzeile überführt: Relevanz (★), App-Punkt (Modul/Faktor), Buchstelle, und 8 eigene Sätze zur Umsetzung.
+
+Die 15 Stellen decken alle 5 Skalen ab — Beispiele:
+- **Simultan/Gv:** Samen-Sortierspiel („Was passt nicht?“), Blattpalette (Suchbild), Quadratmeter-Zählung (Bausteine zählen), Himmelsrichtungs-/Blütenuhr-Navigation (Rover).
+- **Sequentiell/Gsm:** Wachstums-Messreihen, Hebel-Maßstab (×10), Blütenformel als Symbolcode, Jahresringe zählen.
+- **Planung/Gf:** Keimversuch als Hypothesenspiel, Dünger-Kreuzfrage (Bilder-Sudoku-Logik), Blatt-„Foto“ und Veredeln als Schrittfolgen.
+- **Lernen/Glr:** Pflanzenpass (Memory/Symbole merken), Exoten-Konferenz (paarassoziatives Lernen).
+- **Wissen/Gc:** Volksnamen/lateinischer Name (Teekesselchen/Wortschatz).
+
+Alle Beschreibungen sind auf Deutsch, in eigenen Worten formuliert, ohne wörtliche Übernahmen, ohne CSS/JS und ohne weitere Dateien.

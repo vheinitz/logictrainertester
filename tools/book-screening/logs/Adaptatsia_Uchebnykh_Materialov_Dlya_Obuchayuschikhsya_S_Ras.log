@@ -1,0 +1,17 @@
+Ich habe das Buch vollständig gescreent (Inhaltsverzeichnis, Teil I–IV, alle 19 Beispiele und 5 Fallstudien) und die HTML-Datei erstellt:
+
+**`tools/book-referenzen/Adaptatsia_Uchebnykh_Materialov_Dlya_Obuchayuschikhsya_S_Ras.html`**
+
+Das Buch ist ein russisches Methodikhandbuch zur Anpassung von Unterrichtsmaterial für Kinder mit Autismus-Spektrum-Störung. Besonders ergiebig waren Teil III (konkrete adaptierte Aufgaben nach Fächern) und Teil IV (Fallstudien mit Schritt-für-Schritt-Methoden).
+
+**15 ausgewählte Stellen** mit klarer Zuordnung zur App:
+
+| Bereich | Beispiele |
+|---|---|
+| **Simultan/Gv** | Mengen abzählen → „Bausteine zählen“; Ankerpunkte beim Zeichnen → „Dreiecke legen“/„Tangram“ |
+| **Planung/Gf** | Ereignisreihenfolge wiederherstellen → „Bildergeschichte ordnen“; strukturierte Sachaufgaben → exekutive Funktionen |
+| **Wissen/Gc** | Tiergruppen sortieren → „Oberbegriffe“; Wort–Bedeutung verbinden → „Wortschatz“; bildhafte Sprache → „Teekesselchen“/„Rätsel“ |
+| **Gsm/Motorik** | Checkliste mit Bewegungspausen → „Handbewegungen“/„Rhythmus-Klopfer“; Körperposen nachahmen → Körperschema; Schraffieren mit Zeitrahmen → Feinmotorik |
+| **Lernen/Glr** | identische Bilder verbinden → „Memory“ |
+
+Jede Zeile enthält 8–12 eigene deutsche Sätze zur konkreten Umsetzung als Test/Übung/Spiel, inkl. gestufter Hilfen (die Kernmethode des Buchs: Hilfen schrittweise ausblenden). Keine weiteren Dateien wurden angelegt oder verändert.

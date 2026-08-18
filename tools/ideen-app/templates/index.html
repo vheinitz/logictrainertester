@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ideen-DB</title>
+<style>
+  :root { --prim:#5b4fcf; --linie:#ddd; --bg:#f7f7fb; }
+  * { box-sizing:border-box; }
+  body { font-family:system-ui,sans-serif; margin:0; background:var(--bg); color:#222; }
+  header { position:sticky; top:0; background:#fff; border-bottom:1px solid var(--linie); padding:.8rem 1rem; z-index:10; }
+  header form { display:flex; flex-wrap:wrap; gap:.5rem; align-items:center; }
+  input, select, button { font-size:.95rem; padding:.45rem .6rem; border:1px solid #ccc; border-radius:6px; }
+  input[type=search] { flex:1; min-width:220px; }
+  .count { color:#666; font-size:.9rem; margin:0 1rem; }
+  table { width:100%; border-collapse:collapse; background:#fff; }
+  th, td { border-bottom:1px solid var(--linie); padding:.5rem .6rem; vertical-align:top; text-align:left; font-size:.92rem; }
+  th { position:sticky; top:57px; background:#fff; white-space:nowrap; }
+  th a { color:inherit; text-decoration:none; }
+  .stars { color:#c99500; white-space:nowrap; }
+  .buch { font-size:.8rem; color:#666; }
+  .nutzung { max-width:52ch; }
+  .nutzung p { margin:0; }
+  details summary { cursor:pointer; color:var(--prim); font-size:.85rem; }
+  .punkt { max-width:30ch; }
+  textarea { width:100%; min-height:3.2em; font-size:.85rem; border:1px solid #ccc; border-radius:6px; padding:.3rem; resize:vertical; }
+  select.status { font-size:.85rem; }
+  .status-Neu { background:#eef2ff; }
+  .status-Ignorieren { background:#f0f0f0; color:#888; }
+  .status-Erstellen { background:#e6f7e6; }
+  .status-Nachbearbeiten { background:#fff3d6; }
+  .status-Fertig { background:#d9f2d9; }
+  tr[data-status] { }
+  .gespeichert { color:#2a8a2a; font-size:.8rem; }
+  .filters { display:flex; gap:.5rem; align-items:center; flex-wrap:wrap; }
+</style>
+</head>
+<body>
+<header>
+  <form method="get" action="/">
+    <input type="search" name="q" value="{{ q }}" placeholder="Suche: Inhalt, Punkt, Stelle, Buch, Prompt …">
+    <div class="filters">
+      <select name="status">
+        <option value="">Status: alle</option>
+        {% for s in statuses %}<option value="{{ s }}" {% if s==status %}selected{% endif %}>{{ s }}</option>{% endfor %}
+      </select>
+      <select name="buch">
+        <option value="">Buch: alle</option>
+        {% for b in buecher %}<option value="{{ b }}" {% if b==buch %}selected{% endif %}>{{ b[:60] }}</option>{% endfor %}
+      </select>
+      <select name="rel">
+        <option value="">Relevanz: alle</option>
+        {% for r in range(1,6) %}<option value="{{ r }}" {% if rel==r|string %}selected{% endif %}≥ {{ r }}★</option>{% endfor %}
+      </select>
+      <select name="sort">
+        <option value="relevanz" {% if sort=='relevanz' %}selected{% endif %}>Sort: Relevanz</option>
+        <option value="buch" {% if sort=='buch' %}selected{% endif %}>Buch</option>
+        <option value="stelle" {% if sort=='stelle' %}selected{% endif %}>Stelle</option>
+        <option value="punkt" {% if sort=='punkt' %}selected{% endif %}>Punkt</option>
+        <option value="status" {% if sort=='status' %}selected{% endif %}>Status</option>
+      </select>
+      <select name="order">
+        <option value="desc" {% if order=='desc' %}selected{% endif %}>absteigend</option>
+        <option value="asc" {% if order=='asc' %}selected{% endif %}>aufsteigend</option>
+      </select>
+      <button type="submit">Anwenden</button>
+    </div>
+    <span class="count">{{ rows|length }} Beiträge</span>
+  </form>
+</header>
+
+<table>
+<thead>
+<tr>
+  <th>Buch</th>
+  <th>★</th>
+  <th>Punkt in App</th>
+  <th>Stelle</th>
+  <th>Nutzung (Idee)</th>
+  <th>Prompt</th>
+  <th>Status</th>
+</tr>
+</thead>
+<tbody>
+{% for r in rows %}
+<tr class="status-{{ r['status'] }}">
+  <td><div class="buch">{{ r['titel'] or r['buch'] }}</div></td>
+  <td class="stars">{{ '★' * r['relevanz'] }}{% if r['relevanz']==0 %}–{% endif %}</td>
+  <td class="punkt">{{ r['punkt'] }}</td>
+  <td>{{ r['stelle'] }}</td>
+  <td class="nutzung">
+    <details><summary>{% if r['nutzung'] %}{{ r['nutzung'][:70] }}…{% else %}—{% endif %}</summary>
+      <p>{{ r['nutzung'] }}</p>
+    </details>
+  </td>
+  <td>
+    <textarea data-id="{{ r['id'] }}" data-field="prompt">{{ r['prompt'] }}</textarea>
+  </td>
+  <td>
+    <select class="status" data-id="{{ r['id'] }}" data-field="status">
+      {% for s in statuses %}<option value="{{ s }}" {% if s==r['status'] %}selected{% endif %}>{{ s }}</option>{% endfor %}
+    </select>
+  </td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+
+<script>
+  function save(el) {
+    const id = el.dataset.id;
+    const prompt = document.querySelector(`textarea[data-id="${id}"][data-field="prompt"]`).value;
+    const status = document.querySelector(`select[data-id="${id}"][data-field="status"]`).value;
+    fetch(`/update/${id}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ prompt, status })
+    }).then(r => r.json()).then(d => {
+      if (d.ok) {
+        const tr = el.closest('tr');
+        tr.className = 'status-' + status;
+      }
+    });
+  }
+  document.querySelectorAll('textarea[data-field="prompt"]').forEach(t =>
+    t.addEventListener('change', () => save(t)));
+  document.querySelectorAll('select[data-field="status"]').forEach(s =>
+    s.addEventListener('change', () => save(s)));
+</script>
+</body>
+</html>
