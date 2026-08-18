@@ -1,0 +1,22 @@
+Fertig. Ich habe die Mini-App **`apps/zahlenfolgen/`** erstellt (Slug bewusst kurz statt des langen Vorschlags).
+
+**Dateien:**
+- `apps/zahlenfolgen/app.js` — Kopf mit `idee-db: 16`
+- `apps/zahlenfolgen/index.html` — lädt `../_framework/framework.css` + `./app.bundle.js`
+- `apps/zahlenfolgen/app.bundle.js` — per esbuild (nur diese App) gebündelt
+
+**Umsetzung gemäß Zusatzanweisung (hat Vorrang):**
+- Nur Zahlenreihen mit drei einfachen Regeln:
+  - `+x` (immer dieselbe Zahl dazuzählen)
+  - `×x` (immer mit derselben Zahl malnehmen)
+  - `a_i = a_{i-1} + a_{i-2}` (die beiden Zahlen davor zusammenzählen) — die klassische `1,1,2,3,5`-Reihe wird dabei vermieden
+- Immer **4 sichtbare Zahlen, die 5. wird erraten**
+- **Kein Editor** für eigene Reihen
+- Eingabe über Tastenfeld (Tippen), plus „🔊 Vorlesen“-Hörvariante
+- Zwei gestaffelte Hinweise („Abstände anschauen“ → Teildifferenz/Teilregel aufdecken)
+- Rückmeldung in Kindersprache („Immer plus 10.“, „Immer mal 2.“, „Zähl die beiden Zahlen davor zusammen.“)
+- Punkte: 10 je Aufgabe, Abzug für Hinweise und Fehlversuche; nach 3 Fehlversuchen wird die Antwort aufgedeckt
+
+**Einstellungen:** Stufe (1–3, schaltet Regeln frei), Aufgaben (3–8), Tempo (Vorlesen). Alles mehrsprachig `{de,ru,en}`.
+
+Getestet via jsdom: Mount, Interaktion über `onTap`-Koordinaten, Punkte/Weiter/Fehlversuche/Hinweise, Stufe-3-Pool, Sprachwechsel und Bundle-Ladung funktionieren. `git status` zeigt nur die neue App als Änderung (die anderen untrackten Verzeichnisse stammen nicht von mir).

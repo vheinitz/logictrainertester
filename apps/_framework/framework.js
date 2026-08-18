@@ -302,6 +302,8 @@ export class MiniApp {
       const e = this.root?.querySelector('.ma-ergebnis');
       if (e) e.innerHTML = this._ergebnisHtml();
     }, 1000);
+    // In jsdom/Node hält das Intervall den Prozess sonst ewig am Leben.
+    if (typeof this._ticker?.unref === 'function') this._ticker.unref();
   }
 
   _stopTicker() {

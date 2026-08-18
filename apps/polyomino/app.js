@@ -91,6 +91,7 @@ const app = new MiniApp({
     }));
     state._drag = null;
     state.gelegt = 0;
+    state.fehler = 0;
     state.fertig = false;
   },
 
@@ -152,15 +153,19 @@ const app = new MiniApp({
   },
 
   // Loslassen: richtig → Figur verschwindet, Silhouette färbt sich.
+  // Falsche Silhouette → Fehler zählen.
   onDrop(state, x0, y0, x1, y1, app) {
     const fi = state._drag?.fi ?? this._figurBei(x0, y0);
     const pi = this._platzBei(x1, y1);
-    if (fi !== null && fi !== undefined && pi !== null &&
-        state.paare[fi].id === state.paare[pi].id) {
-      state.paare[fi].gelegt = true;
-      state.paare[pi].gelegt = true;
-      state.gelegt++;
-      if (state.gelegt === state.paare.length) state.fertig = true;
+    if (fi !== null && fi !== undefined && pi !== null) {
+      if (state.paare[fi].id === state.paare[pi].id) {
+        state.paare[fi].gelegt = true;
+        state.paare[pi].gelegt = true;
+        state.gelegt++;
+        if (state.gelegt === state.paare.length) state.fertig = true;
+      } else {
+        state.fehler++;
+      }
     }
     state._drag = null;
     app.rerender();
@@ -171,7 +176,7 @@ const app = new MiniApp({
     return null;
   },
   statusHtml(state) {
-    return `<div class="ma-result">🧩 ${state.gelegt}/${state.paare.length}</div>`;
+    return `<div class="ma-result">🧩 ${state.gelegt}/${state.paare.length} · ❌ ${state.fehler}</div>`;
   }
 });
 
