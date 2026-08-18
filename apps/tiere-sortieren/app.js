@@ -7,17 +7,17 @@
  *
  * Kernspiel des Moduls „Oberbegriffe“: Tierbilder werden auf Felder für
  * Insekten, Fische, Vögel und Säugetiere verteilt. Jede Gruppe zeigt als
- * Anker zunächst ein Beispielbild. Das Kind zieht (oder tippt) jedes Tier in
- * die richtige Gruppe und bekommt sofort Rückmeldung, die erklärt, WARUM das
- * Tier dorthin gehört.
+ * Anker ein großes, festes Beispielbild (ohne Text). Das Kind zieht (oder
+ * tippt) jedes Tier in die richtige Gruppe und bekommt sofort Rückmeldung,
+ * die erklärt, WARUM das Tier dorthin gehört.
  *
- * Leichte Stufe (⚙️): statt der Tierkarten werden vorgegebene Gruppenkarten
- * auf die Tierbilder gezogen – das Kind muss die Namen nicht selbst kennen.
+ * Leichte Stufe (⚙️): statt der Tierkarten werden vorgegebene
+ * Gruppen-Beispielbilder auf die Tierbilder gezogen – das Kind muss die Namen
+ * nicht selbst kennen.
  *
  * Bilder: `img` ist pro Tier vorerst `null`. Solange kein Bild hinterlegt ist,
- * zeichnet die App einen Platzhalter (Rechteck mit Wort + Emoji). Die
- * Platzhalter dienen später als Vorlage für mit Grok generierte Bilder
- * (Konvention: `bilder/<tierId>.png`).
+ * zeigt die App das feste Emoji-Bild des Tiers (ohne Text) als Kartenbild.
+ * Später können echte Bilder ergänzt werden (Konvention: `bilder/<tierId>.png`).
  */
 import { MiniApp, svg } from '../_framework/framework.js';
 
@@ -106,7 +106,6 @@ const TIERE = [
 ];
 
 const T = {
-  beispiel: { de: 'Beispiel', ru: 'Пример', en: 'Example' },
   tiere:    { de: 'Tiere', ru: 'животных', en: 'animals' },
   fehler:   { de: 'Fehler', ru: 'ошибки', en: 'mistakes' },
   geschafft: { de: 'Geschafft!', ru: 'Получилось!', en: 'You did it!' }
@@ -147,37 +146,31 @@ function falschText(app, tier, versuch, richtig) {
   return `${t} — nein. Gehört nicht zu „${v}“, sondern zu „${r}“.`;
 }
 
-/** Tierkarte: echtes Bild, sonst Platzhalter (Rechteck mit Wort + Emoji). */
+/** Tierkarte: zeigt immer das feste Bild (Emoji oder echtes Bild), ohne Text. */
 function tierKarte(app, tier, x, y, w, h, extra = {}) {
   const p = [];
   const fill = extra.falsch ? '#ffe3e3'
+    : extra.done ? '#f4f4f4'
     : extra.selected ? '#eef0ff'
     : '#fff';
   const stroke = extra.falsch ? '#e03131'
     : extra.selected ? '#5b4fcf'
+    : extra.done ? '#e5e5e5'
     : '#d8d4f0';
   const sw = (extra.falsch || extra.selected) ? 3 : 1.5;
   p.push(svg.rect(x, y, w, h, fill, { rx: 10, stroke, 'stroke-width': sw }));
 
-  if (extra.badge) {
-    p.push(svg.text(x + w / 2, y + 14, extra.badge,
-      { 'font-size': 9, 'font-weight': 'bold', fill: '#5b4fcf', 'text-anchor': 'middle' }));
-  }
-
   if (tier.img) {
     p.push(svg.el('image', {
       href: tier.img, x: x + 3, y: y + 3, width: w - 6, height: h - 6,
-      preserveAspectRatio: 'xMidYMid slice'
+      preserveAspectRatio: 'xMidYMid meet'
     }));
   } else {
-    const emojiSize = h >= 90 ? 34 : (h >= 55 ? 22 : 16);
-    const wordSize  = h >= 90 ? 10 : (h >= 70 ? 8 : 7);
-    const emojiY = y + (extra.badge ? h * 0.52 : h * 0.46);
-    p.push(svg.text(x + w / 2, emojiY, tier.e, { 'font-size': emojiSize, 'text-anchor': 'middle' }));
-    if (h >= 50) {
-      p.push(svg.text(x + w / 2, y + h - (h >= 90 ? 14 : 8), tt(app, tier.name),
-        { 'font-size': wordSize, 'text-anchor': 'middle', fill: '#333' }));
-    }
+    // Festes Bild: großes, zentriertes Emoji – bewusst ohne Namenstext.
+    const emojiSize = Math.round(Math.min(w, h) * 0.62);
+    p.push(svg.text(x + w / 2, y + h / 2 + Math.round(emojiSize * 0.33), tier.e,
+      { 'font-size': emojiSize, 'text-anchor': 'middle',
+        opacity: extra.done ? 0.45 : 1 }));
   }
 
   if (extra.check) {
@@ -241,14 +234,14 @@ const app = new MiniApp({
     en: 'Categories: Sorting Animals'
   },
   anweisung: {
-    de: 'Ziehe jedes Tier in die passende Gruppe. Tippe zuerst ein Tier an oder ziehe es direkt in die Gruppe. Die kleine Karte oben in jeder Gruppe ist ein Beispiel.',
-    ru: 'Перетащи каждое животное в нужную группу. Сначала коснись животного или сразу перетащи его в группу. Маленькая карточка вверху группы — пример.',
-    en: 'Drag each animal to the matching group. First tap an animal or drag it directly into the group. The small card at the top of each group is an example.'
+    de: 'Ziehe jedes Tier in die passende Gruppe. Tippe zuerst ein Tier an oder ziehe es direkt in die Gruppe. Oben in jeder Gruppe siehst du das große Beispielbild.',
+    ru: 'Перетащи каждое животное в нужную группу. Сначала коснись животного или сразу перетащи его в группу. Вверху каждой группы — большая картинка-пример.',
+    en: 'Drag each animal to the matching group. First tap an animal or drag it directly into the group. Each group shows a large example picture at the top.'
   },
   hilfe: {
-    de: 'Es gibt 4 Tiergruppen: Insekten (6 Beine), Fische (leben im Wasser und atmen mit Kiemen), Vögel (Federn und Flügel) und Säugetiere (Babys trinken Milch, Fell). Lege jedes Tier in die richtige Gruppe. Bei einem Fehler erklärt dir die Rückmeldung, warum das Tier woanders hingehört. In der leichten Stufe (⚙️) ziehst du stattdessen die Gruppenkarte auf das Tier.',
-    ru: 'Есть 4 группы: насекомые (6 ног), рыбы (живут в воде, дышат жабрами), птицы (перья и крылья) и млекопитающие (детёныши пьют молоко, есть шерсть). Положи каждое животное в нужную группу. При ошибке подсказка объяснит, почему. В лёгком уровне (⚙️) перетаскивай карточку группы на животное.',
-    en: 'There are 4 groups: insects (6 legs), fish (live in water, breathe with gills), birds (feathers and wings) and mammals (babies drink milk, fur). Put each animal into the right group. If you make a mistake, the feedback explains why it belongs elsewhere. In the easy level (⚙️) you drag the group card onto the animal instead.'
+    de: 'Es gibt 4 Tiergruppen: Insekten (6 Beine), Fische (leben im Wasser und atmen mit Kiemen), Vögel (Federn und Flügel) und Säugetiere (Babys trinken Milch, Fell). Jede Gruppe erkennst du an ihrem großen Beispielbild oben. Lege jedes Tier in die richtige Gruppe. Bei einem Fehler erklärt dir die Rückmeldung, warum das Tier woanders hingehört. In der leichten Stufe (⚙️) ziehst du das Gruppen-Beispielbild auf das Tier.',
+    ru: 'Есть 4 группы: насекомые (6 ног), рыбы (живут в воде, дышат жабрами), птицы (перья и крылья) и млекопитающие (детёныши пьют молоко, есть шерсть). Каждую группу можно узнать по большой картинке-примеру вверху. Положи каждое животное в нужную группу. При ошибке подсказка объяснит, почему. В лёгком уровне (⚙️) перетаскивай картинку-пример группы на животное.',
+    en: 'There are 4 groups: insects (6 legs), fish (live in water, breathe with gills), birds (feathers and wings) and mammals (babies drink milk, fur). Each group is marked by a large example picture at the top. Put each animal into the right group. If you make a mistake, the feedback explains why it belongs elsewhere. In the easy level (⚙️) you drag the group example picture onto the animal instead.'
   },
   settingsSchema: {
     gruppen: {
@@ -308,36 +301,33 @@ const app = new MiniApp({
   _renderSortieren(state, app) {
     const p = [svg.rect(0, 0, VIEW_W, VIEW_H, '#fafaff')];
 
-    // Gruppenfelder (Drop-Zonen) oben, mit Anker-Beispielbild.
+    // Gruppenfelder (Drop-Zonen) oben, mit großem festem Anker-Bild (ohne Text).
     const gruppen = layoutGruppen(state.gruppen.length);
     state.gruppenRects = [];
     state.gruppen.forEach((g, i) => {
       const r = gruppen[i];
       state.gruppenRects.push({ gruppeId: g.id, index: i, x: r.x, y: r.y, w: r.w, h: r.h });
       p.push(svg.rect(r.x, r.y, r.w, r.h, '#f4f2ff', { rx: 12, stroke: '#c9c2f2', 'stroke-width': 2 }));
-      p.push(svg.text(r.x + r.w / 2, r.y + 24, tt(app, g.name),
-        { 'font-size': 14, 'font-weight': 'bold', fill: '#5b4fcf', 'text-anchor': 'middle' }));
+
+      // Großes Beispielbild als einziger Gruppen-Anker (bewusst ohne Namenstext).
       const anker = tierVonId(g.anker);
-      p.push(tierKarte(app, anker, r.x + Math.round((r.w - 60) / 2), r.y + 32, 60, 60, {}));
-      p.push(svg.text(r.x + r.w / 2, r.y + 106, tt(app, T.beispiel),
-        { 'font-size': 9, fill: '#888', 'text-anchor': 'middle' }));
+      const aW = 96;
+      p.push(tierKarte(app, anker, r.x + Math.round((r.w - aW) / 2), r.y + 12, aW, aW, {}));
 
       const platziert = state.tiere.filter(t => state.platz[t.id] === g.id);
       platziert.forEach((t, k) => {
         const col = k % 3, row = Math.floor(k / 3);
-        p.push(tierKarte(app, t, r.x + 8 + col * 44, r.y + 112 + row * 44, 40, 40, { check: true }));
+        p.push(tierKarte(app, t, r.x + 8 + col * 44, r.y + 116 + row * 44, 40, 40, { check: true }));
       });
     });
 
-    // Tierkarten-Pool unten.
+    // Tierkarten-Pool unten. Platzierte Karten behalten ihr festes Bild.
     const karten = layoutKarten(state.tiere.length, 225);
     state.kartenRects = [];
     state.tiere.forEach((t, i) => {
       const k = karten.rects[i];
       if (state.platz[t.id]) {
-        p.push(svg.rect(k.x, k.y, k.w, k.h, '#f2f2f2', { rx: 10, stroke: '#e5e5e5', 'stroke-width': 1 }));
-        p.push(svg.text(k.x + k.w / 2, k.y + k.h / 2 + 10, '✓',
-          { 'font-size': 30, fill: '#b7e3b7', 'text-anchor': 'middle' }));
+        p.push(tierKarte(app, t, k.x, k.y, k.w, k.h, { done: true, check: true }));
       } else {
         state.kartenRects.push({ tierId: t.id, index: i, x: k.x, y: k.y, w: k.w, h: k.h });
         p.push(tierKarte(app, t, k.x, k.y, k.w, k.h,
@@ -351,7 +341,7 @@ const app = new MiniApp({
   _renderGruppenkarten(state, app) {
     const p = [svg.rect(0, 0, VIEW_W, VIEW_H, '#fafaff')];
 
-    // Tierbilder oben (Drop-Zonen für die Gruppenkarten).
+    // Tierbilder oben (Drop-Zonen für die Gruppen-Bilder).
     const karten = layoutKarten(state.tiere.length, 60);
     state.tierRects = [];
     state.tiere.forEach((t, i) => {
@@ -359,10 +349,10 @@ const app = new MiniApp({
       state.tierRects.push({ tierId: t.id, index: i, x: k.x, y: k.y, w: k.w, h: k.h });
       const zu = state.zuordnung[t.id];
       p.push(tierKarte(app, t, k.x, k.y, k.w, k.h,
-        { badge: zu ? tt(app, gruppeVonId(zu).name) : null, check: !!zu, falsch: state.falsch === i }));
+        { check: !!zu, falsch: state.falsch === i }));
     });
 
-    // Vorgegebene Gruppenkarten unten (ziehen).
+    // Vorgegebene Gruppen-Bilder unten (ziehen) – groß und ohne Text.
     const gk = layoutGruppenKarten(state.gruppen.length);
     state.gruppenKartenRects = [];
     state.gruppen.forEach((g, i) => {
@@ -371,12 +361,9 @@ const app = new MiniApp({
       const sel = state.gewaehltGruppe === i;
       p.push(svg.rect(r.x, r.y, r.w, r.h, sel ? '#eef0ff' : '#fff',
         { rx: 10, stroke: sel ? '#5b4fcf' : '#c9c2f2', 'stroke-width': sel ? 3 : 2 }));
-      p.push(svg.text(r.x + r.w / 2, r.y + 24, tt(app, g.name),
-        { 'font-size': 14, 'font-weight': 'bold', fill: '#5b4fcf', 'text-anchor': 'middle' }));
-      p.push(svg.text(r.x + r.w / 2, r.y + 58, tierVonId(g.anker).e,
-        { 'font-size': 28, 'text-anchor': 'middle' }));
-      p.push(svg.text(r.x + r.w / 2, r.y + 82, tt(app, T.beispiel),
-        { 'font-size': 9, fill: '#888', 'text-anchor': 'middle' }));
+      const anker = tierVonId(g.anker);
+      p.push(svg.text(r.x + r.w / 2, r.y + r.h / 2 + 20, anker.e,
+        { 'font-size': 56, 'text-anchor': 'middle' }));
     });
 
     return `<svg viewBox="0 0 ${VIEW_W} ${VIEW_H}" xmlns="http://www.w3.org/2000/svg">${p.join('')}</svg>`;

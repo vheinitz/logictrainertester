@@ -75,6 +75,20 @@ function textZeilen(x, y, zeilen, font, fill = '#222', anchor = 'middle') {
   ).join('');
 }
 
+/**
+ * Text so groß wie möglich in ein Kästchen setzen: ausgehend von `basis` wird
+ * die Schriftgröße verkleinert, bis der umbrochene Text (max. 3 Zeilen) in
+ * Breite und Höhe passt. So wird das ganze Kästchen ausgenutzt.
+ */
+function inKasten(s, breite, hohe, basis) {
+  for (let font = basis; font >= 12; font--) {
+    const proZeile = Math.max(4, Math.floor(breite / (font * 0.56)));
+    const zeilen = wrap(s, proZeile);
+    if (zeilen.length * font * 1.2 <= hohe) return { font, zeilen };
+  }
+  return { font: 12, zeilen: wrap(s, 4) };
+}
+
 // ─── Layout ──────────────────────────────────────────────────────────
 const VIEW_W = 760;
 const PAD_TOP = 56;
@@ -192,13 +206,13 @@ const app = new MiniApp({
       zahlen.push(`<circle cx="736" cy="${cy}" r="13" fill="#9b96d4"/><text x="736" y="${cy + 5}" text-anchor="middle" font-size="14" font-weight="bold" fill="#fff">${i + 1}</text>`);
     }
 
-    // Texte
+    // Texte – Schrift so groß wie möglich, das ganze Kästchen ausnutzen.
     const texte = [];
     for (let i = 0; i < N; i++) {
       const cy = zeilenY(i);
       const w = s.woerter[i];
-      const wZeilen = wrap(L(w.w), 20);
-      const wFont = wZeilen.length > 1 ? 14 : 16;
+      const wBreite = w.bild ? WORD_W - 70 : WORD_W - 24;
+      const { font: wFont, zeilen: wZeilen } = inKasten(L(w.w), wBreite, BOX_H, 19);
       if (w.bild) {
         texte.push(`<image href="${esc(w.bild)}" x="${WORD_X + 10}" y="${cy - 20}" width="40" height="40" preserveAspectRatio="xMidYMid meet"/>`);
         texte.push(textZeilen(WORD_X + 60 + (WORD_W - 70) / 2, cy, wZeilen, wFont));
@@ -207,12 +221,13 @@ const app = new MiniApp({
       }
 
       const m = s.bedeutungen[i];
-      texte.push(textZeilen(BED_X + BED_W / 2, cy, wrap(L(m.b), 36), 13, '#333'));
+      const { font: mFont, zeilen: mZeilen } = inKasten(L(m.b), BED_W - 24, BOX_H, 16);
+      texte.push(textZeilen(BED_X + BED_W / 2, cy, mZeilen, mFont, '#333'));
     }
 
     return `<svg viewBox="0 0 ${VIEW_W} ${viewH}" xmlns="http://www.w3.org/2000/svg">
-      <text x="${WORD_X}" y="28" font-size="14" font-weight="bold" fill="#5b4fcf">${esc(L(TEXT.ueberschriftWort))}</text>
-      <text x="${BED_X + BED_W}" y="28" text-anchor="end" font-size="14" font-weight="bold" fill="#5b4fcf">${esc(L(TEXT.ueberschriftBedeutung))}</text>
+      <text x="${WORD_X}" y="28" font-size="16" font-weight="bold" fill="#5b4fcf">${esc(L(TEXT.ueberschriftWort))}</text>
+      <text x="${BED_X + BED_W}" y="28" text-anchor="end" font-size="16" font-weight="bold" fill="#5b4fcf">${esc(L(TEXT.ueberschriftBedeutung))}</text>
       ${linien.join('')}${kaestchen.join('')}${zahlen.join('')}${texte.join('')}
     </svg>`;
   },
@@ -314,10 +329,10 @@ const app = new MiniApp({
     return null;
   },
 
-  // Live-Status: Fortschritt + Rückmeldung.
+  // Live-Status: Fortschritt, Versuche und Fehlversuche + Rückmeldung.
   statusHtml(state, app) {
     const hinweis = state.hinweis ? `<div class="ma-hinweis" style="color:#b32;font-size:.9rem;margin-top:.3rem">${esc(L(state.hinweis))}</div>` : '';
-    return `<div class="ma-result">✅ ${state.richtig}/${state.woerter.length} · 🔁 ${state.versuche}${hinweis}</div>`;
+    return `<div class="ma-result">✅ ${state.richtig}/${state.woerter.length} · 🔁 ${state.versuche} · ❌ ${state.fehler}${hinweis}</div>`;
   }
 });
 

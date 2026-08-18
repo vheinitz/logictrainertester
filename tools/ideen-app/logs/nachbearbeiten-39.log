@@ -1,0 +1,15 @@
+Erledigt. Die Nachbesserung für `apps/tiere-sortieren/` ist umgesetzt:
+
+**Umgesetzte Änderungen (nur `apps/tiere-sortieren/app.js` + neu gebautes `app.bundle.js`):**
+
+1. **Gruppentiere größer** – das Anker-/Beispielbild jeder Gruppe ist jetzt 96×96 statt 60×60 (in beiden Modi). In der leichten Stufe zeigt die Gruppenkarte unten ein großes Emoji (56px) statt kleinem Emoji + Text.
+
+2. **Immer feste Bilder** – `tierKarte` zeigt jetzt immer das feste Bild (Emoji bzw. echtes `img`, falls hinterlegt), zentriert und flächenfüllend. Auch bereits platzierte Pool-Karten behalten ihr Bild (ausgegraut + Häkchen), statt in ein leeres graues Kästchen mit ✓ zu wechseln.
+
+3. **Ohne Text** – entfernt: Tiernamen unter den Bildern, „Beispiel“-Label, Gruppenname in den Gruppenfeldern sowie Namenstext/Badge auf den Karten der leichten Stufe. Die Gruppen werden nur noch über ihr großes Beispielbild identifiziert. Anweisung/Hilfe wurden entsprechend angepasst („großes Beispielbild oben“).
+
+**Verifikation:**
+- `node --check` OK, `npm run build:miniapps` OK (Bundle neu erzeugt).
+- jsdom-Smoke-Test bestanden: Rendering, Platzierung bis „fertig“, leichte Stufe, keine sichtbaren Tiernamen/„Beispiel“-Labels mehr.
+
+Hinweis: Die `npm run build:miniapps`-Routine bündelt standardmäßig alle Apps. Das dabei mitgebaute `apps/begriffe-verbinden/app.bundle.js` habe ich wieder auf den Git-Stand zurückgesetzt, damit außerhalb von `apps/tiere-sortieren/` nichts verändert wird (die dort bereits vorhandenen, nicht von mir stammenden Änderungen an `app.js` und `nachbearbeiten-37.log` habe ich unangetastet gelassen).

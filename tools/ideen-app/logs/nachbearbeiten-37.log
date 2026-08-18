@@ -1,0 +1,13 @@
+Fertig. Ich habe die App `apps/begriffe-verbinden/app.js` angepasst (nur diese Datei geändert; das Bundle wird später mit `npm run build:miniapps` neu gebaut).
+
+**Umgesetzt:**
+
+1. **Schrift größer, Kästchen ausnutzen** – neue Helferfunktion `inKasten(s, breite, hohe, basis)` wählt die Schriftgröße so groß wie möglich (ausgehend von einer Basisgröße) und bricht den Text passend zur Kästchenbreite um (max. 3 Zeilen). Dadurch wird das ganze Kästchen gefüllt:
+   - Wörter: Basis-Schrift **19** (vorher 16/14)
+   - Bedeutungen: Basis-Schrift **16** (vorher 13)
+   - Spaltenüberschriften: **16** (vorher 14)
+
+2. **Fehlversuche zählen/anzeigen** – die Live-Statuszeile zeigt jetzt zusätzlich die Fehlversuche:
+   `✅ 1/6 · 🔁 2 · ❌ 1` (die Zählung `state.fehler` existierte bereits, war aber nur im Endergebnis sichtbar).
+
+Ich habe die Änderungen mit einem jsdom-Smoke-Test verifiziert: Rendering läuft, Schriftgrößen (19/16) werden gesetzt, und nach einem falschen Versuch erscheint `❌ 1` in der Statuszeile.
