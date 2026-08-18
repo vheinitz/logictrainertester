@@ -1,14 +1,15 @@
 /**
- * Polyomino → Vielecke einsetzen (Gardner, Kapitel 12 „Polyomino“).
+ * Vielecke einsetzen (Gardner, Kapitel 12 „Polyomino“).
  * idee-db: 3
  *
- * Fünf vielseitige Figuren (richtige Polygone, keine Tetrisblöcke) und fünf
- * Platzhalter. Symmetrische Figuren passen in jeder 90°-Drehung, unsymmetrische
- * nur richtig gedreht. Schwierigkeit = mehr Kanten.
+ * Fünf vielseitige Figuren (echte Polygone) und fünf Platzhalter (Umrisse).
+ * Kein Drehen nötig – die Figur ist schon richtig orientiert; das Kind erkennt,
+ * welche Figur zu welchem Umriss gehört, und zieht sie dorthin (Drag & Drop).
+ * Schwierigkeit = mehr Kanten.
  */
-import { MiniApp, svg } from '../_framework/framework.js';
+import { MiniApp } from '../_framework/framework.js';
 
-const SCALE = 0.92;          // 0..80-Punkte → ~74px
+const SCALE = 0.92;
 const FARBEN = ['#FF6B6B', '#FFD93D', '#4D96FF', '#34D399', '#C084FC', '#FB923C'];
 
 // Polygone als Punktlisten (0..80). level = Schwierigkeit (Kantenzahl).
@@ -28,15 +29,6 @@ const POLYGONE = [
   { id: 'plus',     kanten: 12, level: 5, pts: [[30, 0], [50, 0], [50, 30], [80, 30], [80, 50], [50, 50], [50, 80], [30, 80], [30, 50], [0, 50], [0, 30], [30, 30]] },
 ];
 
-function rotPts(pts, n) {
-  let p = pts.map(q => [...q]);
-  for (let i = 0; i < ((n % 4) + 4) % 4; i++) p = p.map(([x, y]) => [-y, x]);
-  const mx = Math.min(...p.map(q => q[0])), my = Math.min(...p.map(q => q[1]));
-  return p.map(([x, y]) => [x - mx, y - my]);
-}
-function norm(pts) {
-  return JSON.stringify(pts.map(q => [...q]).sort((a, b) => a[0] - b[0] || a[1] - b[1]));
-}
 function ptsStr(pts, dx, dy, scale = SCALE) {
   return pts.map(([x, y]) => `${Math.round(dx + x * scale)},${Math.round(dy + y * scale)}`).join(' ');
 }
@@ -58,14 +50,14 @@ const app = new MiniApp({
   icon: '🧩',
   titel: { de: 'Vielecke einsetzen', ru: 'Многоугольники', en: 'Fit the polygons' },
   anweisung: {
-    de: 'Lege jede Figur auf ihren Platzhalter. Unsymmetrische Figuren müssen richtig gedreht sein – tippe die Figur noch einmal an, um sie zu drehen.',
-    ru: 'Положи каждую фигуру на её место. Несимметричные фигуры нужно правильно повернуть — нажми фигуру ещё раз, чтобы повернуть.',
-    en: 'Place each shape on its placeholder. Asymmetric shapes must be rotated correctly – tap the shape again to rotate it.'
+    de: 'Ziehe jede Figur auf ihren Umriss. Welche Figur zu welchem Umriss gehört, siehst du an der Form.',
+    ru: 'Перетащи каждую фигуру на её контур. Какая фигура куда подходит, видно по форме.',
+    en: 'Drag each shape onto its outline. Which shape belongs to which outline is visible from the form.'
   },
   hilfe: {
-    de: 'Figur antippen = wählen, nochmal = um 90° drehen. Dann den passenden Umriss antippen oder die Figur dorthin ziehen. Symmetrische Figuren passen in jeder Drehung. Höhere Stufen haben mehr Kanten.',
-    ru: 'Нажми фигуру — выбрать, ещё раз — повернуть на 90°. Затем коснись нужного контура или перетащи фигуру. Симметричные фигуры подходят в любом повороте. На высоких уровнях больше сторон.',
-    en: 'Tap a shape to select, tap again to rotate 90°. Then tap the matching outline or drag the shape there. Symmetric shapes fit in any rotation. Higher levels have more edges.'
+    de: 'Einfach die farbige Figur mit der Maus oder dem Finger auf den passenden grauen Umriss ziehen. Kein Drehen nötig. Höhere Stufen haben Figuren mit mehr Kanten.',
+    ru: 'Просто перетащи цветную фигуру на подходящий серый контур. Поворачивать не нужно. На высоких уровнях больше сторон.',
+    en: 'Just drag the coloured shape onto the matching grey outline. No rotation needed. Higher levels have more edges.'
   },
   settingsSchema: {
     stufe: { def: 1, min: 1, max: 5, step: 1, label: { de: 'Stufe', ru: 'Уровень', en: 'Level' } }
@@ -84,38 +76,28 @@ const app = new MiniApp({
     }
     state.paare = gewaehlt.map((p, i) => ({
       id: p.id, kanten: p.kanten, pts: p.pts, farbe: FARBEN[i % FARBEN.length],
-      platzPos: PLATZ_POS[i], figurPos: FIGUR_POS[i],
-      figurRot: Math.floor(Math.random() * 4), gelegt: false,
+      platzPos: PLATZ_POS[i], figurPos: FIGUR_POS[i], gelegt: false,
     }));
-    state.gewaehlt = null;
     state.gelegt = 0;
     state.fertig = false;
   },
 
-  render(state, app) {
+  render(state) {
     const platzhalter = state.paare.map(p => {
-      const stroke = p.gelegt ? '#bbb' : '#a9a4d8';
-      const dash = p.gelegt ? '' : ' stroke-dasharray="6 5"';
       const fill = p.gelegt ? (p.farbe + '55') : 'transparent';
+      const dash = p.gelegt ? '' : ' stroke-dasharray="6 5"';
       return `<polygon points="${ptsStr(p.pts, p.platzPos[0], p.platzPos[1])}"
-        fill="${fill}" stroke="${stroke}" stroke-width="2"${dash}/>`;
+        fill="${fill}" stroke="#a9a4d8" stroke-width="2"${dash}/>`;
     }).join('');
 
-    const figuren = state.paare.map((p, i) => {
+    const figuren = state.paare.map(p => {
       if (p.gelegt) return '';
-      const gew = state.gewaehlt === i;
-      const drawn = rotPts(p.pts, p.figurRot);
-      return `<polygon points="${ptsStr(drawn, p.figurPos[0], p.figurPos[1])}"
-        fill="${p.farbe}" stroke="${gew ? '#5b4fcf' : '#3a3560'}"
-        stroke-width="${gew ? 5 : 2}"/>`;
+      return `<polygon points="${ptsStr(p.pts, p.figurPos[0], p.figurPos[1])}"
+        fill="${p.farbe}" stroke="#3a3560" stroke-width="2"/>`;
     }).join('');
-
-    const hinweis = state.gewaehlt !== null
-      ? svg.text(24, 30, '↻', { 'font-size': 34, fill: '#5b4fcf' })
-      : '';
 
     return `<svg viewBox="0 0 600 470" xmlns="http://www.w3.org/2000/svg">
-      ${hinweis}${platzhalter}${figuren}
+      ${platzhalter}${figuren}
     </svg>`;
   },
 
@@ -124,8 +106,7 @@ const app = new MiniApp({
     for (let i = 0; i < s.paare.length; i++) {
       const p = s.paare[i];
       if (p.gelegt) continue;
-      const drawn = rotPts(p.pts, p.figurRot)
-        .map(([a, b]) => [p.figurPos[0] + a * SCALE, p.figurPos[1] + b * SCALE]);
+      const drawn = p.pts.map(([a, b]) => [p.figurPos[0] + a * SCALE, p.figurPos[1] + b * SCALE]);
       if (pointIn(x, y, drawn)) return i;
     }
     return null;
@@ -142,38 +123,15 @@ const app = new MiniApp({
     return null;
   },
 
-  onTap(state, x, y, app) {
-    const fi = this._figurBei(x, y);
-    if (fi !== null) {
-      if (state.gewaehlt === fi) state.paare[fi].figurRot = (state.paare[fi].figurRot + 1) % 4;
-      else state.gewaehlt = fi;
-      app.rerender();
-      return;
-    }
-    const pi = this._platzBei(x, y);
-    if (pi !== null && state.gewaehlt !== null) this._legen(app, state.gewaehlt, pi);
-    else { state.gewaehlt = null; app.rerender(); }
-  },
-
+  // Nur Drag & Drop, kein Start-Ziel-Klicken.
   onDrop(state, x0, y0, x1, y1, app) {
     const fi = this._figurBei(x0, y0);
     const pi = this._platzBei(x1, y1);
-    if (fi !== null && pi !== null) this._legen(app, fi, pi);
-    else { state.gewaehlt = null; app.rerender(); }
-  },
-
-  _legen(app, fi, pi) {
-    const s = app.state;
-    const figur = s.paare[fi], platz = s.paare[pi];
-    if (figur.id === platz.id &&
-        norm(rotPts(figur.pts, figur.figurRot)) === norm(platz.pts)) {
-      figur.gelegt = true;
-      platz.gelegt = true;
-      s.gelegt++;
-      s.gewaehlt = null;
-      if (s.gelegt === s.paare.length) s.fertig = true;
-    } else {
-      s.gewaehlt = null;
+    if (fi !== null && pi !== null && state.paare[fi].id === state.paare[pi].id) {
+      state.paare[fi].gelegt = true;
+      state.paare[pi].gelegt = true;
+      state.gelegt++;
+      if (state.gelegt === state.paare.length) state.fertig = true;
     }
     app.rerender();
   },
