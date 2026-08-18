@@ -81,8 +81,10 @@ def update(bid):
     status = data.get("status") or "Neu"
     if status not in STATUS:
         status = "Neu"
+    ki_erledigt = 1 if data.get("ki_erledigt") else 0
     db = get_db()
-    db.execute("UPDATE beitraege SET prompt=?, status=? WHERE id=?", (prompt, status, bid))
+    db.execute("UPDATE beitraege SET prompt=?, status=?, ki_erledigt=? WHERE id=?",
+               (prompt, status, ki_erledigt, bid))
     db.commit()
     return jsonify({"ok": True})
 

@@ -49,7 +49,8 @@ def db_rows(statuses):
     con.row_factory = sqlite3.Row
     q = ",".join("?" * len(statuses))
     rows = con.execute(
-        f"SELECT * FROM beitraege WHERE status IN ({q}) ORDER BY id", statuses
+        f"SELECT * FROM beitraege WHERE status IN ({q}) "
+        "AND (ki_erledigt = 0 OR ki_erledigt IS NULL) ORDER BY id", statuses
     ).fetchall()
     con.close()
     return rows
@@ -93,7 +94,7 @@ def prompt_nachbearbeiten(row, appdir):
 
 DB-Zeile {row['id']} · App: apps/{appdir.name}/
 
-## Anweisungen (Prompt-Spalte, verbindlich)
+## Anweisungen (NUR die Prompt-Spalte ist verbindlich; die Ideen-Spalte bitte ignorieren)
 {row['prompt'] or '—'}
 
 ## Aktueller app.js (nur zur Orientierung, nicht neu schreiben)
@@ -116,6 +117,17 @@ def run_pi(name, prompt, slug_dir=None):
             cwd=REPO, stdout=log, stderr=subprocess.STDOUT, timeout=2400,
         )
     return proc.returncode
+
+
+def mark_erledigt(name):
+    """Erfolgreich bearbeitete Zeile als KI-erledigt + Fertig markieren."""
+    m = re.match(r"\w+-(\d+)", name)
+    if not m:
+        return
+    con = sqlite3.connect(DB)
+    con.execute("UPDATE beitraege SET ki_erledigt=1, status='Fertig' WHERE id=?", (int(m.group(1)),))
+    con.commit()
+    con.close()
 
 
 def main():
@@ -160,6 +172,8 @@ def main():
             name = futs[fut]
             rc = fut.result()
             print(f"  {'OK ' if rc == 0 else 'FEHL'} {name}")
+            if rc == 0:
+                mark_erledigt(name)
     print("fertig. Danach:  npm run build:miniapps")
 
 

@@ -81,6 +81,7 @@
   <th>Nutzung (Idee)</th>
   <th>Prompt</th>
   <th class="col-status">Status</th>
+  <th class="col-status">KI-Erledigt</th>
 </tr>
 </thead>
 <tbody>
@@ -103,6 +104,10 @@
       {% for s in statuses %}<option value="{{ s }}" {% if s==r['status'] %}selected{% endif %}>{{ s }}</option>{% endfor %}
     </select>
   </td>
+  <td class="col-status">
+    <input type="checkbox" class="ki-erledigt" data-id="{{ r['id'] }}" data-field="ki_erledigt"
+           {% if r['ki_erledigt'] %}checked{% endif %} title="KI-Erledigt">
+  </td>
 </tr>
 {% endfor %}
 </tbody>
@@ -113,10 +118,11 @@
     const id = el.dataset.id;
     const prompt = document.querySelector(`textarea[data-id="${id}"][data-field="prompt"]`).value;
     const status = document.querySelector(`select[data-id="${id}"][data-field="status"]`).value;
+    const ki = document.querySelector(`input.ki-erledigt[data-id="${id}"]`).checked;
     fetch(`/update/${id}`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ prompt, status })
+      body: JSON.stringify({ prompt, status, ki_erledigt: ki })
     }).then(r => r.json()).then(d => {
       if (d.ok) {
         const tr = el.closest('tr');
@@ -128,6 +134,8 @@
     t.addEventListener('change', () => save(t)));
   document.querySelectorAll('select[data-field="status"]').forEach(s =>
     s.addEventListener('change', () => save(s)));
+  document.querySelectorAll('input.ki-erledigt').forEach(c =>
+    c.addEventListener('change', () => save(c)));
 </script>
 </body>
 </html>

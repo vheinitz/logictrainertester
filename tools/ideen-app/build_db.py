@@ -90,7 +90,8 @@ def build():
             stelle TEXT,
             nutzung TEXT,
             prompt TEXT DEFAULT '',
-            status TEXT DEFAULT 'Neu'
+            status TEXT DEFAULT 'Neu',
+            ki_erledigt INTEGER NOT NULL DEFAULT 0
         )
     """)
     con.execute("DELETE FROM beitraege")
@@ -98,8 +99,8 @@ def build():
     for f in sorted(REF.glob("*.html")):
         for r in parse_one(f):
             con.execute(
-                "INSERT INTO beitraege (buch, titel, relevanz, punkt, stelle, nutzung, prompt, status) "
-                "VALUES (?,?,?,?,?,?,?,?)",
+                "INSERT INTO beitraege (buch, titel, relevanz, punkt, stelle, nutzung, prompt, status, ki_erledigt) "
+                "VALUES (?,?,?,?,?,?,?,?,0)",
                 (r["buch"], r["titel"], r["relevanz"], r["punkt"], r["stelle"],
                  r["nutzung"], r["prompt"], r["status"]),
             )
