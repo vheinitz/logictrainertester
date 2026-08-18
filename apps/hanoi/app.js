@@ -1,5 +1,6 @@
 /**
  * Türme von Hanoi – Planungs- und Sequenzspiel.
+ * idee-db: 1
  *
  * Aus der Ideen-DB (Beitrag 1, Gardner: „Ikosaeder-Spiel und Turm von Hanoi“).
  * Drei Stäbe, N Scheiben; nur die oberste darf bewegt werden, größere nie auf

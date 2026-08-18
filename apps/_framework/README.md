@@ -11,8 +11,7 @@ gemeinsame Framework, damit Styles und Bausteine nicht dupliziert werden.
 | Shell | `framework.js` (`MiniApp`) | Titel, Anweisungsbereich, Hilfe (aufklappbar), Einstellungen |
 | Canvas | `framework.js` | Zeichenfläche (SVG oder HTML), Sprites, Zeiger-Normalisierung |
 | Interaktion | `framework.js` | Tippen (tap) und Ziehen (drag) über Pointer-Events, 8-px-Schwelle |
-| Einstellungen | `framework.js` | Schema-basiert, je App + global, in localStorage |
-| Auswertung | `framework.js` | score/Züge + Ergebnisseite (`resultScreen`) |
+| Einstellungen | `framework.js` | Schema-basiert, je App + global, in localStorage || Auswertung | `framework.js` | score/Züge + Ergebnisseite (`resultScreen`) |
 | Sprites | `svg.*` | kleine SVG-Helfer (rect, circle, text, group) |
 | Styles | `framework.css` | geteilte Optik |
 
@@ -59,8 +58,19 @@ npm run build:miniapps   # bündelt jede App zu apps/<name>/app.bundle.js
 ```
 
 Mehrere Apps in einer Seite: jede `app.mount(container)` in ihren eigenen
-Container — Einstellungen je App sind getrennt, globale (Bildgröße, Ton)
-werden geteilt.
+Container — Einstellungen je App sind getrennt, globale (Sprache, Bildgröße,
+Ton) werden geteilt.
+
+## Sprache
+
+Wie die Haupt-App sind die Mini-Apps **de/ru/en**-fähig und für weitere
+Sprachen erweiterbar:
+
+- Alle Texte als `{ de, ru, en }`-Objekte; `pick()` wählt die aktive Sprache.
+- Die aktive Sprache ist eine **globale Einstellung** (⚙️ → „Sprache“) und
+  wirkt sofort auf alle Mini-Apps einer Seite.
+- Neue Sprache ergänzen: Schlüssel in jedem Textobjekt + in die
+  `options`-Liste der globalen Einstellung `sprache` eintragen.
 
 ## Neue App anlegen
 
