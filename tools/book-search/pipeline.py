@@ -13,7 +13,7 @@ Nur moderne PDFs liefern sauberen Text; alte sowjetische Scans haben kaputte
 Textlayer (erkennbar an verstreutem Kyrillisch/Steuerzeichen) und werden als
 "unbrauchbar" markiert statt hineinzufälschen.
 """
-import argparse, json, os, re, subprocess, sys, unicodedata
+import argparse, json, os, re, shutil, subprocess, sys, unicodedata
 from pathlib import Path
 
 BOOKS = Path("/home/heinitz@AESKU.local/priv/books/books_vk")
@@ -60,8 +60,35 @@ def extract_all():
                 continue
             (outdir / f"{i:04d}.txt").write_text(page, encoding="utf-8")
             kept += 1
-        report[name] = {"pages_total": len(pages), "pages_ok": kept, "ok": kept > 0}
+        report[name] = {"pages_total": len(pages), "pages_ok": kept, "ok": kept > 0, "art": "pdf"}
         print(f"{name}: {kept}/{len(pages)} Seiten brauchbar")
+
+    # DJVU: nur eingebetteten Textlayer nutzen, KEIN OCR.
+    djvutxt = shutil.which("djvutxt")
+    for djvu in sorted(BOOKS.glob("*.djvu")):
+        name = djvu.stem
+        outdir = WORK / name
+        if djvutxt is None:
+            report[name] = {"pages_total": 0, "pages_ok": 0, "ok": False, "art": "djvu", "note": "djvutxt fehlt"}
+            continue
+        outdir.mkdir(exist_ok=True)
+        raw = subprocess.run(
+            [djvutxt, str(djvu)],
+            capture_output=True, text=True, timeout=120,
+        ).stdout
+        pages = raw.split("\f")
+        kept = 0
+        for i, page in enumerate(pages, 1):
+            if is_garbled(page):
+                continue
+            page = page.strip()
+            if len(page) < 30:
+                continue
+            (outdir / f"{i:04d}.txt").write_text(page, encoding="utf-8")
+            kept += 1
+        report[name] = {"pages_total": len(pages), "pages_ok": kept, "ok": kept > 0, "art": "djvu"}
+        print(f"{name}: {kept}/{len(pages)} Seiten Textlayer brauchbar")
+
     (WORK / "extract-report.json").write_text(
         json.dumps(report, ensure_ascii=False, indent=1), encoding="utf-8"
     )
