@@ -45,4 +45,5 @@
 .ma-ergebnis { margin-top: .8rem; }
 .ma-result { font-size: .95rem; padding: .5rem .7rem; background: var(--ma-hintergrund); border-radius: 8px; }
 .ma-result.ma-fertig { text-align: center; padding: 1rem; background: #eef8ee; border: 1px solid #cde5cd; }
+.ma-ok { font-size: 2.6em; line-height: 1.1; }
 .ma-neben { color: var(--ma-neben); font-size: .85rem; }

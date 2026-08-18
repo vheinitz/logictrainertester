@@ -109,9 +109,11 @@ export class MiniApp {
     this.state = { _startZeit: Date.now() };
     this.cfg.init(this.state, this);
     this._render();
+    this._startTicker();
   }
 
   dispose() {
+    this._stopTicker();
     if (typeof this.cfg.dispose === 'function') this.cfg.dispose(this.state);
     this._drag = null;
   }
@@ -121,6 +123,7 @@ export class MiniApp {
     this.state._startZeit = Date.now();
     this.cfg.init(this.state, this);
     this.rerender();
+    this._startTicker();
   }
 
   /** Vergangene Sekunden seit Start/Neustart – für die Ergebnis-Auswertung. */
@@ -277,21 +280,31 @@ export class MiniApp {
     const s = this.state;
     const t = this.cfg;
     if (!s) return '';
-    if (typeof t.evaluate !== 'function') return '';
-    const r = t.evaluate(s, this);
-    if (!r) return '';
-    const art = t.auswertung || 'punkte';
-    let text = '';
-    if (r.fertig) {
-      const wert = r.wert !== undefined ? r.wert
-        : art === 'zuege'
-          ? `${s.zuege ?? 0} Züge${r.optimal ? ` (optimal ${r.optimal})` : ''}`
-          : `${s.score ?? 0}/${s.total ?? 0}`;
-      text = `<div class="ma-result ma-fertig">🏁 ${pick(r.text) || 'Geschafft!'} — ${wert}</div>`;
-    } else if (r.text) {
-      text = `<div class="ma-result">${pick(r.text)}</div>`;
+    const r = typeof t.evaluate === 'function' ? t.evaluate(s, this) : null;
+    if (r && r.fertig) {
+      const wert = r.wert !== undefined ? r.wert : '';
+      // Ende: nur Erfolgszeichen + Wert (kein Text), wenn gewünscht.
+      const text = t.keinErfolgText ? '' : (pick(r.text) || 'Geschafft!');
+      return `<div class="ma-result ma-fertig"><div class="ma-ok">✅</div>${text ? text + ' — ' : ''}${wert}</div>`;
     }
-    return text;
+    if (typeof t.statusHtml === 'function') return t.statusHtml(s, this);
+    if (r && r.text) return `<div class="ma-result">${pick(r.text)}</div>`;
+    return '';
+  }
+
+  /** Live-Statuszeile (z. B. laufende Uhr), nur wenn statusHtml existiert. */
+  _startTicker() {
+    this._stopTicker();
+    if (typeof this.cfg.statusHtml !== 'function') return;
+    this._ticker = setInterval(() => {
+      if (this.state?.fertig) { this._stopTicker(); return; }
+      const e = this.root?.querySelector('.ma-ergebnis');
+      if (e) e.innerHTML = this._ergebnisHtml();
+    }, 1000);
+  }
+
+  _stopTicker() {
+    if (this._ticker) { clearInterval(this._ticker); this._ticker = null; }
   }
 }
 

@@ -66,9 +66,9 @@ const app = new MiniApp({
       return svg.group(stab + fuss);
     }).join('');
 
-    // Schrittanzeige in großer Schrift
-    const schritte = svg.text(24, 38, `Züge: ${state.zuege}`,
-      { 'font-size': 30, 'font-weight': 'bold', fill: '#5b4fcf' });
+    // Schrittanzeige: nur die Zahl, ohne Wort (sprachunabhängig).
+    const schritte = svg.text(24, 38, String(state.zuege),
+      { 'font-size': 34, 'font-weight': 'bold', fill: '#5b4fcf' });
 
     const scheiben = state.pegs.flatMap((peg, p) =>
       peg.map((size, k) => {
@@ -158,11 +158,15 @@ const app = new MiniApp({
       return {
         fertig: true,
         optimal: o,
-        text: { de: 'Alle Scheiben sind drüben!', ru: 'Все диски перенесены!', en: 'All disks moved!' },
-        wert: `${state.zuege} Züge in ${sek} s (optimal ${o})`,
+        wert: `${sek} s`,   // nur Erfolgszeichen + Zeit, kein Text
       };
     }
-    return { text: { de: `${state.zuege} Züge`, ru: `${state.zuege} ходов`, en: `${state.zuege} moves` } };
+    return null;
+  },
+
+  // Live-Statuszeile unter dem Canvas: laufende Zeit statt Textduplikat.
+  statusHtml(state, app) {
+    return `<div class="ma-result">⏱ ${app.elapsedSek()} s</div>`;
   }
 });
 
