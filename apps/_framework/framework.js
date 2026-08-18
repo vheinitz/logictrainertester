@@ -140,6 +140,7 @@ export class MiniApp {
       <header class="ma-kopf">
         <h1>${t.icon || ''} ${pick(t.titel)}</h1>
         <div class="ma-tasten">
+          <button data-ma="neu" class="ma-btn" title="Neustart">🔁</button>
           <button data-ma="anweisung" class="ma-btn">📖</button>
           <button data-ma="hilfe" class="ma-btn">❓</button>
           <button data-ma="settings" class="ma-btn">⚙️</button>
@@ -153,7 +154,7 @@ export class MiniApp {
     `;
     // Knöpfe verdrahten
     r.querySelectorAll('[data-ma]').forEach(b => {
-      b.onclick = () => this._toggle(b.dataset.ma);
+      b.onclick = b.dataset.ma === 'neu' ? (() => this.reset()) : (() => this._toggle(b.dataset.ma));
     });
     // Einstellungs-Eingaben verdrahten (Slider, Checkbox, Select)
     r.querySelectorAll('[data-set]').forEach(inp => {
