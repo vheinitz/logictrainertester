@@ -50,7 +50,14 @@ Framework.
 
 ## Einbinden
 
-Eigenständig: `apps/<name>/index.html` lädt `framework.css` + `app.js`.
+Eigenständig: `apps/<name>/index.html` lädt `framework.css` + `app.bundle.js`.
+Das Bundle wird erzeugt, damit die App **von `file://` aus** läuft (ES-Module
+sind dort blockiert — derselbe Grund wie beim Haupt-Bundle):
+
+```bash
+npm run build:miniapps   # bündelt jede App zu apps/<name>/app.bundle.js
+```
+
 Mehrere Apps in einer Seite: jede `app.mount(container)` in ihren eigenen
 Container — Einstellungen je App sind getrennt, globale (Bildgröße, Ton)
 werden geteilt.

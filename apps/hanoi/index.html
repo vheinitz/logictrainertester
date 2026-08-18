@@ -8,11 +8,10 @@
 </head>
 <body>
 <div id="app"></div>
-<script type="module">
-  import app, { mount } from './app.js';
-  mount(document.getElementById('app'));
-  // Ergebnis-Button „Nochmal“:
-  window.__maRestart = () => app.reset();
+<script src="./app.bundle.js"></script>
+<script>
+  HANOI.mount(document.getElementById('app'));
+  window.__maRestart = () => HANOI.default.reset();
 </script>
 </body>
 </html>
