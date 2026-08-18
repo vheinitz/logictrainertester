@@ -1,0 +1,63 @@
+166                 HAPPY GARDEN
+
+
+ 23 Wilt   a flower                              index =     0        1     2           3
+    It’s time to give your garden-
+         tending cow a bit of a challenge.    flower_list
+         Add some code that will wilt                                                                    These two
+         a random flower every three                                                                     lists store the
+                                                                                                         information of
+         seconds. The cow will have to                                                                   a particular
+         dash to the wilted flower to water                                                              flower at the
+         it. Replace the word pass in the                                                                same index
+                                              wilted_list   happy         happy
+         wilt_flower() function from                                                                     number.
+         Step 13 with the code below.
+
+                        def wilt_flower():
+                                                                                                  This line generates
+                            global flower_list, wilted_list, game_over                            a random index in
+                            if not game_over:                                                     the list of flowers.
+            This line
+    resets the time             if flower_list:
+  for this flower in
+                                     rand_flower = randint(0, len(flower_list) - 1)
+     wilted_list to                                                                               This checks if the
+ the current time.                   if (flower_list[rand_flower].image == "flower"):             flower at this index
+                                                                                                  is wilted or not.
+                                         flower_list[rand_flower].image = "flower-wilt"
+                                         wilted_list[rand_flower] = time.time()
+   This schedules
+   another call to              clock.schedule(wilt_flower, 3)
+  wilt_flower() in
+   three seconds.           return
+
+
+                                                                                            This sets the flower
+                                                                                            image to a wilted
+                                                                                            flower image.
+
+ 24 Unhappy   garden!
+    Next you need to check if any of the flowers have been
+         wilted for more than ten seconds. If one has, the garden’s               This code loops over
+         unhappy, and it’s game over! Go to def check_wilt_times()                each item in the
+         in Step 13 and replace pass with the code shown here.                    wilted_list.
+
+                        def check_wilt_times():
+                            global wilted_list, game_over, garden_happy
+
+   This checks if           if wilted_list:
+   there are any                for wilted_since in wilted_list:
+    items in the
+    wilted_list.                     if (not wilted_since == "happy"):                               These lines
+                                                                                                     check if the
+                                          time_wilted = int(time.time() - wilted_since)              flower is wilted
+                                          if (time_wilted) > 10.0:                                   and work out
+                                                                                                     how long it’s
+                                              garden_happy = False                                   been wilted.
+ This line checks
+if the flower has                             game_over = True
+  been wilted for
+                                              break
+       more than
+     ten seconds.           return

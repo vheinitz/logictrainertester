@@ -1,0 +1,54 @@
+GAME PROGRESS                                                    65%     127
+     Move the bird
+18 Next you need to add some code to make it
+     look like the bird is flying across the screen                                            Get out of the way!
+     while flapping its wings. This code will move
+     the bird to the left by four pixels to make it
+     seem like it’s flying across the screen.                 If the bird is on the
+                                                              screen, this will move
+                                                              it to the left.
+                balloon.y += 1
+
+
+          if bird.x > 0:
+                bird.x -= 4
+                if number_of_updates == 9:
+                     flap()
+                                                                         This block of code will
+                     number_of_updates = 0
+                                                                         make the bird flap its
+                else:                                                    wings every tenth time the
+                                                                         update() function is called.
+                     number_of_updates += 1
+
+
+
+
+19 Handle the bird flying off the screen
+   When the bird disappears off the left edge of the
+                                                                             EXPERT TIPS
+     screen, you need to move it back to a random                      Smooth animations
+     position off the right side of the screen, just
+     like you did at the beginning of the game. The                    In Python, the update() function is
+     height at which the bird appears also needs to                    automatically called 60 times every
+     be randomly chosen. Type the following code                       second. If you change the image of the
+     immediately after the last line of code in Step 18.               bird each time this function is called, it
+                                                                       would just be a blur on the screen. To
+                                                                       make the animation smoother, add a block
+   Remember to add            This code places the bird at             of code that will change the image every
+   eight spaces before         a random position off the               tenth time the function is called. You can
+   typing this line.              right side of the screen.            change this interval if you want. But if the
+                                                                       gap between the updates is too big, the
+                else:                                                  bird will appear to move very slowly.
+                     number_of_updates += 1
+          else:                                                                               Dude, you’re so
+                bird.x = randint(800, 1600)                                               wrong! The actors aren’t
+                                                                                               blurry at all!
+                bird.y = randint(10, 200)
+                score += 1
+                number_of_updates = 0
+
+
+            This adds one to the player’s
+            score for every obstacle that
+            disappears off the screen.

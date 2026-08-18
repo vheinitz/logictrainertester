@@ -1,0 +1,47 @@
+Искусственный интеллект                                                        19
+
+
+в пространстве как distance квадратов от точки position в направлении direction.
+К примеру, функция calculateCoordinates(2,3,(5,5)) определяет координату,
+которая находится двумя квадратами левее (3 соответствует направлению «влево»)
+квадрата с координатами (5, 5). Теперь запишем стратегию. Она будет прямолинейной:
+  1) двигаемся в направлении врага;
+  2) по возможности атакуем.
+Начнем с базового кода предыдущей версии робота:
+
+ class AI:
+     def __init__(self):
+         pass
+     def turn(self):
+         if self.robot.lookInFront() == "bot":
+             self.robot.attack()
+
+Этот код реализует вторую часть нашей стратегии: «по возможности атакуем». Осталось
+написать код первой части. Добавьте к функции turn() такие строки:
+
+ else:
+     self.goTowards(self.robot.locateEnemy()[0])
+
+Мы вызываем метод self.goTowards() класса AI с положением врага в качестве аргу-
+мента. Метод self.robot.locateEnemy() возвращает список с положением и ориен-
+тацией врага. Но этот код не работает, пока мы не определим метод self.goTowards().
+
+ def goTowards(self,enemyLocation):
+     myLocation = self.robot.position
+     delta = (enemyLocation[0]-myLocation[0],
+             enemyLocation[1]-myLocation[1])
+
+Определяем дельту или разницу между положением вашего робота и положением цели.
+Смотрим, в каком направлении следует повернуться, чтобы оказаться к врагу лицом:
+
+ if abs(delta[0]) > abs(delta[1]):
+     if delta[0] < 0:
+                                    Лицом влево
+         targetOrientation = 3
+     else:                                          Лицом вправо
+         targetOrientation = 1
+ else:
+     if delta[1] < 0:              Лицом вверх
+         targetOrientation = 0
+     else:                                           Лицом вниз
+         targetOrientation = 2

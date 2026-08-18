@@ -1,0 +1,38 @@
+Примечания
+
+
+ланфи «Общая теория систем» (Ludwig von Bertalanffy, Gen-
+eral System Theory: Foundations, Development, Applications
+(George Braziller)).
+   Цитата Оливье де Века (Olivier de Weck) и его коллег взя-
+та из их книги 2012 года Engineering Systems: Meeting Human
+Needs in a Complex Technological World (MIT Press), с. 34. До-
+полнительные сведения о вопроснике Джорджа Хайлмайера
+см. в его работе Some Reflections on Innovation and Invention
+(Bridge 22, no. 4 [1992]: 12–16). Шаблон контрольного списка
+позаимствован из очерка Джошуа Шапиро (Joshua Shapiro)
+о Хайлмайере в IEEE Spectrum (June 1994, с. 58). Есть статья
+на ту же тему: The Heilmeier Catechism (Chris Brantley, IEEE-
+USA Today’s Engineer, February 2012).
+
+Глава 2
+Данные по Стокгольму взяты из материалов конферен-
+ции 2008 года Комиссии по транспортным исследованиям
+Нацио­нальных академий U.S. and International Approaches to
+Performance Measurement for Transportation Systems, из раз-
+дела Stockholm Congestion Charging Program: A Performance
+View, Naveen Lamba (с. 84–85).
+   Цитаты Ламбы взяты из его статьи Traffic and How to Avoid
+Future Carmageddons (Fox Business, July 15, 2011) и статьи Fast
+Company со списком 50 Most Innovative Companies («Самых
+инновационных компаний»), где IBM была на 19-м месте
+(February 10, 2009). Также очень полезной оказалась статья
+Ламбы New Technology Offers Solutions for Traffic Congestion
+(Tacoma News Tribune, August 9, 2011). «Отчет о мобильности
+в городах за 2012 год» был выпущен Институтом транспорта
+при Техасском сельскохозяйственном и инженерном универ-
+ситете (2012 Urban Mobility Report, David Schrank, Bill Eisele,
+and Tim Lomax, Texas A&M Transportation Institute). Данные
+взяты со с. 5.
+
+                                                           209

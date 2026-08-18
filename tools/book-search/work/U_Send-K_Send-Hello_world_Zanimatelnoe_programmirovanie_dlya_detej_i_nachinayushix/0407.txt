@@ -1,0 +1,48 @@
+Лыжник. Объяснение                                                                 7
+
+
+ def update(self):
+     global speed
+     self.rect.centery -= speed[1]
+
+Глобальная переменная speed — это скорость нашего лыжника. Она состоит из двух
+значений, представляющих x- и y-скорости, и для выделения второго компонента мы
+используем индекс [1]. По мере прокрутки первой сцены с препятствиями под нижним
+краем экрана должна генерироваться следующая сцена. Как определить подходящий
+для этого момент? При помощи переменной map_position, следящей за величиной
+прокрутки. Этот код вставляется в основной цикл:
+
+ running = True
+     while running:
+         clock.tick(30)
+         for event in pygame.event.get():
+             if event.type == pygame.QUIT: running = False
+                                            Следим за величиной
+          map_position += speed[1]          прокрутки экрана
+
+
+              if map_position >= 640:    Если прокрутка сцены
+                  create_map()           завершена, создаем новую
+                  map_position = 0       версию экрана с препятствиями
+
+
+Для перерисовки всех деталей сцены, как и в коде с одним лыжником, используется
+функция animate(). После сбора компонентов в одно целое код заполненного пре-
+пятствиями экрана будет выглядеть так, как показано в листинге 25.2.
+
+ Листинг 25.2. Игра Лыжник — только препятствия
+ import pygame, sys, random
+
+ class ObstacleClass(pygame.sprite.Sprite):
+     def __init__(self, image_file, location, type):
+         pygame.sprite.Sprite.__init__(self)
+         self.image_file = image_file
+         self.image = pygame.image.load(image_file)         Класс для спрайтов,
+         self.rect = self.image.get_rect()                  представляющих
+         self.rect.center = location                        препятствия (деревья
+         self.type = type                                   и флаги)
+         self.passed = False
+
+     def update(self):
+         global speed
+         self.rect.centery -= speed[1]

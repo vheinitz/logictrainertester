@@ -1,0 +1,54 @@
+HOW TO BUILD COIN COLLECTOR                                      61
+                                         Start              How it works
+                                                            The game starts by setting the score to
+                                                            zero. If there is time left, the fox can move
+                                                            around and collect coins. When the time
+                                Set the score to zero       is up, the game ends and the final score is
+                                                            displayed on the screen.
+
+
+       Show the                         Is the
+      final score                     time up?
+                            Y
+                                     N
+          End
+                                     Is an arrow
+                                                        Y
+                                      key being                       Move the fox
+                                      pressed?
+
+▷ Coin Collector                     N
+flowchart
+The main loop in this
+                                      Is the fox
+                                                        Y
+flowchart checks if the                                                                          Place the coin
+                                    touching the                 Increase the score
+the time is up, whether                                                                         somewhere else
+                                         coin?
+any arrow key is being
+pressed, or if the fox is
+touching a coin.                         N
+
+Getting started
+Follow these steps to build the game.                                                  Treasure Hunt
+First set up a new file and import the
+relevant modules. Then draw the Actors
+and define the functions to run the
+game. Good luck!
+
+
+
+ 1 Get set up
+   Create a new folder called coin-collector. Then
+                                                             Save As:
+                                                             Tags:
+                                                                          coin.py
+
+       open IDLE and create an empty file by going to
+       the File menu and choosing New File. Select
+                                                             Where:          coin-collector
+       Save As... from the same menu and save the
+       file as coin.py in the coin-collector folder.
+
+                                                                                              Cancel          Save

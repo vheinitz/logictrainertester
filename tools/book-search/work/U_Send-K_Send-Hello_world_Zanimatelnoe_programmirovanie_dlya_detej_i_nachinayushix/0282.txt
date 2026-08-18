@@ -1,0 +1,51 @@
+282                                                                           Глава 19
+
+
+
+           screen.blit(paddle.image, paddle.rect)
+           screen.blit(score_text, textpos)
+           for i in range (lives):
+               width = screen.get_width()
+               screen.blit(myBall.image, [width - 40 * i, 20])
+           pygame.display.flip()
+
+      if myBall.rect.top >= screen.get_rect().bottom:
+          if not done:
+              splat.play()            Воспроизводим звук, когда игрок
+                                      теряет жизнь
+          lives = lives - 1
+          if lives <= 0:
+              if not done:
+                  pygame.time.delay(1000)      Ждем одну секунду и проигрываем
+                                               завершающий звук
+                  bye.play()
+              final_text1 = "Игра окончена"
+              final_text2 = "Ваш счет: " + str(points)
+              ft1_font = pygame.font.Font(None, 70)
+              ft1_surf = font.render(final_text1, 1, (0, 0, 0))
+              ft2_font = pygame.font.Font(None, 50)
+
+             ft2_surf = font.render(final_text2, 1, (0, 0, 0))
+             screen.blit(ft1_surf, [screen.get_width()/2 - \
+                             ft1_surf.get_width()/2, 100])
+             screen.blit(ft2_surf, [screen.get_width()/2 - \
+                             ft2_surf.get_width()/2, 200])
+             pygame.display.flip()
+                                                       Постепенно уменьшаем
+             done = True                               громкость музыки до нуля
+             pygame.mixer.music.fadeout(2000)
+         else:
+             pygame.time.delay(1000)          Воспроизводим звук
+             new_life.play()                  в начале новой партии
+             myBall.rect.topleft = [50, 50]
+             screen.blit(myBall.image, myBall.rect)
+             pygame.display.flip()
+             pygame.time.delay(1000)
+ pygame.quit()
+
+Это очень длинная программа! (Примерно 100 строк, включая пустые.) Ее можно было
+сделать короче, но это затруднило бы чтение и понимание. В этой главе мы постепенно
+добавляли к программе небольшие фрагменты, что избавило вас от необходимости на-
+бирать сразу весь код. Если вы читаете книгу с самого начала, то без труда поймете, зачем
+нужна каждая часть программы и как отдельные части соединяются друг с другом. На
+всякий случай я поместил весь текст этой программы в папку \examples и на сайт книги.

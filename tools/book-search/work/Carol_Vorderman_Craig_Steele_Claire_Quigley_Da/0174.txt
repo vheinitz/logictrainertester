@@ -1,0 +1,60 @@
+172             HAPPY GARDEN
+
+
+33 Check for collisions
+   Now that your fangflowers are in motion, you need
+       to add some code that will check if a fangflower
+       has caught up with the cow to zap it! Replace pass                                     These are the global
+       in the check_fangflower_collision() function with                                      variables used
+       the code shown below.                                                                  in this function.
+
+                        def check_fangflower_collision():
+       This adds an
+                            global cow, fangflower_list, fangflower_collision
+     image to show
+       the cow has          global game_over
+      been zapped.
+                            for fangflower in fangflower_list:
+                                 if fangflower.colliderect(cow):
+                                      cow.image = "zap"                                                    This checks if the
+       This tells the                                                                                      fangflower and
+      program that                    game_over = True                                                     cow are next to
+  the game is over.                                                                                        each other.
+                                      break
+                            return
+
+
+
+                                                         This line stops the
+                                                         program from checking
+                                                         other fangflowers.
+
+
+
+34 Drawing    results
+   If a fangflower manages to zap the
+       cow, it’s game over. Add this code to
+       the draw() function to display a game                                        Don’t forget to save
+       over message.                                                                    your work.
+
+                                       if (not garden_happy):
+                                           screen.draw.text(
+      This block of
+   code runs if the                                "GARDEN UNHAPPY—GAME OVER!", color="black",
+     garden is still
+happy but the cow                                  topleft=(10, 100)
+ has been zapped.                              )
+
+       This draws a                            finalized = True
+   message on the                     else:
+    screen to show
+  the game is over                         screen.draw.text(
+       because of a
+                                                   "FANGFLOWER ATTACK—GAME OVER!", color="black",
+fangflower attack.
+                                                   topleft=(10, 50)
+ This makes sure
+                                               )
+  the code is not
+       run again.                          finalized = True
+                            return

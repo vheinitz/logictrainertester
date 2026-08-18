@@ -1,0 +1,48 @@
+248                                                                       Глава 18
+
+
+
+      def move(self):
+          if self.rect.left <= screen.get_rect().left or \
+                                                                       Класс Ball
+                  self.rect.right >= screen.get_rect().right:          с методом
+              self.speed[0] = - self.speed[0]                          move()
+          newpos = self.rect.move(self.speed)
+          self.rect = newpos
+
+ my_ball = Ball('beach_ball.png', [10,0], [20, 20])            Создаем
+                                                               экземпляр
+ running = True
+                                                               мяча
+ while running:                 Скорость, местоположение
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             running = False
+     clock.tick(30)               Это часы
+     screen.blit(background, (0, 0))
+     my_ball.move()                                   Перерисовываем
+                                                      все
+     screen.blit(my_ball.image, my_ball.rect)
+     pygame.display.flip()
+ pygame.quit()
+
+Обратите внимание, что на этот раз мы по-другому «стирали» мяч после его переме-
+щения. Как вы уже знаете, удалить спрайт перед тем, как рисовать его на новом месте,
+можно двумя способами: нарисовать фон там, где изначально располагался спрайт, и в
+каждом кадре рисовать весь фон заново, фактически начиная все «с чистого листа».
+В данном случае был выбран второй вариант. Но вместо использования на каждой ите-
+рации цикла функции screen.fill() мы создали поверхность background и залили
+ее белым цветом. Затем на каждой итерации цикла мы блитировали эту поверхность на
+поверхность отображения screen. В результате мы получили тот же самый результат,
+но немножко другим способом.
+События клавиш
+Добавим обработчик события, который заставит мяч при нажатии клавиши ↓ двигаться
+вниз, а при нажатии клавиши ↑ двигаться вверх. Библиотека Pygame состоит из набора
+модулей. В это главе мы будем работать с модулем pygame.event.
+У нас уже есть цикл Pygame-событий (это цикл while). Он ждет особого события, кото-
+рое называется QUIT:
+
+ while running:
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             running = False

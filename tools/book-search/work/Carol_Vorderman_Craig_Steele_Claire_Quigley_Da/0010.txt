@@ -1,0 +1,27 @@
+Foreword
+
+Computer programmers are the unsung heroes of the modern world. From smartphones
+to laptops, traffic systems to bank cards, their hard work touches almost every aspect
+of our lives. Behind each technological advance is a team of creative coders.
+
+Over the past 30 years, computer games have become one of the most exciting and
+popular areas of the entertainment industry to work in. Becoming a game programmer
+takes creative flair to help create the story, graphics, music, and characters you need
+for your games, and the technical know-how to bring them to life. Who knows? This
+book may be the very first step on your journey from gamer to game maker.
+
+Learning to code isn’t just for people who want to be professional programmers,
+though. Coding skills are useful in lots of different jobs that may seem to have nothing
+to do with computers at first. Programming expertise is essential to subject areas as
+diverse as science, business, art, and music.
+
+This book uses a programming language called Python®, a fairly simple text-based
+language, and is perfect for beginners, or as a step up from Scratch™. However,
+unlike Scratch, it was not created especially to teach coding. Python is as popular with
+budding coders as it is with professionals, and is one of the most widely used
+professional programming languages in the world. It pops up in banking, medicine,
+animation, and even space exploration.
+
+The best way to learn any new language is to get immersed in it, and programming
+languages are no different. Building your own computer games is a fun way to combine
+theory and practice. If you’re a brand-new coder, start off with the basics at the

@@ -1,0 +1,49 @@
+HACKS AND TWEAKS                          97
+
+                                                                  I’m late for school!
+                                                              I’ll try again tomorrow.
+
+
+
+
+ def update():
+                                                                                          ◁ Try again
+                                                                                          At the moment, the player needs to
+      global stars, game_complete, game_over, current_level                               quit the game to try again. You can
+      if len(stars) == 0:                                                                 add some code to allow the player
+                                                                                          to play again by pressing a key.
+            stars = make_stars(current_level)
+                                                                                          Add some code to the update()
+      if (game_complete or game_over) and keyboard.space:                                 function that will check if the player
+            stars = []                                                                    has pressed the Space bar when
+                                                                                          the game is over or complete. If
+            current_level = 1                                                             they have, the game is reset. You’ll
+            game_complete = False                                                         also need to update the draw()
+                                                                                          function to change the message
+            game_over = False
+                                                                                          that is displayed at the end.
+
+
+▽ Shuffling
+You can make the game a bit more fun by adding some code that shuffles the
+stars every second. For this, you’ll need to use the shuffle() function. This function
+first checks that the stars list isn’t empty. It then uses a Python feature called list
+comprehension. This allows you to get each star’s position along the x-axis in the
+form of a list. Once you have this list, you can mix up the values in it. Next you’ll
+need to loop over the stars list and create an animation for each star to move
+them to their new position. Use clock.schedule_interval() to run the shuffle()
+function once every second. Add the following code at the end of your IDLE file.
+
+ def shuffle():
+      global stars
+      if stars:
+            x_values = [star.x for star in stars]                                                 I like the
+            random.shuffle(x_values)                                                            shuffle mode!
+
+            for index, star in enumerate(stars):
+                 new_x = x_values[index]
+                 animation = animate(star, duration=0.5, x=new_x)
+                 animations.append(animation)
+
+
+ clock.schedule_interval(shuffle, 1)

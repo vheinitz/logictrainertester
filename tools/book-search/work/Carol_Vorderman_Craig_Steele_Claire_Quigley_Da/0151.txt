@@ -1,0 +1,56 @@
+GAME PROGRESS                                  74%                    149
+
+22 Generate  the moves
+   Next you need to write a function to generate
+                                                         def generate_moves():
+                                                             global move_list, dance_length, count
+     a sequence of moves to display on the screen.
+     You need to use a for loop to generate four             global show_countdown, say_dance
+     random numbers ranging from 0 to 3, where
+                                                             count = 4
+     each number represents one of the moves you
+     set up in Step 15. Each move generated will be          move_list = []
+     added to two lists—move_list and display_list.          say_dance = False
+     Replace pass under def generate_moves()
+     from Step 13 with this code.                            for move in range(0, dance_length):
+                                                                  rand_move = randint(0, 3)
+                                This assigns values               move_list.append(rand_move)
+                         0, 1, 2, or 3 at random to
+                         the variable rand_move.                  display_list.append(rand_move)
+                                                             show_countdown = True
+
+                                This line adds each          countdown()
+                              new move to the end            return
+                               of the list of moves.
+                                                                                      This line tells the function
+                                                                                      draw() to display the
+                                                                                      value in count to create
+                                                                                      the countdown.
+
+23 Game    over
+   If the player makes a mistake, you need a “GAME OVER!”
+     message to pop up. You can do this by adding an else branch
+     to the if not game_over statement. By doing this, if game_over
+     becomes True, the dancer and squares will vanish and be replaced
+     by the “GAME OVER!” message. Add this code to the draw()
+     function immediately above the return statement.
+                                                                                       Don’t forget to save
+         This code runs if
+                                                                                           your work.
+         game_over is True.
+
+          if show_countdown:
+               screen.draw.text(str(count), color="black",
+                                       topleft=(CENTER_X - 8, 150), fontsize=60)
+     else:
+          screen.clear()
+          screen.blit("stage", (0, 0))                                                   This line draws
+                                                                                         the score in the
+          screen.draw.text("Score: " +                                                   top-left corner.
+                                 str(score), color="black",
+                                 topleft=(10, 10))
+          screen.draw.text("GAME OVER!", color="black",
+                                                                                         This line draws “GAME
+                                 topleft=(CENTER_X - 130, 220), fontsize=60)             OVER!” in black at the
+                                                                                         center of the screen.
+     return

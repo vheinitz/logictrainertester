@@ -1,0 +1,61 @@
+146          DANCE CHALLENGE
+
+
+16 Reset the Actors
+   The dancer needs to return to the start position after
+                                                                def reset_dancer():
+                                                                    global game_over
+     each move. The yellow-outlined arrow square that
+     corresponds to his dance move will also need to go             if not game_over:
+     back to normal. To make a function to handle this,
+                                                                        dancer.image = "dancer-start"
+     replace the word pass under def reset_dancer()
+     from Step 13 with this code.                                       up.image = "up"
+                                                                        right.image = "right"
+                                                                        down.image = "down"
+                                                                        left.image = "left"
+                                                                    return
+
+
+
+
+17 Make  a move
+   Next you need to write a function
+                                              def on_key_up(key):
+                                                   global score, game_over, move_list, current_move
+     that makes the dancer perform a
+     move when you press one of the                if key == keys.UP:
+     arrow keys on the keyboard. You
+                                                          update_dancer(0)
+     can use Pygame Zero’s built-in tool
+     on_key_up() to write an event-                elif key == keys.RIGHT:
+     handler function to do this. Replace                 update_dancer(1)
+     pass under the on_key_up(key)
+     function from Step 13 with this code.         elif key == keys.DOWN:
+                                                          update_dancer(2)
+                                                   elif key == keys.LEFT:
+        Each time an arrow key is pressed,
+          the update_dancer() function is                 update_dancer(3)
+      called with a parameter to make the          return
+       dancer perform the relevant move.
+
+
+
+
+18 Move    those feet
+   It’s time to see your dancer’s moves!                     Pygame Zero Game
+     Save your file and run it from the
+                                              Score: 0
+     command line. You will see the same
+     screen as in Step 12, but this time
+     if you hit the Right key, the dancer
+     will perform the dance move
+     assigned to that key. The square
+     for the Right arrow will also get
+     highlighted. The dancer and square
+     will return to their starting images
+     after half a second. Press the other
+     arrow keys to test their moves, too.                                                     A square is
+                                                                                              highlighted to
+                                                                                              match the arrow key
+                                                                                              that you pressed.

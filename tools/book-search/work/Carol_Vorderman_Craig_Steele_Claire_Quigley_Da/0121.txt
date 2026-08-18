@@ -1,0 +1,34 @@
+HOW TO BUILD BALLOON FLIGHT               119
+
+
+Watch out for the
+bird as it flies across
+the screen.
+
+
+
+
+              Score: 0
+                                The clouds are part
+                                of the background,
+                                so you don’t need
+                                to avoid them.
+
+
+
+
+                                The balloon moves up
+                                when you’re pressing
+                                the mouse button and
+                                down when you’re not
+                                pressing it.
+
+
+
+
+                               ◁ Up in the air
+                               The program creates the
+                               illusion of motion by making
+                               the obstacles appear at
+                               random intervals and moving
+                               them along the x-axis.

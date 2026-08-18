@@ -1,0 +1,52 @@
+54          SHOOT THE FRUIT
+
+
+      EXPERT TIPS
+ Graphics in Pygame
+ Python uses coordinates to identify all the                  (0, 0)    20 40 60 80 100 120 140
+ places in a window where an object could be.
+                                                                20
+ This means that every place can be identified
+ by using two numbers. The first number is                      40
+
+
+
+
+                                                                                                         y getting bigger
+ the x coordinate, which shows how far to the                   60
+ right an object is. The second number is the
+                                                                80
+ y coordinate, which shows how far down
+ the object is. Coordinates are written in                     100
+ parentheses, with the x coordinate first, like this:          120
+ (x, y). In math, the coordinate (0, 0) is usually                                                                          These are the
+                                                               140                                                          coordinates
+ at the bottom left, but in computer graphics,                                            (130, 140)                        of the star
+ it’s almost always the top left.                                                                                           on screen.
+                                                                            x getting bigger
+
+
+
+
+10 Running   the function
+   After you’ve written the function to place the            11 Test it again
+                                                                Save your file and then run the code from
+     apple on the screen, you need to tell Python                    the command line. Remember, you can press
+     to run it. Add this extra line of code to run the               the Up arrow in the command line to quickly
+     function called place_apple().                                  choose a previous command, then press
+                                                                     Enter. This time the apple will appear at
+def place_apple( ):                                                  the point (300, 200).
+     apple.x = 300                                                                         The apple is placed at
+                                          This function                                   coordinates (300, 200).
+     apple.y = 200                        places the apple
+                                          at coordinates
+                                          (300, 200).
+place_apple( )                                                                  Pygame Zero Game
+
+
+
+
+                      Run fast or we’ll
+                       miss the bus!
+
+                                                                                                 (300, 200)

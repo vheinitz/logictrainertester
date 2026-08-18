@@ -1,0 +1,51 @@
+P L AY I N G W I T H L O O P S                   39
+Balloon fight                                      This line gets the value of
+In this example, the                               answer (used in loop condition).
+program asks if you want
+to throw a water balloon.                  answer = input("Throw a water balloon? (y/n)")
+If your answer is y, it prints             while answer == "y":
+“Splash!!!” and asks if you
+want to throw another                         print("Splash!!!")
+balloon. If your answer                       answer = input("Throw another water balloon? (y/n)")
+is n, the program prints
+                                           print("Goodbye!")
+“Goodbye!” and ends.
+
+                                                               When the loop is complete,                   This line gets the new
+                                                               this line prints “Goodbye!”                  value of answer (used
+                                                                                                            in loop condition).
+
+
+                         It’s really wet                              How it works
+                             in here!
+                                                                      The loop condition here is answer == "y", which means
+                                                                      you want to throw a water balloon. The loop body prints
+                                                                      “Splash!!!” to show a balloon being thrown and asks if
+                                                                      you want to throw another. If your answer is y, the loop
+                                                                      condition is True again and the loop is repeated. If your
+                                                                      answer is n (or anything other than y), the loop condition
+                                                                      is False and the program exits the loop and prints
+                                                                      “Goodbye!” before ending.
+
+
+Infinite loops                                                 >>> while True:
+
+Sometimes, you might want a loop                                         print("This is an infinite loop!")
+to repeat as long as the program is
+running. This can be done with an                                         There is no False
+                                                                          option to escape
+infinite loop. You can make an infinite                                   the loop.
+loop by setting the loop condition                                                               They got
+to True, so that it keeps repeating                                                               away!
+a block of code forever!
+
+
+Making an escape
+If you don’t want to run an infinite loop,
+it’s important to make sure the body of a
+while loop does something that could make
+the loop condition False. But don’t worry if
+you accidentally code a program with an
+infinite loop—you can escape it by holding
+down the Ctrl key and pressing the C key
+along with it.

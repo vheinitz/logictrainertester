@@ -1,0 +1,54 @@
+I N S TA L L I N G P Y T H O N                    17
+Installing Python on a Mac                                                      EXPERT TIPS
+Before you install Python 3 on a Mac, you need to check                    Raspberry Pi
+which operating system your Mac uses. To do this, click
+the Apple icon in the top left of the screen and choose                    If you’re using a Raspberry Pi computer,
+                                                                           then you can skip the download
+About This Mac from the drop-down menu.
+                                                                           step because Python 2 and Python 3
+                                                                           come preinstalled on the machine.
+
+ 1 Download Python
+   Go to www.python.org and click on Downloads.
+                                                                           Remember this book uses Python 3, so
+                                                                           make sure you open the right version.
+       Click on the version of Python 3 that matches your                  You’ll find Python 3 in the Applications
+       operating system. The “Python.pkg” file will download               menu on your Raspberry Pi. Open it
+       to your Mac automatically.                                          now and check that it works.
+                          The version number might not be exactly
+                          the same as this one—just make sure it
+                          has a 3 at the beginning.
+                                                                                                        Where should
+                                                                                                        I plug this in?
+  •    Python 3.6.2 - 2017-08-15
+       • Download macOS X 64-bit/32-bit installer
+
+
+
+
+ 2 Install Python
+   Double-click the “.pkg” file in the Downloads folder
+       to start the installation. Select Continue and then
+       Install to accept the default settings.
+
+
+                                Click the package
+                                to run the installer.
+                                                                                            I better
+                                                                                           get going!
+
+
+
+ 3 Start IDLE
+   Once the installation is complete, check that it was
+       successful by opening the IDLE program. Search for
+       it in Spotlight or select the Applications folder, then
+       the Python folder, and double-click IDLE. A window
+       like this should appear.
+
+                                                 Python 3.6.2 Shell
+ IDLE      File    Edit       Shell    Debug            Window   Help
+ Python 3.6.2 (v3.6.2:5fd3365926, Aug 15 2017, 13:38:16)
+ [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin
+ Type "copyright", "credits" or "license()" for more information.
+ >>>

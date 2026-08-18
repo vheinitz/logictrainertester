@@ -1,0 +1,51 @@
+P L AY I N G W I T H L O O P S                    37
+Looping over a list                                                                                            Page 31 will
+Gaming programs often use a collection                                                                         help you out
+                                                                                                                with lists.
+of items grouped together in a list. If you
+want to do something with each item
+on the list, you can use a for loop.
+
+Listing robots
+In this example, there is a list that contains               Python will add
+the names of three robots that the player                    one of the robots’
+has to escape from in a game.                                names here.
+                                                                                  How it works
+ >>> robots = ["Bing", "Bleep", "Bloop"]                                          We create a temporary variable called
+                                                                                  robot that holds a single item in the
+ >>> for robot in robots:
+                                                                                  list. The value in robot is updated
+             print("I am a robot. My name is " + robot)                           each time around the loop, so that it
+                                                                                  holds Bing, then Bleep, and finally
+             robot is a temporary variable                                        Bloop. Once it reaches the end of the
+             that moves along the robots                                          list, the loop stops.
+             list each time the loop runs.
+
+
+
+Looping over two lists
+Python can loop through a list from start to finish more
+or less automatically. But if you want to loop through
+two lists at once, you need to use an extra variable to
+tell Python to move through both lists.
+
+
+Robots with colors
+In this example, we have two lists. One is called robots and
+holds the names of the robots. The other is called colors and
+tells you the color of each robot. This program uses a variable
+called index to move through both lists, printing out each
+robot’s name and also what color it is.
+                                                                                         The index variable
+                                                                                         keeps track of the
+                                                                                         position each list is at.
+index will help Python
+   move through both        >>> robots = ["Bing", "Bleep", "Bloop"]
+          lists in order.   >>> colors = ["red", "orange", "purple"]
+                            >>> index = 0
+
+     This line updates      >>> for each in robots:
+     index so Python
+                                       print("My name is " + robots[index] + ". I am " + colors[index])
+  moves through the
+ lists with each loop.                 index = index + 1

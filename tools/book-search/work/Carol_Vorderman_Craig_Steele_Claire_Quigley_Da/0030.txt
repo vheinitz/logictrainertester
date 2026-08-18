@@ -1,0 +1,53 @@
+28          LEARNING THE BASICS
+
+
+
+Creating variables
+Variables are used to store and label pieces
+of information. You’ll use them a lot in your
+code—for example, to hold your current score
+or keep track of how many lives you have left.
+
+How to create a variable                                                         5              2
+You need to give each variable a name that describes
+what data is stored inside it. What the variable stores is                      △ Storage box
+                                                                                A variable is like a box with a name label.
+called its value. Type the name followed by an equals                           You can store data in the box and then use
+sign, then type the value, with a space between each                            its name to find the data again when you
+part. This is called “assigning a value” to the variable.                       need to use it.
+
+
+
+ 1 Assign a value
+   Open IDLE’s shell window. Type this line
+                                                               >>> score = 0
+
+     of code to create a variable called score
+                                                                             This is the            This is the value
+     and assign a value to it.                                               variable’s name.       stored in the variable.
+
+
+
+ 2 Print the value
+   Now type print(score) into the window after
+                                                               >>> score = 0
+                                                               >>> print(score)
+     the code you typed in Step 1. Press Enter to
+     see what happens.                                         0
+
+
+                                             This is the                                The print() function displays the value
+                                         value of score.                                of the variable in the parentheses.
+      EXPERT TIPS
+ Naming variables
+ Always choose a meaningful name                      Dos and don’ts
+ for each variable in your programs.                  ▪ Always start the variable’s name with a letter.
+ For example, a variable for tracking the             ▪ Any letter or number can be used in the name.
+ number of attempts a player has left                 ▪ Symbols such as -, /, #, @ aren’t allowed.
+ could be called attempts_remaining,                  ▪ Do not use spaces. An underscore ( _ ) can be used instead.
+ rather than just attempts or a. Variable
+                                                      ▪ Uppercase (capital) and lowercase letters are different.
+ names can contain letters, numbers, and
+ underscores, but they should always start                 Python will treat Score and score as two different variables.
+ with a letter. Follow these rules and you            ▪ Avoid words that are used in Python or Pygame Zero as
+ won’t go wrong.                                           commands, such as “function” or “screen.”

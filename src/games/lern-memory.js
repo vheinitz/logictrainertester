@@ -11,6 +11,8 @@
 import { engine } from '../core/engine.js';
 import { shuffle, sample, pick } from '../core/html.js';
 import { countRound, resultScreen, done } from '../core/session.js';
+import { bar } from '../core/shell.js';
+import { registerModuleSettings, modGet } from '../core/settings.js';
 
 const UI = {
   frage: { de: '🃏 Finde die passenden Paare!', ru: '🃏 Найди парные карточки!', en: '🃏 Find the matching pairs!' },
@@ -22,9 +24,21 @@ const UI = {
   naechstes: { de: 'Nächstes Brett', ru: 'Следующее поле', en: 'Next board' }
 };
 
+const ID = 'lern-memory';
+registerModuleSettings(ID, {
+  sekProPaar: {
+    def: 12, min: 4, max: 40, step: 1, unit: 's',
+    de: 'Zeit je Paar', ru: 'Время на пару', en: 'Time per pair',
+    hintDe: 'Gesamtzeit = Paare × dieser Wert. Läuft sie ab, zählt das Brett als nicht gelöst.',
+    hintRu: 'Общее время = пары × это значение.',
+    hintEn: 'Total time is pairs × this value. When it runs out the board counts as unsolved.'
+  }
+});
+
 const EMOJIS = ['🐶','🐱','🐰','🐸','🦊','🐻','🐼','🐨','🐯','🦁','🐮','🐷','🐵','🐔','🐧','🦄'];
 
 let flipTimer = null;
+let boardTimer = null;
 
 function clearFlipTimer() {
   if (flipTimer) { clearTimeout(flipTimer); flipTimer = null; }
@@ -36,6 +50,26 @@ function deal(gd) {
   gd.firstPick = null;
   gd.locked = false;
   gd.moves = 0;
+  gd.phaseStart = Date.now();
+  gd.frist = gd.pairs * modGet(ID, 'sekProPaar') * 1000;
+}
+
+function clearBoardTimer() {
+  if (boardTimer) { clearTimeout(boardTimer); boardTimer = null; }
+}
+
+function starteFrist(gs) {
+  clearBoardTimer();
+  const gd = gs.gd;
+  boardTimer = setTimeout(() => {
+    boardTimer = null;
+    if (!engine.activeGame || engine.activeGame.id !== ID) return;
+    if (gd.phase === 'done' || gd.cards.every(c => c.matched)) return;
+    gs.total = (gs.total || 0) + 1;
+    if (countRound(gs)) gd.phase = 'done';
+    else { gd.pairs = Math.max(4, (gd.pairs || 6) - 1); deal(gd); starteFrist(gs); }
+    engine.renderGame();
+  }, gd.frist);
 }
 
 export function init(gs) {
@@ -44,11 +78,13 @@ export function init(gs) {
   gd.pairs = gd.pairs || 6;
   deal(gd);
   gd._ready = true;
+  starteFrist(gs);
   return gs;
 }
 
 export function dispose(gs) {
   clearFlipTimer();
+  clearBoardTimer();
   if (gs && gs.gd) gs.gd._ready = false;
 }
 
@@ -63,6 +99,7 @@ export function render(gs) {
   const cols = gd.pairs <= 6 ? 4 : gd.pairs <= 8 ? 4 : 5;
 
   let html = `<div style="width:100%;max-width:440px">
+    ${bar(gd.frist || 1, Date.now() - (gd.phaseStart || Date.now()))}
     <p style="font-size:1.1em;text-align:center">${pick(UI.frage)}</p>
     <p style="color:var(--text-light);font-size:.9em;text-align:center">${pick(UI.zuege)}: ${gd.moves} &nbsp;|&nbsp; ${pick(UI.paare)}: ${matched / 2}/${gd.pairs}</p>
     <div class="memory-grid" style="margin:12px auto;grid-template-columns:repeat(${cols},1fr)">`;
@@ -132,6 +169,7 @@ export const actions = {
 
   restart(gs) {
     clearFlipTimer();
+    clearBoardTimer();
     gs.gd = { pairs: 6 };
     gs.score = 0; gs.total = 0; gs.rounds = 0;
     init(gs);
@@ -142,6 +180,7 @@ export const actions = {
     clearFlipTimer();
     gd.pairs = Math.min(gd.pairs + 1, 10);
     deal(gd);
+    starteFrist(gs);
   }
 };
 

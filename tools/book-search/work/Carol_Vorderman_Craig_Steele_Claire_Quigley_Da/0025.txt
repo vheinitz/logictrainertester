@@ -1,0 +1,54 @@
+YO U R F I R S T P RO G R A M                     23
+
+3 Type  the first line of code
+  Write this first line of code that tells Python
+     to show, or “draw,” something on the                                                                    Here we go!
+     screen. Press Enter when you’re done.
+
+def draw():
+
+                  This line of code is used
+                  to print something on
+                  the screen.
+
+
+
+4 Type the second line of code
+  Then type in this second line of code. Check
+     that it starts with four spaces. This is called
+     an “indent,” and your code won’t work
+     without it!
+
+def draw():
+                                                                                    EXPERT TIPS
+
+    screen.draw.text("Hello", topleft=(10, 10))                               Indents
+        Add four blank spaces              Make sure you                      There should be four blank spaces at the
+        here if IDLE hasn’t              have two closing                     start of the second line of your code. This
+        done it automatically.          parentheses here.                     is called an “indent.” Python uses them to
+                                                                              separate different blocks of code. Spaces
+                                                                              and indents are very important—your code
+5 Save the file
+  Now let‘s save the file. Go to the File menu and                            will not work if you miss them or put them
+                                                                              in the wrong place. They’re one of the most
+     choose Save As.... Name the file hello.py
+     and save it in the folder you created earlier.                           common bugs in Python programs!
+
+Save As:      hello.py
+Tags:                                                       When you save a program,
+                                                            IDLE adds “.py” to the end
+Where:            hello                                     automatically, so you don‘t
+                                                            have to type it in.
+
+                          Cancel              Save
+                                                                                                  Hey, grab on!
+                                                                                                  I’ll save you!
+
+
+
+        EXPERT TIPS
+Saving your code
+Always save your code before you run it,
+especially after you make any changes.
+If you don’t, Python will run an out-of-date
+version of your code.

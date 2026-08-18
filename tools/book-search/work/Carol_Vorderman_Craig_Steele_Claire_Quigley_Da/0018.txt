@@ -1,0 +1,54 @@
+16             G E T T I N G S TA R T E D
+
+
+
+Installing Python                                                                IDLE
+                                                                                       LINGO
+
+
+The games in this book use Python 3. It’s                                        When you install Python 3, you will
+free, and you can download it from the                                           also get another free program called
+Python website. Follow the instructions                                          IDLE (short for Integrated Development
+                                                                                 Environment). Designed for
+that match your computer. Never install                                          beginners, IDLE includes a basic
+any program unless you have the computer                                         text editor that allows you to write
+owner’s permission.                                                              and edit Python code.
+
+                                                                                                  Z Z
+                                                                                                        Z
+Installing Python on Windows
+First you need to find out if your computer uses the
+32-bit or 64-bit version of Windows. Go to the Start
+menu, then Computer, Properties, and choose
+System if the option appears.
+
+
+ 1 Download  Python
+   Go to www.python.org and click on Downloads. Click                    2 Install Python
+                                                                           Open the installer file, then click Custom
+        on the latest version of Python for Windows. It should                Installation, then Next until you get to Advanced
+        start with the number 3. Select executable installer                  Options. Leave the checked boxes as they are, but
+        from the different installer options that appear.                     make sure “Install for all users” and “Add Python to
+                                                                              environment variables” are also checked. Then
+                                                                              click Install and Next at each prompt.
+                           The version number might not be
+                           exactly the same as this one—just
+                           make sure it has 3 at the beginning.                                   Click the
+                                                                                                  installer.
+
+    •   Python 3.6.2 - 2017-05-15
+           • Windows x86 executable installer
+           • Windows x86-64 executable installer
+                                                                         3 Start IDLE
+                                                                           Once the installation process is complete,
+                                                                              open IDLE by searching for it or going to
+Use this installer if                   Use this installer if                 the Start menu, choosing All Apps, then
+you have a 32-bit                       you have a 64-bit                     selecting IDLE. A window like the one
+version of Windows.                     version of Windows.                   below should appear.
+
+                                               Python 3.6.2 Shell
+ IDLE       File    Edit     Shell     Debug        Window        Help
+ Python 3.6.2 (v3.6.2:5fd3365926, Aug 15 2017, 00:45:10) [MSC v.1900 32 bit
+ (Intel)] on win32
+ Type "copyright", "credits" or "license()" for more information.
+ >>>

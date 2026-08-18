@@ -1,0 +1,54 @@
+W H AT I S P Y T H O N ?                  13
+From Scratch to Python
+Scratch is a visual language, whereas Python is text
+based. If you’ve used Scratch, you will recognize some
+of the features and ideas in Python. The two languages
+might look different, but lots of the elements that are
+used in Scratch are also used in Python.
+
+                                                                           print("Hello World!")
+ when          clicked                        This block displays
+                                              the message in a                                     Type your
+ say Hello World!                             speech bubble.                                       message here.
+
+
+
+                               Hello World!
+                                                                                                   The message appears
+                                                                                                   on the screen like this.
+
+
+                                                                           Hello World!
+
+                                                                          △ Print in Python
+△ Print in Scratch                                                        In Python, the “print” command displays
+In Scratch, the “say” block is used to                                    a message on the screen.
+display a message on the screen.                 This command
+                                                 is executed if
+                                                 the condition
+                                                 after if is True.         if a == 2:
+ if             a     = 2         then                                                                        This message is
+                                                                                print("Hello!")               displayed if the
+                                                 This message is           else:                              answer is False.
+      say Hello!
+                                                 displayed if the
+                                                 answer is True.                print("Goodbye!")
+ else
+                                                                            This command
+      say Goodbye!
+                                                                            is executed if the
+                                                 This is the end of the     condition after
+                                                 “if-then-else” block.      if is False.
+
+
+
+                                  Goodbye!
+                                                                                    Hello!       ?          Goodbye!
+
+
+
+
+△ Set a condition with Scratch                                            △ Set a condition with Python
+The “if-then-else” block lets you choose which part of                    In Python, “if-then-else” commands work
+the script to run depending on whether the condition                      exactly the same way, but they don’t use
+is True or False.                                                         the word “then.”

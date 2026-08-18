@@ -1,0 +1,53 @@
+164           HAPPY GARDEN
+
+
+18 Start adding flowers
+   Although add_flowers() will schedule
+                                                    def reset_cow():
+                                                         pass
+      a call to itself every four seconds, you
+      need to call it once in the program to
+      start this process. Add the line in black
+                                                    add_flowers()
+      above def update() from Step 13. Save
+      and run your code to check if the flowers
+      start appearing!                              def update():
+
+
+
+
+19 Blooming    garden
+   If there are no errors in your code,                                     Pygame Zero Game
+      you will see a new flower appear on
+      the screen every four seconds. This           Garden happy for: 20 seconds
+      is what your screen will look like after
+      20 seconds. Use the arrow keys to
+      move the cow around.
+
+
+         I’m going to grow
+        even taller than you.
+
+
+
+
+20 Water   the flowers
+   It’s time for the cow to water the wilted flowers. Let’s add
+      some code that will make the cow sprinkle water on the
+      flowers when the player presses the Space bar. The code
+      will also check if the cow is standing next to a flower. Add
+      this code to the update() function.
+
+                                 global flower_list, fangflower_list, time_elapsed
+                                 if not game_over:
+                                       if keyboard.space:
+       This will check if                                                                      This will reset the
+       the Space bar is                     cow.image = "cow-water"
+                                                                                               cow’s image after
+         being pressed.                                                                        half a second.
+                                            clock.schedule(reset_cow, 0.5)
+                                            check_flower_collision()
+    This will change the
+image of the cow to the                if keyboard.left and cow.x > 0:                         This line will check
+ one with water coming                      cow.x -= 5                                         if the cow is next
+out of the watering can.                                                                       to a flower.

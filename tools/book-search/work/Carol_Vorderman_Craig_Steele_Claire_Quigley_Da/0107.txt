@@ -1,0 +1,59 @@
+GAME PROGRESS                                              26%                 105
+
+5 Create a box for the interface
+  Now that you’ve planned what the interface will
+                                                                   WIDTH = 1280
+                                                                   HEIGHT = 720
+    look like, you can create the rectangular boxes
+    that will make up the GUI. Type this code below
+    what you typed in Step 2 to create a box for the
+                                                                   main_box = Rect(0, 0, 820, 240)
+    main question.
+
+                                                                                                     This sets the box size
+                                   This function takes four parameters. The                          to 820 pixels wide and
+                                   first two numbers are the coordinates of                          240 pixels high.
+                                      the top-left corner of the box, and the
+                                       last two numbers are the coordinates
+                                      of the bottom-right corner of the box.
+
+
+
+
+6 Make  the other boxes
+  You now need to make a box for the timer
+                                                                   main_box = Rect(0, 0, 820, 240)
+                                                                   timer_box = Rect(0, 0, 240, 240)
+    and four separate boxes for each of the
+    possible answers. Type this code under what                    answer_box1 = Rect(0, 0, 495, 165)
+    you wrote in Step 5.
+                                                                   answer_box2 = Rect(0, 0, 495, 165)
+                                                                   answer_box3 = Rect(0, 0, 495, 165)
+                     The timer box is a square 240
+                  pixels wide and 240 pixels high.                 answer_box4 = Rect(0, 0, 495, 165)
+
+                                                                                              All the answer boxes
+                                                                                                  are the same size.
+
+
+
+
+7 Move   the boxes
+  At the moment, all the boxes will be drawn on
+                                                                   answer_box4 = Rect(0, 0, 495, 165)
+
+    top of each other in the top-left corner. You
+    need to add some code to move them to their                    main_box.move_ip(50, 40)
+    correct positions on the screen. Type this code
+                                                                   timer_box.move_ip(990, 40)
+    immediately after the code from Step 6.
+                                                                   answer_box1.move_ip(50, 358)
+                                                                   answer_box2.move_ip(735, 358)
+                                                                   answer_box3.move_ip(50, 538)
+             Arr! Time to
+            move all these                                         answer_box4.move_ip(735, 538)
+           boxes into place!
+                                                        move_ip() moves each                        The top-left corner of
+                                                     rectangle to the place you                     each box will be placed
+                                                          want it on the screen.                    at the coordinates in
+                                                                                                    the brackets.

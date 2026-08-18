@@ -1,0 +1,57 @@
+MAKING DECISIONS                               33
+Monsters and coins                                                    LINGO
+Let’s try an example in the shell window. You                   Boolean expressions
+can use the variables monsters and coins
+to represent three monsters and four coins,                     Statements that contain variables and values
+                                                                and use logical operators always give you a
+respectively. Type in the following code.
+                                                                Boolean value—True or False. Because of this,
+                                       This value is stored     these statements are called Boolean expressions.
+ >>> monsters = 3
+                                       in the variable          All of the statements about monsters and coins
+ >>> coins = 4                         monsters.                in the examples are Boolean expressions.
+                                                                                    coins is a variable.
+             This variable
+             stores the
+             number of coins.
+                                                                 >>> coins > monsters                         monsters is a
+                                                                                                              variable.
+                                                                 True
+▽ Let’s compare
+Now type the following lines of code to compare
+the values in the two variables. After typing each                    True is a                  > is a logical
+line, press Enter and Python will tell you if the                     Boolean value.             operator.
+statements are True or False.
+                                      This expression is
+ >>> coins > monsters                 True because the
+ True                                 number of coins is
+                                      greater than the
+                                      number of monsters.
+
+
+
+
+ >>> monsters == coins
+                                      This expression
+ False                                is False because
+                                      the number of
+                                      monsters and the        ▽ Multiple comparisons
+                                      number of coins         In Python, you can also combine more than
+                                      aren’t equal.           one comparison by using the logical operators
+                                                              and and or.
+
+ >>> monsters < coins                                          >>> (monsters == 3) and (coins == 4)
+ True                                 This expression          True
+                                      is True because
+                                      the number of
+                                      monsters is less                                               When using and, both
+                                                                       When using or, only           the comparisons need
+                                      than the number
+                                                                   one of the comparisons            to be correct for the
+                                      of coins.
+                                                                 needs to be correct for the         Boolean value to be True.
+                                                                  Boolean value to be True.
+
+
+                                                               >>> (monsters == 7) or (coins == 4)
+                                                               True

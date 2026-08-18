@@ -1,0 +1,50 @@
+// Пифилология, пиэмы и пиллиш
+
+
+
+Пифилология, пиэмы и пиллиш
+Now, I wish I could recollect pi.
+   «Eureka», cried the great inventor.
+    Christmas pudding; Christmas pie
+    is the problem s very centre.
+See, I have a rhyme assisting
+    my feeble brain,
+    its tasks sometimes resisting.
+    How I wish I could enumerate pi easily, since all these horrible
+mnemonics prevent recalling any of pi s sequence more simply.
+
+
+Последняя фраза выдает нас с головой: все приведенные
+фразы   это мнемонические правила      тексты, помогающие
+запомнить часть числа тг. Придумано даже слово для подобных
+
+вещей: пифилология. Чтобы воспользоваться таким
+мнемоническим правилом, нужно сосчитать    буквы в последовательных
+словах:    3, 1, 4, 1, 5,   ...
+
+
+
+
+        Некоторые из многочисленных запоминалок для тг
+обсуждались в книге «Кабинет...»; здесь мы вспомним одну из них
+
+(приведенную ниже запоминалку на французском языке) и
+
+посмотрим еще несколько. Вообще, таких запоминалок существует
+множество, см., к примеру,        сайты:
+
+
+    http://en.wikipedia.org/wiki/Piphilology
+    http://uzweb.uz.ac.zw/science/maths/zimaths/pimnem. htm
+
+    Одно из самых известных мнемонических правил для тг
+александрийский стих (поэтический размер), который
+начинается так:
+
+
+
+
+    Que j aime a faire apprendre
+    Un nombre utile aux sages!
+   Glorieux Archimede, artiste ingenieux,
+   Toi, de qui Syracuse loue encore le merite!

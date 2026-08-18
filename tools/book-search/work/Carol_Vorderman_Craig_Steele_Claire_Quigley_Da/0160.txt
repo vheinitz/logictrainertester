@@ -1,0 +1,51 @@
+158         HAPPY GARDEN
+
+
+                    Start                         How it works
+                                                  The code begins by setting up the Actors—the cow and
+                                                  the flowers—in the garden. It then checks if any of the
+        Add the garden and the cow;               flowers have been wilted for more than ten seconds,
+      generate and add the first flower           and if the cow has been zapped by a fangflower. If
+                                                  any one of these conditions is True, the game ends.
+                                                  If not, the program checks for the other conditions.
+
+
+              Has the flower                                                       A good shower
+           been wilted for more                                                    always makes
+            than ten seconds?                 Y                                      me happy!
+
+
+
+                                                            End
+                N
+
+             Is the cow next to
+                                          Y
+                a fangflower?
+
+
+                N                 Y                     Show water coming out                           Is the cow next
+                                                          of the watering can                             to a flower?
+
+              Is the Space bar                                                                     N
+               being pressed?                                                                                       Y
+
+                N
+                                          Y
+              Is the arrow key                         Move cow in the direction
+                                                                                                   Reset flower if it is wilted
+              being pressed?                              of the arrow key
+
+
+                N
+
+              Has the game been               Y
+            running for more than                           Mutate a flower
+           15 seconds and have no                          into a fangflower
+         fangflowers appeared yet?                                                     ◁ Happy Garden flowchart
+                                                                                       This flowchart shows how various
+                                                                                       parts of the game fit together. It
+                                                                                       also shows how both the player’s
+                N                                                                      actions and the randomly
+                                                                                       generated events affect what
+                                                                                       happens in the game.

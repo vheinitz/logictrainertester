@@ -1,0 +1,53 @@
+128         BALLOON FLIGHT
+
+
+20 Move    the house
+   Just like you made the bird move across the
+     screen, you now need to make the house move,                                  MOVING VAN
+     too. Add this code under the lines from Step 19.
+
+         else:
+              bird.x = randint(800, 1600)
+              bird.y = randint(10, 200)
+              score += 1
+              number_of_updates = 0
+
+
+          if house.right > 0:
+              house.x -= 2
+         else:
+                                                               If the house disappears off the
+              house.x = randint(800, 1600)
+                                                               left edge of the screen, this line
+              score += 1                                       places it at a random position
+                                                               off the right edge.
+
+                              This line will update the
+                              score by one if the house
+                              moves off the screen.
+
+                                                               EXPERT TIPS
+                                                          Scrolling across the screen
+21 Move  the tree
+   Using the same logic as before, add these
+                                                          Once the obstacles disappear off the screen, you
+                                                          need to move them back to the right-hand side
+     lines under the code from Step 20 to make            of the screen. This is to create the illusion of motion
+     the tree move across the screen.
+                                                          and make it look like lots of obstacles are appearing
+            Don’t forget to count the                     on the screen when, in reality, you only use one
+            number of spaces before                       Actor for each type of obstacle in your code.
+            each line of code.
+                                                          Scrolling the same Actor across the screen means
+                                                          you don’t have to create new Actors every time one
+         else:
+                                                          disappears off the screen.
+              house.x = randint(400, 800)
+              score += 1
+
+
+         if tree.right > 0:
+              tree.x -= 2
+         else:
+              tree.x = randint(800, 1600)
+              score += 1

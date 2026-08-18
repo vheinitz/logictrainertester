@@ -1,0 +1,51 @@
+104           BIG QUIZ
+
+
+4 Plan the interface
+  When building this game, you need to think about the
+     way it looks, or its “interface.” The player needs to be able
+     to see the question, its possible answers, and a timer                         When planning the interface
+     that shows how long they’ve got left. Here’s a sketch of                       of a game, try sketching it on
+     how you might want the interface to look.                                      paper before writing any code.
+
+
+
+
+                                                                                                          The timer can be
+                                                                                                          placed on the
+    There should be                                                                                       side, but make
+    enough room to                                                                                        sure it’s big
+     display the full                                                                                     enough for the
+           question.
+                                 Main question                                     Timer
+                                                                                                          player to see
+                                                                                                          at a glance.
+
+        The font size
+      will need to be
+  big enough for the
+   player to read the
+     question easily.           Answer 1                                Answer 2
+
+        The possible
+ answers need to be
+                                Answer 3                              Answer 4
+  big enough for the
+    player to click on
+       them quickly.                                                 There should be enough space between
+                                                                     all the answer options so that the player
+                                                                     doesn’t click a different answer by mistake.
+
+
+
+
+      LINGO
+Wireframes
+Computer game designers can plan their game
+interfaces using wireframes. These are diagrams
+that show the different parts of an interface that
+the player sees on screen. They can be drawn
+by hand or made using a simple drawing tool on
+a computer. By doing this, the interface can be
+tested, and any changes to the design can be
+made before writing the code.

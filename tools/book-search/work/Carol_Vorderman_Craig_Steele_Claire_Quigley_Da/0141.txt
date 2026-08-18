@@ -1,0 +1,41 @@
+HOW TO BUILD DANCE CHALLENGE                139
+
+      You can use a
+different image for
+   the background
+       of the game.
+
+
+
+
+                                             The dancer appears
+                                             to dance by switching
+                                             between different poses.
+
+
+
+
+                                             Press the arrow keys
+                                             in the right order to
+                                             score points.
+
+
+
+
+                                             This stage image
+                                             sets the scene for
+                                             your game.
+
+
+
+
+                                           ◁ Ready to rock!
+                                           This program uses
+                                           different functions to
+                                           make the dancer move
+                                           and to highlight the
+                                           colored squares. You can
+                                           also create a countdown
+                                           to give the player time to
+                                           get ready to memorize
+                                           the routine.

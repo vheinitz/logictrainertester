@@ -1,0 +1,54 @@
+130               BALLOON FLIGHT
+
+
+25 Update the high scores
+   Now go back to the update_high_scores() function
+        from Step 9 and write the body. This function gets
+        the top three high scores and updates them if the
+        player’s current score has beaten one of them.
+        Replace pass with the code in black below, then
+        carefully follow the extra instructions to get the
+        path for your high-score.txt file.
+
+ def update_high_scores():
+       global score, scores
+       filename = r"/Users/bharti/Desktop/python-games/balloon-flight/high-scores.txt"
+        scores = []
+
+         This resets the list                    You will need to change this gray bit of code to the high-scores.txt
+         of high scores.                         file's location on your own computer. Drag the high-scores.txt file
+                                                 into the Command Prompt or Terminal window, then copy and
+                                                 paste the path here and put quotation marks around it. Replace
+                                                 any backslashes \ that look out of place with a space.
+
+
+26 Get the current high scores
+   To know if the player’s score has beaten any of the
+        previous scores, you’ll need to read the scores saved
+        in the high-scores.txt file you created in Step 3. Add                       This opens the high-scores.txt
+                                                                                     file for reading.
+        this code under the lines from Step 25.
+
+                                  scores = []
+                                  with open(filename, "r") as file:
+      Remember, the high                                                                                     This function splits
+                                       line = file.readline()                                                the high scores stored
+   scores file only has one
+line. This reads the single            high_scores = line.split()                                            in one line into three
+     line stored in the file.                                                                                different strings.
+
+
+         EXPERT TIPS
+  Splitting strings
+  In this game, all the high scores are                   name = "Martin,Craig,Daniel,Claire"
+  saved in a text file on a single line as a
+  string. To check if the player has beaten               name.split(",")
+  any of these high scores, you need to
+                                                                                   This parameter splits the string at each
+  split this string into three separate                                            comma. If you don’t provide a parameter,
+  parts. Python’s split() function can be                                          the function will split the string at the space
+  used to split a string at a character and                                        character, like in Step 26 of your program.
+  then store the separate strings in a list.
+  You can pass a parameter to the split()                               The list is returned with four separate strings.
+  function telling it which character you
+  want to split the string by.                             ["Martin", "Craig", "Daniel", "Claire"]

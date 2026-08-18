@@ -1,0 +1,57 @@
+Species — виды            Допустим, у нас есть класс Animal (животное) с функцией __init__,
+Number of legs —       которая принимает аргументы species, number_of_legs и color.
+количество ног
+Сolor — цвет
+
+                                >>> class Animal:
+                                        def __init__(self, species, number_of_legs, color):
+                                            self.species = species
+                                            self.number_of_legs = number_of_legs
+                                            self.color = color
+
+
+
+                          Теперь можно создать новый объект класса Animal. Пусть это будет
+                       розовый гиппогриф с шестью ногами по имени Гарри (harry).
+
+
+                                >>> harry = Animal('гиппогриф', 6, 'розовый')
+
+
+                           Если нам нужна стайка шестиногих гиппогрифов, можно несколько
+Copy —                 раз повторить предыдущий код, а можно использовать функцию copy
+копировать             из модуля copy:
+
+
+                                >>> import copy
+                                >>> harry = Animal('гиппогриф', 6, 'розовый')
+                                >>> harriet = copy.copy(harry)
+                                >>> print(harry.species)
+                                гиппогриф
+                                >>> print(harriet.species)
+                                гиппогриф
+
+
+
+                          Мы создали объект, сохранив его в переменной harry, а затем — ко-
+                       пию этого объекта, сохранив ее в переменной harriet (Гарриет). Дан-
+                       ные объекты не зависят друг от друга, хотя и обладают одинаковыми
+                       свойствами.
+                          Таким же образом можно создать и скопировать список объектов
+                       класса Animal.
+
+                                >>> harry = Animal('гиппогриф', 6, 'розовый')
+Carrie — Кэрри                  >>> carrie = Animal('химера', 4, 'в зеленый горошек')
+                                >>> billy = Animal('богл', 0, 'узорчатый')
+Billy — Билли
+                                >>> my_animals = [harry, carrie, billy]
+My animals — мои                >>> more_animals = copy.copy(my_animals)
+животные                        >>> print(more_animals[0].species)
+More animals —                  гиппогриф
+больше                          >>> print(more_animals[1].species)
+животных                        химера
+
+
+
+
+130    Часть I. Учимся программировать

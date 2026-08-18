@@ -1,0 +1,44 @@
+GAME PROGRESS                                                     70%             109
+
+18 Run the code again
+   Save your code and run it from the command line
+     again. You should see the first question and its four
+     possible answers. At the moment, you can’t click on
+     any of the options, and the timer is also fixed at ten.          The first question is
+     You’ll add the code to do these things soon.                     displayed on screen.
+
+
+                              Pygame Zero Game
+
+
+
+
+           What is the
+        capital of France?                                     10
+                                                                                                     Ah! I knew this was
+
+      London                                          Paris                                           the right place!
+
+
+
+
+         Berlin                                    Tokyo
+
+19 Set   up the final screen
+   It’s time to think about how the game should end. Write
+     some code that displays the final score when the game                   This creates a message
+     ends. Replace pass under def game_over() from Step 3                    that will show the player’s
+     with this code.                                                         final score.
+
+def game_over():
+                                                                                                               Since there’s no
+     global question, time_left                                                                                correct answer here,
+                                                                                                               it’s set to 5, which
+     message = "Game over. You got %s questions correct" % str(score)
+                                                                                                               isn’t on the list.
+     question = [message, "-", "-", "-", "-", 5]
+     time_left = 0
+
+                 This sets the time to zero                    The final message is displayed instead of another
+                 when the game ends.                           question. This will set all possible answers to a dash
+                                                               because you don’t want the player to be able to answer.

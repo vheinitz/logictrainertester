@@ -1,0 +1,41 @@
+138       DANCE CHALLENGE
+
+
+
+How to build
+Dance Challenge
+Get your groove on with this fast-paced
+game. Watch the dancer move to the
+                                                       Pygame Zero Game
+music and then put your memory skills
+to the test by repeating those moves.                  Score: 0
+How long can you keep going without
+making a mistake?
+
+What happens
+In this game, the dancer performs a
+sequence of moves. You need to remember
+this sequence and make him repeat it using
+the four arrow keys on the keyboard.
+
+
+                                Each correct move
+                              will earn you a point.
+
+
+
+
+                       ◁ Dancer
+                       The dancer loves showing
+                       off his moves! Follow him
+                       carefully to keep on playing.
+
+
+
+
+                       ◁ Colored squares
+                       One of the squares is
+                       highlighted with a yellow
+                       outline each time the
+                       dancer switches from
+                       one move to another.

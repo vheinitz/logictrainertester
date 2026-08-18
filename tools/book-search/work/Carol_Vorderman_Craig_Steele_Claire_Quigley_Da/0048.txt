@@ -1,0 +1,62 @@
+46            LEARNING THE BASICS
+
+
+Type errors
+                                                                        Sigh! I really thought
+These errors occur when you put the                                        it would work.
+wrong type of data in the code. For
+example, if the code is expecting a number
+but you give it a string, it won’t work.
+
+ lives_remaining = lives_remaining - "one"
+                                                                                  ◁ Examples of type errors
+                                                                                  Type errors occur when you code something
+                                                                                  that doesn’t make sense. Subtracting a string
+           This keeps track           lives_remaining stores whole                from a number, comparing different data types,
+           of the number of           numbers, or integers, so it doesn’t
+                                                                                  or trying to find the highest number in a list of
+           lives a player is          make sense to minus the string
+           left with.                 "one" from it. You need to use              strings are all type errors.
+                                      the digit 1 instead.
+
+
+
+ score = 100 > "high_score"
+                                                                                                                  Can you make a
+                                                                                                                  web out of these
+              It doesn’t make sense          Removing the quotation marks                                           pineapples?
+              to check if a number           around high_score would
+              is greater than a string,      make this code work properly.
+              because they are
+              different data types.
+
+
+
+
+                                                                                                                         ?
+ players = ["Martin", "Craig", "Claire", "Daniel"]
+ find_highest_score(players)
+
+
+                            This function expects a list of integers,
+                            but instead it has been assigned a list
+                            of strings representing players’ names.
+
+
+
+                                                                              Name errors
+                 Is this                  No, it’s
+                a date?                   a pear.                             A name error occurs when you try
+                                                                              to use a variable or function that hasn’t
+                                                                              been created yet. To avoid this, you
+                                                                              must remember to define all variables
+                                                                              and functions before using them.
+
+
+
+▷ Example of a name error
+This code will give you a name error if you
+                                                                                                              You need to assign
+try to display the contents of a variable             print("Welcome " + player_name)                         "Martin" to the variable
+before creating it. Remember, you need                player_name = "Martin"                                  player_name first.
+to create the variable first.

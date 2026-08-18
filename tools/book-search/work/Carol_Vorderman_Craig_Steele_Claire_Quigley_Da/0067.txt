@@ -1,0 +1,57 @@
+GAME PROGRESS                                                      86%               65
+
+15 Time’s up!
+   Now let’s fill in the code for the time_up() function. 16 Set the timer
+                                                             Now that time_up() is defined, the program needs
+      In this function, set the game_over Boolean                      to run it. But it needs to run seven seconds after the
+      variable to True, which will tell the program to                 game starts. You can use Pygame Zero’s built-in tool
+      quit the game when the function is called. Type                  clock to do this. This tool lets the program call a
+      in the following code.                                           function after a specified amount of time. Add this
+                                                                       line in the code as shown here.
+def time_up():
+                                                                   clock.schedule(time_up, 7.0)
+     global game_over
+                                                                   place_coin()
+     game_over = True
+
+                                                                                                     This line will run the function
+                                Remember to delete                                                   time_up() seven seconds
+                                the pass keyword and                                                 after the game starts.
+                                then add these lines.
+
+
+
+      Ending the game
+17 The game starts and then seven seconds later,                                   Time’s up! I think you
+      clock.schedule will run the time_up() function,
+                                                                                     better stop now.
+      which ends the game. But the game still needs
+      to show the player’s final score. For this, you need to
+      add in one more bit of code to the draw() function.
+
+def draw():
+     screen.fill("green")
+     fox.draw()
+     coin.draw()
+     screen.draw.text("Score: " + str(score), color="black", topleft=(10, 10))
+
+
+     if game_over:
+          screen.fill("pink")
+          screen.draw.text("Final Score: " + str(score), topleft=(10, 10), fontsize=60)
+
+
+           If the variable game_over          The final score is            This command sets the size of
+           is True, this will turn the    shown on the screen.              the text shown on the screen.
+           screen pink.
+
+
+      Using update()
+18 The final function you need to define is update(). This is           def update():
+                                                                              if keyboard.left:
+      a built-in Pygame Zero function, which means that unlike
+      the other functions, you don’t need to worry about when                      fox.x = fox.x - 2
+      to run it. Once you’ve defined it, Pygame Zero will run
+      it automatically—60 times a second! Delete pass under
+      def update() and add this code. It will move the fox to                                 This moves the fox two pixels to
+      the left if the left keyboard arrow is pressed.                                         the left if the left arrow is pressed.

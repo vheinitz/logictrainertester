@@ -1,0 +1,50 @@
+106          BIG QUIZ
+
+
+8 Create a list of answer boxes
+  This game uses four boxes to show the possible
+     answers to each question. You can keep track
+     of these boxes by using a list. Add this code
+     immediately after what you typed in Step 7.
+
+answer_box4.move_ip(735, 538)
+answer_boxes = [answer_box1, answer_box2, answer_box3, answer_box4]
+
+                                                 This list holds all
+                                                 the answer boxes.
+
+
+9 Draw the boxes
+  Now that you’ve created the boxes, it’s                              This sets the
+     time to add some code to draw them on                             background to a
+     the screen. Replace pass under def draw()                         dim gray color.
+     from Step 3 with this code.                                                             These lines draw
+                                                                                             the main box and
+                                                                                             the timer on the
+def draw():                                                                                  screen and colors
+     screen.fill("dim gray")                                                                 them sky blue.
+
+     screen.draw.filled_rect(main_box, "sky blue")
+     screen.draw.filled_rect(timer_box, "sky blue")                                          This draws every box
+                                                                                             in the answer_boxes
+                                                                                             list on the screen and
+                                                                                             colors them all orange.
+     for box in answer_boxes:
+         screen.draw.filled_rect(box, "orange")
+
+
+
+
+10 Try it out
+   Save your file and run it from the command                                  Pygame Zero Game
+     line in the Command Prompt or Terminal
+     window. You should be able to see your GUI,
+     ready to be filled with quiz questions. If your
+     program fails to run successfully, go back to
+     your code and try to catch those bugs!
+
+
+
+             I’m not sure how to
+         run the game! Better check
+           pages 24–25 for help.

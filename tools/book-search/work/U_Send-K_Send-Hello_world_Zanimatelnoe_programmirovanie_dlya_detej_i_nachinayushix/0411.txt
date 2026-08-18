@@ -1,0 +1,51 @@
+Лыжник. Объяснение                                                                  11
+
+
+ def create_map():
+     global obstacles
+     locations = []
+     for i in range(10):
+         row = random.randint(0, 9)
+         col = random.randint(0, 9)                                 Код
+         location = [col * 64 + 32, row * 64 + 32 + 640]            препятствия
+         if not (location in locations):
+             locations.append(location)
+             type = random.choice(["tree", "flag"])
+             if type == "tree": img = "skier_tree.png"
+             elif type == "flag": img = "skier_flag.png"
+             obstacle = ObstacleClass(img, location, type)
+             obstacles.add(obstacle)
+
+ def animate():
+     screen.fill([255, 255, 255])             Перерисовка лыжника
+     obstacles.draw(screen)                   и препятствий
+     screen.blit(skier.image, skier.rect)
+     pygame.display.flip()
+
+ pygame.init()
+ screen = pygame.display.set_mode([640,640])
+ clock = pygame.time.Clock()
+ points = 0
+                            Создаем лыжника
+ speed = [0, 6]                                            Инициализируем все
+ skier = SkierClass()
+ obstacles = pygame.sprite.Group()
+                                     Создаем препятствие
+ create_map()
+ map_position = 0
+
+ running = True
+ while running:
+     clock.tick(30)
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT: running = False
+
+         if event.type == pygame.KEYDOWN:
+                                                                    Основной цикл
+             if event.key == pygame.K_LEFT:
+                 speed = skier.turn(-1)
+             elif event.key == pygame.K_RIGHT:
+                 speed = skier.turn(1)
+     skier.move(speed)
+
+     map_position += speed[1]

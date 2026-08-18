@@ -1,0 +1,51 @@
+USING IDLE                   21
+The editor window                                                                         ▽ The editor window
+The shell window can’t save your code, so when you                                        To open the editor window
+close it, the code you typed is gone forever. When you                                    in IDLE, click on the File menu at
+are working on a game, you should use IDLE’s editor                                       the top and choose New File.
+                                                                                          An empty editor will then appear.
+window. This will let you save your code. It also has                                     You’ll use the editor window to
+built-in tools to help you write your programs and                                        write the programs for the games
+troubleshoot any errors.                                                                  in this book.
+
+
+You type in the code                The name of the                             You can run Python programs from
+  here. This program              file is shown here.                           this menu, but you will run Pygame
+prints a list that tells                                                        Zero programs a different way.
+ you which numbers
+ are even and which
+                                                         EvensandOdds.py
+       ones are odd.
+                           IDLE     File     Edit       Format    Run      Window      Help
+                                                                                                          The menu bar for
+                           for count in range(10):                                                        the editor window is
+                                                                                                          different from the one
+                               if ((count % 2) == 0):
+                                                                                                          for the shell window.
+                                     print(count)
+ Anything you tell
+   Python to print                   print("is even")
+  gets displayed in
+ the shell window.             else:
+                                     print(count)
+                                     print("is odd")
+
+
+
+
+          EXPERT TIPS
+  Colors in the code
+  IDLE automatically colors                         Symbols and names                    Output
+  the text to highlight                             Most code text is colored            Any text produced when
+  different parts of the code.                      black.                               a program runs is blue.
+  The colors make it easier to
+  understand the code, and
+  they’re useful when you’re                        Built-in commands                    Keywords
+  trying to spot mistakes.                          Python commands,                     Certain words, such as if and
+                                                    such as print(), are                 else, are special Python keywords.
+                                                    shown in purple.                     They are shown in orange.
+
+                                                    Errors                               Text in quotation marks
+                                                    Python uses red to                   Any text in quotation
+                                                    alert you to any errors              marks is green. These are
+                                                    in your code.                        called strings.

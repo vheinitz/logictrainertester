@@ -1,0 +1,50 @@
+76           FOLLOW THE NUMBERS
+
+
+11 Test  the code
+   Let’s test the code you’ve written so far. Remember,
+                                                                 pgzrun
+
+     you need to run the program by using the command
+     line in the Command Prompt or Terminal window.                           Drag the numbers.py
+                                                                              file here to run it.
+     Check pages 24–25 if you need to remind yourself
+     how to do this.
+
+
+
+
+12 What   do you see?
+   If the program runs successfully, you should                                                  Ah! A bug! I’d
+     see a screen like the one below. Your dots will                                          better turn to pages
+     probably be in a slightly different place, though. If                                      44–47 for help.
+     your screen looks completely different, or if you get
+     an error message, go through your code carefully
+     to see if you’ve made any mistakes.
+
+
+                                     Pygame Zero Game
+
+
+
+
+                                                                          7
+                                                                                                 Oh, I can finally see
+                                                                                                 them! There are ten
+                2                      3                                                              dots in all.
+
+
+
+
+                                                             4
+         1
+                                                                                6
+
+
+
+
+               10                                                     5
+                                                                                                 The position of the
+                                                                                                 dots will change
+                                              9                                                  each time you run
+                                                                               8                 the code.

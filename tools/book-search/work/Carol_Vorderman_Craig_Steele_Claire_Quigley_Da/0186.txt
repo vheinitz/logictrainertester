@@ -1,0 +1,55 @@
+184           SLEEPING DRAGONS
+
+
+7 Create the lairs
+  Each dragon in this game has its own lair with a certain
+                                                                             EXPERT TIPS
+
+      number of eggs and an easy, medium, or hard difficulty           Dictionaries
+      level. You can use Python’s dictionaries to keep track
+      of all the elements needed to create these lairs. Each           In Python, using a dictionary is another
+      dictionary includes Actors for the dragons and eggs,             way to store information. It’s like a list, but
+      and variables for tracking each dragon’s sleep cycle.            with a label attached to every item. This
+      Begin by creating a dictionary for the easiest lair.             label is known as the “key” and the item
+      Carefully type these lines under the code from Step 6.           it’s attached to is called the “value.” You
+                                                                       can even create a dictionary in which the
+reset_required = False
+                                                                       values are other dictionaries. This is called
+                                                                       “nesting,” and it allows you to store the
+                                                                       pieces of your game in a structured way.
+easy_lair = {
+     "dragon": Actor("dragon-asleep", pos=(600, 100)),
+     "eggs": Actor("one-egg", pos=(400, 100)),
+     "egg_count": 1,
+     "egg_hidden": False,                                                     cherries                   clock
+
+     "egg_hide_counter": 0,
+     "sleep_length": 10,
+     "sleep_counter": 0,
+     "wake_counter": 0                                                      paint bucket                trophy
+}
+
+
+
+
+8 Medium  lair
+  Next add a dictionary for the lair with medium difficulty.                               These are the
+      The code for this is a lot like the code in the previous step,                       coordinates for the
+      but some of the values are different.                                                dragon in this lair.
+
+                          }
+
+
+                          medium_lair = {
+                               "dragon": Actor("dragon-asleep", pos=(600, 300)),
+           This checks
+       if the eggs are         "eggs": Actor("two-eggs", pos=(400, 300)),
+    currently hidden.
+                               "egg_count": 2,
+                               "egg_hidden": False,                                                        This sets the
+        This tracks            "egg_hide_counter": 0,                                                      coordinates
+      the dragon’s                                                                                         of the eggs.
+       sleep cycle.            "sleep_length": 7,
+                               "sleep_counter": 0,
+                               "wake_counter": 0
+                          }

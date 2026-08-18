@@ -1,0 +1,62 @@
+GAME PROGRESS                                                    31%         123
+
+8 Create global variables
+  You can now set up the global
+                                                                            EXPERT TIPS
+    variables. Add these lines after the                               Obstacles on screen
+    code from Step 7.
+                                                                       In Balloon Flight, the balloon stays in the
+  This keeps track of the image used for the                           middle of the screen and the obstacles
+  bird Actor. The image will be changed later
+  in the game to make the bird look like it’s
+                                                                       move past it. This makes it look like it’s
+  flapping its wings.                                                  the balloon that’s moving. To make the
+                                                                       obstacles appear at random intervals, the
+tree.pos = randint(800, 1600), 450                                     game chooses a random position for each
+                                                                       one to appear between 800 and 1600
+                                                                       pixels. Because the width of the screen is
+bird_up = True                                                         800 pixels, the obstacles will first “appear”
+up = False                                                             off screen, so you won’t see them right
+                                                      This line
+game_over = False                                     keeps track of   away. Later on, you’ll add code to make
+                                                      the player’s     these obstacles move from right to left,
+score = 0                                             score.           so the farther off screen an obstacle is
+number_of_updates = 0                                                  placed, the longer it will take to appear
+                                                                       on screen. The upper limit is set to 1600
+                                                                       because otherwise the obstacles would
+scores = []                                                            take too long to appear.
+
+                                                                                                  The position of
+  This list stores the       This variable keeps track of
+                                                                                               the house on the
+  top three high             how many times the game
+                                                                                            y-axis is fixed at 460.
+  scores for the game.       has been updated to change
+                             the image of the bird.
+                                                                        house.pos = randint(800, 1600), 460
+
+
+
+9 Manage  the high scores
+  Next add placeholders for the functions that
+                                                                                The house can appear
+                                                                             anywhere along the x-axis
+    will manage the high scores. You will need a                          between 800 and 1600 pixels.
+    function to update the scores and another to
+    display them. The bodies of these functions
+    will be added later on.
+
+scores = []
+                                                                                  I must steer clear of
+                                                                                   all these obstacles!
+def update_high_scores():
+    pass
+
+
+def display_high_scores():
+    pass
+
+
+
+              Use pass to create a function
+              placeholder. You can define it later.

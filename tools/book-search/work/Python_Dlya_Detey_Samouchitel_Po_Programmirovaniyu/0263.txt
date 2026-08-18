@@ -1,0 +1,52 @@
+if self.y < 0:
+                   self.y = 0
+               bottom = False
+               top = False
+           if bottom and falling and self.y == 0 \
+                   and co.y2 < self.game.canvas_height \
+                   and collided_bottom(1, co, sprite_co):
+               falling = False
+
+
+   Для установки переменной falling в False должны выполняться
+пять условий:
+
+   1.   Переменная bottom равна True;
+
+   2.   Переменная falling равна True (проверка на падение);
+
+   3.   В данный момент фигурка не падает (y равно 0);
+
+   4.   Фигурка не столкнулась нижней стороной с нижней границей
+        холста (y2 меньше, чем canvas_height);
+
+   5.   Низ фигурки соприкасается с верхом платформы (функция
+        collided_bottom возвращает True).
+
+    Если все условия выполняются, присваиваем переменной falling
+значение False.
+
+Столкновение слева и справа
+Мы уже разобрались со столкновениями сверху и снизу, теперь нужно
+проверить, не столкнулась ли фигурка с чем-нибудь слева и справа:
+
+
+            if bottom and falling and self.y == 0 \
+                    and co.y2 < self.game.canvas_height \
+                    and collided_bottom(1, co, sprite_co):
+                falling = False
+           if left and self.x < 0 and collided_left(co, sprite_co):
+                   self.x = 0
+                   left = False
+           if right and self.x > 0 and collided_right(co, sprite_co):
+                   self.x = 0
+                   right = False
+
+
+    В строке  смотрим, нужно ли обрабатывать столкновения слева (left
+все еще равняется True) и движется ли фигурка влево (x меньше 0). Вы-
+зывая функцию collided_left, проверяем столкновение левой стороны
+
+
+
+                                                                    18. Доделываем игру   263

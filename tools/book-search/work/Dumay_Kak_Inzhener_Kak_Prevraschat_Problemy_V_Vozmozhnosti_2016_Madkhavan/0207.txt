@@ -1,0 +1,38 @@
+Примечания
+
+
+Layton) A Historical Definition of Engineering, опубликованная
+в Critical Perspectives (с. 60–79). К другим полезным статьям
+относится классическая работа The Engineer and Civilization
+(W. F. Durand, Science 42, no. 1615 [1925]: 525–533); и более
+свежая — How Models of Engineering Tell the Truth (Zacha­
+ry Pirtle), в Philosophy and Engineering, редакторы — I. van
+de Poel, D. E. Goldberg (Springer, 2010), с. 97–108. Полезной
+основой для моих размышлений послужили статья 1996 года
+Defining ‘Engineer’: How to Do It and Why It Matters (Michael
+Davis, Journal of Engineering Education 85, no. 2: 97–101) и кни-
+га 2002 года Стивена Вика Degrees of Belief: Subjective Proba­
+bility and Engineering Judgment (Steven Vick, American Society
+of Civil Engineers Press).
+    Цитаты Стюарта Файрштейна и Эндрю Уайлcа взяты из
+книги Файрштейна 2012 года Ignorance: How It Drives Sci-
+ence (Stuart Firestein, Oxford University Press), с. 2–7. Отно-
+сительно пошагового уточнения см. классическую работу
+Program Development by Stepwise Refinement (Niklaus Wirth,
+Communications of the ACM, April 1971, 221–227). Специ-
+алисты по когнитивной психологии сравнивают подходы
+к проектированию «сверху вниз» и «снизу вверх» с позна-
+нием «крупными блоками» и «небольшими блоками», ко-
+торое задействовано в переработке информации. Термин
+об «аппаратном обеспечении» культуры позаимствован из
+статьи Роджера Берлингейма 1959 года, опубликованной
+в Technology and Culture (Roger Burlingame, The Hardware of
+Culture, vol. 1, no. 1: 11–19).
+    Показатель в менее чем 4% (ученых и) инженеров, кото-
+рые, несмотря на такое непропорционально малое коли-
+чество, создают рабочие места для остальных, взят из от-
+чета Национальных академий за 2010 год Rising above the
+Gathering Storm, Revisited: Rapidly Approaching Category 5
+(с. 3). Также связанный с этим источник — Science and
+
+                                                             207

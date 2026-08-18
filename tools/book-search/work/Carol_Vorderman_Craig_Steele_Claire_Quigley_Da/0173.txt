@@ -1,0 +1,47 @@
+GAME PROGRESS                                    89%               171
+
+  32 Update    the fangflowers
+     It’s time for the fangflowers to start moving. The code in this
+           step will be called every time the update() function runs. It
+           will also keep the fangflowers inside the garden by making
+           them bounce off the edges of the game screen. Replace pass             These are the global
+                                                                                  variables used in
+           under def update_fangflowers() from Step 29 with this                  this function.
+           code. There’s a lot of tricky code here, so type it in carefully.
+
+                        def update_fangflowers():
+                             global fangflower_list, game_over
+                             if not game_over:                                                       This loops over all
+                                                                                                     the fangflowers
+                                   index = 0                                                         in the list.
+     This variable
+                                   for fangflower in fangflower_list:
+         helps the
+   program keep                         fangflower_vx = fangflower_vx_list[index]                    These get the x
+   track of which                                                                                    and y velocities
+item in the list it’s                   fangflower_vy = fangflower_vy_list[index]
+                                                                                                     of the fangflower.
+    dealing with.                       fangflower.x = fangflower.x + fangflower_vx
+                                        fangflower.y = fangflower.y + fangflower_vy
+                                                                                                     These get the
+                                        if fangflower.left < 0:                                      new position of
+                                              fangflower_vx_list[index] = -fangflower_vx             the fangflower.
+  If the fangflower
+   touches the left                     if fangflower.right > WIDTH:
+edge of the screen,
+                                              fangflower_vx_list[index] = -fangflower_vx
+    this will make it
+    start moving to                     if fangflower.top < 150:
+           the right.
+                                              fangflower_vy_list[index] = -fangflower_vy
+                                        if fangflower.bottom > HEIGHT:
+                                              fangflower_vy_list[index] = -fangflower_vy
+                                        index = index + 1
+                             return
+
+                                                                                             By changing its y velocity,
+                                                                                             the fangflower is brought
+                                                                                             back into the screen.
+                                          Better make
+                                          sure none of
+                                         you wander off!

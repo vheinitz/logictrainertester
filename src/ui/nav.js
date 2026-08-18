@@ -29,6 +29,8 @@ const T = {
   gruppen:    { de: 'Gruppen', ru: 'Группы', en: 'Groups' },
   alle:       { de: 'Alle Aufgaben', ru: 'Все задания', en: 'All tasks' },
   lernen:     { de: 'Lernen', ru: 'Занятия', en: 'Learning' },
+  methoden:   { de: 'Methoden', ru: 'Методы', en: 'Methods' },
+  ideen:      { de: '50 Buch-Ideen', ru: '50 идей из книг', en: '50 book ideas' },
   auswertung: { de: 'Auswertung', ru: 'Результаты', en: 'Results' },
   statistik:  { de: 'Statistik', ru: 'Статистика', en: 'Statistics' },
   profil:     { de: 'Kognitives Profil', ru: 'Когнитивный профиль', en: 'Cognitive profile' },
@@ -49,7 +51,10 @@ function aufbau() {
       { icon: '📊', label: t('gruppen'), view: 'groups' },
       { icon: '🎯', label: t('alle'), view: 'modules' }
     ] },
-    { id: 'lernen', icon: '🧰', label: t('lernen'), view: 'methods', views: ['methods', 'method'] },
+    { id: 'lernen', icon: '🧰', label: t('lernen'), views: ['methods', 'method', 'ideen'], kinder: [
+      { icon: '🧰', label: t('methoden'), view: 'methods' },
+      { icon: '📚', label: t('ideen'), view: 'ideen' }
+    ] },
     { id: 'auswertung', icon: '📈', label: t('auswertung'), views: ['stats', 'radar'], kinder: [
       { icon: '📊', label: t('statistik'), view: 'stats' },
       { icon: '🎯', label: t('profil'), view: 'radar' }

@@ -1,0 +1,61 @@
+GAME PROGRESS                                         83%                 169
+
+30 Mutation
+                                                          0             1            2          3           index
+   It’s time for your harmless flowers to turn
+        into carnivorous fangflowers. Even worse,                                                           fangflower_list
+        the code will change one random flower
+        into a fangflower every 20 seconds after
+        the first mutation. Replace pass under
+        def mutate() with the code below.
+        There’s a lot of code to add here, so be          2             0           -1          3
+        extra careful.                                                                                      fangflower_vx_list
+
+
+                             These three lists will
+                              store the velocities
+                                   of a particular
+                                fangflower at the         -3            1            0          2
+                             same index number.                                                             fangflower_vy_list
+
+
+
+
+                      If the game is not over and there                             These are the global
+                      are still flowers left to mutate,                              variables needed in
+                      this block of code will run.                                         this function.
+
+
+                      def mutate():
+                           global flower_list, fangflower_list, fangflower_vy_list
+                           global fangflower_vx_list, game_over
+                           if not game_over and flower_list:
+                                                                                                                  This line picks a
+       This line                 rand_flower = randint(0, len(flower_list) - 1)                                   random flower
+   removes the                                                                                                    to mutate.
+                                 fangflower_pos_x = flower_list[rand_flower].x
+ mutated flower
+   from the list                 fangflower_pos_y = flower_list[rand_flower].y
+     of flowers.
+                                 del flower_list[rand_flower]
+                                 fangflower = Actor("fangflower")
+ This line sets the
+fangflower at the                fangflower.pos = fangflower_pos_x, fangflower_pos_y
+ same position as                fangflower_vx = velocity()
+      the flower it
+   mutated from.                 fangflower_vy = velocity()                                                       This sets
+                                                                                                                  how fast the
+                                 fangflower = fangflower_list.append(fangflower)
+                                                                                                                  fangflower is
+                                 fangflower_vx_list.append(fangflower_vx)                                         moving left
+         This sets
+                                                                                                                  or right on
+     how fast the                fangflower_vy_list.append(fangflower_vy)                                         the screen.
+    fangflower is
+      moving up                  clock.schedule(mutate, 20)
+      or down on           return
+      the screen.
+                                                                                                            This adds a new
+                       The fangflower’s                         This line schedules a call                  fangflower to the
+                       velocities are                           to mutate a flower every                    list of fangflowers.
+                       added to these lists.                    20 seconds.

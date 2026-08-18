@@ -1,0 +1,53 @@
+398                                                                    Глава 24
+
+
+
+      def stop_Click(self):
+          if not self.sleeping:
+              self.imageList = self.nothingImages
+                                                      Обработчик события
+              self.walking = False                    кнопки stop
+              self.eating = False
+              self.playing = False
+              self.doctor = False
+
+      def animation_timer(self):                            Обработчик события
+          if self.sleeping and not self.forceAwake:      анимационного таймера
+              self.imageList = self.sleepImages             (каждые 0.5 секунды)
+          self.imageIndex += 1
+          if self.imageIndex >= len(self.imageList):
+              self.imageIndex = 0
+          icon = QtGui.QIcon()
+                                                                     Обновля-
+          current_image = self.imageList[self.imageIndex]            ем изо-
+          icon.addPixmap(QtGui.QPixmap(current_image),               бражение
+                          QtGui.QIcon.Disabled, QtGui.QIcon.Off) питомца
+          self.petPic.setIcon(icon)                                  (анимация)
+          self.progressBar_1.setProperty("value", (8-self.hunger)*(100/8.0))
+          self.progressBar_2.setProperty("value", self.happiness*(100/8.0))
+          self.progressBar_3.setProperty("value", self.health*(100/8.0))
+                                     Запускаем
+      def tick_timer(self):          обработчик
+          self.time_cycle += 1       события основного
+          if self.time_cycle == 60: 5-секундного
+              self.time_cycle = 0    таймера
+          if self.time_cycle <= 48 or self.forceAwake:
+              self.sleeping = False                     Проверяем, спит или
+          else:                                         бодрствует питомец
+              self.sleeping = True
+          if self.time_cycle == 0:
+              self.forceAwake = False
+          if self.doctor:
+              self.health += 1
+              self.hunger += 1
+          elif self.walking and (self.time_cycle % 2 == 0):
+              self.happiness += 1                             Добавляем
+              self.health += 1                                или удаляем
+              self.hunger += 1                                элементы
+          elif self.playing:                                  в зависимости
+                                                              от типа
+              self.happiness += 1                             активности
+              self.hunger += 1
+          elif self.eating:
+              self.hunger -= 2
+          elif self.sleeping:

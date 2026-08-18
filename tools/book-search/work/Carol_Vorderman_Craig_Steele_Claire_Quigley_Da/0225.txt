@@ -1,0 +1,66 @@
+INDEX         223
+
+
+
+  project reference
+    199–200
+                             Sleeping Dragons
+                               195
+                                                       lists 31
+                                                          looping over 37
+                                                                                   P
+                                                                                   parameters 40
+  what happens 70–71       Happy Garden 154–75         lives 133, 193–94           “pass” keyword 64, 144
+“for” loops 36–37            coding 159–73             local variables 74          patterns 62
+functions 30, 40–43,         flowchart 158             logic errors 47             placeholders 64, 144
+  122                        hacks and tweaks          loop variable 36            pop() function 102, 108
+  body 122, 122                174–75                  loops 36–39                 print() function 40
+  built-in 44–45             how it works 158             escaping 37              programs
+  calling 40, 41             project reference            for 36–37                  rerunning 25
+  header 122                   211–215                    infinite 39                running 24–25
+  making 42–43               scoring 165                  while 38–39
+                             what happens                                          Pygame
+  naming 42
+                               156–57                                                graphics in 54
+  using 40
+                                                                                     installing 18–19
+                           header, of function 122
+                           hero 178, 185, 187, 188,
+                                                       M                           Pygame Zero,
+                                                       Mac computers 17, 19          installing 18–19
+G                              192–95
+                                                       modules 15                  Python
+games, types 14            hints 113
+                                                        downloading 15               first program 22–23
+garden, drawing 161        houses 128
+                                                       modulo operator 135,          installing 16–17
+global variables 74, 86,                                  153
+    123                                                                              Python 3 16
+                                                       motion, illusion of 119,
+graphical user             I-J                            128
+                                                                                     why use 12
+  interface see GUI        IDLE 16
+                                                       music, adding 140
+graphics, in Pygame 54       colors in code 21
+gravity 126                  editor window 21                                      Q
+GUI 101                      shell window 20                                       questions
+  Big Quiz 101               using 20–21               N                            adding 107
+                           indentation errors 43, 45   numbers, using 29            answering 110
+                           input() function 41                                      comparing 32
+H                          integers 29
+                                                       O
+                                                                                    skipping 113
+hacks and tweaks           interface, planning 104                                 quizzes see Big Quiz
+  Balloon Flight           join function 136           obstacles 118
+    133–35                                              collisions with 129
+  Big Quiz 113–15                                       multiples of 134           R
+  Coin Collector 67        K                            preparing 122              rain 175
+  Dance Challenge          keys 184                     on screen 123              randint() function 56, 64,
+    153                                                 spacing out 135                72, 96, 145
+  Follow the Numbers                                   on_key_up() function        Random module 56
+    78–79                  L                              113, 146, 151            random numbers 56
+  Happy Garden             lairs 184–85, 187, 189      on_mouse_down()             range 36
+    174–75                 len() function 30            function 55, 72, 77, 93,   Raspberry Pi
+  Red Alert 96–97          levels 34, 78, 92, 135         125                        computers 17
+  Shoot the Fruit          line() function 75          open() function             read() function 132
+    57                     list comprehension 97          132                      Red Alert 80–97

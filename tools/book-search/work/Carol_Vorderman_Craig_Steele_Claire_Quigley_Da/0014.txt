@@ -1,0 +1,46 @@
+12                G E T T I N G S TA R T E D
+
+
+
+What is Python?                                                                                 Python is great!
+                                                                                                   I can take
+Computers need step-by-step instructions                                                         it anywhere.
+to perform different tasks. A set of instructions,
+or code, can be written in different
+programming languages. Python is one of
+the most popular programming languages.
+
+Why Python?                                                              △ Portable
+Python is a powerful programming language that                           The same Python code will work on PCs,
+you can use to code simple programs quickly. It’s                        Macs, Linux machines, and Raspberry Pi
+                                                                         computers. The programs act in a similar
+not too hard to learn and it’s great for building                        way on each platform, so games created
+apps and games. Here are some of the reasons                             with Python can be played on lots of
+why Python is such a great tool for programmers.                         machines all around the world.
+
+
+
+
+      1+1=2
+                                                                                       ◁ Diverse applications
+                                                                                       Python is used to build
+△ Easy to understand                                                                   systems and tools for lots of
+Unlike some other programming languages, Python                                        interesting tasks in different
+doesn’t use complicated symbols. You type the                                          industries, such as banking,
+code using a mixture of English words, characters, and                                 healthcare, the space industry,
+numbers, so it’s easy to read and write—just like a book.                              education, and many others.
+
+
+
+
+  Better get started!
+
+
+
+
+△ Packed with tools                                         △ Lots of help
+Python comes with everything you need to start              Python’s website is packed with support
+coding right away, so programmers say it comes              materials to help you learn how to use it. It has a
+with “batteries included.” It contains lots of              guide to getting started, several pieces of sample
+prewritten code, called the Standard Library,               code, and a reference section to help you
+that you can use in your programs.                          understand the code.

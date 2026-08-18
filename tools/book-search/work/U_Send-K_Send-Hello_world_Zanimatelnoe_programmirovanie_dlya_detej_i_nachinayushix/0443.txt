@@ -1,0 +1,53 @@
+Ответы на задания                                                                           43
+
+
+  4. После завершения чтения файла или записи в файл программа должна его закрыть.
+  5. Данные, записанные в файл, открытый в режиме добавления, вставляются в конец этого файла.
+  6. Вся информация в файле, открытом для записи, теряется, ее заменяют новые данные.
+  7. Чтобы начать чтение файла сначала, когда часть его уже прочитана, воспользуйтесь методом
+     seek() с аргументом 0:
+     myFile.seek(0)
+  8. Для сохранения Python-объекта в файле средствами модуля pickle используйте метод pickle.
+     dump(), указывая в качестве аргументов предназначенный для сохранения объект и имя файла:
+     pickle.dump(myObject, "my_pickle_file.pkl")
+  9. Для десериализации сохраненного в файле объекта пользуйтесь методом pickle.load(), указывая
+     в качестве аргумента имя файла:
+     myObject = pickle.load("my_pickle_file.pkl")
+
+Эксп ер и мент ы
+  1. Пример программы, генерирующей нелепые фразы:
+     import random
+
+     noun_file = open("nouns.txt", 'r')
+     nouns = noun_file.readline()
+     noun_list = nouns.split(',')
+     noun_file.close()
+
+     adj_file = open("adjectives.txt", 'r')
+     adjectives = adj_file.readline()
+     adj_list = adjectives.split(',')
+     adj_file.close()
+
+     verb_file = open("verbs.txt", 'r')
+     verbs = verb_file.readline()
+     verb_list = verbs.split(',')
+     verb_file.close()
+
+     adverb_file = open("adverbs.txt", 'r')
+     adverbs = adverb_file.readline()
+     adverb_list = adverbs.split(',')
+     adverb_file.close()
+
+     noun = random.choice(noun_list)
+     adj = random.choice(adj_list)
+     verb = random.choice(verb_list)
+     adverb = random.choice(adverb_list)
+
+     print "The", adj, noun, verb, adverb + '.'
+
+     Файлы со словами представляют собой списки слов, отделенных друг от друга запятыми.
+  2. Программа, сохраняющая введенные данные в текстовом файле:
+     name = raw_input("Введите ваше имя: ")
+     age = raw_input("Введите ваш возраст: ")
+     color = raw_input("Введите любимый цвет: ")
+     food = raw_input("Введите любимое блюдо: ")

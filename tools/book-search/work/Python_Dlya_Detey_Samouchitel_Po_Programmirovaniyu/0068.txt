@@ -1,0 +1,48 @@
+>>> if converted_age == 10:
+                                         print("Как лучше всего общаться с монстром?")
+                                         print("Издалека!")
+                                 Как лучше всего общаться с монстром?
+                                 Издалека!
+
+
+                          Однако будьте осторожны: если вы попытаетесь преобразовать так
+                       число с десятичной точкой, произойдет ошибка, поскольку функция int
+                       ожидает, что в строке будет целое число.
+
+
+                                 >>> age = '10.5'
+                                 >>> converted_age = int(age)
+                                 Traceback (most recent call last):
+                                 File "<pyshell#35>", line 1, in <module>
+                                 converted_age = int(age)
+                                 ValueError: invalid literal for int() with base 10: '10.5'
+
+
+Value error —              ValueError — это тип ошибки, которым Python сообщает, что зна-
+ошибка значения        чение, которое вы попытались использовать, здесь не подходит. Чтобы
+Float — здесь          это исправить, нужно заменить функцию int функцией float, которая
+«десятичная            может обрабатывать дробные числа.
+дробь»
+
+                                 >>> age = '10.5'
+                                 >>> converted_age = float(age)
+                                 >>> print(converted_age)
+                                 10.5
+
+
+
+                          Python выдаст ошибку ValueError и в том случае, если в строке, ко-
+                       торую вы пытаетесь преобразовать, нет цифровых символов:
+
+
+                                 >>> age = 'десять'
+                                 >>> converted_age = int(age)
+                                 Traceback (most recent call last):
+                                 File "<pyshell#1>", line 1, in <module>
+                                 converted_age = int(age)
+                                 ValueError: invalid literal for int() with base 10: 'десять'
+
+
+
+
+68    Часть I. Учимся программировать

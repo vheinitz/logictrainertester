@@ -1,0 +1,76 @@
+170                            HAPPY GARDEN
+
+
+ 31 Move  the fangflower
+    Unlike other flowers, the fangflowers don’t stay in                                                                Remember, we
+                       one place. They move all over the garden trying to                                           talked about velocity
+                       zap the cow. In this step, you’ll add the code that                                              on page 160.
+                       generates the velocity of each fangflower along
+                       the x-axis and y-axis. The fangflowers will use a
+                       combination of these two velocities to move up,
+                       down, side to side, or diagonally. Add the following
+                       code under def velocity() from Step 29.
+
+                                    Negative x velocity                                                                                                   Positive x velocity
+
+
+                                                                                                     0 x + Negative y
+ Negative y velocity
+
+
+
+
+                                                   Ne
+                                                           ga                                                                                                      ey
+                                                                ti v
+                                                                       ex                                                                               a   ti v
+                                                                                                                                                     eg
+                                                                            +N                                                                 +N
+                                                                                 eg
+                                                                                      ati                                                 ex
+                                                                                                                                   ti v
+                                                                                            ve
+                                                                                                 y                         P   osi
+
+                                                                                                                                                                                This combination of the
+                                                                                                                                                                                two velocities affect a
+                                                                                                                                                                                fangflower’s movement.
+
+                                              Negative x + 0 y                                                                                  Positive x + 0 y
+
+
+
+
+                                                                                                                                                                                This is one of eight
+                                                                                           y                                      Po
+ Positive y velocity
+
+
+
+
+                                                                                       e                                               sit                                      different directions a
+                                                                                 iti v                                                       i ve
+                                                                      P     os                                                                      x+                          fangflower can move in.
+                                                                   x+                                                                                    Po
+                                                              ve                                                                                              sit
+                                                      g   ati                                                                                                       i ve
+                                                 Ne                                                                                                                        y
+
+
+
+
+                                                                                                     0 x + Positive y
+
+                                                                                                                                                                           This line generates a number
+        This generates the                                                                                                                                                 that represents the direction
+                                                   def velocity():
+velocity of the fangflower                                                                                                                                                 of the fangflower.
+    with no direction yet.                                       random_dir = randint(0, 1)
+                                                                 random_velocity = randint(2, 3)
+                        If the direction is
+                          0, this returns a                      if random_dir == 0:
+                       negative velocity.
+                                                                            return -random_velocity                                                                        If the direction is 1, this
+                                                                                                                                                                           returns a positive velocity.
+                                                                 else:
+                                                                            return random_velocity

@@ -216,8 +216,10 @@ for (const m of modules) {
     clicks++;
     await sleep(70);
   }
-  check(clicks > 0 || m.id === 'sim-rover' || m.id === 'sim-dreiecke'
-        || m.id === 'sim-tangram' || m.id === 'plan-geschichten',
+  // Drag-Module bedienen über data-zieh, nicht über onclick=G(…).
+  // Rover hat G('tap'); Drehen bei Dreiecken hat G('drehe'), aber nur mit Stück in der Hand.
+  check(clicks > 0 || m.id === 'sim-dreiecke' || m.id === 'sim-tangram'
+        || m.id === 'plan-geschichten',
         `${m.id}: kein anklickbares Element im Spielbereich gefunden`);
   check(window.document.getElementById('gameArea') !== null,
         `${m.id}: Spielbereich nach ${clicks} Klicks verschwunden`);

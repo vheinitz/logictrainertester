@@ -1,0 +1,54 @@
+PROJECT REFERENCE   211
+
+       update_dancer(1)
+       if move_list[current_move] == 1:
+              score = score + 1
+              next_move()
+       else:
+              game_over = True
+   elif key == keys.DOWN:
+       update_dancer(2)
+       if move_list[current_move] == 2:
+              score = score + 1
+              next_move()
+       else:
+              game_over = True
+   elif key == keys.LEFT:
+       update_dancer(3)
+       if move_list[current_move] == 3:
+              score = score + 1
+              next_move()
+       else:
+              game_over = True
+   return
+
+
+generate_moves()
+music.play("vanishing-horizon")
+
+
+def update():
+   global game_over, current_move, moves_complete
+   if not game_over:
+       if moves_complete:
+              generate_moves()
+              moves_complete = False
+              current_move = 0
+   else:
+       music.stop()
+
+
+
+Happy Garden (page 154)
+from random import randint
+import time
+
+
+WIDTH = 800
+HEIGHT = 600
+CENTER_X = WIDTH / 2
+CENTER_Y = HEIGHT / 2
+
+
+game_over = False
+finalised = False

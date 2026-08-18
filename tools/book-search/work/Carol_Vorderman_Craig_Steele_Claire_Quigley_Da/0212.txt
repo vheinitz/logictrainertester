@@ -1,0 +1,55 @@
+210         REFERENCE
+
+
+
+   else:
+       say_dance = True
+       show_countdown = False
+   return
+
+
+def countdown():
+   global count, game_over, show_countdown
+   if count > 1:
+       count = count - 1
+       clock.schedule(countdown, 1)
+   else:
+       show_countdown = False
+       display_moves()
+   return
+
+
+def generate_moves():
+   global move_list, dance_length, count
+   global show_countdown, say_dance
+   count = 4
+   move_list = []
+   say_dance = False
+   for move in range(0, dance_length):
+       rand_move = randint(0, 3)
+       move_list.append(rand_move)
+       display_list.append(rand_move)
+   show_countdown = True
+   countdown()
+   return
+
+
+def next_move():
+   global dance_length, current_move, moves_complete
+   if current_move < dance_length - 1:
+       current_move = current_move + 1
+   else:
+       moves_complete = True
+   return
+
+
+def on_key_up(key):
+   global score, game_over, move_list, current_move
+   if key == keys.UP:
+       update_dancer(0)
+       if move_list[current_move] == 0:
+            score = score + 1
+            next_move()
+       else:
+            game_over = True
+   elif key == keys.RIGHT:

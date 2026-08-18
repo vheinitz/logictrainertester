@@ -1,0 +1,69 @@
+GAME PROGRESS                                                  52%                107
+
+11 Set the score
+   Now that the interface is ready, you need to start thinking about
+       how the game will work. Create a variable to hold the score and
+       set it to zero. Type this after the code you wrote in Step 8.
+
+answer_boxes = [answer_box1, answer_box2, answer_box3, answer_box4]
+
+                                                                                                                  Don’t forget to save
+score = 0                                                                                                             your work.
+
+
+
+
+12 Set the timer
+   You also need to create a timer that will
+                                                         score = 0
+                                                         time_left = 10
+                                                                                                     This is the number of
+                                                                                                     seconds the player has
+       hold the number of seconds the player has                                                     to answer each question.
+       left to answer each question. You can give
+       them ten seconds to answer by setting the
+       variable to 10.                                       This is the name of the list.                  This question is the
+                                                             Here it means question 1.                      first item in the list.
+
+
+13 Add    the first question
+   It’s time to create the first quiz question.
+                                                         time_left = 10
+
+       All the questions will be multiple choice,
+       which means there are several possible            q1 = ["What is the capital of France?",
+       answers, but only one of them is correct.
+                                                                  "London", "Paris", "Berlin", "Tokyo", 2]
+       You can use a list to store the information
+       about each question. Type this code next.
+                                                        These are all the         This number indicates the position of
+                                                       possible answers            the correct answer. Here it’s 2, which
+                                                        to the question.             means Paris is the correct answer.
+
+
+
+14 More   questions
+   Let’s add some more questions by typing
+                                                         q1 = ["What is the capital of France?",
+                                                                  "London", "Paris", "Berlin", "Tokyo", 2]
+       the code shown in black below the lines from
+       Step 13. Remember, you can create your own
+       sets of questions if you like. You could base
+                                                         q2 = ["What is 5+7?",
+       them on your favorite sports team, or show
+       off what you know about your favorite                      "12", "10", "14", "8", 1]
+       series of books.
+
+                                                         q3 = ["What is the seventh month of the year?",
+                           Any questions?
+                                                                  "April", "May", "June", "July", 4]
+
+
+         ?       ?
+   ?                  ?
+                                                         q4 = ["Which planet is closest to the Sun?",
+                                                                  "Saturn", "Neptune", "Mercury", "Venus", 3]
+
+  ?
+                                                         q5 = ["Where are the pyramids?",
+                                                                  "India", "Egypt", "Morocco", "Canada", 2]

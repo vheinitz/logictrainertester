@@ -1,0 +1,44 @@
+События                                                                         259
+
+
+Вот как будет выглядеть соответствующий код:
+
+ elif event.type == pygame.MOUSEMOTION:
+     paddle.rect.centerx = event.pos[0]
+
+Здесь event.pos — это список значений [x, y] положения мыши. Соответственно, зна-
+чение event.pos[0] даст нам координату x мыши в момент любого перемещения.
+Конечно, в момент, когда мышь достигнет левого или правого края окна, ракетка напо-
+ловину окажется вне его пределов, но в этом нет ничего страшного.
+Осталось добавить только код распознавания столкновений между шариком и ракеткой.
+Именно так имитируется «удар» ракеткой по шарику. В момент столкновения мы просто
+меняем знак скорости по координате y (падающий вниз шарик, ударившись о ракетку,
+отскакивает от нее и начинает движение вверх).
+Вот как будет выглядеть код:
+
+ if pygame.sprite.spritecollide(paddle, ballGroup, False):
+     myBall.speed[1] = -myBall.speed[1]
+
+Не забываем перерисовать сцену на каждой итерации цикла. Сложив все вместе, получим
+основу нашей игры, напоминающей Pong. Полностью код представлен в листинге 18.4.
+
+ Листинг 18.4. Первая версия игры PyPong
+ import pygame, sys
+ from pygame.locals import *
+
+ class MyBallClass(pygame.sprite.Sprite):
+     def __init__(self, image_file, speed, location):
+         pygame.sprite.Sprite.__init__(self)                     Определение класса
+         self.image = pygame.image.load(image_file)                     для шарика
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.top = location
+         self.speed = speed
+
+      def move(self):
+          self.rect = self.rect.move(self.speed)
+          if self.rect.left < 0 or self.rect.right > screen.get_width():
+              self.speed[0] = -self.speed[0]    Перемещаем шарик (вызывая его
+                                                      отскок от верхней и боковых
+                                                                     границ окна)
+          if self.rect.top <= 0 :
+              self.speed[1] = -self.speed[1]

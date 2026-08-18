@@ -1,0 +1,49 @@
+38            LEARNING THE BASICS
+
+                                                               How it works
+                                                               robots[index] and colors[index] both use the value
+                                                               of index to decide which item in their list to print.
+                                                               Since index is set to 0 to begin with, both lists will
+                                                               start with the first item—remember the first position
+                                                               in Python lists is always 0, not 1. Since Bing is at
+                                                               position 0 of the list robots and red is at position 0
+                                                               of the list colors, that means Bing is red. Each time
+                                                               the loop runs, it adds 1 to index, moving each list
+                                                               onto the next item, so Bleep will be orange and
+                                                               Bloop will be purple. The loop will continue until
+                                                               it reaches the end of the lists.
+
+
+“While” loops                                                                    Dude, when are
+Sometimes, while coding a program, you                                            we supposed
+might not know exactly how many times                                               to stop?
+
+you want a loop to repeat. Don’t worry! In
+this case, you can use a while loop.
+
+Loop condition
+A while loop includes a question whose answer can either
+be True or False. This is called a loop condition. The while
+loop will only start if the answer to the loop condition is
+True. Imagine you are playing a game where a castle is
+guarded by a dragon that checks if you have the magic
+key. “Do you have the magic key?” would be the loop                            EXPERT TIPS
+condition and the castle would be the loop body. If you
+have the magic key, the loop condition is True and you                   Indentation error
+can enter the castle. But if you don’t have the key, the
+loop condition is False, so you can’t get into the loop!                 Just like the for loop, the code in
+                                                                         the body of a while loop must be
+                                                                         four spaces further in than the line
+                                                                         starting the loop. If you don’t do this,
+                                                                         Python will show an error message
+                                                                         saying “unexpected indent.”
+                                      Nobody enters without
+                                         the magic key!
+                                                                           SyntaxError
+
+
+                                                                                         unexpected indent
+
+
+
+                                                                                                  OK

@@ -1,0 +1,52 @@
+180        SLEEPING DRAGONS
+
+
+How it works                                        Start
+You’ll use the draw() function
+to draw the hero, the dragons,
+and the eggs on the screen.                  Draw dragons,
+Then you’ll create the update()            eggs, and the hero
+function to check the player’s
+actions and update the
+different elements of the
+game. Both these functions                   Is an arrow key
+are called many times every                  being pressed?
+second, which will allow you
+to animate the Actors in the
+                                                Y               N
+game. You’ll also use the
+clock.schedule_interval()             Move the hero in the direction
+function to wake up the                 of the key being pressed
+dragons and send them to
+sleep at regular intervals.
+                                                                       Y
+                                               Is the hero                 Increase the egg count, hide
+                                           touching any eggs?               the egg(s) for two seconds
+
+
+
+                                               N
+                                                                                 Has the player           N
+                                  N                                             collected enough
+                                            Is the hero being
+                                                                                      eggs?
+                                                attacked by
+                                                 a dragon?
+                                                                                             Y
+                                                Y
+                                                                                       End
+                                      Subtract one from number of
+                                       lives, reset hero’s position
+
+
+
+
+                                  Y
+                                              Are there any
+                                                lives left?
+
+                                                                           ◁ Sleeping Dragons flowchart
+                                               N                           There are two separate loops in
+                                                                           this program. The main loop is
+                                                    End                    controlled by Pygame and runs
+                                                                           multiple times per second.

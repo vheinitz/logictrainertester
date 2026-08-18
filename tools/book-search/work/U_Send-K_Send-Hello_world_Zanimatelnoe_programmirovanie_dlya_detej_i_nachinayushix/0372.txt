@@ -1,0 +1,50 @@
+372                                                                      Глава 23
+
+
+
+                  if suit_totals[i] > long_suit:
+                      long_suit = i
+              if long_suit == 0: active_suit = "Diamonds" Делаем масть,
+              if long_suit == 1: active_suit = "Hearts"        получившую
+              if long_suit == 2: active_suit = "Spades"        преимущество,
+                                                               активной
+              if long_suit == 3: active_suit = "Clubs"
+              print " Компьютер меняет масть на ", active_suit
+              return                                         Завершаем действия
+          else:                                              компьютера
+              if card.suit == active_suit:                   и возвращаемся
+                  options.append(card)                       в основной цикл
+
+              elif card.rank == up_card.rank: Проверяем, какие карты
+                  options.append(card)          подходят для хода
+
+ if len(options) > 0:
+     best_play = options[0]
+     for card in options:                      Проверяем наиболее подходящий
+         if card.value > best_play.value:      вариант (с максимальным значением)
+             best_play = card
+
+      c_hand.remove(best_play)
+      up_card = best_play                                         Выкладываем
+      active_suit = up_card.suit                                  карту
+      print " Компьютер выкладывает ", best_play.short_name
+
+ else:
+     if len(deck) >0:
+         next_card = random.choice(deck)
+                                          Берем дополнительную карту,
+         c_hand.append(next_card)         так как корректных вариантов
+         deck.remove(next_card)           хода нет
+         print " Компьютер берет карту"
+     else:
+         print " У компьютера не осталось ходов" В колоде не осталось карт,
+         blocked += 1                               компьютер блокируется
+ print "Карт у компьютера %i" % (len(c_hand))
+
+Мы почти закончили, осталось всего несколько деталей. Возможно, вы обратили вни-
+мание, что действия компьютера запрограммированы в виде функции, работающей
+с несколькими глобальными переменными. Эти переменные можно было передавать
+в функцию, но мы выбрали вариант, больше напоминающий реальный мир. Ведь колода
+общедоступна, любой может взять из нее карту.
+Ходы игрока так же оформлены в виде функции, но мы опустили первую часть ее опре-
+деления. Вот как оно выглядит:

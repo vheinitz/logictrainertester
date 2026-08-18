@@ -1,0 +1,46 @@
+224          REFERENCE
+
+
+
+  coding 85–95                coding 51–56                drawing 87                   Red Alert 84, 88
+  flowchart 84                flowchart 51                placing 91                   Sleeping Dragons 180,
+  hacks and tweaks            hacks and tweaks          str() function 75                188
+    96–97                        57                     strings 30                    upper() function 41
+  how it works 84             how it works 51             length 30
+  project reference           project reference           splitting 130
+    200–202                      198                    syntax errors 45              V
+  see also stars              what happens 50                                         values 184
+replace() function 41       shuffle() function 97                                       returning 43
+return value 40             Sleeping Dragons            T                             variables 28–31
+reverse() function 41            176–95                 time 79                         creating 28
+RGB values 75, 114–15         coding 181–94             time() function 79              global 74, 86, 123
+round() function 79           flowcharts 180–81         Time module 15                  local 74
+                              hacks and tweaks          timer                           loop 36
+                                 195                      scheduling 112                naming 28
+S                             how it works                setting 107                   velocity 170
+scores                           180–81                 trees 128
+  high 121, 123, 124,         project reference         True/False statements
+    130–31, 133                  216–219                    32–34                     W
+  keeping 131                 losing lives 193–94       type errors 46                “while” loops 38–39
+Scratch 13                    what happens                                            Windows computers 16,
+screen.draw.text()               178–79                                                   18
+  function 75               split() function 130        U                             wireframes 104
+screen size 74, 103, 122    Sprites 52                  update() function             write() function 132
+scrolling, across           stack 108                    automatic calls 127
+  screen 128                stars
+shell window 20               animating 92                  Balloon Flight 126, 135
+  messages in 44              clicking 94                   Coin Collector 65, 67
+Shoot the Fruit 48–57         creating 90                   Happy Garden 171, 173
+
+
+
+
+Acknowledgments
+DK Publishing would like to thank Caroline Hunt for
+proofreading; Jonathan Burd for the index; Daniel Pope for
+creating Pygame Zero; Jason Shaw at audionautix.com for the
+music for Dance Challenge; Chloe Parry, Phoebe Parry, and
+Joshua Parry for user testing; Aashirwad Jain for code testing;
+and Isha Sharma for editorial assistance.
+Python is copyright © 2001–2018 Python Software Foundation.
+All Rights Reserved.

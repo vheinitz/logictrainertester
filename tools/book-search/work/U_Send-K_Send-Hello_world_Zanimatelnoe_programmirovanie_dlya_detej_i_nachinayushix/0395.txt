@@ -1,0 +1,74 @@
+Компьютерное моделирование                                                          395
+
+
+загрузить с сайта книги www.manning.com/books/hello-world-second-edition. Там же
+находится созданный модулем PyQt файл с пользовательским интерфейсом и вся при-
+лагающаяся графика. Запустите этот код и убедитесь, что понимаете принцип его работы.
+
+ Листинг 24.4. VirtualPet.py
+ import sys, pickle,datetime
+ from PyQt4 import QtCore, QtGui, uic
+
+ formclass, baseclass = uic.loadUiType("mainwindow.ui")
+
+ class MyForm(baseclass, formclass):
+     def __init__(self, parent=None):
+         QtGui.QMainWindow.__init__(self, parent)
+         self.setupUi(self)
+         self.doctor = False
+         self.walking = False
+         self.sleeping = False
+         self.playing = False
+                                           Инициализируем значения
+         self.eating = False
+         self.time_cycle = 0
+         self.hunger = 0
+         self.happiness = 8
+         self.health = 8
+         self.forceAwake = False
+         self.sleepImages = ["sleep1.gif","sleep2.gif","sleep3.gif",
+
+
+
+
+                                                                                Списки изображений
+                             "sleep4.gif"]
+
+
+
+
+                                                                                   для анимации
+         self.eatImages = ["eat1.gif", "eat2.gif"]
+         self.walkImages = ["walk1.gif", "walk2.gif", "walk3.gif",
+                             "walk4.gif"]
+         self.playImages = ["play1.gif", "play2.gif"]
+         self.doctorImages = ["doc1.gif", "doc2.gif"]
+         self.nothingImages = ["pet1.gif", "pet2.gif", "pet3.gif"]
+
+          self.imageList = self.nothingImages
+          self.imageIndex = 0
+                                                                         Связываем обра-
+
+                                                                         тий с кнопками
+                                                                         панели инстру-
+                                                                          ботчики собы-
+
+
+
+
+          self.actionStop.triggered.connect(self.stop_Click)
+          self.actionFeed.triggered.connect(self.feed_Click)
+                                                                             ментов
+
+
+
+
+          self.actionWalk.triggered.connect(self.walk_Click)
+          self.actionPlay.triggered.connect(self.play_Click)
+          self.actionDoctor.triggered.connect(self.doctor_Click)
+
+          self.myTimer1 = QtCore.QTimer(self)
+                                                                      Настраиваем
+          self.myTimer1.start(500)                                    таймеры
+          self.myTimer1.timeout.connect(self.animation_timer)
+          self.myTimer2 = QtCore.QTimer(self)

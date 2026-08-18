@@ -1,0 +1,62 @@
+30           LEARNING THE BASICS
+
+
+Working with strings
+A string is any data made up of a sequence of letters
+or other characters. Words and sentences are stored
+as strings. In Python, most programs use at least
+one string. Any character that you can type on
+your keyboard can be stored in a string.                                       P          Y       T       H                     N
+                                                                                                                 O
+
+
+ 1 Strings  in variables
+   Strings can be assigned to variables. Type this code
+                                                                          >>> name = "Martin"
+                                                                          >>> print(name)
+                                                                                                          Quotation marks
+                                                                                                          tell the computer
+     into the shell window. It assigns the string Martin                                                  that it’s a string.
+     to the name variable and then displays it. Strings                   Martin
+     must be written between quotation marks to show
+     where they start and end.                                                        Press Enter to
+                                                                                      print the string.   Remember the space
+                                                                                                          after the greeting.
+
+
+ 2 Joining strings together
+   Variables can be combined to create new ones.
+                                                                          >>> greeting = "Hello "
+                                                                          >>> name = "Martin"
+     For example, you can add two strings and store the
+     combination in a new variable. Type this code into                   >>> message = greeting + name
+     the shell window to try this out. You can change the
+                                                                          >>> print(message)
+     greeting and the name to make a new message.
+                                                                          Hello Martin
+                                   Remember the quotation
+                                    marks, and leave a space         message is a new variable                The + symbol can
+                                                 after Hello.        that contains the greeting               be used to join
+                                                                     and name variables.                      strings together.
+
+
+
+        EXPERT TIPS
+ Length of a string
+ For some programs, it’s useful to be able to count
+ the number of characters in a string. You can do
+ this using the function len(). A function is a useful
+ operation that contains multiple lines of code,
+ so you don’t have to enter them manually. To
+ find out the number of characters in the string
+ Hello Martin, type this line of code into the shell            What’s the weather
+ after you’ve created the string, then hit Enter.                 like up there?
+
+                                     The number
+
+   >>> len(message)
+                                     of characters,
+                                     including spaces,
+                                     is counted.
+                                                                                 !
+   12

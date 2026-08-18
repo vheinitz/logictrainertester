@@ -1,0 +1,25 @@
+HOW TO BUILD HAPPY GARDEN               157
+
+
+
+
+                    If a flower remains
+                    wilted for more than ten
+                    seconds, the game ends.
+
+
+
+
+                    The blooming flowers
+                    continue to appear at random
+                    positions on the screen as
+                    the game progresses.
+
+
+
+
+                ◁ Keep moo-ving!
+                There are a lot of different
+                elements in this game. The
+                code uses several functions
+                to keep track of them all.

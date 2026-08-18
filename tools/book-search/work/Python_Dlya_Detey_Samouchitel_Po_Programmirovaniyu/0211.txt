@@ -1,0 +1,56 @@
+Сперва создадим в теле функции __init__ класса Ball свойство                   Hit bottom — удар
+hit_bottom (признак того, что мяч достиг нижней границы холста). До-              о дно
+бавим этот код в самый низ функции __init__:
+
+
+     self.canvas_height = self.canvas.winfo_height()
+     self.canvas_width = self.canvas.winfo_width()
+     self.hit_bottom = False
+
+
+
+   Изменим главный цикл в конце программы следующим образом:
+
+
+     while 1:
+         if ball.hit_bottom == False:
+              ball.draw()
+              paddle.draw()
+         tk.update_idletasks()
+         tk.update()
+         time.sleep(0.01)
+
+
+    Теперь на каждом повторе цикла проверяем значение hit_bottom,
+чтобы узнать, не достиг ли мяч нижней границы холста. Как вид-
+но из условия if, мяч и ракетка будут перемещаться, только если мяч
+не достиг нижней границы. В противном случае мяч и ракетка замрут
+(мы больше не будем их анимировать), что и будет означать конец игры.
+    Осталось лишь доработать функцию draw класса Ball:
+
+
+     def draw(self):
+         self.canvas.move(self.id, self.x, self.y)
+         pos = self.canvas.coords(self.id)
+         if pos[1] <= 0:
+         self.y = 3
+         if pos[3] >= self.canvas_height:
+             self.hit_bottom = True
+         if self.hit_paddle(pos) == True:
+             self.y = -3
+         if pos[0] <= 0:
+             self.x = 3
+         if pos[2] >= self.canvas_width:
+             self.x = -3
+
+
+
+   Мы изменили конструкцию if, проверяющую, не достиг ли мяч ниж-
+ней границы холста: не сравнялась ли y-координата низа мяча с высотой
+холста (canvas_height) или не превысила ли она это значение. Если это
+произошло, вместо изменения свойства y (соприкосновение с нижней
+
+
+
+
+                                                       14. Доделываем первую игру: «Прыг-скок!»   211

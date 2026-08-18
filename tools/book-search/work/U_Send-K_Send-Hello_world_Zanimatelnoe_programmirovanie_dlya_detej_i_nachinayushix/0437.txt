@@ -1,0 +1,57 @@
+Ответы на задания                                                                             37
+
+
+         def deposit(self, amount):
+             self.balance = self.balance + amount
+             print "Вы положили", amount
+             print "Теперь на вашем счету:", self.balance
+
+         def withdraw(self, amount):
+             if self.balance >= amount:
+                 self.balance = self.balance - amount
+                 print "Вы сняли", amount
+                 print "Теперь на вашем счету:", self.balance
+             else:
+                 print "Вы попытались снять", amount
+                 print "На вашем счету:", self.balance
+                 print "В операции отказано. Недостаточно средств."
+     А это код, позволяющий протестировать класс и убедиться, что все работает:
+     myAccount = BankAccount(234567, "Warren Sande")
+     print "Название счета:", myAccount.acct_name
+     print "Номер счета:", myAccount.acct_number
+     myAccount.displayBalance()
+
+     myAccount.deposit(34.52)
+     myAccount.withdraw(12.25)
+     myAccount.withdraw(30.18)
+  2. Для получения процентов от вклада нужно создать подкласс BankAccount и метод добавления
+     процентов:
+     add interest:
+     class InterestAccount(BankAccount):
+         def __init__(self, acct_number, acct_name, rate):
+             BankAccount.__init__(self, acct_number, acct_name)
+             self.rate = rate
+
+         def addInterest (self):
+             interest = self.balance * self.rate
+             print "начисления по вкладу,", self.rate * 100, "процентов"
+             self.deposit (interest)
+
+     Вот код для тестирования этого класса:
+     myAccount = InterestAccount(234567, "Warren Sande", 0.11)
+     print "Название счета:", myAccount.acct_name
+     print "Номер счета:", myAccount.acct_number
+     myAccount.displayBalance()
+     myAccount.deposit(34.52)
+     myAccount.addInterest()
+
+Пр овер ь с е бя
+                                                                                                     15
+  1. Преимущества, которые дает модуль:
+      можно написать код один раз и использовать его в разных программах;
+      можно пользоваться модулями, написанными другими;
+      уменьшается размер файлов с кодом, а значит, облегчается поиск отдельных фрагментов кода;
+      можно пользоваться только частями (модулями), которые нужны для решения конкретной задачи.
+  2. Модуль создается на языке Python и сохраняется в файле.
+  3. Модули вставляются в программу при помощи ключевого слова import.
+  4. Импорт модуля аналогичен импорту пространства имен.

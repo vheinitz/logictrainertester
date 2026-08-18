@@ -1,0 +1,36 @@
+platform5 = PlatformSprite(g, PhotoImage(file="platform2.gif"), \
+        175, 350, 66, 10)
+    platform6 = PlatformSprite(g, PhotoImage(file="platform2.gif"), \
+        50, 300, 66, 10)
+    platform7 = PlatformSprite(g, PhotoImage(file="platform2.gif"), \
+        170, 120, 66, 10)
+    platform8 = PlatformSprite(g, PhotoImage(file="platform2.gif"), \
+        45, 60, 66, 10)
+    platform9 = PlatformSprite(g, PhotoImage(file="platform3.gif"), \
+        170, 250, 32, 10)
+    platform10 = PlatformSprite(g, PhotoImage(file="platform3.gif"), \
+        230, 200, 32, 10)
+    g.sprites.append(platform1)
+    g.sprites.append(platform2)
+    g.sprites.append(platform3)
+    g.sprites.append(platform4)
+    g.sprites.append(platform5)
+    g.sprites.append(platform6)
+    g.sprites.append(platform7)
+    g.sprites.append(platform8)
+    g.sprites.append(platform9)
+    g.sprites.append(platform10)
+    g.mainloop()
+
+
+
+    Мы создали десять объектов PlatformSprite, сохранив их
+в переменных platform1, platform2, platform3 и так далее —
+до platform10. Затем поместили каждую платформу в список sprites,
+принадлежащий объекту g класса Game. Если теперь запустить игру, эк-
+ран будет выглядеть так:
+
+
+
+
+                                                                    16. Разработка игры   243

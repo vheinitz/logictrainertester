@@ -1,0 +1,50 @@
+60          COIN COLLECTOR
+
+
+
+How to build                                                 I don’t think this
+                                                           is enough. I’d better
+
+
+Coin Collector
+                                                            collect some more!
+
+
+
+
+Help a crafty fox collect as many coins as
+possible before the time runs out. The more
+coins you get, the higher your score. Be quick!
+You only have a few seconds to collect them.
+
+What happens
+A fox and a coin appear on the screen. You use the arrow
+keys to move the fox toward the coin. When the fox
+touches the coin, you get ten points, and another coin
+appears somewhere else. The game ends after seven
+seconds and the final score is displayed.
+
+                             Pygame Zero Game
+
+ Score: 0
+                                                               The fox can
+                                                               move up, down,
+                                                               left, and right.
+
+
+
+
+                                                               The coin
+                                                               can appear
+                                                               anywhere on
+                                                               the screen.
+
+
+
+                                                           ◁ Need for speed
+                                                           This time-based
+                                                           game tests your
+                                                           reaction speed. How
+                                                           fast can you move the
+                                                           fox to grab the coins
+                                                           before the time’s up?

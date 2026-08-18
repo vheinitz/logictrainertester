@@ -1,0 +1,153 @@
+Объекты                                                                                                                                                                                                                              181
+
+
+Объединим эти фрагменты кода в программу и запустим ее (листинг 14.5).
+
+ Листинг 14.5. Начало программы по изготовлению хот-догов
+ class HotDog:
+     def __init__(self):
+         self.cooked_level = 0
+         self.cooked_string = "Сырая"
+         self.condiments = []
+     def cook(self, time):
+     self.cooked_level = self.cooked_level + time
+     if self.cooked_level > 8:
+         self.cooked_string = "Сгоревшая"
+     elif self.cooked_level > 5:
+         self.cooked_string = "Хорошо прожаренная"
+     elif self.cooked_level > 3:
+         self.cooked_string = "Средней прожарки"
+     else:
+         self.cooked_string = "Сырая"
+ myDog = HotDog()
+ print myDog.cooked_level
+ print myDog.cooked_string
+ print myDog.condiments
+
+
+                                                                                                                                                                                                    nt >>
+                                                                                                                                                                                   rint >                              r i nt >
+                                                                                                                                                                                                pri
+
+                                                                                                                                                                                                        >Hell
+
+
+
+
+                                                                                                                                                                                                                             >>Hel
+                                                                                                                                                                                                                 # p
+
+
+
+
+                                                                                                                                                                                                    o if #
+                                                                                                                                                                                       >>Hel
+                                                                                                                                                                                # p
+
+
+
+
+                                                                                                                                                                                                                        l o if
+
+
+
+                                                                                                        #!/bin/env p
+                                                    self.count=#!/bin/env py                     a text                                file, adding a heade
+                                                                                                                                                                                    lo if
+
+                                            ten=1 ;                         thon #           ate
+                                                                                                                    ytho          text                      r an
+                                        writ                                       !Bin agin
+                                                                                                                         n#
+                                                                                                                            Pag a
+                                  ed r_                                                                                        i
+                                                                                                                                                                 d
+                                                                                                                                                e
+                                                                                                                                             nat
+                                                                                    en P
+
+
+
+
+                                                                                                                                                                                            foo
+                   ea
+
+
+
+
+                                                                                      /
+
+
+
+
+                                      ДУМАЙ КАК ПРОГРАММИСТ
+                                                                                                                                                                                               ter import
+           t and reset a self.h
+
+
+
+
+                                                                                                                                                                                                          sys,
+
+
+
+
+                                      В Python существует договоренность начинать
+                                                                                                                                                                                                               tim
+
+
+
+
+                                      имя класса с прописной буквы. В нашем коде
+                                                                                                                                                                                                      e, string # If
+              d reset the line coun
+
+
+
+
+                                      фигурируют классы Ball и HotDog, значит,
+                                      мы придерживаемся принятого
+                                                                                                                                                                                                  no
+
+
+
+
+                                                                                                                                                                                              arg
+                                                                                                                                                                              ume
+                                                                                                                                            mess
+                                      соглашения.
+                                                                                                                                        a ge i f l
+
+
+
+
+                                                                                                                                                                                 nts w
+                                                                                                                                                     given, print a helpful            ere
+                    , an
+
+
+
+
+                                                                                              e: p
+                                                                                                         g
+                                                                                                     'Usa
+
+
+
+
+                                     t                                                                                               en(
+                                  oun                                                              ypri                                 s
+                                         filena                                        ge c             nt   gv)!=2: print
+                                                                                                                             ys.ar
+                                                me'sys.exit(                     the pa
+                                                             0)class # Increment
+
+
+
+
+Запустим код из листинга 14.5 и посмотрим, что получится:
+
+ >>>                         Переменная cooked_level
+ 0
+ Сырая                                       Переменная cooked_string
+ []                               Переменная condiments

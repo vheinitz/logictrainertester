@@ -1,0 +1,53 @@
+As — как               as
+                       С помощью ключевого слова as можно дать импортированному модулю
+                       другое имя. Допустим, у нас есть модуль с очень длинным названием:
+
+
+I am a Python                    i_am_a_python_module_that_is_not_very_useful
+module that is not
+very useful —
+я модуль Python,             Вводить такое имя при каждом обращении к модулю будет неудобно:
+который
+не очень полезен
+                                 import i_am_a_python_module_that_is_not_very_useful
+Do something —                   i_am_a_python_module_that_is_not_very_useful.do_something()
+сделать что-то                   Я сделал что-то бесполезное.
+Do something                     i_am_a_python_module_that_is_not_very_useful.do_something_else()
+else — сделать                   Я сделал еще что-то бесполезное!
+что-то другое
+
+                           При импортировании модулю лучше дать новое короткое имя
+                       (псевдоним):
+
+Not useful —                     import i_am_a_python_module_that_is_not_very_useful as notuseful
+не полезный                      notuseful.do_something()
+                                 Я сделал что-то бесполезное.
+                                 notuseful.do_something_else()
+                                 Я сделал еще что-то бесполезное!
+
+
+
+Assert — утверж-       assert
+дать
+                       Ключевое слово assert позволяет убедиться, что некое выражение дает
+                       True. Это один из способов обнаружить ошибки и неполадки. Он приме-
+                       няется при создании более сложных программ, поэтому в коде примеров
+                       в этой книге assert не используется. Вот простая конструкция assert:
+
+
+                                 >>> mynumber = 10
+My number — мое                  >>> assert mynumber < 5
+число                            Traceback (most recent call last):
+                                   File "<pyshell#1>", line 1, in <module>
+                                     assert a < 5
+                                 AssertionError
+
+
+Assertion                 В этом примере мы хотим убедиться, что значение переменной
+Error — ошибка         mynumber меньше 5. Поскольку в данном случае это не так, Python оста-
+утверждения            навливает программу и выводит ошибку AssertionError.
+
+
+
+
+284     Приложение: ключевые слова Python

@@ -1,0 +1,62 @@
+GAME PROGRESS                                       11%         103
+Thinking caps on!
+There may be a time limit to answer the
+questions, but not to build the game!
+Follow these steps carefully to build
+your own quiz show to play with your
+friends and family.
+
+
+
+
+ 1 First steps
+   Create a new folder called big-quiz in your
+                                                      Save As:
+                                                      Tags:
+                                                                 quiz.py
+
+     python-games folder. Then open IDLE and
+     create an empty file by going to the File menu
+                                                      Where:         big-quiz
+     and choosing New File. Select Save As... from
+     the same menu and save the file as quiz.py
+     in the big-quiz folder.
+                                                                                Cancel          Save
+
+
+
+
+ 2 Set the screen size
+   Next you need to define the size of the
+                                                      WIDTH = 1280
+                                                      HEIGHT = 720
+                                                                                           These values
+                                                                                           are in pixels.
+     playing area. Add this code to the very
+     top of your program to set the width and
+     height of the game screen.
+
+
+
+ 3 Create the stubs
+   You don’t need any images for this game,
+                                                      def draw():
+                                                          pass
+     so you can jump straight into writing the
+     code. First create placeholders for the
+     functions you’ll need to build the quiz.
+                                                      def game_over():
+                                                          pass
+                                                                                           Remember, pass
+                                                                                           is used as a
+                                                      def correct_answer():                placeholder for
+           Check page 144                                                                  functions that you
+        to know more about                                pass
+                                                                                           don’t want to
+            placeholders.                                                                  define right away.
+                                                      def on_mouse_down(pos):
+                                                          pass
+
+
+                                                      def update_time_left():
+                                                          pass

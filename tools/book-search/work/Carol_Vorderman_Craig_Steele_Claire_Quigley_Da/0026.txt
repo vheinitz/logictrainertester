@@ -1,0 +1,59 @@
+24              G E T T I N G S TA R T E D
+
+
+Running your program
+Because your games use Pygame Zero,
+you usually have to run them in a different
+way from normal Python programs. It isn’t
+difficult once you get used to it, however.
+
+
+
+ 6 Open   Command Prompt or Terminal window
+   To run the program, you can use the command line.              c:\                              >_
+       If you’re using a Windows computer, this is in the
+       Command Prompt app. If you’re on a Mac, open
+       the Terminal app.
+                                                                     This is what the icon              This is what the icon
+                                                                     for Command Prompt                 for the Terminal
+                                                                     looks like.                        window looks like.
+
+
+ 7 Type   in the Pygame Zero command
+   To tell Pygame Zero to run the game, type
+                                                                                   Sanjay – bash – 80x24
+       pgzrun into the command line and leave                    Last login: Sun Sep 3 17:18:36 on ttys000
+       a space, but don’t press Enter yet!
+                                                                 LC-0797:~ sanjay$ pgzrun
+
+
+                                                                         Don’t forget to leave
+                                                                        a space after pgzrun.
+
+ 8 Drag and drop the IDLE file
+   Keep the app open, and using Explorer (Windows) or
+       Finder (Mac), go to the folder where you saved your
+       program. Once you find it, drag and drop the .py file
+       into the command line.
+
+
+                                                                     Sanjay – bash – 80x24
+            python-games
+                                     Last login: Sun Sep 3 17:18:36 on ttys000
+                                     LC-0797:~ sanjay$ pgzrun User/Documents/python-games/hello.py
+Name
+       hello
+         hello.py
+                                                    Drag and drop hello.py            The location of your
+                                                    into the Command Prompt           IDLE file will appear here
+                                                    or Terminal window.               when you drop it in.
+
+
+
+
+ 9 Run the program
+   Now that you’ve typed in the pgzrun command                  10 Final screen
+                                                                   If your program is working correctly, you’ll see
+       and your computer knows where to find the IDLE                 a window with a “Hello” message written in the
+       file, press Enter. This will launch Pygame Zero.               top-left corner of the screen. Good job! Now
+                                                                      it’s time to become a Python games coder!

@@ -1,0 +1,53 @@
+Дверь и конец игры
+Теперь нужно изменить код функции move класса StickFigureSprite —
+ту его часть, которая обрабатывает столкновения со спрайтами справа
+и слева. Вот первое изменение:
+
+
+           if left and self.x < 0 and collided_left(co, sprite_co):
+               self.x = 0
+               left = False
+               if sprite.endgame:
+                   self.game.running = False
+
+
+
+    Проверяем, содержит ли свойство endgame спрайта, с которым фи-
+гурка столкнулась левой стороной, True. Если это так, даем свойству
+running значение False (фигурка добралась до двери, и игру нужно
+завершить).
+    Добавим в код, проверяющий столкновение справа, эти же строки:
+
+
+           if right and self.x > 0 and collided_right(co, sprite_co):
+               self.x = 0
+               right = False
+               if sprite.endgame:
+                   self.game.running = False
+
+
+
+Добавляем объект-дверь
+Осталось добавить в игру объект класса DoorSprite, то есть дверь.
+Сделать это нужно до вызова функции mainloop. Создадим объект-дверь
+раньше, чем объект-фигурку, и добавим ее в список спрайтов:
+
+
+    g.sprites.append(platform7)
+    g.sprites.append(platform8)
+    g.sprites.append(platform9)
+    g.sprites.append(platform10)
+    door = DoorSprite(g, PhotoImage(file="door1.gif"), 45, 30, 40, 35)
+    g.sprites.append(door)
+    sf = StickFigureSprite(g)
+    g.sprites.append(sf)
+    g.mainloop()
+
+
+    При создании класса DoorSprite передаем следующие аргументы:
+g (главный объект игры), объект PhotoImage (изображение двери, со-
+зданное в главе 15), координаты x и y (45 и 30, чтобы дверь располагалась
+
+
+
+                                                                        18. Доделываем игру   267

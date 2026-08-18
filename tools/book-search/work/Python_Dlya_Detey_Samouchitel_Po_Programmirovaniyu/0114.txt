@@ -1,0 +1,55 @@
+порой информация, которую функция возвращает, не слишком полезна.
+                       Например, вызвав dir с числом 1 в качестве аргумента, вы увидите мно-
+                       жество специальных функций (их имена начинаются и заканчиваются
+                       знаками подчеркивания), которые редко используются в обычных про-
+                       граммах, и вам они вряд ли пригодятся:
+
+
+                                 >>> dir(1)
+                                 ['__abs__', '__add__', '__and__', '__bool__', '__ceil__',
+                                 '__class__', '__delattr__', '__divmod__', '__doc__', '__eq__',
+                                 '__float__', '__floor__', '__floordiv__', '__format__', '__ge__',
+                                 '__getattribute__', '__getnewargs__', '__gt__', '__hash__',
+                                 '__index__', '__init__', '__int__', '__invert__', '__le__',
+                                 '__lshift__', '__lt__', '__mod__', '__mul__', '__ne__',
+                                 '__neg__', '__new__', '__or__', '__pos__', '__pow__', '__radd__',
+                                 '__rand__', '__rdivmod__', '__reduce__', '__reduce_ex__',
+                                 '__repr__', '__rfloordiv__', '__rlshift__', '__rmod__', '__rmul__',
+                                 '__ror__', '__round__', '__rpow__', '__rrshift__', '__rshift__',
+                                 '__rsub__', '__rtruediv__', '__rxor__', '__setattr__',
+                                 '__sizeof__', '__str__', '__sub__', '__subclasshook__',
+                                 '__truediv__', '__trunc__', '__xor__', 'bit_length', 'conjugate',
+                                 'denominator', 'imag', 'numerator', 'real']
+
+
+
+                          Используйте функцию dir, чтобы оперативно узнать, как быть с той
+Popcorn —              или иной переменной. Например, передав dir переменную popcorn,
+попкорн                содержащую строковое значение, вы увидите набор функций строко-
+                       вого класса str (все строки в Python являются объектами строкового
+                       класса):
+
+
+
+                                 >>> popcorn = 'Я люблю попкорн!'
+                                 >>> dir(popcorn)
+                                 ['__add__', '__class__', '__contains__', '__delattr__',
+                                 '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__',
+                                 '__getitem__', '__getnewargs__', '__gt__', '__hash__',
+                                 '__init__', '__iter__', '__le__', '__len__', '__lt__', '__mod__',
+                                 '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__',
+                                 '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__',
+                                 '__str__', '__subclasshook__', 'capitalize', 'center', 'count',
+                                 'encode', 'endswith', 'expandtabs', 'find', 'format',
+                                 'format_map', 'index', 'isalnum', 'isalpha', 'isdecimal',
+                                 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable',
+                                 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower',
+                                 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex',
+                                 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines',
+                                 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper',
+                                 'zfill']
+
+
+
+
+114    Часть I. Учимся программировать

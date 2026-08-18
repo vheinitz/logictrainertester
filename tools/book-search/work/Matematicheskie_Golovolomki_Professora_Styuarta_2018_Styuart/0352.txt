@@ -1,0 +1,49 @@
+Бросание монетки         несправедливый жребий //
+
+
+можно       получить с использованием всего лишь трех единиц.
+Стартовой позицией, опять же, является семерка, выраженная
+через две единицы, и тогда
+
+
+   70   =
+            LV 7! J;
+   37   =
+            Гл/VVVVV 70! ];
+   23   =
+            NVVVV 37! 1;
+   26   =
+            PM/V 23! 1;
+   46   =
+            UVVV 26! J.
+
+   И наконец,
+
+
+   138   =
+             46/VO,(1),
+
+что, кстати говоря, представляет собой хитрый способ
+умножения на 3 с использованием всего   одной дополнительной единицы.
+
+
+Бросание монетки
+несправедливый жребий
+Persi Diaconis, Susan Holmes, and Richard Montgomery, Dynamical
+bias in the coin toss, SIAM Review 49 (2007) 211-223.
+   To же в популярном изложении: Persi Diaconis, Susan Holmes,
+and Richard Montgomery, The fifty-one percent solution, What s
+Happening in the Mathematical Sciences 7 (2009) 33-45.
+   Аналогичные эффекты возникают при бросании костей
+не только обычных кубиков, но и любых правильных
+
+многогранников. См.: J. Strzalko, J. Grabski, A. Stefanski, and
+Т. Kapitaniak, Can the dice be fair by dynamics? International
+Journal of Bifurcation and Chaos 20 No. 4 (April 2010) 1175-1184.
+
+
+
+Исключение невозможного
+   Ваше упущение,             сказал   Соме,   состояло в том, что вы
+
+не заметили, что двигаться могут не только стаканы, но и на¬

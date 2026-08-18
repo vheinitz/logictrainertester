@@ -1,0 +1,57 @@
+264                                                                             Глава 18
+
+
+
+Этот код следует поместить внутрь основного цикла while непосредственно перед
+циклом событий (после строки screen.blit(score_text, textpos)).
+Конец игры
+Нам осталось добавить сообщение об окончании игры, появляющееся после того, как
+игрок уронит последний шарик. Создадим пару объектов font, которые будут включать
+в себя это сообщение и окончательный счет игрока, визуализируем их (создав поверх-
+ности с текстом на них) и скопируем эти поверхности на поверхность отображения.
+Кроме того, нужно, чтобы после последнего раунда игры движение шарика останавли-
+валось. Для этого создадим переменную done, которая будет сообщать о завершении
+игры. Вот как будет выглядеть наш код (его следует поместить в основной цикл while):
+
+ if myBall.rect.top >= screen.get_rect().bottom:
+     lives = lives - 1              Вычитаем одну жизнь при падении шарика на пол
+     if lives == 0:
+         final_text1 = "Игра окончена"
+         final_text2 = "Ваш счет: " + str(score)
+         ft1_font = pygame.font.Font(None, 70)
+         ft1_surf = ft1_font.render(final_text1, 1, (0, 0, 0))          Располага-
+         ft2_font = pygame.font.Font(None, 50)                          ем текст
+                                                                        по центру
+         ft2_surf = ft2_font.render(final_text2, 1, (0, 0, 0))          окна
+         screen.blit(ft1_surf, [screen.get_width()/2 - \           Символы
+                     ft1_surf.get_width()/2, 100])                 переноса
+         screen.blit(ft2_surf, [screen.get_width()/2 - \           строки
+                     ft2_surf.get_width()/2, 200])
+         pygame.display.flip()
+         done = True
+     else: #ждем 2 секунды и подаем очередной шарик
+         pygame.time.delay(2000)
+         myBall.rect.topleft = [(screen.get_rect().width) - 40*lives, 20]
+
+Соберем все вместе и получим для окончательной версии игры PyPong листинг 18.5.
+
+ Листинг 18.5. Окончательная версия игры PyPong
+ import pygame, sys
+
+ class MyBallClass(pygame.sprite.Sprite):
+                                                             Определяем класс
+
+
+
+
+     def __init__(self, image_file, speed, location):
+                                                               для шарика
+
+
+
+
+         pygame.sprite.Sprite.__init__(self)
+         self.image = pygame.image.load(image_file)
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.top = location
+         self.speed = speed

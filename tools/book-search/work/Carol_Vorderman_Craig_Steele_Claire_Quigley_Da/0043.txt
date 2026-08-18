@@ -1,0 +1,54 @@
+FUNCTIONS                        41
+▷ input()                                                                             This is a variable                 input() asks the
+                                                                                      that will later store              user what their
+This function lets the player enter information for the
+                                                                                      the player’s name.                 name is.
+game to use, rather than the coder putting it in the
+original code. For example, imagine you’re creating                    >>> name = input("What is your name?")
+a game and you want to create a variable to store                      What is your name?Ben
+the player’s name, but you don’t know what they’re
+called. You can use input() to make the game ask the                   >>> print(name)
+player what their name is. Their answer becomes a                                                             You can type your
+                                                                       Ben
+                                                                                                              own name in here.
+return value, which the function will then assign to
+the name variable.                                                           input() has assigned the
+                                                                             answer to the name variable.
+
+
+
+Another way to call functions
+Some types of data, such as integers and strings, have their
+own built-in functions that are used to manipulate or
+change that data. These are known as “member” functions                                                                    Members only
+
+and can be called by placing a dot immediately after the
+data, followed by the name of the function and a pair of
+parentheses. Try these out in the shell window.
+
+
+ >>> "functions are fun".count("fun")                                  >>> "blue".upper()
+ 2                                                                     'BLUE'
+
+              The string fun appears twice.                                             This is the new string, all in capitals.
+
+△ count()                                                             △ upper()
+This function is used with strings. It is called on one               This function takes an existing string and returns a new
+string, with another string as a parameter of the                     string, replacing all the lowercase letters with uppercase
+function count(). The return value tells you how many                 (capital) letters.
+times the second string appears in the first string.
+                                              The reverse function
+   A list of numbers is                       is called on the list
+assigned to a variable.                       of numbers.                                  The function has two parameters,
+                                                                                           which are separated by a comma.
+ >>> countdown = [1, 2, 3]
+ >>> countdown.reverse()                                               >>> message = "Coding makes me happy"
+ >>> print(countdown)                                                  >>> message.replace("happy", ":D")
+ [3, 2, 1]                                                             'Coding makes me :D'
+
+
+△ reverse()                                                           △ replace()
+You can also call a member function on a variable.                    For this function, you need two parameters—the first is
+In this example, the function reverse() is used                       the part of a string you want to replace, and the second
+to reverse the order of the list of numbers stored                    is what you want to replace it with. The function returns
+in the variable countdown.                                            a new string with the replacement made.

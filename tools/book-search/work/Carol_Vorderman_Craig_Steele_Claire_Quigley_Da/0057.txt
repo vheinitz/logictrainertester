@@ -1,0 +1,55 @@
+GAME PROGRESS                                              76%                  55
+
+12 Dealing   with clicks
+   Now it’s time to write the code that
+                                                def place_apple():
+                                                      apple.x = 300
+     will run when you press the mouse.
+     Pygame Zero has a built-in function              apple.y = 200                           Programmers sometimes
+     called on_mouse_down(), which is                                                         add blank lines to make their
+     run every time you click the mouse.                                                      code neater, but they aren’t
+                                                def on_mouse_down(pos):                       necessary. Python ignores
+     Type this code in between the code
+                                                                                              blank lines completely.
+     you added in Step 9 and Step 10,                 print("Good shot!")
+     then run it from the command line.
+     You should see the message “Good                 place_apple()
+     shot!” in the Command Prompt or
+     Terminal window each time you
+                                                place_apple()
+     click the mouse.
+
+
+
+13 Adding   some logic
+   At this point, the “Good shot!” message is displayed
+                                                                              EXPERT TIPS
+     every time you click the mouse, but we only want                 Indents
+     it to show if the player actually hits the apple. You can
+     do this by amending the code from Steps 10 and 12 to             Python uses indents to separate different
+     include an if statement. This code checks if the apple           blocks of code. If your indents are wrong,
+     and the mouse cursor are in the same position. If they           Python won’t know how to read your code,
+     are, the message is displayed.                                   and you’ll end up with a bug! Each indent
+                                         pos is the position of       is made up of four spaces, and code can be
+                                         the cursor when you          indented more than once—for example,
+                                         click the mouse.             by eight spaces. Sometimes IDLE adds the
+                                                                      indents for you, but if you’re moving the
+def on_mouse_down(pos):                                               code around, like in Step 13, you might
+     if apple.collidepoint(pos):                                      need to indent it yourself. You can do this
+                                                                      by entering the correct number of spaces.
+          print("Good shot!")
+          place_apple()
+                                                                              1      2        3         4          5
+
+                                               This function
+                                               checks if the
+            Make sure the bottom               cursor is in the
+            two lines now start                same position
+            with eight spaces.                 as the apple.
+                                                                      START
+
+
+
+
+                           Whoa!
+                         Good shot!

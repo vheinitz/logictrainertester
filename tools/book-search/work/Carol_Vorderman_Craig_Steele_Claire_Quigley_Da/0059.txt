@@ -1,0 +1,41 @@
+GAME PROGRESS                                        100%             57
+
+Hacks and tweaks
+Now that you’ve created your first game, it’s time
+to think about how you can change it to make the
+game even more fun. Here are some hacks and
+tweaks for you to play around with.
+
+
+
+
+                                                                △ Keep on playing
+ kiwi = Actor("kiwi")
+                                                                This game is fun for people who want to practice
+                                                                using a mouse. However, it could get frustrating
+△ Fruit salad                                                   if the game quits every time you click in the
+The Actor doesn’t need to be an apple! Find a picture of        wrong place. Can you find the command that
+another fruit in the Python Games Resource Pack or create       quits the game and remove it to make the game
+one using an 8-bit editor online. Make sure you’ve got a        easier to play?
+suitably sized image before you save it in the images folder.
+Then name the image and change the code accordingly to
+use the new fruit as an Actor.
+                                                                                SHOOT THE FRUIT
+
+
+     Page 28 will help you
+      with the variable!
+
+
+
+
+△ Keep count
+Change your code so that it can keep count of the number
+of times you click successfully. Here are some hints to
+help you out.
+▪ Store the count in a variable.                                △ Don’t shoot!
+▪ Start by setting the variable to 0.                           Why not add another Actor to the game to
+▪ Increase the count by 1 each time you click on the apple.     distract the player in the hope they’ll click on
+▪ Use print() to show the score in the Command Prompt           that object by mistake? For instance, a red ball
+ or Terminal window each time the apple is drawn on             might look similar enough to an apple to fool
+ the screen.                                                    the player!

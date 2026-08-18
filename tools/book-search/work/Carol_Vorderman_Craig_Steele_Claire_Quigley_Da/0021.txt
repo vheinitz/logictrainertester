@@ -1,0 +1,67 @@
+I N S TA L L I N G P YG A M E Z E R O                       19
+Installing Pygame Zero                                    EXPERT TIPS
+on a Mac                                             Having trouble?
+Follow these steps to install the latest             Installing these modules might be a bit tricky at first. If
+versions of Pygame and Pygame Zero                   you’re having trouble, you can get the most up-to-date
+on your Mac. Your machine needs                      installation instructions on the Pygame Zero website:
+to be connected to the Internet to                   https://pygame-zero.readthedocs.io
+complete some of these steps.
+
+ 1 Open   Terminal
+   You’ll need to use the Terminal app to            >_
+                                                                               This is what the
+                                                                               Terminal app
+                                                                               thumbnail looks like.
+      install the modules. You can find it in your
+      Applications folder, or you can search for
+      it with Spotlight. Follow the steps below,
+      making sure all the spellings are correct                               Type this line carefully in the
+      and the spaces are in the right place.                            Terminal window and check for any
+                                                                           spelling errors and extra spaces.
+
+
+ 2 Install a package manager
+   Homebrew is a package manager tool
+                                                                          Rabiahma – bash – 80x24
+
+      that makes it easier to install Pygame Zero    Last login: Thu Sep 14 11:22:51 on ttys000
+      and other Python modules. Type in the          LC-0926:~ rzvz ruby -e "$(curl -fsSL https://raw.git
+      command at right and press Enter to
+      install Homebrew. It might ask you to          hubusercontent.com/Homebrew/install/master/install)"
+      enter your password again, and it will take
+      a short while to install, so don't panic if                                                   This should fit
+      nothing happens right away.                                                                   on one line when
+                                                                                                    you type it in.
+
+
+ 3 Check that Python 3 is installed
+   Homebrew will check if Python 3 is
+                                                     brew install python3
+
+      already installed on your Mac and will                                        Don’t put a
+      install it if it’s not there. Even though                                     space before 3.
+      you’ve already installed Python, it’s
+      worth checking just to be sure.
+
+
+
+ 4 Install other tools
+   Type in this command next and press
+                                                     brew install sdl sdl_mixer sdl_sound sdl_ttf
+
+      Enter. It uses Homebrew to install some
+      tools that will be needed by Pygame Zero.
+
+
+
+ 5 Install Pygame
+   Now it’s time to install Pygame. Type
+                                                     pip3 install pygame
+
+      in this command and press Enter.                                                             I N S TA L L I N G
+
+
+      Install Pygame Zero
+ 6 Finally, this last command will install           pip3 install pgzero
+
+      Pygame Zero.

@@ -1,0 +1,60 @@
+GAME PROGRESS                                       54%                       89
+
+11 Add  placeholders
+   You’ll need to define all the
+                                                      return new_stars
+
+        functions created in the previous
+        step before you can test the             def get_colors_to_create(number_of_extra_stars):
+        game. For now, use return [] for
+                                                      return []
+        the get_colors_to_create()
+        and create_stars() functions
+        to make empty lists, then write          def create_stars(colors_to_create):
+        placeholders for the layout_stars()
+        and animate_stars() functions                 return []
+        by using the pass keyword. Add
+        the code shown here.
+                                                 def layout_stars(stars_to_layout):
+                                                      pass
+
+
+                                                 def animate_stars(stars_to_animate):
+                                                      pass
+
+
+
+
+        Test the code
+12 Save the IDLE file and run it from the command line           pgzrun
+
+        in the Command Prompt or Terminal window. You
+                                                                                       Drag the red.py file
+        won’t see any stars on the screen yet, but you will                            here to run it.
+        be able to check if there are any bugs in the code.
+
+
+
+
+13 Get  a list of colors
+   This game uses red, blue, and green stars. First create
+        a list containing a string for the color red and then
+        assign this list to the variable colors_to_create. The
+        list starts with red, because you always need one—and
+        only one—red star to appear. To add green and blue
+        stars, you’ll use the parameter number_of_extra_                                                Look at all
+                                                                                                       those colors!
+        stars to loop through the code, randomly adding
+        either green or blue to the list of colors. Replace
+        return [] under def get_colors_to_create(number_
+        of_extra_stars) from Step 11 with this code.
+
+                             def get_colors_to_create(number_of_extra_stars):
+                                  colors_to_create = ["red"]                                       This chooses a
+  This makes the first                                                                             random color
+   star in the list red.          for i in range(0, number_of_extra_stars):                        from the list for
+                                                                                                   each additional star.
+                                       random_color = random.choice(COLORS)
+                                       colors_to_create.append(random_color)
+i refers to the current                                                                            This adds the new
+number in the range.              return colors_to_create                                          color to the list.

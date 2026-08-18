@@ -1,0 +1,43 @@
+HACKS AND TWEAKS                           135
+▽ Level up
+                                                                    EXPERT TIPS
+Make the game more fun by adding levels and increasing
+the speed with each level. To do this, you could set the       Modulo operator
+number of obstacles in each level to ten. To complete the
+level, the player must clear all the obstacles and score ten   When Python performs division, it ignores the
+points. Every time the score reaches a multiple of ten,        remainder. But sometimes it’s useful to know if
+make the obstacles move faster. In the original game, the      there is a remainder and what it is. For example,
+birds move by four pixels at a time, and the houses and        if you want to test if the number is even, you can
+trees move by two. If you want to increase it with every       do so by dividing it by 2 and checking if there is
+level, you need to store the speed in a variable. Just         a remainder. To do this, you can use the modulo
+remember that the bird should always be traveling twice        operator %.
+as fast as the trees and houses.
+                                                                >>> print(2 % 2)
+ speed = 2
+                                                                0
+ bird.x -= speed * 2
+                                                                        This is 0 because there is no
+                                                                        remainder when 2 is divided by 2.
+
+
+                                                                >>> print(3 % 2)
+                                                                1
+
+                                                                        This is the remainder
+                                                                        when 3 is divided by 2.
+
+                                                               In Balloon Flight, you can use the modulo
+                                                               operator to know if the score is a multiple of 10,
+                                                               and therefore whether the player should move
+                                                               to the next level.
+
+▽ Space out the obstacles                                       score % 10
+Sometimes all the obstacles—the tree, the
+house, and the bird—might appear at the same                                        This would return the remainder
+position on the x-axis. This works fine, but you                                    when the score is divided by 10.
+may want to avoid it. Try to change the update()
+function so that the obstacles pick a new random
+x coordinate if there is a clash. This code will
+help you get started.
+
+ if bird.x == house.x

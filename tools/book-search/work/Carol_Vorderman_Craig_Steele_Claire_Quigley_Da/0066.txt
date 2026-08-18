@@ -1,0 +1,61 @@
+64          COIN COLLECTOR
+
+
+11 Using placeholders
+   You need to write some more functions in order to                         The next question
+     finish the game. You can add function placeholders
+     without having to define them right away by using
+                                                                                is... What is
+                                                                                a function?                                   ?
+     the keyword pass. Type in this code to give yourself
+     a template of the functions you’ll need.
+                                                                                                                           Err... pass!
+     coin.draw()
+     screen.draw.text("Score: " + str(score), color="black", topleft=(10, 10))
+
+
+def place_coin():
+     pass
+
+
+def time_up():                      To get an idea of the code’s
+                                    structure, you can use
+     pass                           placeholders for functions
+                                    that you’ll finish coding later.
+
+def update():
+     pass
+
+
+
+
+12 Importing   randint()
+   Now it’s time to define these functions. The                        13 Placing the coin
+                                                                          Next change the code in your place_coin()
+     first one will use Python’s built-in randint()                         function. This function will place the coin
+     function, so you need to import it into your                           in a random position on the screen. Delete
+     program. Type this line at the very top of                             pass and type in these commands.
+     your code to import it.
+                                                                       def place_coin():
+from random import randint                                                  coin.x = randint(20, (WIDTH - 20))
+                                                                            coin.y = randint(20, (HEIGHT - 20))
+              Make sure you type this before all
+              the code you’ve written so far.
+                                                                                         The coin will be placed at least 20 pixels
+                                                                                                  in from the sides of the screen.
+
+
+
+14 Run the function
+   Remember, it’s not enough just to define the
+                                                                             EXPERT TIPS
+
+     function; you have to run it, too. Add this line                   Pass
+     of code to the very bottom of your game.
+                                                                        In Python, if you’re not sure what code
+def update():                         This will run the                 you want inside a function yet, you can
+                                      code you’ve saved                 use the pass keyword in its place, and then
+     pass                             in the place_coin()               come back to it later. It’s a bit like skipping
+                                      function.
+                                                                        a question in a quiz but answering it later.
+place_coin()

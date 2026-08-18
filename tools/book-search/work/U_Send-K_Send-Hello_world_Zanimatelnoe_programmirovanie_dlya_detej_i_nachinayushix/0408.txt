@@ -1,0 +1,72 @@
+8                                                                          Глава 25
+
+
+
+    def create_map():
+
+
+
+
+                                                            Создаем один
+
+
+
+
+                                                             640 x 640
+                                10 препятствий на экран
+
+
+
+
+                                                             с препят-
+        global obstacles
+
+
+
+
+                                                             размером
+                                                              ствиями
+                                                              «экран»
+        locations = []
+        for i in range(10):
+            row = random.randint(0, 9)
+            col = random.randint(0, 9)
+            location = [col * 64 + 32, row * 64 + 32 + 640]
+            if not (location in locations):
+                locations.append(location)
+                type = random.choice(["tree", "flag"])              Предотвращаем
+                                                                    попадание двух
+                if type == "tree": img = "skier_tree.png"           препятствий
+                elif type == "flag": img = "skier_flag.png"         в одну точку
+                obstacle = ObstacleClass(img, location, type)
+                obstacles.add(obstacle)
+
+def animate():
+    screen.fill([255, 255, 255])       Перерисовываем все
+    obstacles.draw(screen)
+    pygame.display.flip()
+
+pygame.init()
+screen = pygame.display.set_mode([640,640])
+clock = pygame.time.Clock()
+speed = [0, 6]                                     Инициализируем все
+obstacles = pygame.sprite.Group()
+map_position = 0
+create_map()
+
+running = True
+while running:
+    clock.tick(30)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT: running = False
+    map_position += speed[1]
+                                     Создаем за нижним
+       if map_position >= 640:       краем окна новый
+                                                                        Основной цикл
+           create_map()              блок препятствий
+           map_position = 0
+                              Следим за
+       obstacles.update()     степенью
+       animate()              прокрутки
+                              препятствий
+pygame.quit()

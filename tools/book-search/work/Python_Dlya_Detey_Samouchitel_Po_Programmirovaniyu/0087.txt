@@ -1,0 +1,54 @@
+Переменные и область видимости
+Переменные, созданные в теле функции, нельзя использовать после того,
+как эта функция завершит работу, поскольку они существуют только
+во время ее выполнения. В таких случаях программисты говорят, что об-
+ласть видимости переменных ограничена функцией.
+    Рассмотрим простую функцию, которая использует внутренние пе-
+ременные, но не принимает аргументы:
+
+
+    >>> def variable_test():                                                            Variable test —
+             first_variable = 10                                                         тестирование
+             second_variable = 20                                                        переменной
+            return first_variable * second_variable                                     First variable —
+                                                                                         первая
+                                                                                         переменная
+                                                                                         Second
+   Здесь в строке  мы создали функцию с именем variable_test, ко-                       variable — вторая
+торая в строке  перемножает переменные first_variable и second_                         переменная
+variable и возвращает результат.
+
+
+     >>> print(variable_test())
+     200
+
+
+    Вызвав эту функцию с помощью print, мы получили результат: 200.
+Однако, если попытаться за пределами функции вывести на экран значе-
+ние first_variable (или second_variable), Python выдаст сообщение
+об ошибке:
+
+
+     >>> print(first_variable)
+     Traceback (most recent call last):
+       File "<pyshell#50>", line 1, in <module>
+         print(first_variable)
+     NameError: name 'first_variable' is not defined
+
+
+
+    У переменных, созданных вне тела функции, область видимости дру-
+гая. Например, давайте создадим перед определением нашей функции
+переменную, а затем используем ее в теле функции:
+
+
+    >>> another_variable = 100
+     >>> def variable_test2():
+             first_variable = 10
+             second_variable = 20
+            return first_variable * second_variable * another_variable
+
+
+
+
+                                             7. Повторное использование кода с помощью функций и модулей   87

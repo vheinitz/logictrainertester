@@ -1,0 +1,52 @@
+GAME PROGRESS                                     33%               73
+Let’s get started
+It’s time to start building the game. Begin by
+importing the Python modules required for this game.
+Then write the functions to create the dots and the lines.
+                                                                                One piece at a time!
+ 1    Set it up
+      Open IDLE and create
+                                        File
+      an empty file by going             New File
+      to the File menu and
+      choosing New File.                 Open...
+
+                                         Open Module...
+
+                                         Recent Files       ▶
+
+                                         Class Browser
+
+
+
+
+ 2 Save the game
+   Go to the python-games folder you made                       3 Set up an image folder
+                                                                  This game uses one image for all the dots.
+      earlier and create another folder in it called                Create a new folder called images inside
+      follow-the-numbers. Go to the File menu, click                your follow-the-numbers folder.
+      Save As... and save your program as numbers.py.
+                                                                New Folder
+ Save As:   numbers.py
+                                                                Get Info
+ Tags:
+                                                                Clean up
+ Where:           follow-the-numbers
+                                                                Clean up by                   ▶
+
+                               Cancel               Save        Sort by                       ▶
+
+
+
+
+ 4 Put the image into the folder
+   Find the file called “dot.png” in the Python Games           5 Import a module
+                                                                  Now you’re ready to start coding.
+      Resource Pack (dk.com/computercoding) and copy                Go back to your IDLE file and type
+      it into the images folder. Your folders should look           this line at the top.
+      something like this now.
+                                                                from random import randint
+                        follow-the-numbers
+     numbers.py                                                                            This imports the randint()
+     images                                                                                function from Python’s
+        dot.png                                                                            Random module.

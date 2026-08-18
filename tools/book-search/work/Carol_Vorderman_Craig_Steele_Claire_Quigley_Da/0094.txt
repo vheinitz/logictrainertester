@@ -1,0 +1,54 @@
+92            RED ALERT
+
+
+18 Animate  the stars
+   Now that you have a few stars on the screen,
+                                                                  LINGO
+     it’s time to add animation and bring this               Anchor
+     game to life. You need to write some code to
+     move each star down the screen. You’ll also             In computer graphics, “anchor” refers to a point
+     have to define the duration of the animation            on a shape. This point is used to determine the
+     so the stars move faster as the levels progress.        shape’s position on the screen. For example, if
+     You’ll set the star’s anchor to the bottom so           the anchor of a square is the bottom-left corner,
+     that the animation stops as soon as the star            when you set the position of the square to (0, 0),
+     reaches the bottom of the screen. Replace pass          its bottom-left corner is placed exactly at the
+     under def animate_stars(stars_to_animate)               (0, 0) coordinates.
+     from Step 11 with the code below.
+
+                                                                                         bottom-left
+                                                                                            anchor
+                                                                             mid-right   (0, 0)
+                                                                              anchor
+                                                                                          top-left
+     This works out the duration of the animation by                                      anchor
+        subtracting the current level from the default
+      start speed of the star. The higher the level, the
+    shorter the duration, so the faster the animation.
+
+
+def animate_stars(stars_to_animate):
+     for star in stars_to_animate:
+           duration = START_SPEED - current_level
+           star.anchor = ("center", "bottom")
+           animation = animate(star, duration=duration, on_finished=handle_game_over, y=HEIGHT)
+           animations.append(animation)
+
+           This sets the star’s                                                           This calls the
+           anchor at the bottom                                                           handle_game_over()
+           of the star image.                                                             function when the
+                                                                                          animation is complete.
+
+
+19 Game  over
+   Next you need to define the handle_game_over()
+     function, which will end the game if the player makes                                          Game over?
+     a mistake. Type the code shown in black after the                                           It can’t be true!
+                                                                            GAME OVER!
+     code from Step 18.
+
+           animations.append(animation)
+
+
+def handle_game_over():
+     global game_over
+     game_over = True

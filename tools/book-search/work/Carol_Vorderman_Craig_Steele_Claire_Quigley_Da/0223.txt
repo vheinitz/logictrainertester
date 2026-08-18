@@ -1,0 +1,49 @@
+GLOSSARY             221
+
+
+input                       loop                        program                      statement
+Data that is entered        A part of a program         A set of instructions        The smallest
+into a computer.            that repeats itself, so     that a computer follows      complete instruction
+Keyboards, mice, and        you don’t need to type      in order to complete         a programming
+microphones can be          out the same piece of       a task.                      language can be
+used to input data.         code multiple times.                                     broken down into.
+                                                        programming
+integer                     module                      language                     string
+A whole number.             A package of ready-made     A language that              A series of characters.
+An integer does not         code that can be imported   is used to give              Strings can contain
+contain a decimal           into a Python program,      instructions to              numbers, letters,
+point and is not            making lots of useful       a computer.                  or symbols, such
+written as a fraction.      functions available.                                     as a colon.
+                                                        Python
+interface                   nested loop                 A popular programming        syntax
+The means by which          A loop inside               language created by          The rules that
+the user interacts with     another loop.               Guido van Rossum. It         determine how code
+software or hardware.                                   is a great language for      must be written in order
+See GUI.                    operating system (OS)       beginners to learn.          for it to work properly.
+                            The program that
+keyword                     controls everything on      random                       Terminal
+A word that has a special   a computer. Windows,        A function in a              An application on Mac
+meaning in a program. All   macOS, and Linux are        computer program             computers that allows
+programming languages       operating systems.          that allows unpredictable    a user to enter and
+have a set of keywords.                                 outcomes. Useful when        execute commands.
+These words cannot be       operator                    creating games.
+used to name variables      A symbol that performs                                   toggle
+or functions.               a specific function: for    recursion                    To switch between two
+                            example, “+” (addition)     Creating a loop              different settings.
+library                     or “–” (subtraction).       by telling a function
+A collection of                                         to call itself.              Unicode
+functions that can          output                                                   A universal code
+be reused in other          Data that is produced       return value                 used by computers to
+projects.                   by a computer program       The variable or data         represent thousands
+                            and viewed by the user.     that is passed back          of symbols and text
+list                                                    after a function has         characters.
+A collection of             parameter                   been called (run).
+items stored in             A value given to a                                       variable
+numbered order.             function. The value of      run                          A place to store data
+                            a parameter is assigned     The command to make          that can change in a
+local variable              by the line of code that    a program start.             program, such as the
+A variable that works       calls the function.                                      player’s score. A variable
+only within a limited                                   software                     has a name and a value.
+part of a program, such     pixels                      Programs that run            See also global variable
+as a function. See also     Tiny dots that make         on a computer and            and local variable.
+global variable.            up a digital image.         control how it works.

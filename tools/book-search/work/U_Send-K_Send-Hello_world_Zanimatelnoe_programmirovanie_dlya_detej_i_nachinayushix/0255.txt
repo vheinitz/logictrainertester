@@ -1,0 +1,47 @@
+События                                                                           255
+
+
+ pygame.time.set_timer(24, 1000)
+
+Но если по каким-то причинам значение параметра USEREVENT изменится, наш код
+перестанет работать. Поэтому лучше записать его так:
+
+ pygame.time.set_timer(pygame.USEREVENT, 1000)
+
+Для задания следующего пользовательского события мы задействуем уже номер USER-
+EVENT + 1 и т. д. Значение 1000 в этом примере означает 1000 миллисекунд, то есть одну
+секунду. Это означает, что наш таймер будет срабатывать один раз в секунду. Вставим
+его в программу с движущимся мячом.
+Как и раньше, это событие требуется для перемещения мяча вверх или вниз. Но так как
+в этом случае пользователь никак не будет влиять на движение объекта, заставим мяч
+отскакивать как от верхней и нижней, так и от боковых сторон окна. Полностью код про-
+граммы на основе отредактированного листинга 18.2 показан в листинге 18.3.
+
+ Листинг 18.3. Перемещение мяча вверх и вниз при помощи события таймера
+ import pygame, sys
+ pygame.init()
+ screen = pygame.display.set_mode([640,480])             Инициализируем все
+ background = pygame.Surface(screen.get_size())
+ background.fill([255, 255, 255])
+
+ clock = pygame.time.Clock()
+ class Ball(pygame.sprite.Sprite):
+     def __init__(self, image_file, speed, location):
+         pygame.sprite.Sprite.__init__(self)
+         self.image = pygame.image.load(image_file)               Определение
+         self.rect = self.image.get_rect()                        класса Ball
+         self.rect.left, self.rect.top = location
+         self.speed = speed
+     def move(self):
+         if self.rect.left <= screen.get_rect().left or \
+                 self.rect.right >= screen.get_rect().right:
+             self.speed[0] = - self.speed[0]
+         newpos = self.rect.move(self.speed)              Ê Эта строка
+         self.rect = newpos                                  продолжается
+
+
+ my_ball = Ball('beach_ball.png', [10,0], [20, 20])                 Создаем экземпляры
+                                                                    класса Ball
+ pygame.time.set_timer(pygame.USEREVENT, 1000)
+ direction = 1                                              Создаем таймер:
+ running = True                                             1000 мс = 1 секунда

@@ -1,0 +1,37 @@
+GAME PROGRESS                                    100%   95
+
+23 Display   messages
+   Finally, add some code that displays the message you wrote
+     in Step 8 when the game comes to an end. Add these lines
+     under the code from Step 22.
+
+
+               animation.stop()
+
+
+def display_message(heading_text, sub_heading_text):
+     screen.draw.text(heading_text, fontsize=60, center=CENTER, color=FONT_COLOR)
+     screen.draw.text(sub_heading_text,
+                              fontsize=30,
+                              center=(CENTER_X, CENTER_Y + 30),
+                              color=FONT_COLOR)
+
+
+                                                                This is the position
+     These display the text
+                                                                of the second line of
+     on the screen when
+                                                                the message.
+     the game ends.
+
+
+
+
+24 Time  to play!
+   That’s it! Save your                                         Pygame Zero Game
+     program and run the
+     IDLE file from the
+     command line to
+     start playing. How
+     many levels can you
+     complete?

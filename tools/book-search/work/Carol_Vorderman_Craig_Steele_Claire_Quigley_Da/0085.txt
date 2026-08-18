@@ -1,0 +1,25 @@
+HOW TO BUILD RED ALERT                       83
+
+
+                          Those stars make
+                             a beautiful
+                           constellation!
+
+
+
+
+                The stars always appear
+                in a single line.
+
+
+
+
+            ◁ Shooting stars
+            The program uses Pygame
+            Zero’s animate() function to
+            move the stars down the screen.
+            You can adjust the duration of
+            the animation to make the game
+            more interesting. The stars can
+            fall as slowly or as quickly as
+            you like!

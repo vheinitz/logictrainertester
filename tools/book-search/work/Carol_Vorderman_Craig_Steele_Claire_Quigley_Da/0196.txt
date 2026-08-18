@@ -1,0 +1,48 @@
+194         SLEEPING DRAGONS
+
+     Egg collisions
+30 You now need to add a function that will           def check_for_egg_collision(lair):
+                                                          global eggs_collected, game_complete
+     check if the hero has touched an egg or
+     not. This function uses colliderect() to             if hero.colliderect(lair["eggs"]):
+     check this. If the hero touches an
+                                                                lair["egg_hidden"] = True
+     egg, the egg_count variable will be
+     increased by the number of eggs in that                    eggs_collected += lair["egg_count"]
+     lair. If the egg count reaches the target,                 if eggs_collected >= EGG_TARGET:
+     the game_complete variable will be set to
+     True and the player will win the game.                           game_complete = True
+
+
+                                                       This adds the number of            This checks if the number
+                                                       eggs for the current lair         of eggs collected is greater
+                                                       to the player’s egg count.               than or equal to the
+                                                                                                      EGG_TARGET.
+
+
+     Lose a life
+31 Lastly, you need to define the                                     game_complete = True
+
+     subtract_life() function. Every time the
+     player loses a life, this function will update   def subtract_life():
+     the number of lives remaining. If there are
+                                                          global lives, reset_required, game_over
+     no more lives left, the game_over variable
+     will be set to True and the game will end.           lives -= 1
+                                                          if lives == 0:
+                                                                game_over = True
+                                                          reset_required = False
+
+                                                                                                     This variable is set to False,
+                                                                                                     as the hero is already at the
+     Time to play
+32 You are now ready for the quest. Try                                                              starting position.
+
+     to collect all 20 eggs to win the game,
+     but watch out for those dragons!
+
+
+
+
+                                                                                    I did not sign
+                                                                                      up for this!

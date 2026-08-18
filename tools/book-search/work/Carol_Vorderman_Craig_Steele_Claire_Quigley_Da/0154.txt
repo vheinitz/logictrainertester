@@ -1,0 +1,47 @@
+152          DANCE CHALLENGE
+
+
+28 Test the game
+   Before you add the finishing touches to your game,                                  Pygame Zero Game
+     test it. Save your code and then run it. Try getting the
+                                                                Score: 0
+     first sequence of moves right to increase your score
+     to four, then deliberately make a mistake with the
+     second sequence. What do you see on the screen?
+
+
+                  You passed the
+                    first test!
+                                                                                       GAME OVER!
+
+
+
+
+29 Start the music
+   At the moment, your dancer has nothing to                    30 Stop the music
+                                                                   You don’t want the music to keep playing after
+     dance to, which isn’t much fun. Add a command                         the game has finished. So you need to add an else
+     in your program that will play the audio file you                     branch to your first if statement in the update()
+     saved in the music folder earlier. Type this code                     function to stop the music if the game is over. Add
+     under the command you typed in Step 24. This                          this code to what you typed in Step 27.
+     will tell Pygame Zero to start playing the music
+     file until it’s told to stop. If the player is still              if not game_over:
+     dancing at the end of the song, it will loop
+                                                                               if moves_complete:
+     around and play the song again.
+                                                                                    generate_moves()
+generate_moves()                                                                    moves_complete = False
+music.play("vanishing-horizon")                                                     current_move = 0
+                                                                       else:
+def update():                                                                  music.stop()
+
+                                                                                                         If game_over is True,
+                                                                                                         this line stops playing
+                                                                                                         the audio file.
+
+31 Ready  to play
+   Your code is now complete, so get your
+     dancing shoes on! Save the file, run it
+     from the command line in Command
+     Prompt or Terminal window, and see
+     how long you can keep on dancing!

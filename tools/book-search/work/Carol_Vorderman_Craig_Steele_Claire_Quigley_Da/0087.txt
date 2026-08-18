@@ -1,0 +1,48 @@
+GAME PROGRESS                                           17%                  85
+Let’s begin
+It’s time to start coding the game. First
+you’ll add the variables that control the
+game’s behavior. Then you’ll create the
+functions that draw and move the stars.
+Once the steps are complete, you                                                                    Ouch! I’m seeing
+should have some colorful stars.                                                                         stars!
+
+
+
+
+        Create a new file                                   Save the file
+ 1 To get started, open IDLE and create an              2 Go to the python-games folder you made earlier.
+        empty file by going to the File menu and            Inside this folder, create another folder called
+        choosing New File.                                  red-alert and save your IDLE file in it as red.py.
+
+ File
+                                                        Save As:      red.py
+  New File
+                                                        Tags:
+  Open...
+                                                        Where:            red-alert
+  Open Module...
+
+  Recent Files                 ▶
+                                                                                      Cancel                Save
+  Class Browser
+
+
+
+
+        Set up an image folder                              Put the images in the folder
+ 3 This game uses images of a red star, a blue          4 Find the Red Alert images in the Python Games
+        star, and a green star. Create a new folder,        Resource Pack (dk.com/computercoding) and
+        called images, inside the red-alert folder to       copy them into the images folder you just created.
+        save these images. It should be in the              Your folders should look something like this now.
+        same place as the red.py file.
+
+ New Folder                                                                           red-alert
+                                                            red.py
+ Get Info                                                   images
+                                                                blue-star.png
+ Clean up                                                       green-star.png
+                                                                red-star.png
+ Clean up by                   ▶                                space.png
+
+ Sort by                       ▶

@@ -1,0 +1,36 @@
+82         RED ALERT
+
+
+
+How to build
+Red Alert
+You’ll need lightning-fast reactions to
+beat this game. Click on the red star
+                                                         Pygame Zero Game
+to keep the game moving. Anything
+other than red will land you in trouble.
+
+What happens
+When the game begins, two stars appear
+and start moving down the screen. The
+player needs to click on the red star before
+the stars reach the bottom of the screen.
+Each time the red star is clicked, the game
+moves on to the next level. With each level,
+more green and blue stars are added and
+they move faster than before. If the player
+clicks on any star other than the red one, or
+if the stars reach the bottom of the screen,
+the game ends.
+
+                                      The number of
+                                      stars increases
+                                     with every level.
+
+
+
+
+                       ◁ Stars
+                       This game uses three colors
+                       for the star Actors—red,
+                       blue, and green.

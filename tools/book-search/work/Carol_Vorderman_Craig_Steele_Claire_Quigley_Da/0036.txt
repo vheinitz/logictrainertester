@@ -1,0 +1,47 @@
+34             LEARNING THE BASICS
+
+
+Level up
+Imagine you’re creating a game that has two levels. To get
+to Level 2, you need to have at least four magic snails and
+a score of more than 100 points. At this point, you have                                         L2
+110 points but only three magic snails. Use the shell                                            L1
+window to see if you can still get to Level 2. First, create
+variables for the score and number of snails collected and
+assign the correct values to them. Then type the rules for
+getting to Level 2 as a Boolean expression.
+
+                                   >>> score = 110
+                  Store values
+                  in variables.    >>> snails = 3
+                                   >>> (score > 100) and (snails >= 4)
+                                   False
+ This is a Boolean expression
+      meaning “score greater
+   than 100 and snails more                          This shows you cannot
+            than or equal to 4.”                     progress to Level 2 yet.
+
+
+
+
+Branching
+Sometimes you need to make decisions when
+playing a game. Should you turn right to
+investigate the library or turn left to look at
+the kitchen? Computer programs often contain
+code that runs only in certain situations. This
+means the computer makes decisions about
+which parts of the code to run.
+
+
+
+
+                                                           ◁ Eye on the ball
+                                                           Imagine you’re playing a soccer game and you need to
+                                                           decide which way to aim the ball at the goal. You could
+                                                           ask yourself, “Is the goalkeeper near the left side of the
+                                                           goal?” If he is, you aim at the right side of the goal. If
+                                                           he isn’t, you aim left. In Python, the different routes
+                                                           through a program lead to different blocks of code. The
+                                                           computer uses a Boolean expression, or a condition, to
+                                                           decide which blocks to run.

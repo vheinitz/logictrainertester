@@ -1,0 +1,45 @@
+14           G E T T I N G S TA R T E D
+
+
+
+Gaming in Python
+Video games are computer programs that
+contain a bunch of instructions. Python can
+be used to build lots of different types of
+games. With Python, there’s something for
+every gamer!
+
+Types of games
+There are lots of different categories, or
+genres, of computer games. These range
+from simple one-button games to more                      ▷ One button
+complex strategy ones. Which genre would                  With Python, you can build fun,
+you like to create first?                                 action-packed games that only
+                                                          need one button to be played.
+                                                          These games are so addictive,
+                                                          you’ll want to play them over
+                                                          and over again.
+
+
+                                ◁ Puzzles
+                                Puzzles are a great
+                                way to exercise your
+                                brain or test someone’s
+                                general knowledge.
+                                They come in all shapes
+                                and sizes, from jigsaw    △ Platform
+                                puzzles to word and       Platform games, such as racing games, create
+                                number games.             the illusion of speed by making the background
+                                                          scroll past the player’s viewpoint. The gameplay
+                                                          generally involves moving around obstacles or
+                                                          jumping over them.
+
+
+
+
+                                                                                            ◁ Strategy
+                                                                                            A strategy game is all
+△ Multiplayer                                                                               about decisions. You
+Some games you play by yourself, but others let you                                         need to plan ahead
+compete against other players. You can use Python to                                        and make the right
+build multiplayer games and challenge your friends.                                         choices to win.

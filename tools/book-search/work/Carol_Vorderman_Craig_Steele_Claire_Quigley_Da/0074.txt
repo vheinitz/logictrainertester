@@ -1,0 +1,52 @@
+72               FOLLOW THE NUMBERS
+
+
+How it works                                                 Start
+This game uses Python’s randint() function
+to randomly choose x and y coordinates for
+each of the dots, and then places them all on
+the screen. It uses the on_mouse_down()
+function to know when the player has clicked
+on a dot. If the player clicks on the correct            Place dots
+dot, and it’s not the first dot, a line is drawn
+between the current dot and the previous
+dot. If the player clicks on the wrong dot, or
+clicks anywhere else on the screen, all the
+lines are deleted and the player has to start
+again. The game ends once the player has                                   N            Set the next_dot
+connected all the dots.                                Correct next
+                                                                                      variable back to 1 and
+                                                       dot clicked?
+                                                                                          delete all lines
+
+
+                                                         Y
+       This is easy... Just
+     follow the numbers!
+
+
+                                                   Y
+                                                         Was it the
+                                                         first dot?
+                                   1
+                              12   2
+                               3   3                     N
+
+                                                                                                      Y
+
+                                                                                           Are there any
+                                                         Draw line
+                                                                                             dots left?
+
+       Really? I still
+       don’t get it!                                                                                  N
+                                                       ▷ Follow the
+                                                       Numbers flowchart
+                                    1                  This game checks to see if
+                              31    2                  the player has clicked on a
+                                                       dot and if that dot matches
+                               2    3
+                                                       the value in the next_dot
+                                                       variable. The program will
+                                                       continue to run until there              End
+                                                       are no more dots to connect.

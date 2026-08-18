@@ -1,0 +1,67 @@
+142           DANCE CHALLENGE
+
+
+5 Set up a music folder
+  This game uses an audio file so that the dancer        6 Put the music file into the folder
+                                                           Go back to the Python Games Resource Pack,
+     has something to dance to. The file needs its           find the file called “vanishing-horizon.ogg”
+     own folder, so create a new folder called music         and copy it into the music folder. Your folders
+     inside your dance-challenge folder.                     should look like this now.
+
+New Folder                                                                       dance-challenge
+                                                             dance.py
+Get Info                                                     images
+                                                             music
+Clean up                                                        vanishing-horizon.ogg
+
+Clean up by                       ▶
+
+Sort by                           ▶
+
+
+
+
+7 Import a module
+  Now that you’re all set up, it’s time to get started
+                                                         from random import randint
+
+     on the code. Open the dance.py file in IDLE and
+     type this line of code at the top of the program.                              This imports the randint()
+     You’ll use randint() to generate random numbers                                function from Python’s
+     that will represent different dance moves.                                     Random module.
+
+
+
+
+8 Set the stage
+  Next you need to define the global
+                                                         WIDTH = 800
+                                                         HEIGHT = 600
+                                                                                                   These variables
+     variables. These are variables that can                                                       define the size of
+     be used in any part of the program.                 CENTER_X = WIDTH / 2                      the game window.
+     Add this code next.
+                                                         CENTER_Y = HEIGHT / 2
+
+
+                                                                                                   These will
+                                                         move_list = []                            contain lists of
+              The stage is almost                                                                  the dance moves.
+               set. I can’t wait to                      display_list = []
+                  get started!
+
+                                                         score = 0
+                                                                                                   These variables are
+                                                         current_move = 0                          assigned integer
+                                                         count = 4                                 values needed in
+                                                                                                   the game.
+                                                         dance_length = 4
+
+
+                                                         say_dance = False
+                                                                                                   These are flag
+                                                         show_countdown = True
+                                                                                                   variables that
+                                                         moves_complete = False                    keep track of
+                                                                                                   what’s happening
+                                                         game_over = False                         in the game.

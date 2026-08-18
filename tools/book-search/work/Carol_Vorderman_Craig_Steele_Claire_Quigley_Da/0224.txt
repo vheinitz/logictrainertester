@@ -1,0 +1,48 @@
+222          REFERENCE
+
+
+
+Index
+Page numbers in bold         what happens             coordinates 125               Shoot the Fruit 53
+refer to main entries.          100–101               count() function              Sleeping Dragons
+                           birds 126, 127                41                           180, 186
+                           body, of function 122      countdown() function
+A                          Boolean expressions 33        148
+Actors 52                  Boolean values 32          cow 156, 160              E
+  animations 126, 127      boxes 100–101,                                       editor window 21
+admin access 18                 105–06, 108                                       messages in 44
+anchor 92                  branching 34–35            D                         eggs 178, 184, 192, 194
+animate() function 83,     bugs                       Dance Challenge             animation 191
+    93, 193                  bug-busting checklist        136–53                equals signs 32
+animations 92, 126, 127,        47                      coding 141–52           error messages 44
+    181, 191                 finding 44                 defining actors 143     errors, types 45–47
+  stopping 94                fixing 25, 44–47           flowchart 140           event handling 151
+audio files 141–42           see also hacks             hacks and tweaks
+                                and tweaks                153
+                                                        how it works 140        F
+B                                                       movement 145–51         fangflowers 156, 160,
+Balloon Flight 116–35      C                            music 140, 142, 152,         168–75
+  coding 121–33            calculations, shorthand        153                   file handling 132, 134
+  flowchart 120                 125                     project reference       floats 29
+  hacks and tweaks         clock tool 112                 207–211               flowcharts 22
+     133–35                code                         scoring 150                Balloon Flight 120
+  how it works 120           colors in 19               what happens               Big Quiz 102
+  lives 133                  indenting 23, 43, 55         138–39                   Coin Collector 61
+  project reference        Coin Collector 58–67       decisions, making 32–35      Dance Challenge 140
+     205–207                 flowchart 61             dictionaries 184             Follow the Numbers
+  scoring 123, 124,          getting started 61–66    dots, connecting 70–71,        72
+     130–33                  hacks and tweaks 67          77                       Happy Garden 158
+  what happens 118–19        how it works 61          dragons 178–81, 184,         Red Alert 84
+  see also obstacles         project reference            190, 193, 195            Shoot the Fruit 51
+Big Quiz 98–115                 198–199                 animation 181              Sleeping Dragons
+  coding 103–12              what happens 60          draw() function                180–81
+  flowchart 102            collidepoint() function      Balloon Flight 124      flowers 163–69, 174
+  GUI 101                       77, 93                  Big Quiz 108            folders 52
+  hacks and tweaks         colliderect() function       Coin Collector 63, 65   Follow the Numbers
+     113–15                     165, 192, 194           Dance Challenge              68–79
+  how it works 102         collisions 77, 129, 165,       143                      flowchart 72
+  interface 104–06              172, 192–94             Follow the Numbers         getting started
+  project reference        colors 114–15                  75, 79                     73–77
+     203–204               conditions 34                Happy Garden 172,          hacks and tweaks
+  scoring 107              constants 86, 87, 182,         175                        78–79
+  timer 107, 112                183                     Red Alert 87               how it works 72

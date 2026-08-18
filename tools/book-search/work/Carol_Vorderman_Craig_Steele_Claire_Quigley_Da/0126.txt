@@ -1,0 +1,52 @@
+124          BALLOON FLIGHT
+
+
+10 Create   the draw() function
+   Just like in the other games you’ve created, you now
+     need to add a draw() function to your code. You will also                  This adds a background
+     add an image for the game background instead of just a                     image of the sky, grass,
+     solid color. Add these lines after the code from Step 9.                   and clouds.
+
+def draw():
+     screen.blit("background", (0, 0))
+     if not game_over:
+          balloon.draw()
+          bird.draw()                                                                                      This line displays
+                                                                                                           the score on screen.
+          house.draw()
+          tree.draw()
+          screen.draw.text("Score: " + str(score), (700, 5), color="black")
+
+      If the game isn’t over, this code
+      will draw the Actors on screen.
+
+
+
+
+11 Show   high scores
+   In the draw() function, you need to add
+                                                            else:
+                                                                   display_high_scores()
+     a call to display_high_scores() when the
+     game is over. Type this immediately after
+     the last line of code from Step 10.                         Remember to add four            This won’t do anything yet
+                                                                 spaces before else.             because you haven’t written
+                                                                                                 the body of this function.
+
+
+
+
+12 Test your code
+   Now try running your code. You should see the                                Pygame Zero Game
+     balloon in the middle of the screen and a current
+     score of zero. There won’t be any obstacles on                                                            Score: 0
+     the screen yet—these will only appear once
+     you’ve added some code to make them move
+     onto the screen.
+
+
+
+
+                                    You can see the
+                                   background used
+                                       in the game.

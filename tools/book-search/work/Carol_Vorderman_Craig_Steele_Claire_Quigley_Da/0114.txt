@@ -1,0 +1,59 @@
+112            BIG QUIZ
+
+
+25 Update the timer
+   Now you need to update the code under
+     def update_time_left() from Step 3. This will
+     decrease the number of seconds by one every
+     time the function is run. Type the following code.
+
+                             def update_time_left():
+     If there’s still time
+      left on the timer,         global time_left
+          this decreases
+               it by one.
+                                 if time_left:
+                                       time_left = time_left - 1
+
+         This ends the           else:
+       game when the                   game_over()
+        time runs out.
+
+
+
+
+26 Schedule   the timer
+   Finally, you need to update the
+                                                     global time_left
+
+     update_time_left() function so
+     that it runs automatically once                 if time_left:
+     every second. You can use Pygame
+                                                          time_left = time_left - 1
+     Zero’s clock tool to do this. Add this
+     line of code to the very bottom of              else:
+     your program.                                        game_over()
+       This calls the update_time_left()
+             function once every second.
+                                              clock.schedule_interval(update_time_left, 1.0)
+
+
+
+
+27 Get quizzing!
+   That’s it! Run your game and try it                        Pygame Zero Game
+     out. Hopefully, you’ll be able to
+     answer all the questions correctly.
+
+
+                                                                                      7
+                                                                                           The player
+     Remember, if your screen doesn’t                   What is the                        needs to click
+     look right, you’ll have to go back to
+     your code and debug it. Read every              capital of France?                    on the correct
+                                                                                           answer before
+     line carefully and make sure your                                                     the time
+     code matches the steps exactly.                                                       runs out.
+     Have fun quizzing your friends!
+                                                 London                     Paris
+                                                     Berlin                Tokyo

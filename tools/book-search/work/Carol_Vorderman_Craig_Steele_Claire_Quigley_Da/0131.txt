@@ -1,0 +1,47 @@
+GAME PROGRESS                                          83%               129
+         Keep it steady
+  22 Your game needs to end if the                                    score += 1
+
+         balloon hits the top or the bottom
+         of the screen. Type this code under                   if balloon.top < 0 or balloon.bottom > 560:
+         the lines from Step 21.
+                                                                      game_over = True
+                                                                      update_high_scores()
+
+                                                                                                    This line checks if the
+                                                                                                    balloon has touched the
+                                                                                                    top or bottom of the screen.
+         Handle collisions with obstacles
+  23 Finally, you need to add some code to                                          This checks if the
+         end the game if the balloon hits any of                                    balloon has hit any of
+         the three obstacles. Add the code below.                                   the three obstacles.
+
+                                               update_high_scores()
+
+This sets game_over
+  to True, which tells                 if balloon.collidepoint(bird.x, bird.y) or \                          Use a backslash
+the program that the                          balloon.collidepoint(house.x, house.y) or \                    character if you
+        game is over.                                                                                        need to split a long
+                                              balloon.collidepoint(tree.x, tree.y):                          line of code over
+                                                                                                             more than one line.
+        This updates                               game_over = True
+     the high scores,                              update_high_scores()
+         if necessary.
+
+
+
+
+         Test your code
+  24 Save your program and run it                                             Pygame Zero Game
+         from the command line. You
+         should now be able to play the                                                                        Score: 0
+         game, but it’s not quite finished
+         yet! Next you’ll find out how to
+         add high scores to your game.
+
+
+
+
+                     All the obstacles will
+                      now seem to move
+                        across the screen.

@@ -1,0 +1,53 @@
+def __init__(self):
+                                           self.tk = Tk()
+                                           self.tk.title("Человечек спешит к выходу")
+                                           self.tk.resizable(0, 0)
+                                           self.tk.wm_attributes("-topmost", 1)
+                                           self.canvas = Canvas(self.tk, width=500, height=500, \
+                                                               highlightthickness=0)
+                                           self.canvas.pack()
+                                           self.tk.update()
+                                           self.canvas_height = 500
+                                           self.canvas_width = 500
+
+
+                          В первой части кода (от tkinter import * до self.tk.wm_
+                      attributes) создаем объект tk и с помощью self.tk.title устанав-
+                      ливаем заголовок окна («Человечек спешит к выходу»). Вызываем функ-
+                      цию resizable, чтобы задать фиксированный размер окну, и размещаем
+                      его поверх остальных окон с помощью функции wm_attributes.
+                          Создаем холст (self.canvas = Canvas) и вызываем функции pack
+                      и update объекта tk. Кроме того, для класса Game нужны два свойства —
+                      height, где будет храниться высота холста, и width, куда сохраним его
+                      ширину.
+
+                                Обратный слеш (\) в строке self.canvas = Canvas выполняет
+                        !       роль знака переноса. Таким образом можно расположить длинную
+                                строку кода на нескольких экранных строках, если код не помеща-
+                                ется по ширине страницы.
+
+
+                      Дописываем функцию __init__
+
+                      Добавим в файл stickmangame.py оставшийся код функции __init__.
+                      Он служит для загрузки и отображения на холсте фонового рисунка
+                      (обоев).
+
+
+                              self.tk.update()
+                              self.canvas_height = 500
+                              self.canvas_width = 500
+                             self.bg = PhotoImage(file="background.gif")
+                             w = self.bg.width()
+                              h = self.bg.height()
+                             for x in range(0, 5):
+                                 for y in range(0, 5):
+                                     self.canvas.create_image(x * w, y * h, \
+                                              image=self.bg, anchor='nw')
+                             self.sprites = []
+                              self.running = True
+
+
+
+
+230   Часть III. Пишем игру «Человечек спешит к выходу»

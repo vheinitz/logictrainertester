@@ -1,0 +1,46 @@
+FIXING BUGS                     47
+Logic errors                                                                                                   Something isn’t
+Sometimes you may not get any error messages,                                 2X2=4                              quite right!
+but your code still won’t work the way you want it to.                        2X3=6                              I can feel it.
+This is because, as far as Python is concerned, there’s                       2X4=8
+nothing wrong with the program, but the logic of the                          2 X 5 = 10
+code is incorrect. This is called a logic error. You might                    6 X 2 = 12
+have missed an important line of code, or maybe you’ve
+put in the right instructions but in the wrong order.
+
+ print("You lost a life!")
+                                                                  ◁ Can you spot the bug?
+                                                                  This code will run with no error messages, but it contains
+ print(lives)                                                     a logic error. When the player loses a life, the value of
+ lives = lives - 1                                                lives is shown on the screen before the number of lives
+                                                                  is reduced by one. That means the player will see the
+                      There are no errors in the                  wrong number of lives remaining! To fix it, you’d have
+                      code, but the last two lines                to move the instruction print(lives) to the end.
+                      are in the wrong order.
+
+▷ Fixing logic
+Logic errors can be the hardest to find and fix. You can
+only get better at it with more experience. To make logic
+errors easier to find, run your code frequently to test it.
+If you think there is an error, go through each line of
+code carefully. For example, when checking the value
+assigned to a variable at different stages in the program,
+try using a print() statement to spot any errors.
+
+
+        EXPERT TIPS
+  Bug-busting checklist
+  Coding can get frustrating                     Ask yourself...
+                                                 ▪ Have you typed the code exactly as it is in the book? Pay extra
+  sometimes, and you might feel
+  as if you’ll never be able to find                 attention to indentation and spaces.
+  a solution. But don’t give up!                 ▪ Is everything spelled correctly?
+  If you follow the tips in this                 ▪ Do you have extra spaces at the start of a line?
+  handy checklist, you’ll be able                ▪ Have you confused any numbers for letters, such as 0 and O?
+  to identify most errors.                       ▪ Have you used the correct case for all the letters?
+                                                 ▪ Do opening parentheses have a matching closing parenthesis? () [] {}
+                                                 ▪ Does every quotation mark have a matching closing quotation mark?
+                           Should I be           ▪ Have you asked someone else to check your code for you and
+                            worried?
+                                                     compare it with the book?
+                                                 ▪ Have you saved your code since you last made changes?

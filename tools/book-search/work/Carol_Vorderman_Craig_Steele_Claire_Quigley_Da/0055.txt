@@ -1,0 +1,57 @@
+GAME PROGRESS                                                    53%                  53
+
+6 Drawing  the apple on the screen
+  Next you need to “draw” the apple on the screen.                   7 Test the code
+                                                                       Now it’s time to test the code. Run the
+     To do this, you can use a built-in Pygame Zero                      program by using the command line in
+     function called draw(). This function is used                       the Command Prompt or Terminal window.
+     to redraw the game screen. For example, if a                        Check out pages 24–25 if you need to
+     character has moved or a score has changed,                         remind yourself how to do this.
+     you can use this function to update the screen
+     with those changes. Write this code beneath                     pgzrun
+     your previous code.
+                                                                                                Drag and drop your shoot.py
+apple = Actor("apple")                                                                          file here to run it.
+                                            This function
+                                            is called draw().
+                                                                          If you need help
+def draw():
+                                                                        running your game,
+                                            This clears                 check pages 24–25.
+    screen.clear( )
+                                            the screen.
+    apple.draw( )
+
+
+ Remember, you need            This line draws the
+ four blank spaces here.       apple on the screen.
+
+
+
+8 First screen
+  If your code is working properly, you                              9 Placing the apple
+                                                                       At the moment, the apple appears in the
+     should see this screen. If it’s not, or if                          top-left corner of the game window. You can
+     you get an error message, go back and                               change the code to place the apple exactly
+     check your code to find any bugs.                                   where you want it on the screen. Write this
+                                                                         function, which will place the apple at the
+                                                                         coordinates (300, 200).
+           Pygame Zero Game
+                                                                         apple.draw()
+
+                                                   A blank game
+                                                   window with       def place_apple( ):
+                                                   an apple in the                                                The apple will be
+                                                   top-left corner       apple.x = 300                            placed 300 pixels
+                                                   of the screen                                                  along the x-axis
+                                                                         apple.y = 200
+                                                   should appear.                                                 (horizontal).
+
+                                                                            The apple will be placed 200
+                                                                            pixels down the y-axis (vertical).
+
+
+
+                                                                                             You must save your program
+                                                                                             before running it, or I’ll run
+                                                                                             an old version of your code.

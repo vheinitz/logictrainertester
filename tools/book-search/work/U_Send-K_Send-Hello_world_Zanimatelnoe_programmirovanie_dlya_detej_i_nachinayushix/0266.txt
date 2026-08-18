@@ -1,0 +1,58 @@
+266                                                                   Глава 18
+
+
+
+     if not done:
+         screen.blit(myBall.image, myBall.rect)
+         screen.blit(paddle.image, paddle.rect)
+         screen.blit(score_surf, score_pos)
+                                                                 Перерисовываем
+         for i in range (lives):                                 все
+             width = screen.get_width()
+             screen.blit(myBall.image, [width - 40 * i, 20])
+         pygame.display.flip()
+     if myBall.rect.top >= screen.get_rect().bottom:     Уменьшаем счетчик
+                                                         жизней при падении
+         lives = lives - 1                               шарика на пол
+         if lives == 0:
+             final_text1 = "Игра окончена"
+
+
+
+
+                                                                        текст с окончательным счетом
+             final_text2 = "Ваш счет: " + str(score)
+
+
+
+
+                                                                          Создаем и выводим на экран
+             ft1_font = pygame.font.Font(None, 70)
+             ft1_surf = ft1_font.render(final_text1, 1, (0, 0, 0))
+             ft2_font = pygame.font.Font(None, 50)
+             ft2_surf = ft2_font.render(final_text2, 1, (0, 0, 0))
+             screen.blit(ft1_surf, [screen.get_width()/2 - \
+                         ft1_surf.get_width()/2, 100])
+             screen.blit(ft2_surf, [screen.get_width()/2 - \
+                         ft2_surf.get_width()/2, 200])
+             pygame.display.flip()
+             done = True
+         else:
+                                             Начинаем новый раунд
+             pygame.time.delay(2000)         после 2-секундной
+             myBall.rect.topleft = [50, 50] задержки
+ pygame.quit()
+
+После запуска кода из листинга 18.5 вы
+получите примерно такой результат:
+Возможно, при наборе кода вы обрати-
+ли внимание, что он состоит из примерно
+75 строк (плюс пустые строки). Это самая
+большая программа из всех вами создан-
+ных. Она содержит множество элементов,
+хотя после запуска выглядит совсем про-
+стой.
+В следующей главе вы познакомитесь со
+звуками из библиотеки Pygame и добавите
+к нашей игре PyPong звуковое сопрово-
+ждение.

@@ -1,0 +1,67 @@
+74              FOLLOW THE NUMBERS
+
+
+ 6 Set the screen size
+   Next you need to set the size of the screen
+                                                                          EXPERT TIPS
+       for your game. Type these lines under the                     Global and local variables
+       code from Step 5.
+                                                                     There are two types of variables—
+ WIDTH = 400                                     I definitely need   local and global. A global variable
+ HEIGHT = 400
+                                                 a bigger screen!    can be used anywhere in your code.
+                                                                     A local variable can only be used
+                                                                     inside the function it was created in.
+This declares the global                                             To change a global variable in a
+     variables to set the
+   screen size in pixels.
+                                                                     function, just put the keyword global
+                                                                     before its name.
+
+
+
+
+ 7 Set up the lists
+   Now you need some lists to store
+                                                  HEIGHT = 400
+                                                                                These global lists
+                                                                                will store the dots
+       all the dots, and also the lines that
+                                                                                and the lines.
+       will be drawn to connect these dots.       dots = []
+       You’ll need a variable to keep track
+                                                   lines = []                   This global variable starts at 0
+       of which dot should be clicked
+       on next. Create these by typing                                          and tells the game which dot
+                                                                                should be clicked on next.
+       this code.                                 next_dot = 0
+
+
+
+
+                                                                               You need to stand on
+                                                                                the mark, Martha.
+
+ 8 Set   up the Actors
+   It’s time to set up the Actors. In this game, the
+        ten dots are the Actors. Create these dots in a
+        loop, giving each one a randomly chosen
+        position and then adding it to the list of Actors.
+        Type this code under what you typed in Step 7.
+
+
+
+   This line will create a                                                                  This will loop
+   new Actor using the         next_dot = 0                                                 ten times.
+    image of the dot in
+     the images folder.
+                               for dot in range(0, 10):
+                                    actor = Actor("dot")                                    Use a backslash character
+                                                                                            if you need to split a long
+This will ensure that the           actor.pos = randint(20, WIDTH - 20), \                  line of code over two lines.
+ dots appear at least 20
+                                    randint(20, HEIGHT - 20)                                It may fit on one in your
+   pixels away from the
+                                                                                            file, though.
+  edge of the screen so             dots.append(actor)
+the whole dot is shown.

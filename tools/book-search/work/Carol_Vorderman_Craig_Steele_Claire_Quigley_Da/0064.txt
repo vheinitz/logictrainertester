@@ -1,0 +1,53 @@
+62          COIN COLLECTOR
+
+
+2 Set up an image folder
+  This game uses two images—a fox and a                       3 Put the images into the folder
+                                                                Find the files called “coin.png” and “fox.png”
+     coin. Within your coin-collector folder, create               in the Python Games Resource Pack
+     a new folder called images. Remember, this new                (dk.com/computercoding). Copy them both
+     folder needs to be in the same place as your                  into the images folder. Your folders should
+     coin.py file.                                                 look like this now.
+
+       New Folder                                                                    coin-collector
+                                                                  coin.py
+       Get Info                                                   images
+                                                                     coin.png
+       Clean up                                                      fox.png
+
+       Clean up by                  ▶
+
+       Sort by                      ▶
+
+
+
+
+4 Get coding
+  Now you’re ready to start coding. This game works           5 Setting  the score
+                                                                Now, let’s set the score to zero to begin with.
+     in a similar way as Shoot the Fruit, so you’ll be able        You’ll need to use a variable to do this. Type
+     to reuse some of the code from that game. Begin               the code shown in black below.
+     by setting the size of the playing area. Type this
+     code at the top of your file.                            WIDTH = 400
+                                                              HEIGHT = 400
+WIDTH = 400
+                                                              score = 0
+HEIGHT = 400                  This code will make the
+                              game screen 400 pixels                                                  This sets up a variable
+                              tall and 400 pixels wide.                                               called score.
+
+
+
+      LINGO
+Patterns
+Lots of computer games follow patterns.
+Even though two games might have different
+characters, power-ups, or levels, their actual
+rules may be quite similar. Computer
+programmers often look for patterns in
+the programs they are building. If they
+spot a pattern, they can reuse some code
+from an existing program, making it easier
+and quicker to build the new program.
+This code is also less likely to have bugs
+because it will already have been tested.

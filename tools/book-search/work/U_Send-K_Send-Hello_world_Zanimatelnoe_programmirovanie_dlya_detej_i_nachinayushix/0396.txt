@@ -1,0 +1,65 @@
+396                                                                     Глава 24
+
+
+
+        self.myTimer2.start(5000)                               Настраиваем
+        self.myTimer2.timeout.connect(self.tick_timer)          таймеры
+
+
+        filehandle = True
+        try:
+             file = open("savedata_vp.pkl", "r") Пытаемся открыть
+        except:                                      сериализованный файл
+             filehandle = False
+        if filehandle:
+             save_list = pickle.load(file)
+             file.close()                         Если файл открывается,
+        else:                                     читаем оттуда
+             save_list = [8, 8, 0, datetime.datetime.now(), 0]
+        self.happiness = save_list[0]
+                                         Извлекаем
+        self.health = save_list[1]       из списка           Если сериализованный
+        self.hunger = save_list[2]       отдельные           файл не открывается,
+        timestamp_then = save_list[3]    значения            используем значения,
+        self.time_cycle = save_list[4]                       предлагаемые
+                                                             по умолчанию
+
+        difference = datetime.datetime.now() - timestamp_then
+        ticks = difference.seconds / 50
+        for i in range(0, ticks):    Проверяем, сколько времени прошло
+            self.time_cycle += 1     с момента последнего запуска
+            if self.time_cycle == 60:
+
+
+
+
+                                                                        Моделируем все циклы, прошедшие
+                self.time_cycle = 0
+            if self.time_cycle <= 48:           Бодрствует
+                self.sleeping = False
+
+
+
+
+                                                                               за время простоя
+                if self.hunger < 8:
+                    self.hunger += 1
+            else:                               Спит
+                self.sleeping = True
+                if self.hunger < 8 and self.time_cycle % 3 == 0:
+                    self.hunger += 1
+            if self.hunger == 7 and (self.time_cycle % 2 ==0) \
+                and self.health > 0:
+                self.health -= 1
+            if self.hunger == 8 and self.health > 0:
+                self.health -=1
+        if self.sleeping:
+            self.imageList = self.sleepImages         Выбираем корректную
+        else:                                         анимацию — бодрствование
+                                                      или сон
+            self.imageList = self.nothingImages
+
+     def sleep_test(self):                         Тип диалогового окна
+         if self.sleeping:
+             result = (QtGui.QMessageBox.warning(self, 'WARNING',
+ "Are you sure you want to wake your pet up? He'll be unhappy about it",

@@ -11,6 +11,7 @@ import * as storage from '../core/storage.js';
 import { lang, pick } from '../core/html.js';
 import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
+import { renderIdeen } from './ideen-view.js';
 import { renderSettings } from './settings-view.js';
 // In views.js heisst renderIntro schon der Startbildschirm einer
 // einzelnen Aufgabe. Diese Seite erklaert das ganze Vorhaben.
@@ -74,6 +75,7 @@ export function renderView(view) {
     case 'stats': renderStats(m); break;
     case 'radar': renderRadar(m); break;
     case 'methods': renderMethods(m); break;
+    case 'ideen': renderIdeen(m); break;
     case 'method': renderMethod(m); break;
     case 'insights': renderInsights(m); break;
     case 'settings': renderSettings(m); break;

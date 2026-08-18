@@ -1,0 +1,52 @@
+32            LEARNING THE BASICS
+
+
+
+Making decisions
+Playing a game involves making decisions
+about what to do next. These are often
+based on answers to questions. For
+example, “Do I have any lives left?”; “Is
+someone chasing me?”; “Have I beaten
+the highest score?”
+
+Comparisons
+Computers also make decisions about what to                                                Which door should
+do next by asking questions. These questions                                                we go through?
+
+usually involve comparing two values. For
+instance, is one number bigger than the other?
+If it is, the computer might skip a block of code
+that it would otherwise have run.
+                                            Variable
+ >>> answer_one = True
+ >>> answer_two = False                     Boolean value
+
+
+△ Boolean values
+                                                       EXPERT TIPS
+The questions that computers ask only
+have two possible answers: True or False.       Equals signs
+Python calls these two values Boolean
+values, and they must always start with         In Python, there are two types of equals sign: a single equals
+a capital letter. You can store a Boolean       sign = and a double equals sign ==. These signs have different
+value in a variable.                            meanings. You use a single equals sign when you want to store
+                                                a value in a variable. For example, lives = 10 stores the value
+                                                10 in the variable lives. However, use a double equals sign
+                                                when you want to compare two values.
+ Symbol                Meaning
+                                               This sets the
+ ==                    equal to                     value of                     This compares your
+                                               the variable.                     age with the variable.
+ !=                    not equal to
+ <                     less than                       >>> age = 10
+ >                     greater than
+                                                       >>> if age == 10:
+
+△ Logical operators                                            print("You are ten years old.")
+The symbols and words shown here are
+                                                                       The code prints the
+called “logical operators,” and they help
+                                                                       message if the two match.
+computers make comparisons in order
+to ask questions.

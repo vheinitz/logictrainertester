@@ -1,0 +1,46 @@
+84            RED ALERT
+
+
+How it works                                                                       Start
+This game uses the draw() and update() functions to
+display the stars on the screen. Each time the draw()
+function is called, the program clears everything on the
+screen and redraws the stars. The update() function
+checks if the player has clicked on a star.
+                                                                             Draw and lay
+                                                                             out the stars
+
+
+
+
+            Add a star and
+          increase the speed                                               Animate the stars
+
+
+
+
+                       N
+                                                  Y                    Y
+               Is this the                                                  Has a star been
+                                                      Is it red?
+              final level?                                                   clicked on?
+
+
+                      Y                                       N                N
+
+
+
+                                                                   Y                                N
+                                                                           Has a star reached
+                                                        End                the bottom of the
+                                                                                screen?
+
+
+
+
+△ Red Alert flowchart
+This program uses one main loop that
+checks if the stars are moving down the                                            Oh! A shooting
+screen and if the player has clicked on a star.                                         star!
+The game either ends or moves on to the
+next level, depending on the player’s action.

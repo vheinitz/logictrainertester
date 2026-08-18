@@ -1,0 +1,52 @@
+• Adobe Flash — среда для создания анимаций, работающих в веб-
+       браузере, оснащенная собственным языком программирования
+       ActionScript (http://www.adobe.com/devnet/actionscript.html).
+
+    В интернете вы найдете множество обучающих ресурсов по каждому
+из этих инструментов.
+    Если же вы хотите продолжить работу с Python, вам может приго-
+диться специально созданная для написания игр библиотека модулей
+PyGame. Рассмотрим ее подробнее ниже.
+
+PyGame
+Чтобы установить PyGame на Windows или Mac OS X, скачайте послед-
+нюю версию установочного пакета с веб-страницы http://www.pygame.
+org/download.shtml. А если вы используете Ubuntu, установите PyGame
+из центра приложений. С документацией к PyGame можно ознакомиться
+по адресу http://www.pygame.org/docs/.
+    Писать игры с помощью PyGame немного сложнее, чем с tkinter.
+Например, в главе 12 мы использовали tkinter для вывода изображе-
+ния на экран следующим образом:
+
+
+     from tkinter import *
+     tk = Tk()
+     canvas = Canvas(tk, width=400, height=400)
+     canvas.pack()
+     myimage = PhotoImage(file='c:\\test.gif')
+     canvas.create_image(0, 0, anchor=NW, image=myimage)
+
+
+
+    Чтобы сделать то же при помощи PyGame (но загружая .bmp-файл,
+а не .gif), понадобится примерно такой код:
+
+
+       import sys
+       import time
+       import pygame
+       import pygame.image as image
+       import pygame.display as display
+      pygame.init()
+      img = image.load("c:\\test.bmp")
+      screen = display.set_mode((img.get_width(), img.get_height()))
+      screen.fill(pygame.Color(255, 255, 255))
+      screen.blit(img, (0, 0))
+      display.flip()
+      time.sleep(10)
+      display.quit()
+
+
+
+
+                                                                        277

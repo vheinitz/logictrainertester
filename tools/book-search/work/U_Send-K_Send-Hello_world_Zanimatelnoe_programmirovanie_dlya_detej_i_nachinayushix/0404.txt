@@ -1,0 +1,54 @@
+4                                                                           Глава 25
+
+
+
+    Листинг 25.1. Фрагмент игры Лыжник
+    import pygame, sys, random
+
+    skier_images = ["skier_down.png",                            Различные изображе-
+                                                                 ния лыжника в зави-
+                    "skier_right1.png", "skier_right2.png",      симости от направ-
+                    "skier_left2.png", "skier_left1.png"]        ления его движения
+
+    class SkierClass(pygame.sprite.Sprite):
+        def __init__(self):
+            pygame.sprite.Sprite.__init__(self)
+            self.image = pygame.image.load("skier_down.png")
+            self.rect = self.image.get_rect()
+            self.rect.center = [320, 100]
+            self.angle = 0
+
+       def turn(self, direction):
+           self.angle = self.angle + direction
+           if self.angle < -2: self.angle = -2 Не разрешаем лыжнику
+           if self.angle > 2: self.angle = 2    поворачиваться больше чем на +/–2
+           center = self.rect.center
+           self.image = pygame.image.load(skier_images[self.angle])
+           self.rect = self.image.get_rect()
+           self.rect.center = center
+           speed = [self.angle, 6 - abs(self.angle) * 2]
+           return speed
+
+       def move(self, speed):                                          Двигаем
+           self.rect.centerx = self.rect.centerx + speed[0]            лыжника
+           if self.rect.centerx < 20: self.rect.centerx = 20           влево
+           if self.rect.centerx > 620: self.rect.centerx = 620         и вправо
+
+
+def animate():
+    screen.fill([255, 255, 255])
+    screen.blit(skier.image, skier.rect)        Перерисовываем экран
+    pygame.display.flip()
+
+pygame.init()
+screen = pygame.display.set_mode([640,640])
+clock = pygame.time.Clock()
+skier = SkierClass()
+speed = [0, 6]
+
+running = True
+while running:                   Проверяем нажатие клавиш
+    clock.tick(30)                                              Главный цикл
+    for event in pygame.event.get():                            Pygame-событий
+        if event.type == pygame.QUIT: running = False
+        if event.type == pygame.KEYDOWN:

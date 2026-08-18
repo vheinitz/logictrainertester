@@ -1,0 +1,58 @@
+GAME PROGRESS                                               66%             189
+
+19 Add   a placeholder
+   This is a good point to run your game and                  20 Try it out
+                                                                 Save your IDLE file and run it from the command
+     check for any bugs. But before you run it,                     line. If there are no bugs hiding in your code, you’ll
+     you need to set up a placeholder for the                       see a screen like the one below. You’ll be able to
+     check_for_collisions() function. Add                           make the hero move around the screen, but you
+     these lines after the code from Step 18.                       won’t be able to collect any eggs yet.
+
+     check_for_collisions()
+                                                                                 Pygame Zero Game
+
+def check_for_collisions():
+     pass
+
+
+
+
+                                          The hero moves
+                                    in the direction of the
+                                 arrow key being pressed.
+
+
+
+                                The counters for the eggs
+                            collected and lives remaining
+                         appear in the bottom-left corner.
+                                                                0    3
+
+
+21 Animate the lairs
+   Now animate the dragons and the eggs to make the game
+     more interesting. The update_lairs() function will loop
+     through each lair dictionary and check if the dragon is
+     asleep or awake. Add this code between the update()
+     function and the def check_for_collisions() placeholder.
+
+                          check_for_collisions()
+
+
+      This loops     def update_lairs():
+     through all
+      three lairs.        global lairs, hero, lives                                                        This is called
+                                                                                                           if the dragon
+                          for lair in lairs:                                                               is asleep.
+      This block               if lair["dragon"].image == "dragon-asleep":
+    will animate
+    the dragon.                      update_sleeping_dragon(lair)                                          This is called
+                                                                                                           if the dragon
+                               elif lair["dragon"].image == "dragon-awake":
+        This will                                                                                          is awake.
+        animate                      update_waking_dragon(lair)
+       the eggs.
+                               update_egg(lair)
+
+
+                     def check_for_collisions():

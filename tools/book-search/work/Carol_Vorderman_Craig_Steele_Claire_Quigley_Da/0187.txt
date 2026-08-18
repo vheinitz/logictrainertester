@@ -1,0 +1,61 @@
+GAME PROGRESS                                           34%           185
+
+ 9 Hard lair
+   Now you need to add the third
+                                                                  "sleep_length": 7,
+                                                                  "sleep_counter": 0,
+      and final lair. Add this code
+      after what you typed in Step 8.                             "wake_counter": 0
+                                                          }
+
+
+
+                 This is just                             hard_lair = {
+                  too hard!                                       "dragon": Actor("dragon-asleep", pos=(600, 500)),
+                                                                  "eggs": Actor("three-eggs", pos=(400, 500)),
+
+                                   This sets the                  "egg_count": 3,
+                                numbers of eggs
+                                                                  "egg_hidden": False,
+                                    for this lair.
+                                                                  "egg_hide_counter": 0,
+                                                                  "sleep_length": 4,
+                                                                  "sleep_counter": 0,
+                                                                  "wake_counter": 0
+                                                          }
+
+
+                                                                                                    This tracks how many
+                                                                                                    seconds the eggs have
+                                                                                                    been hidden for.
+
+
+
+
+10 Bring  the lairs together
+   You’ll need to loop over all the lairs later on in
+                                                                             "sleep_counter": 0,
+                                                                             "wake_counter": 0
+      the code. To make this easier, store them in a
+      list. Type this line next.                                         }
+
+                                               This list holds
+                                                 all the lairs.          lairs = [easy_lair, medium_lair, hard_lair]
+
+
+
+
+11 AThehero  is born
+         final Actor needed for this game
+      is the hero. It’s the character that the                                                     I was born to
+      player controls to collect the dragon eggs.                                                     do this!
+
+
+lairs = [easy_lair, medium_lair, hard_lair]
+hero = Actor("hero", pos=HERO_START)
+
+
+
+
+                    This sets the starting
+              position of the hero Actor.

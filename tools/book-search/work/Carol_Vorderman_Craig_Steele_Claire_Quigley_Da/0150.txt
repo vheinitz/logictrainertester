@@ -1,0 +1,60 @@
+148           DANCE CHALLENGE
+
+
+20 Counting  down
+   You don’t want your players to be looking away when the next set of
+                                                                                      EXPERT TIPS
+     moves to memorize is displayed. Add a function that displays 3, 2, and      Recursive functions
+     then 1 with a one-second pause between each number. You’ll actually
+     count down from 4, but because the countdown() function begins by           Both display_moves() and
+     subtracting one from count, the number 4 doesn’t appear on the              countdown() are functions
+     screen long enough to be seen. Replace pass under def countdown()           that call themselves. These are
+     from Step 13 with this code.                                                known as recursive functions.
+                                                                                 Because Pygame Zero redraws
+def countdown():                                                                 the screen thousands of times
+     global count, game_over, show_countdown                                     every second, you need your
+                                                                                 recursive functions to schedule
+     if count > 1:                                           This updates the    a call to themselves one whole
+          count = count - 1                                  value in count by   second later. Otherwise, the
+                                                             subtracting one.
+          clock.schedule(countdown, 1)                                           moves and the countdown
+                                                                                 would be displayed too fast
+     else:
+                                                                                 for even the most eagle-eyed
+          show_countdown = False                             This line           player to see!
+                                                             schedules
+          display_moves()                                    another call to
+     return                                                  the countdown()
+                                                             function in
+                                                                                              Can you call me back
+                                                             one second.
+                                                                                                  in a second?
+              This removes the
+           countdown from the
+          screen if count is less
+          than or equal to one.
+
+
+
+21 Show the countdown
+   Now that you’ve defined a function for the countdown, you need
+     to add some code to the draw() function to display it. You will
+     also need to display “Dance!” when a new set of moves has been
+     shown, so the player knows when to start entering the moves
+     using the arrow keys. Add this code to the draw() function that
+     you started in Step 10.
+
+          screen.draw.text("Score: " +                                                        This line draws the
+                                                                                              word “Dance!” on
+                                    str(score), color="black",
+                                                                                              the screen in black.
+                                    topleft=(10, 10))
+          if say_dance:
+                screen.draw.text("Dance!", color="black",
+                                                                                              This line displays the
+                                        topleft=(CENTER_X - 65, 150), fontsize=60)            current value of count
+                                                                                              on the screen in black.
+          if show_countdown:
+                screen.draw.text(str(count), color="black",
+                                        topleft=(CENTER_X - 8, 150), fontsize=60)
+     return

@@ -1,0 +1,68 @@
+86          RED ALERT
+
+
+5 Import   a module
+  The first thing you need to do is import
+                                                             import random
+
+     Python’s Random module. To import a whole
+     module, you simply need to type import                                   This imports the
+     followed by the name of the module. We’ll                                Random module.
+     use Random in the choice() and shuffle()
+     functions later in the code.
+
+
+                                                                              This sets the font color of
+                                                                              the message that is displayed
+                                                                              at the end of the game.
+
+
+
+6 Declare the constants
+  Constants are variables that are usually
+                                                 import random
+
+     declared at the start of a program. They
+     are called constants because their          FONT_COLOR = (255, 255, 255)
+     values shouldn’t change throughout the
+                                                 WIDTH = 800                                  These constants
+     program. Type the code shown in black.                                                   define the size of
+                                                 HEIGHT = 600                                 the game window.
+                                                 CENTER_X = WIDTH / 2
+                                                 CENTER_Y = HEIGHT / 2
+                                                 CENTER = (CENTER_X, CENTER_Y)
+                                                 FINAL_LEVEL = 6
+                    This constant defines
+                    the number of levels         START_SPEED = 10
+                            in the game.
+                                                 COLORS = ["green", "blue"]
+
+
+
+                                                 This sets the speed at             This line sets the
+                                                 which the stars move               color of the stars
+                                                 down the screen.                   that should not
+                                                                                    be clicked.
+
+
+
+
+7 Declare the global variables
+  Like constants, global variables are
+                                                 FINAL_LEVEL = 6
+                                                 START_SPEED = 10
+     usually declared at the top of a program,
+     but unlike constants, their values can                                                   These variables will
+                                                 COLORS = ["green", "blue"]
+                                                                                              keep track of if the
+     change throughout the program. They
+                                                                                              game is over or not.
+     can be used throughout the code. In this
+     game, you’ll use these global variables     game_over = False
+     to track the game’s progress. Add this      game_complete = False
+     code under the lines from Step 6.
+                                                 current_level = 1
+                                                 stars = []                                   This variable will
+             These lists will keep track                                                      keep track of what
+                                                 animations = []                              level the player’s on.
+             of the stars on the screen.

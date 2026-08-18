@@ -1,0 +1,53 @@
+56           SHOOT THE FRUIT
+
+
+14 Missed a shot? Game over!
+   Add some more logic to your code,                      15 Importing Random
+                                                             The game is very easy at this point, because the
+     so that if you miss a shot and don’t                       apple is always drawn at the same place on the
+     click on the apple, it quits the game.                     screen. You can use Python’s Random module to
+     Try it out!                                                make the game more challenging by placing the
+                                                                apple at a random point on the screen each time it
+     if apple.collidepoint(pos):                                is drawn. First, add this code at the very top of
+          print("Good shot!")                                   your program.
+          place_apple()
+                                                          from random import randint
+     else:
+                                                          apple = Actor("apple")
+          print("You missed!")
+          quit()                                                                                This imports the
+                                                                                                function randint()
+                     This command quits the game by                                             from Python’s
+                     stopping the program completely.                                           Random module.
+
+
+
+16 Using Random
+   Change the code you typed in Step 9 to look like       17 Time to shoot!
+                                                             You did it! Run your program to play the game.
+     this. The code will now use the randint() function        Each time you “shoot” the apple, it will move
+     to pick a random number between 10 and 800 for            to a random place on the screen for you to
+     the x coordinate and a random number between              “shoot” again.
+     10 and 600 for the y coordinate.
+
+def place_apple( ):                                                                          I sure have
+                                                                                             good aim!
+     apple.x = randint(10, 800)
+     apple.y = randint(10, 600)
+
+
+                            This function picks a
+                            random number for
+                            each coordinate.
+
+
+
+
+      EXPERT TIPS
+ Random numbers
+ Rolling a dice, picking a card from a deck,
+ or tossing a coin are all actions that you                             Pick a card,
+ can simulate by generating a random                                     any card.
+ number. You can read more about how to
+ use Python’s Random module by going to
+ the Help menu and clicking Python Docs.

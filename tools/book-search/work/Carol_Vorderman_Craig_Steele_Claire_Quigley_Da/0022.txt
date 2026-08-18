@@ -1,0 +1,52 @@
+20                 G E T T I N G S TA R T E D
+
+
+
+Using IDLE                                                                                    Look at
+                                                                                           my pretty shell!
+In IDLE, you can work in two different windows.
+The editor window can be used to write and
+save programs, while the shell window runs
+Python instructions immediately.
+
+The shell window                                                          ▽ Working in the shell
+When you open IDLE, the shell window pops up.                             You can use the shell window to test out
+                                                                          snippets of code before you add them into
+This is the best place to get started because you                         a bigger program. The code you type can
+don’t have to create a new file first. You just type                      be run right away, and any messages
+the code directly into the shell window.                                  or “bugs” (errors) are displayed.
+                                                                                                              This line
+                                                                                                              shows the
+                                                   Python 3.6.2 Shell                                         version of
+                     IDLE    File   Edit   Shell    Debug      Window      Help                               Python
+                                                                                                              you have.
+    These four       Python 3.6.2 (v3.6.2:5fd3365926, Aug 15 2017, 13:38:16)
+ lines of code       [GCC 4.2.1 (Apple Inc. build 5666) (dot 3)] on darwin                                    The text here
+  are a simple                                                                                                will depend
+       drawing       Type "copyright", "credits" or "license()" for more information.                         on your
+program—try                                                                                                   operating
+                     >>> from turtle import *
+      it out for                                                                                              system.
+      yourself.      >>> forward(200)
+                     >>> left(90)
+ You type
+                     >>> forward(300)
+in code at
+  the >>>            >>>
+  prompt.
+
+
+
+          EXPERT TIPS                                          >>> print("You've unlocked a new level!")
+   Different windows
+   To help you know which window you should                    >>> 123 + 456 * (7 / 8)
+   type your code in, we’ve given each window
+   in IDLE a different color.
+                                                               >>> ''.join(reversed("Time to play"))
+
+      Shell window
+                                                              △ Give the shell a test run
+                                                              Type each of these code snippets into the shell window
+      Editor window                                           and press Enter after each one. The first line displays a
+                                                              message and the second line does a calculation. Can you
+                                                              figure out what the third line does?

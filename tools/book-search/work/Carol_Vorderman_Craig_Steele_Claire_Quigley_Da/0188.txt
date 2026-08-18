@@ -1,0 +1,54 @@
+186          SLEEPING DRAGONS
+
+
+12 Draw the Actors
+   Now use the draw() function to                                                                One down,
+     display all the Actors on the screen.                                                       two to go!
+     Add the following code under the
+     lines you typed in Step 11. There’s
+     quite a bit to add here, so be careful.
+
+
+hero = Actor("hero", pos=HERO_START)
+
+
+def draw():
+     global lairs, eggs_collected, lives, game_complete
+                                                                             This adds a background
+     screen.clear()                                                          to the game.
+     screen.blit("dungeon", (0, 0))
+     if game_over:
+         screen.draw.text("GAME OVER!", fontsize=60, center=CENTER, color=FONT_COLOR)
+     elif game_complete:
+         screen.draw.text("YOU WON!", fontsize=60, center=CENTER, color=FONT_COLOR)
+     else:
+         hero.draw()
+         draw_lairs(lairs)
+         draw_counters(eggs_collected, lives)
+
+
+
+
+13 Create the stubs
+   Next create the placeholders for some
+                                                               def draw_lairs(lairs_to_draw):
+                                                                      pass
+     functions that will be defined later on.
+     Using pass will tell Python not to run
+     these functions yet. Type this code below
+                                                               def draw_counters(eggs_collected, lives):
+     the lines from Step 12.
+                                                                      pass
+
+
+
+
+14 Run the code
+   Save your file and run it from the command
+     line. Check pages 24–25 if you need to remind
+     yourself how to do this.
+
+pgzrun                              Type this command in
+                                    the Command Prompt or
+                                    Terminal window, then drag the
+                                    dragons.py file here to run it.

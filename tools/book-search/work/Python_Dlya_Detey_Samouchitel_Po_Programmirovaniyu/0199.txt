@@ -1,0 +1,54 @@
+class Ball:
+         def __init__(self, canvas, color):
+             self.canvas = canvas
+             self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
+             self.canvas.move(self.id, 245, 100)
+
+          def draw(self):
+              self.canvas.move(self.id, 0, -1)
+
+     tk = Tk()
+     tk.title("Игра")
+     tk.resizable(0, 0)
+     tk.wm_attributes("-topmost", 1)
+     canvas = Canvas(tk, width=500, height=400, bd=0,
+     highlightthickness=0)
+     canvas.pack()
+     tk.update()
+
+     ball = Ball(canvas, 'red')
+
+     while 1:
+         ball.draw()
+         tk.update_idletasks()
+         tk.update()
+         time.sleep(0.01)
+
+
+
+Отскоки мяча
+Мяч, который улетает за границу холста, не очень подходит для этой
+игры, поэтому давайте «научим» его отскакивать от границ. Создадим
+в функции __init__ класса Ball еще несколько свойств. Вот так:
+
+
+     def __init__(self, canvas, color):
+         self.canvas = canvas
+         self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
+         self.canvas.move(self.id, 245, 100)
+         self.x = 0
+         self.y = -1
+         self.canvas_height = self.canvas.winfo_height()
+
+
+
+    Мы добавили еще три строки кода. Команда self.x = 0 задает свой-
+ству объекта с именем x значение 0, а self.y = –1 задает свойству y зна-
+чение –1. Сохраняем в свойстве canvas_height значение, полученное
+из функции холста winfo_height. Эта функция возвращает текущую
+высоту холста.
+    Снова изменим функцию draw:
+
+
+
+                                                             13. Наша первая игра: «Прыг-скок!»   199

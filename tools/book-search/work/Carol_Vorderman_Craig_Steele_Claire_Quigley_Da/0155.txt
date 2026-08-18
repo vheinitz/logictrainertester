@@ -1,0 +1,55 @@
+GAME PROGRESS                                                   100%      153
+
+Hacks and tweaks                                                                   It’s you against
+                                                                                        me now!
+You can play around with the code to
+make the game even more interesting.
+But only if you’ve got enough energy
+left after all that dancing!
+
+
+    Can you give me
+        a hand?
+
+
+
+                                                               △ Play against a friend!
+                                                               You can play this game against a friend. Change the
+                                                               code so that all the odd-number sequences add to
+△ Create your own character                                    player 1’s score, and the even-number ones add
+                                                               to player 2’s score. It should show both scores at the
+Make your own dancer by using the 8-bit editors available
+                                                               top of the screen, and must also display a message
+online, or use the additional images provided in the Python
+                                                               that tells which player needs to play next, just before
+Games Resource Pack. You could have more than four dance
+                                                               the countdown begins. Add some code to the
+moves to make more interesting and harder sequences. Just
+                                                               on_key_up() function so that one player uses the
+add some code under the on_key_up() function in Step 17
+                                                               keys W, A, S, and D to enter their moves, while the
+to assign keys to each of the extra moves.
+                                                               the other uses the Up, Left, Down, and Right keys.
+
+
+
+
+                                                                                              Shuffle mode is
+                                                                                               my favorite!
+
+
+
+ if (rounds % 3 == 0):
+      dance_length = dance_length + 1
+
+
+△ A longer dance
+You can make the game more challenging. Each time you
+complete three sequences, increase the dance_length by one.    △ Change the music
+To find out how many rounds have been completed, divide        You can change the game music by downloading
+the number of sequences danced by three. If the remainder is   audio files from www.creativecommons.org.
+zero, then three sequences have been successfully completed    Remember to look for the .ogg format. You
+since the last check, so add 1 to dance_length. You can use    don’t have to pay for the music, but you should
+Python’s modulo operator to work out the remainder. Modulo     acknowledge the creator in your game by adding
+is written using the % symbol, so 4 % 3 will give you the      a line of code that displays the name of the track
+remainder on dividing 4 by 3.                                  and its creators on the “GAME OVER!” screen.

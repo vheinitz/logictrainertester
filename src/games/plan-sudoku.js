@@ -198,7 +198,7 @@ export function render(gs) {
 
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">${palette}</div>
 
-    ${bar(Date.now() - (gd.phaseStart || Date.now()), gd.frist || 1)}
+    ${bar(gd.frist || 1, Date.now() - (gd.phaseStart || Date.now()))}
   </div>`;
 }
 

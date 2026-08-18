@@ -1,0 +1,54 @@
+220          REFERENCE
+
+
+
+Glossary
+animation                    condition                   event                    GUI
+A process in which           A “True or False”           Something a computer     The GUI, or graphical
+images are displayed         statement used to           program can react to,    user interface, is the
+one after another            make a decision in          such as a key being      name for the buttons
+to make it look like         a program. See also         pressed or the mouse     and windows that make
+something’s moving.          Boolean expression.         being clicked.           up the part of the
+                                                                                  program you can see
+Boolean expression           constant                    file                     and interact with.
+A statement that is either   A variable whose            A collection
+True or False, leading to    value should stay           of data stored           hack
+two possible outcomes.       the same throughout         with a name.             An ingenious change
+                             a program. Programmers                               to code that makes
+branch                       use capital letters when    flag variable            it do something new
+A point in a program         naming constants to         A variable that can      or simplifies it. (Also,
+where different              let other programmers       have two states, such    accessing a computer
+options are available        know that their values      as True and False.       without permission.)
+to choose from.              should not be changed.
+                             See also variable.          float                    hacker
+bug                                                      A number                 A person who breaks
+An error in a program’s      coordinates                 with a decimal           into a computer system.
+code that makes it behave    A pair of numbers           point in it.             “White hat” hackers work
+in an unexpected way.        that pinpoint an exact                               for computer security
+                             location. Usually written   flowchart                companies and look for
+call                         as (x, y).                  A diagram that           problems in order to fix
+To use a function                                        shows a program          them. “Black hat” hackers
+in a program.                data                        as a sequence of         break into computer
+                             Information, such           steps and decisions.     systems to cause harm or
+command line                 as text, symbols, and                                to make profit from them.
+                             numerical values.           function
+The screen that lets you
+enter commands into the                                  Code that carries out    indent
+Command Prompt or            dictionary                  a specific task. Also    When a block of code
+Terminal window.             A collection of data        called a procedure,      is placed farther to the
+                             items stored in pairs,      subprogram, or           right than the previous
+Command Prompt               such as countries and       subroutine.              block. An indent is usually
+An application on            their capital cities.                                four spaces. Every line in
+                                                         global variable          a particular block of code
+Windows computers
+that allows a user to        debug                       A variable that can be   must be indented by the
+enter and execute            To look for and             used throughout every    same amount.
+commands.                    correct errors              part of a program. See
+                             in a program.               also local variable.     index number
+comment                                                                           A number given to an
+                             encryption                  graphics                 item in a list. In Python,
+A text note added to a
+program that makes the       A way of encoding           Visual elements          the index number of
+code easier to understand    data so that only           on a screen, such as     the first item will be
+and is ignored by the        certain people can          text, pictures, icons,   0, the second item 1,
+program when it runs.        read or access it.          and symbols.             and so on.

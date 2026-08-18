@@ -1,0 +1,62 @@
+150          DANCE CHALLENGE
+
+
+24 Generation     test
+   It’s time to test your new functions and see if they are working. Add
+                                                                                    generate_moves()
+
+      a call to generate_moves() just above the definition of update()
+      from Step 13. Save the file and run it. You should see a countdown            def update():
+      appear and then your dancer demonstrating a sequence of four
+                                                                                        pass
+      moves. The word “Dance!” should be displayed when he’s finished,
+      but don’t start dancing yet! You still need to add the code that
+      checks if the moves entered by the player are correct.                                 The global variable
+                                                                                             current_move identifies
+                                                                                             which move you’re dealing with.
+
+
+25 Get the next move
+   You need a way to move along
+                                                def next_move():
+                                                     global dance_length, current_move, moves_complete
+      the list of moves the computer
+      generated. This will let you                   if current_move < dance_length - 1:
+      compare the first move the player                                                                        This condition is
+                                                          current_move = current_move + 1
+      enters to the first move in the                                                                          True if there are
+      computer’s list, and so on through             else:                                                     still some moves
+      the list. You also need to know when                                                                     to check.
+                                                          moves_complete = True
+      you’ve reached the end of the list.
+      To do this, use the global variable            return
+      current_move to identify which
+      move you’re dealing with. Replace
+      pass under def next_move()                   The else block runs                           This code moves
+                                                   if there are no more                          current_move on
+      from Step 13 with this code.                 moves to check.                               to the next move.
+
+
+
+
+26 Score on each move
+   You now need to add some code to the on_key_up() function.
+      When the player presses a key, the game needs to check whether
+      the arrow key that’s been pressed matches the move the game                        9                    8
+      is currently checking. If it does, the player scores a point and
+      current_move is updated to the next move on the list. If it doesn’t,
+      the game is over! Add this code to the on_key_up(key) function
+      that you started in Step 17. Be careful to add it in the right place.
+
+     if key == keys.UP:
+          update_dancer(0)                                 This block runs if the
+                                                           player presses the
+          if move_list[current_move] == 0:                 correct key.
+                score = score + 1
+                next_move()                                If the player
+                                                           makes a mistake,
+          else:                                            game_over is set
+                game_over = True                           to True.
+
+     elif key == keys.RIGHT:
+          update_dancer(1)

@@ -22,6 +22,7 @@ import { registerModuleSettings, modGet } from '../core/settings.js';
 import { bar, pictogram } from '../core/shell.js';
 import { inDerHand, dragAufraeumen } from '../core/drag.js';
 import * as settings from '../core/settings.js';
+import { FOLGEN } from '../data/geschichten.js';
 
 const ID = 'plan-geschichten';
 
@@ -48,39 +49,6 @@ const UI = {
 };
 const u = k => pick(UI[k]);
 
-/**
- * Folgen mit einer Richtung, die in der Welt liegt und nicht in der Deutung.
- * `t` ist die Stufe, `bilder` steht in der richtigen Reihenfolge.
- */
-const FOLGEN = [
-  { t: 1, bilder: ['1️⃣','2️⃣','3️⃣'], warum: { de: 'Die Zahlen zählen aufwärts.', ru: 'Числа идут по возрастанию.', en: 'The numbers count upwards.' } },
-  { t: 1, bilder: ['🥚','🐣','🐔'], warum: { de: 'Aus dem Ei schlüpft das Küken, daraus wird das Huhn.', ru: 'Из яйца вылупляется цыплёнок, из него вырастает курица.', en: 'The chick hatches from the egg and becomes a hen.' } },
-  { t: 1, bilder: ['🌱','🌿','🌳'], warum: { de: 'Aus dem Keim wird die Pflanze, daraus der Baum.', ru: 'Из ростка вырастает растение, затем дерево.', en: 'The sprout becomes a plant, then a tree.' } },
-  { t: 1, bilder: ['🐛','🛌','🦋'], warum: { de: 'Die Raupe verpuppt sich und wird zum Schmetterling.', ru: 'Гусеница окукливается и становится бабочкой.', en: 'The caterpillar pupates and becomes a butterfly.' } },
-  { t: 1, bilder: ['🌰','🌱','🌳'], warum: { de: 'Aus der Nuss wächst der Keim, daraus der Baum.', ru: 'Из ореха прорастает росток, затем дерево.', en: 'The nut sprouts and grows into a tree.' } },
-
-  { t: 2, bilder: ['👶','🧒','🧑','🧓'], warum: { de: 'Ein Mensch wird älter.', ru: 'Человек становится старше.', en: 'A person grows older.' } },
-  { t: 2, bilder: ['🌅','☀️','🌇','🌙'], warum: { de: 'So läuft ein Tag ab.', ru: 'Так проходит день.', en: 'That is how a day goes.' } },
-  { t: 2, bilder: ['1️⃣','2️⃣','3️⃣','4️⃣'], warum: { de: 'Die Zahlen zählen aufwärts.', ru: 'Числа идут по возрастанию.', en: 'The numbers count upwards.' } },
-  { t: 2, bilder: ['🧊','💧','💨'], warum: { de: 'Eis schmilzt zu Wasser, Wasser wird zu Dampf.', ru: 'Лёд тает в воду, вода превращается в пар.', en: 'Ice melts into water, water turns into vapour.' } },
-  { t: 2, bilder: ['🐜','🐁','🐕','🐘'], warum: { de: 'Die Tiere werden größer.', ru: 'Животные становятся крупнее.', en: 'The animals get bigger.' } },
-
-  { t: 3, bilder: ['🌑','🌓','🌕','🌗'], warum: { de: 'So nimmt der Mond zu und wieder ab.', ru: 'Так луна прибывает и убывает.', en: 'That is how the moon waxes and wanes.' } },
-  { t: 3, bilder: ['🌸','🍏','🍎','🥧'], warum: { de: 'Aus der Blüte wird die Frucht, daraus der Kuchen.', ru: 'Из цветка получается плод, из него пирог.', en: 'The blossom becomes fruit, the fruit becomes a pie.' } },
-  { t: 3, bilder: ['🕐','🕒','🕕','🕘'], warum: { de: 'Die Uhr geht vorwärts.', ru: 'Часы идут вперёд.', en: 'The clock moves forward.' } },
-  { t: 3, bilder: ['🌾','🌾','🍞','🥪'], warum: { de: 'Aus Korn wird Brot, daraus das Brot mit Belag.', ru: 'Из зерна получается хлеб, из него бутерброд.', en: 'Grain becomes bread, bread becomes a sandwich.' } },
-  { t: 3, bilder: ['🥚','🐛','🦋','🌸'], warum: { de: 'Ei, Raupe, Falter – und der Falter besucht die Blüte.', ru: 'Яйцо, гусеница, бабочка — и бабочка садится на цветок.', en: 'Egg, caterpillar, butterfly – and the butterfly visits the blossom.' } },
-
-  { t: 4, bilder: ['🌑','🌒','🌓','🌔','🌕'], warum: { de: 'Der Mond nimmt Schritt für Schritt zu.', ru: 'Луна прибывает шаг за шагом.', en: 'The moon waxes step by step.' } },
-  { t: 4, bilder: ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣'], warum: { de: 'Die Zahlen zählen aufwärts.', ru: 'Числа идут по возрастанию.', en: 'The numbers count upwards.' } },
-  { t: 4, bilder: ['🐜','🐁','🐈','🐕','🐘'], warum: { de: 'Die Tiere werden größer.', ru: 'Животные становятся крупнее.', en: 'The animals get bigger.' } },
-  { t: 4, bilder: ['🌰','🌱','🌿','🌳','🪵'], warum: { de: 'Aus der Nuss wird der Baum, aus dem Baum das Holz.', ru: 'Из ореха вырастает дерево, из дерева получается древесина.', en: 'The nut becomes a tree, the tree becomes timber.' } },
-
-  { t: 5, bilder: ['🥚','🐛','🛌','🦋','🌸','🥚'], warum: { de: 'Der Kreislauf beginnt von vorn.', ru: 'Круг начинается заново.', en: 'The cycle starts over.' } },
-  { t: 5, bilder: ['🌱','🌿','🌳','🍎','🥧','😋'], warum: { de: 'Vom Keim bis zum aufgegessenen Kuchen.', ru: 'От ростка до съеденного пирога.', en: 'From sprout to the eaten pie.' } },
-  { t: 5, bilder: ['1️⃣','2️⃣','3️⃣','4️⃣','5️⃣','6️⃣'], warum: { de: 'Die Zahlen zählen aufwärts.', ru: 'Числа идут по возрастанию.', en: 'The numbers count upwards.' } }
-];
-
 let timer = null;
 const clearTimer = () => { if (timer) { clearTimeout(timer); timer = null; } };
 const aktiv = () => !!(engine.activeGame && engine.activeGame.id === ID);
@@ -88,14 +56,19 @@ const aktiv = () => !!(engine.activeGame && engine.activeGame.id === ID);
 function neueAufgabe(gs) {
   const gd = gs.gd;
   const stufe = Math.max(1, Math.min(5, gd.level || 1));
-  const pool = FOLGEN.filter(f => f.t === stufe);
-  const f = (pool.length ? pool : FOLGEN)[Math.floor(Math.random() * (pool.length || FOLGEN.length))];
+  gd._gestellt = gd._gestellt || [];
+  let pool = FOLGEN.filter(f => f.t === stufe && !gd._gestellt.includes(f.id));
+  if (!pool.length) pool = FOLGEN.filter(f => f.t === stufe);
+  if (!pool.length) pool = FOLGEN;
+  const f = pool[Math.floor(Math.random() * pool.length)];
+  gd._gestellt = gd._gestellt.concat(f.id).slice(-20);
 
   // Jedes Bild bekommt eine eigene Kennung: dieselbe Frucht darf zweimal
   // vorkommen (der Kreislauf endet, wo er anfing), und zwei gleiche Bilder
   // wären sonst nicht auseinanderzuhalten.
   gd.loesung = f.bilder.map((b, i) => ({ id: 'b' + i, bild: b }));
   gd.warum = f.warum;
+  gd.titel = f.titel;
   gd.vorrat = shuffle(gd.loesung.map(x => x.id));
   gd.plaetze = Array(gd.loesung.length).fill(null);
   gd.phase = 'legen';
@@ -132,6 +105,7 @@ export function render(gs) {
   if (gd.phase === 'feedback') {
     return `<div data-phase="feedback" style="text-align:center;width:100%">
       ${pictogram(gd.geloest ? '✅' : '❌')}
+      ${gd.titel ? `<p style="font-size:.95em;margin-top:8px">${esc(pick(gd.titel))}</p>` : ''}
       ${gd.geloest ? '' : `<div style="margin-top:14px">
         <div style="font-size:.85em;color:var(--text-light);margin-bottom:6px">${esc(u('richtig'))}</div>
         <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
@@ -182,7 +156,7 @@ export function render(gs) {
                 border:2px dashed ${hand ? 'var(--primary)' : 'transparent'};
                 background:${hand ? '#F6F5FF' : 'transparent'}">${vorrat}</div>
 
-    ${bar(Date.now() - (gd.phaseStart || Date.now()), gd.frist || 1)}
+    ${bar(gd.frist || 1, Date.now() - (gd.phaseStart || Date.now()))}
   </div>`;
 }
 

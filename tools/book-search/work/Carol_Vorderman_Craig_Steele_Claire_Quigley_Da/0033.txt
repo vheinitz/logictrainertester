@@ -1,0 +1,62 @@
+C R E AT I N G VA R I A B L E S                              31
+Making lists
+A list is used to store a collection of data. It can
+hold many different values and keep them in order.
+For example, a list can store a deck of cards for a
+game, such as Snap, so the code knows which card
+to deal next. The position of each value in the list
+is identified with a number, starting from 0. You
+can use these numbers to change list values.
+
+
+
+ 1 More than one variable
+   Imagine you’re coding a multiplayer game
+                                                          >>> card1 = "1 hearts"
+                                                          >>> card2 = "2 hearts"
+      and want to have a different variable for
+      each card. You would need 52 variables to           >>> card3 = "3 hearts"
+      store a whole deck of cards, but we’ll just                                                            There’s no
+                                                          >>> card4 = "4 hearts"
+      work with six for now.                                                                                 need to type
+                                                          >>> card5 = "5 hearts"                             this code out.
+                                                          >>> card6 = "6 hearts"
+
+
+
+
+ 2 List in a variable
+   It would be much easier to use a list to store all the
+      values of the cards instead of setting up so many
+      variables individually. To create a list, surround the        The values must be
+      values you want to store with square brackets.                separated by commas.
+
+ >>> cards = ["1 hearts", "2 hearts", "3 hearts", "4 hearts", "5 hearts", "6 hearts"]
+
+
+
+             The list is assigned to
+             the variable cards.
+
+
+                                                                            This line gets the first
+                                                                            value in the list.
+
+
+
+
+ 3 Getting   items from a list
+   It’s easy to work with a list once you have
+                                                          >>> cards[0]
+                                                          >>> "1 hearts"
+                                                                                              For our small list, the last
+                                                                                              position is 5, but for the entire
+      all your values in it. To get an item from a                                            cards list it would be 51.
+      list, type the name of the list, followed by        >>> cards[5]
+      the item’s position in the list within square
+                                                          >>> "6 hearts"
+      parentheses. But watch out—in Python, the
+      first position in a list is 0, not 1. Now try
+      getting different cards out of your cards list.
+                                                                         This is the last
+                                                                         value in our list.

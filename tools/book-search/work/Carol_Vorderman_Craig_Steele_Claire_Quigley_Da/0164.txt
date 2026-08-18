@@ -1,0 +1,55 @@
+162          HAPPY GARDEN
+
+
+13 Other   functions
+   You’ll use a lot of functions in this
+                                            def new_flower():
+                                               pass
+      game. You can list some of them
+      now and define them later in the
+      code. Using pass will make sure
+                                            def add_flowers():
+      that Python doesn’t run anything
+      yet. Type this code under what           pass
+                                                                                          Don’t forget to save
+      you added in Step 10.                                                                   your work.
+                                            def check_wilt_times():
+                                               pass
+
+
+                                            def wilt_flower():
+                                               pass
+             I'm going to make
+               them all bloom.
+                                            def check_flower_collision():
+                                               pass
+
+
+                                            def reset_cow():
+                                               pass
+
+
+                                            def update():
+                                               pass
+
+
+
+
+14 Moving  around the garden
+   At the moment, the cow appears
+                                            def update():
+                                                global score, game_over, fangflower_collision
+      on the screen but doesn’t do
+      anything. Add some code that lets         global flower_list, fangflower_list, time_elapsed
+      you move the cow around. Replace
+                                                if not game_over:
+      the word pass under def update()
+      with the following code.                        if keyboard.left and cow.x > 0:
+                                                          cow.x -= 5
+                                                      elif keyboard.right and cow.x < WIDTH:
+                                                          cow.x += 5
+                 This moves the cow five
+             pixels to the right when the             elif keyboard.up and cow.y > 150:
+             Right arrow key is pressed.                  cow.y -= 5
+                                                      elif keyboard.down and cow.y < HEIGHT:
+                                                          cow.y += 5

@@ -1,0 +1,45 @@
+GAME PROGRESS                                       61%           147
+
+19 Show me the steps
+   Now that you can make the dancer move with the arrow                   Care to teach
+       keys, he needs to display some computer-generated moves            me flamenco?
+       for the player to copy. Begin by writing the function that
+       displays a sequence of moves to memorize. Replace pass
+       under the display_moves() function from Step 13 with the
+       code shown below.
+
+
+                      def display_moves():
+                          global move_list, display_list, dance_length
+                         global say_dance, show_countdown, current_move          This line stores the first
+                                                                                 move in display_list in
+        This line         if display_list:
+                                                                                 the variable this_move.
+  checks if the               this_move = display_list[0]
+   list of dance
+     moves has                display_list = display_list[1:]
+something in it.
+                              if this_move == 0:
+                                                                                 This removes the first item
+                                   update_dancer(0)                              from display_list so that
+   If the value of                 clock.schedule(display_moves, 1)              the second item will now
+this_move is 0,                                                                  be at position 0.
+  it is passed on             elif this_move == 1:
+to this function.
+                                   update_dancer(1)
+                                   clock.schedule(display_moves, 1)
+                              elif this_move == 2:
+                                   update_dancer(2)
+          This line                clock.schedule(display_moves, 1)
+  schedules a call
+   to the function            else:
+display_moves()                                                                  If display_list is empty,
+    in one second.                 update_dancer(3)
+                                                                                 this line tells the draw()
+                                   clock.schedule(display_moves, 1)              function to display “Dance!”
+                          else:                                                  This line sets the
+                                                                                 global variable
+                              say_dance = True                                   show_countdown
+                              show_countdown = False                             to False.
+
+                         return

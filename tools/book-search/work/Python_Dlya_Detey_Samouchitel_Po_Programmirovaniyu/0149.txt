@@ -1,0 +1,56 @@
+Рисуем машину
+Черепашка может рисовать не только звезды и простые геометрические
+фигуры. Давайте изобразим простенькую, но симпатичную машинку.
+Сначала нарисуем кузов. Выберите в меню IDLE File ▶ New File и введите
+в новом окне следующий код:
+
+
+     import turtle
+     t = turtle.Pen()
+     t.reset()
+     t.color(1,0,0)
+     t.begin_fill()
+     t.forward(100)
+     t.left(90)
+     t.forward(20)
+     t.left(90)
+     t.forward(20)
+     t.right(90)
+     t.forward(20)
+     t.left(90)
+     t.forward(60)
+     t.left(90)
+     t.forward(20)
+     t.right(90)
+     t.forward(20)
+     t.left(90)
+     t.forward(20)
+     t.end_fill()
+
+
+
+   Теперь добавим переднее колесо:
+
+
+     t.color(0,0,0)
+     t.up()
+     t.forward(10)
+     t.down()
+     t.begin_fill()
+     t.circle(10)
+     t.end_fill()
+
+
+   И заднее колесо:
+
+
+     t.setheading(0)
+     t.up()
+     t.forward(90)
+     t.right(90)
+     t.forward(10)
+     t.setheading(0)
+
+
+
+                                                              11. И снова черепашья графика   149

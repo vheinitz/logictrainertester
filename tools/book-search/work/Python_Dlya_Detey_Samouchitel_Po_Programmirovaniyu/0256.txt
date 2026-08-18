@@ -1,0 +1,46 @@
+self.last_time= time.time()
+                                                   self.current_image += self.current_image_add
+                                                   if self.current_image >= 2:
+                                                       self.current_image_add = -1
+                                                   if self.current_image <= 0:
+                                                       self.current_image_add = 1
+                                          if self.x < 0:
+                                              if self.y != 0:
+                                                  self.game.canvas.itemconfig(self.image, \
+                                                           image=self.images_left[2])
+                                              else:
+                                                  self.game.canvas.itemconfig(self.image, \
+                                                           image=self.images_left[self.current_image])
+                                          elif self.x > 0:
+                                              if self.y != 0:
+                                                  self.game.canvas.itemconfig(self.image, \
+                                                           image=self.images_right[2])
+                                              else:
+                                                  self.game.canvas.itemconfig(self.image, \
+                                                           image=self.images_right[self.current_image])
+
+
+                          В строке  выполняется проверка: если свойство x меньше 0, зна-
+                      чит, фигурка движется влево, в этом случае мы переходим к блоку кода
+                      со строки  по строку . В строке  сравниваем свойство y с 0, и если y
+                      не равно 0 (фигурка находится в прыжке или падает), в строке  с помо-
+                      щью функции itemconfig меняем изображение фигурки на последний
+                      кадр в списке изображений, повернутых влево (images_left[2]). Вы-
+                      бираем кадр с самым широким шагом, чтобы анимация прыжка выгля-
+                      дела более реалистично:
+
+
+
+
+                          Если y равно 0, в строке  выполняется вариант else, а в строке 
+                      с помощью itemconfig меняем текущее изображение на кадр, индекс ко-
+                      торого находится в свойстве current_image.
+                          В строке  проверяем, движется ли фигурка вправо (x больше 0).
+                      Если это так, выполняется блок кода со строки  по строку . Этот код
+                      очень похож на код для движения влево: делается проверка, находится ли
+                      фигурка в прыжке, и так далее, но кадры выбираются из списка images_
+                      right, где хранятся изображения фигурки, повернутой вправо.
+
+
+
+256   Часть III. Пишем игру «Человечек спешит к выходу»

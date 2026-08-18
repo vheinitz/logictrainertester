@@ -1,0 +1,47 @@
+234                                                                     Глава 17
+
+
+
+Обратите внимание, как изменилась строка 2 (def __init__(self, image_file, loca-
+tion, speed):). Кроме того, появились строка 7 (self.speed = speed) и новый метод
+move() в строках с 9 по 15.
+Теперь при создании экземпляров мяча наряду с файлами изображения и начальными
+координатами нужно будет указывать скорость перемещения каждого экземпляра:
+
+ speed = [2, 2]
+ ball = MyBallClass(img_file, location, speed)
+
+Предыдущий фрагмент кода создает мячи, движущиеся с одинаковой скоростью (в одном
+направлении), но лучше будет, если мы внесем в их перемещения некоторое разнообра-
+зие. Воспользуемся для задания скорости функцией random.choice():
+
+ from random import *
+ speed = [choice([-2, 2]), choice([-2, 2])]
+
+В результате для скорости по обеим координатам будет выбираться значение –2 или 2.
+Полностью код программы представлен в листинге 17.2.
+
+ Листинг 17.2. Перемещение мячей по экрану при помощи спрайтов
+ import sys, pygame
+ from random import *
+
+ class MyBallClass(pygame.sprite.Sprite):
+     def __init__(self, image_file, location, speed):
+         pygame.sprite.Sprite.__init__(self)
+         self.image = pygame.image.load(image_file)
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.top = location
+         self.speed = speed
+                                                                  Определение
+                                                                  класса мячей
+      def move(self):
+          self.rect = self.rect.move(self.speed)
+          if self.rect.left < 0 or self.rect.right > width:
+              self.speed[0] = -self.speed[0]
+
+          if self.rect.top < 0 or self.rect.bottom > height:
+              self.speed[1] = -self.speed[1]
+
+ size = width, height = 640, 480
+ screen = pygame.display.set_mode(size)
+ screen.fill([255, 255, 255])

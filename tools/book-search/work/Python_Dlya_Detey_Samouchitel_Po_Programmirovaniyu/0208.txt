@@ -1,0 +1,55 @@
+в одной функции) скапливается слишком много строк кода. Внесем не-
+                        обходимые изменения.
+                            Добавим в функцию __init__ класса Ball еще один аргумент —
+                        объект-ракетку:
+
+                                class Ball:
+                               def __init__(self, canvas, paddle, color):
+                                    self.canvas = canvas
+                                   self.paddle = paddle
+                                    self.id = canvas.create_oval(10, 10, 25, 25, fill=color)
+                                    self.canvas.move(self.id, 245, 100)
+                                    starts = [-3, -2, -1, 1, 2, 3]
+                                    random.shuffle(starts)
+                                    self.x = starts[0]
+                                    self.y = -3
+                                    self.canvas_height = self.canvas.winfo_height()
+                                    self.canvas_width = self.canvas.winfo_width()
+
+
+                            Обратите внимание, что в строке  мы изменили аргументы
+                        __init__, добавив к ним ракетку (paddle), а в строке  сохранили зна-
+                        чение аргумента paddle в свойстве с таким же названием.
+                            Теперь нужно изменить код создания объекта-мяча с учетом ново-
+                        го аргумента — ракетки. Этот код находится в конце программы перед
+                        главным циклом:
+
+
+                                  paddle = Paddle(canvas, 'blue')
+                                  ball = Ball(canvas, paddle, 'red')
+
+                                  while 1:
+                                      ball.draw()
+                                      paddle.draw()
+                                      tk.update_idletasks()
+                                      tk.update()
+                                      time.sleep(0.01)
+
+
+                            Код для проверки столкновения с ракеткой будет сложнее, чем код
+                        проверки для границ холста. Поместим его в новую функцию hit_
+Hit paddle — здесь      paddle, добавив ее вызов в функцию draw класса Ball, рядом с провер-
+столкновение            кой на столкновение с нижней границей:
+с ракеткой
+
+                                  def draw(self):
+                                      self.canvas.move(self.id, self.x, self.y)
+                                      pos = self.canvas.coords(self.id)
+                                      if pos[1] <= 0:
+                                          self.y = 3
+                                      if pos[3] >= self.canvas_height:
+
+
+
+
+208     Часть II. Пишем игру «Прыг-скок!»

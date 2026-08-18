@@ -1,0 +1,57 @@
+Ответы на задания                                                                        35
+
+
+    user_dictionary = {}
+    while 1:
+        command = raw_input("'a' добавление слова,
+                            'l' поиск слова,
+                            'q' выход ")
+
+         if command == "a":
+             word = raw_input("Введите слово: ")
+             definition = raw_input("Введите определение: ")
+             user_dictionary[word] = definition
+             print "Слово добавлено!"
+
+         elif command == "l":
+             word = raw_input("Введите слово: ")
+             if word in user_dictionary.keys():
+                 print user_dictionary[word]
+             else:
+                 print "Это слово пока отсутствует в словаре."
+
+         elif command == 'q':
+             break
+
+Провер ь с е бя
+                                                                                              13
+  1. Для создания функции применяется ключевое слово def.
+  2. Для вызова функции достаточно указать ее имя, добавив следом скобки.
+  3. Передаваемый в функцию аргумент указывается в скобках в момент вызова функции.
+  4. Функция может иметь неограниченное количество аргументов.
+  5. Функция возвращает информацию в вызывающий код при помощи ключевого слова return.
+  6. После завершения работы функции локальная переменная уничтожается.
+
+Эксп ер и мент ы
+  1. Эта функция представляет собой набор инструкций print:
+    def printMyNameBig():
+        print " CCCC         A       RRRRR TTTTTTT EEEEEE RRRRR "
+        print " C    C      A A      R     R   T   E      R    R "
+        print "C          A     A    R     R   T   EEEE   R    R "
+        print "C         AAAAAAA     RRRRR     T   E      RRRRR "
+        print " C    C A          A R      R   T   E      R    R "
+        print " CCCC A             A R       R T   EEEEEE R     R"
+
+    Вызывающая ее программа может выглядеть вот так:
+    for i in range(5):
+        printMyNameBig()
+
+  2. Вот мой вариант программы, выводящей адрес с семью аргументами:
+    # определим функцию с семью аргументами
+    def printAddr(name, num, street, city, prov, pcode, country):
+        print name
+        print num,
+        print street
+        print city,
+        if prov !="":
+            print ", "+prov

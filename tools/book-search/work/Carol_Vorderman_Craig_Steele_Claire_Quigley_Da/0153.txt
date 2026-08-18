@@ -1,0 +1,52 @@
+GAME PROGRESS                                        87%   151
+                                                                  EXPERT TIPS
+         if move_list[current_move] == 1:
+              score = score + 1
+                                                           Event handling
+              next_move()                                  Dance Challenge uses an event handler
+         else:                                             function called on_key_up() to react
+                                                           to a player pressing an arrow key. You
+              game_over = True
+                                                           shouldn’t put the code to deal with key
+     elif key == keys.DOWN:                                presses inside the built-in update()
+         update_dancer(2)                                  function in this case because it will
+                                                           run too frequently. If you pressed a
+         if move_list[current_move] == 2:
+                                                           key down just for a second, update()
+              score = score + 1                            would tell the game you had pressed
+              next_move()                                  it hundreds of times. This probably
+                                                           wouldn’t match the dance sequence,
+         else:
+                                                           so the game would finish right away.
+              game_over = True
+     elif key == keys.LEFT:
+         update_dancer(3)
+                                                                       Don’t worry!
+         if move_list[current_move] == 3:
+                                                                       I’ll handle it.
+              score = score + 1
+              next_move()
+         else:
+              game_over = True
+     return
+
+
+
+
+27 Keep going!
+   To make the game more challenging, a new set of
+                                                             I am out of control!
+     moves needs to be displayed every time the player
+     successfully completes a dance sequence. Replace
+     pass in the update() function from Step 13 with
+     the code below to do this.
+
+def update():
+     global game_over, current_move, moves_complete
+     if not game_over:                                   This line runs if you
+                                                         complete every move
+         if moves_complete:                              in the current list.
+              generate_moves()
+                                                         This line generates a
+              moves_complete = False                     new series of moves
+              current_move = 0                           and displays them.

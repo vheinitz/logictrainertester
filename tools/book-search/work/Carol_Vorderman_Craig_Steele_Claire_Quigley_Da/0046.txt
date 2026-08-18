@@ -1,0 +1,46 @@
+44          LEARNING THE BASICS
+
+
+
+Fixing bugs                                                                                 Help me find
+                                                                                        those delicious bugs!
+If there’s an error, or a “bug,” in your code,
+Python will show an error message. These
+messages can be a bit confusing sometimes,
+but they tell you what is wrong with your
+code and how to fix it.
+
+Error alert
+In IDLE, both the editor and shell windows                             ▽ Messages in Command Prompt/Terminal
+can display an error message when something                            Error messages in Pygame Zero are shown in
+                                                                       the Command Prompt or Terminal window.
+unexpected happens. This message highlights                            When an error is discovered, the program will
+the error and shows you which line of code                             stop running and will tell you what the error is
+to find it in.                                                         and where to look for it in the code.
+
+
+                                             Rabiahma – bash – 80x24
+
+  File "/Library/Frameworks/Python.framework/Versions/3.6/bin/pgzrun", line 11, in <module>
+     load_entry_point('pgzero==1.1', 'console_scripts', 'pgzrun')()
+  File "/Library/Frameworks/Python.framework/Versions/3.6/lib/python3.6/site-packages/
+pgzero/runner.py", line 88, in main
+                                                     The error is on line 2.
+     exec(code, mod.__dict__)
+  File "score.py", line 2, in <module>
+     print("Game Over: Score " + score)
+                                                      This is a type error.
+TypeError: must be str, not int
+
+
+
+      EXPERT TIPS
+ Catching bugs
+ When you see an error in the Command
+ Prompt (Windows) or Terminal (Mac), look at
+ the line number. Go back to your code in
+ IDLE and click anywhere in the file. The line
+ number will be displayed at the bottom-
+ right corner of the screen—for example,
+ Ln: 12. Then use the Up or Down arrow
+ to find the line with the error in it.

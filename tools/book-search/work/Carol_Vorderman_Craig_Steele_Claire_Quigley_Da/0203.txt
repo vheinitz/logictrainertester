@@ -1,0 +1,55 @@
+PROJECT REFERENCE   201
+
+game_over = False
+game_complete = False
+current_level = 1
+stars = []
+animations = []
+
+
+def draw():
+   global stars, current_level, game_over, game_complete
+   screen.clear()
+   screen.blit("space", (0, 0))
+   if game_over:
+       display_message("GAME OVER!", "Try again.")
+   elif game_complete:
+       display_message("YOU WON!", "Well done.")
+   else:
+       for star in stars:
+              star.draw()
+
+
+def update():
+   global stars
+   if len(stars) == 0:
+       stars = make_stars(current_level)
+
+
+def make_stars(number_of_extra_stars):
+   colors_to_create = get_colors_to_create(number_of_extra_stars)
+   new_stars = create_stars(colors_to_create)
+   layout_stars(new_stars)
+   animate_stars(new_stars)
+   return new_stars
+
+
+def get_colors_to_create(number_of_extra_stars):
+   colors_to_create = ["red"]
+   for i in range(0, number_of_extra_stars):
+       random_color = random.choice(COLORS)
+       colors_to_create.append(random_color)
+   return colors_to_create
+
+
+def create_stars(colors_to_create):
+   new_stars = []
+   for color in colors_to_create:
+       star = Actor(color + "-star")
+       new_stars.append(star)
+   return new_stars
+
+
+def layout_stars(stars_to_layout):
+   number_of_gaps = len(stars_to_layout) + 1
+   gap_size = WIDTH / number_of_gaps

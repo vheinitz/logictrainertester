@@ -1,0 +1,45 @@
+50         SHOOT THE FRUIT
+
+
+
+How to build
+Shoot the Fruit
+This simple shooting game is a fun way to practice
+your aim. When the apple appears, click on it to
+”shoot” it. Aim carefully though, because if you
+miss, the game is over!
+
+What happens
+When the game starts, an apple appears on the screen
+for you to “shoot.” If you hit it, a “Good shot!” message
+pops up, and the apple appears at another point on
+the screen. But if you miss, a “You missed!” message is
+shown, and the game ends.
+
+                               Pygame Zero Game
+
+
+
+
+                                                               The default color
+                                                               of the game screen
+                                                               is black.
+
+
+
+
+                                                               You can customize
+                                                               your game by
+                                                               changing the fruit
+                                                               that appears on
+                                                               the screen.
+
+
+
+
+                                                            ◁ Aim... Fire!
+                                                            You need to stay
+                                                            alert at all times while
+                                                            playing this game.
+                                                            Lose your focus and
+                                                            you may miss the shot!

@@ -1,0 +1,50 @@
+GAME PROGRESS                                                       89%       111
+
+23 Check the answer
+   Now you need to update the body of
+                                                                     Wow! Tina has gotten all
+      the on_mouse_down(pos) function
+                                                                      the answers correct!
+      from Step 21. Add the following code
+      that will run if the player clicks on a
+      box with the correct answer.
+
+def on_mouse_down(pos):
+     index = 1
+     for box in answer_boxes:
+           if box.collidepoint(pos):
+                print("Clicked on answer " + str(index))
+                 if index == question[5]:
+                      print("You got it correct!")                                    The item at position five
+                      correct_answer()                                                in each question list is the
+                                                                                      number that corresponds
+           index = index + 1                                                          to the correct answer.
+
+    This checks if the player
+    has clicked on the correct
+    answer box.
+                                                                                      One more point and
+                                                                                       the game is over!
+
+24 End   the game
+   If the player clicks on a wrong answer, the game should
+      end. Update the code under def on_mouse_down(pos)
+      one last time and use an else statement to run the
+      game_over() function if the player selects a wrong
+      answer. Add the code shown in black below.
+
+def on_mouse_down(pos):
+     index = 1
+     for box in answer_boxes:
+           if box.collidepoint(pos):
+                print("Clicked on answer " + str(index))
+                 if index == question[5]:
+                      print("You got it correct!")
+                      correct_answer()
+                 else:
+                      game_over()
+           index = index + 1
+
+                                                This block runs if the box
+                                                clicked on doesn’t hold
+                                                the correct answer.

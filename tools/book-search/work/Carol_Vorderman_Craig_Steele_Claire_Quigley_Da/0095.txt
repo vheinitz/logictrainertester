@@ -1,0 +1,46 @@
+GAME PROGRESS                                              83%                 93
+       EXPERT TIPS
+ Animate function
+ animate() is a very useful function in Pygame                   ▪ on_finished= This is an optional parameter that
+
+ Zero’s library. It makes it really easy to move an                allows you to pass a function that you want to call
+ Actor on the screen. This function takes a                        once the animation is finished. In Red Alert, you
+ number of parameters:                                             use this parameter to end the game when the star
+                                                                   reaches the bottom of the screen.
+ ▪ The first parameter is always the Actor that you              ▪ The final parameters are the properties of the Actor
+   want to animate.                                                you want to animate. There can be more than
+ ▪ tween= This optional parameter can be used to                   one property. For example, if the Actor is at (0, 0)
+   change the behavior of the animation.                           coordinates and you want to move it to (100, 0), the
+                                                                   animate() function will move the Actor to the right by
+ ▪ duration= This parameter is the number of seconds
+                                                                   100 pixels. This move will be smooth and will last as
+   the animation lasts for.                                        many seconds as you set the duration parameter.
+
+   (0,0)                                                                                   (100, 0)
+
+
+
+
+20 Handle    mouse clicks
+   It’s time to create a function that allows
+                                                              game_over = True
+
+      the player to interact with the game.
+      Use Pygame Zero’s on_mouse_down()                 def on_mouse_down(pos):
+      function to do this. This function is called
+                                                              global stars, current_level
+      whenever the player clicks the mouse.
+      Then use the collidepoint() function to                 for star in stars:
+      check if the player has clicked on a star.                     if star.collidepoint(pos):
+      If they have, the code will check whether
+      that star was red or not. Type this code                             if "red" in star.image:
+      under the lines from Step 19.                                              red_star_click()
+                                                                           else:
+                           This function is                                      handle_game_over()
+                       called if the player
+                       clicks on a red star.
+                                                                                                         This checks if the
+                                                                                                         player has clicked
+                                                        This function is called if                                on a star.
+                                                      the player clicks on a star
+                                                                 that is not red.

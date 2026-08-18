@@ -1,0 +1,43 @@
+GAME PROGRESS                                         50%             187
+
+15 Enter  the dungeon
+   If your code is free of errors, you’ll                                 Pygame Zero Game
+      see a screen similar to the one
+      shown here. You’ll see the hero and
+      the dungeon, but you won’t be able
+      to move the hero around yet. The
+      dragons and eggs will be added
+      in the next step.
+
+
+
+
+                The hero appears at the
+                      starting position.
+
+
+
+
+16 Draw the lairs
+   You now need to define the draw_lairs() function. It takes a
+      parameter called lairs_to_draw. This function loops over the
+      three lairs—easy_lair, medium_lair, hard_lair—and draws a
+      dragon for each of them. If the eggs are not currently hidden,
+      they are drawn as well. To get the Actors from the dictionaries of                 Don’t forget to save
+      all the lairs, type the name of the dictionary followed by the key in                  your work.
+      square brackets. Replace pass under draw_lairs(lairs_to_draw)
+      from Step 13 with this code.
+
+                                      else:
+                                           hero.draw()
+                                           draw_lairs(lairs)
+                                           draw_counters(eggs_collected, lives)
+    This draws a dragon
+      Actor for each lair.                                                                            This loops over
+                                def draw_lairs(lairs_to_draw):                                        each lair.
+
+     This draws the eggs              for lair in lairs_to_draw:
+  for each lair if they are                lair["dragon"].draw()
+   not currently hidden.
+                                           if lair["egg_hidden"] is False:
+                                               lair["eggs"].draw()

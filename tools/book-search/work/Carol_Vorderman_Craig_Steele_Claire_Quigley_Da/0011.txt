@@ -1,0 +1,22 @@
+beginning of this book before moving on to the more complex games as the book
+progresses. By following the step-by-step guides, you’ll find out how professional
+coders think when they’re building a computer game. Follow those steps carefully and
+you’ll have your own games up and running in no time. Then, if you really want to push
+yourself, you can try tweaking the code to make your games unique.
+
+Everybody, whether a beginner or a pro, makes mistakes. Nothing frustrates a coder
+more than the bugs that manage to creep into their programs. If something goes
+wrong in one of your games, go back over your code and check it all carefully. There
+are hints and tips throughout the book that will help you do this. Most importantly,
+don’t get disheartened—finding and fixing errors in your code is all part of being a
+programmer. The more practice you get, the fewer bugs your code will contain, and
+the quicker you’ll catch the little ones that still appear.
+
+Most importantly, have fun! Once you’ve completed the games, you can show them off
+to your friends and family—they’ll be amazed by what you’ve managed to make. This
+book is packed with games to suit every audience, and we hope you enjoy building and
+playing them as much as we enjoyed creating them for you.
+
+
+
+                                                               Have fun coding!

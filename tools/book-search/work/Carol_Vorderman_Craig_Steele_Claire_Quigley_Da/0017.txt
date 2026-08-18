@@ -1,0 +1,56 @@
+GAMING IN PYTHON                            15
+Python modules                                                          EXPERT TIPS
+Python has bundles of code called “modules”                        Downloading modules
+that help you complete common coding
+tasks. You can use these modules by                                Python comes with several built-in modules
+                                                                   for developing games, such as Pyglet. But
+importing them into your programs.
+                                                                   some other modules, like Pygame, have to
+Here are some Python modules that you                              be downloaded separately.
+might find useful.
+
+▽ Pygame
+Pygame is designed for writing games in Python.
+With this module, you can easily add and control
+game characters, update scores and timers, use                           ◁ Pygame Zero
+special animations and graphics, and use gamepads
+                                                                         Pygame Zero is a great module for
+and joysticks with your games. It is not a built-in
+                                                                         beginner game programmers. It’s a
+Python module, so it needs to be installed separately.
+                                                                         simplified version of Pygame, which makes
+                                                                         it even easier to get started by hiding some
+                                                                         of Pygame’s more complicated features. It
+                                                                         comes with several tools that are useful for
+                                                                         beginners, but it’s also powerful enough
+                                                                         to build some impressive games.
+
+
+
+
+                                                         ▷ Random
+                                                         This module can pick a random
+                                                         number or shuffle a list into a
+                                                         random order. It is great for
+▷ Math                                                   adding an element of chance
+                                                         to a game. Use it when you
+Math is a standard Python
+                                                         want to simulate rolling dice
+module that can be used to
+                                                         or when choosing a random
+perform simple calculations
+                                                         enemy for the player to face.
+in games. However, you might
+need to use other modules for
+trickier calculations.
+
+
+                                                                                           ◁ Tkinter
+                                                                                           This tool is used to build
+               ◁ Time                                                                      simple graphics in games
+               This module provides tools to                                               to create Graphical
+               work with time and dates in                                                 User Interfaces (GUIs,
+               a program. For example, you                                                 pronounced “goo-eys”)
+               might need to calculate how                                                 that let users interact
+               many seconds have passed                                                    with, and control,
+               since a game started.                                                       Python programs.

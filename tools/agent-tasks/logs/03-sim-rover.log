@@ -1,0 +1,9 @@
+`src/games/sim-rover.js` ist umgesetzt (nur diese Datei).
+
+**Bedienung A:** Felder nacheinander antippen (orthogonale Nachbarn). Letzter Tipp auf den Knochen wertet aus. Begründung im Dateikopf: näher am KABC-„kürzester Weg“, kein Echtzeit-Lauf.
+
+**Karten:** Rechteckgitter, Start in einer Ecke, Ziel gegenüber/zufällig. Hindernisse nur, wenn BFS danach noch einen Weg findet. Hash gegen direkte Wiederholung.
+
+**Stufen 1–5:** 4×4 → 7×7, mehr Steine, ab Stufe 3 nur Manhattan/BFS-Minimum; Stufe 5 optional Zwischenstern.
+
+**Kontrakt:** `init`/`render`/`dispose`/`actions`/`scoring: 'count'`, `instruction`, `settingsSchema` (`sekProFeld` × Mindestschritte), `countRound`/`resultScreen`/`bar`, Timer + `_ready`. Fehlerfeedback nennt die Mindestschritte, nicht den ganzen Lösungsweg.

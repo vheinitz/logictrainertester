@@ -1,0 +1,51 @@
+GAME PROGRESS                                                   67%                    75
+
+ 9 Draw the Actors
+   Now use the draw() function to display the dots and their number
+       labels on the screen. The function screen.draw.text() expects a
+       string as an input, but since the value stored in number is an integer,
+       you need to use the str() function to convert it into a string. Add this           This sets the background
+       code below the commands from Step 8.                                               color to black.
+
+                                 dots.append(actor)
+
+
+                           def draw():
+                                 screen.fill("black")
+This creates a variable          number =      1                                                             These lines draw
+  to keep track of the                                                                                       each dot on the
+current number label.            for dot in dots:                                                            screen along with
+                                                                                                             a number label.
+                                      screen.draw.text(str(number), \
+                                                             (dot.pos[0], dot.pos[1] + 12))
+                                      dot.draw()
+                                      number = number + 1
+
+
+
+       Draw the lines
+10 Next add this code to the end of the draw() function to draw the
+       lines. Until the player clicks on the first two dots, the lines list will
+       remain empty, so the function won’t draw any lines on the screen.
+
+            number = number + 1
+      for line in lines:
+            screen.draw.line(line[0], line[1], (100, 0, 0))
+
+
+
+        EXPERT TIPS
+  Line function
+  This function draws a line between two points
+                                                                     screen.draw.line(x, y, (0, 0, 100))
+  on the screen—starting at point x and ending
+  at point y. You can change the color of the line
+                                                                     These numbers can change
+  to red (R), green (G), blue (B), or even a mix of                     depending on the color
+  all three (RGB). Create a color by assigning                          you choose for the line.
+  values between 0 (none of the color) and                                                              How about royal blue?
+  255 (the maximum amount of the color). For                                                            Or pink? Better check
+  example, (0, 0, 100) sets the color of the line to                                                   pages 114–115 for their
+  blue. You can use some colors by typing in                                                                 RGB values.
+  their names, but RGB values let you use lots of
+  different shades.

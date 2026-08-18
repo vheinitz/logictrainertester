@@ -1,0 +1,41 @@
+HOW TO BUILD BIG QUIZ                      101
+
+                                                            Are you ready for
+                                                              the big quiz?
+       The game starts with ten
+       seconds on the timer. If it
+   reaches zero, the game ends.
+
+
+
+
+                                                        Bring it on!
+
+
+
+
+the
+France?                              7
+                                                      The possible answers
+
+
+
+
+                   Paris
+                                                      are displayed in orange
+                                                      boxes. You can change
+                                                      them to a different color
+                                                      if you like.
+
+
+
+
+             Tokyo
+                                                ◁ Quiz time!
+                                                This program uses a
+                                                Graphical User Interface
+                                                (GUI, pronounced “goo-ey”),
+                                                which is the visible part of a
+                                                program that a user interacts
+                                                with. In this game, you’ll build
+                                                a GUI using Pygame Zero.

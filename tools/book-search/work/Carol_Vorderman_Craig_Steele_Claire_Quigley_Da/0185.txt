@@ -1,0 +1,58 @@
+GAME PROGRESS                                          19%                183
+
+  5 Declare the constants
+    You need to declare the constants at the start of the game.
+       In this game, you’ll use constants to determine many things,
+       including the hero’s starting position and the number of
+       eggs the player needs to collect to win the game. All of these
+       constants will be used later in the code. Type this under the                              Don’t forget to save
+       line from Step 4.                                                                              your work.
+
+                             import math
+
+
+                            WIDTH = 800
+                            HEIGHT = 600
+      These constants
+     define the size of     CENTER_X = WIDTH / 2
+   the game window.         CENTER_Y = HEIGHT / 2                                            This sets the font
+                                                                                             color to black.
+                            CENTER = (CENTER_X, CENTER_Y)
+This sets the number        FONT_COLOR = (0, 0, 0)
+      of eggs needed                                                                         This is the distance in
+    to win the game.        EGG_TARGET = 20                                                  pixels at which a dragon
+                                                                                             can attack the hero.
+                            HERO_START = (200, 300)
+
+   This sets the hero’s     ATTACK_DISTANCE = 200
+  position at the start     DRAGON_WAKE_TIME = 2
+          of the game.
+                            EGG_HIDE_TIME = 2                                                This is the number of
+                                                                                             seconds the dragons
+                            MOVE_DISTANCE = 5                                                stay awake.
+
+                            This sets the number           This is the number of
+                            of seconds the eggs            pixels the hero moves
+                            are hidden.                    by with each key press.
+
+
+
+
+  6 Declare  the global variables
+    After the constants, you need to declare the global variables. They’re a lot
+        like constants because they’re usually declared at the top of the program.
+        However, unlike constants, their values change when they’re used                              Check page 74 to
+        throughout the program to track the game’s progress. Type this code next.                     learn more about
+                                                                                                       global variables.
+                             MOVE_DISTANCE = 5
+
+
+                             lives = 3                                     This variable
+    This tracks the                                                        tracks the
+   number of eggs            eggs_collected = 0                            number of lives
+         collected.                                                        remaining.
+                            game_over = False
+
+      This variable         game_complete = False                          This variable
+       tracks if the         reset_required = False                        tracks if the
+   player has won.                                                         game is over.

@@ -1,0 +1,54 @@
+FIXING BUGS                  45
+Syntax errors
+The structure of statements used in a coding
+language is known as syntax. A syntax error means
+that you’ve typed something wrong. You could have                                          e
+missed a part of a statement or misspelled a word.
+Syntax errors are the easiest mistakes to fix. Go to the
+line with the error and change what you’ve mistyped.
+
+
+                                                                                       H       l       l      o         !
+▷ Mistakes to                       print(score
+watch out for                                                               The closing
+Do your opening and                                                         parenthesis is missing.
+closing parentheses match?
+Are you missing a quotation         horse = Actor("horse)                   The closing quotation
+mark? Have you spelled                                                      mark is missing.
+everything correctly? These                                                 This is a spelling mistake. It’s supposed
+are the main causes of              hrse.draw()                             to be referencing the variable named
+syntax errors.                                                              “horse,” so it should be horse.draw().
+
+
+
+Indentation errors                                                    if play:
+
+Python uses indentation to show where                                 horse.draw()
+blocks of code begin and end. Indentation
+                                                                                 Not leaving any spaces here
+errors are displayed if you make a mistake                                       will cause an indentation error.
+with the structure of the code. If a line of
+code ends with a colon, you must indent
+                                                                      if play:
+the next line. Python automatically
+                                                                           horse.draw()
+indents after colons, but you can also
+do it manually by adding four spaces.                                          Indenting the code by adding
+                                                                               four spaces will fix this error.
+
+
+
+                                        The different indents tell
+                   Each indent is       Python which block each
+                   four spaces.         line of code belongs to.
+
+
+ Block 1                                                             ◁ Indent each new block
+                   Block 2                                           Python programs usually have blocks of code
+                                                                     within other blocks, such as an if statement inside
+                                        Block 3                      a loop. Every line in a block must be indented by the
+                                                                     same amount. This can be done for each indent by
+                   Block 2, continuation                             pressing the Space bar four times. Even though
+                                                                     Python automatically indents after colons, you should
+ Block 1, continuation
+                                                                     get used to checking if the indentation is correct.

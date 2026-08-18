@@ -1,0 +1,47 @@
+Звуки                                                                             271
+
+
+mixer не будет готов к работе. Для этого нам потребуется примерно такой код, который
+представлен в листинге 19.1.
+
+ Листинг 19.1. Добавление звука к Pygame-программе
+ import pygame, sys
+ pygame.init()            Инициализируем библиотеку
+ pygame.mixer.init()      Pygame и модуль mixer
+                                                        Создаем Pygame-окно
+
+ screen = pygame.display.set_mode([640,480])
+ pygame.time.delay(1000)                 Ждем одну секунду, пока инициализируется
+                                               модуль mixer
+ splat = pygame.mixer.Sound("splat.wav")                      Создаем звуковой объект
+ splat.play()
+                      Воспроизводим звук
+ running = True
+ while running:
+     for event in pygame.event.get():
+                                              Обычный цикл Pygame-событий
+         if event.type == pygame.QUIT:
+             running = False
+ pygame.quit()
+
+Запустите программу, чтобы посмотреть, как она работает.
+Теперь попробуем воспользоваться модулем mixer.music для воспроизведения музыки.
+Для этого в листинге 19.1 нужно изменить всего пару строк (листинг 19.2).
+
+ Листинг 19.2. Воспроизведение музыки
+ import pygame, sys
+ pygame.init()
+ pygame.mixer.init()
+
+ screen = pygame.display.set_mode([640,480])
+ pygame.time.delay(1000)
+
+ pygame.mixer.music.load("bg_music.mp3")        Эти две строки были изменены
+ pygame.mixer.music.play()
+
+ running = True
+ while running:
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             running = False
+ pygame.quit()

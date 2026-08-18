@@ -1,0 +1,39 @@
+Искусственный интеллект                                                         21
+
+
+          if self.robot.rotation == targetOrientation:
+              self.robot.goForth()
+          else:
+              leftTurnsNeeded = (self.robot.rotation - targetOrientation) % 4
+              if leftTurnsNeeded <= 2:
+                  self.robot.turnLeft()
+              else:
+                  self.robot.turnRight()
+
+Попробуем выступить против робота CircleAI. Я уверен, что все наши усилия будут воз-
+награждены, и победа останется за нами! Сохраните этот искусственный интеллект под
+именем morecomplicatedai.py и снова запустите игру Python Battle:
+
+ >>>
+ Введите красный AI: circleai
+ Введите синий AI: morecomplicatedai
+ .
+ .
+ .
+ Красный выигрывает с показателем здоровья 10!
+
+
+
+
+                                                                                 Что?!
+                                                                                 CircleAI
+                                                                                  снова
+                                                                                выиграл!
+
+
+
+
+Полагаю, для победы над роботом CircleAI следует пересмо-
+треть нашу стратегию. Робота CircleAI сложно победить, так
+как в него сложно попасть. При попытке атаковать его сбоку
+или сзади он уходит до того, как у вашего робота появляется

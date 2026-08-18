@@ -1,0 +1,56 @@
+22          G E T T I N G S TA R T E D
+
+
+
+Your first program                                                EXPERT TIPS
+                                                             Type carefully
+After you’ve installed Python, Pygame,                       Make sure you type all your code
+and Pygame Zero, follow these steps                          exactly as it’s written in this book.
+to write your first Python program.                          The grid will help you get it all correct.
+                                                             A tiny typo in just one line of code can
+This simple program will display a                           cause a whole program to crash.
+message on the screen.
+
+
+How it works
+This Python program will check if everything                                     Start
+
+is set up properly so you can start building
+some games. It uses Pygame Zero to display
+the word “Hello” on the screen.
+                                                                          Draw a message
+                                                                           on the screen
+
+ 1 Set up a folder
+   Before you start, create a folder called python-games
+     somewhere easy to find, such as on your Desktop.
+     Create another folder within your python-games
+     folder and call it hello.                                                   End
+
+
+                       Desktop                             △ Hello flowchart
+                                                           When building a game, programmers use
+     python-games                                          diagrams called flowcharts to plan their game
+        hello                                              and show how it works. Each step is shown in
+                                                           a box, with an arrow leading to the next step.
+                                                           More complicated games might have steps
+                                                           with questions and more than one arrow
+                                                           leading to different boxes, depending on the
+                                                           answer to the question.
+
+
+
+
+ 2 Start IDLE
+   Open IDLE on your
+                             File
+                                                                        Hello!
+     computer. From the          New File
+     File menu, choose
+     New File to create an       Open...
+     empty editor window
+     where you can write         Open Module...
+     your program.
+                                 Recent Files       ▶
+
+                                 Class Browser

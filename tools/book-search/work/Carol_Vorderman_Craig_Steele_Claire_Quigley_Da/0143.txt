@@ -1,0 +1,63 @@
+GAME PROGRESS                                                     13%             141
+Hit the dance floor                                               1 Create a file in IDLE
+                                                                    Open IDLE and create an empty
+Now that you’ve worked out how the                                       file by going to the File menu and
+game will work, it’s time to put your dancing                            choosing New File.
+shoes on and get started! Begin by setting
+                                                                  File
+up and saving a new file, and then import
+the Python modules you will need in this                           New File
+game. You will then use different Python
+                                                                   Open...
+functions to create the game.
+
+
+
+ 2 Save your game
+   Go to the python-games folder you made
+                                                                  Save As:
+                                                                  Tags:
+                                                                                 dance.py
+
+     earlier. Inside this folder, create another folder
+     called dance-challenge and save your IDLE file
+                                                                  Where:            dance-challenge
+     in it as dance.py.
+
+
+                                                                                               Cancel             Save
+                      Nice save!
+
+                                                                                                Create this folder inside
+                                                                                                the python-games folder.
+
+
+
+
+ 3 Set up an image folder
+   This game uses images of a dancer, a stage,                    4 Put the images into the folder
+                                                                    Find the Dance Challenge files in the Python
+     and eight colored squares with an arrow inside                      Games Resource Pack (dk.com/computercoding),
+     each. You’ll need to create a new folder, called                    and copy them into the images folder. Leave the
+     images, inside your dance-challenge folder. This                    .ogg audio file for the moment.
+     folder has to be inside the same folder as your
+     dance.py IDLE file.                                                                    dance-challenge
+                                                                         dance.py
+                        dance-challenge                                  images
+                                                                            dancer-down.png
+     dance.py
+                                                                            dancer-left.png
+     images
+                                                                            dancer-right.png
+                                                                            dancer-start.png
+                                                                            dancer-up.png
+                                                                            down-lit.png
+                                                                            down.png
+                                                                            left-lit.png
+                                                                            left.png
+                                                                            right-lit.png
+                                                                            right.png
+    Within your dance-challenge                                             stage.png
+    folder, right-click and choose        There should be a                 up-lit.png
+    New Folder to create the               total of 14 files in             up.png
+    images folder.                        the images folder.

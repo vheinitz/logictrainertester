@@ -1,0 +1,46 @@
+168          HAPPY GARDEN
+
+
+28 Test run
+   Save your IDLE file and run it from the                                    Pygame Zero Game
+      command line in the Command Prompt
+      or Terminal window. Try moving the cow            Garden happy for: 23 seconds
+      around and water the wilted flowers.
+      If a flower remains wilted for more than          GARDEN UNHAPPY—GAME OVER!
+      ten seconds, you will see a screen like
+      the one shown here.
+
+
+
+
+                                 Code testing makes
+                                  me really giddy!
+
+
+
+
+29 Added    menace
+   So far, keeping the garden happy has been difficult                     index = index + 1
+      but not dangerous. What if the flowers start mutating         return
+      into scary fangflowers that move around the garden
+      trying to zap the cow? Let’s add some functions to
+      control the fangflower. Use placeholders for now        def check_fangflower_collision():
+      and define them later on. Type this code above                pass
+      the reset_cow() function you defined in Step 21.
+
+                                                              def velocity():
+              Where did these                                       pass
+               weird flowers
+                come from?
+                                                              def mutate():
+                                                                    pass
+
+
+                                                              def update_fangflowers():
+                                                                    pass
+
+
+                                                              def reset_cow():
+                                                                    global game_over
+                                                                    if not game_over:
+                                                                           cow.image = "cow"

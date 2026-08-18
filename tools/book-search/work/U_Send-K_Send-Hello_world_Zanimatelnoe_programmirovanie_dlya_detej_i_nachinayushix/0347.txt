@@ -1,0 +1,54 @@
+Файловый ввод и вывод                                                           347
+
+
+ def replace_letters(string, locations, letter):
+     new_string = ''
+     for i in range (0, len(string)):                Заменяем
+                                                     черточку
+         if i in locations:                          буквой, если
+             new_string = new_string + letter        игрок угадал
+         else:                                       ее правильно
+             new_string = new_string + string[i]
+     return new_string
+
+ def dashes(word):
+     letters = "abcdefghijklmnopqrstuvwxyz"
+     new_string = ''
+                                                     Ê Заменяем буквы
+     for i in word:                                     черточками
+         if i in letters:                               в начале
+             new_string += "-"                          программы
+         else:
+             new_string += i
+     return new_string
+                                                                    Связываем
+ class MyWidget(QtGui.QMainWindow, form_class):                обработчики
+      def __init__(self, parent=None):                         событий
+          QtGui.QMainWindow.__init__(self, parent)
+          self.setupUi(self)
+          self.btn_guess.clicked.connect(self.btn_guess_clicked)
+          self.actionExit.triggered.connect(self.menuExit_selected)
+   Части self.pieces = [self.head, self.body, self.leftarm, self.leftleg,
+человечка             self.rightarm, self.rightleg]
+          self.gallows = [self.line1, self.line2, self.line3, self.line4]
+          self.pieces_shown = 0
+          self.currentword = ""                               Части виселицы
+          f=open("words.txt", 'r')
+          self.lines = f.readlines()
+                                       Получаем список слов
+          f.close()
+          self.new_game()
+                                                   Случайным образом выбираем
+                                                   слово из списка
+    def new_game(self):
+        self.guesses.setText("")
+        self.currentword = random.choice(self.lines)
+        self.currentword = self.currentword.strip()
+        for i in self.pieces:
+            i.setFrameShadow(QtGui.QFrame.Plain) Скрываем человечка
+            i.setHidden(True)
+                                                        Вызываем функцию,
+        for i in self.gallows:                          заменяющую буквы
+            i.setFrameShadow(QtGui.QFrame.Plain)        черточками
+        self.word.setText(dashes(self.currentword))
+        self.pieces_shown = 0

@@ -1,0 +1,48 @@
+GAME PROGRESS                                             45%               125
+     EXPERT TIPS                                                  13 Reacting to mouse clicks
+                                                                     Now you need to define two event handler
+Coordinates                                                            functions—on_mouse_down() to make
+                                                                       the balloon rise if the player pushes down
+In most programming languages, the coordinates                         on the mouse button, and on_mouse_up()
+(0, 0) refer to the top-left corner of the screen.                     to let the balloon fall if they release the
+Subtracting 50 pixels from the y-coordinate in                         button. Add this code under what you
+on_mouse_down() makes the balloon go 50                                typed in Step 11.
+pixels closer to 0 on the y-axis, which is the top
+of the screen. Therefore, the balloon goes up.                         else:
+                                                                            display_high_scores()
+
+
+                                                                   def on_mouse_down():
+                                   I can’t believe this                global up
+                                  is actually working!
+                                                                       up = True
+                                                                       balloon.y -= 50
+
+
+                                                                   def on_mouse_up():
+                                                These functions        global up
+                                              handle the mouse
+                                                button presses.        up = False
+
+
+
+
+     EXPERT TIPS
+Shorthand calculations
+With Python, you can perform a calculation
+
+
+                                                                            ?
+using a variable and then store the result
+in the same variable. For example, to add
+1 to a variable called a, you would usually
+write: a = a + 1.                                                                           Quick! What’s 4 + 4?
+
+A shorter way to write this calculation and
+still get the same result is a += 1. You can
+also do this with subtraction, multiplication,
+and division. For example:
+
+a = a - 1 is the same as a -= 1
+a = a / 1 is the same as a /= 1
+a = a * 1 is the same as a *= 1

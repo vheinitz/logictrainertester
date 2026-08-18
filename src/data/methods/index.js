@@ -71,7 +71,8 @@ export const CATEGORIES = {
   'raum-konstruktion': { icon: '📐', de: 'Raum & Konstruktion', ru: 'Пространство и конструирование', en: '' },
   'sprache':           { icon: '💬', de: 'Sprache', ru: 'Речь', en: '' },
   'motorik-rhythmus':  { icon: '🥁', de: 'Motorik & Rhythmus', ru: 'Моторика и ритм', en: '' },
-  'wissen-alltag':     { icon: '🌍', de: 'Wissen & Alltag', ru: 'Знания и повседневность', en: '' }
+  'wissen-alltag':     { icon: '🌍', de: 'Wissen & Alltag', ru: 'Знания и повседневность', en: '' },
+  'erziehung':         { icon: '🤝', de: 'Erziehung & Verhalten', ru: 'Воспитание и поведение', en: '' }
 };
 
 const byId = new Map(methods.map(m => [m.id, m]));

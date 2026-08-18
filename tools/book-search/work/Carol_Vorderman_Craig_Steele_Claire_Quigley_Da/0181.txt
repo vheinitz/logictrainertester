@@ -1,0 +1,28 @@
+HOW TO BUILD SLEEPING DRAGONS                             179
+
+                             Because I like to
+Why do you sleep              fight knights!
+during the day?
+
+
+
+
+                                                     The dragons breathe
+                                                     fire when they wake up.
+
+
+
+
+                                                     The dungeon
+                                                     background sets the
+                                                     scene for your quest.
+
+
+
+
+                                                 ◁ Dragons in a dungeon
+                                                 This game uses built-in
+                                                 Pygame functions to animate
+                                                 the Actors and Python’s
+                                                 dictionaries to keep track of
+                                                 the dragons and their eggs.

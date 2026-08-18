@@ -1,0 +1,50 @@
+36            LEARNING THE BASICS
+
+
+
+Playing with loops
+When you’re coding a game, you often need
+to run the same bit of code several times,                                 Just three more laps.
+but it would be pretty boring if you had to                                    I mean loops!
+
+type it in every single time. Luckily, you can
+use a loop to run the same block of code
+over and over again. There are many
+different types of loops.
+
+“For” loops
+When you know exactly how many times you
+                                                              Loop variable
+want a loop to repeat, you can use a for loop. In
+                                                              The loop variable keeps track of how many
+this example, the code prints “You are the high               times the loop has run so far. At the start of the
+scorer!” ten times. Try out the code for yourself             loop, it’s equal to the first number in the range.
+in the shell window.                                          The second time around, it’s equal to the
+                                                              second number in the range, and so on. Once
+ >>> for count in range(1, 11):                               it completes the second-to-last number in the
+                                                              range, the loop stops.
+           print("You are the high scorer!")
+
+
+
+            This is the                 The code that gets
+            loop variable.              repeated is known
+                                                                     EXPERT TIPS
+                                        as the “loop body.”    Range
+                                                               In Python, the word range followed
+                                                               by two numbers in parentheses stands
+                                        How are you
+                                        doing that?            for “all the numbers in the list from the
+                                                               first number to the second-to-the-last
+                                                               number.” Therefore, range(1, 5)
+                                                               contains the numbers 1, 2, 3, and 4,
+                                                               but not 5, so the loop runs four times.
+
+
+
+
+Loop body
+The block of code that gets repeated in a loop is
+called the loop body. You must always indent the
+commands in the body four spaces from the
+beginning of the line that starts the for loop.

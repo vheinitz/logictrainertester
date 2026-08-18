@@ -1,0 +1,11 @@
+`src/games/sim-dreiecke.js` ist umgesetzt (kein Stub mehr).
+
+- Raster mit ▲/▼ und Farbe, Vorlage + Feld + Vorrat  
+- Antippen/Ziehen über `data-zieh` / `data-ablage`, Action `verschiebe`  
+- Drehen 180° (`drehe`) am aufgenommenen Stück  
+- Besetzter Platz: Bewohner zurück in den Vorrat  
+- Stufen 1–5, Zeitbalken, `countRound` / `resultScreen`  
+- Texte `{de,ru,en}`, Setting `sekProTeil`  
+- `scoring = 'count'`
+
+Lokaler Check: `ok count [ 'verschiebe', 'drehe', 'restart' ]`.

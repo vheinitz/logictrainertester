@@ -1,0 +1,48 @@
+102          BIG QUIZ
+
+
+How it works                                         Start
+                                                                      ◁ Big Quiz flowchart
+                                                                      The main body of this program is a loop
+All the questions and possible                                        that checks if the player has selected the
+answers are stored in a list. The                                     correct answer within the given time. If
+program uses the pop() function                                       they have, the program moves to the next
+                                                                      question in the list and the timer is reset.
+to get the first question and                  Draw the GUI on
+                                                                      If the answer is wrong, the game ends and
+its possible answers from the                    the screen
+                                                                      the final score is displayed.
+list and then displays them.
+The player’s score is stored in
+a variable and increases with
+each correct answer. The final                  Create a list of
+                                                  questions
+score is displayed at the end
+of the game.
+
+
+                                                Are there any
+                                               questions left in
+                                 N                the list?
+
+                                                             Y
+
+                                             Display the question                           Reset timer
+                                             at the top of the list
+
+
+
+
+                                 N                                    Y
+                                                Is the player’s                            Increase score
+   Display final score
+                                               answer correct?                                 by one
+
+
+
+
+          End
+
+
+                             Umm... I have
+                              a question!

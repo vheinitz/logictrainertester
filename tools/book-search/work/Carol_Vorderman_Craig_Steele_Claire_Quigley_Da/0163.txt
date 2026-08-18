@@ -1,0 +1,59 @@
+GAME PROGRESS                                                  33%   161
+
+10 Draw the garden
+   Now that you’ve set up those
+                                                   def draw():
+                                                        global game_over, time_elapsed, finalized
+      variables, you need to draw the
+      garden and the cow. There are no                  if not game_over:
+      flowers or fangflowers to draw yet,
+                                                             screen.clear()
+      but add the code that will draw
+      them when they’re generated. Add                       screen.blit("garden", (0, 0))
+      these lines immediately after the                      cow.draw()
+      code from Step 9.
+                                                             for flower in flower_list:
+                      This code draws the                        flower.draw()
+                       cow on the screen.
+                                                             for fangflower in fangflower_list:
+                                                                 fangflower.draw()
+                      This code will draw
+                           all the flowers.                  time_elapsed = int(time.time() - start_time)
+                                                             screen.draw.text(
+                            This will draw
+                      all the fangflowers.                       "Garden happy for: " +
+                                                                 str(time_elapsed) + " seconds",
+                        This code checks
+                                                                 topleft=(10, 10), color="black"
+                     how long the game
+                    has been running for.                    )
+
+
+
+
+11 Time    to test
+   It’s time to take a look at your garden!
+                                                  pgzrun
+
+      Save the IDLE file and then run it from
+                                                                     Type this in the Command Prompt
+      the command line in the Command                                or Terminal window and then
+      Prompt or Terminal window.                                     drag and drop the garden.py file.
+
+
+
+
+12 Get  a sneak peek!
+   If there are no mistakes in your code, you                                      Pygame Zero Game
+      should see a screen like this. If something’s
+      wrong, don’t worry! Just use your debugging                Garden happy for: 0 seconds
+      skills to check that you’ve spelled everything
+      correctly and used the correct number of
+      spaces for indentation.
+
+
+
+
+                                       You should see the
+                                      garden and the cow
+                                   holding a watering can.

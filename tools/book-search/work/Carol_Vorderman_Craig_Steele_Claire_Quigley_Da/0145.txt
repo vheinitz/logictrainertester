@@ -1,0 +1,61 @@
+GAME PROGRESS                                              35%            143
+
+9 Add the Actors
+  Now it’s time to define the
+                                           dancer = Actor("dancer-start")
+                                           dancer.pos = CENTER_X + 5, CENTER_Y - 40
+                                                                                                           When the game
+                                                                                                           starts, the
+     Actors and set their starting                                                                         dancer appears
+     positions. Add this code under                                                                        in the starting
+     what you typed in Step 8.                                                                             position in the
+                                           up = Actor("up")                                                center of the
+                                                                                                           game window.
+                                           up.pos = CENTER_X, CENTER_Y + 110
+                                           right = Actor("right")
+                                           right.pos = CENTER_X + 60, CENTER_Y + 170
+
+       This code will arrange the          down = Actor("down")
+       colored squares in a cross          down.pos = CENTER_X, CENTER_Y + 230
+        shape below the dancer.
+                                           left = Actor("left")
+                                           left.pos = CENTER_X - 60, CENTER_Y + 170
+
+
+                                                                These lines tell Python which global
+                                                          variables you want to use in this function.
+
+10 Draw    the Actors
+   It’s time to see what your game is
+                                           def draw():
+
+     going to look like. You can display       global game_over, score, say_dance
+     your Actors on the screen using           global count, show_countdown
+     Pygame Zero’s built-in draw()
+                                               if not game_over:
+     function. Type this in next.                                                          This command is only run
+                                                   screen.clear()                          if the game isn’t over.
+                                                   screen.blit("stage", (0, 0))
+                     This line clears              dancer.draw()
+              previous items drawn.
+                                                   up.draw()                               Use this function to
+                                                                                           add a background in
+                                                   down.draw()                             the game window.
+                These lines draw all               right.draw()
+                 the Actors in their
+                  current positions.               left.draw()
+                                                   screen.draw.text("Score: " +
+                                                                         str(score), color="black",
+                     This prints the
+                score in the top-left                                    topleft=(10, 10))
+               corner of the screen.
+                                               return
+
+
+
+
+11 Run the code
+   Save all the changes you’ve made, and then go                    Check pages 24–25 if you
+     to the command line in the Command Prompt or                  need to remind yourself how
+     Terminal window. Type in pgzrun and drag the                      to run your games.
+     dance.py file into the window. Then press Enter.

@@ -1,0 +1,63 @@
+42            LEARNING THE BASICS
+
+
+Making your own functions                                                   EXPERT TIPS
+There isn’t a built-in function for everything,                      Naming your functions
+so you need to know how to write, or “define,”
+your own. A function should have one clear                           It’s important to give your functions
+                                                                     accurate names that explain what they do.
+purpose and a name that describes what it
+                                                                     This will help you understand the code.
+does. Follow these steps to create a function                        Names can contain letters, numbers, and
+that calculates a player’s score.                                    underscores, but they should always begin
+                                                                     with a letter. You can’t use spaces, so if
+                                                                     there are multiple words in the name
+     Define the function
+ 1 Let’s create a function to keep score in a game.                  of your function, separate them by using
+                                                                     underscores instead. For example, if you
+     Open an editor window in IDLE and save it as                    were creating a function to end the game,
+     functions.py. Then type in the code below,
+                                                                     you could name it game_over().
+     making sure you get all the indents right.
+     After each step, save the file, go to the
+     Run menu, and click Run Module.
+
+
+                                  def fruit_score():                                  This function doesn’t
+      Use the def keyword                                                             take a parameter.
+      to define a function.            print(10)
+
+                                                                                      This is the code
+                                  fruit_score()                                       you’re storing in
+     This calls the function,                                                         the function.
+          running the code
+         you’ve stored in it.     10                     The score is displayed
+                                                         in the shell.
+
+
+                                                                                     The function now
+                                                                                     takes a parameter.
+
+
+ 2 Add  some parameters
+   The function works well so far, but what
+                                                    def fruit_score(fruit):
+                                                         if fruit == "apple":
+     if you want to have different scores for
+     different fruits you collect? For the                    print(10)
+     function to know which score to print,                                                           These lines give
+                                                         elif fruit == "orange":                      a value to the
+     it needs to know which fruit you have
+                                                                                                      parameter.
+     collected. Imagine you get ten points                    print(5)
+     for an apple, but five points for an orange.
+     You can do this by adding a parameter
+     to the function.                               fruit_score("apple")
+                                                    fruit_score("orange")                             The function is called
+                                                                                                      twice—once with
+                                                                                                      each parameter.
+                                                    10
+                                                    5
+                                                                                  The score that gets printed
+                                                                                  depends on whether the
+                                                                                  parameter is apple or orange.

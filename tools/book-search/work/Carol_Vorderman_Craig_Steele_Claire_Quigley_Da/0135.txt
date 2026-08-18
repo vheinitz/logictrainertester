@@ -1,0 +1,51 @@
+GAME PROGRESS                                            100%                133
+
+29 Display high scores
+   Now that you’ve written a function to collect the high scores, you
+      need to write one to display them on the screen. Replace the word
+      pass under def display_high_scores() from Step 9 with this code.
+
+ def display_high_scores():
+      screen.draw.text("HIGH SCORES", (350, 150), color="black")
+      y = 175                This sets the first                   This line writes
+                             high score’s position                 HIGH SCORES
+      position = 1           on the y-axis.                        on the screen.
+      for high_score in scores:
+           screen.draw.text(str(position) + ". " + high_score, (350, y), color="black")
+           y += 25
+           position += 1
+
+
+        This adds to the y position, so               This line displays the high
+        that each high score is displayed                   scores on the screen.
+        25 pixels below the previous one.
+
+
+
+
+Hacks and tweaks
+There are lots of ways you can adapt this
+game to make it more complex. Here are
+some ideas you can try out.
+                                                                                                        Phew! I still have
+           Pygame Zero Game                                                                              two lives left.
+
+
+
+
+               HIGH SCORES
+               1. 12
+               2. 9
+               3. 8
+               4. 6
+               5. 3
+                                                                             lives = 3
+
+
+                                                                           △ Lives
+                                                                           Why don’t you give the player some more
+△ More high scores                                                         chances to complete the game? Introduce a
+Right now the game only stores the top three high scores.                  new variable to keep track of a player’s lives.
+Can you change it to store the top five or ten? Remember                   Reduce the number by one every time the
+the text file you created in Step 3 with three zeroes? How                 player hits an obstacle. When there are no
+can you edit this file to store more high scores?                          more lives left, the game ends.

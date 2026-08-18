@@ -1,0 +1,57 @@
+GAME PROGRESS                                                        47%              163
+
+15 Another   test
+   Test your newly updated code to make sure
+      it’s correct. Save your IDLE file and run it from              Let’s check pages
+      the command line. You should now be able to                      24–25 to see
+      move the cow on the screen.                                     how it’s done.
+
+      pgzrun
+
+                          Type this in the Command Prompt
+                          or Terminal window and then
+                          drag and drop the garden.py file.
+
+
+
+16 Add   a flower
+   In this step, you’ll create a flower Actor for the cow to
+      water and add it to the end of flower_list. You’ll also add
+      the value happy to the end of wilted_list, which holds
+      the amount of time each flower has been wilted for. The
+      happy value will let the program know that the flower                              These are the
+      hasn’t wilted. Replace pass in the new_flower() function                           global variables
+      with this code.                                                                    this function uses.       This line creates
+                                                                                                                   a new flower Actor.
+def new_flower():
+     global flower_list, wilted_list
+     flower_new = Actor("flower")
+                                                                                                                  This line sets the
+     flower_new.pos = randint(50, WIDTH - 50), randint(150, HEIGHT - 100)
+                                                                                                                  position of
+     flower_list.append(flower_new)                                                                               the new flower.
+     wilted_list.append("happy")
+     return
+
+                      This lets the program know              This adds the new flower
+                      that the flower is not wilted.          to the list of flowers.
+
+
+
+17 Add more flowers to the garden
+   Having just one flower to water would make the
+                                                                                                                 I think I need a
+      game too easy. You need to add some code that will                                                         bigger garden!
+      create a new flower every four seconds to keep the
+      cow busy. Add this code to replace the word pass
+      under def add_flowers().
+
+def add_flowers():
+                                                                    This line calls the
+     global game_over                                               new_flower() function
+     if not game_over:                                              to create a new flower.
+
+           new_flower()
+           clock.schedule(add_flowers, 4)                           This adds a new
+     return                                                         flower every
+                                                                    four seconds.

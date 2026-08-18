@@ -1,0 +1,66 @@
+110           BIG QUIZ
+
+
+20 Correct answers
+   Now you need to tell Python
+                                       def correct_answer():
+                                             global question, score, time_left
+                                                                                                              This increases
+     what you want the program                                                                                the score by one.
+     to do if the player gets an
+     answer correct. You need to
+                                             score = score + 1
+     increase the current score,
+     and then get the next                   if questions:                                                    This gets the
+                                                                                                              next question
+     question. If there aren’t any                 question = questions.pop(0)                                if there are any-
+     questions left, the game                                                                                 more questions
+     should end. Replace pass                      time_left = 10
+                                                                                                              left in the list.
+     under def correct_answer()              else:
+     from Step 3 with this code.                                                                              This resets the
+                                                   print("End of questions")
+                                                                                                              timer back to
+                                                   game_over()                                                ten seconds.
+    This block runs if there are no
+        more questions in the list.
+                                             This displays a message
+                                             in the Command Prompt
+                                             or Terminal window.
+
+
+                                       This line checks                            The variable index holds a number
+                                       which box has                               that represents the position of the
+                                       been clicked on.                            answer box in the list.
+
+
+21 Answering  questions
+   Next add some code that
+                                        def on_mouse_down(pos):
+                                             index = 1
+     will run when the player clicks
+     on an answer box. This code             for box in answer_boxes:
+     will check to see which box
+                                                   if box.collidepoint(pos):
+     has been clicked on, and
+     then print the result in the                         print("Clicked on answer " + str(index))
+     Command Prompt or Terminal                    index = index + 1
+     window. Replace pass under
+     the on_mouse_down(pos)
+     function from Step 3 with                             The variable index increases              This displays a message
+     this code.                                            by one and moves to the                   in the Command Prompt
+                                                           next answer box in the list.              or Terminal window.
+
+
+
+
+22 Click the boxes
+   Run your code again and
+                                                                       Rabiahma – bash – 80x24
+
+     click on each answer box          Clicked on answer 1
+     that appears on the screen.       Clicked on answer 2
+     You should see messages in
+     the Command Prompt or             Clicked on answer 3
+     Terminal window telling you       Clicked on answer 4
+     which box you clicked on.

@@ -1,0 +1,49 @@
+20                                                                      Глава 26
+
+
+
+Теперь нужно двинуться в этом направлении. Если вы уже развернулись в нужную сто-
+рону, это реализуется просто:
+
+ if self.robot.rotation == targetOrientation:
+     self.robot.goForth()
+
+Иначе нужно определить, в какую сторону вам следует повернуться. Первым делом счи-
+таем, сколько поворотов налево требуется для ориентации в корректном направлении:
+
+ else:
+     leftTurnsNeeded = (self.robot.rotation - targetOrientation) % 4
+
+Затем приходит время собственно поворота. Если для корректной ориентации нам тре-
+буется более двух поворотов влево, имеет смысл один раз повернуться вправо:
+
+ if leftTurnsNeeded <= 2:
+     self.robot.turnLeft()
+ else:
+     self.robot.turnRight()
+
+Полностью код нашего робота представлен в листинге 26.2.
+
+ Листинг 26.2. Более сложный робот
+ class AI:
+     def __init__(self):
+         pass
+     def turn(self):
+         if self.robot.lookInFront() == "bot":
+             self.robot.attack()
+         else:
+             self.goTowards(self.robot.locateEnemy()[0])
+     def goTowards(self,enemyLocation):
+         myLocation = self.robot.position
+         delta = (enemyLocation[0]-myLocation[0],
+                 enemyLocation[1]-myLocation[1])
+         if abs(delta[0]) > abs(delta[1]):
+             if delta[0] < 0:              Лицом влево
+                 targetOrientation = 3
+             else:                               Лицом вправо
+                 targetOrientation = 1
+         else:
+             if delta[1] < 0:               Лицом вверх
+                 targetOrientation = 0
+             else:                         Лицом вниз
+                 targetOrientation = 2

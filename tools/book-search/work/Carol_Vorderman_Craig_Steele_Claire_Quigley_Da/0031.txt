@@ -1,0 +1,57 @@
+C R E AT I N G VA R I A B L E S                 29
+Using numbers
+Variables can be used to store numbers,                      Symbol                   Meaning
+which can then be used in calculations. You
+                                                             +                        add
+can use them with symbols, just like you do
+                                                             –                        subtract
+in math. Be careful with multiplication and
+                                                             *                        multiply
+division, though, because they use different
+                                                             /                        divide
+symbols from the ones you use at school.
+
+
+
+ 1 ATypesimple  calculation
+           this code into the shell window. It               2 Change  a value
+                                                               To change the value of a variable, just assign a
+      uses two variables, x and y, which store                       new value to it. In this code, assign the value 5
+      integers to perform a simple calculation.                      to x. Print the value assigned to y again. What
+      Press Enter to see the answer.                                 do you think the result will be?
+
+                            Create a new variable, x,
+ >>> x = 2
+                            and assign the value 2 to it.    >>> x = 5                      Change the
+ >>> y = x * 3                                                                              value of x.
+                            Multiply x by 3 and assign the   >>> print(y)
+ >>> print( y)              result to another variable, y.
+                                                             6
+ 6
+                            Print the value                                     The result hasn’t changed—
+                            assigned to y.                                      next we’ll find out why.
+       The result of
+       the calculation.
+
+                                                                      LINGO
+
+           *                  =                                  Integers and floats
+                                                                 In coding, different types of numbers can be
+                                                                 stored in variables. Whole numbers are called
+                                                                 “integers,” and numbers with a decimal point
+                                                                 in them are called “floats.” Integers are usually
+ 3 Update  the value
+   The value of y needs to be updated to                         used to count things, like a player’s score,
+                                                                 whereas floats are usually used for
+      get the correct result. To do this, you need
+      to run the y = x * 3 calculation again. Now                measurements, such as temperature.
+      the code assigns the new value to y after x
+      has been changed.
+                                                                                                        1 sheep
+                                                                                                        (an integer)
+ >>> x = 5
+ >>> y = x * 3
+ >>> print(y)                    You need to redo the
+                                 calculation to update
+ 15                              the value of y.                                          0.5 sheep
+                                                                                            (a float)

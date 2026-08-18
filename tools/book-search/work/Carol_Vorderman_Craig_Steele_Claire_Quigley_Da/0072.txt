@@ -1,0 +1,36 @@
+70         FOLLOW THE NUMBERS
+
+
+
+How to build                                              Pygame Zero Game
+
+
+
+Follow the Numbers
+Can you connect all the dots in the correct
+order? Challenge yourself to finish the game
+as quickly as you can. Be careful, however—                                      8
+one wrong click and you’ll have to start
+all over again.
+
+What happens
+At the beginning of the game, ten dots appear
+at random positions on the screen, each with a
+number next to it. You need to click on the dots in                                  1
+the correct order to connect them. The game will
+finish once you’ve connected all the dots together.
+But if you make a mistake, all the lines will disappear
+and you’ll have to start from the very first dot again.
+
+                                                                  3
+
+
+
+
+                 ◁ Dots and lines                                            2
+                 The dots appear at random
+                 positions on the screen. When
+                 you click on the correct dot,
+                 a line will be drawn between
+                 it and the previous dot you
+                 clicked on.

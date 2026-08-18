@@ -1,0 +1,54 @@
+132        BALLOON FLIGHT
+
+
+      EXPERT TIPS
+File handling
+In Balloon Flight, you’ve used a .txt file to store
+the high scores. A file like this can be opened and
+assigned to a variable. The main functions that
+you need to handle the file are open(), read(),
+and write().
+
+
+
+
+▷ open() takes two parameters, the file name
+                                                              file = open("names.txt", "r")
+and the “mode,”, which tells Python what you
+want to do with the file. There are four modes in
+                                                               Name of           Mode
+Python: r for reading, w for writing, a for adding
+                                                                the file
+to the end of a file, and r+ for reading and writing.
+
+
+▽ Use the read() function to read an entire file.            ▽ You can also just read a single line, rather
+                                                             than the whole file.
+ names = file.read()
+                                                              name = file.readline()
+
+
+▽ You can even add all the lines to a list.
+
+ lines = []
+                                                             ▽ Now use the write() function to write to a file.
+
+ for line in file:
+                                                              file = open("names.txt", "w")
+      lines.append(line)
+                                                              file.write("Martin")
+
+
+
+▽ When you’re finished with a file, you should               ▽ If you forget to close a file after using it,
+close it to tell the program you are done with it.           some of the data may not get written to it.
+                                                             Use the with statement to stop this from
+ file.close()                                                happening. This statement opens the file and
+                                                             automatically closes it when it has finished
+                                                             running the body of the with statement.
+                                   It’s time to close. Are
+                                   you sure you’re done?      with open("names.txt", "r") as file:
+                                                                   name = file.readline()
+
+
+                                                                                         Body of the function.

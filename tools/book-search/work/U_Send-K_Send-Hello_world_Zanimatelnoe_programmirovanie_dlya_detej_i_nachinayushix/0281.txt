@@ -1,0 +1,52 @@
+Звуки                                                                          281
+
+
+ pygame.mixer.music.load("bg_music.mp3")          Загружаем музыкальный файл
+ pygame.mixer.music.set_volume(0.3)       Задаем громкость музыки
+ pygame.mixer.music.play(-1)
+ hit = pygame.mixer.Sound("hit_paddle.wav")
+ hit.set_volume(0.4)                                  Начинаем
+ new_life = pygame.mixer.Sound("new_life.wav")        воспроизведение
+                                                      музыки и повторяем
+ new_life.set_volume(0.5)                             ее до бесконечности
+ splat = pygame.mixer.Sound("splat.wav")
+ splat.set_volume(0.6)
+ hit_wall = pygame.mixer.Sound("hit_wall.wav")
+ hit_wall.set_volume(0.4)                            Создаем звуковой
+                                                      объект, загружаем
+                                                      звуки и задаем уровень
+ get_point = pygame.mixer.Sound("get_point.wav")      громкости каждого
+ get_point.set_volume(0.2)                            из них
+ bye = pygame.mixer.Sound("game_over.wav")
+ bye.set_volume(0.6)
+ screen = pygame.display.set_mode([640,480])
+ clock = pygame.time.Clock()
+ myBall = MyBallClass('wackyball.bmp', [12,6], [50, 50])
+ ballGroup = pygame.sprite.Group(myBall)
+ paddle = MyPaddleClass([270, 400])
+ lives = 3
+ points = 0
+
+ font = pygame.font.Font(None, 50)
+ score_text = font.render(str(points), 1, (0, 0, 0))
+ textpos = [10, 10]
+ done = False
+
+ running = True
+ while running:
+     clock.tick(30)
+     screen.fill([255, 255, 255])
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+             running = False
+         elif event.type == pygame.MOUSEMOTION:               Воспроизводим звук
+             paddle.rect.centerx = event.pos[0]               при столкновении
+                                                              шарика с ракеткой
+
+     if pygame.sprite.spritecollide(paddle, ballGroup, False):
+         hit.play()
+         myBall.speed[1] = -myBall.speed[1]
+     myBall.move()
+
+     if not done:
+         screen.blit(myBall.image, myBall.rect)

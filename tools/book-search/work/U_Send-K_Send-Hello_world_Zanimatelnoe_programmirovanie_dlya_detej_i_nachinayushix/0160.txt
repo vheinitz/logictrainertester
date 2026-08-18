@@ -1,0 +1,44 @@
+160                                                                      Глава 13
+
+
+
+     printMyAddress("Carter Sande")
+     printMyAddress("Warren Sande")
+     printMyAddress("Kyra Sande")
+     printMyAddress("Patricia Sande")
+
+   В результате на экран при каждом вызове функции будет выводиться разная информация.
+   Имя начнет меняться, так как каждый раз в функцию передается новое имя:
+
+     >>> ========================== RESTART ==========================
+     >>>
+     Carter Sande
+     123 Main Street
+     Ottawa, Ontario, Canada
+     K2M 2E9
+
+     Warren Sande
+     123 Main Street
+     Ottawa, Ontario, Canada
+     K2M 2E9
+
+     Kyra Sande
+     123 Main Street
+     Ottawa, Ontario, Canada
+     K2M 2E9
+
+     Patricia Sande
+     123 Main Street
+     Ottawa, Ontario, Canada
+     K2M 2E9
+
+
+     А если
+   разослать                 Обратите внимание, что все переданные в функцию зна-
+письма соседям               чения используются внутри нее и выводятся на экран как
+ с моей улицы?
+                             часть адреса.
+ Отличаться
+   будут еще                   Если мы хотим, чтобы при каждом запуске функции меня-
+и номера домов.                  лось несколько параметров, нам потребуется несколько
+                                 аргументов. Именно об этом мы сейчас и поговорим.

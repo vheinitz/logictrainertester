@@ -1,0 +1,49 @@
+192         SLEEPING DRAGONS
+
+
+27 Check for collisions
+   You now need to define the
+     check_for_collisions() function
+     from Step 19. The code in this
+     function will loop over each
+     lair dictionary and check if the
+     hero has touched an egg and
+     if the hero is close enough to an
+     awake dragon to get attacked.
+     Replace pass under def_check_
+     for_collisions() with the code
+     shown below.
+
+               lair["egg_hide_counter"] += 1
+
+
+def check_for_collisions():
+    global lairs, eggs_collected, lives, reset_required, game_complete
+    for lair in lairs:
+         if lair["egg_hidden"] is False:
+               check_for_egg_collision(lair)
+         if lair["dragon"].image == "dragon-awake" and reset_required is False:
+               check_for_dragon_collision(lair)
+
+          This function is called if              This function is called if the               This makes sure the
+          the eggs are not hidden.                dragon is awake and the hero’s               player doesn’t lose a
+                                                  position is not being reset.                 life when the hero is
+                                                                                               being moved back to
+                                                                                               the start position.
+      EXPERT TIPS
+ colliderect()
+ The colliderect() function gets its name
+ from a combination of two words—
+ collide and rectangle. Pygame places an
+ invisible rectangle around each element
+ on the screen. If you want to detect a                                            Bounding
+                                                                                   rectangle
+ collision between two objects, you can
+ check if the rectangles around them are
+ overlapping with each other. Sometimes
+ Pygame detects a collision even if two
+ objects appear to be slightly apart.
+ This is because even when the objects            Area of collision
+                                                      is where the
+ are not touching each other, the                   two bounding
+ rectangles around them can still overlap.     rectangles overlap.

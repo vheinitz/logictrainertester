@@ -1,0 +1,38 @@
+СПИСОК ЛИТЕРАТУРЫ
+    Произведения, цитируемые в тексте
+[ARSJ Arsac J., Les bases de la programmation, Paris, Dunod, 1983.
+[BAI] Baillif J .— C.f Les casse —- tete logiques de Baillif, Paris,
+       Dunod, 1979.
+[BAL] Ball W.— W. Rouse, Mathematical recreations and essays,
+       Macmillan and CQ, London, 1963.
+ BER] Berloquin P ., Le jardin du sphynx, Paris, Dunod, 1981.
+fENG] Engel A., Mathematique elementaire d’un point de vue al-
+       gorithmique, Paris, Cedic, 1979.
+[GRI] Gries D., The science of programming, Springer Verlag, New
+       York, 1981.
+[KNU] Knuth D., The art of computer programming, Addison Was-
+       ley, 1969.
+[KUE] Kuenzi N.—• J., Prielipp B. Cryptarithms and other arith­
+       metical pastimes, School science and mathematics associa­
+       tion, University of Wisconsin.
+[LED] Ledgard H.— F., Proverbes de programmation, Paris, Dunod,
+       1978.
+[PBB] Berlioux P., Bizard Ph., Algoritbmique, Paris, Dunod, 1983.
+[POL] Pollard J .— M., A Monte Carlo method for factorization, BIT
+       15, (1975), p. 331—334.
+[SIKJ Siklossy L., Let’s talk Lisp, Prentice Hall, Englewood Cliffs
+       (N. Y.), 1976.
+[SCH] Schwartz B., Mathematical solitaires and games, Baywood
+       Publishing Company, 1978.
+    Для тех, кому нужно пополнить свое образование в программи­
+ровании.
+Arsac— Mondou О., Bourgeois— Camescasse, Gourtay M.
+      Premier livre de programmation (ecriture de boucles de prog-
+       grammes).
+       Deuxieme livre de programmation (pnx^dures, fichiers).
+       Pour aller plus loin en programmation (recursivite, structures
+       de donnees),
+    Cedic — Nathan, Paris, 1982.
+Taurisson A., Petitguillaume A .
+       A vous de jouer, Introduction &la science de i’informatique,
+    Modulo Editeur, Outremont, Quebec, Canada,

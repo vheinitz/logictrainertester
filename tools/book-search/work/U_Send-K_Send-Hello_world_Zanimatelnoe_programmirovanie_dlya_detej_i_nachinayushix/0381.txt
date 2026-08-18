@@ -1,0 +1,53 @@
+Компьютерное моделирование                                                     381
+
+
+         f_font = pygame.font.Font(None, 26)                       Показываем ста-
+         f_surf = f_font.render(f_str, 1, (255, 255, 255))         тистику при по-
+                                                                   мощи объектов
+         screen.blit(f_surf, [60, 300])                            шрифта
+
+     def display_flames():
+                                                                      Рисуем
+         flame_size = thrust / 15                                треугольники
+         for i in range (2):                                         пламени
+             startx = 252 - 10 + i * 19
+             starty = y_pos + 83
+             pygame.draw.polygon(screen, [255, 109, 14], [(startx, starty),
+                                          (startx + 4, starty + flame_size),
+                                           (startx + 8, starty)], 0)
+                                                    Показываем пламя в реактивном
+     def display_final():                           двигателе при помощи двух
+         final1 = "Игра окончена"                                треугольников
+         final2 = "Скорость приземления %.1f м/с" % velocity
+         if velocity > -5:
+             final3 = "Прекрасное приземление!"
+             final4 = "Я слышал, что NASA ищет сотрудников!"
+         elif velocity > -15:
+             final3 = "Ох! Грубовато, но вы выжили."
+             final4 = "В следующий раз получится лучше."
+         else:
+             final3 = "Черт! Вы разбили корабль за 30 миллионов долларов."
+             final4 = "Как вы попадете домой?"
+         pygame.draw.rect(screen, [0, 0, 0], [5, 5, 350, 280],0)
+         f1_font = pygame.font.Font(None, 70)
+         f1_surf = f1_font.render(final1, 1, (255, 255, 255))
+         screen.blit(f1_surf, [20, 50])
+         f2_font = pygame.font.Font(None, 40)
+         f2_surf = f2_font.render(final2, 1, (255, 255, 255))
+         screen.blit(f2_surf, [20, 110])
+         f3_font = pygame.font.Font(None, 26)
+         f3_surf = f3_font.render(final3, 1, (255, 255, 255))
+         screen.blit(f3_surf, [20, 150])
+         f4_font = pygame.font.Font(None, 26)
+         f4_surf = f4_font.render(final4, 1, (255, 255, 255))
+         screen.blit(f4_surf, [20, 180])             Показываем итоговый счет
+         pygame.display.flip()                             после окончания игры
+
+
+ myThrottle = ThrottleClass([15, 500])             Создаем объект регулятора
+ running = True
+ while running:
+     clock.tick(30)
+                               Запускаем основной цикл
+     fps = clock.get_fps()     Pygame-событий
+     if fps < 1: fps = 30

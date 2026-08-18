@@ -1,0 +1,55 @@
+GAME PROGRESS                                                         97%                   131
+      EXPERT TIPS
+ Keeping score
+ Imagine the current high scores are 12, 10, 8, and a                                                           This is an example
+ player scores 11. If your code just replaced each score                         12 10 8                        of an existing list
+ you’ve beaten with the new score, you’d end up with                                                            of scores.
+ 12, 11, 11, which wouldn’t be right. To avoid this, your
+ code needs to compare the player’s score with the top
+                                                                                                                Once 11 has replaced
+ score first. 11 is less than 12, so it doesn’t replace it. It                   12 11 8                        10, you need to
+ then needs to move on to the second-highest score.                                                             check 10, rather
+ The next one, 11 is greater than 10, so it replaces it. Now                                                    than 11, against 8.
+ that 11 is on the scoreboard, the code needs to check if
+ 10, the score that was just replaced, is greater than the                                                      These are the new
+                                                                                 12 11 10                       three high scores.
+ score currently in third place. Because 10 is greater than
+ 8, it replaces it, and 8 is removed altogether.
+
+
+
+
+27 Find the highest scores
+   Now write some code that will check if the current                                     This loops
+     score has beaten any of the three high scores.                                 through the list
+     Add this code under the lines from Step 26.                                     of high scores.
+
+                                                   high_scores = line.split()
+                                                   for high_score in high_scores:
+
+   This checks if the player’s                           if(score > int(high_score)):
+    score is higher than the                                     scores.append(str(score) + " ")
+        existing high scores.
+                                                                 score = int(high_score)
+                                                         else:
+           This sets score to                                    scores.append(str(high_score) + " ")
+         the high score that
+            was just beaten.
+                                                     If the player hasn’t beaten the high              If the player’s score is higher
+                                                     score in question, that current                    than an existing high score,
+                                                     high score is added to the list.                          this adds it to the list.
+
+
+
+
+28 Write the high scores in the file
+   Use write() to write the new high score
+                                                                                   scores.append(str(high_score) + " ")
+                                                                   with open(filename, "w") as file:
+     to the high-scores.txt file. Add this
+     code under the code from Step 27.                                  for high_score in scores:
+                                                                              file.write(high_score)
+
+
+                                 This block writes the new                This opens the high-scores.txt
+                                 high scores to the .txt file.                      file to be written to.

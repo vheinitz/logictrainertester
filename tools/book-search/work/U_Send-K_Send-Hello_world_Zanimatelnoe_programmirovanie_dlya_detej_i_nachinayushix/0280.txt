@@ -1,0 +1,48 @@
+280                                                                         Глава 19
+
+
+
+ pygame.mixer.music.fadeout(2000)
+
+Аргумент 2000 миллисекунд составляет 2 секунды. Эту строку нужно добавить туда, где
+уже находится строка done = True. (Неважно, выше или ниже.)
+Теперь в программу добавлены как звуковые эффекты, так и фоновая музыка. Запустите
+ее и послушайте, как все звучит! На случай если вы захотите посмотреть на программу
+в целом, я добавил свою окончательную версию кода в листинг 19.5. Проследите за тем,
+чтобы файл wackyball.bmp, как и звуковые файлы, был скопирован в папку с программой.
+
+ Листинг 19.5. Игра PyPong со звуковыми эффектами и фоновой музыкой
+ import pygame, sys
+
+ class MyBallClass(pygame.sprite.Sprite):
+     def __init__(self, image_file, speed, location = [0,0]):
+         pygame.sprite.Sprite.__init__(self)
+         self.image = pygame.image.load(image_file)
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.top = location
+         self.speed = speed
+
+      def move(self):
+      global points, score_text
+      self.rect = self.rect.move(self.speed)
+      if self.rect.left < 0 or self.rect.right > screen.get_width():
+          self.speed[0] = -self.speed[0]
+          if self.rect.top < screen.get_height():
+              hit_wall.play()         Воспроизводим звук при ударе
+                                         шарика о стену
+      if self.rect.top <= 0 :
+          self.speed[1] = -self.speed[1]
+          points = points + 1
+          score_text = font.render(str(points), 1, (0, 0, 0))
+          get_point.play()                   Воспроизводим звук при ударе
+                                                  шарика о потолок (игрок
+ class MyPaddleClass(pygame.sprite.Sprite):       зарабатывает очко)
+     def __init__(self, location = [0,0]):
+         pygame.sprite.Sprite.__init__(self)
+         image_surface = pygame.surface.Surface([100, 20])
+         image_surface.fill([0,0,0])
+         self.image = image_surface.convert()
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.top = location
+ pygame.init()                       Инициализируем звуковой
+ pygame.mixer.init()                 Pygame-модуль

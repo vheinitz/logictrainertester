@@ -1,0 +1,56 @@
+380                                                                      Глава 24
+
+
+
+ height = 2000
+ thrust = 0            Инициализируем
+ delta_v = 0           программу
+ y_pos = 90
+ held_down = False
+
+ class ThrottleClass(pygame.sprite.Sprite):
+     def __init__(self, location = [0,0]):
+                                                                  Класс Sprite
+         pygame.sprite.Sprite.__init__(self)
+                                                                  для ручки
+         image_surface = pygame.surface.Surface([30, 10])         регулятора
+         image_surface.fill([128,128,128])                        топлива
+         self.image = image_surface.convert()
+         self.rect = self.image.get_rect()
+         self.rect.left, self.rect.centery = location
+
+       def calculate_velocity():        Отсчитываем один виток Pygame-цикла
+           global thrust, fuel, velocity, delta_v, height, y_pos
+           delta_t = 1/fps                                              Физическая
+           thrust = (500 - myThrottle.rect.centery) * 5.0               формула
+           fuel -= thrust /(10 * fps)           Преобразуем позицию y
+           if fuel < 0: fuel = 0.0              ручки регулятора топлива
+Вычита-    if fuel < 0.1:  thrust = 0.0         в реактивную тягу
+ем горючее delta_v = delta_t * (-gravity + 200 * thrust / (ship_mass + fuel))
+в зави-    velocity = velocity + delta_v
+симости                                       Вычисляем высоту, скорость,
+от тяги
+           delta_h = velocity * delta_t       ускорение и горючее
+           height = height + delta_h
+           y_pos = ground - (height * (ground - start) / 2000) - 90
+
+      def display_stats():                                           Преобразу-
+          v_str = "velocity: %i m/s" % velocity                      ем высоту
+                                                                     в Pygame-
+          h_str = "height: %.1f" % height                            координату y
+          t_str = "thrust: %i" % thrust
+          a_str = "acceleration: %.1f" % (delta_v * fps)
+          f_str = "fuel: %i" % fuel
+          v_font = pygame.font.Font(None, 26)                       Показываем
+          v_surf = v_font.render(v_str, 1, (255, 255, 255))         стати-
+          screen.blit(v_surf, [10, 50])                             стику при
+                                                                    помощи
+          a_font = pygame.font.Font(None, 26)                       объектов
+          a_surf = a_font.render(a_str, 1, (255, 255, 255))         шрифта
+          screen.blit(a_surf, [10, 100])
+          h_font = pygame.font.Font(None, 26)
+          h_surf = h_font.render(h_str, 1, (255, 255, 255))
+          screen.blit(h_surf, [10, 150])
+          t_font = pygame.font.Font(None, 26)
+          t_surf = t_font.render(t_str, 1, (255, 255, 255))
+          screen.blit(t_surf, [10, 200])

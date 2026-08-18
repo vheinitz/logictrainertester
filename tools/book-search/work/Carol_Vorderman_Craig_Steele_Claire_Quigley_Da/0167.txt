@@ -1,0 +1,57 @@
+GAME PROGRESS                                                     61%               165
+
+21 Stop watering
+   The code from Step 20 uses two functions that you haven’t
+       written yet—reset_cow() and check_flower_collision(). Let’s
+       add the code that will change the image of the cow using the
+       watering can back to the version where it’s just holding it.
+       Replace the word pass under the reset_cow() function from                              Uhh... I think that’s
+       Step 13 with the code in black below.                                                    enough water.
+
+ def reset_cow():                          This code runs
+                                           if the game is
+       global game_over                    not over yet.
+       if not game_over:
+             cow.image = "cow"
+       return
+
+
+ add_flowers()
+                                           This changes
+                                           the cow’s image
+                                           back to the
+                                           original one.
+
+
+
+22 Points for accuracy!
+   You need the code to check if the cow is near a flower when the
+       Space bar is pressed. If it is, the flower will get watered and its
+       “time since flower wilted” value in wilted_list will be set to happy.
+       To do this, you’ll use Pygame Zero’s built-in colliderect() function
+       to check if a flower and the cow have collided or are next to each
+       other. Replace pass under def check_flower_collision() in Step                                  These are the global
+       13 with the code shown below.                                                                   variables you will use
+                                                                                                       in this function.
+                          def check_flower_collision():
+                                global cow, flower_list, wilted_list
+                                index = 0                                                              This code loops through
+  This variable helps                                                                                  all the flowers in the list.
+                                for flower in flower_list:
+     the program to
+  move through the                   if (flower.colliderect(cow) and
+         list in order.
+                                               flower.image == "flower-wilt"):
+                                                                                                       This changes
+      This condition                      flower.image = "flower"
+                                                                                                       the wilted flower’s
+   applies if the cow                     wilted_list[index] = "happy"                                 image back to the
+       is next to the                                                                                  original version.
+       flower you’re                      break
+          looking at.                index = index + 1
+                                return
+                                                                                                       This line stops the program
+ This line updates the                                                                                 counting how long the
+value of index so that                                                  This stops the loop            flower’s been wilted.
+  the program moves                                                     from checking the
+      through the list.                                                 other flowers.

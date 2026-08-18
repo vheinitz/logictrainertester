@@ -1,0 +1,48 @@
+224                                                                       Глава 16
+
+
+
+ screen.fill([255, 255, 255])
+ my_ball = pygame.image.load('beach_ball.png')
+ x = 50
+ y = 50
+ x_speed = 10
+
+ running = True                        Это переменная
+                                       скорости speed          Помещаем код вывода
+ while running:
+                                                               мяча на экран внутрь
+     for event in pygame.event.get():                          этого цикла while
+         if event.type == pygame.QUIT:
+         running = False
+
+     pygame.time.delay(20)
+     pygame.draw.rect(screen, [255,255,255], [x, y, 90, 90], 0)
+     x = x + x_speed
+     if x > screen.get_width() - 90 or x < 0:                Когда мяч
+         x_speed = - x_speed                                 достигает
+     screen.blit(my_ball, [x, y])                            края окна…
+     pygame.display.flip()            …меняем направление его
+ pygame.quit()                        движения, сменив знак скорости
+
+
+За отскоки мяча от краев окна отвечают строки 19 и 20. В строке 19 (if x > screen.
+get_width() - 90 or x < 0:) мы определяем, достиг ли мяч края окна, и в случае по-
+ложительного результата проверки в строке 20 меняем направление его движения
+(x_speed = - x_speed).
+Запустите программу и посмотрите, как она работает.
+
+Двухмерный отскок
+Пока наш мяч может перемещаться только влево или вправо, то есть его движение
+является одномерным. Добавим к этому горизонтальному движению одновременное
+смещение вверх и вниз. Для этого в программу нужно внести изменения в соответствие
+с листингом 16.15.
+
+ Листинг 16.15. Движение мяча в двухмерном пространстве
+ import pygame, sys
+ pygame.init()
+ screen = pygame.display.set_mode([640,480])
+ screen.fill([255, 255, 255])
+ my_ball = pygame.image.load('beach_ball.png')
+ x = 50
+ y = 50

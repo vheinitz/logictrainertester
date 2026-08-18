@@ -1,0 +1,46 @@
+274                                                                     Глава 19
+
+
+
+Для этого нам потребуется функция get_busy(). Если воспроизведение еще не законче-
+но, она возвращает значение True, в противном случае — значение False. На этот раз
+заставим программу проиграть музыкальный фрагмент, затем воспроизведем звуковой
+эффект, а потом автоматически завершим работу (листинг 19.4).
+
+ Листинг 19.4. Ожидание окончания песни
+ import pygame, sys
+ pygame.init()
+ pygame.mixer.init()
+
+ screen = pygame.display.set_mode([640,480])
+ pygame.time.delay(1000)
+
+ pygame.mixer.music.load("bg_music.mp3")
+ pygame.mixer.music.set_volume(0.3)
+ pygame.mixer.music.play()
+ splat = pygame.mixer.Sound("splat.wav")
+ splat.set_volume(0.5)
+ running = True
+ while running:
+     for event in pygame.event.get():              Проверяем, завершилось
+         if event.type == pygame.QUIT:             ли воспроизведение
+             running = False                       музыкального фрагмента
+
+
+     if not pygame.mixer.music.get_busy():
+         splat.play()
+         pygame.time.delay(1000)        Секунду ждем завершения
+         running = False                «всплеска»
+ pygame.quit()
+
+Этот код один раз проигрывает музыку, затем воспроизводит звуковой эффект, после
+чего программа завершает свою работу.
+
+Зацикленная музыка
+Музыка, которую вы собираетесь использовать в качестве фоновой, должна звучать,
+пока работает программа. Модуль music легко позволяет это сделать. Можно проиграть
+музыкальный фрагмент нужное число раз:
+
+ pygame.mixer.music.play(3)
+
+В данном случае песня прозвучит три раза.

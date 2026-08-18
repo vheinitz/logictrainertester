@@ -1,0 +1,67 @@
+GAME PROGRESS                                                    48%                     63
+
+6 Game   over?
+  You also need a Boolean variable (a variable
+                                                                WIDTH = 400
+                                                                HEIGHT = 400
+     whose value can either be True or False) to tell
+     Pygame Zero if the game is over or not. At this            score = 0
+     stage, set the variable to False.
+                                                                game_over = False
+
+
+
+
+7 Introducing  the Actors
+  This game will feature two Actors—a fox and a coin.
+                                                                fox = Actor("fox")
+                                                                fox.pos = 100, 100
+                                                                                                                   This line uses
+                                                                                                                   the fox.png file
+     To create them and set their positions, add these
+                                                                                                                   in the images
+     lines of code under what you typed in Step 6.                                                                 folder to create
+                                                                coin = Actor("coin")                               the fox Actor.
+                               The coin is positioned
+                       200 pixels along from the top            coin.pos = 200, 200
+                           left and 200 pixels down.
+
+
+
+
+8 Time to draw
+  Now you need to use the draw() function
+     to display the Actors on the screen, change         These lines draw
+     the background color, and display the               the fox and coin
+     score. Type in this code to do these.               on the screen.
+
+
+coin.pos = 200, 200
+
+
+def draw():
+     screen.fill("green")
+     fox.draw()                                                                                                        This line will
+                                                                                                                       display the
+     coin.draw()                                                                                                       score in the
+     screen.draw.text("Score: " + str(score), color="black", topleft=(10, 10))                                         top-left corner
+                                                                                                                       of the screen.
+
+
+
+9 Try it out                                                                                Drag the coin.py
+                                                          pgzrun                            file here to run it.
+  Now test the code you’ve written so far.
+     Remember, you have to use the command
+     line in the Command Prompt or Terminal
+     window to do this.                                                     Pages 24–25 will help you
+                                                                              run the code if you’ve
+                                                                                 forgotten how.
+
+
+10 Did it work?
+   Did your game run? You should see the fox
+     and coin on your screen, with the score in
+     the top-left corner. You can’t actually play the
+     game yet, but it’s a good idea to run your
+     code frequently to check for bugs.

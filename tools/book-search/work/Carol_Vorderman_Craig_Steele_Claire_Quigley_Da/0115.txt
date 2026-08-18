@@ -1,0 +1,53 @@
+GAME PROGRESS                                                 100%          113
+
+Hacks and tweaks                                                                                Got it!
+
+You’ve built a great game, but don’t limit
+yourself to just five questions. Take Big
+Quiz to the next level by tweaking some
+of its rules. Here are some suggestions to
+get you started.
+
+▷ Take the hint              def on_key_up(key):
+You can give the player
+a hint by displaying the         if key == keys.H:
+correct answer box in                    print("The correct answer is box number %s " % question[5])
+the Command Prompt or
+Terminal window if they
+press the H key. Here is
+some code you could
+use to do this.
+
+
+ def on_key_up(key):
+                                                                                                ◁ Skip a question
+                                                                                                You could add some
+      global score                                                                              more code to the
+      if key == keys.H:                                                                         on_key_up(key)
+                                                                                                function that allows
+           print("The correct answer is box number %s " % question[5])
+                                                                                                the player to skip a
+      if key == keys.SPACE:                                                                     question by pressing
+           score = score - 1                                                                    the Space bar. Skipping
+                                                                                                a question means they
+           correct_answer()                                                                     move on to the next
+                                                                                                question, but without
+                                         This block first decreases the player’s score by one   scoring a point. Here’s
+                                         and then runs the correct_answer() function, which
+                                         increases it by one, keeping the score the same.
+                                                                                                one way of doing it.
+
+
+▷ More questions
+                                                q6 = ["What is a quarter of 200?",
+You can play this game over and over
+again, but to keep it interesting, you                   "50", "100", "25", "150", 1]
+can change the questions or even add
+some more. Here are a few examples of
+                                                q7 = ["Which is the largest state in the USA?",
+questions that you might want to use.
+You can always add some of your own!                     "Wyoming", "Alaska", "Florida", "Texas", 2]
+If you add extra questions, what else
+in the code will you need to update?
+                                                q8 = ["How many wives did Henry VIII have?",
+                                                         "Eight", "Four", "Six", "One", 3]

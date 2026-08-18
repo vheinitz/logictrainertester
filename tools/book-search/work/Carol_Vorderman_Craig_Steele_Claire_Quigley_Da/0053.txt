@@ -1,0 +1,51 @@
+HOW TO BUILD SHOOT THE FRUIT                    51
+How it works                                                             Start
+The game is constantly checking whether
+you’ve clicked the mouse button. Every
+time you click on the apple, it needs to be
+drawn again somewhere else on the screen.
+                                                                     Draw an apple
+If you click and miss, the game will end.                            on the screen
+
+
+
+
+                      Oops! I missed
+                         again!
+
+                                                                     Player clicked
+                                                                      the mouse?
+
+
+                                                                 N               Y
+
+                                                             N                        Y
+▷ Shoot the                               Display                    Player clicked         Display
+Fruit flowchart                        “You missed!”                 on the apple?        “Good shot!”
+This flowchart shows
+the logic behind the
+game. The main part                                                       End
+of the code is a loop
+that checks if you have
+clicked on the apple or not.
+
+
+Get shooting!
+Are you ready to code? In this program,
+you’ll start by drawing an apple on the screen,
+then you’ll learn to place it at random points before
+you start shooting it. Ready? Let’s get coding!
+
+
+ 1 Open  IDLE
+   Create an empty file
+                                       File
+      in IDLE by going to               New File
+      the File menu and
+      choosing New File.                Open...
+
+                                        Open Module...
+
+                                        Recent Files         ▶
+
+                                        Class Browser

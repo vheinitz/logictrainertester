@@ -1,11 +1,12 @@
 /**
- * Was passt nicht? – Klassifikation und Fokussierung auf relevante Merkmale
- * (KABC-II: „Konzeptbildung")
+ * Was passt nicht? – Klassifikation (KABC-II: „Konzeptbildung")
  *
- * Migriert auf core/choice.js. Zwei inhaltliche Änderungen gegenüber der
- * ersten Fassung: die Bilder werden gemischt (vorher lag der Ausreißer in 11
- * von 12 Sets an letzter Stelle) und es gibt Sets mit mehreren möglichen
- * Sortierlogiken für die höheren Niveaus.
+ * Der Schlüssel einer Aufgabe ist die *Menge*, nicht die Reihenfolge. Früher
+ * war `_key` die gemischte Bildzeile – dieselben fünf Emoji galten nach
+ * jedem Shuffle als neu, und im Durchgang wiederholten sich die Bilder.
+ *
+ * Spinne-gegen-Insekten und Hammer-gegen-Schlüssel sind raus: zu streitig
+ * (acht Beine kennt nicht jedes Kind; ein Hammer „öffnet" Türen anders).
  */
 import { createChoiceGame } from '../core/choice.js';
 import { shuffle, pick } from '../core/html.js';
@@ -15,25 +16,104 @@ const UI = {
   tipp:  { de: 'Tippe auf das Bild, das anders ist', ru: 'Нажми на картинку, которая отличается', en: 'Tap the picture that is different' }
 };
 
+function setKey(items, odd) {
+  return [...items].sort().join('') + '>' + odd;
+}
+
 const SETS = [
+  // ── Stufe 1: eine Kategorie, ein klarer Fremdkörper ────────────────
   { t: 1, items: ['🐕','🐈','🐇','🐘','🐟'], odd: '🐟',
     de: 'Der Fisch 🐟 lebt im Wasser – die anderen an Land',
     ru: 'Рыба 🐟 живёт в воде – остальные на суше',
     en: 'The fish 🐟 lives in water – the others live on land' },
-  { t: 1, items: ['🍎','🍌','🍇','🍞','🍊'], odd: '🍞',
+  { t: 1, items: ['🍎','🍌','🍇','🍊','🍞'], odd: '🍞',
     de: 'Das Brot 🍞 ist kein Obst', ru: 'Хлеб 🍞 – не фрукт', en: 'The bread 🍞 is not a fruit' },
   { t: 1, items: ['🚗','🚌','🏍️','🚲','✈️'], odd: '✈️',
     de: 'Das Flugzeug ✈️ fliegt – die anderen fahren', ru: 'Самолёт ✈️ летает – остальные ездят', en: 'The plane ✈️ flies – the others drive' },
   { t: 1, items: ['👚','👖','🧥','👗','🍔'], odd: '🍔',
     de: 'Der Burger 🍔 ist keine Kleidung', ru: 'Бургер 🍔 – не одежда', en: 'The burger 🍔 is not clothing' },
-  { t: 2, items: ['🔴','🔵','🟢','⬛','🔺'], odd: '🔺',
-    de: 'Das Dreieck 🔺 ist eine Form, keine Farbe', ru: 'Треугольник 🔺 – форма, а не цвет', en: 'The triangle 🔺 is a shape, not a colour' },
+  { t: 1, items: ['🥐','🥖','🥨','🍩','🔧'], odd: '🔧',
+    de: 'Der Schraubenschlüssel 🔧 ist kein Gebäck', ru: 'Гаечный ключ 🔧 – не выпечка', en: 'The spanner 🔧 is not baked goods' },
+  { t: 1, items: ['🍫','🍬','🍭','🍪','📎'], odd: '📎',
+    de: 'Die Büroklammer 📎 ist keine Süßigkeit', ru: 'Скрепка 📎 – не сладость', en: 'The paperclip 📎 is not a sweet' },
+  { t: 1, items: ['🍴','🥄','🔪','🥢','📱'], odd: '📱',
+    de: 'Das Handy 📱 ist kein Essbesteck', ru: 'Телефон 📱 – не столовый прибор', en: 'The phone 📱 is not cutlery' },
+  { t: 1, items: ['🪑','🛏️','🛋️','🪞','🎸'], odd: '🎸',
+    de: 'Die Gitarre 🎸 ist kein Möbelstück', ru: 'Гитара 🎸 – не мебель', en: 'The guitar 🎸 is not furniture' },
+  { t: 1, items: ['🌵','🌻','🌷','🌲','🚌'], odd: '🚌',
+    de: 'Der Bus 🚌 ist keine Pflanze', ru: 'Автобус 🚌 – не растение', en: 'The bus 🚌 is not a plant' },
+  { t: 1, items: ['🔴','🔵','🟢','🟡','⬛'], odd: '⬛',
+    de: 'Das schwarze Quadrat ⬛ ist keine Buntfarbe', ru: 'Чёрный квадрат ⬛ – не цветной кружок', en: 'The black square ⬛ is not a coloured circle' },
+  { t: 1, items: ['📐','📏','✏️','📎','🍕'], odd: '🍕',
+    de: 'Die Pizza 🍕 gehört nicht zur Schule', ru: 'Пицца 🍕 не из школы', en: 'The pizza 🍕 does not belong at school' },
+  { t: 1, items: ['👨‍⚕️','👩‍🚒','👮','👨‍🏫','🐸'], odd: '🐸',
+    de: 'Der Frosch 🐸 hat keinen Beruf', ru: 'Лягушка 🐸 – не профессия', en: 'The frog 🐸 is not a job' },
+  { t: 1, items: ['🎹','🎻','🥁','🎺','🧦'], odd: '🧦',
+    de: 'Die Socke 🧦 ist kein Instrument', ru: 'Носок 🧦 – не инструмент', en: 'The sock 🧦 is not an instrument' },
+  { t: 1, items: ['💻','⌨️','🖱️','🖨️','🌸'], odd: '🌸',
+    de: 'Die Blüte 🌸 ist kein Technikgerät', ru: 'Цветок 🌸 – не техника', en: 'The blossom 🌸 is not a tech device' },
+  { t: 1, items: ['⛰️','🌊','🌈','🌋','👠'], odd: '👠',
+    de: 'Der Schuh 👠 gehört nicht zur Natur', ru: 'Туфля 👠 не из природы', en: 'The shoe 👠 is not from nature' },
+  { t: 1, items: ['🥛','☕','🍵','🧃','🧦'], odd: '🧦',
+    de: 'Die Socke 🧦 ist kein Getränk', ru: 'Носок 🧦 – не напиток', en: 'The sock 🧦 is not a drink' },
+  { t: 1, items: ['⚽','🏀','🎾','🏐','🍦'], odd: '🍦',
+    de: 'Das Eis 🍦 ist kein Ball', ru: 'Мороженое 🍦 – не мяч', en: 'The ice cream 🍦 is not a ball' },
+  { t: 1, items: ['🐶','🐱','🐹','🐰','🚂'], odd: '🚂',
+    de: 'Die Lok 🚂 ist kein Haustier', ru: 'Паровоз 🚂 – не домашний зверёк', en: 'The train 🚂 is not a pet' },
+  { t: 1, items: ['🧁','🍰','🥧','🍮','🪛'], odd: '🪛',
+    de: 'Der Schraubendreher 🪛 ist kein Kuchen', ru: 'Отвёртка 🪛 – не пирог', en: 'The screwdriver 🪛 is not a cake' },
+  { t: 1, items: ['📘','📗','📕','📙','🧀'], odd: '🧀',
+    de: 'Der Käse 🧀 ist kein Buch', ru: 'Сыр 🧀 – не книга', en: 'The cheese 🧀 is not a book' },
+  { t: 1, items: ['🍽️','🥣','🥤','🫖','🚲'], odd: '🚲',
+    de: 'Das Fahrrad 🚲 ist kein Geschirr', ru: 'Велосипед 🚲 – не посуда', en: 'The bicycle 🚲 is not tableware' },
+  { t: 1, items: ['🔨','🪚','🪓','🔧','🌷'], odd: '🌷',
+    de: 'Die Tulpe 🌷 ist kein Werkzeug', ru: 'Тюльпан 🌷 – не инструмент', en: 'The tulip 🌷 is not a tool' },
+
+  // ── Stufe 2 ────────────────────────────────────────────────────────
   { t: 2, items: ['👁️','👂','👃','👄','🦶'], odd: '🦶',
     de: 'Der Fuß 🦶 ist kein Sinnesorgan im Kopf', ru: 'Ступня 🦶 – не орган чувств на голове', en: 'The foot 🦶 is not a sense organ on the head' },
+  { t: 2, items: ['🔺','⬛','🔵','⭐','🍞'], odd: '🍞',
+    de: 'Das Brot 🍞 ist keine Form', ru: 'Хлеб 🍞 – не форма', en: 'The bread 🍞 is not a shape' },
   { t: 2, items: ['🎸','🥁','🎹','🎺','📕'], odd: '📕',
     de: 'Das Buch 📕 ist kein Musikinstrument', ru: 'Книга 📕 – не музыкальный инструмент', en: 'The book 📕 is not a musical instrument' },
-  { t: 2, items: ['🥛','☕','🍵','🧃','🧦'], odd: '🧦',
-    de: 'Die Socke 🧦 ist kein Getränk', ru: 'Носок 🧦 – не напиток', en: 'The sock 🧦 is not a drink' },
+  { t: 2, items: ['🖥️','💻','📱','⌚','🥕'], odd: '🥕',
+    de: 'Die Karotte 🥕 rechnet nicht', ru: 'Морковь 🥕 не считает', en: 'The carrot 🥕 does not compute' },
+  { t: 2, items: ['✏️','🖊️','🖋️','🖍️','🎧'], odd: '🎧',
+    de: 'Der Kopfhörer 🎧 schreibt nicht', ru: 'Наушники 🎧 не пишут', en: 'The headphones 🎧 do not write' },
+  { t: 2, items: ['🍳','🥘','🍲','🥗','🎷'], odd: '🎷',
+    de: 'Das Saxophon 🎷 kocht man nicht', ru: 'Саксофон 🎷 не готовят', en: 'The saxophone 🎷 is not a meal' },
+  { t: 2, items: ['🪴','🌱','🍀','🌴','🔑'], odd: '🔑',
+    de: 'Der Schlüssel 🔑 wächst nicht', ru: 'Ключ 🔑 не растёт', en: 'The key 🔑 does not grow' },
+  { t: 2, items: ['🧁','🍩','🍪','🎂','🧲'], odd: '🧲',
+    de: 'Der Magnet 🧲 ist keine Süßigkeit', ru: 'Магнит 🧲 – не сладость', en: 'The magnet 🧲 is not a sweet' },
+  { t: 2, items: ['🩺','💉','🩹','💊','🎺'], odd: '🎺',
+    de: 'Die Trompete 🎺 heilt nicht', ru: 'Труба 🎺 не лечит', en: 'The trumpet 🎺 does not heal' },
+  { t: 2, items: ['👩‍🍳','👨‍🔧','👩‍✈️','👨‍🌾','🌵'], odd: '🌵',
+    de: 'Der Kaktus 🌵 übt keinen Beruf aus', ru: 'Кактус 🌵 без профессии', en: 'The cactus 🌵 has no job' },
+  { t: 2, items: ['🌧️','❄️','⛈️','🌤️','🪑'], odd: '🪑',
+    de: 'Der Stuhl 🪑 ist kein Wetter', ru: 'Стул 🪑 – не погода', en: 'The chair 🪑 is not weather' },
+  { t: 2, items: ['🧸','🪀','🎲','🧩','🥦'], odd: '🥦',
+    de: 'Der Brokkoli 🥦 ist kein Spielzeug', ru: 'Брокколи 🥦 – не игрушка', en: 'The broccoli 🥦 is not a toy' },
+  { t: 2, items: ['🚢','⛵','🚤','⛴️','🏠'], odd: '🏠',
+    de: 'Das Haus 🏠 schwimmt nicht', ru: 'Дом 🏠 не плавает', en: 'The house 🏠 does not float' },
+  { t: 2, items: ['🧣','🧤','🧥','🧢','🍋'], odd: '🍋',
+    de: 'Die Zitrone 🍋 zieht man nicht an', ru: 'Лимон 🍋 не надевают', en: 'You do not wear a lemon 🍋' },
+  { t: 2, items: ['🕯️','💡','🔦','🪔','🧀'], odd: '🧀',
+    de: 'Der Käse 🧀 leuchtet nicht', ru: 'Сыр 🧀 не светит', en: 'The cheese 🧀 does not give light' },
+  { t: 2, items: ['🥄','🍴','🥢','🔪','🚲'], odd: '🚲',
+    de: 'Das Fahrrad 🚲 liegt nicht auf dem Tisch', ru: 'Велосипед 🚲 не кладут на стол', en: 'The bicycle 🚲 does not belong on the table' },
+  { t: 2, items: ['🏫','🏥','🏦','🏰','🍌'], odd: '🍌',
+    de: 'Die Banane 🍌 ist kein Gebäude', ru: 'Банан 🍌 – не здание', en: 'The banana 🍌 is not a building' },
+  { t: 2, items: ['📷','📹','🎥','📸','🍄'], odd: '🍄',
+    de: 'Der Pilz 🍄 filmt nicht', ru: 'Гриб 🍄 не снимает', en: 'The mushroom 🍄 does not film' },
+  { t: 2, items: ['🧇','🥞','🥯','🫓','🚁'], odd: '🚁',
+    de: 'Der Hubschrauber 🚁 ist kein Frühstücksgebäck', ru: 'Вертолёт 🚁 – не выпечка', en: 'The helicopter 🚁 is not breakfast pastry' },
+  { t: 2, items: ['🌻','🌼','🌺','🥀','⚽'], odd: '⚽',
+    de: 'Der Ball ⚽ ist keine Blume', ru: 'Мяч ⚽ – не цветок', en: 'The ball ⚽ is not a flower' },
+  { t: 2, items: ['🔬','🔭','🧪','⚗️','🍪'], odd: '🍪',
+    de: 'Der Keks 🍪 gehört nicht ins Labor', ru: 'Печенье 🍪 не из лаборатории', en: 'The cookie 🍪 does not belong in a lab' },
+
+  // ── Stufe 3 ────────────────────────────────────────────────────────
   { t: 3, items: ['🌲','🌿','🌻','🍄','🐍'], odd: '🐍',
     de: 'Die Schlange 🐍 ist ein Tier, keine Pflanze', ru: 'Змея 🐍 – животное, а не растение', en: 'The snake 🐍 is an animal, not a plant' },
   { t: 3, items: ['🛏️','🪑','📺','🛁','🍦'], odd: '🍦',
@@ -42,55 +122,211 @@ const SETS = [
     de: 'Der Fisch 🐟 gehört nicht zum Himmel', ru: 'Рыба 🐟 не относится к небу', en: 'The fish 🐟 does not belong to the sky' },
   { t: 3, items: ['⚽','🏀','🎾','🏈','🍕'], odd: '🍕',
     de: 'Die Pizza 🍕 ist kein Sportgerät', ru: 'Пицца 🍕 – не спортивный предмет', en: 'The pizza 🍕 is not sports equipment' },
-  // Ab hier greift die naheliegende Kategorie nicht mehr – man muss das
-  // relevante Merkmal erst finden.
-  { t: 4, items: ['🐝','🦋','🐞','🕷️','🐜'], odd: '🕷️',
-    de: 'Die Spinne 🕷️ hat acht Beine – die anderen sechs (Insekten)',
-    ru: 'У паука 🕷️ восемь ног – у остальных шесть',
-    en: 'The spider 🕷️ has eight legs – the others have six (insects)' },
+  { t: 3, items: ['🔌','💡','🔋','🪫','🍎'], odd: '🍎',
+    de: 'Der Apfel 🍎 braucht keinen Strom', ru: 'Яблоку 🍎 ток не нужен', en: 'The apple 🍎 needs no electricity' },
+  { t: 3, items: ['📐','📏','🧮','📊','🍩'], odd: '🍩',
+    de: 'Den Donut 🍩 misst man nicht in der Schule', ru: 'Пончик 🍩 в школе не измеряют', en: 'You do not measure a doughnut 🍩 at school' },
+  { t: 3, items: ['🥣','🍽️','🍶','🫙','🎺'], odd: '🎺',
+    de: 'Die Trompete 🎺 ist kein Gefäß', ru: 'Труба 🎺 – не посуда', en: 'The trumpet 🎺 is not a vessel' },
+  { t: 3, items: ['🌳','🪵','🍃','🌰','🚗'], odd: '🚗',
+    de: 'Das Auto 🚗 wächst nicht am Baum', ru: 'Машина 🚗 на дереве не растёт', en: 'The car 🚗 does not grow on a tree' },
+  { t: 3, items: ['🔶','🔷','🔸','🔹','🐱'], odd: '🐱',
+    de: 'Die Katze 🐱 ist keine Raute', ru: 'Кошка 🐱 – не ромб', en: 'The cat 🐱 is not a diamond shape' },
+  { t: 3, items: ['🥖','🥐','🥯','🍞','🦋'], odd: '🦋',
+    de: 'Der Schmetterling 🦋 ist kein Brot', ru: 'Бабочка 🦋 – не хлеб', en: 'The butterfly 🦋 is not bread' },
+  { t: 3, items: ['🍯','🍬','🍡','🍧','📎'], odd: '📎',
+    de: 'Die Klammer 📎 schmeckt nicht süß', ru: 'Скрепка 📎 не сладкая', en: 'The clip 📎 is not sweet' },
+  { t: 3, items: ['🌊','🏞️','🏜️','🏝️','🎹'], odd: '🎹',
+    de: 'Das Klavier 🎹 ist keine Landschaft', ru: 'Рояль 🎹 – не пейзаж', en: 'The piano 🎹 is not a landscape' },
+  { t: 3, items: ['🎻','🪕','🎸','🪗','📎'], odd: '📎',
+    de: 'Die Büroklammer 📎 klingt nicht', ru: 'Скрепка 📎 не звучит', en: 'The paperclip 📎 makes no music' },
+  { t: 3, items: ['👷','🧑‍⚕️','🧑‍🔬','🧑‍🎨','🍋'], odd: '🍋',
+    de: 'Die Zitrone 🍋 hat keinen Beruf', ru: 'Лимон 🍋 без профессии', en: 'The lemon 🍋 has no profession' },
+  { t: 3, items: ['🪛','🔨','🪚','🪓','🐟'], odd: '🐟',
+    de: 'Der Fisch 🐟 ist kein Werkzeug', ru: 'Рыба 🐟 – не инструмент', en: 'The fish 🐟 is not a tool' },
+  { t: 3, items: ['📡','🛰️','📺','📻','🍓'], odd: '🍓',
+    de: 'Die Erdbeere 🍓 sendet nicht', ru: 'Клубника 🍓 не вещает', en: 'The strawberry 🍓 does not broadcast' },
+  { t: 3, items: ['🦉','🦆','🦢','🐧','🪑'], odd: '🪑',
+    de: 'Der Stuhl 🪑 ist kein Vogel', ru: 'Стул 🪑 – не птица', en: 'The chair 🪑 is not a bird' },
+  { t: 3, items: ['🧴','🧼','🧽','🪥','🎸'], odd: '🎸',
+    de: 'Die Gitarre 🎸 wäscht man nicht', ru: 'Гитару 🎸 не моют как посуду', en: 'The guitar 🎸 is not for washing' },
+  { t: 3, items: ['🧁','🎂','🍰','🥧','🚲'], odd: '🚲',
+    de: 'Das Fahrrad 🚲 backt man nicht', ru: 'Велосипед 🚲 не пекут', en: 'You do not bake a bicycle 🚲' },
+  { t: 3, items: ['🍁','🍂','🍀','🌿','🚌'], odd: '🚌',
+    de: 'Der Bus 🚌 ist kein Blatt', ru: 'Автобус 🚌 – не лист', en: 'The bus 🚌 is not a leaf' },
+  { t: 3, items: ['🎒','📚','📝','✂️','🐸'], odd: '🐸',
+    de: 'Der Frosch 🐸 gehört nicht in die Schultasche', ru: 'Лягушка 🐸 не в портфеле', en: 'The frog 🐸 does not belong in a school bag' },
+
+  // ── Stufe 4: das naheliegende Merkmal reicht nicht ─────────────────
   { t: 4, items: ['🚗','🚲','🛴','🛹','⛵'], odd: '⛵',
     de: 'Das Segelboot ⛵ hat keine Räder', ru: 'У парусника ⛵ нет колёс', en: 'The sailboat ⛵ has no wheels' },
   { t: 4, items: ['🍅','🥒','🌽','🥕','🍓'], odd: '🍓',
-    de: 'Die Erdbeere 🍓 ist süß – die anderen isst man im Salat',
+    de: 'Die Erdbeere 🍓 isst man süß – die anderen im Salat',
     ru: 'Клубника 🍓 сладкая – остальное идёт в салат',
-    en: 'The strawberry 🍓 is sweet – the others go into a salad' },
-  { t: 5, items: ['🐋','🦇','🐬','🦅','🐘'], odd: '🦅',
-    de: 'Der Adler 🦅 ist ein Vogel – alle anderen sind Säugetiere, auch Wal und Fledermaus',
+    en: 'The strawberry 🍓 is eaten sweet – the others go in a salad' },
+  { t: 4, items: ['🦉','🦇','🌙','⭐','☀️'], odd: '☀️',
+    de: 'Die Sonne ☀️ gehört zum Tag – die anderen zur Nacht',
+    ru: 'Солнце ☀️ – день, остальное ночь',
+    en: 'The sun ☀️ belongs to day – the others to night' },
+  { t: 4, items: ['🐧','🦭','🐋','❄️','🐪'], odd: '🐪',
+    de: 'Das Kamel 🐪 lebt in der Wärme – die anderen im Kalten',
+    ru: 'Верблюд 🐪 живёт в тепле – остальные в холоде',
+    en: 'The camel 🐪 lives in the heat – the others in the cold' },
+  { t: 4, items: ['🚲','🛴','🛹','🛼','🚗'], odd: '🚗',
+    de: 'Das Auto 🚗 hat einen Motor – die anderen bewegt man selbst',
+    ru: 'У машины 🚗 мотор – остальное крутят сами',
+    en: 'The car 🚗 has an engine – you move the others yourself' },
+  { t: 4, items: ['🕯️','🔥','☀️','💡','❄️'], odd: '❄️',
+    de: 'Der Schnee ❄️ kühlt – die anderen wärmen oder leuchten warm',
+    ru: 'Снег ❄️ холодный – остальное греет или светит',
+    en: 'Snow ❄️ is cold – the others give warmth or warm light' },
+  { t: 4, items: ['🐔','🦆','🦢','🦃','🦇'], odd: '🦇',
+    de: 'Die Fledermaus 🦇 ist kein Vogel', ru: 'Летучая мышь 🦇 – не птица', en: 'The bat 🦇 is not a bird' },
+  { t: 4, items: ['🎹','🎸','🎻','🪕','🥁'], odd: '🥁',
+    de: 'Die Trommel 🥁 hat keine Saiten', ru: 'У барабана 🥁 нет струн', en: 'The drum 🥁 has no strings' },
+  { t: 4, items: ['📕','📗','📘','📙','📰'], odd: '📰',
+    de: 'Die Zeitung 📰 ist kein gebundenes Buch', ru: 'Газета 📰 – не переплетённая книга', en: 'The newspaper 📰 is not a bound book' },
+  { t: 4, items: ['🧁','🎂','🍰','🥧','🍞'], odd: '🍞',
+    de: 'Das Brot 🍞 ist nicht süß gebacken wie die Kuchen',
+    ru: 'Хлеб 🍞 не сладкий, как пироги',
+    en: 'Bread 🍞 is not a sweet bake like the cakes' },
+  { t: 4, items: ['👨‍⚕️','👩‍⚕️','🩺','💊','👨‍🍳'], odd: '👨‍🍳',
+    de: 'Der Koch 👨‍🍳 heilt nicht', ru: 'Повар 👨‍🍳 не лечит', en: 'The cook 👨‍🍳 does not heal' },
+  { t: 4, items: ['💻','🖥️','⌨️','🖱️','📺'], odd: '📺',
+    de: 'Der Fernseher 📺 ist kein Computerarbeitsplatz',
+    ru: 'Телевизор 📺 – не компьютер',
+    en: 'The television 📺 is not a computer workplace' },
+  { t: 4, items: ['🌷','🌹','🌻','🌼','🌵'], odd: '🌵',
+    de: 'Der Kaktus 🌵 ist keine Gartenblume', ru: 'Кактус 🌵 – не садовый цветок', en: 'The cactus 🌵 is not a garden flower' },
+  { t: 4, items: ['🔺','🔻','▶️','◀️','⬛'], odd: '⬛',
+    de: 'Das Quadrat ⬛ hat vier Ecken – die anderen drei',
+    ru: 'У квадрата ⬛ четыре угла – у остальных три',
+    en: 'The square ⬛ has four corners – the others have three' },
+  { t: 4, items: ['🍴','🥄','🥢','🔪','🔧'], odd: '🔧',
+    de: 'Der Schraubenschlüssel 🔧 liegt nicht neben dem Teller',
+    ru: 'Гаечный ключ 🔧 не кладут к тарелке',
+    en: 'The spanner 🔧 does not sit beside the plate' },
+  { t: 4, items: ['🏫','📚','✏️','🎒','🏥'], odd: '🏥',
+    de: 'Das Krankenhaus 🏥 ist keine Schule', ru: 'Больница 🏥 – не школа', en: 'The hospital 🏥 is not a school' },
+  { t: 4, items: ['🎻','🎺','🎷','🪈','📢'], odd: '📢',
+    de: 'Das Megafon 📢 ist kein Musikinstrument', ru: 'Мегафон 📢 – не музыкальный инструмент', en: 'The megaphone 📢 is not a musical instrument' },
+  { t: 4, items: ['🌧️','☔','💧','🌊','🔥'], odd: '🔥',
+    de: 'Das Feuer 🔥 ist nicht nass', ru: 'Огонь 🔥 не мокрый', en: 'Fire 🔥 is not wet' },
+  { t: 4, items: ['🔨','🪚','🪓','🔧','📎'], odd: '📎',
+    de: 'Die Büroklammer 📎 ist kein Handwerkzeug', ru: 'Скрепка 📎 – не ручной инструмент', en: 'The paperclip 📎 is not a workshop tool' },
+  { t: 4, items: ['🍩','🍪','🍫','🍭','🥖'], odd: '🥖',
+    de: 'Das Baguette 🥖 ist nicht süß', ru: 'Багет 🥖 не сладкий', en: 'The baguette 🥖 is not sweet' },
+  { t: 4, items: ['🛋️','🪑','🛏️','🪞','🚿'], odd: '🚿',
+    de: 'Die Dusche 🚿 steht nicht im Wohnzimmer', ru: 'Душ 🚿 не в гостиной', en: 'The shower 🚿 is not living-room furniture' },
+
+  // ── Stufe 5: verstecktes Merkmal ───────────────────────────────────
+  { t: 5, items: ['🐋','🦇','🐬','🐘','🦅'], odd: '🦅',
+    de: 'Der Adler 🦅 ist ein Vogel – alle anderen sind Säugetiere',
     ru: 'Орёл 🦅 – птица, остальные млекопитающие',
-    en: 'The eagle 🦅 is a bird – all the others are mammals, even the whale and bat' },
-  { t: 5, items: ['⌛','⏰','📅','🌡️','⏳'], odd: '🌡️',
+    en: 'The eagle 🦅 is a bird – all the others are mammals' },
+  { t: 5, items: ['⌛','⏰','📅','⏳','🌡️'], odd: '🌡️',
     de: 'Das Thermometer 🌡️ misst Wärme – die anderen Zeit',
     ru: 'Термометр 🌡️ измеряет тепло – остальные время',
     en: 'The thermometer 🌡️ measures heat – the others measure time' },
-  { t: 5, items: ['🔑','🎫','🔐','🗝️','🔨'], odd: '🔨',
-    de: 'Der Hammer 🔨 verschafft keinen Zugang – die anderen schon',
-    ru: 'Молоток 🔨 не даёт доступа – остальные дают',
-    en: 'The hammer 🔨 grants no access – the others do' }
+  { t: 5, items: ['🦋','🐦','✈️','🪁','🚗'], odd: '🚗',
+    de: 'Das Auto 🚗 fliegt nicht', ru: 'Машина 🚗 не летает', en: 'The car 🚗 does not fly' },
+  { t: 5, items: ['🌙','⭐','🪐','☄️','🌞'], odd: '🌞',
+    de: 'Die Sonne 🌞 leuchtet von selbst – die anderen gehören zum Nachthimmel',
+    ru: 'Солнце 🌞 светит само – остальное ночное небо',
+    en: 'The sun 🌞 shines by itself – the others belong to the night sky' },
+  { t: 5, items: ['🎻','🎸','🪕','🎹','🎤'], odd: '🎤',
+    de: 'Das Mikrofon 🎤 erzeugt den Ton nicht selbst',
+    ru: 'Микрофон 🎤 сам звук не создаёт',
+    en: 'The microphone 🎤 does not make the sound itself' },
+  { t: 5, items: ['👩‍🏫','📚','✏️','🏫','👩‍🚒'], odd: '👩‍🚒',
+    de: 'Die Feuerwehr 👩‍🚒 gehört nicht zur Schule',
+    ru: 'Пожарная 👩‍🚒 не из школы',
+    en: 'The firefighter 👩‍🚒 does not belong to school' },
+  { t: 5, items: ['🔧','🪛','🔨','🪚','🔑'], odd: '🔑',
+    de: 'Der Schlüssel 🔑 baut nichts – er schließt auf',
+    ru: 'Ключ 🔑 ничего не строит – он открывает',
+    en: 'The key 🔑 does not build – it unlocks' },
+  { t: 5, items: ['💻','📱','🖨️','⌨️','📻'], odd: '📻',
+    de: 'Das Radio 📻 rechnet und druckt nicht',
+    ru: 'Радио 📻 не считает и не печатает',
+    en: 'The radio 📻 does not compute or print' },
+  { t: 5, items: ['🔺','🔻','▶️','🔶','⭕'], odd: '⭕',
+    de: 'Der Kreis ⭕ hat keine Ecken',
+    ru: 'У круга ⭕ нет углов',
+    en: 'The circle ⭕ has no corners' },
+  { t: 5, items: ['🌲','🌳','🌴','🌵','🍄'], odd: '🍄',
+    de: 'Der Pilz 🍄 ist keine Pflanze mit Stamm oder Stängel wie die anderen',
+    ru: 'Гриб 🍄 – не дерево и не кактус',
+    en: 'The mushroom 🍄 is not a woody or stem plant like the others' },
+  { t: 5, items: ['🧁','🍩','🍪','🍫','🧀'], odd: '🧀',
+    de: 'Der Käse 🧀 ist nicht gebacken oder als Süßigkeit gemacht',
+    ru: 'Сыр 🧀 не выпечка и не конфета',
+    en: 'Cheese 🧀 is not a baked sweet' },
+  { t: 5, items: ['🍽️','🥣','🫖','🥄','🧹'], odd: '🧹',
+    de: 'Der Besen 🧹 gehört nicht auf den Esstisch',
+    ru: 'Веник 🧹 не для стола',
+    en: 'The broom 🧹 does not belong on the dining table' },
+  { t: 5, items: ['🌊','🌧️','❄️','💧','💨'], odd: '💨',
+    de: 'Der Wind 💨 ist keine Form von Wasser',
+    ru: 'Ветер 💨 – не вода',
+    en: 'Wind 💨 is not a form of water' },
+  { t: 5, items: ['🥐','🥖','🥨','🥯','🍚'], odd: '🍚',
+    de: 'Reis 🍚 ist kein Gebäck aus dem Ofen',
+    ru: 'Рис 🍚 – не выпечка',
+    en: 'Rice 🍚 is not oven-baked pastry' },
+  { t: 5, items: ['🧑‍🔬','🧪','🔬','⚗️','🧑‍🎨'], odd: '🧑‍🎨',
+    de: 'Die Künstlerin 🧑‍🎨 arbeitet nicht im Labor',
+    ru: 'Художник 🧑‍🎨 не в лаборатории',
+    en: 'The artist 🧑‍🎨 does not work in a lab' },
+  { t: 5, items: ['🚂','🚃','🚇','🚊','⛵'], odd: '⛵',
+    de: 'Das Segelboot ⛵ fährt nicht auf Schienen',
+    ru: 'Парусник ⛵ не по рельсам',
+    en: 'The sailboat ⛵ does not run on rails' },
+  { t: 5, items: ['🛏️','🛌','🧸','🌙','☀️'], odd: '☀️',
+    de: 'Die Sonne ☀️ gehört nicht zur Nacht und zum Schlafen',
+    ru: 'Солнце ☀️ не про ночь и сон',
+    en: 'The sun ☀️ does not belong with night and sleep' },
+  { t: 5, items: ['🦅','🦉','🦆','🐧','🐬'], odd: '🐬',
+    de: 'Der Delfin 🐬 ist kein Vogel',
+    ru: 'Дельфин 🐬 – не птица',
+    en: 'The dolphin 🐬 is not a bird' },
+  { t: 5, items: ['📐','📏','🧮','✏️','🎸'], odd: '🎸',
+    de: 'Die Gitarre 🎸 ist kein Schulwerkzeug zum Rechnen oder Zeichnen',
+    ru: 'Гитара 🎸 не школьный инструмент для счёта',
+    en: 'The guitar 🎸 is not a school tool for measuring or drawing' },
+  { t: 5, items: ['🛋️','🪑','🛏️','🚪','🍦'], odd: '🍦',
+    de: 'Das Eis 🍦 wohnt nicht in der Wohnung als Möbel',
+    ru: 'Мороженое 🍦 не мебель',
+    en: 'Ice cream 🍦 is not furniture in the home' }
 ];
+
+function pruefeSets() {
+  for (const s of SETS) {
+    if (s.items.length !== 5) throw new Error('Set braucht 5 Bilder: ' + s.de);
+    if (!s.items.includes(s.odd)) throw new Error('odd fehlt in items: ' + s.de);
+    if (!s.de || !s.ru || !s.en) throw new Error('Sprache fehlt: ' + (s.de || '?'));
+  }
+}
+pruefeSets();
 
 const game = createChoiceGame({
   id: 'sim-konzeptbildung',
   minLevel: 1,
   maxLevel: 5,
   startLevel: 1,
-
-  // Keine Aufgabe zweimal im selben Durchgang – beim zweiten Mal misst
-  // sie die Erinnerung an die vorige Antwort, nicht die Fähigkeit.
   roundKey: r => r._key,
-
   genRound: (gd) => {
     const pool = SETS.filter(s => s.t === gd.level);
     const list = pool.length ? pool : SETS;
     const s = list[Math.floor(Math.random() * list.length)];
     const items = shuffle(s.items);
-
     return {
       prompt: `<div style="text-align:center">
         <p style="font-size:1.15em"><b>${pick(UI.frage)}</b></p>
         <p style="color:var(--text-light);font-size:.9em;margin-bottom:4px">${pick(UI.tipp)}</p>
       </div>`,
       options: items.map(i => ({ html: i, label: i })),
-      _key: items.join('|'),
+      _key: setKey(s.items, s.odd),
       correct: items.indexOf(s.odd),
       columns: 5,
       explain: s
@@ -99,3 +335,8 @@ const game = createChoiceGame({
 });
 
 export const { init, render, dispose, actions, scoring } = game;
+export const instruction = {
+  de: 'Welches Bild passt nicht zu den anderen? Tippe es an.',
+  ru: 'Какая картинка не подходит к остальным? Нажми на неё.',
+  en: 'Which picture does not belong with the others? Tap it.'
+};

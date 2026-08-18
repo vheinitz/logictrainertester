@@ -105,6 +105,84 @@ for (const [id, load] of Object.entries(registry)) {
       check(id, gs.percent !== undefined, 'stop() schreibt keinen Prozentwert nach gs');
       html(mod, gs, id, 'done');
 
+    // ── Drag-Module: Stücke auf Plätze ──
+    } else if (mod.actions.verschiebe) {
+      html(mod, gs, id, 'legen');
+      const gd = gs.gd;
+      if (gd.loesung && gd.plaetze) {
+        gd.loesung.forEach((x, i) => mod.actions.verschiebe(gs, x.id, 'platz:' + i));
+      } else if (gd.zellen && gd.stuecke) {
+        const sollO = z => (gd.spiegle ? 1 - z.orient : z.orient);
+        const frei = new Set(Object.keys(gd.stuecke));
+        gd.zellen.forEach((z, i) => {
+          const id = [...frei].find(k => {
+            const st = gd.stuecke[k];
+            return st.pflicht !== false && st.farbe === z.farbe;
+          });
+          if (!id) return;
+          frei.delete(id);
+          const st = gd.stuecke[id];
+          if (st.orient !== sollO(z) && mod.actions.drehe) mod.actions.drehe(gs, id);
+          mod.actions.verschiebe(gs, id, 'platz:' + i);
+        });
+      } else if (gd.figur && gd.plaetze) {
+        const frei = [...gd.vorrat];
+        gd.figur.slots.forEach((s, i) => {
+          for (let t = 0; t < frei.length; t++) {
+            const k = frei[t];
+            if (mod.actions.drehe && s.okRot) {
+              let n = 0;
+              while (n < 8 && !s.okRot.includes(((gd.rot[k] % 360) + 360) % 360)) {
+                mod.actions.drehe(gs, k); n++;
+              }
+            }
+            if (s.okFlip && mod.actions.spiegle && !s.okFlip.includes(gd.flip[k] || 0)) {
+              mod.actions.spiegle(gs, k);
+            }
+            mod.actions.verschiebe(gs, k, 'slot:' + i);
+            if (gd.plaetze[i] === k) { frei.splice(t, 1); break; }
+          }
+        });
+      }
+      html(mod, gs, id, gd.phase || 'nach-legen');
+      check(id, (gs.total || 0) >= 1 || gd.phase === 'feedback' || gd.phase === 'legen',
+            'Drag-Modul hat nach dem Legen keinen Zustand');
+
+    // ── Rover: Felder antippen (nicht Rhythmus) ──
+    } else if (mod.actions.tap && mod.actions.undo) {
+      html(mod, gs, id, 'play');
+      const m = gs.gd.map;
+      const blocked = new Set(m.blocked);
+      const key = (r, c) => r + ',' + c;
+      const dirs = [[-1, 0], [1, 0], [0, -1], [0, 1]];
+      const q = [[m.start[0], m.start[1]]];
+      const parent = new Map();
+      const seen = new Set([key(m.start[0], m.start[1])]);
+      while (q.length) {
+        const [r, c] = q.shift();
+        if (r === m.goal[0] && c === m.goal[1]) break;
+        for (const [dr, dc] of dirs) {
+          const nr = r + dr, nc = c + dc, kk = key(nr, nc);
+          if (nr < 0 || nc < 0 || nr >= m.rows || nc >= m.cols) continue;
+          if (blocked.has(kk) || seen.has(kk)) continue;
+          seen.add(kk); parent.set(kk, [r, c]); q.push([nr, nc]);
+        }
+      }
+      const weg = [];
+      let cur = m.goal;
+      while (cur && !(cur[0] === m.start[0] && cur[1] === m.start[1])) {
+        weg.push(cur);
+        cur = parent.get(key(cur[0], cur[1]));
+      }
+      weg.reverse();
+      if (m.waypoint && !weg.some(([r, c]) => r === m.waypoint[0] && c === m.waypoint[1])) {
+        // Zwischenziel nicht auf dem kürzesten Weg: zuerst hin, dann zum Ziel
+        // (Stufe 5). Smoke tippt trotzdem den kürzesten; Auswertung darf fehlschlagen.
+      }
+      for (const [r, c] of weg) mod.actions.tap(gs, r, c);
+      html(mod, gs, id, gs.gd.phase);
+      check(id, (gs.total || 0) >= 1, 'Rover wertet den Weg nicht aus');
+
     // ── Rhythmus: Eingabe über Zeitpunkte statt Auswahl ──
     } else if (mod.actions.tap) {
       html(mod, gs, id, 'listen');

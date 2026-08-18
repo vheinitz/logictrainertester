@@ -1,0 +1,45 @@
+HACKS AND TWEAKS                            79
+
+
+                                     I’m still going to win,
+                                      you know. Get ready       STAIRS
+                                         to lose again!
+
+
+
+
+▷ In record time
+You can use the system clock to time how long it takes
+a player to connect all the dots. You could then try to        from time import time
+beat your friends’ times! To time the game, you’ll need
+to use the time() function. Once the game is complete,                       Put this code at the top
+you can display the final time taken on the screen. Why                      of your program to use
+not try placing the clock in the corner? Remember to                         the Time module.
+use str() to cast the message into a string. You can
+check Step 9 of the game if you need to remind yourself        def update():
+how to do this. At the moment, though, the draw()
+function is only called when the player clicks the                 pass
+mouse, so the clock would only update after each
+mouse click. To fix this, add this code. This function is                   You don’t need to replace
+called 60 times a second. Each call also calls the draw()                   pass with any actual code.
+function, so the clock stays up to date.
+
+
+
+       EXPERT TIPS                                                     EXPERT TIPS
+  time()                                                       round()
+  The time() function might give you an                        The time() function calculates time to lots
+  unexpected result. It calculates the time that’s             of decimal places. You can use the round()
+  passed since an “epoch,” which is the date an                function to round it to a certain number
+  operating system considers to be the “start of               of decimal places, which will make it easier
+  time.” Windows machines will tell you how many               to read. round() takes two parameters—the
+  seconds have passed since January 1, 1601!                   number to round up or down and the number
+  You can use this simple calculation below to                 of decimal places to shorten it to.
+  work out how long it actually took the player
+  to complete the game.                                          >>> round(5.75, 1)                This is the number of
+                                                                                                   decimal places you
+                                                                 5.8                               want to round it to.
+   total_time = end_time - start_time
+
+                     This calculates the                                          This is the number
+                     total time elapsed.                                          you want to round up.

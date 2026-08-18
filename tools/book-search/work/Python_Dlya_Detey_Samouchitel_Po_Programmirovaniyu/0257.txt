@@ -1,0 +1,52 @@
+Получение позиции фигурки
+Нам важно знать, где находится фигурка на игровом экране, а посколь-
+ку она движется, функция coords класса StickFigureSprite будет
+отличаться от одноименной функции родительского класса Sprite.
+Воспользуемся функцией холста coords, чтобы узнать положение фигур-
+ки, и в соответствии с этим выставим значения x1, y1, x2 и y2 свойства
+coordinates, которое создается в функции __init__ класса Sprite.
+Добавьте этот код после функции animate:
+
+
+             if self.x < 0:
+                 if self.y != 0:
+                     self.game.canvas.itemconfig(self.image, \
+                              image=self.images_left[2])
+                 else:
+                     self.game.canvas.itemconfig(self.image, \
+                              image=self.images_left[self.current_image])
+             elif self.x > 0:
+                 if self.y != 0:
+                     self.game.canvas.itemconfig(self.image, \
+                              image=self.images_right[2])
+                 else:
+                     self.game.canvas.itemconfig(self.image, \
+                              image=self.images_right[self.current_image])
+
+         def coords(self):
+            xy = self.game.canvas.coords(self.image)
+            self.coordinates.x1 = xy[0]
+            self.coordinates.y1 = xy[1]
+            self.coordinates.x2 = xy[0] + 27
+            self.coordinates.y2 = xy[1] + 30
+             return self.coordinates
+
+
+    Создавая в главе 16 класс Game, мы добавили в него свойство canvas,
+содержащее объект-холст. В строке  вызываем функцию coords этого
+холста (self.game.canvas.coords), которая возвращает x- и y-коорди-
+наты изображения (идентификатор изображения хранится в свойстве
+image, которое мы передаем функции в качестве аргумента).
+    Функция холста coords возвращает список (мы сохраняем его в пе-
+ременной xy), где находятся два элемента — x- и y-координаты левого
+верхнего угла изображения. В строке  сохраняем x-координату как зна-
+чение x1 свойства coordinates, а в строке  — y-координату как значе-
+ние y1 свойства coordinates.
+    Поскольку все изображения фигурки одинакового размера — 27 пик-
+селей в ширину и 30 в высоту, — мы можем вычислить значения x2 и y2,
+прибавляя ширину (в строке ) и высоту (в строке ) к координатам x и y
+соответственно.
+
+
+
+                                                                       18. Доделываем игру   257

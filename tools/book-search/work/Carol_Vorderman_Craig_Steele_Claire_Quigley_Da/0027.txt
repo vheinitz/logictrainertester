@@ -1,0 +1,48 @@
+YO U R F I R S T P RO G R A M             25
+      EXPERT TIPS
+ Rerunning programs
+ When you’re building a program, you need to run the code
+ frequently to check for bugs. To save time, you can press the
+ Up arrow key in Command Prompt or Terminal to see your
+ recent commands. You can then press Enter to run one of
+ them again. If your game is still running, you need to close it
+ before rerunning your code. If you don’t, nothing will happen!
+
+
+
+Running your program using IDLE
+It’s possible to run your Pygame Zero programs using IDLE. To do
+this you need to add two extra lines to your code. It’s a good idea to
+wait until you have finish writing your program before doing this.
+
+ 1 Type import pgzrun at the very top of your program and
+   pgzrun.go() at the very end. The entire code for your game                  2 ToRunrunmenu
+                                                                                          the game in IDLE go to the
+                                                                                              and click Run Module,
+     should now sit between these two lines.                                        or just press the F5 key.
+
+              This should now be the
+              first line of your program.
+                                                                                      Run
+ import pgzrun
+                                                                                        Python Shell
+ def draw():
+                                                                                        Check Module
+     screen.draw.text("Hello", topleft=(10, 10))
+ pgzrun.go()                                                                            Run Module...           F5
+
+                                               This should now be the
+                                               last line of your program.
+
+
+       IMPORTANT!
+ Fix mistakes
+ If nothing happens when you run one of your programs, or if you
+ get an error message—don’t panic! It’s normal to experience                        I think there’s some bug
+ errors (these are called “bugs”) when coding a program. If an error                 spray on pages 44–47!
+ message appears, ask yourself the following questions:
+
+ ▪ Does the code match the given example exactly?
+ ▪ Have I saved the program in the right folder?
+ ▪ Have I typed pgzrun correctly?
+ ▪ Are Pygame and Pygame Zero installed correctly?

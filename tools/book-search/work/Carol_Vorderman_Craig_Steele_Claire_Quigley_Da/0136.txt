@@ -1,0 +1,48 @@
+134           BALLOON FLIGHT
+
+
+
+                                                                                                        I think I read about
+                                                                                                           file handling on
+                                                                                                          page 132 as well.
+
+
+
+
+                                                                   new_high_score = False
+
+
+                                    Make this number higher       △ File handling
+ bird.x -= 4                                                      In the game, you write to the high-scores.txt file every
+                                    to increase the speed.
+                                                                  time the program exits. It would be more efficient to write
+△ Speed it up                                                     to the file only if the high scores have changed. To code
+Do you want to make the game more                                 this, you can use a Boolean variable to track whether
+challenging? Why don’t you make the obstacles                     the high scores have changed. In programming, this is
+go faster? You can do this by changing the                        sometimes referred to as a “flag.” In the game, if the flag
+number of pixels the obstacles move by. If you                    is set to True, then the high scores have changed and
+make the bird faster, remember to also update                     you have to write them back to the file. But if there is no
+the flap() function to match the new speed.                       change, there is no need to write anything to the file.
+
+
+
+
+                      I didn’t know I could
+                      score points like this!
+
+
+
+
+                                                                          Name of the second
+                                                                          bird obstacle.
+
+△ Different way to score                                      bird2 = Actor("bird-up")
+In the current game, the player scores a point
+                                                              bird2.pos = randint(800, 1600), randint(10, 200)
+every time an obstacle disappears off the left
+edge of the screen. You can change the code
+so that the player scores every time they pass            △ Add in multiples of each obstacle
+an obstacle on the screen. Can you figure out             Do you find avoiding just one of each obstacle on the
+how to do this? Remember the position of the              screen too easy? You could change the code so that
+balloon always remains at 400 pixels along                more than one of each obstacle appears on the screen
+the x-axis.                                               at the same time.

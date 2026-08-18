@@ -1,0 +1,51 @@
+Время поиграть                                                                   113
+
+
+     def update(self):                      Обеспечиваем
+         global speed                       прокрутку
+         self.rect.centery -= speed[1]      игрового фона
+         if self.rect.centery < -32: Удаляем препятствия, ушедшие
+         self.kill()                   за верхнюю границу экрана
+
+ def create_map():
+     global obstacles
+     locations = []
+     for i in range(10):
+         row = random.randint(0, 9)                                   Создаем экран
+         col = random.randint(0, 9)                                   со случайным
+                                                                      образом
+         location = [col * 64 + 20, row * 64 + 20 + 640]              расположенными
+         if not (location in locations):                              деревьями
+             locations.append(location)                               и флагами
+             type = random.choice(["tree", "flag"])
+             if type == "tree": img = "skier_tree.png"
+             elif type == "flag": img = "skier_flag.png"
+             obstacle = ObstacleClass(img, location, type)
+             obstacles.add(obstacle)
+
+ def animate():
+     screen.fill([255, 255, 255])
+     obstacles.draw(screen)                      Обновляем экран
+     screen.blit(skier.image, skier.rect)
+     screen.blit(score_text, [10, 10])
+     pygame.display.flip()
+
+ pygame.init()
+ screen = pygame.display.set_mode([640,640])
+ clock = pygame.time.Clock()
+ skier = SkierClass()
+ speed = [0, 6]
+ obstacles = pygame.sprite.Group()                  Готовим все к запуску
+ map_position = 0
+ points = 0
+ create_map()
+ font = pygame.font.Font(None, 50)
+ running = True     Запускаем основной цикл
+ while running:                             Обновляем графику 30 раз в секунду
+ clock.tick(30)
+     for event in pygame.event.get():
+         if event.type == pygame.QUIT:
+                                                    Проверяем нажатие клавиш
+             running = False                        или закрытие окна
+         if event.type == pygame.KEYDOWN:
+              if event.key == pygame.K_LEFT:

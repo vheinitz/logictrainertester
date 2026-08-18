@@ -1,0 +1,62 @@
+108          BIG QUIZ
+
+
+15 Create a list for the questions
+   Next you need to add some code to keep
+                                                         q5 = ["Where are the pyramids?",
+                                                               "India", "Egypt", "Morocco", "Canada", 2]
+      the questions in order. You can do this using
+      a list, just like you did for the answer boxes
+      in Step 8. Add this line under the code from
+                                                         questions = [q1, q2, q3, q4, q5]
+      Step 14.
+
+                                                                              This list holds all
+                                                                              the questions.
+
+
+
+16 Add   a function
+   In a real-life quiz, the quizmaster begins by
+                                                         questions = [q1, q2, q3, q4, q5]
+                                                         question = questions.pop(0)
+      picking up the first question from the top of
+      a list. In Python, you can do the same thing
+      by using the pop() function. This function                    This gets the first question from
+      removes the first item from the list, which                   the questions list and stores it
+      makes the second item move to the top of                      in a variable called question.
+      the list. So in your code, pop() will remove q1,
+      and q2 will take its place. Type this code next.
+
+                                                                       EXPERT TIPS
+                                                                  Pop the stack
+17 Display the boxes
+   Now you need to update the draw()
+                                                                  When you place items in a list, Python
+                                                                  stacks them on top of each other. The first
+      function to display the questions and the
+                                                                  item in the list appears at the top of the
+      timer on the screen. Use a for loop to draw
+      the possible answers inside the answer
+                                                                  stack. Using the pop() function removes
+      boxes. Add this code to the draw() function                 an item from the top of the stack.
+      under what you typed in Step 9.
+
+     screen.draw.filled_rect(main_box, "sky blue")
+     screen.draw.filled_rect(timer_box, "sky blue")
+                                                                                                        This line displays
+                                                                                                        the number of
+     for box in answer_boxes:                                                                           seconds remaining
+                                                                                                        in the timer box.
+          screen.draw.filled_rect(box, "orange")
+
+
+     screen.draw.textbox(str(time_left), timer_box, color=("black"))
+     screen.draw.textbox(question[0], main_box, color=("black"))                                    This displays
+                                                                                                    the question in
+                                                                                                    the main box.
+     index = 1
+     for box in answer_boxes:                                                                       These lines draw
+                                                                                                    each possible answer
+          screen.draw.textbox(question[index], box, color=("black"))                                in an answer box.
+          index = index + 1

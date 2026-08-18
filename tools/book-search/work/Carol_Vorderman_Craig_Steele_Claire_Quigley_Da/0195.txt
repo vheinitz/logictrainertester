@@ -1,0 +1,51 @@
+GAME PROGRESS                                                    91%        193
+
+28 Dragon   collisions
+   If the hero gets too close to an awake
+      dragon, the player will lose a life. You’ll
+      use the check_for_dragon_collision()
+      function to calculate this distance.
+      Add this code under what you typed                                                  Don’t forget to save
+      in Step 27.                                                                             your work.
+
+                check_for_dragon_collision(lair)
+                                                                                       This calculates the
+                                                                                       horizontal and vertical
+def check_for_dragon_collision(lair):                                                  distances between the
+                                                                                       dragon and the hero.
+      x_distance = hero.x - lair["dragon"].x
+      y_distance = hero.y - lair["dragon"].y
+      distance = math.hypot(x_distance, y_distance)                                    This finds the distance
+                                                                                       between the dragon and
+      if distance < ATTACK_DISTANCE:                                                   the hero in a straight line.
+           handle_dragon_collision()
+
+
+                                        This function is called if the distance
+                                        between the hero and dragon is
+                                        less than ATTACK_DISTANCE.
+
+
+
+
+29 Reset   hero
+   If the player loses a life, the hero’s position needs
+      to be reset to the starting position. You’ll use the
+      animate() function to do this. In your game, this
+      function takes three parameters—the hero Actor,
+      the hero’s starting position, and the subtract_life()
+      function. Add the code shown in black here.
+
+      distance = math.hypot(x_distance, y_distance)
+      if distance < ATTACK_DISTANCE:
+           handle_dragon_collision()
+
+
+def handle_dragon_collision():
+      global reset_required
+      reset_required = True
+      animate(hero, pos=HERO_START, on_finished=subtract_life)
+
+
+                                                                                  This function is called when
+                                                                                  the animation is complete.

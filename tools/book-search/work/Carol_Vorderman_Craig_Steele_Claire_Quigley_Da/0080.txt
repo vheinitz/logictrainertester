@@ -1,0 +1,51 @@
+78           FOLLOW THE NUMBERS
+
+
+
+Hacks and tweaks
+Try out the following ideas to make                                                 Strike three, and
+                                                                                       you’re out!
+Follow the Numbers a bit more
+challenging and even more fun.
+
+
+
+
+                                                                   △ No more chances
+                                                                   At the moment, the player has an unlimited
+                                                                   number of attempts to connect the dots
+                                                                   together. Try changing the code so that the
+                                                                   game ends if the player makes a mistake. You
+                                                                   could even add a “Game Over!” message to
+                                                                   your code. If you do this, remember to clear
+                                                                   everything else off the screen first.
+△ More dots
+You can add more dots to the game to make it
+more challenging. Remember the loop in Step 8
+that creates ten dots? Can you modify the range
+to create some more?
+
+
+
+          Set up a variable to keep           Define a function
+          track of how many dots              that adds two dots
+          each level has.                     to the dots list.
+
+ number_of_dots = 10                                               △ Multiple sets of dots
+                                                                   To make the game more challenging, you could
+                                                                   add another set of dots. There’s a red dot in the
+ def next_level:                                                   Hacks and tweaks section of the Resource Pack.
+                                                                   You’ll need to think about the following things
+                                                                   to tweak the game:
+ if next_dot == number_of_dots - 1:
+                                                                   ▪ Create a separate list for the red dots.
+                         What does your program need to
+                         do when increasing the level?             ▪ Create a separate list for blue lines to connect
+△ Level up                                                          the red dots.
+You could add levels so the game gets harder                       ▪ Create a next_dot variable for the red dots.
+each time you complete a sequence. Each level
+                                                                   ▪ Set up the red dots at the start.
+could have two more dots than the last. Try
+                                                                   ▪ Draw the red dots and blue lines.
+defining a next_level() function to do this.
+This code will help you get started.                               ▪ Check if the next red dot has been clicked.

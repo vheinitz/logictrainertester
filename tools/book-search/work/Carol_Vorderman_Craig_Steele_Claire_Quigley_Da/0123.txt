@@ -1,0 +1,61 @@
+GAME PROGRESS                                                    14%         121
+Up, up, and away!
+Before you take to the skies, it’s
+important to understand the key
+elements used to build this game.
+The code is a bit long and tricky, so be
+extra careful when you’re typing it out.
+
+
+
+ 1 First steps
+   Go to the python-games folder you made                      2 Set up an images folder
+                                                                 This game uses six images. Create a
+      earlier and create a folder called balloon-flight            new folder called images within your
+      inside it. Now open IDLE and create an empty                 balloon-flight folder. Find the Balloon Flight
+      file by going to the File menu and choosing                  images in the Python Games Resource Pack
+      New File. Save this file as balloon.py in the                (dk.com/computercoding) and copy them
+      balloon-flight folder.                                       into the images folder as shown here.
+
+ Save As:    balloon.py                                                                   balloon-flight
+
+ Tags:                                                             balloon.py
+                                                                   images
+                                                                       background.png
+ Where:         balloon-flight
+                                                                       balloon.png
+                                                                       bird-down.png
+                                                                       bird-up.png
+                                 Cancel          Save                  house.png
+                                                                       tree.png
+
+
+
+
+ 3 Create a file to store the high scores
+   Next open a new file in IDLE and type the following
+                                                                   balloon.py
+                                                                                          balloon-flight
+
+      code in it. From the File menu, select Save As... and        high-scores.txt
+      save the file as high-scores.txt in the balloon-flight       images
+      folder. Make sure you delete the .py extension.
+
+
+ 0 0 0
+
+             Make sure you put a space
+             between each 0.
+                                                                                        IDLE automatically adds .py to a file name.
+                                                                                        So remember to change the extension to
+                                                                                        .txt when saving the file.
+
+
+
+ 4 Import a module
+   Now that your folders are ready, it’s time to
+                                                               from random import randint
+
+      start writing the code. First you need to import                                               This function will be used to
+      a module that’s used in the program. Type this                                                 generate random positions for
+      line at the top of your balloon.py IDLE file.                                                  the obstacles on the screen.

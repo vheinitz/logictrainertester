@@ -1,0 +1,60 @@
+190             SLEEPING DRAGONS
+
+
+22 Schedule  a call
+   Next add some code to schedule a call
+                                                                      update_egg(lair)
+
+        to the update_lairs() function once
+        every second. Add this line under the           clock.schedule_interval(update_lairs, 1)
+        code from Step 21.
+                                        This function schedules a          The number of seconds between
+                                       call to another function at        each function call can be changed
+                                                 regular intervals.               by updating this number.
+
+
+
+
+23 Wake the sleeping dragon
+   Now you need to check if the dragon has slept long enough.
+        To do this, you need to compare the sleep_counter with the
+        sleep_length set for that dragon. If it’s time to wake the
+        dragon, the sleeping dragon image will be updated and the
+        sleep_counter will be reset to 0. If not, the sleep_counter will
+        be increased by one. Add this code under the line from Step 22.
+
+                           def update_sleeping_dragon(lair):                                                  This checks if the
+                                                                                                              sleep_counter is
+                              if lair["sleep_counter"] >= lair["sleep_length"]:
+                                                                                                              greater than or equal
+                                   lair["dragon"].image = "dragon-awake"                                      to the sleep_length
+                                                                                                              set for the dragon.
+                                   lair["sleep_counter"] = 0
+         This resets
+       the dragon’s            else:
+sleep_counter to 0.                                                                                           This increases
+                                   lair["sleep_counter"] += 1                                                 the sleep_counter
+                                                                                                              by one.
+
+
+
+
+24 Send   the dragon to sleep
+   If the dragon has been awake for long enough, it
+        needs to be sent back to sleep. The function needed
+        to do this is similar to the one you defined in the
+        previous step. However, unlike sleep_length, which
+        is different for all the dragons, the time they should
+        be awake for is the same, so you’ll use the constant
+        DRAGON_WAKE_TIME. Add this code under what
+        you typed in Step 23.
+
+                              def update_waking_dragon(lair):
+                                  if lair["wake_counter"] >= DRAGON_WAKE_TIME:
+    This checks if the
+     dragon has been                    lair["dragon"].image = "dragon-asleep"                                 This updates the
+  awake long enough.                                                                                           dragon image.
+                                        lair["wake_counter"] = 0
+                                  else:
+This resets the dragon’s                lair["wake_counter"] += 1                                              This adds one to
+   wake_counter to 0.                                                                                          the wake_counter.

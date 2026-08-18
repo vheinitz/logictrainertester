@@ -1,0 +1,50 @@
+GAME PROGRESS                                   100%     173
+
+35 Set up the update
+   The fangflowers are ready to attack.
+                                                   def update():
+                                                       global score, game_over, fangflower_collision
+     The last thing you need to do is add
+     some code that starts the whole                   global flower_list, fangflower_list, time_elapsed
+     mutation process if the garden
+                                                      fangflower_collision = check_fangflower_collision()
+     has been happy for more than
+     15 seconds. Go to the update()                   check_wilt_times()
+     function and add the code as                      if not game_over:
+     shown here.
+                                                          if keyboard.space:
+                                                               cow.image = "cow-water"
+                                                               clock.schedule(reset_cow, 0.5)
+                                                               check_flower_collision()
+                 This checks if the garden
+                 has been happy for more                   if keyboard.left and cow.x > 0:
+               than 15 seconds and if any
+              fangflowers have appeared                        cow.x -= 5
+                        on the screen yet.                 elif keyboard.right and cow.x < WIDTH:
+                                                               cow.x += 5
+                                                           elif keyboard.up and cow.y > 150:
+                                                               cow.y -= 5
+                                                           elif keyboard.down and cow.y < HEIGHT:
+                                       This line
+                                      mutates a                cow.y += 5
+                                  flower into a            if time_elapsed > 15 and not fangflower_list:
+                                    fangflower.
+                                                               mutate()
+                                                          update_fangflowers()
+
+
+
+
+     Test and play!
+36 Green thumbs at the ready, your game can now                                  Pygame Zero Game
+     be played! Save and run the file from the
+     command line. Make sure the cow keeps the                Garden happy for: 21 seconds
+     flowers watered while avoiding the dangerous             FANGFLOWER ATTACK—GAME OVER!
+     fangflowers. What does your screen look like when
+     the fangflowers appear and finally zap the cow?
+
+
+
+
+             We’ve run all the tests.
+              You’re good to go!

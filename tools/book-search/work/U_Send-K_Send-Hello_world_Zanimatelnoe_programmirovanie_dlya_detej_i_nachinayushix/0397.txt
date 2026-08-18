@@ -1,0 +1,50 @@
+Компьютерное моделирование                                                    397
+
+
+                         QtGui.QMessageBox.Yes | QtGui.QMessageBox.No,
+                         QtGui.QMessageBox.No))
+ Выводимые на экран кнопки                                Кнопка, предлагаемая
+              if result == QtGui.QMessageBox.Yes:         по умолчанию
+                  self.sleeping = False
+                  self.happiness -= 4
+                  self.forceAwake = True
+                  return True                                   Перед выполнением
+              else:                                                       действия
+                  return False                                 проверяем, не спит
+          else:                                                        ли питомец
+              return True
+
+     def doctor_Click(self):
+         if self.sleep_test():
+             self.imageList = self.doctorImages
+             self.doctor = True                     Обработчик события
+                                                    кнопки doctor
+             self.walking = False
+             self.eating = False
+             self.playing = False
+
+     def feed_Click(self):
+         if self.sleep_test():
+             self.imageList = self.eatImages        Обработчик события
+                                                    кнопки feed
+             self.eating = True
+             self.walking = False
+             self.playing = False
+             self.doctor = False
+
+     def play_Click(self):
+         if self.sleep_test():
+             self.imageList = self.playImages        Обработчик события
+             self.playing = True                     кнопки play
+             self.walking = False
+             self.eating = False
+             self.doctor = False
+
+     def walk_Click(self):
+         if self.sleep_test():
+             self.imageList = self.walkImages
+             self.walking = True                     Обработчик события
+                                                     кнопки walk
+             self.eating = False
+             self.playing = False
+             self.doctor = False

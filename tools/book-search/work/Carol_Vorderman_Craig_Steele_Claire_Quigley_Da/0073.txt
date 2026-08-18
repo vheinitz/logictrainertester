@@ -1,0 +1,35 @@
+HOW TO BUILD FOLLOW THE NUMBERS                     71
+
+
+
+
+     9
+                                        Each dot has a number
+                                        label under it.
+
+                   4
+
+                                        When you click on the
+                                        correct dot, a line is drawn
+                                        between it and the last dot
+                                        you clicked on.
+
+
+
+
+              7
+
+                            5
+
+10                                      You can change the
+                                        background to any
+                                        color you like.
+
+
+
+
+                                 ◁ Connect the dots
+         6                       Every time you run this game,
+                                 the program uses a loop to
+                                 draw the dots at different
+                                 positions on the screen.

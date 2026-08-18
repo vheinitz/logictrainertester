@@ -1,0 +1,40 @@
+118        BALLOON FLIGHT
+
+
+
+How to build
+Balloon Flight                                                         A cloudy backdrop
+                                                                           sets the scene.
+
+Take control of your own hot-air
+balloon and try to avoid the obstacles
+                                                    Pygame Zero Game
+that come your way as you fly.
+
+What happens
+When the game starts, a hot-air balloon
+appears in the middle of the screen. You
+need to use the mouse button to make the
+balloon rise or fall. The challenge is to keep
+the balloon in the air without hitting any
+birds, houses, or trees. For every obstacle
+you avoid, you’ll score one point. But as
+soon as you hit one, the game is over.
+
+
+
+
+                   ◁ Balloon
+                   The balloon begins to drop
+                   as soon as the game starts.
+                   You can make it rise again
+                   by clicking the mouse.
+
+
+
+
+                   ◁ Obstacles
+                   The obstacles keep appearing
+                   at random positions. The
+                   player needs to avoid all the
+                   obstacles to stay in the game.

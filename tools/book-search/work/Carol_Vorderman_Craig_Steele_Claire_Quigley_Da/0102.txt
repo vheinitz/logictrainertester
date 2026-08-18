@@ -1,0 +1,40 @@
+100           BIG QUIZ
+
+
+
+How to build
+Big Quiz                                                  Each question is
+                                                           displayed here.
+
+Put your coding skills to the
+test and create a quiz game to
+                                            Pygame Zero Game
+challenge your friends. You’re the
+quizmaster, so you can make the
+questions about any topic you like.
+
+What happens
+When the game begins, the first
+question is shown on the screen
+                                                      What is
+                                                     capital of
+along with four possible answers.
+The player has ten seconds to click on
+an answer box. If they get the right
+answer, the game moves on to the
+next question. If the player chooses
+a wrong answer, or if the time runs
+out, the game ends and the final
+score is displayed on the screen.
+
+
+
+       What is the capital
+          of France?                              London
+                                                        Berlin
+           Paris
+△ Boxes
+This game doesn’t use images. Instead,
+the questions, answers, and the timer are
+displayed in colorful boxes that you
+create using code.

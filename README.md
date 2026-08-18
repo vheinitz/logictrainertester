@@ -1087,11 +1087,11 @@ Die Score-Map der adaptiven Tests geht bis 150 %; der Rohwert bleibt in
 
 ## Noch offen
 
-- `sim-rover`, `sim-dreiecke`, `sim-tangram`, `plan-geschichten` sind Platzhalter –
-  sie brauchen Drag-and-drop bzw. gezeichnete Bildfolgen.
 - `plan-zaubertricks` und `lern-storycubes` laufen weiterhin mit Begleitperson;
   bei ihnen ist eine automatische Bewertung nicht ehrlich möglich.
-- Die Spieltexte sind hart deutsch; die RU-Umschaltung wirkt bisher nur auf die
-  Rahmenoberfläche.
-- Kein Kinderprofil (Alter, Name, mehrere Kinder). Ohne Altersbezug ist das
-  kognitive Profil ein Verlaufswert, keine Einordnung.
+- Spieltexte in den Modulen sind weitgehend dreisprachig; Lücken fallen über
+  `check-lang` auf (deutscher Satz in RU/EN).
+- Mehrere Kinder auf einem Gerät (Name + Profil) fehlen noch. Geburtsjahr gibt
+  es; ohne weitere Normtabellen bleibt das Profil ein Verlauf, keine Einordnung.
+- `sim-rover`, `sim-dreiecke`, `sim-tangram` und `plan-geschichten` sind umgesetzt
+  (Raster / Slots / Drag bzw. Wegtippen), keine Stubs mehr.

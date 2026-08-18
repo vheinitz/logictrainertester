@@ -1,0 +1,59 @@
+GAME PROGRESS                                                14%         159
+It’s gardening time!
+It will take some preparation to get the                       These are going to look
+garden ready. Begin by setting up the folders                   great in my garden.
+and downloading the images you’ll need.
+
+
+ 1 Get started
+   Open IDLE and create an empty file by clicking           2 Save the game
+                                                              Go to your python-games folder and create
+        on the File menu and choosing New File.                 another folder called happy-garden. From the File
+                                                                menu, choose Save As… and save the program
+ File                                                           as garden.py inside the happy-garden folder.
+
+  New File                                                  Save As:       garden.py
+
+  Open...                                                   Tags:
+
+  Open Module...                                            Where:            happy-garden
+
+  Recent Files                ▶
+                                                                                             Cancel            Save
+  Class Browser
+
+
+
+
+ 3 Set up an image folder
+   Within the happy-garden folder, create another           4 Put the images into the folder
+                                                              Find the images for Happy Garden in the Python
+        folder by right-clicking and choosing New Folder.       Games Resource Pack (dk.com/computercoding)
+        Name it images. It will be used to store all the        and copy them into the images folder. Your folders
+        images you need for this game.                          should look like this now.
+
+                          happy-garden                                                   happy-garden
+        garden.py                                               garden.py
+        images                                                  images
+                                                                   cow-water.png
+                                                                   cow.png
+                                                                   fangflower.png
+                                                                   flower-wilt.png
+                                                                   flower.png
+                                                                   garden.png
+                                                                   zap.png
+
+
+
+
+ 5 Import   modules
+   It’s time to start coding. Go back to your garden.py
+                                                            from random import randint
+                                                            import time
+        file and start by importing some modules. You’ll
+        use randint() to randomly choose which flowers
+        will wilt or mutate. The functions in the Time
+        module will keep track of how long the garden
+                                                                    This imports Python’s           This imports the
+        has been happy for or how long any flowers                  Time module.                    randint() function from
+        have been wilted.                                                                           Python’s Random module.

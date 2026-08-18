@@ -1,0 +1,50 @@
+Компьютерное моделирование                                                     399
+
+
+             if self.time_cycle % 3 == 0:
+                  self.hunger += 1              Добавляем или удаляем
+         else:                                  элементы в зависимости
+             self.hunger += 1                   от типа активности
+             if self.time_cycle % 2 == 0:
+                  self.happiness -= 1
+         if self.hunger > 8: self.hunger = 8
+         if self.hunger < 0: self.hunger = 0
+         if self.hunger == 7 and (self.time_cycle % 2 ==0) :        Проверяем,
+             self.health -= 1                                       чтобы
+                                                                    значения не
+         if self.hunger == 8:                                       выходили
+             self.health -=1                                        за границы
+         if self.health > 8: self.health = 8                        диапазона
+         if self.health < 0: self.health = 0
+         if self.happiness > 8: self.happiness = 8
+         if self.happiness < 0: self.happiness = 0
+         self.progressBar_1.setProperty("value", (8-self.hunger)*(100/8.0))
+         self.progressBar_2.setProperty("value", self.happiness*(100/8.0))
+         self.progressBar_3.setProperty("value", self.health*(100/8.0))
+
+     def closeEvent(self, event):            Обновляем индикаторы процесса
+         file = open("savedata_vp.pkl", "w")
+         save_list = [self.happiness, self.health, self.hunger, \
+                     datetime.datetime.now(), self.time_cycle]
+         pickle.dump(save_list, file)
+         event.accept()                 Символ продолжения строки
+
+                                                          Сохраняем
+     def menuExit_selected(self):
+                                                          в сериализованном
+         self.close()                                     файле состояние
+                                                          и временнˆую метку
+ app = QtGui.QApplication(sys.argv)
+ myapp = MyForm()
+ myapp.show()
+ app.exec_()
+
+Функция sleep_test() пользуется диалоговым окном с «предупреждающим сообще-
+нием» модуля PyQt. Пара параметров сообщает ей, какие кнопки следует отобразить
+и какая из них является кнопкой, предлагаемой
+по умолчанию. Этот момент объяснен в приме-
+чаниях к листингу 24.4. Открывшееся диалого-
+вое окно (при попытке разбудить питомца) вы-
+глядит так:
+Не волнуйтесь, если вы не до конца поняли, как работает код. При желании можете
+самостоятельно прочитать о библиотеке PyQt.

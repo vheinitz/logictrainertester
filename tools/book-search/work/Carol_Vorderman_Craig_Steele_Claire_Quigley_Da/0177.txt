@@ -1,0 +1,26 @@
+HACKS AND TWEAKS                          175
+                                                           ◁ Add new enemies
+                                                           If you find the game is not challenging enough at the
+                                                           moment, you can add more enemies. Use an online
+                                                           8-bit editor to create more characters and then add some
+                                                           functions to control their behavior. These functions would
+                                                           be similar to the ones that control the fangflowers in the
+                                                           game. The new enemies could be flowers that fire pellets
+                                                           at the cow if it gets too close, thorn bushes that snake out
+                                                           long stems to catch the cow, or even aliens in flying saucers
+                                                           who are after the fangflowers.
+
+
+
+
+△ Rain in the garden                                       if not raining:
+What happens if it rains in the garden? The flowers will
+be much happier and wouldn’t need watering. But they              screen.blit("garden", (0, 0))
+will also mutate into fangflowers more quickly. To make    else:
+it look like it’s raining, you can update the background
+                                                                 screen.blit("garden-raining", (0, 0))
+with another image from the Python Games Resource
+Pack or create a new background on your own. To
+control the new background, create a new variable
+called raining and change the draw() function to
+update the background based on the variable’s value.

@@ -1,0 +1,44 @@
+GAME PROGRESS                                    100%             67
+
+Hacks and tweaks
+There are lots of ways to modify your game.
+You could try changing the fox to a different
+character of your choice, or you could make
+the game last longer.
+
+                         Name’s Hog...                        clock.schedule(time_up, 15.0)
+                          Hedge Hog.
+                                                             △ Extra time
+                                                             The game currently ends after seven seconds. To
+ hedgehog = Actor("hedgehog")                                make the game easier, you could give the player
+                                                             more time to play. You can do this by changing just
+△ A different Actor                                          one line of code.
+You can replace the fox with some other character by using
+another image from the Python Games Resource Pack, or
+you can use the 8-bit editors available online to make
+your own Actor. Remember to update the code so it uses
+the name of the new character throughout the program.
+
+                                                                    I think I can
+                                                                      go faster.
+
+
+
+
+                                                                   if keyboard.left:
+                                                                          fox.x = fox.x - 4
+                                                                   elif keyboard.right:
+                                                                          fox.x = fox.x + 4
+                                                                   elif keyboard.up:
+                                                                          fox.y = fox.y - 4
+                                                                   elif keyboard.down:
+                                                                          fox.y = fox.y + 4
+
+
+                                                             △ Go faster!
+                                                             You can tweak the code to make the fox move
+△ Change the playing area                                    faster. For this, you’ll need to change some of the
+You can change the size of the playing area by changing      code in the update() function. At the moment, the
+the values of WIDTH and HEIGHT. Try using different          fox moves two pixels every time the arrows are
+numbers for these values and see what happens. Can           pressed. Here’s a way to make it move at double
+you spot which part of the code you need to update?          that speed.

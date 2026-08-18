@@ -1,0 +1,58 @@
+66             COIN COLLECTOR
+
+
+19 One way only
+   Now test your code. You should be able to
+                                                             def update():
+                                                                 if keyboard.left:
+     move the fox to the left. But the fox needs
+     to be able to move in other directions, too,                    fox.x = fox.x - 2
+     so add this code to do that.                                                            The else-if
+                                                                 elif keyboard.right:
+                                                                                             branches are
+                                                                     fox.x = fox.x + 2       used to move the
+                                                                                             fox depending
+  ONE WAY                                                        elif keyboard.up:
+                                                                                             on which arrow
+                                                                     fox.y = fox.y - 2       key is pressed.
+
+                                                                 elif keyboard.down:
+                                                                     fox.y = fox.y + 2
+
+
+
+
+20 Collect  the coins
+   Finally, you need to add some code that will
+                                                             def update():
+                                                                global score
+     update the score if the fox touches a coin.
+     Add this code to the update() function.
+                                                                 if keyboard.left:
+                                                                    fox.x = fox.x - 2
+                               Make sure you add this
+                                  line at the very top.         elif keyboard.right:
+                                                                    fox.x = fox.x + 2
+                                                                elif keyboard.up:
+                            If the fox touches the coin,
+                               this variable will be True.          fox.y = fox.y - 2
+                                                                elif keyboard.down:
+                                                                    fox.y = fox.y + 2
+
+21   Game complete!
+     You’ve written all the code, and your game is now
+                                                                coin_collected = fox.colliderect(coin)
+     ready to go! Test your game and see how many
+     coins you can collect before the game is over.
+                                                                 if coin_collected:
+                                                                    score = score + 10
+
+     Look what I found!                                             place_coin()
+
+
+                                                             clock.schedule(time_up, 7.0)
+                                                             place_coin()
+
+                                                                                                This will
+                                                                                                increase the
+                                                                                                score by ten.

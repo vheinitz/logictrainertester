@@ -1,0 +1,64 @@
+114             BIG QUIZ
+
+▷ Dash of color
+You can make your interface more attractive
+by changing the color of the background, the          papaya whip                 plum                 slate blue
+boxes, or the text that appears on screen.        (R 255, G 239, B 213)   (R 221, G 160, B 221)   (R 106, G 90, B 205)
+Here are some colors along with their RGB
+values that you can play with. Take a look at
+page 75 to find out how RGB values work.
+                                                       moccasin                  orchid             dark slate blue
+                                                  (R 255, G 228, B 181)   (R 218, G 112, B 214)    (R 72, G 61, B 139)
+
+
+
+
+    light salmon                hot pink              peach puff                fuchsia                pale green
+(R 255, G 160, B 122)     (R 255, G 105, B 180)   (R 255, G 218, B 185)    (R 255, G 0, B 255)    (R 152, G 251, B 152)
+
+
+
+
+      salmon                  deep pink             pale goldenrod         medium orchid               light green
+(R 250, G 128, B 114)     (R 255, G 20, B 147)    (R 238, G 232, B 170)   (R 186, G 85, B 211)    (R 144, G 238, B 144)
+
+
+
+
+     light coral          medium violet red             yellow                blue violet           dark sea green
+(R 240, G 128, B 128)     (R 199, G 21, B 133)     (R 255, G 255, B 0)    (R 138, G 43, B 226)    (R 143, G 188, B 143)
+
+
+
+
+      crimson                     coral                  gold                 dark violet            green yellow
+ (R 220, G 20, B 60)       (R 255, G 127, B 80)    (R 255, G 215, B 0)     (R 148, G 0, B 211)    (R 173, G 255, B 47)
+
+
+
+
+        red                     tomato                    khaki               dark orchid             chartreuse
+  (R 255, G 0, B 0)        (R 255, G 99, B 71)    (R 240, G 230, B 140)   (R 153, G 50, B 204)     (R 127, G 255, B 0)
+
+
+
+     fire brick                orange red              dark khaki            dark magenta             lawn green
+ (R 178, G 34, B 34)        (R 255, G 69, B 0)    (R 189, G 183, B 107)    (R 139, G 0, B 139)     (R 124, G 252, B 0)
+
+
+
+
+      dark red                dark orange              lavender                 purple                    lime
+  (R 139, G 0, B 0)        (R 255, G 140, B 0)    (R 230, G 230, B 250)    (R 128, G 0, B 128)      (R 0, G 255, B 0)
+
+
+
+
+  pale violet red               orange                   thistle                indigo                 lime green
+(R 219, G 112, B 147)      (R 255, G 165, B 0)    (R 216, G 191, B 216)    (R 75, G 0, B 130)      (R 50, G 205, B 50)
+
+
+
+
+        pink                  light yellow                violet           medium slate blue           sea green
+(R 255, G 192, B 203)     (R 255, G 255, B 224)   (R 238, G 130, B 238)   (R 123, G 104, B 238)    (R 46, G 139, B 87)

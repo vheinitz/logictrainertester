@@ -1,0 +1,25 @@
+Contents
+8    FOREWORD                             COIN COLLECTOR
+      GETTING STARTED                60   How to build Coin Collector
+                                          Score: 0
+
+12    What is Python?
+14    Gaming in Python
+16    Installing Python
+18    Installing Pygame Zero
+20    Using IDLE
+22    Your first program
+
+                                          FOLLOW THE NUMBERS
+      LEARNING THE BASICS            70   How to build Follow the Numbers
+
+28    Creating variables
+32    Making decisions
+36    Playing with loops
+40    Functions
+44    Fixing bugs
+
+
+
+      SHOOT THE FRUIT                     RED ALERT
+50    How to build Shoot the Fruit   82   How to build Red Alert

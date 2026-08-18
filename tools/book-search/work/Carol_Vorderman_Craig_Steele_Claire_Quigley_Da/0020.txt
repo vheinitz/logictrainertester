@@ -1,0 +1,52 @@
+18           G E T T I N G S TA R T E D
+
+
+
+Installing                                                                      EXPERT TIPS
+                                                                          Admin access
+Pygame Zero                                                               Make sure you're signed into your
+                                                                          computer as an admin; otherwise,
+                                                                          the system won't let you install
+Now it’s time to add some extra tools to                                  things properly. Always ask
+help you build great games. In this book,                                 permission before installing new
+you’ll need two additional modules—Pygame                                 software on someone's computer.
+and Pygame Zero. These are not included
+with Python, so you need to install
+them separately.
+                                                                                              ACCESS DENIED
+
+
+Installing Pygame Zero on Windows
+Follow these steps to install the latest versions of
+Pygame and Pygame Zero on your Windows computer.
+Your machine needs to be connected to the Internet
+to complete some of these steps.
+
+
+ 1 Open   the Command Prompt
+   Click Start. Scroll down and open the Windows           2 Install a package manager
+                                                             A package manager called “pip” should come
+     System folder. Click Command Prompt. If you               with Python when you install it. It’s a tool that
+     can’t find it, try searching for it. You’ll need to       makes it easier to install Pygame Zero and other
+     type in some commands and press Enter to                  Python modules. Type this command into the
+     run each one. Make sure you spell everything              Command Prompt and press Enter—it will
+     correctly and put spaces in the right places              check if pip is on your computer and install
+     or it won’t work.                                         it if it is not.
+
+                                                                             Command Prompt
+      c:\                                                  python -m pip install -U pip
+
+                                 Look out for
+                                 this thumbnail
+                                 in the menu.
+
+
+
+
+ 3 Install Pygame
+   Once the package manager is installed,                  4 Install  Pygame Zero
+                                                             Finally, type this command. When you
+     type the following command and press                      press Enter, this will install Pygame Zero,
+     Enter. This uses pip to install Pygame.                   also known as pgzero for short.
+
+ pip install pygame                                        pip install pgzero

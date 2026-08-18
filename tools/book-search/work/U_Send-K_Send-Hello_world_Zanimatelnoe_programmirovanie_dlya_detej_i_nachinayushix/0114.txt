@@ -1,0 +1,52 @@
+114                                                                          Глава 10
+
+
+
+                  speed = skier.turn(-1)
+                                                   Проверяем нажатие клавиш
+              elif event.key == pygame.K_RIGHT:
+                                                   или закрытие окна
+                  speed = skier.turn(1)
+      skier.move(speed)            Перемещаем лыжника
+
+                                               Прокручиваем экран
+      map_position += speed[1]
+
+      if map_position >=640:
+          create_map()            Создаем новый экран
+                                  с декорациями
+          map_position = 0
+
+      hit = pygame.sprite.spritecollide(skier, obstacles, False)
+      if hit:
+          if hit[0].type == "tree" and not hit[0].passed:
+              points = points - 100
+              skier.image = pygame.image.load("skier_crash.png")
+              animate()                                                     Проверяем
+              pygame.time.delay(1000)                                       столкно-
+                                                                            вения с де-
+              skier.image = pygame.image.load("skier_down.png")             ревьями
+              skier.angle = 0                                               и взятие
+              speed = [0, 6]                                                флагов
+              hit[0].passed = True
+          elif hit[0].type == "flag" and not hit[0].passed:
+              points += 10
+              hit[0].kill()
+
+     obstacles.update()
+     score_text = font.render("Score: " +str(points), 1, (0, 0, 0))
+     animate()
+ pygame.quit()                                               Показываем счет
+
+
+Код этого листинга можно найти в папке \examples\skier. И если вам трудно набирать
+код или вы не хотите тратить на это время, можете воспользоваться этим файлом. Од-
+нако набор кода даст вам намного больше, чем открытие и просмотр готового листинга.
+В следующих главах вы познакомитесь со всеми ключевыми словами и приемами, ис-
+пользуемыми в игре Лыжник. Кроме того, в конце книги вы найдете целую главу, в ко-
+торой разбирается принцип работы этой программы.
+
+Эксперименты
+Все, что вам нужно сделать в этой главе, — это набрать код из листинга 10.1 и запустить
+его на выполнение. Если после этого появится сообщение об ошибке, изучите его и по-
+пробуйте определить, где именно вкралась ошибка. Удачи!

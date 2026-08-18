@@ -1,0 +1,58 @@
+MAKING DECISIONS                             35
+▽ One branch                                                                    ▽ Two branches
+The simplest type of branching command is an if                                 What if you want the program to do one thing if a
+statement. It only has one branch, which the computer                           condition is True, but another if it’s False? In this case,
+takes if the condition is True.                                                 you need a command with two possible branches,
+                                                                                called an if-else statement.
+
+                         Behold! I grant
+                         thee the title...                                       game_over = True
+                           Enchanter!
+                                                                                 if game_over:
+                                                                                                                                 This block runs
+                                                                                       print("Game Over!")                       if the condition
+                                                                                                                                 is False.
+                                                                                 else:
+                                                                                       print("Keep playing!")
+
+
+                                                  This comparison               How it works
+                                                  is the condition.
+                                                                                In this example, there’s a variable
+ spells = 11                                                                    called game_over, which is set to
+                                                                                True. The if statement checks to                GAME
+ if (spells > 10):                                                              see if game_over is True. If it is, the         OVER!
+      print("You gained the title Enchanter!")                                  program prints “Game Over!” If it
+                                                                                isn’t, the else statement runs to
+                                                       This branch runs if      print “Keep playing!” Try running this
+                                                       the condition is True.   code with game_over set to True,
+                                                                                then False, to see this in action.
+How it works
+In this example, the program checks to see the number
+of spells you’ve cast. If it’s more than ten, the program
+prints “You gained the title Enchanter!” If the number
+of spells you’ve cast is less than ten, the message
+is not printed.
+
+                                             This is the first condition.
+                                                                                ◁ More than two branches
+          ghosts = 3
+                                                                                When there are more than two possible paths, the
+          if ghosts > 1:                                                        command elif (short for “else-if”) can be used in
+                print("It’s so spoooooky!")                                     your program. In the following example, you need
+                                                                                to capture several ghosts in one go.
+          elif ghosts > 0:
+                print("Get that ghost!")
+                                                                                How it works
+          else:
+                                                                                In this program, the variable ghosts has been set
+                print("Ghosts all gone!")                                       to 3, so the first branch is True and the program
+                                                                                prints “It’s so spoooooky!” But if the value in ghosts
+    This block runs                                                             was 1, the first branch would be False, so the
+    if the second                                                               second branch would run, printing “Get that ghost!”
+                                                 This block runs if
+    condition is True.                                                          If neither of the above branches are True, the
+                                                 both conditions
+                                                 are False.                     program moves on to the third branch to print
+                                                                                “Ghosts all gone!” An elif statement must always
+                                                                                come after if and before else.

@@ -1,0 +1,50 @@
+40            LEARNING THE BASICS
+
+
+
+Functions                                                                          LINGO
+                                                                              Function terms
+Functions are really handy tools for all coders.                              Call When you want to use a
+They let you name useful chunks of code so                                    function, you “call” it by typing
+that you can use them over and over again                                     the name of the function,
+                                                                              followed by parentheses, which
+without having to type the whole thing out                                    may contain a parameter.
+each time—you just have to type in the name!
+Python comes with some built-in functions,                                    Define When you use the
+                                                                              def keyword and write your
+but you can also write your own to handle                                     own code for a function, you
+tasks specific to your games.                                                 are “defining” that function.
+
+                                                                              Parameter A parameter is
+Using functions                                                               a piece of data (information)
+When you want to use one of Python’s built-in functions,                      that you give a function to use.
+all you need to do is “call” it by typing out its name                        Return value A return value
+followed by a pair of empty parentheses. This tells Python                    is data that you pass from a
+to run the code saved in that function. If you need to                        function back to the main code
+give a function some data to use, it goes inside the                          by using the keyword return.
+parentheses. This is called a “parameter.”
+
+
+Built-in functions
+Python comes with a number of built-in functions.
+They allow you to perform a variety of tasks, from
+printing messages to converting one type of data
+to another.
+                          This calls the print() function
+                          with a string parameter.
+
+
+ >>> print("This is a parameter")                           I need to build this
+                                                               very carefully!
+ This is a parameter
+
+
+
+            The string parameter
+            is printed.
+
+△ print()
+One of the most commonly used functions is print().
+This function lets you display a string (a series of
+letters, numbers, or other characters) on the screen.
+The string is a parameter in this case.

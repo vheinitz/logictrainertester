@@ -1,0 +1,54 @@
+GAME PROGRESS                                                 48%                145
+
+14 Random   numbers
+   Your program needs to generate dance sequences for you                                       0      0 = Up
+      to memorize and repeat. The four possible moves are Up,
+      Down, Left, and Right. You don’t have a function that will
+      generate random directions, but the randint() function will      3 = Left     3                       1      1 = Right
+      let you generate random numbers. If you assign each of the
+      four moves a number, starting from 0, you will then be able
+      to create random dance sequences. Step 15 will show you
+      how to do this.                                                                           2       2 = Down
+
+
+
+
+15 Let’s move!
+   The first function you need to define properly is update_dancer().
+      This changes the image of the dancer to match the dance move
+      he should perform. The colored square that corresponds to
+      that dance move also changes to become outlined in yellow.
+      Replace pass under the update_dancer(move) function from             This function will tell            Don’t forget to save
+      Step 13 with the code shown below. There’s quite a lot to add,       the dancer which                       your work.
+      so be extra careful.                                                 move to perform.
+
+
+                         def update_dancer(move):                                               The value in move tells
+                                                                                                the dancer which dance
+                              global game_over
+      This line tells                                                                           move to do. Here, it’s set
+     Python which             if not game_over:                                                 to 0, which will mean Up.
+    global variable
+                                   if move == 0:
+             to use.
+                                        up.image = "up-lit"                                     This line changes the
+                                                                                                image of the dancer.
+                                        dancer.image = "dancer-up"
+                                        clock.schedule(reset_dancer, 0.5)
+                                   elif move == 1:
+
+This line highlights                    right.image = "right-lit"
+the colored square                      dancer.image = "dancer-right"
+       for Up with a                                                                             The dancer will hold the
+    yellow outline.                     clock.schedule(reset_dancer, 0.5)
+                                                                                                 move for half a second
+                                   elif move == 2:                                               before reset_dancer()
+                                                                                                 is called, returning him
+                                        down.image = "down-lit"                                  to the starting pose.
+                                        dancer.image = "dancer-down"
+                                        clock.schedule(reset_dancer, 0.5)
+                                   else:
+                                        left.image = "left-lit"
+                                        dancer.image = "dancer-left"
+                                        clock.schedule(reset_dancer, 0.5)
+                              return

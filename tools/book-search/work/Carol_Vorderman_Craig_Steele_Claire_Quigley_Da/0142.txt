@@ -1,0 +1,54 @@
+140         DANCE CHALLENGE
+
+
+How it works                                   Start
+                                                                   Are you up to
+You start this program by                                         the challenge?
+setting up functions that will
+generate a sequence of dance
+moves, create a countdown,
+                                            Start music
+and then display the moves on
+the screen. The game will keep
+checking if you have pressed
+an arrow key and if it was the
+                                          Generate moves
+correct one. If you make a
+mistake, the game will end.
+
+
+                                          Show countdown
+
+
+                                                             ◁ Dance Challenge flowchart
+                                                             This simple flowchart shows how
+      EXPERT TIPS                          Display moves     the game fits together and how your
+                                                             actions affect what happens next. If
+ Adding music                                                you manage to copy all the moves
+                                                             in the sequence in the right order, the
+ In this game, you will need to add                          game will loop around to create a new
+ some music for your dancer to            Display “Dance!”   sequence. This will continue to happen
+ move to. Pygame Zero has some                               until you make a mistake.
+ special commands that make it
+ quite easy to do this. Each time
+ you add music to a game, set
+ up a folder called music within
+ your game’s main folder, so that     Y     All moves in
+                                                             N
+ Pygame Zero knows where to                                                   Check the key pressed
+                                           the sequence
+                                                                                  by the player
+ find the audio files.                       checked?
+
+
+
+
+                                                                    Y
+                                          See which move                           Did it match
+                                           to check next                            the move?
+
+
+
+                                                                                             N
+
+                                                                                       End

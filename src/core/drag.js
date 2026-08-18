@@ -1,10 +1,9 @@
 /**
  * Aufnehmen – bewegen – ablegen.
  *
- * Vier Module warten darauf: Dreiecke legen, Tangram, Bildergeschichte
- * ordnen und Rover. Alle brauchen dasselbe – ein Stück greifen, woandershin
- * bringen, wieder hinlegen. Das gehört einmal hierher und nicht viermal in
- * die Module.
+ * Genutzt von Bildergeschichte, Dreiecke legen und Tangram. Rover plant den
+ * Weg per Antippen, ohne Ziehen. Das Greifen gehört einmal hierher und nicht
+ * in jedes Modul.
  *
  * Zwei Wege zum selben Ziel
  * ─────────────────────────

@@ -1,0 +1,48 @@
+И снова GUI-интерфейсы                                                                  297
+
+
+Преобразование градусов Фаренгейта в градусы Цельсия
+Код обратного преобразования (из градусов Фаренгейта в градусы Цельсия) выглядит
+почти так же. Вот формула пересчета:
+                               cel = (fahr – 32) * 5.0 / 9.
+Ее следует поместить в обработчик события кнопки <<< Fahrenheit to Celsius. Обработ-
+чик связывается с кнопкой в методе __init__() окна.
+
+ self.btn_FtoC.clicked.connect(self.btn_FtoC_clicked)
+
+Затем обработчик событий должен узнать температуру в градусах Фаренгейта из счетчика:
+
+ fahr = self.spinFahr.value()
+
+В данном случае мы сразу получаем целое число, поэтому операция приведения типов
+нам не требуется. Можно сразу применить формулу:
+
+ cel = (fahr - 32) * 5.0 / 9
+
+После чего остается преобразовать результат в строку и поместить его в поле Celsius:
+
+ self.editCel.setText(str(cel))
+
+Соединив все части воедино, получим листинг 20.3.
+
+ Листинг 20.3. Программа преобразования температуры
+ import sys
+ from PyQt4 import QtCore, QtGui, uic                              Загружаем определение
+                                                                   UI-интерфейса
+
+ form_class = uic.loadUiType("tempconv.ui")[0]
+ class MyWindowClass(QtGui.QMainWindow, form_class):          Связываем
+     def __init__(self, parent=None):                        обработчик
+         QtGui.QMainWindow.__init__(self, parent)              события
+                                                              с кнопкой
+         self.setupUi(self)
+         self.btn_CtoF.clicked.connect(self.btn_CtoF_clicked)
+         self.btn_FtoC.clicked.connect(self.btn_FtoC_clicked)
+
+      def btn_CtoF_clicked(self):                               Обработчик события
+          cel = float(self.editCel.text())                      для кнопки Celsius to
+          fahr = cel * 9 / 5.0 + 32                             Fahrenheit
+          self.spinFahr.setValue(int(fahr + 0.5))
+
+      def btn_FtoC_clicked(self):               Обработчик события для
+          fahr = self.spinFahr.value()          кнопки Fahrenheit to Celsius

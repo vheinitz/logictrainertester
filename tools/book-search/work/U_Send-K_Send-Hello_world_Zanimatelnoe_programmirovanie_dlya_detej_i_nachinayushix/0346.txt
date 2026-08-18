@@ -1,0 +1,52 @@
+346                                                                      Глава 22
+
+
+
+ def replace_letters(string, locations, letter):
+     new_string = ''
+     for i in range (0, len(string)):
+         if i in locations:
+             new_string = new_string + letter
+         else:
+             new_string = new_string + string[i]
+     return new_string
+
+И после этого, едва игрок предложит букву, мы воспользуемся только что определен-
+ными функциями find_letters() и replace_letters():
+
+ if len(guess) == 1:                              Проверяем наличие Проверяем, где
+                                                  буквы в слове     встречается
+            if guess in self.currentword:                           буква
+Мы угадываем    locations = find_letters(guess, self.currentword)
+одну букву?     self.word.setText(replace_letters(str(self.word.text()),
+                                            locations,guess))
+   Заменяем     if str(self.word.text()) == self.currentword:
+   черточки
+      буквой
+                    self.win()
+            else:                       Проверяем, все ли буквы
+                                       открыты (что означает
+                self.wrong()                   выигрыш игрока)
+
+Программа состоит из 95 строк, включая пустые строки, добавленные для лучшей чи-
+табельности (см. листинг 22.8 с набором примечаний). Если вы пользовались прилага-
+емой к книге программой установки, то код программы вы найдете в папке \Examples\
+Hangman. Еще его можно загрузить с сайта. Там же находятся файлы hangman.py,
+hangman.ui и words.txt. Если вы работаете с компьютером Mac, следует открыть файл
+hangman.ui в Qt Designer и отключить свойство nativeMenuBar объекта menubar.
+
+ Листинг 22.8. Программа hangman.py
+ import sys
+ from PyQt4 import QtCore, QtGui, uic
+ import random
+
+ form_class = uic.loadUiType("hangman.ui")[0]
+
+ def find_letters(letter, a_string):
+     locations = []
+     start = 0
+     while a_string.find(letter, start, len(a_string)) != -1:           Ищем
+         location = a_string.find(letter, start, len(a_string))         буквы
+         locations.append(location)
+         start = location + 1
+     return locations

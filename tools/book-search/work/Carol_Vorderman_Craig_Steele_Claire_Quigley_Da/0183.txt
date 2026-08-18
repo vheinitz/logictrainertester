@@ -1,0 +1,53 @@
+GAME PROGRESS                                   3%             181
+▷ Dragon animation flowchart
+The second loop in the program is                           Start
+responsible for the dragons’ sleep
+cycle. It runs once every second.
+
+
+
+                                                        Is the dragon
+                                                                           Y
+                                                            awake?
+
+
+
+                                                                    N
+
+                                            N                                                         N
+                                                        Has the dragon         Has the dragon been
+                                                      slept long enough?       awake long enough?
+              Z
+          Z
+      Z                                                             Y                 Y
+
+                                                                                 Send the dragon
+                                                      Wake the dragon
+                                                                                    to sleep
+
+
+
+
+Begin the quest
+First you’ll create the variables that will track the game’s
+progress. Then you’ll write some code that will draw all
+the elements on the screen. Finally, you’ll set up the
+functions to make the hero move, handle the dragons’
+sleep cycles, and check if the hero has collected enough
+eggs without getting caught.
+                                                                               I need some
+                                                                                more eggs!
+
+
+
+      Time to begin
+ 1 Open IDLE and create              File
+      an empty file by going          New File
+      to the File menu and
+      selecting New File.             Open...
+
+                                      Open Module...
+
+                                      Recent Files                  ▶
+
+                                      Class Browser

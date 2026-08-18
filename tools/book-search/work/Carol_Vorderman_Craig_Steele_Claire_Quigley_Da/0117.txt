@@ -1,0 +1,60 @@
+HACKS AND TWEAKS                       115
+
+         green             pale turquoise           royal blue                rosy brown                maroon
+   (R 0, G 128, B 0)    (R 175, G 238, B 238)   (R 65, G 105, B 225)      (R 188, G 143, B 143)     (R 128, G 0, B 0)
+
+
+
+
+     dark green               sky blue             medium blue                burly wood                  azure
+   (R 0, G 100, B 0)    (R 135, G 206, B 235)     (R 0, G 0, B 205)       (R 222, G 184, B 135)   (R 240, G 255, B 255)
+
+
+
+     olive drab            light sky blue            dark blue                     tan                 gainsboro
+ (R 107, G 142, B 35)   (R 135, G 206, B 250)     (R 0, G 0, B 139)       (R 210, G 180, B 140)   (R 220, G 220, B 220)
+
+
+
+        olive                   cyan                    navy                 sandy brown               light gray
+  (R 128, G 128, B 0)    (R 0, G 255, B 255)      (R 0, G 0, B 128)       (R 244, G 164, B 96)    (R 211, G 211, B 211)
+
+
+
+
+  dark olive green      medium turquoise          midnight blue                goldenrod                  silver
+  (R 85, G 107, B 47)   (R 72, G 209, B 204)     (R 25, G 25, B 112)       (R 218, G 165, B 32)   (R 192, G 192, B 192)
+
+
+
+
+    spring green             turquoise                corn silk                  peru                  dark gray
+  (R 0, G 255, B 127)   (R 64, G 224, B 208)    (R 255, G 248, B 220)     (R 205, G 133, B 63)    (R 169, G 169, B 169)
+
+
+
+
+      dark cyan             cadet blue                  beige               dark goldenrod                gray
+  (R 0, G 139, B 139)   (R 95, G 158, B 160)    (R 245, G 245, B 220)      (R 184, G 134, B 11)   (R 128, G 128, B 128)
+
+
+
+          teal             deep sky blue                linen                  chocolate               dim gray
+  (R 0, G 128, B 128)    (R 0, G 191, B 255)    (R 250, G 240, B 230)     (R 210, G 105, B 30)    (R 105, G 105, B 105)
+
+
+
+
+medium aquamarine          dodger blue             antique white             saddle brown              slate gray
+(R 102, G 205, B 170)   (R 30, G 144, B 255)    (R 250, G 235, B 215)      (R 139, G 69, B 19)    (R 112, G 128, B 144)
+
+
+
+
+   light sea green          steel blue                 wheat                    sienna              light slate gray
+ (R 32, G 178, B 170)   (R 70, G 130, B 180)    (R 245, G 222, B 179)      (R 160, G 82, B 45)    (R 119, G 136, B 153)
+
+
+
+     light cyan          medium slate blue           misty rose                 brown                    black
+(R 224, G 255, B 255)   (R 123, G 104, B 238)   (R 255, G 228, B 225)      (R 165, G 42, B 42)       (R 0, G 0, B 0)

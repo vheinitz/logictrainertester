@@ -1,0 +1,55 @@
+52           SHOOT THE FRUIT
+
+
+2 Save your game
+  Go to the File menu and click Save As.... Then                  3 Set up an image folder
+                                                                    This game uses an image of an apple. Within
+     save your program in the python-games folder.                    your shoot-the-fruit folder, right-click and
+     Create this folder now if you haven’t made it                    choose New Folder to create another folder
+     already. Inside this folder, make another folder called          and call it images. It needs to be in the same
+     shoot-the-fruit and save your IDLE file in it as shoot.py.       place as your IDLE file.
+
+Save As:     shoot.py                                               New Folder
+Tags:
+                                                                    Get Info
+Where:           shoot-the-fruit
+                                                                    Clean up
+
+                                                                    Clean up by              ▶
+                                   Cancel       Save
+
+
+
+
+4 Put the image into the folder
+  Go to dk.com/computercoding and download the                    5 Introducing an Actor
+                                                                    Now you can start writing some code.
+     Python Games Resource Pack or just the Shoot the                 Go back to IDLE and write this line of code
+     Fruit images. Find the file called “apple.png”. Copy             in the editor window, then press Enter.
+     this file into the images folder. Your folders should
+     look something like this now.                                apple = Actor("apple")
+
+                         shoot-the-fruit
+                                                                                                        This creates
+     shoot.py                                                                                           a new Actor
+                                                                    This is such
+     images                                                                                             called apple.
+                                                                     an honor!
+        apple.png
+
+
+
+
+                                                                        LINGO
+                I wish my                                         Actors and Sprites
+              folders were
+             more organized.                                      In computer games development,
+                                                                  a sprite is an object, like a coin or an
+                                                                  enemy character, that is controlled by
+                                                                  code. Actors in Python are like Sprites
+                                                                  in Scratch. An Actor can be drawn on
+                                                                  the screen, moved around, and even
+                                                                  interact with other Actors in the
+                                                                  game. Each Actor is given a “script”
+                                                                  (the Python code) to tell it how to
+                                                                  behave in the game.

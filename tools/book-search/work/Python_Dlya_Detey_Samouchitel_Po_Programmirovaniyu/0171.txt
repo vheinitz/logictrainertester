@@ -1,0 +1,35 @@
+Получится вот такая мешанина:
+
+
+
+
+Рисование в цвете
+Мы хотим использовать в рисунках различные цвета. Давайте изменим
+функцию random_rectangle так, чтобы она принимала цвет прямоу-
+гольника в качестве дополнительного аргумента с именем fill_color.                   Fill color — цвет
+Введите в новом окне следующий код и сохраните его под именем                        заливки
+colorrect.py:                                                                        Colorrect —
+                                                                                     от color
+                                                                                     rectangle —
+     from tkinter import *                                                           цветной
+     import random                                                                   прямоугольник
+     tk = Tk()
+     canvas = Canvas(tk, width=400, height=400)
+     canvas.pack()
+
+     def random_rectangle(width, height, fill_color):
+             x1 = random.randrange(width)
+             y1 = random.randrange(height)
+             x2 = random.randrange(x1 + random.randrange(width))
+             y2 = random.randrange(y1 + random.randrange(height))
+             canvas.create_rectangle(x1, y1, x2, y2, fill=fill_color)
+
+
+
+   Теперь функция create_rectangle принимает аргумент fi ll_
+color со значением цвета, которым будет заполнен прямоугольник.
+
+
+
+
+                                                    12. Более совершенная графика с модулем tkinter   171

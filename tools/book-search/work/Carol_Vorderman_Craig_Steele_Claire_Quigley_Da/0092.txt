@@ -1,0 +1,43 @@
+90          RED ALERT
+
+
+14 Create the stars                                      This list will store the new        This loops over the
+   Now you need to create the stars on the screen.       stars that are created.          colors_to_create list.
+     Start by making an empty list called new_stars.
+     Then loop over the colors in the colors_to_create   def create_stars(colors_to_create):
+     list. With each loop, the code will create a new          new_stars = []
+     star Actor for the current color and add it to
+                                                               for color in colors_to_create:
+     the new_stars list. Replace return [] under
+     def create_stars(colors_to_create)                              star = Actor(color + "-star")
+     with the code shown in black.                                   new_stars.append(star)
+                                                               return new_stars
+
+                                                                        This returns           This combines
+                                                                        the updated           the two strings.
+                                                                        new_stars list.
+
+
+
+                                                                                           Do you think that’s enough
+                                                                                            stars, or should I create
+                                                                                                  some more?
+
+
+
+
+15 Try it out
+   Check your code to                                        Pygame Zero Game
+     make sure no bugs
+     have crawled in. Save
+     your code and run it
+     from the command
+     line. What do you see
+     on the screen?
+
+
+
+          At this point, both of
+        the stars will be drawn
+        on top of each other in
+            the top-left corner.

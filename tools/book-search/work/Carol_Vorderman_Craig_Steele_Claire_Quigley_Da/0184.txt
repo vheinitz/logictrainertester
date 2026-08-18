@@ -1,0 +1,61 @@
+182        SLEEPING DRAGONS
+
+
+2 Save the file
+  Go to your python-games folder and create
+    another folder, called sleeping-dragons, inside
+
+                                                                                      ?
+                                                                  I name thee
+    it. Then go to the File menu and select Save As...
+                                                                    Margaret.
+    to save the IDLE file as dragons.py in this folder.
+
+Save As:   dragons.py
+Tags:
+
+Where:         sleeping-dragons
+
+
+
+                                Cancel             Save
+
+
+
+
+3 Add  the images
+  This game uses nine images. Create a new folder,
+                                                             dragons.py
+                                                                                sleeping-dragons
+
+    called images, inside the sleeping-dragons               images
+    folder. Find all the images in the Python Games              dragon-asleep.png
+    Resource Pack (dk.com/computercoding) and                    dragon-awake.png
+    copy them into this folder.                                  dungeon.png
+                                                                 egg-count.png
+                                                                 hero.png
+                                                                 life-count.png
+                                                                 one-egg.png
+                                                                 three-eggs.png
+                                                                 two-eggs.png
+
+
+
+
+4 Import a module
+  Now you can start writing the code. Begin by
+                                                              LINGO
+    importing Python’s Math module. Type this             Constants
+    at the very top of your IDLE file.
+                                                          Constants are variables that are used to
+                                This imports the
+import math                                               hold values that determine how a game
+                                entire module.
+                                                          behaves. There is nothing special about
+                                                          these variables that prevents them from
+                                                          being changed, but programmers use capital
+                Check page 15 to
+                                                          letters when naming them to let the other
+              find out more about
+               the Math module.                           programmers know that they should not
+                                                          be changed throughout the program.

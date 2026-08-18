@@ -1,0 +1,52 @@
+GAME PROGRESS                                                 100%           195
+
+Hacks and tweaks
+Add some more challenges to the quest                                                                      I could use
+and make the game even more engaging.                                                                      some help!
+Here are a few ideas to get you started.
+
+
+      if keyboard.d:
+                                                                 ◁ Add another hero
+                                                                 All this egg collecting can be a lot of work for one
+           hero2.x += MOVE_DISTANCE                              hero. You can add another hero to lend a hand. You’ll
+           if hero2.x > WIDTH:                                   need to add some new code and change some
+                                                                 existing code to do this. Begin by changing the
+                hero2.x = WIDTH
+                                                                 starting position of the current hero and adding a
+      elif keyboard.a:                                           different one for the new hero. Then add some code
+           hero2.x -= MOVE_DISTANCE                              to the draw() function to draw the second hero on
+                                                                 the screen. Now add the code shown here to the
+           if hero2.x < 0:                                       update() function, which will make the second
+                hero2.x = 0                                      hero move on the screen using a new set of keys—
+                                                                 W, A, S, D. Lastly, remember to add a parameter to
+      elif keyboard.s:
+                                                                 all the functions that check for collisions so they
+           hero2.y += MOVE_DISTANCE                              check the collisions for both heroes.
+           if hero2.y > HEIGHT:
+                hero2.y = HEIGHT
+      elif keyboard.w:
+                                                                   This moves the second
+           hero2.y -= MOVE_DISTANCE                                hero down.
+           if hero2.y < 0:
+                hero2.y = 0
+
+                                                                                         They are not
+                                                                                       as predictable as
+                                                                                           you think.
+▷ Less predictable dragons
+Right now it’s fairly easy to predict when
+a dragon will wake up. You can add an
+                                              I know when the
+element of chance to each dragon’s sleep     dragons will wake
+cycle to make the game more challenging.          up next.
+For this, you’ll first need to import the
+Random module at the top of your
+program. Then you’ll need to add some
+code to the update_sleeping_dragon()
+function. This will randomly decide
+                                             if lair["sleep_counter"] >= lair["sleep_length"]:
+whether to wake up the dragon each
+time the function is called. To do this,           if random.choice([True, False]):
+add the line of code shown in black                      lair["dragon"].image = "dragon-awake"
+here to Step 23.

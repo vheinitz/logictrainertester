@@ -1,0 +1,41 @@
+self.x = 3
+         if pos[2] >= self.canvas_width:
+             self.x = -3
+
+     class Paddle:
+         def __init__(self, canvas, color):
+             self.canvas = canvas
+             self.id = canvas.create_rectangle(0, 0, 100, 10,
+             fill=color)
+             self.canvas.move(self.id, 200, 300)
+
+         def draw(self):
+             pass
+
+
+    Этот код очень похож на код класса Ball. Однако вместо функции
+create_oval мы используем create_rectangle и перемещаем нари-
+сованный этой функцией прямоугольник в позицию 200, 300 (200 пиксе-
+лей от левого края холста и 300 пикселей от верхнего края).
+    Ближе к концу программы создадим объект класса Paddle и допол-
+ним игровой цикл вызовом функции draw этого объекта. Вот так:
+
+
+     paddle = Paddle(canvas, 'blue')
+     ball = Ball(canvas, 'red')
+
+     while 1:
+         ball.draw()
+         paddle.draw()
+         tk.update_idletasks()
+         tk.update()
+         time.sleep(0.01)
+
+
+    Если теперь запустить игру, мы увидим летающий мяч и стоящую
+на одном месте прямоугольную ракетку:
+
+
+
+
+                                                                      205

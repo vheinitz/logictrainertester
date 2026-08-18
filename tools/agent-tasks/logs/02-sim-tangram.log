@@ -1,0 +1,8 @@
+`src/games/sim-tangram.js` ist umgesetzt (sonst nichts geändert).
+
+- **Platz-Modell:** 7 Standardteile (`LT`×2, `MT`, `ST`×2, `SQ`, `PA`) nur auf Slots desselben Typs; `drehe` 45°, `spiegle` nur Parallelogramm; Auswertung über `okRot` / `okFlip`.
+- **21 Figuren** auf den Stufen 1–5 (Innenlinien / gestrichelte Slots / unsichtbare Hits).
+- Kontrakt wie Geschichten: `init`/`render`/`dispose`/`actions.verschiebe`/`scoring: 'count'`, `instruction` de/ru/en, `sekProTeil`, `bar` ohne Re-Render der Uhr, Timer + `dragAufraeumen`, `_ready`.
+- Kein Prüfen-Knopf: volles Feld oder Frist → `countRound` + Feedback, level ±1.
+
+Selbstcheck (mit `window`/`localStorage`-Stub wie im Browser) läuft durch.

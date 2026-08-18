@@ -1,0 +1,43 @@
+GAME PROGRESS                                   81%            191
+
+25 Animate  the eggs
+   The program hides the eggs when the hero collects
+       them. You need to check if the eggs have been hidden
+       for long enough and, therefore, need to reappear. Add
+       this code immediately after the lines from Step 24.
+
+                                 lair["wake_counter"] += 1
+
+                                                                                          This block runs
+                        def update_egg(lair):                                             if any eggs have
+                                                                                          been hidden for
+                            if lair["egg_hidden"] is True:                                long enough.
+This function checks
+ if any eggs need to             if lair["egg_hide_counter"] >= EGG_HIDE_TIME:
+ stay hidden or not.
+                                      lair["egg_hidden"] = False
+                                      lair["egg_hide_counter"] = 0
+                                 else:                                                    This adds one to the
+                                                                                          egg_hide_counter.
+                                      lair["egg_hide_counter"] += 1
+
+
+
+
+26 Test the code
+   Save your file and run it from the command line. You should see
+       the dragons sleeping and waking up. Next you’ll add the code
+       that’ll make the eggs disappear when the hero collects them.
+
+                             Pygame Zero Game
+
+
+
+
+                                                                          The dragons will wake
+                                                                          up at different times.
+
+
+
+
+      0         3

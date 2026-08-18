@@ -1,0 +1,49 @@
+96            RED ALERT
+
+
+
+Hacks and tweaks
+This is your chance to put your own stamp on the game.
+We’ve suggested some changes you might want to try.
+Give them a try and maybe combine them with your own
+ideas to make something new and different.
+
+                                 Bharti wait!
+                                I can change.
+                                                                         ◁ Change the Actor
+                                                                         You can change the way your game
+                                                                         looks by simply changing the star Actor.
+                                                                         Find another image of an Actor in the
+                                                                         Python Games Resource Pack, or create
+                                                                         your own by using an 8-bit editor online.
+                                                                         Don’t forget to update the name of
+                                                                         the Actor in the code.
+
+
+
+
+▽ A need for speed
+One way to make the game more challenging is to
+make the stars move at different speeds. Add the code
+given below to the animate_stars() function. It uses
+the randint() function to set the speed to 0, 1, or 2.
+Once you have a value to adjust the speed by, it can be
+added to the animation duration. Try running the
+game after adding this code.
+
+           random_speed_adjustment = random.randint(0,2)
+           duration = START_SPEED - current_level + random_speed_adjustment
+
+
+
+
+           star.x = new_x_pos
+                                                  ◁ Two directions
+                                                  If you want to keep the players on their toes, you can make the
+           if index % 2 == 0:                     stars appear from the opposite direction. First you’ll need to
+                star.y = 0                        add the code shown here to the layout_stars() function. This will
+                                                  check if the current index number is odd or even. When it’s odd,
+           else:
+                                                  the stars will appear at the bottom. Next you’ll need to update the
+                star.y = HEIGHT                   animate_stars() function to make the stars move from the bottom
+                                                  to the top. Remember to update the star’s anchor.

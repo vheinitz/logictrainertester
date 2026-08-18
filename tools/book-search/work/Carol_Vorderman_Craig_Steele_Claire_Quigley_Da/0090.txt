@@ -1,0 +1,50 @@
+88           RED ALERT
+
+
+ 9 Define the update() function
+   The draw() function that you defined
+                                                                star.draw()
+
+     in the previous step will have nothing
+     to draw unless you create the stars.        def update():
+     Define the update() function next to
+                                                    global stars
+     check if there are any stars in the stars
+     list. If there aren’t, it should call the      if len(stars) == 0:
+     make_stars() function. Add this                     stars = make_stars(current_level)
+     code under the lines from Step 8.
+
+                                                        This checks if any stars                If the stars list is empty,
+                                                        have been created yet.                  this function is called.
+
+
+
+                     Sir, your name is                  But I’m the star
+                      not on the list.                   of the show!
+
+
+
+
+10 Make  the stars
+   Next you need to define the make_stars()
+     function. This is used to call some of                           This returns a list of
+     the other functions in the game. Type                            colors that will be
+     this after the code from Step 9.                                 used to draw the stars.
+                                                                                                             Don’t forget to save
+          stars = make_stars(current_level)                                                                      your work.
+
+
+def make_stars(number_of_extra_stars):
+     colors_to_create = get_colors_to_create(number_of_extra_stars)
+                                                                                                    This function uses the list
+     new_stars = create_stars(colors_to_create)                                                     of colors as a parameter
+                                                                                                    and creates Actors for
+     layout_stars(new_stars)
+                                                                                                    each star.
+     animate_stars(new_stars)
+     return new_stars
+
+
+
+         This function puts the stars in                  This function makes the stars
+         the right position on the screen.                move down the screen.

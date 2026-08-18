@@ -1,0 +1,44 @@
+CAROL VORDERMAN MBE is one of Britain’s best-loved TV presenters and is
+renowned for her mathematical skills. She has hosted numerous TV shows on
+science and technology, from Tomorrow’s World to How 2, and was co-host of
+Channel 4’s Countdown for 26 years. A Cambridge University engineering
+graduate, she has a passion for communicating science and technology and
+is particularly interested in coding.
+
+
+
+
+CRAIG STEELE is a specialist in computing science education who helps people
+develop digital skills in a fun and creative environment. He is a founder of
+CoderDojo in Scotland, which runs free coding clubs for young people. Craig
+has run digital workshops with the Raspberry Pi Foundation, Glasgow Science
+Centre, Glasgow School of Art, BAFTA, and the BBC micro:bit project. Craig’s first
+computer was a ZX Spectrum.
+
+
+
+
+DR. CLAIRE QUIGLEY studied computing science at Glasgow University,
+where she obtained BSc and PhD degrees. She has worked in the Computer
+Laboratory at Cambridge University and Glasgow Science Centre, and is
+currently working on a project to develop a music and technology resource
+for primary schools in Edinburgh. She is a mentor at CoderDojo Scotland.
+
+
+
+
+DANIEL McCAFFERTY holds a degree in computer science from the University
+of Strathclyde. He has worked as a software engineer for companies big and
+small in industries from banking to broadcasting. Daniel lives in Glasgow with
+his wife and two children, and when not teaching young people to code, he
+enjoys bicycling and spending time with his family.
+
+
+
+
+DR. MARTIN GOODFELLOW is a teaching associate in the Computer and
+Information Sciences department at the University of Strathclyde. He has
+also developed educational computer science content and workshops for
+other organizations in the UK and China, including CoderDojo Scotland,
+Glasgow Life, Codemao, and the BBC. He is currently the Scottish
+Ambassador for National Coding Week.

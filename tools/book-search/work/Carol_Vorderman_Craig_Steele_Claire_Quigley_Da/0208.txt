@@ -1,0 +1,57 @@
+206           REFERENCE
+
+
+
+   for high_score in scores:
+       screen.draw.text(str(position) + ". " + high_score, (350, y), color="black")
+       y += 25
+       position += 1
+
+
+def draw():
+   screen.blit("background", (0, 0))
+   if not game_over:
+       balloon.draw()
+       bird.draw()
+       house.draw()
+       tree.draw()
+       screen.draw.text("Score: " + str(score), (700, 5), color="black")
+   else:
+      display_high_scores()
+
+
+def on_mouse_down():
+   global up
+   up = True
+   balloon.y -= 50
+
+
+def on_mouse_up():
+   global up
+   up = False
+
+
+def flap():
+   global bird_up
+   if bird_up:
+       bird.image = "bird-down"
+       bird_up = False
+   else:
+       bird.image = "bird-up"
+       bird_up = True
+
+
+def update():
+   global game_over, score, number_of_updates
+   if not game_over:
+       if not up:
+              balloon.y += 1
+
+
+       if bird.x > 0:
+              bird.x -= 4
+              if number_of_updates == 9:
+                  flap()
+                  number_of_updates = 0
+              else:
+                  number_of_updates += 1

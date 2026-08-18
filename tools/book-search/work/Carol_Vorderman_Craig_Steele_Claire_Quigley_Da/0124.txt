@@ -1,0 +1,62 @@
+122             BALLOON FLIGHT
+
+
+ 5 Set the screen size
+   Next you need to set the size of the screen            6 Get the balloon ready
+                                                            Now you need to set up the Actors. First
+       for your game. Type this code under the                  add the hot-air balloon, which the player
+       line from Step 4.                                        controls to play the game.
+
+ WIDTH = 800                                              balloon = Actor("balloon")                        This line creates
+ HEIGHT = 600                                             balloon.pos = 400, 300                            a new Actor
+                                                                                                            using the
+                                This sets the screen                                                        balloon image.
+                                size in pixels.                           This line places the balloon
+                                                                          in the center of the screen.
+
+
+
+ 7 Prepare the obstacles
+   Next you need to set up the Actors for all the
+       obstacles in the game. Create one for the bird,
+       one for the house, and one for the tree.
+                                                                                            This line makes the bird
+                           bird = Actor("bird-up")                                          appear at a random position
+                                                                                            on the x-axis between 800
+                           bird.pos = randint(800, 1600), randint(10, 200)
+                                                                                            and 1600 pixels, and at a
+                                                                                            random position on the y-axis
+                                                                                            between 10 and 200 pixels.
+  This line creates a      house = Actor("house")
+new Actor using the
+                           house.pos = randint(800, 1600), 460
+image of the house.
+
+                                                                                            This value makes the
+                           tree = Actor("tree")                                             tree appear on the
+                                                                                            grass at the bottom
+                           tree.pos = randint(800, 1600), 450
+                                                                                            of the screen.
+
+
+                                                                                   EXPERT TIPS
+
+                        Pygame Zero Game
+                                                                            Functions
+                                                                            A function is made up of two
+                                                                            parts—a header and a body.
+                                                                            The header is the first line of the
+                                                                            function that includes the name
+                                                         The balloon
+                                                                            and any parameters it has. The
+                                                         has to avoid       body is the code that the function
+                                                         birds, houses,     runs when it’s called.
+                                                         and trees.
+                                                                                         Name of the        The function’s
+                                                                                         function           parameters
+
+                                                                              def add(a, b):
+                                                                                    return a + b
+
+                                                                                              Body of the
+                                                                                              function

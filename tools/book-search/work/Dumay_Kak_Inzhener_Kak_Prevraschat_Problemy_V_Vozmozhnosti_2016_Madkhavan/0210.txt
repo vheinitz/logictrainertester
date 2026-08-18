@@ -1,0 +1,38 @@
+Думай как инженер
+
+
+    Шведский профессор Джонас Элиассон (Jonas Eliasson),
+исследующий вопросы транспорта, опубликовал вместе
+с коллегами много работ о влиянии платы за проезд в за-
+груженные районы на поведение публики в Стокгольме.
+Образцы работ включают: The Stockholm Congestion Char­
+ges — Five Years On, 2012 (Maria Börjesson et al., Transport
+Policy 20: 1–12) и работу Джонаса Элиассона от 2009 года
+A Cost-Benefit Analysis of the Stockholm Congestion Charging
+System (Transportation Research Part A: Policy and Practice 43,
+no. 4: 468–480).
+    Полезные основные данные позаимствованы из отчета IBM
+за 2011 год Smarter Cities Series: Understanding the IBM Approach
+to Traffic Management (Stefen Schaefer et al.) и работы 2013 года
+You Can Lead Travelers to the Bus Stop, but You Can’t Make Them
+Ride (Akshay Vij and Joan Walker, Transportation Research Board
+92nd Annual Meeting Compendium of Papers, National Acade­
+mies Press). Книга Тома Вандербильта (Tom Vanderbilt) Traffic
+(Vintage Books, 2009) помогает многое понять о психологиче-
+ских основах того, «Почему мы ездим именно так (и что это
+о нас говорит)», как гласит подзаголовок книги.
+
+
+                              ***
+Статистики Джордж Бокс и Норман Дрейпер (George Box
+and Norman Draper) сделали свое известное заявление «Все
+модели неправильны, но некоторые из них полезны» в кни-
+ге 1987 года Empirical Model-Building and Response Surfaces
+(John Wiley & Sons). Цитата Джошуа Эпштейна приводится
+из работы Why Model? (Journal of Artificial Societies and Social
+Simulation 11, no. 4 [2008]: 12).
+   Рассказ о «суперконе» цитируется по книге 2013 года Джо-
+на Купренаса и Мэтью Фредерика 101 Things I Learned in En-
+gineering School (John Kuprenas and Matthew Frederick, Grand
+
+210

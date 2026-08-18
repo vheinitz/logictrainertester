@@ -1,0 +1,60 @@
+GAME PROGRESS                                   75%               167
+
+25 Start wilting
+   Now that you’ve added a function
+                                                     return
+                                                           cow.image="cow"
+
+       to wilt the flowers, you need to
+       call it. Add this code just below
+       the call to add_flowers() that
+                                                add_flowers()
+       you added in Step 18.
+                                                wilt_flower()                     This command will
+                                                                                  make the flowers wilt.
+
+
+
+26 Check for happiness
+   Now you need to add a call to
+                                                def update():
+                                                     global score, game_over, fangflower_collision
+       the check_wilt_times() function
+       you defined in Step 24. Go to the             global flower_list, fangflower_list, time_elapsed
+       update() function and add this line.
+                                                     check_wilt_times()
+                                                     if not game_over:
+
+                                                                                  This checks how
+                                                                                  long the flowers
+27     Game over!
+       Your game is almost ready! But before testing it,
+                                                                                  have been wilted.
+
+       you need to add some code that lets the player
+       know that the game is over if the flowers have
+       been wilted for too long. Add an else branch to
+       the if not game_over statement in the draw()
+       function you defined in Step 10.
+                                                                                                      This line displays
+                                 str(time_elapsed) + " seconds",                                      a message to
+                                                                                                      show how long
+                                 topleft=(10, 10), color="black"                                      the garden has
+                            )                                                                         been happy.
+
+                      else:
+                            if not finalized:
+                                 cow.draw()
+                                 screen.draw.text(
+                                       "Garden happy for: " +
+                                       str(time_elapsed) + " seconds",
+                                      topleft=(10, 10), color="black"
+                                 )
+                                 if (not garden_happy):
+ This displays
+   a message                          screen.draw.text(
+     that tells                             "GARDEN UNHAPPY—GAME OVER!", color="black",
+the player the
+ game is over.                              topleft=(10, 50)
+                                       )
+                                      finalized = True

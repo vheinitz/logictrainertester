@@ -1,0 +1,58 @@
+GAME PROGRESS                                                  100%               77
+
+13 Add a new function
+   When you ran the program just then, you
+                                                          def on_mouse_down(pos):
+                                                                global next_dot
+                                                                                                              You have to add this
+      probably noticed that nothing happened                                                                  code to let the function
+      when you clicked on the dots. To fix this,                global lines                                  change the values of
+      add the on_mouse_down(pos) function                                                                     the global variables
+                                                                                                              next_dot and lines.
+      under the code from Step 10.
+
+                                                                         This line checks if the player
+                                                                         has clicked on the next dot
+14 Connect the dots
+   You now need to make the dots respond
+                                                                         in the sequence.
+
+      to the mouse clicks. Add these lines under                         This line checks if the player has
+      def on_mouse_down(pos) from Step 13.                               already clicked on the first dot.
+
+      global lines
+      if dots[next_dot].collidepoint(pos):
+             if next_dot:
+                  lines.append((dots[next_dot - 1].pos, dots[next_dot].pos))
+             next_dot = next_dot + 1                                                                             This draws a line
+                                                                                                                 between the
+      else:                                                                                                      current dot and
+                                                 This sets next_dot                                              the previous one.
+             lines = []                          to the next number.
+             next_dot = 0
+
+   If the player clicks on the wrong dot,
+   this sets the next_dot back to the first                            EXPERT TIPS
+   one and deletes all the lines.
+                                                               Collisions
+                                                               You can use the collidepoint() function to check
+15    Time to connect
+      And it’s done! Now that you’ve finished
+                                                               if the position of the mouse click matches the
+                                                               position of an Actor.
+      writing the code, save it and run it from
+      the command line to start playing. Don’t                                                            This passes the position
+      forget, you need to connect all the dots                           This creates an                  of the mouse click to
+      as fast as you can!                                                Actor with the                   the on_mouse_down()
+                                                                         dot image.                       function.
+
+                                                                  dot = Actor("dot")
+
+   Here goes...
+                                                                  def on_mouse_down(pos):
+                                                                        if dot.collidepoint(pos):
+                                                                             print("Ouch")
+
+                                                                        If the mouse click position
+                                                                        and the dot position match,
+                                                                        “Ouch” is printed in the shell.

@@ -1,0 +1,64 @@
+126           BALLOON FLIGHT
+
+
+14 Make the bird flap
+   To make the bird more realistic, add a
+                                                          EXPERT TIPS
+     function to make it look like it’s flapping     Actor animations
+     its wings. You don’t need to do this for
+     the other obstacles.                            You can make your Actors look like they’re moving
+                                                     by using two or more different images of the same
+def flap():                                          Actor. For example, in this game, there are two images
+     global bird_up                                  of a bird—one with its wings up and one with its wings
+                                                     down. By alternating between the two images, it looks
+     if bird_up:
+                                                     as if the bird is flapping its wings. The same function
+          bird.image = "bird-down"                   could make a person look like they’re dancing, or a frog
+          bird_up = False                            look like it’s jumping!
+     else:
+          bird.image = "bird-up"
+          bird_up = True
+
+
+
+             If the bird’s wings are up, this code
+                 will change its image to the one
+                where the bird’s wings are down.
+
+
+
+
+15 Create the update() function
+   Now you need to create a function to
+                                                     def update():
+                                                         global game_over, score, number_of_updates
+     update the game. Remember, update()
+     is a built-in function that automatically
+     runs 60 times a second, so you don’t                                                     This line declares the
+                                                                                              variables the function
+     need to call it. Add this code right after
+                                                                                              must change.
+     the lines from Step 14.
+
+
+
+16 Add in gravity
+   Next add some code to make the balloon
+                                                         global game_over, score, number_of_updates
+                                                         if not game_over:
+     move down when the player isn’t pressing
+     the mouse button. Add this code to the                  if not up:
+     update() function from Step 15.
+                                                                  balloon.y += 1
+
+
+                                                                                              If the mouse button
+
+17   Test your code
+     Let’s run the code again. This time
+                                                                                              is not being pressed,
+                                                                                              this moves the balloon
+                                                                                              down by one pixel.
+     you’ll see the same screen as in
+     Step 12, but the balloon should
+     react to mouse clicks.

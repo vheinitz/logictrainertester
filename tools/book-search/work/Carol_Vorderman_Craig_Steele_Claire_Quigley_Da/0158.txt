@@ -1,0 +1,50 @@
+156        HAPPY GARDEN
+
+
+
+How to build                                                           The counter displays the
+
+
+Happy Garden
+                                                                       number of seconds the
+                                                                       garden has been happy for.
+
+
+Gardening may seem like a relaxing
+hobby, but not in this game! Can you
+                                                    Pygame Zero Game
+help a flower-loving cow keep all
+the plants watered? Look out for the
+                                                    Garden happy for: 16 seconds
+scary fangflowers as they try to zap
+the cow. How long can you help it
+keep the garden happy?
+
+What happens
+When the game starts, a cow with a watering
+can appears in the garden, but there is only
+one flower. Every few seconds another flower
+appears or an existing flower begins to wilt. Use
+the arrow keys to move the cow to the wilted
+flowers and press the Space bar to water them.
+If any flower remains wilted for more than ten
+seconds, the game ends. But if the garden is
+happy for more than 15 seconds, one of the
+flowers mutates into a fangflower and tries
+to zap the cow.
+
+
+
+                 ◁ Cow
+                 The cow is the main
+                 character in the game.
+                 Its aim is to keep all
+                 the flowers watered.
+
+
+
+                 ◁ Fangflower
+                 This large carnivorous
+                 plant moves around the
+                 garden and tries to zap
+                 the cow.

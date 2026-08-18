@@ -1,0 +1,50 @@
+GAME PROGRESS          33%             87
+      LINGO
+
+Constants
+Constants are variables whose
+value shouldn’t change after
+they are first set. Programmers
+use capital letters when naming
+them to let other programmers
+know not to change their values.
+This is known as a “naming
+convention”—a rule that most
+programmers agree on, so that
+everyone’s code looks similar
+and is easier to understand.
+
+
+
+
+8 Draw the stars
+  Now it’s time to define the first function.
+     You’ll use the draw() function to add
+     some stars and display messages on the
+     screen. Add this code under what you
+     typed in Step 7.
+
+current_level = 1
+                                                            These are the global
+stars = []                                                  variables used in
+animations = []                                             this function.
+
+
+def draw():
+                                                            This adds a
+    global stars, current_level, game_over, game_complete   background
+    screen.clear()                                          image to the
+                                                            game window.
+    screen.blit("space", (0, 0))
+    if game_over:
+         display_message("GAME OVER!", "Try again.")        When the game is
+                                                            over or complete,
+    elif game_complete:
+                                                            this block displays
+         display_message("YOU WON!", "Well done.")          the relevant message
+                                                            on the screen.
+    else:
+         for star in stars:
+                                                            This block draws the
+              star.draw()
+                                                            stars on the screen.

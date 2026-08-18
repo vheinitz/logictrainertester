@@ -1,0 +1,32 @@
+174                HAPPY GARDEN
+
+
+
+Hacks and tweaks
+Do you want to make the game even more
+exciting? You can try out some of these
+ideas and add new features to the game.
+
+
+
+
+  Sorry pal, your day
+   in the sun is over.
+                                                          random_velocity = randint(2, 3)
+
+△ Change the gardener                                    △ Faster fangflowers!
+You might think a cow is an unusual gardener.            You can make the fangflowers move faster by
+Why don’t you look for another character in the Python   changing the possible range of random_velocity.
+Game Resource Pack? You could also make a new            Try increasing the range by using something
+character using any 8-bit editor available online.       like randint(4, 6).
+
+
+
+
+ clock.schedule(add_flowers, 4)                           clock.schedule(mutate, 20)
+
+△ More flowers                                           △ More fangflowers
+You can change how often a new flower appears            Is the game too hard or too easy?
+on the screen to make the game easier or harder.         You can change the code in mutate()
+Update the code under def add_flowers() to               to make fangflowers appear more
+change how often it schedules a call to itself.          or less often.

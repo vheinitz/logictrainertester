@@ -1,0 +1,51 @@
+FUNCTIONS                       43
+     Return a value
+3 Rather than printing out the score, you might                          EXPERT TIPS
+     want to use it elsewhere in your code. You can ask             Indentation Errors
+     to get a value out of a function to be used later.
+     This is called “returning” a value. Type in the                Python uses indentation to understand
+     keyword return before the value you want it to                 where a block of code starts and stops.
+     return in each case. Try switching your print                  An “IndentationError” appears when
+     statements to return statements.                               something is wrong with the way you’ve
+                                                                    structured the code. Remember that if
+def fruit_score(fruit):                                             a line of code ends with a colon ( : ), the
+     if fruit == "apple":                                           next line needs to be indented. If Python
+                                             Don’t use              does not add them automatically, use the
+           return 10                         parentheses with the   Space bar to manually insert four spaces.
+     elif fruit == "orange":                 return statements.
+
+           return 5
+
+
+                                                                            Error... error!
+                         The values are returned for
+                         use later in the code. They
+                         will not appear in the shell.
+
+
+
+
+     Using the return value
+4 You can use the return value of a function                                                   I would like to return
+     elsewhere in your code. In this case, we make                                            these oranges and buy
+     two calls to the function—one for each fruit. We                                          some apples instead.
+     then add these results together to get a total
+     score. Add this code underneath what you wrote
+     in Step 3 and then go to the Run menu and click
+     Run Module.
+
+return 5
+
+
+apple_score = fruit_score("apple")
+orange_score = fruit_score("orange")
+
+
+total = fruit_score("apple") + fruit_score("orange")
+print(total)
+
+                                     The two return values
+                                     are added together.
+
+
+15

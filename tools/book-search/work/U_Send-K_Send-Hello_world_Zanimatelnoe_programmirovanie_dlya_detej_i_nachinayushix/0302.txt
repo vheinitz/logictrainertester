@@ -1,0 +1,44 @@
+302                                                                          Глава 20
+
+
+
+Напоследок изменим имя загружаемого UI-файла (в третьей строке), подставив финаль-
+ный сохраненный вариант tempconv_menu.ui.
+Код после всех этих изменений представлен в листинге 20.4.
+
+ Листинг 20.4. Программа преобразования температуры
+ после добавления меню
+ import sys                                                  Загружаем UI-файл с меню
+ from PyQt4 import QtCore, QtGui, uic
+
+ form_class = uic.loadUiType("tempconv_menu.ui")[0]
+
+ class MyWindowClass(QtGui.QMainWindow, form_class):         Связываем
+     def __init__(self, parent=None):                        меню Convert
+         QtGui.QMainWindow.__init__(self, parent)            с обработчиками
+         self.setupUi(self)                                  событий
+         self.btn_CtoF.clicked.connect(self.btn_CtoF_clicked)
+         self.btn_FtoC.clicked.connect(self.btn_FtoC_clicked)
+         self.action_CtoF.triggered.connect(self.btn_CtoF_clicked)
+         self.action_FtoC.triggered.connect(self.btn_FtoC_clicked)
+         self.actionExit.triggered.connect(self.menuExit_selected)
+
+      def btn_CtoF_clicked(self):
+          cel = float(self.editCel.text())
+          fahr = cel * 9 / 5.0 + 32                      Связываем пункт меню Exit
+                                                         с обработчиком событий
+          self.spinFahr.setValue(int(fahr + 0.5))
+
+      def btn_FtoC_clicked(self):
+          fahr = self.spinFahr.value()
+          cel = (fahr - 32) * 5 / 9.0
+          self.editCel.setText(str(cel))
+
+      def menuExit_selected(self):     Обработчик событий нового
+          self.close()                 элемента меню Exit
+
+
+ app = QtGui.QApplication(sys.argv)
+ myWindow = MyWindowClass(None)
+ myWindow.show()
+ app.exec_()
