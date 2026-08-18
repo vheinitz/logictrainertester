@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bildhafte Sprache: wörtlich oder gemeint?</title>
+<link rel="stylesheet" href="../_framework/framework.css">
+<style>
+  .bs-wrap { padding: .25rem; }
+  .bs-aufgabe { text-align: center; margin-bottom: .8rem; }
+  .bs-typ {
+    display: inline-block; font-size: .8em; color: #5b4fcf;
+    background: #eeeaff; border-radius: 99px; padding: .15rem .6rem;
+  }
+  .bs-wendung { font-size: 1.35em; font-weight: bold; margin-top: .4rem; line-height: 1.3; }
+  .bs-karten { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; }
+  .bs-karte {
+    flex: 1 1 40%; min-width: 15rem; max-width: 20rem;
+    display: flex; flex-direction: column; align-items: center; gap: .5rem;
+    padding: .9rem .7rem; border: 2px solid #d8d4f0; border-radius: 14px;
+    background: #fff; cursor: pointer; font-family: inherit; text-align: center;
+    transition: transform .08s ease, border-color .08s ease, background .08s ease;
+  }
+  .bs-karte:hover { border-color: #5b4fcf; transform: translateY(-2px); }
+  .bs-karte:active { transform: scale(.98); }
+  .bs-bild { font-size: 3.2em; line-height: 1.1; }
+  .bs-text { font-size: 1em; line-height: 1.35; color: #222; }
+  .bs-richtig { border-color: #2a8a2a; background: #eef8ee; }
+  .bs-falsch  { border-color: #e03131; background: #ffe8e8; }
+  .bs-neutral { opacity: .6; }
+  .bs-feedback { margin-top: .8rem; padding: .7rem .8rem; border-radius: 10px; font-size: .95em; line-height: 1.45; }
+  .bs-gut      { background: #eef8ee; border: 1px solid #cde5cd; }
+  .bs-schlecht { background: #fff3f3; border: 1px solid #f2c9c9; }
+  .bs-fb-titel { font-weight: bold; margin-bottom: .3rem; }
+  .bs-erklaerung { margin-bottom: .5rem; }
+  .bs-fertig { text-align: center; font-size: 3em; padding: 2rem 0; }
+  .bs-fertig div { font-size: .6em; margin-top: .5rem; }
+</style>
+</head>
+<body>
+<div id="app"></div>
+<script src="./app.bundle.js"></script>
+<script>
+  S_22_23_TEIL_II_2_2_3_BILDHAFTE_SPRACHE.mount(document.getElementById('app'));
+  window.__maRestart = () => S_22_23_TEIL_II_2_2_3_BILDHAFTE_SPRACHE.default.reset();
+</script>
+</body>
+</html>

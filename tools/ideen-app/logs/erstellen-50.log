@@ -1,0 +1,18 @@
+Fertig. Ich habe die Mini-App **Stein-Abakus** unter `apps/s-30-31-kap-2/` erstellt:
+
+- `app.js` — `new MiniApp({…})` mit `idee-db: 50` im Kopf, trilingual (de/ru/en)
+- `index.html` — lädt `framework.css` + `app.bundle.js` (Global-Name `S_30_31_KAP_2`)
+
+**Umsetzung (Zusatzanweisung hat Vorrang: generischer Abakus-Trainer, nur Zahlen, keine Arithmetik/Geldbeträge):**
+
+- Klassischer Abakus je Spalte: 1 Stein über der Mittellinie (= 5) und 4 Steine darunter (= je 1); rechts Einer, links Zehner/Hunderter/Tausender.
+- Zwei Modi: **🎯 Ziel** (rote Zahl nachlegen) und **🔍 Frei** (frei legen, App liest die Zahl vor).
+- Bedienung per **Tippen** oder **Ziehen** (Stein zur Mittellinie). Beim Hochschieben wandern die Steine darüber mit, beim Runterziehen die darunter – wie am echten Abakus.
+- Gelegte Zahl wird **laufend als Ziffer** angezeigt (grün bei Treffer) und optional **vorgelesen** (Einstellung „Zahl vorlesen“); 🔊, 🎲 neue Zielzahl.
+- Einstellung **Spalten/Stellen 2–4** (bis Tausender); Auswertung über Züge inkl. Optimum.
+
+**Verifiziert:**
+- jsdom-Smoke-/Interaktionstest (Mount, SVG, Tippen/Ziehen, Ziel-Erkennung, Sprache RU, Optimalwert) ✅
+- `esbuild`-Bundle (IIFE, `S_30_31_KAP_2`) ohne Fehler ✅
+
+Das eigentliche Bündeln (`npm run build:miniapps`) überlasse ich wie im Vertrag beschrieben dem nachgelagerten Build-Schritt.

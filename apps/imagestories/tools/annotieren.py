@@ -7,6 +7,9 @@ Werkzeug zeigt die Blätter nacheinander an, legt ein 5x5-Raster darüber und
 nimmt die Reihenfolge per Mausklick auf: der erste Klick in einer Zeile ist
 Bild 1, der zweite Bild 2 usw. Nicht angeklickte Kacheln bleiben unbenutzt.
 
+Beim Laden wird jedes Blatt auf ZIEL_BREITE verkleinert und dabei im Original
+überschrieben; die gespeicherten Koordinaten passen also zur Datei im Ordner.
+
 Aufruf:
 
     python3 tools/annotieren.py [bildordner] [ausgabe.json]
@@ -17,11 +20,12 @@ Tasten:
     Klick erneut Nummer entfernen, Rest der Zeile rückt auf
     c            alle Nummern des Blattes löschen
     s            speichern und zum nächsten Blatt
+    Leertaste    nächstes Blatt (ohne zu speichern)
     n / p        nächstes / vorheriges Blatt (ohne zu speichern)
     q            beenden
 
-Erzeugt data/bildgeschichten.json mit Kachelkoordinaten im Originalbild, so
-dass die JS-App die Ausschnitte direkt aus dem Blatt schneiden kann.
+Erzeugt data/bildgeschichten.json mit den Kachelkoordinaten und daneben
+data/bildgeschichten.js (dasselbe als ES-Modul), das die Mini-App einbindet.
 """
 
 import json
@@ -33,8 +37,12 @@ from PIL import Image, ImageTk
 
 WURZEL = Path(__file__).resolve().parent.parent
 
-# Anzeigebreite des Blattes in Pixeln, Höhe folgt dem Seitenverhältnis.
-ANZEIGE_BREITE = 800
+# Zielbreite: breitere Blätter werden beim Laden auf diese Breite verkleinert
+# (Höhe folgt dem Seitenverhältnis) und im Original überschrieben. Anzeige und
+# JSON-Koordinaten beziehen sich danach auf diese Größe.
+ZIEL_BREITE = 800
+# JPEG-Qualität der überschriebenen Blätter.
+JPEG_QUALITAET = 92
 # Kacheln je Zeile und Spalte.
 RASTER = 5
 # Bilddateien mit diesen Endungen werden geladen.
@@ -43,6 +51,18 @@ ENDUNGEN = {".jpg", ".jpeg", ".png", ".webp"}
 FARBE_RASTER = "#ffffff"
 FARBE_MARKE = "#00c000"
 FARBE_TEXT = "#ffffff"
+
+
+def js_schreiben(pfad: Path, daten: dict) -> None:
+    """Schreibt dieselben Daten als ES-Modul – die Mini-App läuft von file://,
+    wo fetch() auf JSON blockiert ist."""
+    pfad.write_text(
+        "// Erzeugt von tools/annotieren.py – nicht von Hand bearbeiten.\n"
+        "export const BILDGESCHICHTEN = "
+        + json.dumps(daten, indent=2, ensure_ascii=False)
+        + ";\n",
+        encoding="utf-8",
+    )
 
 
 def kachel_rechteck(breite: int, hoehe: int, zeile: int, spalte: int) -> dict:
@@ -72,6 +92,7 @@ class Annotierer:
         self.wurzel.bind("<KeyPress-c>", lambda e: self.loeschen())
         self.wurzel.bind("<KeyPress-s>", lambda e: self.speichern_und_weiter())
         self.wurzel.bind("<KeyPress-n>", lambda e: self.blaettern(+1))
+        self.wurzel.bind("<space>", lambda e: self.blaettern(+1))
         self.wurzel.bind("<KeyPress-p>", lambda e: self.blaettern(-1))
         self.wurzel.bind("<KeyPress-q>", lambda e: self.wurzel.destroy())
         self.wurzel.bind("<Escape>", lambda e: self.wurzel.destroy())
@@ -105,18 +126,28 @@ class Annotierer:
 
     def blatt_laden(self):
         self.pfad = self.bilder[self.index]
-        bild = Image.open(self.pfad).convert("RGB")
+        bild = self.blatt_verkleinern(self.pfad)
         self.breite, self.hoehe = bild.size
 
-        self.skala = ANZEIGE_BREITE / self.breite
-        anzeige = bild.resize(
-            (ANZEIGE_BREITE, round(self.hoehe * self.skala)), Image.LANCZOS
-        )
-        self.foto = ImageTk.PhotoImage(anzeige)
-        self.leinwand.config(width=anzeige.width, height=anzeige.height)
+        self.foto = ImageTk.PhotoImage(bild)
+        self.leinwand.config(width=bild.width, height=bild.height)
 
         self.nummern = self.nummern_aus_daten(self.pfad.name)
         self.zeichnen()
+
+    @staticmethod
+    def blatt_verkleinern(pfad: Path) -> Image.Image:
+        """Verkleinert ein Blatt auf ZIEL_BREITE und überschreibt das Original."""
+        bild = Image.open(pfad).convert("RGB")
+        if bild.width <= ZIEL_BREITE:
+            return bild
+        hoehe = round(bild.height * ZIEL_BREITE / bild.width)
+        bild = bild.resize((ZIEL_BREITE, hoehe), Image.LANCZOS)
+        if pfad.suffix.lower() in {".jpg", ".jpeg"}:
+            bild.save(pfad, quality=JPEG_QUALITAET, subsampling=0)
+        else:
+            bild.save(pfad)
+        return bild
 
     def zeichnen(self):
         self.leinwand.delete("all")
@@ -158,7 +189,7 @@ class Annotierer:
         text = (
             f"[{self.index + 1}/{len(self.bilder)}] {self.pfad.name} "
             f"({self.breite}x{self.hoehe})   {belegt or 'keine Nummern'}   "
-            f"c=löschen  s=speichern+weiter  n/p=blättern  q=Ende"
+            f"c=löschen  s=speichern+weiter  Leertaste/n/p=blättern  q=Ende"
         )
         self.status.config(text=(hinweis + "   " + text) if hinweis else text)
 
@@ -242,6 +273,7 @@ class Annotierer:
             json.dumps(self.daten, indent=2, ensure_ascii=False) + "\n",
             encoding="utf-8",
         )
+        js_schreiben(self.ausgabe.with_suffix(".js"), self.daten)
         self.status_setzen(f"Gespeichert: {len(geschichten)} Geschichte(n) →")
 
 

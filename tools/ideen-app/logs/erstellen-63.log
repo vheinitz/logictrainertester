@@ -1,0 +1,30 @@
+Fertig. Ich habe die Mini-App **`apps/streichholz-spiele/`** erstellt.
+
+## Was umgesetzt wurde
+
+**Dateien** (nur die App, wie gefordert):
+- `apps/streichholz-spiele/index.html`
+- `apps/streichholz-spiele/app.js` (Kopf enthält `idee-db: 63`)
+- `apps/streichholz-spiele/app.bundle.js` (per `npm run build:miniapps` erzeugt)
+
+**Konzept** – virtuelle Streichholz-/Stäbchen-Knobeleien nach Buchstelle S. 131, Nr. 1169 (12 Stäbchen → 4 Quadrate, dann wegnehmen/umlegen). Alle Texte sind `{de, ru, en}`.
+
+**7 Aufgaben in drei Stufen** (Stäbchen liegen auf einem 4×4-Raster; Quadrate werden automatisch gezählt, kleine und große getrennt):
+1. *wegnehmen* – 2×2-Gitter (12 Stäbchen, 4 Quadrate): 2 weg → 2 Quadrate
+2. *wegnehmen* – 3 weg → 1 Quadrat
+3. *wegnehmen* – 4 weg → 1 großes Quadrat (klassische Lösung: das innere Kreuz)
+4. *wegnehmen* – Kreuz (16 Stäbchen, 5 Quadrate): 2 weg → 4 Quadrate
+5. *umlegen* – 3 umlegen → 3 Quadrate
+6. *umlegen* – Kreuz: 2 umlegen → 4 Quadrate
+7. *frei* – aus höchstens 12 Stäbchen 3 Quadrate bauen
+
+**Bedienung**
+- Wegnehmen: Stäbchen antippen → verschwindet (als gestrichelter „Geist“ sichtbar)
+- Umlegen: Stäbchen antippen, dann freie Stelle antippen
+- Frei: freie Stelle antippen (legen) bzw. Stäbchen antippen (entfernen)
+- `↩` macht den letzten Zug rückgängig, `◀/▶` wechselt die Aufgabe, `🔁` startet neu
+- Statuszeile zeigt Quadrate, weggenommene Stäbchen/Vorrat, Züge und die Mindestzahl; bei Erfolg erscheint „✅ Geschafft“ mit Vergleich zur optimalen Lösung
+
+**Verifikation**
+- Alle Aufgaben wurden per Brute-Force-Skript auf Lösbarkeit mit exakt den Zielvorgaben geprüft (inkl. der eindeutigen Lösung „4 weg → großes Quadrat“).
+- Ein jsdom-Smoke-Test (Mount, Lösen, Undo, Levelwechsel, freies Bauen) läuft grün, und `npm run build:miniapps` baut sauber.

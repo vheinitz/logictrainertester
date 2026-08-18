@@ -1,0 +1,33 @@
+Die Mini-App ist fertig erstellt und getestet.
+
+## Was ich gebaut habe
+
+**`apps/s-188-191-kap-9-projekt-18/`** — „Null-Eins-Wandler“ (Binär → Dezimal als Rechenspiel)
+
+| Datei | Inhalt |
+|---|---|
+| `index.html` | lädt Framework-CSS + Bundle, mountet die App |
+| `app.js` | `idee-db: 121` im Kopf, MiniApp-Vertrag mit `init/render/actions/evaluate` |
+| `app.bundle.js` | gebündelt (nur für diese App, ohne andere Apps anzufassen) |
+
+## Umsetzung der Zusatzanweisung (hat Vorrang)
+
+- **Zielzahl** wird je Stufe vorgegeben — Stufe = Stellen/Bits-Slider **4 bis 8** (entspricht 15 bis 255, also „zw. 16 und 255“).
+- **Bit-Kästchen als Schalter-Icons** (SVG): oben der Stellenwert (128, 64, 32 … 1), darunter eine Lampe mit **0** (aus, grau) bzw. **1** (an, grün).
+- **Summenzeile direkt darunter**: `0+0+0+0+0+0+0+0 = 0`; kippt ein Bit, wird aus der 0 sein Wert → `0+0+128+0+0+0+0+0 = 128`.
+- **Mehr/weniger-Entscheidung**: unter der Summe erscheint **▲ mehr** (Summe zu klein) bzw. **▼ weniger** (zu groß), bei Treffer **✓ Genau getroffen!**.
+- Klickzähler in der Statuszeile; `evaluate` meldet „fertig“ mit Klickzahl.
+
+## Zusatzdetails aus der Idee (ohne Konflikt)
+
+- Stellenwerte als **doppelte Verdopplung** erklärt (1, 2, 4, 8 …) in der Hilfe.
+- Schwierigkeit 4–8 Stellen einstellbar.
+- Durchgehend mehrsprachig **de/ru/en** (Titel, Anweisung, Hilfe, alle Labels).
+
+## Verifikation
+
+- Gezielter esbuild-Build → `window.S_188_191_KAP_9_PROJEKT_18` korrekt erzeugt.
+- Smoke-Test mit jsdom: App mountet, Standard 8 Bits, Zielzahl im Bereich 1–255, Ziel lässt sich durch Kippen der richtigen Bits lösen, `fertig`/`evaluate` und Summenzeile stimmen.
+- Sprachumschaltung de/ru/en für Titel und Canvas-Labels geprüft.
+
+Hinweis: Ich habe nur die drei Dateien im neuen App-Verzeichnis angelegt und ausschließlich deren Bundle erzeugt — keine anderen Dateien im Repo geändert.

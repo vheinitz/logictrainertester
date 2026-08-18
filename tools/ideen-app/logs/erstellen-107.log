@@ -1,0 +1,21 @@
+Fertig. Die Mini-App ist umgesetzt und gebaut.
+
+**Angelegt (nur App-Dateien):**
+- `apps/s-70-72-follow-the-numbers/app.js` — Kopf enthält `idee-db: 107`
+- `apps/s-70-72-follow-the-numbers/index.html`
+- `apps/s-70-72-follow-the-numbers/app.bundle.js` (per `npm run build:miniapps` erzeugt, global `S_70_72_FOLLOW_THE_NUMBERS`)
+
+**Umsetzung gemäß Zusatzanweisung (hat Vorrang):**
+- Auf einem Punktraster ist eine graue, gestrichelte **Zielfigur** vorgegeben.
+- Das Kind schreibt darunter ein **Programm aus Pfeilen** (↑ ↓ ← →) in eine Slot-Leiste (⌫ löscht den letzten Pfeil, 🗑 alles).
+- **▶ Los** fährt das Programm animiert ab und verbindet die Punkte mit orangen Linien (mit leisem Tick).
+- Danach wird geprüft, ob die gezeichnete Figur mit der Zielfigur übereinstimmt (kantenweise, richtungsunabhängig). Erfolg → Punkte + „➜ Weiter“, sonst Fehlversuch und Programm anpassbar.
+- Pfeile, die aus dem Raster führen, sind ausgegraut und werden blockiert.
+
+**Details:**
+- 3 Stufen (4×3 / 4×4 / 5×4, zunehmend mehr Kanten) + einstellbare Figurenanzahl.
+- Punkte = 10 − überflüssige Schritte − 2 × Fehlversuche (min. 1).
+- Live-Statuszeile mit Zeit und Fehlerzahl, Ergebnis zeigt Punkte · Zeit · Fehler gesamt.
+- Alle Texte in `{de,ru,en}`, Ton respektiert die globale Ton-Einstellung.
+
+Smoke-Test per jsdom durchgespielt (Fehler-, Erfolgs-, Weiter- und Komplett-Durchlauf) — alles grün.

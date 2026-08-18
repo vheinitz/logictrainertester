@@ -1,0 +1,19 @@
+Fertig. Die Mini-App **Kettenrechnen** (idee-db: 64) ist unter `apps/s-132-nr-1172-1175-kettenrechnen/` angelegt.
+
+Erstellte Dateien:
+- `app.js` – komplette App (`id: s-132-nr-1172-1175-kettenrechnen`, Kopf-Kennung `idee-db: 64`)
+- `index.html` – lädt `../_framework/framework.css` + `./app.bundle.js`, bindet `S_132_NR_1172_1175_KETTENRECHNEN`
+- `app.bundle.js` – ich habe nur dieses eine Bundle (nicht alle Apps) nachgebaut, damit es zum finalen `app.js` passt (die Umgebung hatte bereits eine veraltete Version erzeugt)
+
+Umsetzung der Idee:
+- **Auditive Kettenaufgaben**: `▶ Abspielen` liest die Kette Schritt für Schritt vor (z. B. „15, mal 4, geteilt durch 5, …“), das Kind rechnet im Kopf und tippt das Endergebnis ein.
+- **Perlenkette**: Startperle + je eine Perle pro Rechenschritt; die aktive Perle leuchtet kurz auf. Modus per Knopf zyklisch umschaltbar: 🔊 Hören / 👁 Sehen / 🔊👁 Beides.
+- **Feedback/Fehlerort**: Nach falscher Antwort zeigt `💡 Zwischenschritte` die Zwischenergebnisse unter jeder Perle; eine einzelne Perle kann auch angetippt werden, um nur diesen Schritt aufzudecken.
+- **Mehrere Schwierigkeitsstufen** mit Zahlenbegrenzung **1–15** (Startzahl und jede Rechenzahl):
+  - Stufe 1: Kette der Länge 3, nur `+`/`−`
+  - Stufe 2: Länge 4, zusätzlich `×` (Faktor 2–5)
+  - Stufe 3: Länge 5, zusätzlich `÷` (Teiler 2–9, exakt)
+- Vollständig **de/ru/en** (Titel, Anweisung, Hilfe, Einstellungen, Buttons, Sprachausgabe).
+- Einstellungen: Stufe, Anzahl Aufgaben, Abspieltempo (plus die globalen Sprache/Bildgröße/Ton des Frameworks).
+
+Verifiziert mit jsdom: Ketten sind immer ganzzahlig/positiv, alle Operanden 1–15, Kettenlänge je Stufe korrekt, Tastenfeld/Modus/Perlen-Tippen/Punkte-Auswertung funktionieren, Bundle lädt und mounted korrekt. Es wurden keine Dateien außerhalb des App-Verzeichnisses geändert.

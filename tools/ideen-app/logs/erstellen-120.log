@@ -1,0 +1,24 @@
+Fertig. Ich habe die Mini-App **„Buchstaben fangen“** erstellt (die Zusatzanweisung hat Vorrang – reines Reaktionsspiel mit fallenden Buchstaben).
+
+**Erstellte Dateien** (nur die App, nichts anderes geändert):
+- `apps/s-251-270-kap-12-projekt-23/app.js`
+- `apps/s-251-270-kap-12-projekt-23/index.html`
+
+**Spielprinzip** (gemäß Zusatzanweisung):
+- Ein Buchstabe fällt langsam von oben nach unten.
+- Passende Taste drücken, **bevor** der Buchstabe den Boden berührt → Treffer.
+- Berührt er den Boden → **Fehlpunkt**; nach **5 Fehlpunkten** ist Game over.
+- Gewinn je nach Stufe: **20 / 100 / 200** richtig getroffene Buchstaben.
+
+**Umsetzung im Framework-Vertrag:**
+- `MiniApp` mit `id`, `icon`, `titel/anweisung/hilfe` in `{de,ru,en}`, `settingsSchema` (`stufe` 1–3, `tempo` 0.7–2.0), `init/render/dispose/evaluate/statusHtml/actions`.
+- Kopfkennung `idee-db: 120` ist eingetragen.
+- Eigene Animationsschleife (`setInterval` 60 fps) + `keydown`-Listener, sauber in `dispose` abgeräumt.
+- Alphabet folgt der aktiven Sprache: Latein **A–Z** für de/en, kyrillisch **А–Я** für ru (Hinweis auf Tastaturlayout in der Hilfe).
+- `onSettingsChange`: Stufe → Neustart, Tempo wirkt sofort.
+
+**Verifiziert** (ohne Build, damit nichts anderes im Repo angetastet wird):
+- jsdom-Smoke-Test bestanden (Treffer, Fehlpunkt, Game over, Reset, Stufe→Ziel, Sprachwechsel).
+- esbuild-Bündelung in `/tmp` getestet → Globalname `S_251_270_KAP_12_PROJEKT_23` passt zu `index.html`.
+
+Das Bundle `app.bundle.js` entsteht später regulär über `npm run build:miniapps`.

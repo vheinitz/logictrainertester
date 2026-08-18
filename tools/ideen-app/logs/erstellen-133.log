@@ -1,0 +1,25 @@
+Fertig. Die neue Mini-App ist angelegt und getestet.
+
+## Neue Dateien
+
+- `apps/s-73-78-fuenfzehner-spiel/index.html`
+- `apps/s-73-78-fuenfzehner-spiel/app.js`
+- `apps/s-73-78-fuenfzehner-spiel/app.bundle.js` (per `npm run build:miniapps` erzeugt)
+
+## Was die App kann
+
+**Kern (laut Zusatzanweisung):** Schiebepuzzle mit **3×3** (8 Plättchen) und **4×4** (15 Plättchen), jeweils genau **ein freies Feld**.
+
+- **Inhalte** (per ⚙️ umschaltbar, sprachneutral über Symbole): 🔢 Zahlen, 🖼️ Bildergeschichte (Brücke zu „Bildergeschichte ordnen“), 🔤 Wort-Variante („Chamäleon“, Buchstaben eines Worts — längenpassend pro Sprache).
+- **Bedienung:** Plättchen neben dem leeren Feld antippen **oder** dorthin ziehen.
+- **Zugzähler** oben rechts im Spielfeld.
+- **Optimale Zugzahl nach dem Lösen:** 3×3 exakt per BFS (alle 181.440 Stellungen), 4×4 exakt per A* mit Manhattan + Linear-Konflikt (mit Zeit-/Knotenlimit). Bei Wörtern mit doppelten Buchstaben (Optimum nicht eindeutig) wird stattdessen die Misch-Zugzahl als Referenz gezeigt.
+- **Hilfe 💡:** markiert gierig das nächste sinnvolle Plättchen, ohne die Lösung zu verraten.
+- **Nur lösbare Stellungen:** Startstellung entsteht aus der gelösten Stellung durch zufällige, nicht sofort umkehrende Züge.
+- Vollständig **de/ru/en**-fähig, `idee-db: 133` im Kopf eingetragen.
+
+## Verifikation
+
+Ein Smoke-Test (jsdom) hat bestanden: Mount, 3×3-Grundzustand, exakte 3×3-Optimalität (Beispiel: optimal = 18), Lösen per Pfad, 4×4-Züge, Wort-/Bilder-Modi, Sprachwechsel, Hinweis-Funktion sowie der A*-Solver (0/1/2-Zug-Fälle) funktionieren korrekt.
+
+Hinweis: `index.html` referenziert das Bundle als `S_73_78_FUENFZEHNER_SPIEL` (entsprechend der automatischen Globalnamens-Konvention aus dem Slug).

@@ -1,0 +1,29 @@
+Fertig. Die neue Mini-App ist umgesetzt und getestet.
+
+## Was erstellt wurde
+
+**`apps/falschmuenzen/`** (nur die Falschmünzen-Wiegeaufgabe, wie in der Zusatzanweisung gefordert):
+
+- `app.js` – komplette App (Kennung `idee-db: 135` im Kopf)
+- `index.html` – lädt `framework.css` + `app.bundle.js`
+- `app.bundle.js` – per esbuild gebündelt (wie vom Build-Prozess vorgesehen)
+
+## Spielprinzip
+
+- **12 Münzen**, eine ist zufällig falsch (schwerer **oder** leichter, geheim).
+- Balkenwaage als SVG; Münze antippen (aufnehmen) und dann linke/rechte Schale antippen – oder direkt dorthin ziehen.
+- **„⚖️ Wiegen“** wertet jeden Schritt aus: linke/rechte Schale schwerer oder Gleichgewicht. Die Waage kippt entsprechend.
+- **„💡 Tipp“** (auch in den Einstellungen) streicht automatisch alle unmöglichen Fälle: ausgeschlossene Münzen werden ausgegraut und durchgestrichen, verbleibende Fälle mit ▲/▼ markiert, dazu „Noch N möglich“.
+- **„🎯 Lösung“** fragt Münze + schwerer/leichter ab; falsche Antworten zählen als Fehlversuch, richtige beendet das Spiel.
+- **„🧹 Leeren“** und **„↩ Zurück“** (stellt die Münzlage vor der letzten Wägung wieder her).
+- Optimal sind **3 Wägungen**; die Auswertung zeigt Wägungen + Fehlversuche.
+- Mehrsprachig **de/ru/en** (Titel, Anweisung, Hilfe, alle Buttons/Meldungen).
+
+## Verifikation
+
+- Smoke-Test (Mount, Interaktion, Sprachwechsel, Reset) ✓
+- Vollständige 3-Wägungen-Lösung inkl. korrekter Hypothesen-Reduktion (8 → 2 → 1) ✓
+- `node test/miniapp-smoke.mjs` (Framework + Hanoi) weiterhin grün ✓
+- Build erzeugt `window.FALSCHMUENZEN` korrekt ✓
+
+Hinweis: Der `git status` zeigt im Repo bereits viele unabhängige, nicht von mir stammende Änderungen (andere Apps/Logs). Ich habe ausschließlich `apps/falschmuenzen/` neu angelegt.

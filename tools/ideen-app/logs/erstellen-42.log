@@ -1,0 +1,29 @@
+Fertig. Die neue Mini-App ist erstellt, gebündelt und getestet.
+
+## Was ich gemacht habe
+
+**Neue App:** `apps/s-22-23-teil-ii-2-2-3-bildhafte-sprache/`
+- `app.js` – die App-Logik (mit `idee-db: 42` im Kopf)
+- `index.html` – Shell + app-eigene Styles
+- `app.bundle.js` – automatisch per `npm run build:miniapps` erzeugt
+
+**Spielidee umgesetzt** (wörtlich vs. übertragen, passend zu „Литературное чтение“):
+
+- Das Kind sieht eine **Redewendung oder ein Sprichwort** (12 Aufgaben: 7 Redewendungen, 5 Sprichwörter).
+- Es wählt zwischen zwei Karten:
+  - **wörtliches Bild** (z. B. echte Schmetterlinge im Bauch 🦋)
+  - **gemeinte Alltagssituation** (z. B. verliebt/aufgeregt 💕)
+- Jede Karte ist mit einem Emoji-**Bild** + kurzer Bedeutung veranschaulicht (echte Bilder können später ergänzt werden, Konvention im Kopf notiert).
+- **Rückmeldung:** falsch → rote Karte + Hinweis „Das ist die wörtliche Bedeutung“, nochmal versuchen. richtig → grüne Karte + Erklärung des Unterschieds, dann „Weiter“.
+- Die richtige Karte (übertragen) steht zufällig links oder rechts; die wörtliche Karte ist der Ablenker.
+
+**Mehrsprachigkeit:** alle Texte als `{de, ru, en}` – Titel, Anweisung, Hilfe, Aufgaben, Erklärungen. Einige wörtliche Emoji-Bilder sind sprachabhängig hinterlegt (z. B. „Morgenstund hat Gold im Mund“ zeigt je Sprache das passende Bild 🌅👄 / 🌅🙏 / 🐦🪱).
+
+**Einstellungen:** `⚙️` → Anzahl der Aufgaben (3–12) + die globalen Einstellungen (Sprache, Bildgröße, Ton).
+
+**Verifikation:**
+- `npm run build:miniapps` erfolgreich (global `window.S_22_23_TEIL_II_2_2_3_BILDHAFTE_SPRACHE`)
+- eigener jsdom-Smoke-Test bestanden (richtig/falsch, Weiter, Abschluss, Sprachwechsel)
+- bestehender `test/miniapp-smoke.mjs` weiterhin grün
+
+Nur die drei Dateien der neuen App wurden angelegt/geändert – sonst nichts im Repo.

@@ -1,4 +1,5 @@
-{
+// Erzeugt von tools/annotieren.py – nicht von Hand bearbeiten.
+export const BILDGESCHICHTEN = {
   "raster": 5,
   "bilder": {
     "boy1_5x5.jpg": {
@@ -818,4 +819,4 @@
       ]
     }
   }
-}
+};

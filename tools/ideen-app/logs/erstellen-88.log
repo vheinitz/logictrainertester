@@ -1,0 +1,22 @@
+Fertig. Die Mini-App ist angelegt, gebündelt und getestet.
+
+## Was umgesetzt wurde
+
+**`apps/s-151-157/`** (Slug wie vorgeschlagen, `idee-db: 88` im Kopf):
+
+- **`index.html`** – lädt Framework-CSS + `app.bundle.js`, mountet die App als `window.S_151_157`.
+- **`app.js`** – `MiniApp` nach Vertrag, mit:
+  - `id: 's-151-157'`, Icon 🦋, Titel/Anweisung/Hilfe in **de/ru/en**
+  - **5 aus Zellen gebaute Figuren** (wie digitale Tintenkleckse/Bausteine) – **genau eine ist achsensymmetrisch**
+  - Kind tippt die symmetrische Figur an; falsche Antworten werden rot durchgestrichen und als Fehler gezählt, bei der richtigen Figur erscheint die gestrichelte **Spiegelachse**
+  - Jede Runde (🔁) wird neu gemischt aus 5 symmetrischen + 5 asymmetrischen Figuren
+
+## Verifikation
+
+- Figuren-Pools geprüft: alle 5 `SYM`-Figuren sind symmetrisch, alle 5 `ASYM`-Figuren asymmetrisch ✓
+- Smoke-Test (jsdom): Mount, Tap (falsch/richtig), Sprachwechsel de↔ru, Reset ✓
+- `npm run build:miniapps` erzeugt `app.bundle.js` (→ `window.S_151_157`) ✓
+
+Einzige Repo-Änderungen: die zwei neuen Dateien plus das erzeugte Bundle in `apps/s-151-157/` – nichts anderes wurde angefasst.
+
+Kleiner Hinweis: In der Aufgabe stand „**pinkt**/liniensymmetrisch“ – ich habe das als „**punkt**-/liniensymmetrisch“ gelesen und die Aufgabe auf **Spiegelsymmetrie (Achsensymmetrie)** fokussiert, da genau eine Figur symmetrisch sein soll und die Spiegelachse am Ende als Erfolgshinweis eingeblendet wird. Die Hilfe erwähnt das Konzept „falten, sodass beide Hälften deckungsgleich sind“.

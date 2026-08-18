@@ -1,0 +1,21 @@
+Fertig. Ich habe die neue Mini-App `apps/s-138-140-dance-challenge/` erstellt (nur diese App angefasst).
+
+**Dateien**
+- `apps/s-138-140-dance-challenge/app.js` — App-Logik (`idee-db: 106` im Kopf, Vertrag `new MiniApp({…})` erfüllt)
+- `apps/s-138-140-dance-challenge/index.html` — lädt `framework.css` + `app.bundle.js`, bindet `S_138_140_DANCE_CHALLENGE`
+- `apps/s-138-140-dance-challenge/app.bundle.js` — per esbuild gebündelt (gleiche Optionen wie `build:miniapps`)
+
+**Umsetzung der Zusatzanweisung (hat Vorrang)**
+- **Ohne Wertung**: keine Punkte, kein `evaluate`, keine Fehlversuchs-Zählung.
+- **Gliederfigur**: Die Figur wird aus separat gezeichneten Gliedern (Ober-/Unterarm, Ober-/Unterschenkel, mit und ohne Beugung) zusammengesetzt → 4 Bewegungen (Arme hoch, Arme seitlich, Kniebeuge, Sprung) + neutrale Haltung.
+- **Ablauf**: Computer tanzt die Folge vor → Kind tippt die farbigen Felder nach → nach kurzer Pause tanzt die Figur die Folge **langsam noch einmal vor**, damit das Kind selbst vergleichen kann.
+
+**Zusätzlich aus der Idee umgesetzt**
+- 4 farbige Felder, jede Farbe mit eigenem Ton (Web Audio, respektiert die globale Ton-Einstellung).
+- Folge wird pro Runde um einen Schritt länger (Start-/Maxlänge einstellbar).
+- Tempo-Einstellung (Automatisierung trainieren).
+- Modus „🎤 Vorspielen“: Kind tippt eine eigene Folge (Abspielen/Letzten löschen/Neu), die Figur tanzt sie nach — Kind wird selbst zum Anleiter.
+- Alle Texte `{de, ru, en}` und über die globale Spracheinstellung umschaltbar.
+
+**Verifikation**
+- Mount + SVG-Rendering, Hit-Tests und der komplette Ablauf (zeigen → nachmachen → checken → weiter, plus Freispiel-Wiedergabe) laufen in jsdom fehlerfrei durch; das IIFE-Bundle stellt `S_138_140_DANCE_CHALLENGE.mount/default` korrekt bereit.
