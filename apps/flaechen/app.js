@@ -1,16 +1,15 @@
 /**
- * Flächen zusammensetzen – Kind teilt selbst.
+ * Flächen zusammensetzen – Kind teilt selbst (Karo-Papier).
  *
- * Eine zufällige, zusammenhängende Figur wird erzeugt (ganzzahliges Raster,
- * Kanten in 0/45/90°, optional Halbkreis-/Viertelkreis-Bögen). Das Kind teilt
- * sie von Eckpunkt zu Eckpunkt in Teilflächen, zieht Grundform-Symbole
- * (Rechteck, Dreieck, Kreis, Halbkreis, Viertelkreis) darauf und rechnet:
- * je Teilfläche A_i = Formel = Maße = Ergebnis, und die Summe A = A1 + A2 + …
+ * Zufällige zusammenhängende Figur auf einem Einheitsquadrat-Raster (0/45/90°).
+ * Das Kind teilt von jedem Gitter-Schnittpunkt aus, zieht Grundform-Symbole
+ * (in Form-Farbe) auf die Teilflächen und rechnet A1, A2, … und die Summe.
  */
 import { MiniApp, svg } from '../_framework/framework.js';
 
 const PI = Math.PI;
-const UNIT = 42;                 // Pixel je Einheit
+const UNIT = 42;
+const OFF = 30;
 
 const FORMEN = {
   rechteck:    { name: { de: 'Rechteck', ru: 'Прямоугольник', en: 'Rectangle' }, formel: 'H·L', farbe: '#4D96FF' },
@@ -20,85 +19,49 @@ const FORMEN = {
   viertelkreis:{ name: { de: 'Viertelkreis', ru: 'Четверть круга', en: 'Quarter circle' }, formel: '¼·π·r²', farbe: '#FB923C' },
 };
 
-// „kreis“-Symbol akzeptiert jede kreisbasierte Teilfläche.
-function formPasst(formDerFlaeche, symbol) {
-  if (symbol === formDerFlaeche) return true;
-  if (symbol === 'kreis') return ['kreis', 'halbkreis', 'viertelkreis'].includes(formDerFlaeche);
-  return false;
-}
-
 function rand(n) { return Math.floor(Math.random() * n); }
+function key(p) { return p.join(','); }
 
-/** Zufällige zusammenhängende Figur (Histogramm + 45°-Schrägen + Bögen). */
+/** Zufällige zusammenhängende Figur (Histogramm + 45°-Schrägen). */
 function genShape() {
-  const W = 3 + rand(3);               // Spalten
-  const H = 3 + rand(3);               // max. Höhe
+  const W = 3 + rand(3), H = 3 + rand(3);
   const h = Array.from({ length: W }, () => 1 + rand(H));
-
-  // gefüllte Zellen (Spalte c, Zeile y von 0..h[c]-1)
   const cells = new Set();
   for (let c = 0; c < W; c++) for (let y = 0; y < h[c]; y++) cells.add(c + ',' + y);
 
-  // Randkanten sammeln (gerichtete Einheitskanten um den Umriss)
   const edges = [];
-  const push = (f, t) => edges.push({ f, t });
-  for (const key of cells) {
-    const [c, y] = key.split(',').map(Number);
-    if (!cells.has(c + ',' + (y + 1))) push([c, y + 1], [c + 1, y + 1]);        // oben →
-    if (!cells.has(c + ',' + (y - 1))) push([c + 1, y], [c, y]);                 // unten ←
-    if (!cells.has((c - 1) + ',' + y)) push([c, y], [c, y + 1]);                 // links ↑
-    if (!cells.has((c + 1) + ',' + y)) push([c + 1, y + 1], [c + 1, y]);         // rechts ↓
+  for (const k of cells) {
+    const [c, y] = k.split(',').map(Number);
+    if (!cells.has(c + ',' + (y + 1))) edges.push({ f: [c, y + 1], t: [c + 1, y + 1] });
+    if (!cells.has(c + ',' + (y - 1))) edges.push({ f: [c + 1, y], t: [c, y] });
+    if (!cells.has((c - 1) + ',' + y)) edges.push({ f: [c, y], t: [c, y + 1] });
+    if (!cells.has((c + 1) + ',' + y)) edges.push({ f: [c + 1, y + 1], t: [c + 1, y] });
   }
-
-  // Kante aneinanderhängen → geschlossener Umlauf (dann zu CCW umdrehen)
-  const byStart = new Map(edges.map(e => [e.f.join(','), e]));
-  const start = edges[0].f;
-  const loop = [];
-  let cur = start;
-  const seen = new Set();
+  const byStart = new Map(edges.map(e => [key(e.f), e]));
+  const start = edges[0].f, loop = [];
+  let cur = start; const seen = new Set();
   while (true) {
     loop.push(cur);
-    const e = byStart.get(cur.join(','));
+    const e = byStart.get(key(cur));
     if (!e) break;
     cur = e.t;
-    if (cur.join(',') === start.join(',')) break;
-    if (seen.has(cur.join(','))) break;
-    seen.add(cur.join(','));
+    if (key(cur) === key(start) || seen.has(key(cur))) break;
+    seen.add(key(cur));
   }
-  loop.reverse();   // gegen den Uhrzeigersinn
+  loop.reverse();
 
-  // 45°-Schrägen an konvexen Ecken (Ecke entfernen → Diagonale)
-  const punkte = loop.map(p => [...p]);
+  // 45°-Schrägen an konvexen Ecken
   const chamfer = new Set();
-  for (let i = 0; i < punkte.length; i++) {
-    const a = punkte[(i + punkte.length - 1) % punkte.length];
-    const b = punkte[i];
-    const c = punkte[(i + 1) % punkte.length];
-    const v1 = [b[0] - a[0], b[1] - a[1]];
-    const v2 = [c[0] - b[0], c[1] - b[1]];
+  for (let i = 0; i < loop.length; i++) {
+    const a = loop[(i + loop.length - 1) % loop.length], b = loop[i], c = loop[(i + 1) % loop.length];
+    const v1 = [b[0] - a[0], b[1] - a[1]], v2 = [c[0] - b[0], c[1] - b[1]];
     const kreuz = v1[0] * v2[1] - v1[1] * v2[0];
-    // CCW: konvexe Ecke = Linkskurve; Einheitsbeine → 45°-Diagonale
-    if (kreuz > 0 && Math.abs(v1[0]) + Math.abs(v1[1]) === 1 && Math.abs(v2[0]) + Math.abs(v2[1]) === 1 && rand(3) === 0) {
-      chamfer.add(i);
-    }
+    if (kreuz > 0 && Math.abs(v1[0]) + Math.abs(v1[1]) === 1 && Math.abs(v2[0]) + Math.abs(v2[1]) === 1 && rand(3) === 0) chamfer.add(i);
   }
-  const punkteFinal = punkte.filter((_, i) => !chamfer.has(i));
-  const flaeche = shoelace(punkteFinal);
-
-  return { punkte: punkteFinal, flaeche, W, H };
+  const punkte = loop.filter((_, i) => !chamfer.has(i));
+  return { punkte, flaeche: shoelace(punkte), W, H };
 }
 
-/** Punkt-in-Polygon (gerade Kanten). */
-function pointInPoly(px, py, poly) {
-  let inside = false;
-  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
-    const [xi, yi] = poly[i], [xj, yj] = poly[j];
-    if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
-  }
-  return inside;
-}
-
-/** Fläche eines geraden Polygons (Shoelace). */
 function shoelace(poly) {
   let a = 0;
   for (let i = 0; i < poly.length; i++) {
@@ -108,16 +71,78 @@ function shoelace(poly) {
   return Math.abs(a) / 2;
 }
 
-/** Teilpolygon aus einem Umlauf [a..b] schneiden. */
-function subLoop(poly, a, b) {
+function pointInPoly(px, py, poly) {
+  let inside = false;
+  for (let i = 0, j = poly.length - 1; i < poly.length; j = i++) {
+    const [xi, yi] = poly[i], [xj, yj] = poly[j];
+    if ((yi > py) !== (yj > py) && px < ((xj - xi) * (py - yi)) / (yj - yi) + xi) inside = !inside;
+  }
+  return inside;
+}
+
+/** Liegt P (Gitterpunkt) echt auf der Kante A–B? */
+function onSeg(P, A, B) {
+  const cross = (P[0] - A[0]) * (B[1] - A[1]) - (P[1] - A[1]) * (B[0] - A[0]);
+  if (cross !== 0) return false;
+  const dx = B[0] - A[0], dy = B[1] - A[1];
+  const t = dx !== 0 ? (P[0] - A[0]) / dx : (dy !== 0 ? (P[1] - A[1]) / dy : 0);
+  return t > 0 && t < 1;
+}
+
+/** P in die Umrisslinie einsetzen (auf Kante) oder Index liefern. */
+function insertPoint(verts, P) {
+  const idx = verts.findIndex(v => v[0] === P[0] && v[1] === P[1]);
+  if (idx >= 0) return { verts, idx };
+  for (let i = 0; i < verts.length; i++) {
+    if (onSeg(P, verts[i], verts[(i + 1) % verts.length])) {
+      const nv = [...verts.slice(0, i + 1), P, ...verts.slice(i + 1)];
+      return { verts: nv, idx: i + 1 };
+    }
+  }
+  return null;
+}
+
+/** Kollineare Punkte entfernen. */
+function simplify(verts) {
   const out = [];
-  let i = a;
-  while (true) {
-    out.push(poly[i % poly.length]);
-    if (i % poly.length === b % poly.length) break;
-    i++;
+  for (let i = 0; i < verts.length; i++) {
+    const a = verts[(i + verts.length - 1) % verts.length], b = verts[i], c = verts[(i + 1) % verts.length];
+    const cross = (b[0] - a[0]) * (c[1] - b[1]) - (b[1] - a[1]) * (c[0] - b[0]);
+    if (cross !== 0) out.push(b);
   }
   return out;
+}
+
+/** Ist ein 4-Punkt-Polygon ein achsenparalleles Rechteck? */
+function isRect(verts) {
+  if (verts.length !== 4) return false;
+  for (let i = 0; i < 4; i++) {
+    const a = verts[i], b = verts[(i + 1) % 4];
+    if (a[0] !== b[0] && a[1] !== b[1]) return false;
+  }
+  return true;
+}
+
+function echteForm(verts) {
+  if (verts.length === 3) return 'dreieck';
+  if (verts.length === 4 && isRect(verts)) return 'rechteck';
+  return null;   // keine Basisform → weiter teilen
+}
+
+function formPasst(formDerFlaeche, symbol) {
+  if (formDerFlaeche === null) return false;
+  if (symbol === formDerFlaeche) return true;
+  if (symbol === 'kreis') return ['kreis', 'halbkreis', 'viertelkreis'].includes(formDerFlaeche);
+  return false;
+}
+
+function formIcon(form) {
+  const farbe = FORMEN[form].farbe, s = 24;
+  if (form === 'rechteck') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><rect x="2" y="5" width="18" height="12" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
+  if (form === 'dreieck') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><polygon points="11,2 21,19 1,19" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
+  if (form === 'kreis') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><circle cx="11" cy="11" r="9" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
+  if (form === 'halbkreis') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><path d="M2 11 A9 9 0 0 1 20 11 Z" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
+  if (form === 'viertelkreis') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><path d="M11 2 A9 9 0 0 1 20 11 L11 11 Z" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
 }
 
 const app = new MiniApp({
@@ -125,28 +150,25 @@ const app = new MiniApp({
   icon: '📐',
   titel: { de: 'Flächen selbst teilen', ru: 'Площадь фигур', en: 'Split the area yourself' },
   anweisung: {
-    de: 'Teile die Figur von Eckpunkt zu Eckpunkt, ziehe die Grundform-Symbole auf die Teilflächen und rechne. π ≈ 3,14.',
-    ru: 'Раздели фигуру от вершины к вершине, перетащи символы форм на части и вычисли. π ≈ 3,14.',
-    en: 'Split the figure from vertex to vertex, drag the shape symbols onto the parts and compute. π ≈ 3.14.'
+    de: 'Teile die Figur auf dem Raster, ziehe die Form-Symbole auf die Teilflächen und rechne. π ≈ 3,14.',
+    ru: 'Раздели фигуру по сетке, перетащи символы форм и вычисли. π ≈ 3,14.',
+    en: 'Split the figure on the grid, drag the shape symbols onto the parts and compute. π ≈ 3.14.'
   },
   hilfe: {
-    de: '1) Einen Eckpunkt antippen, dann einen zweiten → Teillinie. 2) Symbol auf die Teilfläche ziehen (Halb-/Viertelkreis darf auch „Kreis“ sein). 3) Maße eintragen und Fläche ausrechnen, unten die Summe. Eckpunkte sind als Punkte markiert.',
-    ru: '1) Коснись вершины, затем второй — линия разреза. 2) Перетащи символ на часть (полукруг/четверть можно как «круг»). 3) Введи размеры и площадь, внизу сумма.',
-    en: '1) Tap a vertex, then another → cut line. 2) Drag a symbol onto the part (half/quarter circle may also be “circle”). 3) Enter dimensions and area, below the sum.'
+    de: '1) Einen Gitter-Schnittpunkt antippen, dann einen zweiten → Teillinie. 2) Symbol auf die Teilfläche ziehen (nur die richtige Form wird angenommen). 3) Maße und Fläche je Teil eintragen, unten die Summe.',
+    ru: '1) Коснись узла сетки, затем второго — разрез. 2) Перетащи символ (принимается только верная форма). 3) Введи размеры и площадь, внизу сумма.',
+    en: '1) Tap a grid intersection, then another → cut. 2) Drag a symbol (only the correct shape is accepted). 3) Enter dimensions and area, below the sum.'
   },
   settingsSchema: {},
   auswertung: 'punkte',
 
   init(state, app) {
-    const shape = genShape();
-    state.shape = shape;
-    state.gebiete = [{ punkte: shape.punkte, form: null, name: 'A1', flaeche: null }];
-    state.gewaehlt = null;          // erster Eckpunkt (Index ins Gebiet)
+    state.shape = genShape();
+    state.gebiete = [{ punkte: state.shape.punkte.slice(), form: null, name: 'A1' }];
+    state.gewaehlt = null;          // erster Gitterpunkt
     state.gewaehltesGebiet = 0;
-    state.zielSymbol = null;        // Symbol, das gezogen wird
-    state.gewaehltesSymbol = null;  // via Tap
-    state.eingaben = {};            // name -> { masze, flaeche }
-    state.total = '';
+    state.gewaehltesSymbol = null;
+    state.eingaben = {};
     state.fertig = false;
     state.richtig = 0;
     state.fehler = 0;
@@ -161,63 +183,65 @@ const app = new MiniApp({
   },
 
   _canvas(state) {
-    const S = UNIT;
-    // Figur zeichnen (Gebiete + Eckpunkte + Teillinien)
+    const S = UNIT, O = OFF;
+    const xs = state.shape.punkte.map(p => p[0]), ys = state.shape.punkte.map(p => p[1]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
+    const w = (maxX + 1) * S + O * 2, h = (maxY + 1) * S + O * 2;
+
+    // Karo-Papier
+    let grid = '';
+    for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + O}" stroke="#e5e3f2" stroke-width="1"/>`;
+    for (let gy = 0; gy <= maxY + 1; gy++) grid += `<line x1="${O}" y1="${gy * S + O}" x2="${(maxX + 1) * S + O}" y2="${gy * S + O}" stroke="#e5e3f2" stroke-width="1"/>`;
+
     const teile = state.gebiete.map((g, gi) => {
-      const fill = g.form ? FORMEN[g.form].farbe + '88' : '#ffffff';
-      const punkte = g.punkte.map(([x, y]) => `${x * S + 30},${y * S + 30}`).join(' ');
-      const gew = state.gewaehltesGebiet === gi;
-      return `<polygon points="${punkte}" fill="${fill}" stroke="${gew ? '#5b4fcf' : '#3a3560'}" stroke-width="${gew ? 3 : 1.5}"/>`;
+      const fill = g.form ? FORMEN[g.form].farbe + '99' : '#ffffff';
+      const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + O}`).join(' ');
+      return `<polygon points="${pts}" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
     }).join('');
 
-    // Eckpunkte (einmalig, aus der Ursprungsfigur)
-    const ecken = state.shape.punkte.map((p, i) => {
-      const gew = state.gewaehlt === i;
-      return `<circle cx="${p[0] * S + 30}" cy="${p[1] * S + 30}" r="${gew ? 8 : 5}"
-        fill="${gew ? '#5b4fcf' : '#fff'}" stroke="#3a3560" stroke-width="2"/>`;
-    }).join('');
+    // gewählte Gitterpunkte hervorheben (klein, dezent)
+    const mark = state.gewaehlt
+      ? `<circle cx="${state.gewaehlt[0] * S + O}" cy="${state.gewaehlt[1] * S + O}" r="5" fill="#5b4fcf" stroke="#fff" stroke-width="2"/>`
+      : '';
 
-    // 45°-Schrägen sind jetzt Teil des Polygons (kein Overlay nötig).
-    const w = (state.shape.W + 1) * S + 60;
-    const h = (state.shape.H + 1) * S + 60;
-    return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg" style="background:#fafaff;border:1px solid #ddd;border-radius:8px">
-      ${teile}${ecken}
+    return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"
+        style="background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
+      ${grid}${teile}${mark}
     </svg>`;
   },
 
   _symbolleiste(state) {
-    const symbole = Object.entries(FORMEN).map(([key, f]) =>
-      `<button type="button" class="ma-btn" draggable="true"
-        onclick="window.__flaech_sym('${key}')"
-        ondragstart="window.__flaech_drag='${key}';event.dataTransfer.setData('text/plain','${key}')"
-        style="border-color:${f.farbe}">${f.name.de}</button>`).join('');
+    const symbole = Object.entries(FORMEN).map(([k, f]) =>
+      `<button type="button" class="ma-btn" draggable="true" title="${f.name.de}"
+        onclick="window.__flaech_sym('${k}')"
+        ondragstart="window.__flaech_drag='${k}';event.dataTransfer.setData('text/plain','${k}')"
+        style="display:flex;align-items:center;gap:6px;border-color:${f.farbe};padding:.3rem .6rem">
+        ${formIcon(k)}<span style="font-size:.8em">${f.name.de}</span>
+      </button>`).join('');
     return `<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">${symbole}</div>`;
   },
 
   _liste(state) {
-    const zeilen = state.gebiete.map((g, i) => {
+    const zeilen = state.gebiete.map(g => {
       const e = state.eingaben[g.name] || {};
       const formel = g.form ? FORMEN[g.form].formel : '?';
-      const ma = e.masze ?? '';
-      const fl = e.flaeche ?? '';
+      const farbe = g.form ? FORMEN[g.form].farbe : '#999';
       return `<div style="display:flex;align-items:center;gap:6px;font-size:.95em;margin:.2rem 0">
         <b style="min-width:2.4ch">${g.name}</b>
-        <span style="color:${g.form ? FORMEN[g.form].farbe : '#999'}">${g.form ? FORMEN[g.form].name.de : '—'}</span>
+        <span style="color:${farbe}">${g.form ? FORMEN[g.form].name.de : '—'}</span>
         <span>= ${formel} =</span>
-        <input type="text" placeholder="Maße" value="${ma}" style="width:7ch"
+        <input type="text" placeholder="Maße" value="${e.masze ?? ''}" style="width:7ch"
           onchange="window.__flaech_masze('${g.name}', this.value)">
         <span>=</span>
-        <input type="number" step="0.01" placeholder="A" value="${fl}" style="width:7ch"
+        <input type="number" step="0.01" placeholder="A" value="${e.flaeche ?? ''}" style="width:7ch"
           onchange="window.__flaech_flaeche('${g.name}', this.value)">
       </div>`;
     }).join('');
-
     const gesamtFormel = state.gebiete.map(g => g.name).join(' + ');
-    return `<div style="max-width:520px;margin:0 auto">
+    return `<div style="max-width:560px;margin:0 auto">
       ${zeilen}
       <div style="font-weight:bold;margin-top:.4rem">A = ${gesamtFormel} =
-        <input type="number" step="0.01" placeholder="?" style="width:8ch"
-          oninput="window.__flaech_total=this.value">
+        <input type="number" step="0.01" placeholder="?" style="width:8ch" oninput="window.__flaech_total=this.value">
         <button class="ma-btn" onclick="window.__flaech_pruefen()">Prüfen</button>
       </div>
     </div>`;
@@ -231,108 +255,104 @@ const app = new MiniApp({
     </div>`;
   },
 
-  // Eckpunkt antippen → Teilung
   onTap(state, x, y, app) {
     if (state.fertig) return;
-    const S = UNIT;
-    // nächstes Symbol-Ziel (falls Symbol gewählt)
+    const S = UNIT, O = OFF;
+    const gx = Math.round((x - O) / S), gy = Math.round((y - O) / S);
+    if (Math.abs((x - O) - gx * S) > 12 || Math.abs((y - O) - gy * S) > 12) return;
+    const P = [gx, gy];
+
+    // Symbol per Tippen zuordnen
     if (state.gewaehltesSymbol) {
-      const gi = this._gebietBei(x, y);
+      const gi = this._gebietBeiGrid(P);
       if (gi !== null) {
         this._zuordnen(state, gi, state.gewaehltesSymbol, app);
         state.gewaehltesSymbol = null;
         app.rerender();
-        return;
       }
+      return;
     }
-    // Eckpunkt treffen
-    for (let i = 0; i < state.shape.punkte.length; i++) {
-      const [px, py] = state.shape.punkte[i];
-      const cx = px * S + 30, cy = py * S + 30;
-      if (Math.hypot(x - cx, y - cy) < 10) {
-        if (state.gewaehlt === null) {
-          state.gewaehlt = i;
-        } else if (state.gewaehlt === i) {
-          state.gewaehlt = null;
-        } else {
-          this._teilen(state, state.gewaehlt, i, app);
-          state.gewaehlt = null;
-        }
-        app.rerender();
-        return;
-      }
+
+    // Teilung: erster Gitterpunkt, dann zweiter
+    if (state.gewaehlt === null) {
+      if (this._aufRand(P)) { state.gewaehlt = P; app.rerender(); }
+      return;
     }
-    // Gebiet auswählen (für Symbol-Zuordnung per Tap)
-    const gi = this._gebietBei(x, y);
-    state.gewaehltesGebiet = gi !== null ? gi : state.gewaehltesGebiet;
-    app.rerender();
+    if (key(state.gewaehlt) === key(P)) { state.gewaehlt = null; app.rerender(); return; }
+    if (this._aufRand(P)) {
+      this._teilen(state, state.gewaehlt, P, app);
+      state.gewaehlt = null;
+      app.rerender();
+    }
   },
 
-  _gebietBei(x, y) {
-    const S = UNIT;
+  _aufRand(P) {
+    const s = app.state;
+    return s.gebiete.some(g =>
+      g.punkte.some((v, i) => key(v) === key(P) || onSeg(P, v, g.punkte[(i + 1) % g.punkte.length])));
+  },
+
+  _gebietBeiGrid(P) {
     const s = app.state;
     for (let i = 0; i < s.gebiete.length; i++) {
-      const g = s.gebiete[i];
-      // Skalierte Punkte
-      const poly = g.punkte.map(([px, py]) => [px * S + 30, py * S + 30]);
-      if (pointInPoly(x, y, poly)) return i;
+      if (pointInPoly(P[0], P[1], s.gebiete[i].punkte)) return i;
     }
     return null;
   },
 
-  // Zwischen zwei Eckpunkten teilen
-  _teilen(state, a, b, app) {
-    // Finde das Gebiet, das beide Punkte enthält, und teile es.
-    const S = UNIT;
+  _teilen(state, A, B, app) {
     for (let gi = 0; gi < state.gebiete.length; gi++) {
       const g = state.gebiete[gi];
-      const idx = p => g.punkte.findIndex(([x, y]) => x === p[0] && y === p[1]);
-      const ia = idx(state.shape.punkte[a]);
-      const ib = idx(state.shape.punkte[b]);
-      if (ia === -1 || ib === -1 || ia === ib) continue;
-      // zwei Teilschleifen
-      const teil1 = subLoop(g.punkte, ia, ib);
-      const teil2 = subLoop(g.punkte, ib, ia);
-      if (teil1.length < 3 || teil2.length < 3) continue;
-      const a1 = shoelace(teil1), a2 = shoelace(teil2);
-      if (a1 < 0.01 || a2 < 0.01) continue;
+      const rA = insertPoint(g.punkte, A);
+      const rB = insertPoint(g.punkte, B);
+      if (!rA || !rB) continue;
+      // beide Punkte müssen auf diesem Gebiet liegen
+      if (!this._aufGebiet(A, g) || !this._aufGebiet(B, g)) continue;
+      const verts = rB.verts;   // A schon drin (nicht nötig, beide gleich) — neu bauen:
+      const vertsA = insertPoint(g.punkte, A).verts;
+      const vertsB = insertPoint(vertsA, B);
+      const ia = insertPoint(vertsA, A).idx;
+      const ib = vertsB.idx;
+      const t1 = this._subLoop(vertsB.verts, ia, ib);
+      const t2 = this._subLoop(vertsB.verts, ib, ia);
+      const s1 = simplify(t1), s2 = simplify(t2);
+      if (s1.length < 3 || s2.length < 3) continue;
+      if (shoelace(s1) < 0.01 || shoelace(s2) < 0.01) continue;
       const nameA = 'A' + (state.gebiete.length);
       const nameB = 'A' + (state.gebiete.length + 1);
       state.gebiete.splice(gi, 1,
-        { punkte: teil1, form: null, name: nameA, flaeche: null },
-        { punkte: teil2, form: null, name: nameB, flaeche: null });
+        { punkte: s1, form: null, name: nameA },
+        { punkte: s2, form: null, name: nameB });
       return;
     }
   },
 
+  _aufGebiet(P, g) {
+    return g.punkte.some((v, i) => key(v) === key(P) || onSeg(P, v, g.punkte[(i + 1) % g.punkte.length]));
+  },
+
+  _subLoop(verts, a, b) {
+    const out = []; let i = a;
+    while (true) {
+      out.push(verts[i % verts.length]);
+      if (i % verts.length === b % verts.length) break;
+      i++;
+    }
+    return out;
+  },
+
   _zuordnen(state, gi, symbol, app) {
     const g = state.gebiete[gi];
-    const flaeche = shoelace(g.punkte);
-    // Bestimme die wahre Form aus der Geometrie (grobe Heuristik)
-    const form = this._echteForm(g);
+    const form = echteForm(g.punkte);
     if (formPasst(form, symbol)) {
       g.form = symbol;
-      g.flaeche = flaeche;
-      // wenn alle Gebiete eine Form haben → Liste fertig
     } else {
       state.fehler++;
     }
   },
 
-  _echteForm(g) {
-    // Heuristik aus Punktzahl (nur orthogonale/45°-Polygone)
-    const n = g.punkte.length;
-    if (n === 3) return 'dreieck';
-    if (n === 4) return 'rechteck';
-    if (n === 5) return 'dreieck';   // z. B. Rechteck mit 45°-Ecke → Dreieck
-    return 'rechteck';
-  },
-
   actions: {
-    symbol(state, key, app) {
-      state.gewaehltesSymbol = key;
-      app.rerender();
-    },
+    symbol(state, key, app) { state.gewaehltesSymbol = key; app.rerender(); },
     masze(state, name, val, app) {
       if (!state.eingaben[name]) state.eingaben[name] = {};
       state.eingaben[name].masze = val;
@@ -362,38 +382,38 @@ const app = new MiniApp({
     return null;
   },
   statusHtml(state) {
-    const zugeordnet = state.gebiete.filter(g => g.form).length;
-    return `<div class="ma-result">📐 ${zugeordnet}/${state.gebiete.length} Teilflächen · Fehler: ${state.fehler}</div>`;
+    const z = state.gebiete.filter(g => g.form).length;
+    return `<div class="ma-result">📐 ${z}/${state.gebiete.length} Teilflächen · Fehler: ${state.fehler}</div>`;
   }
 });
 
 export default app;
 export function mount(root) {
   app.mount(root);
-  window.__flaech_sym = key => app.dispatch('symbol', key);
+  window.__flaech_sym = k => app.dispatch('symbol', k);
   window.__flaech_masze = (n, v) => app.dispatch('masze', n, v);
   window.__flaech_flaeche = (n, v) => app.dispatch('flaeche', n, v);
   window.__flaech_pruefen = () => app.dispatch('pruefen');
   window.__flaech_neu = () => app.dispatch('neu');
   window.__flaech_drag = null;
   window.__flaech_total = '';
-  // Drag & Drop des Symbols auf die Fläche
   const canvas = root.querySelector('.ma-canvas');
   if (canvas) {
     canvas.addEventListener('dragover', e => e.preventDefault());
     canvas.addEventListener('drop', e => {
       e.preventDefault();
-      const key = window.__flaech_drag || e.dataTransfer.getData('text/plain');
-      if (!key) return;
-      const r = canvas.getBoundingClientRect();
+      const k = window.__flaech_drag || e.dataTransfer.getData('text/plain');
+      if (!k) return;
       const svgEl = canvas.querySelector('svg');
       if (svgEl && svgEl.viewBox && svgEl.viewBox.baseVal) {
         const vb = svgEl.viewBox.baseVal;
-        const x = (e.clientX - svgEl.getBoundingClientRect().left) * (vb.width / svgEl.getBoundingClientRect().width);
-        const y = (e.clientY - svgEl.getBoundingClientRect().top) * (vb.height / svgEl.getBoundingClientRect().height);
-        const gi = app.cfg._gebietBei(x, y);
+        const br = svgEl.getBoundingClientRect();
+        const x = (e.clientX - br.left) * (vb.width / br.width);
+        const y = (e.clientY - br.top) * (vb.height / br.height);
+        const gx = Math.round((x - OFF) / UNIT), gy = Math.round((y - OFF) / UNIT);
+        const gi = app.cfg._gebietBeiGrid([gx, gy]);
         if (gi !== null) {
-          app.cfg._zuordnen(app.state, gi, key, app);
+          app.cfg._zuordnen(app.state, gi, k, app);
           app.rerender();
         }
       }
