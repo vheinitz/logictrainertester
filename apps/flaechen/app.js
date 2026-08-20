@@ -165,13 +165,14 @@ const app = new MiniApp({
   init(state, app) {
     state.shape = genShape();
     state.gebiete = [{ punkte: state.shape.punkte.slice(), form: null, name: 'A1' }];
-    state.gewaehlt = null;          // erster Gitterpunkt
+    state.gewaehlt = null;
     state.gewaehltesGebiet = 0;
     state.gewaehltesSymbol = null;
     state.eingaben = {};
     state.fertig = false;
     state.richtig = 0;
     state.fehler = 0;
+    state.history = [];
   },
 
   render(state, app) {
@@ -244,6 +245,9 @@ const app = new MiniApp({
         <input type="number" step="0.01" placeholder="?" style="width:8ch" oninput="window.__flaech_total=this.value">
         <button class="ma-btn" onclick="window.__flaech_pruefen()">Prüfen</button>
       </div>
+      <div style="margin-top:.3rem">
+        <button class="ma-btn" onclick="window.__flaech_undo()" ${state.history.length ? '' : 'disabled'}>↩︎ Linie zurück</button>
+      </div>
     </div>`;
   },
 
@@ -255,12 +259,36 @@ const app = new MiniApp({
     </div>`;
   },
 
+  // Nächstgelegenen Gitterpunkt AUF dem Rand suchen (kein Springen auf ferne Ecken).
+  _naechsterRandPunkt(gx, gy) {
+    const s = app.state;
+    let best = null, bestDist = Infinity;
+    for (const g of s.gebiete) {
+      for (const v of g.punkte) {
+        const d = (gx - v[0]) ** 2 + (gy - v[1]) ** 2;
+        if (d < bestDist) { bestDist = d; best = [v[0], v[1]]; }
+      }
+      for (let i = 0; i < g.punkte.length; i++) {
+        const a = g.punkte[i], b = g.punkte[(i + 1) % g.punkte.length];
+        const dx = b[0] - a[0], dy = b[1] - a[1];
+        const steps = Math.max(Math.abs(dx), Math.abs(dy));
+        for (let st = 1; st < steps; st++) {
+          const x = a[0] + dx * st / steps, y = a[1] + dy * st / steps;
+          if (!Number.isInteger(x) || !Number.isInteger(y)) continue;
+          const d = (gx - x) ** 2 + (gy - y) ** 2;
+          if (d < bestDist) { bestDist = d; best = [x, y]; }
+        }
+      }
+    }
+    return bestDist <= 2.5 ? best : null;
+  },
+
   onTap(state, x, y, app) {
     if (state.fertig) return;
     const S = UNIT, O = OFF;
-    const gx = Math.round((x - O) / S), gy = Math.round((y - O) / S);
-    if (Math.abs((x - O) - gx * S) > 12 || Math.abs((y - O) - gy * S) > 12) return;
-    const P = [gx, gy];
+    const gx = (x - O) / S, gy = (y - O) / S;
+    const P = this._naechsterRandPunkt(gx, gy);
+    if (!P) return;
 
     // Symbol per Tippen zuordnen
     if (state.gewaehltesSymbol) {
@@ -273,17 +301,16 @@ const app = new MiniApp({
       return;
     }
 
-    // Teilung: erster Gitterpunkt, dann zweiter
+    // Teilung: erster Randpunkt, dann zweiter
     if (state.gewaehlt === null) {
-      if (this._aufRand(P)) { state.gewaehlt = P; app.rerender(); }
+      state.gewaehlt = P;
+      app.rerender();
       return;
     }
     if (key(state.gewaehlt) === key(P)) { state.gewaehlt = null; app.rerender(); return; }
-    if (this._aufRand(P)) {
-      this._teilen(state, state.gewaehlt, P, app);
-      state.gewaehlt = null;
-      app.rerender();
-    }
+    this._teilen(state, state.gewaehlt, P, app);
+    state.gewaehlt = null;
+    app.rerender();
   },
 
   _aufRand(P) {
@@ -313,16 +340,18 @@ const app = new MiniApp({
       const verts = rb.verts;
       let ia = ra.idx;
       const ib = rb.idx;
-      // wurde B vor A eingefügt, rückt A um eins nach hinten
       if (rb.idx <= ra.idx) ia = ra.idx + 1;
       if (ia === ib) continue;
       const t1 = this._subLoop(verts, ia, ib);
       const t2 = this._subLoop(verts, ib, ia);
       const s1 = simplify(t1), s2 = simplify(t2);
       if (s1.length < 3 || s2.length < 3) continue;
-      // Flächenerhalt: nur gültige (nicht überlappende) Teilungen zulassen
       if (Math.abs(shoelace(s1) + shoelace(s2) - shoelace(verts)) > 0.01) continue;
       if (shoelace(s1) < 0.01 || shoelace(s2) < 0.01) continue;
+      // Historie für Rückgängig
+      state.history.push(state.gebiete.map(x => ({
+        punkte: x.punkte.map(p => [...p]), form: x.form, name: x.name
+      })));
       const nameA = 'A' + (state.gebiete.length);
       const nameB = 'A' + (state.gebiete.length + 1);
       state.gebiete.splice(gi, 1,
@@ -375,6 +404,14 @@ const app = new MiniApp({
       state.fertig = true;
       app.rerender();
     },
+    undo(state, ...args) {
+      const app = args[args.length - 1];
+      if (state.history.length) {
+        state.gebiete = state.history.pop();
+        state.gewaehlt = null;
+        app.rerender();
+      }
+    },
     neu(state, ...args) {
       const app = args[args.length - 1];
       app.init(state, app);
@@ -399,6 +436,7 @@ export function mount(root) {
   window.__flaech_masze = (n, v) => app.dispatch('masze', n, v);
   window.__flaech_flaeche = (n, v) => app.dispatch('flaeche', n, v);
   window.__flaech_pruefen = () => app.dispatch('pruefen');
+  window.__flaech_undo = () => app.dispatch('undo');
   window.__flaech_neu = () => app.dispatch('neu');
   window.__flaech_drag = null;
   window.__flaech_total = '';
