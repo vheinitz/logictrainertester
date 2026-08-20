@@ -8,8 +8,8 @@
 import { MiniApp, svg } from '../_framework/framework.js';
 
 const PI = Math.PI;
-const UNIT = 42;
-const OFF = 30;
+const UNIT = 32;
+const OFF = 22;
 
 const FORMEN = {
   rechteck:    { name: { de: 'Rechteck', ru: 'Прямоугольник', en: 'Rectangle' }, formel: 'H·L', farbe: '#4D96FF' },
@@ -24,7 +24,7 @@ function key(p) { return p.join(','); }
 
 /** Zufällige zusammenhängende Figur (Histogramm + 45°-Schrägen). */
 function genShape() {
-  const W = 3 + rand(3), H = 3 + rand(3);
+  const W = 2 + rand(3), H = 2 + rand(2);
   const h = Array.from({ length: W }, () => 1 + rand(H));
   const cells = new Set();
   for (let c = 0; c < W; c++) for (let y = 0; y < h[c]; y++) cells.add(c + ',' + y);
@@ -190,11 +190,11 @@ const app = new MiniApp({
 
     // Karo-Papier
     let grid = '';
-    for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + O}" stroke="#e5e3f2" stroke-width="1"/>`;
-    for (let gy = 0; gy <= maxY + 1; gy++) grid += `<line x1="${O}" y1="${gy * S + O}" x2="${(maxX + 1) * S + O}" y2="${gy * S + O}" stroke="#e5e3f2" stroke-width="1"/>`;
+    for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + O}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
+    for (let gy = 0; gy <= maxY + 1; gy++) grid += `<line x1="${O}" y1="${gy * S + O}" x2="${(maxX + 1) * S + O}" y2="${gy * S + O}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
 
     const teile = state.gebiete.map((g, gi) => {
-      const fill = g.form ? FORMEN[g.form].farbe + '99' : '#ffffff';
+      const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
       const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + O}`).join(' ');
       return `<polygon points="${pts}" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
     }).join('');
@@ -205,8 +205,8 @@ const app = new MiniApp({
       : '';
 
     return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"
-        style="background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
-      ${grid}${teile}${mark}
+        style="width:100%;max-width:440px;height:auto;background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
+      ${teile}${grid}${mark}
     </svg>`;
   },
 
@@ -303,20 +303,25 @@ const app = new MiniApp({
   _teilen(state, A, B, app) {
     for (let gi = 0; gi < state.gebiete.length; gi++) {
       const g = state.gebiete[gi];
-      const rA = insertPoint(g.punkte, A);
-      const rB = insertPoint(g.punkte, B);
-      if (!rA || !rB) continue;
-      // beide Punkte müssen auf diesem Gebiet liegen
       if (!this._aufGebiet(A, g) || !this._aufGebiet(B, g)) continue;
-      const verts = rB.verts;   // A schon drin (nicht nötig, beide gleich) — neu bauen:
-      const vertsA = insertPoint(g.punkte, A).verts;
-      const vertsB = insertPoint(vertsA, B);
-      const ia = insertPoint(vertsA, A).idx;
-      const ib = vertsB.idx;
-      const t1 = this._subLoop(vertsB.verts, ia, ib);
-      const t2 = this._subLoop(vertsB.verts, ib, ia);
+      // A in die Linie einsetzen
+      const ra = insertPoint(g.punkte, A);
+      if (!ra) continue;
+      // B in die (um A erweiterte) Linie einsetzen
+      const rb = insertPoint(ra.verts, B);
+      if (!rb) continue;
+      const verts = rb.verts;
+      let ia = ra.idx;
+      const ib = rb.idx;
+      // wurde B vor A eingefügt, rückt A um eins nach hinten
+      if (rb.idx <= ra.idx) ia = ra.idx + 1;
+      if (ia === ib) continue;
+      const t1 = this._subLoop(verts, ia, ib);
+      const t2 = this._subLoop(verts, ib, ia);
       const s1 = simplify(t1), s2 = simplify(t2);
       if (s1.length < 3 || s2.length < 3) continue;
+      // Flächenerhalt: nur gültige (nicht überlappende) Teilungen zulassen
+      if (Math.abs(shoelace(s1) + shoelace(s2) - shoelace(verts)) > 0.01) continue;
       if (shoelace(s1) < 0.01 || shoelace(s2) < 0.01) continue;
       const nameA = 'A' + (state.gebiete.length);
       const nameB = 'A' + (state.gebiete.length + 1);
