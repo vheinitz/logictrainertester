@@ -1,0 +1,49 @@
+/* Gemeinsame Styles aller Mini-Apps unter apps/. */
+:root {
+  --ma-prim: #5b4fcf;
+  --ma-hintergrund: #f7f7fb;
+  --ma-linie: #ddd;
+  --ma-text: #222;
+  --ma-neben: #777;
+  --ma-gut: #2a8a2a;
+}
+.miniapp {
+  font-family: system-ui, sans-serif;
+  color: var(--ma-text);
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem;
+  background: #fff;
+  border: 1px solid var(--ma-linie);
+  border-radius: 12px;
+}
+.ma-kopf { display: flex; align-items: center; justify-content: space-between; gap: 1rem; }
+.ma-kopf h1 { font-size: 1.25rem; margin: 0; }
+.ma-tasten { display: flex; gap: .4rem; }
+.ma-btn {
+  font-size: .95rem; padding: .4rem .7rem;
+  border: 1px solid #ccc; border-radius: 8px; background: #fff; cursor: pointer;
+}
+.ma-btn:hover { background: #f0eefe; }
+.ma-anweisung, .ma-hilfe {
+  margin-top: .6rem; padding: .7rem .8rem;
+  background: var(--ma-hintergrund); border-left: 3px solid var(--ma-prim);
+  border-radius: 6px; font-size: .95rem; line-height: 1.5;
+}
+.ma-settings { margin-top: .6rem; padding: .7rem .8rem; background: var(--ma-hintergrund); border-radius: 6px; }
+.ma-setze { display: flex; flex-direction: column; gap: .5rem; }
+.ma-zeile { display: flex; align-items: center; gap: .6rem; font-size: .9rem; }
+.ma-zeile span { min-width: 12ch; }
+.ma-zeile input[type=range] { flex: 1; }
+.ma-zeile b { min-width: 4ch; text-align: right; }
+.ma-canvas {
+  margin-top: 1rem; min-height: 260px; padding: .5rem;
+  background: #fafaff; border: 1px solid var(--ma-linie); border-radius: 10px;
+  touch-action: none; user-select: none; overflow: hidden;
+}
+.ma-canvas svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+.ma-ergebnis { margin-top: .8rem; }
+.ma-result { font-size: .95rem; padding: .5rem .7rem; background: var(--ma-hintergrund); border-radius: 8px; }
+.ma-result.ma-fertig { text-align: center; padding: 1rem; background: #eef8ee; border: 1px solid #cde5cd; }
+.ma-ok { font-size: 2.6em; line-height: 1.1; }
+.ma-neben { color: var(--ma-neben); font-size: .85rem; }

@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bildgeschichte ordnen</title>
+<link rel="stylesheet" href="./framework.css">
+</head>
+<body>
+<div id="app"></div>
+<script src="./app.bundle.js"></script>
+<script src="https://unpkg.com/@vkontakte/vk-bridge/dist/browser.min.js"></script>
+<script>
+  IMAGESTORIES.mount(document.getElementById('app'));
+  window.__maRestart = () => IMAGESTORIES.default.reset();
+
+  // VK Mini App: Bridge initialisieren. Außerhalb von VK passiert einfach nichts.
+  window.addEventListener('DOMContentLoaded', function () {
+    if (!window.vkBridge) return;
+    vkBridge.send('VKWebAppInit').catch(function () {});
+    vkBridge.send('VKWebAppSetViewSettings', {
+      status_bar_style: 'light',
+      action_bar_color: '#5b4fcf'
+    }).catch(function () {});
+  });
+</script>
+</body>
+</html>
