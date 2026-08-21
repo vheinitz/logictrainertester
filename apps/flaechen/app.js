@@ -86,9 +86,11 @@ function sehneGueltig(verts, ia, ib) {
 
 function isRect(verts) {
   if (verts.length !== 4) return false;
+  // Vier rechte Winkel: benachbarte Kanten stehen senkrecht (auch 45°-gekippt)
   for (let i = 0; i < 4; i++) {
-    const a = verts[i], b = verts[(i + 1) % 4];
-    if (a[0] !== b[0] && a[1] !== b[1]) return false;
+    const a = verts[i], b = verts[(i + 1) % 4], c = verts[(i + 2) % 4];
+    const v1 = [b[0] - a[0], b[1] - a[1]], v2 = [c[0] - b[0], c[1] - b[1]];
+    if (v1[0] * v2[0] + v1[1] * v2[1] !== 0) return false;
   }
   return true;
 }
@@ -225,6 +227,7 @@ const app = new MiniApp({
     state.richtig = 0;
     state.fehler = 0;
     state.history = [];
+    state.zaehler = 1;
   },
 
   render(state, app) {
@@ -431,7 +434,8 @@ const app = new MiniApp({
 
   _inBogen(gx, gy, b) {
     if (gx < b.chordA[0] || gx > b.chordB[0]) return false;
-    if (b.oben ? gy > b.cy : gy < b.cy) return false;
+    // oben=true → Wölbung nach unten (gy ≥ cy); sonst nach oben (gy ≤ cy)
+    if (b.oben ? gy < b.cy : gy > b.cy) return false;
     return (gx - b.cx) ** 2 + (gy - b.cy) ** 2 <= b.r * b.r + 1e-6;
   },
 
@@ -486,8 +490,8 @@ const app = new MiniApp({
         else b2.push(b);
       }
       // Degeneriertes Gebiet (nur die Sehne) + Bogen = Halbkreis
-      const g1 = { punkte: s1, boegen: b1, form: null, name: 'A' + (state.gebiete.length) };
-      const g2 = { punkte: s2, boegen: b2, form: null, name: 'A' + (state.gebiete.length + 1) };
+      const g1 = { punkte: s1, boegen: b1, form: null, name: 'A' + (++state.zaehler) };
+      const g2 = { punkte: s2, boegen: b2, form: null, name: 'A' + (++state.zaehler) };
       if (g1.punkte.length < 3 && g1.boegen.length === 0) continue;
       if (g2.punkte.length < 3 && g2.boegen.length === 0) continue;
       if (areaOf(g1) < 0.01 || areaOf(g2) < 0.01) continue;
