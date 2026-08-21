@@ -307,6 +307,15 @@ const app = new MiniApp({
         `<text x="${zx + 4}" y="${zy + (b.oben ? 12 : -4)}" font-size="13" fill="#b04a00" font-weight="bold">r=${b.r}</text>`;
     }).join('');
 
+    // Flächen-Label A1, A2, … an der Klickstelle (nur wenn korrekt markiert)
+    const labels = state.gebiete.filter(g => g.form && g.labelPos).map(g => {
+      const lx = g.labelPos[0] * S + O, ly = g.labelPos[1] * S + Oy;
+      return `<g>
+        <rect x="${lx - 15}" y="${ly - 13}" width="30" height="22" rx="8" fill="#fff" stroke="#5b4fcf" stroke-width="1.5"/>
+        <text x="${lx}" y="${ly + 3}" font-size="13" font-weight="bold" text-anchor="middle" fill="#5b4fcf">${g.name}</text>
+      </g>`;
+    }).join('');
+
     // Karo
     let grid = '';
     for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + Oy}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
@@ -318,7 +327,7 @@ const app = new MiniApp({
 
     return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"
         style="width:100%;max-width:440px;height:auto;background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
-      ${fills}${teillinien}${umriss}${radien}${grid}${mark}
+      ${fills}${teillinien}${umriss}${radien}${labels}${grid}${mark}
     </svg>`;
   },
 
@@ -339,24 +348,8 @@ const app = new MiniApp({
   },
 
   _liste(state) {
-    const zeilen = state.gebiete.map(g => {
-      const e = state.eingaben[g.name] || {};
-      const wahr = this._wahrForm(g);
-      const name = g.form ? FORMEN[g.form].name.de : '—';
-      const formel = wahr ? FORMEN[wahr].formel : '?';
-      const farbe = g.form ? FORMEN[g.form].farbe : '#999';
-      return `<div style="display:flex;align-items:center;gap:6px;font-size:.95em;margin:.2rem 0">
-        <b style="min-width:2.4ch">${g.name}</b>
-        <span style="color:${farbe}">${name}</span>
-        <span>A = ${formel} =</span>
-        <input type="number" step="0.01" placeholder="?" value="${e.ergebnis ?? ''}" style="width:7ch"
-          onchange="window.__flaech_ergebnis('${g.name}', this.value)">
-      </div>`;
-    }).join('');
-    const gesamtFormel = state.gebiete.map(g => g.name).join(' + ');
     return `<div style="max-width:560px;margin:0 auto">
-      ${zeilen}
-      <div style="font-weight:bold;margin-top:.4rem">A = ${gesamtFormel} =
+      <div style="font-weight:bold;margin-top:.4rem">A =
         <input type="number" step="0.01" placeholder="?" style="width:8ch" oninput="window.__flaech_total=this.value">
         <button class="ma-btn" onclick="window.__flaech_pruefen()">Prüfen</button>
       </div>
@@ -405,7 +398,7 @@ const app = new MiniApp({
     if (state.gewaehltesSymbol) {
       const gi = this._gebietBeiGrid([gx, gy]);
       if (gi !== null) {
-        this._zuordnen(state, gi, state.gewaehltesSymbol, app);
+        this._zuordnen(state, gi, state.gewaehltesSymbol, app, [gx, gy]);
         app.rerender();
       }
       return;
@@ -518,10 +511,14 @@ const app = new MiniApp({
     return echteForm(g.punkte);
   },
 
-  _zuordnen(state, gi, symbol, app) {
+  _zuordnen(state, gi, symbol, app, pos) {
     const g = state.gebiete[gi];
-    if (formPasst(this._wahrForm(g), symbol)) g.form = symbol;
-    else state.fehler++;
+    if (formPasst(this._wahrForm(g), symbol)) {
+      g.form = symbol;
+      if (pos) g.labelPos = [pos[0], pos[1]];
+    } else {
+      state.fehler++;
+    }
   },
 
   actions: {
@@ -536,15 +533,9 @@ const app = new MiniApp({
     },
     pruefen(state, ...args) {
       const app = args[args.length - 1];
-      let alleOk = true;
-      for (const g of state.gebiete) {
-        const v = parseFloat((state.eingaben[g.name] || {}).ergebnis);
-        const soll = areaOf(g);
-        if (Number.isNaN(v) || Math.abs(v - soll) > 0.5) { alleOk = false; break; }
-      }
       const total = parseFloat(window.__flaech_total);
-      if (Number.isNaN(total) || Math.abs(total - state.shape.gesamt) > 0.5) alleOk = false;
-      state.richtig = alleOk ? 1 : 0;
+      const soll = state.shape.gesamt;
+      state.richtig = (!Number.isNaN(total) && Math.round(total * 100) === Math.round(soll * 100)) ? 1 : 0;
       state.fertig = true;
       app.rerender();
     },
@@ -599,7 +590,7 @@ export function mount(root) {
         const gx = (x - OFF) / UNIT, gy = (y - app.state.shape.oy) / UNIT;
         const gi = app.cfg._gebietBeiGrid([gx, gy]);
         if (gi !== null) {
-          app.cfg._zuordnen(app.state, gi, k, app);
+          app.cfg._zuordnen(app.state, gi, k, app, [gx, gy]);
           app.rerender();
         }
       }
