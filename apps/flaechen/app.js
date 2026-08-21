@@ -26,9 +26,9 @@ function key(p) { return p.join(','); }
 function genShape() {
   const W = 2 + rand(3), H = 2 + rand(2);
   const h = Array.from({ length: W }, () => 1 + rand(H));
-  // garantiere einen ebenen Abschnitt oben (für den Halbkreis)
-  const ebene = rand(W - 1);
-  h[ebene + 1] = h[ebene];
+  // garantierte flache Oberkante ganz oben → jede Figur bekommt eine Wölbung
+  h[0] = H;
+  h[1] = H;
   const cells = new Set();
   for (let c = 0; c < W; c++) for (let y = 0; y < h[c]; y++) cells.add(c + ',' + y);
 
@@ -64,20 +64,23 @@ function genShape() {
   const punkte = simplify(loop.filter((_, i) => !chamfer.has(i)));
   const flaeche = shoelace(punkte);
 
-  // Halbkreise an waagerechte Oberkanten hängen (Radius = halbe Kantenlänge)
+  // Halbkreise an waagerechte Kanten hängen (Wölbung nach außen)
   const kreisTeile = [];
   for (let i = 0; i < punkte.length && kreisTeile.length < 2; i++) {
     const a = punkte[i], b = punkte[(i + 1) % punkte.length];
-    if (a[1] === b[1] && b[0] > a[0]) {
-      const L = b[0] - a[0];
-      if (L >= 2) {
-        kreisTeile.push({
-          typ: 'halbkreis', chordA: [a[0], a[1]], chordB: [b[0], b[1]],
-          r: L / 2, cx: (a[0] + b[0]) / 2, cy: a[1],
-          flaeche: (Math.PI * (L / 2) ** 2) / 2,
-        });
-      }
-    }
+    if (a[1] !== b[1]) continue;
+    const L = Math.abs(b[0] - a[0]);
+    if (L < 2) continue;
+    const x1 = Math.min(a[0], b[0]), x2 = Math.max(a[0], b[0]);
+    const y = a[1], cx = (x1 + x2) / 2;
+    const obenAussen = !pointInPoly(cx, y - 0.5, punkte);
+    const untenAussen = !pointInPoly(cx, y + 0.5, punkte);
+    const oben = obenAussen || !untenAussen;
+    kreisTeile.push({
+      typ: 'halbkreis', chordA: [x1, y], chordB: [x2, y],
+      r: L / 2, cx, cy: y, oben,
+      flaeche: (Math.PI * (L / 2) ** 2) / 2,
+    });
   }
   const gesamt = flaeche + kreisTeile.reduce((s, k) => s + k.flaeche, 0);
   const maxR = Math.max(0, ...kreisTeile.map(k => k.r));
@@ -186,10 +189,10 @@ function formPasst(formDerFlaeche, symbol) {
   return false;
 }
 
-/** Liegt ein Gitterpunkt im Halbkreis (nach oben gewölbt)? */
+/** Liegt ein Gitterpunkt im Halbkreis (Wölbung nach außen)? */
 function inHalbkreis(gx, gy, k) {
   if (gx < k.chordA[0] || gx > k.chordB[0]) return false;
-  if (gy > k.cy) return false;
+  if (k.oben ? gy > k.cy : gy < k.cy) return false;
   return (gx - k.cx) ** 2 + (gy - k.cy) ** 2 <= k.r * k.r + 1e-6;
 }
 
@@ -251,7 +254,7 @@ const app = new MiniApp({
     const xs = state.shape.punkte.map(p => p[0]), ys = state.shape.punkte.map(p => p[1]);
     const minX = Math.min(...xs), maxX = Math.max(...xs), maxY = Math.max(...ys);
     const w = (maxX + 1) * S + O * 2;
-    const h = (maxY + 1) * S + Oy + O;
+    const h = (maxY + 1) * S + Oy * 2;
 
     // Karo-Papier
     let grid = '';
@@ -264,8 +267,9 @@ const app = new MiniApp({
         const x1 = k.chordA[0] * S + O, y1 = k.chordA[1] * S + Oy;
         const x2 = k.chordB[0] * S + O, y2 = k.chordB[1] * S + Oy;
         const rr = k.r * S;
+        const sweep = k.oben ? 0 : 1;
         const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
-        return `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 0 ${x2} ${y2} Z" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
+        return `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 ${sweep} ${x2} ${y2} Z" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
       }
       const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
       const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + Oy}`).join(' ');
@@ -275,8 +279,9 @@ const app = new MiniApp({
     // Radius-Beschriftung der Halbkreise
     const radien = state.shape.kreisTeile.map(k => {
       const cx = k.cx * S + O, cy = k.cy * S + Oy;
-      return `<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - k.r * S}" stroke="#b04a00" stroke-width="1" stroke-dasharray="4 3"/>` +
-        `<text x="${cx + 4}" y="${cy - k.r * S + 4}" font-size="13" fill="#b04a00" font-weight="bold">r=${k.r}</text>`;
+      const zielY = k.oben ? cy - k.r * S : cy + k.r * S;
+      return `<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${zielY}" stroke="#b04a00" stroke-width="1" stroke-dasharray="4 3"/>` +
+        `<text x="${cx + 4}" y="${zielY + (k.oben ? 4 : 12)}" font-size="13" fill="#b04a00" font-weight="bold">r=${k.r}</text>`;
     }).join('');
 
     // gewählte Gitterpunkte hervorheben (klein, dezent)
