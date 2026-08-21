@@ -78,7 +78,7 @@ function genShape() {
     const y = a[1], cx = (x1 + x2) / 2;
     const obenAussen = !pointInPoly(cx, y - 0.5, punkte);
     const untenAussen = !pointInPoly(cx, y + 0.5, punkte);
-    const oben = obenAussen || !untenAussen;
+    const oben = !(obenAussen || !untenAussen);
     kreisTeile.push({
       typ: 'halbkreis', edge: i, chordA: [x1, y], chordB: [x2, y],
       r: L / 2, cx, cy: y, oben,
