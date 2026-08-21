@@ -26,6 +26,9 @@ function key(p) { return p.join(','); }
 function genShape() {
   const W = 2 + rand(3), H = 2 + rand(2);
   const h = Array.from({ length: W }, () => 1 + rand(H));
+  // garantiere einen ebenen Abschnitt oben (für den Halbkreis)
+  const ebene = rand(W - 1);
+  h[ebene + 1] = h[ebene];
   const cells = new Set();
   for (let c = 0; c < W; c++) for (let y = 0; y < h[c]; y++) cells.add(c + ',' + y);
 
@@ -58,8 +61,29 @@ function genShape() {
     const kreuz = v1[0] * v2[1] - v1[1] * v2[0];
     if (kreuz > 0 && Math.abs(v1[0]) + Math.abs(v1[1]) === 1 && Math.abs(v2[0]) + Math.abs(v2[1]) === 1 && rand(3) === 0) chamfer.add(i);
   }
-  const punkte = loop.filter((_, i) => !chamfer.has(i));
-  return { punkte, flaeche: shoelace(punkte), W, H };
+  const punkte = simplify(loop.filter((_, i) => !chamfer.has(i)));
+  const flaeche = shoelace(punkte);
+
+  // Halbkreise an waagerechte Oberkanten hängen (Radius = halbe Kantenlänge)
+  const kreisTeile = [];
+  for (let i = 0; i < punkte.length && kreisTeile.length < 2; i++) {
+    const a = punkte[i], b = punkte[(i + 1) % punkte.length];
+    if (a[1] === b[1] && b[0] > a[0]) {
+      const L = b[0] - a[0];
+      if (L >= 2) {
+        kreisTeile.push({
+          typ: 'halbkreis', chordA: [a[0], a[1]], chordB: [b[0], b[1]],
+          r: L / 2, cx: (a[0] + b[0]) / 2, cy: a[1],
+          flaeche: (Math.PI * (L / 2) ** 2) / 2,
+        });
+      }
+    }
+  }
+  const gesamt = flaeche + kreisTeile.reduce((s, k) => s + k.flaeche, 0);
+  const maxR = Math.max(0, ...kreisTeile.map(k => k.r));
+  const oy = OFF + maxR * UNIT;   // oberer Rand für die Halbkreis-Wölbung
+
+  return { punkte, flaeche, W, H, kreisTeile, gesamt, oy };
 }
 
 function shoelace(poly) {
@@ -162,6 +186,13 @@ function formPasst(formDerFlaeche, symbol) {
   return false;
 }
 
+/** Liegt ein Gitterpunkt im Halbkreis (nach oben gewölbt)? */
+function inHalbkreis(gx, gy, k) {
+  if (gx < k.chordA[0] || gx > k.chordB[0]) return false;
+  if (gy > k.cy) return false;
+  return (gx - k.cx) ** 2 + (gy - k.cy) ** 2 <= k.r * k.r + 1e-6;
+}
+
 function formIcon(form) {
   const farbe = FORMEN[form].farbe, s = 24;
   if (form === 'rechteck') return `<svg width="${s}" height="${s}" viewBox="0 0 22 22"><rect x="2" y="5" width="18" height="12" fill="${farbe}" stroke="#3a3560" stroke-width="1.5"/></svg>`;
@@ -190,7 +221,12 @@ const app = new MiniApp({
 
   init(state, app) {
     state.shape = genShape();
-    state.gebiete = [{ punkte: state.shape.punkte.slice(), form: null, name: 'A1' }];
+    state.gebiete = [
+      { punkte: state.shape.punkte.slice(), form: null, name: 'A1', flaeche: state.shape.flaeche },
+      ...state.shape.kreisTeile.map((k, i) => ({
+        bogen: k, form: null, name: 'A' + (2 + i), flaeche: k.flaeche
+      })),
+    ];
     state.gewaehlt = null;
     state.gewaehltesGebiet = 0;
     state.gewaehltesSymbol = null;
@@ -211,29 +247,46 @@ const app = new MiniApp({
 
   _canvas(state) {
     const S = UNIT, O = OFF;
+    const Oy = state.shape.oy;
     const xs = state.shape.punkte.map(p => p[0]), ys = state.shape.punkte.map(p => p[1]);
-    const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-    const w = (maxX + 1) * S + O * 2, h = (maxY + 1) * S + O * 2;
+    const minX = Math.min(...xs), maxX = Math.max(...xs), maxY = Math.max(...ys);
+    const w = (maxX + 1) * S + O * 2;
+    const h = (maxY + 1) * S + Oy + O;
 
     // Karo-Papier
     let grid = '';
-    for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + O}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
-    for (let gy = 0; gy <= maxY + 1; gy++) grid += `<line x1="${O}" y1="${gy * S + O}" x2="${(maxX + 1) * S + O}" y2="${gy * S + O}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
+    for (let gx = 0; gx <= maxX + 1; gx++) grid += `<line x1="${gx * S + O}" y1="${O}" x2="${gx * S + O}" y2="${(maxY + 1) * S + Oy}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
+    for (let gy = 0; gy <= maxY + 1; gy++) grid += `<line x1="${O}" y1="${gy * S + Oy}" x2="${(maxX + 1) * S + O}" y2="${gy * S + Oy}" stroke="#8f8bd8" stroke-width="0.8" stroke-opacity="0.4"/>`;
 
     const teile = state.gebiete.map((g, gi) => {
+      if (g.bogen) {
+        const k = g.bogen;
+        const x1 = k.chordA[0] * S + O, y1 = k.chordA[1] * S + Oy;
+        const x2 = k.chordB[0] * S + O, y2 = k.chordB[1] * S + Oy;
+        const rr = k.r * S;
+        const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
+        return `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 0 ${x2} ${y2} Z" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
+      }
       const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
-      const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + O}`).join(' ');
+      const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + Oy}`).join(' ');
       return `<polygon points="${pts}" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
+    }).join('');
+
+    // Radius-Beschriftung der Halbkreise
+    const radien = state.shape.kreisTeile.map(k => {
+      const cx = k.cx * S + O, cy = k.cy * S + Oy;
+      return `<line x1="${cx}" y1="${cy}" x2="${cx}" y2="${cy - k.r * S}" stroke="#b04a00" stroke-width="1" stroke-dasharray="4 3"/>` +
+        `<text x="${cx + 4}" y="${cy - k.r * S + 4}" font-size="13" fill="#b04a00" font-weight="bold">r=${k.r}</text>`;
     }).join('');
 
     // gewählte Gitterpunkte hervorheben (klein, dezent)
     const mark = state.gewaehlt
-      ? `<circle cx="${state.gewaehlt[0] * S + O}" cy="${state.gewaehlt[1] * S + O}" r="5" fill="#5b4fcf" stroke="#fff" stroke-width="2"/>`
+      ? `<circle cx="${state.gewaehlt[0] * S + O}" cy="${state.gewaehlt[1] * S + Oy}" r="5" fill="#5b4fcf" stroke="#fff" stroke-width="2"/>`
       : '';
 
     return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"
         style="width:100%;max-width:440px;height:auto;background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
-      ${teile}${grid}${mark}
+      ${teile}${grid}${radien}${mark}
     </svg>`;
   },
 
@@ -280,7 +333,7 @@ const app = new MiniApp({
   _ergebnis(state) {
     return `<div class="ma-result ma-fertig">
       <div class="ma-ok">${state.richtig ? '✅' : '❌'}</div>
-      <div style="font-size:1.1em">A = ${state.shape.flaeche.toFixed(2)}</div>
+      <div style="font-size:1.1em">A = ${state.shape.gesamt.toFixed(2)}</div>
       <button class="ma-btn" onclick="window.__flaech_neu()">🔁 Neue Figur</button>
     </div>`;
   },
@@ -290,6 +343,7 @@ const app = new MiniApp({
     const s = app.state;
     let best = null, bestDist = Infinity;
     for (const g of s.gebiete) {
+      if (g.bogen) continue;
       for (const v of g.punkte) {
         const d = (gx - v[0]) ** 2 + (gy - v[1]) ** 2;
         if (d < bestDist) { bestDist = d; best = [v[0], v[1]]; }
@@ -312,7 +366,7 @@ const app = new MiniApp({
   onTap(state, x, y, app) {
     if (state.fertig) return;
     const S = UNIT, O = OFF;
-    const gx = (x - O) / S, gy = (y - O) / S;
+    const gx = (x - O) / S, gy = (y - state.shape.oy) / S;
 
     // Symbol zuordnen: welches Gebiet enthält den Klick? (kein Rand-Snapping)
     if (state.gewaehltesSymbol) {
@@ -341,14 +395,17 @@ const app = new MiniApp({
 
   _aufRand(P) {
     const s = app.state;
-    return s.gebiete.some(g =>
+    return s.gebiete.some(g => !g.bogen &&
       g.punkte.some((v, i) => key(v) === key(P) || onSeg(P, v, g.punkte[(i + 1) % g.punkte.length])));
   },
 
   _gebietBeiGrid(P) {
     const s = app.state;
     for (let i = 0; i < s.gebiete.length; i++) {
-      if (pointInPoly(P[0], P[1], s.gebiete[i].punkte)) return i;
+      const g = s.gebiete[i];
+      if (g.bogen) {
+        if (inHalbkreis(P[0], P[1], g.bogen)) return i;
+      } else if (pointInPoly(P[0], P[1], g.punkte)) return i;
     }
     return null;
   },
@@ -356,6 +413,7 @@ const app = new MiniApp({
   _teilen(state, A, B, app) {
     for (let gi = 0; gi < state.gebiete.length; gi++) {
       const g = state.gebiete[gi];
+      if (g.bogen) continue;   // Kreis-Teile werden nicht weiter geteilt
       if (!this._aufGebiet(A, g) || !this._aufGebiet(B, g)) continue;
       // Erweiterte Linie bauen: A und B in Kantenreihenfolge einsortieren
       const verts = [];
@@ -376,9 +434,9 @@ const app = new MiniApp({
       if (Math.abs(shoelace(s1) + shoelace(s2) - shoelace(verts)) > 0.01) continue;
       if (shoelace(s1) < 0.01 || shoelace(s2) < 0.01) continue;
       // Historie für Rückgängig
-      state.history.push(state.gebiete.map(x => ({
-        punkte: x.punkte.map(p => [...p]), form: x.form, name: x.name
-      })));
+      state.history.push(state.gebiete.map(x => x.bogen
+        ? { bogen: { ...x.bogen }, form: x.form, name: x.name, flaeche: x.flaeche }
+        : { punkte: x.punkte.map(p => [...p]), form: x.form, name: x.name, flaeche: x.flaeche }));
       const nameA = 'A' + (state.gebiete.length);
       const nameB = 'A' + (state.gebiete.length + 1);
       state.gebiete.splice(gi, 1,
@@ -389,6 +447,7 @@ const app = new MiniApp({
   },
 
   _aufGebiet(P, g) {
+    if (g.bogen) return false;
     return g.punkte.some((v, i) => key(v) === key(P) || onSeg(P, v, g.punkte[(i + 1) % g.punkte.length]));
   },
 
@@ -404,8 +463,8 @@ const app = new MiniApp({
 
   _zuordnen(state, gi, symbol, app) {
     const g = state.gebiete[gi];
-    const form = echteForm(g.punkte);
-    if (formPasst(form, symbol)) {
+    const wahrForm = g.bogen ? g.bogen.typ : echteForm(g.punkte);
+    if (formPasst(wahrForm, symbol)) {
       g.form = symbol;
     } else {
       state.fehler++;
@@ -427,7 +486,7 @@ const app = new MiniApp({
     pruefen(state, ...args) {
       const app = args[args.length - 1];
       const total = parseFloat(window.__flaech_total);
-      state.richtig = (!Number.isNaN(total) && Math.abs(total - state.shape.flaeche) < 0.5) ? 1 : 0;
+      state.richtig = (!Number.isNaN(total) && Math.abs(total - state.shape.gesamt) < 0.5) ? 1 : 0;
       state.fertig = true;
       app.rerender();
     },
@@ -447,7 +506,7 @@ const app = new MiniApp({
   },
 
   evaluate(state) {
-    if (state.fertig) return { fertig: true, wert: `A = ${state.shape.flaeche.toFixed(2)}` };
+    if (state.fertig) return { fertig: true, wert: `A = ${state.shape.gesamt.toFixed(2)}` };
     return null;
   },
   statusHtml(state) {
@@ -480,7 +539,7 @@ export function mount(root) {
         const br = svgEl.getBoundingClientRect();
         const x = (e.clientX - br.left) * (vb.width / br.width);
         const y = (e.clientY - br.top) * (vb.height / br.height);
-        const gx = (x - OFF) / UNIT, gy = (y - OFF) / UNIT;
+        const gx = (x - OFF) / UNIT, gy = (y - app.state.shape.oy) / UNIT;
         const gi = app.cfg._gebietBeiGrid([gx, gy]);
         if (gi !== null) {
           app.cfg._zuordnen(app.state, gi, k, app);
