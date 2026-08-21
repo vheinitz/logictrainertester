@@ -228,6 +228,7 @@ const app = new MiniApp({
     state.fehler = 0;
     state.history = [];
     state.zaehler = 1;
+    state.markZaehler = 0;
   },
 
   render(state, app) {
@@ -307,12 +308,12 @@ const app = new MiniApp({
         `<text x="${zx + 4}" y="${zy + (b.oben ? 12 : -4)}" font-size="13" fill="#b04a00" font-weight="bold">r=${b.r}</text>`;
     }).join('');
 
-    // Flächen-Label A1, A2, … an der Klickstelle (nur wenn korrekt markiert)
-    const labels = state.gebiete.filter(g => g.form && g.labelPos).map(g => {
+    // Flächen-Label 1, 2, … an der Klickstelle (Reihenfolge des Markierens)
+    const labels = state.gebiete.filter(g => g.form && g.labelPos && g.labelNr).map(g => {
       const lx = g.labelPos[0] * S + O, ly = g.labelPos[1] * S + Oy;
       return `<g>
-        <rect x="${lx - 15}" y="${ly - 13}" width="30" height="22" rx="8" fill="#fff" stroke="#5b4fcf" stroke-width="1.5"/>
-        <text x="${lx}" y="${ly + 3}" font-size="13" font-weight="bold" text-anchor="middle" fill="#5b4fcf">${g.name}</text>
+        <rect x="${lx - 11}" y="${ly - 10}" width="22" height="16" rx="7" fill="#fff" stroke="#5b4fcf" stroke-width="1.5"/>
+        <text x="${lx}" y="${ly + 3}" font-size="11" font-weight="bold" text-anchor="middle" fill="#5b4fcf">${g.labelNr}</text>
       </g>`;
     }).join('');
 
@@ -516,6 +517,7 @@ const app = new MiniApp({
     if (formPasst(this._wahrForm(g), symbol)) {
       g.form = symbol;
       if (pos) g.labelPos = [pos[0], pos[1]];
+      g.labelNr = ++state.markZaehler;
     } else {
       state.fehler++;
     }
