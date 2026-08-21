@@ -235,7 +235,7 @@ const app = new MiniApp({
       inner = `<polygon points="${inner}" fill="${fill}"/>`;
       for (const b of (g.boegen || [])) {
         const x1 = px(b.chordA), y1 = py(b.chordA), x2 = px(b.chordB), y2 = py(b.chordB);
-        const rr = b.r * S, sweep = b.oben ? 1 : 0;
+        const rr = b.r * S, sweep = b.oben ? 0 : 1;
         inner += `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 ${sweep} ${x2} ${y2} Z" fill="${fill}"/>`;
       }
       return inner;
@@ -251,7 +251,7 @@ const app = new MiniApp({
       if (b) {
         const rr = b.r * S;
         const dx = nxt[0] - state.shape.punkte[i][0];
-        const sweep = ((dx > 0) === b.oben) ? 1 : 0;
+        const sweep = ((dx > 0) === b.oben) ? 0 : 1;
         d += ` A ${rr} ${rr} 0 0 ${sweep} ${nx} ${ny}`;
       } else {
         d += ` L ${nx} ${ny}`;
