@@ -113,6 +113,32 @@ function simplify(verts) {
   return out;
 }
 
+function orient(a, b, c) { return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]); }
+function onSeg2(p, a, b) {
+  return Math.min(a[0], b[0]) <= p[0] && p[0] <= Math.max(a[0], b[0]) &&
+         Math.min(a[1], b[1]) <= p[1] && p[1] <= Math.max(a[1], b[1]);
+}
+function segmenteKreuzen(a, b, c, d) {
+  const o1 = orient(a, b, c), o2 = orient(a, b, d), o3 = orient(c, d, a), o4 = orient(c, d, b);
+  if (o1 * o2 < 0 && o3 * o4 < 0) return true;
+  if (o1 === 0 && onSeg2(c, a, b)) return true;
+  if (o2 === 0 && onSeg2(d, a, b)) return true;
+  if (o3 === 0 && onSeg2(a, c, d)) return true;
+  if (o4 === 0 && onSeg2(b, c, d)) return true;
+  return false;
+}
+
+/** Darf die Sehne ia–ib den Rand (außer an ihren Enden) kreuzen? */
+function sehneGueltig(verts, ia, ib) {
+  const A = verts[ia], B = verts[ib], n = verts.length;
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    if (i === ia || i === ib || j === ia || j === ib) continue;
+    if (segmenteKreuzen(A, B, verts[i], verts[j])) return false;
+  }
+  return true;
+}
+
 /** Ist ein 4-Punkt-Polygon ein achsenparalleles Rechteck? */
 function isRect(verts) {
   if (verts.length !== 4) return false;
@@ -287,12 +313,10 @@ const app = new MiniApp({
     if (state.fertig) return;
     const S = UNIT, O = OFF;
     const gx = (x - O) / S, gy = (y - O) / S;
-    const P = this._naechsterRandPunkt(gx, gy);
-    if (!P) return;
 
-    // Symbol per Tippen zuordnen
+    // Symbol zuordnen: welches Gebiet enthält den Klick? (kein Rand-Snapping)
     if (state.gewaehltesSymbol) {
-      const gi = this._gebietBeiGrid(P);
+      const gi = this._gebietBeiGrid([gx, gy]);
       if (gi !== null) {
         this._zuordnen(state, gi, state.gewaehltesSymbol, app);
         state.gewaehltesSymbol = null;
@@ -301,7 +325,9 @@ const app = new MiniApp({
       return;
     }
 
-    // Teilung: erster Randpunkt, dann zweiter
+    // Teilen: auf den nächsten Randpunkt einrasten
+    const P = this._naechsterRandPunkt(gx, gy);
+    if (!P) return;
     if (state.gewaehlt === null) {
       state.gewaehlt = P;
       app.rerender();
@@ -331,17 +357,18 @@ const app = new MiniApp({
     for (let gi = 0; gi < state.gebiete.length; gi++) {
       const g = state.gebiete[gi];
       if (!this._aufGebiet(A, g) || !this._aufGebiet(B, g)) continue;
-      // A in die Linie einsetzen
-      const ra = insertPoint(g.punkte, A);
-      if (!ra) continue;
-      // B in die (um A erweiterte) Linie einsetzen
-      const rb = insertPoint(ra.verts, B);
-      if (!rb) continue;
-      const verts = rb.verts;
-      let ia = ra.idx;
-      const ib = rb.idx;
-      if (rb.idx <= ra.idx) ia = ra.idx + 1;
-      if (ia === ib) continue;
+      // Erweiterte Linie bauen: A und B in Kantenreihenfolge einsortieren
+      const verts = [];
+      for (let i = 0; i < g.punkte.length; i++) {
+        const v = g.punkte[i], w = g.punkte[(i + 1) % g.punkte.length];
+        verts.push(v);
+        if (onSeg(A, v, w)) verts.push(A);
+        if (onSeg(B, v, w)) verts.push(B);
+      }
+      const ia = verts.findIndex(v => v[0] === A[0] && v[1] === A[1]);
+      const ib = verts.findIndex(v => v[0] === B[0] && v[1] === B[1]);
+      if (ia < 0 || ib < 0 || ia === ib) continue;
+      if (!sehneGueltig(verts, ia, ib)) continue;
       const t1 = this._subLoop(verts, ia, ib);
       const t2 = this._subLoop(verts, ib, ia);
       const s1 = simplify(t1), s2 = simplify(t2);
@@ -453,7 +480,7 @@ export function mount(root) {
         const br = svgEl.getBoundingClientRect();
         const x = (e.clientX - br.left) * (vb.width / br.width);
         const y = (e.clientY - br.top) * (vb.height / br.height);
-        const gx = Math.round((x - OFF) / UNIT), gy = Math.round((y - OFF) / UNIT);
+        const gx = (x - OFF) / UNIT, gy = (y - OFF) / UNIT;
         const gi = app.cfg._gebietBeiGrid([gx, gy]);
         if (gi !== null) {
           app.cfg._zuordnen(app.state, gi, k, app);
