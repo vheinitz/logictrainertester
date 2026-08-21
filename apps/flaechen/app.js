@@ -308,12 +308,13 @@ const app = new MiniApp({
         `<text x="${zx + 4}" y="${zy + (b.oben ? 12 : -4)}" font-size="13" fill="#b04a00" font-weight="bold">r=${b.r}</text>`;
     }).join('');
 
-    // Flächen-Label 1, 2, … an der Klickstelle (Reihenfolge des Markierens)
+    // Flächen-Label A1, A2, … an der Klickstelle (Reihenfolge des Markierens)
     const labels = state.gebiete.filter(g => g.form && g.labelPos && g.labelNr).map(g => {
       const lx = g.labelPos[0] * S + O, ly = g.labelPos[1] * S + Oy;
+      const txt = 'A' + g.labelNr;
       return `<g>
-        <rect x="${lx - 11}" y="${ly - 10}" width="22" height="16" rx="7" fill="#fff" stroke="#5b4fcf" stroke-width="1.5"/>
-        <text x="${lx}" y="${ly + 3}" font-size="11" font-weight="bold" text-anchor="middle" fill="#5b4fcf">${g.labelNr}</text>
+        <rect x="${lx - 9}" y="${ly - 8}" width="18" height="13" rx="3" fill="#fff" stroke="#5b4fcf" stroke-width="1"/>
+        <text x="${lx}" y="${ly + 3}" font-size="9" font-weight="bold" text-anchor="middle" fill="#5b4fcf">${txt}</text>
       </g>`;
     }).join('');
 
