@@ -61,7 +61,10 @@ function genShape() {
     const kreuz = v1[0] * v2[1] - v1[1] * v2[0];
     if (kreuz > 0 && Math.abs(v1[0]) + Math.abs(v1[1]) === 1 && Math.abs(v2[0]) + Math.abs(v2[1]) === 1 && rand(3) === 0) chamfer.add(i);
   }
-  const punkte = simplify(loop.filter((_, i) => !chamfer.has(i)));
+  const punkteRaw = simplify(loop.filter((_, i) => !chamfer.has(i)));
+  // y umdrehen: y=0 oben (sonst steht die Figur kopf und Bögen zeigen nach innen)
+  const maxY = Math.max(...punkteRaw.map(p => p[1]));
+  const punkte = punkteRaw.map(([x, y]) => [x, maxY - y]);
   const flaeche = shoelace(punkte);
 
   // Halbkreise an waagerechte Kanten hängen (Wölbung nach außen)
