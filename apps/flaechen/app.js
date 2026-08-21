@@ -80,7 +80,7 @@ function genShape() {
     const untenAussen = !pointInPoly(cx, y + 0.5, punkte);
     const oben = obenAussen || !untenAussen;
     kreisTeile.push({
-      typ: 'halbkreis', chordA: [x1, y], chordB: [x2, y],
+      typ: 'halbkreis', edge: i, chordA: [x1, y], chordB: [x2, y],
       r: L / 2, cx, cy: y, oben,
       flaeche: (Math.PI * (L / 2) ** 2) / 2,
     });
@@ -271,13 +271,32 @@ const app = new MiniApp({
         const x2 = k.chordB[0] * S + O, y2 = k.chordB[1] * S + Oy;
         const rr = k.r * S;
         const sweep = k.oben ? 0 : 1;
-        const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
-        return `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 ${sweep} ${x2} ${y2} Z" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
+        const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.12)';
+        return `<path d="M ${x1} ${y1} A ${rr} ${rr} 0 0 ${sweep} ${x2} ${y2} Z" fill="${fill}"/>`;
       }
-      const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.15)';
+      const fill = g.form ? FORMEN[g.form].farbe + 'aa' : 'rgba(255,255,255,0.12)';
       const pts = g.punkte.map(p => `${p[0] * S + O},${p[1] * S + Oy}`).join(' ');
-      return `<polygon points="${pts}" fill="${fill}" stroke="#3a3560" stroke-width="2"/>`;
+      return `<polygon points="${pts}" fill="${fill}"/>`;
     }).join('');
+
+    // Eine einzige Umrisslinie: Polygon + Bögen als durchgehender Pfad
+    const bogenByEdge = new Map(state.shape.kreisTeile.map(k => [k.edge, k]));
+    let d = `M ${state.shape.punkte[0][0] * S + O} ${state.shape.punkte[0][1] * S + Oy}`;
+    for (let i = 0; i < state.shape.punkte.length; i++) {
+      const nxt = state.shape.punkte[(i + 1) % state.shape.punkte.length];
+      const nx = nxt[0] * S + O, ny = nxt[1] * S + Oy;
+      const b = bogenByEdge.get(i);
+      if (b) {
+        const rr = b.r * S;
+        const dx = nxt[0] - state.shape.punkte[i][0];
+        const sweep = ((dx > 0) === b.oben) ? 0 : 1;
+        d += ` A ${rr} ${rr} 0 0 ${sweep} ${nx} ${ny}`;
+      } else {
+        d += ` L ${nx} ${ny}`;
+      }
+    }
+    d += ' Z';
+    const umriss = `<path d="${d}" fill="none" stroke="#3a3560" stroke-width="2.5"/>`;
 
     // Radius-Beschriftung der Halbkreise
     const radien = state.shape.kreisTeile.map(k => {
@@ -294,7 +313,7 @@ const app = new MiniApp({
 
     return `<svg viewBox="0 0 ${w} ${h}" xmlns="http://www.w3.org/2000/svg"
         style="width:100%;max-width:440px;height:auto;background:#fdfdff;border:1px solid #ddd;border-radius:8px;touch-action:none">
-      ${teile}${grid}${radien}${mark}
+      ${teile}${umriss}${grid}${radien}${mark}
     </svg>`;
   },
 
