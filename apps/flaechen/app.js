@@ -18,6 +18,8 @@ const FORMEN = {
   halbkreis:   { name: { de: 'Halbkreis', ru: 'Полукруг', en: 'Half circle' }, formel: '½·π·r²', farbe: '#34D399' },
   viertelkreis:{ name: { de: 'Viertelkreis', ru: 'Четверть круга', en: 'Quarter circle' }, formel: '¼·π·r²', farbe: '#FB923C' },
 };
+// Nur drei Markierungs-Symbole; „Kreis“ steht für jede Kreisart (auch Halb-/Viertelkreis).
+const SYMBOLE = ['rechteck', 'dreieck', 'kreis'];
 
 function rand(n) { return Math.floor(Math.random() * n); }
 function key(p) { return p.join(','); }
@@ -319,30 +321,33 @@ const app = new MiniApp({
 
   _symbolleiste(state) {
     return `<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center">
-      ${Object.entries(FORMEN).map(([k, f]) =>
-        `<button type="button" class="ma-btn" draggable="true" title="${f.name.de}"
+      ${SYMBOLE.map(k => {
+        const f = FORMEN[k];
+        const aktiv = state.gewaehltesSymbol === k;
+        return `<button type="button" class="ma-btn" draggable="true" title="${f.name.de}"
           onclick="window.__flaech_sym('${k}')"
           ondragstart="window.__flaech_drag='${k}';event.dataTransfer.setData('text/plain','${k}')"
-          style="display:flex;align-items:center;gap:6px;border-color:${f.farbe};padding:.3rem .6rem">
+          style="display:flex;align-items:center;gap:6px;border-color:${f.farbe};padding:.3rem .6rem;
+            ${aktiv ? 'background:#eef0ff;outline:2px solid #5b4fcf;' : ''}">
           ${formIcon(k)}<span style="font-size:.8em">${f.name.de}</span>
-        </button>`).join('')}
+        </button>`;
+      }).join('')}
     </div>`;
   },
 
   _liste(state) {
     const zeilen = state.gebiete.map(g => {
       const e = state.eingaben[g.name] || {};
-      const formel = g.form ? FORMEN[g.form].formel : '?';
+      const wahr = this._wahrForm(g);
+      const name = g.form ? FORMEN[g.form].name.de : '—';
+      const formel = wahr ? FORMEN[wahr].formel : '?';
       const farbe = g.form ? FORMEN[g.form].farbe : '#999';
       return `<div style="display:flex;align-items:center;gap:6px;font-size:.95em;margin:.2rem 0">
         <b style="min-width:2.4ch">${g.name}</b>
-        <span style="color:${farbe}">${g.form ? FORMEN[g.form].name.de : '—'}</span>
-        <span>= ${formel} =</span>
-        <input type="text" placeholder="Maße" value="${e.masze ?? ''}" style="width:7ch"
-          onchange="window.__flaech_masze('${g.name}', this.value)">
-        <span>=</span>
-        <input type="number" step="0.01" placeholder="A" value="${e.flaeche ?? ''}" style="width:7ch"
-          onchange="window.__flaech_flaeche('${g.name}', this.value)">
+        <span style="color:${farbe}">${name}</span>
+        <span>A = ${formel} =</span>
+        <input type="number" step="0.01" placeholder="?" value="${e.ergebnis ?? ''}" style="width:7ch"
+          onchange="window.__flaech_ergebnis('${g.name}', this.value)">
       </div>`;
     }).join('');
     const gesamtFormel = state.gebiete.map(g => g.name).join(' + ');
@@ -398,7 +403,6 @@ const app = new MiniApp({
       const gi = this._gebietBeiGrid([gx, gy]);
       if (gi !== null) {
         this._zuordnen(state, gi, state.gewaehltesSymbol, app);
-        state.gewaehltesSymbol = null;
         app.rerender();
       }
       return;
@@ -517,21 +521,26 @@ const app = new MiniApp({
   },
 
   actions: {
-    symbol(state, key, app) { state.gewaehltesSymbol = key; app.rerender(); },
-    masze(state, name, val, app) {
-      if (!state.eingaben[name]) state.eingaben[name] = {};
-      state.eingaben[name].masze = val;
-      return false;
+    symbol(state, key, app) {
+      state.gewaehltesSymbol = state.gewaehltesSymbol === key ? null : key;
+      app.rerender();
     },
-    flaeche(state, name, val, app) {
+    ergebnis(state, name, val, app) {
       if (!state.eingaben[name]) state.eingaben[name] = {};
-      state.eingaben[name].flaeche = val;
+      state.eingaben[name].ergebnis = val;
       return false;
     },
     pruefen(state, ...args) {
       const app = args[args.length - 1];
+      let alleOk = true;
+      for (const g of state.gebiete) {
+        const v = parseFloat((state.eingaben[g.name] || {}).ergebnis);
+        const soll = areaOf(g);
+        if (Number.isNaN(v) || Math.abs(v - soll) > 0.5) { alleOk = false; break; }
+      }
       const total = parseFloat(window.__flaech_total);
-      state.richtig = (!Number.isNaN(total) && Math.abs(total - state.shape.gesamt) < 0.5) ? 1 : 0;
+      if (Number.isNaN(total) || Math.abs(total - state.shape.gesamt) > 0.5) alleOk = false;
+      state.richtig = alleOk ? 1 : 0;
       state.fertig = true;
       app.rerender();
     },
@@ -564,8 +573,7 @@ export default app;
 export function mount(root) {
   app.mount(root);
   window.__flaech_sym = k => app.dispatch('symbol', k);
-  window.__flaech_masze = (n, v) => app.dispatch('masze', n, v);
-  window.__flaech_flaeche = (n, v) => app.dispatch('flaeche', n, v);
+  window.__flaech_ergebnis = (n, v) => app.dispatch('ergebnis', n, v);
   window.__flaech_pruefen = () => app.dispatch('pruefen');
   window.__flaech_undo = () => app.dispatch('undo');
   window.__flaech_neu = () => app.dispatch('neu');
