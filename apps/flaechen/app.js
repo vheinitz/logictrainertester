@@ -90,6 +90,19 @@ function isRect(verts) {
   }
   return true;
 }
+
+function kollinear(a, b, c) {
+  return (b[0] - a[0]) * (c[1] - a[1]) - (b[1] - a[1]) * (c[0] - a[0]) === 0;
+}
+function aufSegment(p, a, b) {
+  return Math.min(a[0], b[0]) <= p[0] && p[0] <= Math.max(a[0], b[0]) &&
+         Math.min(a[1], b[1]) <= p[1] && p[1] <= Math.max(a[1], b[1]);
+}
+/** Überlappen zwei kollineare Kanten (auch nur teilweise)? */
+function kantenUeberlappen(A, B, C, D) {
+  if (!kollinear(A, B, C) || !kollinear(A, B, D)) return false;
+  return aufSegment(C, A, B) || aufSegment(D, A, B) || aufSegment(A, C, D) || aufSegment(B, C, D);
+}
 function echteForm(verts) {
   if (verts.length === 3) return 'dreieck';
   if (verts.length === 4 && isRect(verts)) return 'rechteck';
@@ -273,7 +286,7 @@ const app = new MiniApp({
           const gp = state.gebiete[j].punkte;
           for (let b2 = 0; b2 < gp.length; b2++) {
             const C = gp[b2], D = gp[(b2 + 1) % gp.length];
-            if ((key(A) === key(C) && key(B) === key(D)) || (key(A) === key(D) && key(B) === key(C))) { geteilt = true; break; }
+            if (kantenUeberlappen(A, B, C, D)) { geteilt = true; break; }
           }
         }
         if (geteilt) teillinien.push(`<line x1="${px(A)}" y1="${py(A)}" x2="${px(B)}" y2="${py(B)}" stroke="#3a3560" stroke-width="2"/>`);
