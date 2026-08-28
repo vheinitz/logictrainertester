@@ -1180,6 +1180,134 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   await sleep(60);
 }
 
+// ─── Der Plan für Eltern: Sitzung, Einordnung, Übung am Tisch ─────────
+/**
+ * Das ist die Seite, für die die App gebaut ist. Ein Elternteil, das ratlos
+ * vor einem Kind sitzt, soll hier drei Dinge finden: was heute Abend dran
+ * ist, wie lange es dauert, und – wenn etwas zurückliegt – was man dagegen
+ * tut, und zwar zuerst ohne Bildschirm.
+ */
+{
+  // Quellmodule laufen hier in Node, nicht im jsdom-Fenster: sie finden
+  // localStorage und document sonst nicht, sobald sie einen Text übersetzen.
+  globalThis.localStorage = globalThis.localStorage || window.localStorage;
+  globalThis.document = globalThis.document || window.document;
+
+  const R = await import('../src/core/richtwerte.js');
+  const P = await import('../src/ui/plan-view.js');
+  const { ANALOG } = await import('../src/data/analog.js');
+
+  // ── Sitzungsvorschlag ──────────────────────────────────────────────
+  window.navigateTo('plan');
+  await sleep(500);
+  const planText = main.textContent.replace(/\s+/g, ' ');
+
+  check(/Minuten|мин\.|minutes/.test(planText),
+        'Der Plan sagt nicht, wie lange die nächste Sitzung dauert');
+  check(main.querySelectorAll('[onclick^="startModule"]').length > 0,
+        'Der Plan bietet keine Aufgabe zum direkten Starten an');
+
+  // Eine Sitzung darf nicht aus vier Aufgaben derselben Gruppe bestehen –
+  // viermal hintereinander Merkspanne ermüdet mehr als vier verschiedene.
+  {
+    const alle = (await import('../src/data/modules.js')).modules;
+    const v = P.sitzungVorschlag(alle.slice());
+    check(v.module.length >= 2, `Der Sitzungsvorschlag umfasst nur ${v.module.length} Aufgabe(n)`);
+    const skalen = new Set(v.module.map(m => m.scale));
+    check(skalen.size >= Math.min(3, v.module.length),
+          `Der Sitzungsvorschlag nimmt nur ${skalen.size} Gruppe(n) – er mischt nicht`);
+    check(v.minuten <= P.SITZUNG_MINUTEN,
+          `Der Sitzungsvorschlag dauert ${v.minuten} Minuten und sprengt die Grenze von ${P.SITZUNG_MINUTEN}`);
+    planTest.push(`Sitzung: ${v.module.length} Aufgaben aus ${skalen.size} Gruppen, ${v.minuten} Minuten`);
+  }
+
+  // ── Von der Einordnung zur Übung ───────────────────────────────────
+  // Ein Modul künstlich auf das unterste Niveau setzen. Danach muss der Plan
+  // es benennen UND die Anleitung für den Küchentisch zeigen – der Verweis
+  // auf die App allein wäre genau der Weg, den die App nicht empfehlen soll.
+  {
+    const scores = await storage.loadAllScores();
+    const { getModule } = await import('../src/data/modules.js');
+    const treffer = scores.find(s => {
+      const m = getModule(s.moduleId);
+      return m && m.stufen && ANALOG[s.moduleId];
+    });
+    check(!!treffer, 'Kein gespieltes Modul mit Niveauleiter gefunden – die Prüfung liefe ins Leere');
+
+    if (treffer) {
+      const mod = getModule(treffer.moduleId);
+      const vorher = { ...treffer };
+      await storage.saveScore({ ...treffer, bestLevel: 1 });
+
+      const b = R.bewerte(mod, 1, 9);
+      check(b && (b.stufe === 'weitDarunter' || b.stufe === 'darunter'),
+            `Niveau 1 bei "${mod.id}" gilt mit 9 Jahren als "${b && b.stufe}" – dann greift der Übungsplan nie`);
+
+      window.navigateTo('groups');
+      await sleep(120);
+      window.navigateTo('plan');
+      await sleep(600);
+      const txt = main.textContent.replace(/\s+/g, ' ');
+
+      const titel = (mod.title && (mod.title.de || mod.title.ru)) || mod.id;
+      check(txt.includes(titel),
+            `Der Plan nennt "${titel}" nicht, obwohl das Modul auf dem untersten Niveau steht`);
+
+      // Die Anleitung ohne Bildschirm, an ihrem ersten Satzstück erkannt
+      const anleitung = ANALOG[mod.id].so.de;
+      const anfang = anleitung.slice(0, 28);
+      check(txt.includes(anfang),
+            `Der Übungsvorschlag für "${titel}" zeigt die Anleitung ohne Bildschirm nicht`);
+      check(/Besser ohne Bildschirm|Лучше без экрана|Better without a screen/.test(txt),
+            'Im Übungsplan fehlt die Überschrift für den Weg ohne Bildschirm');
+
+      // Und die Reihenfolge: der Tisch zuerst, die App danach.
+      //
+      // Innerhalb EINES Übungsblocks vergleichen, nicht über den ganzen
+      // Seitentext: bei drei Blöcken steht der App-Verweis des ersten
+      // natürlich vor der Tisch-Anleitung des dritten. Der erste Anlauf
+      // dieser Prüfung ist genau daran hängengeblieben.
+      const kaesten = [...main.querySelectorAll('[data-role="analog"]')];
+      check(kaesten.length > 0, 'Im Plan steht kein Kasten „ohne Bildschirm"');
+      for (const kasten of kaesten) {
+        const block = kasten.parentElement;
+        const appLink = [...block.querySelectorAll('a[onclick]')]
+          .find(a => (a.getAttribute('onclick') || '').startsWith('startModule'));
+        check(!!appLink, 'Ein Übungsblock verweist gar nicht auf die Aufgabe in der App');
+        if (appLink) {
+          check((kasten.compareDocumentPosition(appLink) & 4) !== 0,
+                'Der Verweis auf die App steht vor der Übung am Tisch statt dahinter');
+        }
+      }
+
+      planTest.push(`Übungsplan: "${titel}" auf Niveau 1 → ${b.text}, Anleitung für den Tisch zuerst`);
+      await storage.saveScore(vorher);
+    }
+  }
+
+  // ── Der Kasten steht auch am Modul selbst, vor dem Startknopf ──────
+  {
+    const mitAnleitung = Object.keys(ANALOG)[0];
+    window.startModule(mitAnleitung);
+    await sleep(250);
+    const kasten = main.querySelector('[data-role="analog"]');
+    check(!!kasten, `Der Startbildschirm von "${mitAnleitung}" zeigt keinen Kasten „ohne Bildschirm"`);
+
+    const knopf = [...main.querySelectorAll('button')]
+      .find(b => (b.getAttribute('onclick') || '').includes('_startGame'));
+    check(!!knopf, 'Auf dem Startbildschirm fehlt der Startknopf');
+    if (kasten && knopf) {
+      // compareDocumentPosition: 4 = das Argument folgt dem Knoten
+      const folgt = (kasten.compareDocumentPosition(knopf) & 4) !== 0;
+      check(folgt, 'Der Kasten „ohne Bildschirm" steht hinter dem Startknopf – dort liest ihn niemand');
+    }
+    planTest.push(`Ohne Bildschirm: Kasten auf dem Startbildschirm, vor dem Startknopf`);
+  }
+
+  window.navigateTo('menu');
+  await sleep(200);
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.

@@ -1199,6 +1199,31 @@ for (const [id, load] of Object.entries(registry)) {
     }
   }
 
+  // Die Schwelle absolut prüfen, nicht nur relativ.
+  //
+  // Die vier Punkte oben liegen bei erw ± Vielfachen der Schwelle – damit
+  // fällt eine kaputte Schwelle nicht auf, weil die Prüfpunkte mit ihr
+  // mitwandern. Gegenprobe „schwelle() liefert 0,0001" blieb genau deshalb
+  // stumm. Was hier steht, hängt nicht von der Schwelle ab:
+  for (const m of mitLeiter) {
+    const sch = R.schwelle(m);
+    check('richtwerte', sch >= 1,
+          `Modul "${m.id}": Schwelle ${sch} ist kleiner als eine ganze Stufe – Niveaus sind ganze Zahlen`);
+    check('richtwerte', sch <= (m.stufen[1] - m.stufen[0]) / 2 + 1,
+          `Modul "${m.id}": Schwelle ${sch} deckt mehr als die halbe Leiter ab – nichts fiele je auf`);
+  }
+  {
+    // Eine ganze Stufe unter dem Richtwert ist keine Punktlandung mehr.
+    const m = modules.find(x => x.id === 'seq-zahlenfolgen');
+    const erw = R.erwartetesNiveau(m, 10).niveau;
+    const genau = R.bewerte(m, erw, 10);
+    const knapp = R.bewerte(m, erw - 1.01 * R.schwelle(m), 10);
+    check('richtwerte', genau && genau.stufe === 'erwartet',
+          `Genau auf dem Richtwert ergibt "${genau && genau.stufe}" statt "erwartet"`);
+    check('richtwerte', knapp && knapp.stufe !== 'erwartet',
+          'Eine volle Schwelle unter dem Richtwert gilt immer noch als erwartet');
+  }
+
   // Ohne Alter darf nichts eingeordnet werden – lieber keine Aussage als eine
   // falsche. Dieselbe Leistung ist mit sechs stark und mit fünfzehn schwach.
   check('richtwerte', R.bewerte(modules[0], 4, null) === null,
