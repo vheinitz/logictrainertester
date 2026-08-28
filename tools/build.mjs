@@ -17,6 +17,7 @@ import { readFileSync, writeFileSync, readdirSync, statSync, existsSync } from '
 import { join } from 'node:path';
 import * as esbuild from 'esbuild';
 import { generate as generateMethodIndex } from './gen-method-index.mjs';
+import { generate as generateMiniapps } from './gen-miniapps.mjs';
 
 const dev = process.argv.includes('--dev') || process.argv.includes('--watch');
 const watch = process.argv.includes('--watch');
@@ -76,6 +77,7 @@ const options = {
 async function once() {
   // Methoden-Index zuerst: neue Seiten sollen ohne Handeintrag wirksam werden
   generateMethodIndex({ quiet: true });
+  generateMiniapps({ quiet: true });
   await esbuild.build(options);
   const stamp = sourceStamp();
   const changed = stampHtml(stamp);
@@ -90,6 +92,7 @@ if (watch) {
   console.log('esbuild beobachtet src/ …');
   // Die Kennung mitziehen, wenn sich der Quelltext ändert
   generateMethodIndex({ quiet: true });
+  generateMiniapps({ quiet: true });
   let last = sourceStamp();
   stampHtml(last);
   setInterval(() => {

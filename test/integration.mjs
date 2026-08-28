@@ -108,6 +108,7 @@ const sudokuTest = [];
 const planTest = [];
 const navTest = [];
 const ziehTest = [];
+const appTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -1313,6 +1314,50 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   await sleep(200);
 }
 
+// ─── Übungs-Apps auf den Methodenseiten ───────────────────────────────
+/**
+ * Die zwanzig Apps unter apps/ waren aus der Anwendung heraus über keinen
+ * Verweis erreichbar. Hier wird geprüft, dass sie es jetzt sind – und dass
+ * sie unter der Anleitung mit echtem Material stehen, nicht darüber.
+ */
+{
+  const { MINIAPP_ZU_METHODE } = await import('../src/data/miniapp-zuordnung.js');
+  const { getMiniapp } = await import('../src/data/miniapps.js');
+
+  let gefunden = 0;
+  for (const [mid, apps] of Object.entries(MINIAPP_ZU_METHODE)) {
+    window.navigateTo('method', { methodId: mid });
+    await sleep(140);
+
+    for (const aid of apps) {
+      const a = getMiniapp(aid);
+      const link = main.querySelector(`[data-role="miniapp"][data-app="${aid}"]`);
+      check(!!link, `Methodenseite "${mid}" verlinkt die App "${aid}" nicht`);
+      if (!link) continue;
+      gefunden++;
+      check(link.getAttribute('href') === a.pfad,
+            `Verweis auf "${aid}" zeigt auf ${link.getAttribute('href')} statt ${a.pfad}`);
+      check(link.getAttribute('target') === '_blank',
+            `Verweis auf "${aid}" öffnet die App in derselben Seite – die Methodenseite ginge verloren`);
+
+      // Die Anleitung mit echtem Material steht davor. Was oben steht, wird
+      // gemacht; stünde die App zuerst, wäre die Reihenfolge umgedreht.
+      const anleitung = [...main.querySelectorAll('h3')]
+        .find(h => /So wird geübt|Как заниматься|How to practise/.test(h.textContent));
+      check(!!anleitung, `Methodenseite "${mid}" hat keinen Abschnitt mit der Anleitung`);
+      if (anleitung) {
+        check((anleitung.compareDocumentPosition(link) & 4) !== 0,
+              `Auf "${mid}" steht die App vor der Anleitung mit echtem Material`);
+      }
+    }
+  }
+  check(gefunden >= 20, `nur ${gefunden} von 20 Apps sind aus der Anwendung heraus erreichbar`);
+  appTest.push(`${gefunden} Apps von Methodenseiten aus erreichbar, jeweils unter der Anleitung`);
+
+  window.navigateTo('menu');
+  await sleep(150);
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
@@ -1372,6 +1417,7 @@ sudokuTest.forEach(x => console.log(`   Sudoku: ${x}`));
 planTest.forEach(x => console.log(`   Plan: ${x}`));
 navTest.forEach(x => console.log(`   Navigation: ${x}`));
 ziehTest.forEach(x => console.log(`   Ziehen: ${x}`));
+appTest.forEach(x => console.log(`   Übungs-Apps: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

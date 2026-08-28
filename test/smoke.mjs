@@ -1268,6 +1268,47 @@ for (const [id, load] of Object.entries(registry)) {
   console.log(`   Ohne Bildschirm: ${modules.length} Module mit Anleitung für den Tisch, dreisprachig`);
 }
 
+// ─── Übungs-Apps an den Methodenseiten ────────────────────────────────
+/**
+ * Zwanzig eigenständige Apps lagen unter apps/ und waren aus der App heraus
+ * über keinen einzigen Verweis erreichbar. Diese Prüfungen halten fest, dass
+ * jede von ihnen einen Platz hat, dass der Verweis auf eine wirklich
+ * vorhandene Seite zeigt und dass keine Methodenseite erfunden wird.
+ */
+{
+  const { MINIAPPS, getMiniapp } = await import('../src/data/miniapps.js');
+  const { MINIAPP_ZU_METHODE, methodeZuApp } = await import('../src/data/miniapp-zuordnung.js');
+  const { methods } = await import('../src/data/methods/index.js');
+  const { existsSync } = await import('node:fs');
+
+  check('miniapps', MINIAPPS.length >= 20,
+        `nur ${MINIAPPS.length} Übungs-Apps gefunden – der Generator hat etwas übersehen`);
+
+  // Jede App hat genau einen Platz
+  for (const a of MINIAPPS) {
+    check('miniapps', methodeZuApp(a.id),
+          `App "${a.id}" ist keiner Methodenseite zugeordnet und damit unerreichbar`);
+    check('miniapps', existsSync(a.pfad),
+          `App "${a.id}": der Verweis zeigt auf ${a.pfad}, die Datei gibt es nicht`);
+    for (const l of ['de', 'ru', 'en']) {
+      check('miniapps', a.titel && a.titel[l], `App "${a.id}": Titel auf ${l} fehlt`);
+    }
+  }
+
+  // Keine Zuordnung ins Leere – weder Methode noch App darf erfunden sein
+  const gesehen = new Set();
+  for (const [mid, apps] of Object.entries(MINIAPP_ZU_METHODE)) {
+    check('miniapps', methods.some(m => m.id === mid),
+          `Zuordnung nennt die Methodenseite "${mid}", die es nicht gibt`);
+    for (const aid of apps) {
+      check('miniapps', getMiniapp(aid), `Zuordnung nennt die App "${aid}", die es nicht gibt`);
+      check('miniapps', !gesehen.has(aid), `App "${aid}" ist mehrfach zugeordnet`);
+      gesehen.add(aid);
+    }
+  }
+  console.log(`   Übungs-Apps: ${MINIAPPS.length} Apps an ${Object.keys(MINIAPP_ZU_METHODE).length} Methodenseiten, alle Pfade vorhanden`);
+}
+
 // ─── Konsistenz der Registrierungen ───────────────────────────────────
 for (const m of modules) {
   check('modules.js', registry[m.id], `Modul "${m.id}" hat keinen Registry-Eintrag`);

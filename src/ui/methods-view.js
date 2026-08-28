@@ -10,6 +10,8 @@
 import { methods, CATEGORIES, getMethod, methodsInCategory } from '../data/methods/index.js';
 import { engine } from '../core/engine.js';
 import { esc, lang, jsArg } from '../core/html.js';
+import { getMiniapp } from '../data/miniapps.js';
+import { appsZuMethode } from '../data/miniapp-zuordnung.js';
 
 /** Mehrsprachiges Feld auflösen; fällt auf Deutsch zurück, solange EN fehlt. */
 function tx(field, fallback = '') {
@@ -51,7 +53,14 @@ const UI = {
   bezug:      { de: 'Hersteller / Bezug', ru: 'Производитель / где купить', en: 'Maker / where to buy' },
   weiterlesen:{ de: 'Weiterlesen', ru: 'Читать дальше', en: 'Read more' },
   zurueck:    { de: '← Zurück', ru: '← Назад', en: '← Back' },
-  alle:       { de: 'Alle Methoden', ru: 'Все методы', en: 'All methods' }
+  alle:       { de: 'Alle Methoden', ru: 'Все методы', en: 'All methods' },
+  amGeraet:   { de: 'Dieselbe Übung am Bildschirm', ru: 'То же упражнение на экране', en: 'The same exercise on screen' },
+  amGeraetHinweis: {
+    de: 'Für Abende ohne Material oder ohne Ruhe zum Aufbauen. Mit echten Dingen in der Hand lernt ein Kind mehr – die Seite oben beschreibt, wie es geht.',
+    ru: 'Для вечеров, когда нет материала или времени всё разложить. С настоящими предметами в руках ребёнок усваивает больше — как это делать, описано выше.',
+    en: 'For evenings without materials or without the calm to set them up. A child learns more with real things in hand – the page above describes how.'
+  },
+  oeffnen:    { de: 'öffnen', ru: 'открыть', en: 'open' }
 };
 
 const ui = k => { const l = lang(); return UI[k][l] || UI[k].de; };
@@ -148,6 +157,28 @@ export function renderMethod(main) {
           <a href="${esc(k.url)}" target="_blank" rel="noopener noreferrer"
              style="color:var(--primary);font-weight:600">${esc(tx(k.label) || k.url)} ↗</a></li>`).join('')}
       </ul>`;
+  }
+
+  // Die Apps ganz unten: die Anleitung mit echtem Material steht darüber,
+  // und was oben steht, wird gemacht. Verlinkt statt eingebettet – eine App
+  // in einem Rahmen innerhalb der Seite bricht bei file:// je nach Browser
+  // weg, ein Verweis nicht.
+  const apps = appsZuMethode(m.id).map(getMiniapp).filter(Boolean);
+  if (apps.length) {
+    html += `<h3 class="section-title" style="margin-top:22px">💻 ${ui('amGeraet')}</h3>
+      <p style="color:var(--text-light);font-size:.88em;line-height:1.6;margin-bottom:10px">
+        ${esc(ui('amGeraetHinweis'))}</p>
+      <div style="display:flex;flex-wrap:wrap;gap:10px">
+        ${apps.map(a => `<a href="${esc(a.pfad)}" target="_blank" rel="noopener noreferrer"
+            data-role="miniapp" data-app="${esc(a.id)}"
+            style="display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;
+                   background:var(--bg);border-radius:var(--radius-sm);padding:10px 14px;
+                   border:1px solid #E4E0F4">
+            <span style="font-size:1.5em">${a.icon}</span>
+            <span><span style="font-weight:700">${esc(tx(a.titel))}</span>
+              <span style="color:var(--text-light);font-size:.85em"> · ${ui('oeffnen')} ↗</span></span>
+          </a>`).join('')}
+      </div>`;
   }
 
   html += `</div></div>
