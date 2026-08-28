@@ -95,9 +95,9 @@ export const modules = [
     title:{ de:'Atlantis: Fisch-Namen', ru:'Атлантида: имена рыб', en:'Atlantis: fish names' } },
   { id:'lern-symbole', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', stufen:[2,7], mode:'self', kabcRef:REF.symbole,
     title:{ de:'Symbole merken', ru:'Запомни символы', en:'Remember the symbols' } },
-  { id:'lern-atlantis-abruf', requires:'lesen', scale:'lernen', icon:'🐠', ages:'3-18', mode:'self', kabcRef:REF.atlantisAbruf,
+  { id:'lern-atlantis-abruf', abrufVon:'lern-atlantis', requires:'lesen', scale:'lernen', icon:'🐠', ages:'3-18', mode:'self', kabcRef:REF.atlantisAbruf,
     title:{ de:'Atlantis: Namen erinnern', ru:'Атлантида: вспомнить имена', en:'Atlantis: recall the names' } },
-  { id:'lern-symbole-abruf', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', mode:'self', kabcRef:REF.symboleAbruf,
+  { id:'lern-symbole-abruf', abrufVon:'lern-symbole', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', mode:'self', kabcRef:REF.symboleAbruf,
     title:{ de:'Symbole erinnern', ru:'Вспомнить символы', en:'Recall the symbols' } },
   { id:'lern-memory', scale:'lernen', icon:'🃏', ages:'3-18', mode:'self',
     title:{ de:'Memory', ru:'Мемори', en:'Memory' } },
@@ -145,6 +145,15 @@ export const modules = [
  * Ausgelesen wird sie aus den Modulen selbst (minN/maxN bei den Spannen,
  * minLevel/maxLevel bei den Auswahlspielen). Steht sie nicht dabei, hat das
  * Modul keine Niveauleiter – Memory etwa misst nur Züge, nicht Schwierigkeit.
+ */
+
+/**
+ * `abrufVon` – dieses Modul fragt ab, was ein anderes gelehrt hat.
+ *
+ * Der Abstand zwischen beiden ist der Test (siehe core/abruf.js). Der Plan
+ * braucht die Angabe, um den Abruf zum richtigen Zeitpunkt vorzuschlagen und
+ * ihn nicht als gewöhnliche offene Aufgabe in eine Sitzung zu packen – dort
+ * stünde er, solange die Wartezeit läuft, nur mit einer Auskunft da.
  */
 
 export const MIN_ALTER_SCHRIFT = 6;

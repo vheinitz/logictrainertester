@@ -1314,6 +1314,49 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
     }
   }
 
+  // ── Fälliger Abruf steht im Plan ganz oben ─────────────────────────
+  // Zeitkritisch: das Zeitfenster schließt sich wieder. Stünde die Karte
+  // unter „üben", würde sie zwischen drei Übungsvorschlägen übersehen.
+  {
+    window.localStorage.setItem('logik-abruf', JSON.stringify({
+      'lern-atlantis': {
+        paare: [{ schluessel: 'a', bild: '🐠', name: 'Malu' }],
+        zeit: Date.now() - 25 * 60000
+      }
+    }));
+    window.navigateTo('groups');
+    await sleep(120);
+    window.navigateTo('plan');
+    await sleep(600);
+
+    const karte = main.querySelector('[data-role="abruf"]');
+    check(!!karte, 'Ein fälliger Abruf taucht im Plan gar nicht auf');
+    if (karte) {
+      check(karte.querySelectorAll('[onclick*="lern-atlantis-abruf"]').length > 0,
+            'Die Abruf-Karte führt nicht zum Abruf-Modul');
+      const sitzung2 = main.querySelector('[data-role="sitzung"]');
+      if (sitzung2) {
+        check((karte.compareDocumentPosition(sitzung2) & 4) !== 0,
+              'Die zeitkritische Abruf-Karte steht hinter der Sitzungskarte');
+      }
+      // Solange die Wartezeit läuft, darf sie NICHT erscheinen
+      window.localStorage.setItem('logik-abruf', JSON.stringify({
+        'lern-atlantis': {
+          paare: [{ schluessel: 'a', bild: '🐠', name: 'Malu' }],
+          zeit: Date.now() - 60000
+        }
+      }));
+      window.navigateTo('groups');
+      await sleep(120);
+      window.navigateTo('plan');
+      await sleep(600);
+      check(!main.querySelector('[data-role="abruf"]'),
+            'Eine Minute nach dem Lernen schlägt der Plan den Abruf schon vor');
+    }
+    window.localStorage.removeItem('logik-abruf');
+    planTest.push('Abruf: fällig → eigene Karte ganz oben, während der Wartezeit unsichtbar');
+  }
+
   // ── Der Kasten steht auch am Modul selbst, vor dem Startknopf ──────
   {
     const mitAnleitung = Object.keys(ANALOG)[0];

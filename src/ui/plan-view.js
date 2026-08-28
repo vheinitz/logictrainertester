@@ -40,6 +40,7 @@ import { profil, schwachePunkte, bewerte, herkunftText, STUFEN } from '../core/r
 import { mittelReihe } from '../core/verlauf.js';
 import { sparkline } from './spark.js';
 import { analogBox, analogZeile } from './analog-box.js';
+import { stand as abrufStand, MIN_MINUTEN } from '../core/abruf.js';
 import * as storage from '../core/storage.js';
 import * as settings from '../core/settings.js';
 import { lang, esc } from '../core/html.js';
@@ -88,6 +89,13 @@ const T = {
   offen:    { de: 'noch offen', ru: 'ещё не пройдено', en: 'still open' },
   erledigt: { de: 'erledigt', ru: 'пройдено', en: 'done' },
   vonGetestet: { de: 'von', ru: 'из', en: 'of' },
+
+  abrufT: { de: 'Jetzt ist der Abruf dran', ru: 'Пора на отсроченную проверку', en: 'Time for the delayed recall' },
+  abruf:  { de: 'Vorhin wurde etwas gelernt. Jetzt ist genug Zeit vergangen, um zu sehen, was davon geblieben ist. Das geht nur in diesem Zeitfenster – später misst es etwas anderes.',
+            ru: 'Недавно вы что-то учили. Прошло достаточно времени, чтобы посмотреть, что осталось. Это работает только сейчас — позже измеряется уже другое.',
+            en: 'Something was learned earlier. Enough time has now passed to see what stayed. This only works in this window – later it measures something else.' },
+  abrufSeit: { de: 'gelernt vor', ru: 'учили', en: 'learned' },
+  abrufMin:  { de: 'Minuten', ru: 'мин. назад', en: 'minutes ago' },
 
   uebenT: { de: 'Hier üben', ru: 'Здесь заниматься', en: 'Practise here' },
   ueben:  { de: 'Diese Bereiche liegen hinter dem zurück, was für das Alter zu erwarten wäre. Fang mit dem obersten an – nicht mit allen gleichzeitig.',
@@ -178,7 +186,10 @@ function modulZeile(m, history, extra) {
  */
 export function sitzungVorschlag(offen, minuten = SITZUNG_MINUTEN) {
   const nachSkala = new Map();
-  for (const m of offen) {
+  // Abruf-Module gehören nicht in eine Sitzung: solange die Wartezeit läuft,
+  // stünde dort nur eine Auskunft. Der Plan schlägt sie über eine eigene
+  // Karte vor, sobald das Zeitfenster offen ist.
+  for (const m of offen.filter(x => !x.abrufVon)) {
     if (!nachSkala.has(m.scale)) nachSkala.set(m.scale, []);
     nachSkala.get(m.scale).push(m);
   }
@@ -223,10 +234,17 @@ async function stand() {
   scores.forEach(s => { byModule[s.moduleId] = s; });
   const faktoren = aggregateFactorScores(byModule);
 
+  // Fällige Abrufe: das Lernmodul liegt lange genug zurück, das Zeitfenster
+  // ist noch offen. Zeitkritisch – deshalb steht das im Plan ganz oben.
+  const abrufe = verfuegbar
+    .filter(m => m.abrufVon)
+    .map(m => ({ mod: m, a: abrufStand(m.abrufVon) }))
+    .filter(x => x.a.bereit);
+
   const zuletzt = scores.length ? Math.max(...scores.map(s => s.updated || 0)) : 0;
   const wochen = zuletzt ? Math.floor((Date.now() - zuletzt) / (7 * 86400000)) : 0;
 
-  return { scores, history, alter, verfuegbar, offen, eingeordnet, schwach, faktoren, wochen, zuletzt };
+  return { scores, history, alter, verfuegbar, offen, eingeordnet, schwach, faktoren, abrufe, wochen, zuletzt };
 }
 
 /** Kurze Einordnungsmarke: 🔴 2 / 4,5 – erreicht gegen erwartet. */
@@ -253,6 +271,21 @@ export async function renderPlan(main) {
   }
 
   const s = await stand();
+
+  // ── Schritt: fälliger Abruf (zeitkritisch, deshalb zuerst) ──────────
+  if (s.abrufe.length) {
+    const liste = s.abrufe.map(({ mod, a }) => `<div role="button" tabindex="0"
+        onclick="startModule('${mod.id}')"
+        style="display:flex;align-items:baseline;gap:10px;padding:6px 0;cursor:pointer;
+               border-bottom:1px solid #F2F0FA;font-size:.9em">
+        <span style="flex:1">${mod.icon} ${esc(modTitel(mod))}</span>
+        <span style="flex:0 0 auto;color:var(--text-light);font-size:.85em">
+          ${esc(t('abrufSeit'))} ${a.minuten} ${esc(t('abrufMin'))}</span>
+      </div>`).join('');
+    html += karte('jetzt', '⏳', t('abrufT'), t('abruf'), liste,
+      `<div style="margin-top:12px"><button class="btn btn-primary btn-small"
+        onclick="startModule('${s.abrufe[0].mod.id}')">${esc(t('starten'))}</button></div>`, 'abruf');
+  }
 
   // ── Schritt: die nächste Sitzung ────────────────────────────────────
   if (s.offen.length) {
