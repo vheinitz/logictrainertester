@@ -109,6 +109,7 @@ const planTest = [];
 const navTest = [];
 const ziehTest = [];
 const appTest = [];
+const zeigenTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-zahlen-rueckwaerts', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -1463,6 +1464,133 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   await sleep(150);
 }
 
+// ─── Nach der Aufgabe: weiter im Plan, nicht zurück in die Gruppe ─────
+/**
+ * Wer dem Plan folgt, landete nach jedem Durchgang in der Gruppe des Moduls
+ * und musste sich seine Stelle im Plan neu suchen. Die Ergebnisseite führt
+ * jetzt zurück in den Plan – oder gleich in die nächste offene Aufgabe.
+ */
+{
+  const S = await import('../src/core/session.js');
+  const { getModule } = await import('../src/data/modules.js');
+  const html = S.resultScreen(
+    { moduleId: 'plan-muster', score: 7, total: 10, level: 3 },
+    { score: 7, total: 10 });
+
+  check(/navigateTo\('plan'\)/.test(html),
+        'Die Ergebnisseite bietet keinen Weg zurück zum Plan');
+  check(/_naechsteAufgabe\(\)/.test(html),
+        'Die Ergebnisseite bietet nicht an, gleich weiterzumachen');
+
+  // Und der Weg funktioniert: „Nächste Aufgabe" landet in einem ANDEREN Modul
+  window.startModule('plan-muster');
+  await sleep(120);
+  await window._naechsteAufgabe();
+  await sleep(300);
+  const jetzt = window.LOGIK_ENGINE.gameState && window.LOGIK_ENGINE.gameState.moduleId;
+  const view = window.LOGIK_ENGINE.view;
+  check(view === 'plan' || (view === 'training' && jetzt && jetzt !== 'plan-muster'),
+        `„Nächste Aufgabe" landet in Ansicht "${view}" bei Modul "${jetzt}"`);
+  void getModule;
+  planTest.push('Ergebnisseite: zurück zum Plan und gleich zur nächsten Aufgabe');
+}
+
+// ─── Vorführen statt Messen ───────────────────────────────────────────
+/**
+ * Manche Aufgaben laufen am Tisch besser als am Bildschirm, und manche
+ * Kinder auch. Dann soll die App vorführen können, wie es geht, ohne dass
+ * die Vorführung der Begleitperson im Verlauf des Kindes landet – und
+ * hinterher das Ergebnis aufnehmen, das mit Kärtchen zustande kam.
+ */
+{
+  const ZIEL = 'plan-muster';                 // Leiter 1–5, gut zu bedienen
+  const vorher = await storage.loadScore(ZIEL);
+
+  window.startModule(ZIEL);
+  await sleep(200);
+  check(!!main.querySelector('[data-role="zeigen"]'),
+        'Auf dem Startbildschirm fehlt der Knopf „Aufgabe nur zeigen"');
+  const starten = [...main.querySelectorAll('button')]
+    .find(b => (b.getAttribute('onclick') || '').includes('_startGame'));
+  check(!!starten, 'Auf dem Startbildschirm fehlt der Knopf zum Ausführen');
+
+  // Vorführung starten
+  window._showGame();
+  await sleep(250);
+  check(!!main.querySelector('[data-role="zeigen-banner"]'),
+        'Während der Vorführung fehlt der Hinweis, dass nichts gewertet wird');
+
+  // Ein paar Züge machen – davon darf nichts gespeichert werden
+  for (let i = 0; i < 4; i++) {
+    const el = main.querySelector('#gameArea [onclick^="G("]');
+    if (!el) break;
+    el.dispatchEvent(new window.MouseEvent('click', { bubbles: true }));
+    await sleep(180);
+  }
+  await sleep(250);
+  const nachVorfuehrung = await storage.loadScore(ZIEL);
+  check(JSON.stringify(nachVorfuehrung) === JSON.stringify(vorher),
+        'Die Vorführung hat den Spielstand des Kindes verändert');
+
+  // Von der Vorführung ins Eintragsformular
+  window._ergebnisEintragen();
+  await sleep(250);
+  const fNiveau = window.document.getElementById('eintragNiveau');
+  const fRichtig = window.document.getElementById('eintragRichtig');
+  const fGestellt = window.document.getElementById('eintragGestellt');
+  check(!!(fNiveau && fRichtig && fGestellt),
+        'Das Eintragsformular zeigt nicht alle Felder (Stufe, richtig, gestellt)');
+
+  // Der Kasten „ohne Bildschirm" steht auch hier – hier wird er gebraucht
+  check(!!main.querySelector('[data-role="analog"]'),
+        'Im Eintragsformular fehlt die Anleitung für die Aufgabe am Tisch');
+
+  if (fNiveau && fRichtig && fGestellt) {
+    fNiveau.value = '5';
+    fRichtig.value = '9';
+    fGestellt.value = '12';
+    await window._eintragSpeichern();
+    await sleep(400);
+
+    const nachEintrag = await storage.loadScore(ZIEL);
+    check(nachEintrag && nachEintrag.bestLevel === 5,
+          `Nach dem Eintrag steht bestLevel auf ${nachEintrag && nachEintrag.bestLevel} statt 5`);
+    check(nachEintrag && nachEintrag.cumTotal > (vorher ? vorher.cumTotal || 0 : 0),
+          'Der Eintrag ist im Spielstand nicht angekommen');
+
+    const verlauf = await storage.loadAllHistory(9999);
+    const handEintrag = verlauf.find(h => h.moduleId === ZIEL && h.vonHand);
+    check(!!handEintrag, 'Der Eintrag von Hand ist im Verlauf nicht als solcher erkennbar');
+    check(handEintrag && handEintrag.level === 5,
+          `Im Verlauf steht Niveau ${handEintrag && handEintrag.level} statt 5`);
+
+    check(window.LOGIK_ENGINE.view === 'plan',
+          `Nach dem Eintragen steht die Ansicht auf "${window.LOGIK_ENGINE.view}" statt "plan"`);
+  }
+
+  // Eine unsinnige Eingabe darf nicht durchgehen
+  window.startModule(ZIEL);
+  await sleep(150);
+  window._showGame();
+  await sleep(200);
+  window._ergebnisEintragen();
+  await sleep(200);
+  const vorFehler = await storage.loadScore(ZIEL);
+  window.document.getElementById('eintragRichtig').value = '20';
+  window.document.getElementById('eintragGestellt').value = '5';
+  await window._eintragSpeichern();
+  await sleep(300);
+  const nachFehler = await storage.loadScore(ZIEL);
+  check(nachFehler.cumTotal === vorFehler.cumTotal,
+        'Mehr richtig als gestellt wurde trotzdem gespeichert');
+  check(window.LOGIK_ENGINE.view === 'training',
+        'Nach einer unsinnigen Eingabe wird die Seite trotzdem verlassen');
+
+  window.navigateTo('menu');
+  await sleep(150);
+  zeigenTest.push('Vorführung ändert nichts, Eintrag von Hand landet mit Niveau im Verlauf');
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
@@ -1523,6 +1651,7 @@ planTest.forEach(x => console.log(`   Plan: ${x}`));
 navTest.forEach(x => console.log(`   Navigation: ${x}`));
 ziehTest.forEach(x => console.log(`   Ziehen: ${x}`));
 appTest.forEach(x => console.log(`   Übungs-Apps: ${x}`));
+zeigenTest.forEach(x => console.log(`   Vorführen: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────

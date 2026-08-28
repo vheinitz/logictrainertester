@@ -21,6 +21,15 @@ const UI = {
   gruppe:   { de: '← Zurück zur Gruppe', ru: '← Назад к группе', en: '← Back to the group' },
   nochmal:  { de: '🔁 Noch eine Runde', ru: '🔁 Ещё раз', en: '🔁 One more round' },
   menue:    { de: '🏠 Menü', ru: '🏠 Меню', en: '🏠 Menu' },
+  zumPlanKnopf: { de: '🗺️ Zurück zum Plan', ru: '🗺️ Назад к плану', en: '🗺️ Back to the plan' },
+  naechste: { de: '▶ Nächste Aufgabe', ru: '▶ Следующее задание', en: '▶ Next task' },
+
+  vorfuehrungT: { de: 'Vorführung beendet', ru: 'Показ окончен', en: 'Demonstration finished' },
+  vorfuehrung:  { de: 'Das war nur zum Zeigen – gespeichert wurde nichts. Macht die Aufgabe jetzt am Tisch und tragt danach ein, wie es gelaufen ist.',
+                  ru: 'Это был только показ — ничего не сохранено. Теперь сделайте задание за столом и потом внесите результат.',
+                  en: 'That was for showing only – nothing was saved. Do the task at the table now and enter afterwards how it went.' },
+  eintragen:    { de: '✍️ Ergebnis eintragen', ru: '✍️ Внести результат', en: '✍️ Enter the result' },
+  verwerfen:    { de: 'Ohne Eintrag beenden', ru: 'Закончить без записи', en: 'Finish without an entry' },
   richtig:  { de: 'richtig', ru: 'верно', en: 'correct' },
   niveau:   { de: 'Bestes Niveau', ru: 'Лучший уровень', en: 'Best level' },
   fuerAlter:{ de: 'Für Alter', ru: 'Для возраста', en: 'For age' },
@@ -157,6 +166,20 @@ export function resultScreen(gs, opt = {}) {
     : `<div style="font-size:2.8em;font-weight:800;color:var(--primary)">${Math.round((opt.score || 0) * 10) / 10}/${opt.total || 0}</div>
        <div style="font-size:.9em;color:var(--text-light)">${u('richtig')}</div>`;
 
+  // Vorführung: die Zahlen auf dem Bildschirm sind die der Vorführung, nicht
+  // die des Kindes. Sie zu zeigen wäre irreführend – und zu speichern falsch.
+  if (gs && gs.zeigen) {
+    return `<div data-phase="done" data-modus="zeigen" style="text-align:center;width:100%">
+      <div style="font-size:3.4em;line-height:1.1">👁️</div>
+      <div style="font-weight:800;font-size:1.15em;margin-bottom:6px">${u('vorfuehrungT')}</div>
+      <p style="line-height:1.65;max-width:380px;margin:0 auto">${esc(u('vorfuehrung'))}</p>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px">
+        <button class="btn btn-primary btn-small" onclick="window._ergebnisEintragen()">${u('eintragen')}</button>
+        <button class="btn btn-secondary btn-small" onclick="navigateTo('plan')">${u('verwerfen')}</button>
+      </div>
+    </div>`;
+  }
+
   return `<div data-phase="done" style="text-align:center;width:100%">
     <div style="font-size:3.4em;line-height:1.1">🏁</div>
     <div style="font-weight:800;font-size:1.15em;margin-bottom:6px">${u('fertig')}</div>
@@ -164,10 +187,11 @@ export function resultScreen(gs, opt = {}) {
     ${normBlock(mod, opt)}
     ${richtwertBlock(mod, opt, gs)}
     <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:18px">
-      ${scaleId ? `<button class="btn btn-primary btn-small"
-        onclick="navigateTo('scale',{scaleId:'${scaleId}'})">${u('gruppe')}</button>` : ''}
+      <button class="btn btn-primary btn-small" onclick="window._naechsteAufgabe()">${u('naechste')}</button>
+      <button class="btn btn-secondary btn-small" onclick="navigateTo('plan')">${u('zumPlanKnopf')}</button>
       <button class="btn btn-secondary btn-small" onclick="G('restart')">${u('nochmal')}</button>
-      <button class="btn btn-secondary btn-small" onclick="navigateTo('menu')">${u('menue')}</button>
+      ${scaleId ? `<button class="btn btn-secondary btn-small"
+        onclick="navigateTo('scale',{scaleId:'${scaleId}'})">${u('gruppe')}</button>` : ''}
     </div>
   </div>`;
 }

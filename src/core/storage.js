@@ -116,7 +116,7 @@ export async function loadScore(moduleId) {
   });
 }
 
-export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count', sessionId = 0, level = 0) {
+export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count', sessionId = 0, level = 0, vonHand = false) {
   const db = await open();
   return new Promise((ok, fail) => {
     const tx = db.transaction('history', 'readwrite');
@@ -129,6 +129,10 @@ export async function saveHistory(moduleId, scale, round, score, total, correct,
       // Niveau je Eintrag: nur damit lässt sich später sehen, ob ein Kind
       // im Lauf einer Sitzung höher gekommen ist oder abgerutscht.
       level,
+      // Von Hand eingetragen statt gespielt (nach einer Vorführung). Wer
+      // später fragt, warum ein Wert aus der Reihe fällt, soll sehen können,
+      // dass er nicht aus dem Spiel stammt.
+      vonHand,
       timestamp: Date.now(),
       dateStr: new Date().toISOString().split('T')[0]
     });

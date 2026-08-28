@@ -9,7 +9,7 @@ import { getPerformanceData } from '../data/performance-model.js';
 import { analogBox } from './analog-box.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
-import { lang, pick } from '../core/html.js';
+import { lang, pick, esc } from '../core/html.js';
 import { progressDots, done as sessionDone } from '../core/session.js';
 import { renderMethods, renderMethod } from './methods-view.js';
 import { renderIdeen } from './ideen-view.js';
@@ -18,6 +18,7 @@ import { renderSettings } from './settings-view.js';
 // einzelnen Aufgabe. Diese Seite erklaert das ganze Vorhaben.
 import { renderIntro as renderProjektIntro } from './intro-view.js';
 import { renderPlan, renderFactor } from './plan-view.js';
+import { renderEintrag, eintragSpeichern } from './eintrag-view.js';
 import { FAKTOR_SCHWACH_UNTER as SCHWACH_UNTER } from '../core/richtwerte.js';
 import { abrufZuruecksetzen } from '../core/abruf.js';
 import { renderBackground } from './background-view.js';
@@ -437,6 +438,7 @@ function renderTraining(main) {
     </div></div>`;
 
   if (gs.step === 'intro') renderIntro(main, mod, header);
+  else if (gs.step === 'eintrag') renderEintrag(main);
   else renderGameScreen(main, mod, header);
 }
 
@@ -447,6 +449,13 @@ function renderTraining(main) {
  */
 const INTRO_UI = {
   schwerpunkte: { de: 'Schwerpunkte & Trainingswege', ru: 'Что тренируется и как', en: 'What is trained & how' },
+  ausfuehren:   { de: '▶ Aufgabe ausführen', ru: '▶ Выполнить задание', en: '▶ Do the task' },
+  zeigen:       { de: '👁️ Aufgabe nur zeigen', ru: '👁️ Только показать задание', en: '👁️ Only show the task' },
+  zeigenHilfe:  { de: 'Zeigen heißt: die App führt vor, wie es geht – gewertet wird nichts. Gemacht wird die Aufgabe danach am Tisch, und das Ergebnis trägst du selbst ein.',
+                  ru: 'Показать — значит: приложение демонстрирует, как это делается, и ничего не засчитывает. Само задание вы делаете за столом, а результат вносите сами.',
+                  en: 'Showing means: the app demonstrates how it works and nothing is scored. The task itself happens at the table, and you enter the result yourself.' },
+  laeuftZeigen: { de: '👁️ Vorführung – wird nicht gewertet', ru: '👁️ Показ — не засчитывается', en: '👁️ Demonstration – not scored' },
+  jetztEintragen:{ de: '✍️ Ergebnis eintragen', ru: '✍️ Внести результат', en: '✍️ Enter the result' },
   zurueck:      { de: '← Zurück zur Aufgabe', ru: '← Назад к заданию', en: '← Back to the task' },
   wege:         { de: 'Trainingswege im Alltag', ru: 'Как тренировать в жизни', en: 'Ways to practise in daily life' },
   wegeHinweis:  { de: 'Tippe einen Punkt an – dahinter steht eine Anleitung mit Material und Links.',
@@ -551,8 +560,18 @@ async function renderIntro(main, mod, header) {
   // und sofort losspielt, hat den besseren Weg sonst nie gesehen.
   body += analogBox(mod.id);
 
-  body += `<button class="btn btn-primary" style="font-size:1.1em;padding:14px 36px;margin-top:8px"
-    onclick="window._startGame()">${t('startTraining')}</button>`;
+  // Zwei Wege statt einem. „Zeigen" ist die Brücke zwischen dem Kasten
+  // darüber und der Statistik: erst vorführen, dann am Tisch machen, dann
+  // das Ergebnis eintragen. Ohne diesen Weg müsste man sich zwischen „am
+  // Tisch üben" und „Verlauf sehen" entscheiden.
+  body += `<div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:8px">
+      <button class="btn btn-primary" style="font-size:1.1em;padding:14px 30px"
+        onclick="window._startGame()">${iu('ausfuehren')}</button>
+      <button class="btn btn-secondary" data-role="zeigen" style="font-size:1em;padding:14px 22px"
+        onclick="window._showGame()">${iu('zeigen')}</button>
+    </div>
+    <p style="font-size:.8em;color:var(--text-light);line-height:1.55;max-width:400px;
+              margin:10px auto 0">${esc(iu('zeigenHilfe'))}</p>`;
 
   // Erklärendes hinter einem Symbol
   if (perf) {
@@ -648,8 +667,22 @@ async function renderGameScreen(main, mod, header) {
     <button class="btn btn-secondary btn-small" onclick="window._startGame()">${t('newRound')}</button>
   </div>`;
 
+  // Der Hinweis steht auch bei der Minimal-Hülle. Sonst gilt zwar „im Spiel
+  // nur die Aufgabe", aber hier muss die Begleitperson jederzeit sehen, dass
+  // gerade nichts gezählt wird – sonst wundert sie sich später über den
+  // fehlenden Eintrag.
+  const zeigenBanner = gs.zeigen ? `<div data-role="zeigen-banner"
+    style="display:flex;gap:12px;align-items:center;justify-content:center;flex-wrap:wrap;
+           background:#FFF7E6;border:1px solid #F0DCA8;border-radius:12px;
+           padding:8px 14px;margin-bottom:12px;font-size:.88em">
+    <span style="font-weight:700">${iu('laeuftZeigen')}</span>
+    <a href="#" onclick="window._ergebnisEintragen();return false"
+       style="color:var(--primary);font-weight:600;text-decoration:none">${iu('jetztEintragen')} ›</a>
+  </div>` : '';
+
   main.innerHTML = `<div class="training-container">
     ${minimal ? '' : header}
+    ${zeigenBanner}
     <div class="training-area">
       <div id="gameProgress" style="display:flex;justify-content:center;margin-bottom:14px">${progressDots(gs)}</div>
       ${minimal ? '' : `<div class="score-display" id="gameScore">${scoreLineHtml()}</div>`}
@@ -775,6 +808,9 @@ let _last = { moduleId: null, score: 0, total: 0, percent: 0 };
 export function autoPersist() {
   const gs = engine.gameState;
   if (!gs || !gs.moduleId || gs.step !== 'game') return;
+  // Vorführung: es wird gezeigt, nicht gemessen. Würde hier gespeichert,
+  // stünde die Leistung der Begleitperson im Verlauf des Kindes.
+  if (gs.zeigen) return;
   const g = engine.activeGame;
   if (!g) return;
   const kind = g.mod.scoring === 'percent' ? 'percent' : 'count';
@@ -845,8 +881,12 @@ window._setFilter = (val, btn) => {
   btn.classList.add('active');
   engine.render();
 };
-window._startGame = () => {
+window._startGame = (zeigen = false) => {
   const gs = engine.gameState;
+  // Vorführung: die App zeigt nur, wie die Aufgabe geht. Nichts davon wird
+  // gespeichert – gemacht wird sie danach am Tisch, und das Ergebnis trägt
+  // ein Mensch ein.
+  gs.zeigen = !!zeigen;
   const g = engine.activeGame;
   // Laufende Timer des vorigen Durchgangs abräumen, sonst starten zwei
   // Abläufe parallel, sobald jemand „Neue Runde" während einer Aufgabe drückt.
@@ -867,6 +907,41 @@ window._startGame = () => {
  *   _setTempo('seq-zahlenfolgen', 1.5)
  * Der Wert bleibt in localStorage erhalten.
  */
+window._showGame = () => window._startGame(true);
+
+/** Aus der Vorführung heraus zum Eintragsformular. */
+window._ergebnisEintragen = () => {
+  const gs = engine.gameState;
+  const g = engine.activeGame;
+  if (g && typeof g.mod.dispose === 'function') { try { g.mod.dispose(gs); } catch (e) { /* egal */ } }
+  gs.step = 'eintrag';
+  engine.render();
+};
+window._eintragSpeichern = () => eintragSpeichern();
+
+/**
+ * Nach einem Durchgang gleich weiter: die nächste Aufgabe aus dem
+ * Sitzungsvorschlag des Plans. Vorher führte die Ergebnisseite nur zurück in
+ * die Gruppe – wer dem Plan folgt, musste sich dort seine Stelle neu suchen.
+ */
+window._naechsteAufgabe = async () => {
+  const aktuell = engine.gameState && engine.gameState.moduleId;
+  try {
+    const { sitzungVorschlag } = await import('./plan-view.js');
+    const { moduleFreigegeben } = await import('../data/modules.js');
+    const { alterJahre } = await import('../core/norms.js');
+    const scores = await storage.loadAllScores();
+    const gespielt = new Set(scores.map(s => s.moduleId));
+    const alter = alterJahre();
+    const offen = modules.filter(m => moduleFreigegeben(m, alter)
+                                   && !gespielt.has(m.id) && m.id !== aktuell);
+    const v = sitzungVorschlag(offen);
+    if (v.module.length) { window.startModule(v.module[0].id); return; }
+  } catch (e) { console.warn('[naechsteAufgabe]', e); }
+  // Nichts mehr offen – dann ist der Plan der richtige Ort.
+  engine.navigateTo('plan');
+};
+
 window._setTempo = (moduleId, val) => {
   const g = engine.activeGame;
   if (g && g.id === moduleId && typeof g.mod.setFactor === 'function') return g.mod.setFactor(val);
