@@ -1247,6 +1247,18 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
           `Der Sitzungsvorschlag nimmt nur ${skalen.size} Gruppe(n) – er mischt nicht`);
     check(v.minuten <= P.SITZUNG_MINUTEN,
           `Der Sitzungsvorschlag dauert ${v.minuten} Minuten und sprengt die Grenze von ${P.SITZUNG_MINUTEN}`);
+    // Abruf-Module gehören nicht hinein: solange die Wartezeit läuft, stünde
+    // dort nur eine Auskunft statt einer Aufgabe. Sie kommen über die eigene
+    // Karte, sobald das Zeitfenster offen ist.
+    //
+    // Gezielt mit NUR den Abruf-Modulen fragen: in der vollen Liste käme
+    // ohnehin zuerst das Lernmodul dran, und die Prüfung ginge durch, ohne
+    // etwas zu prüfen. Genau das ist beim ersten Anlauf passiert.
+    const nurAbruf = alle.filter(m => m.abrufVon);
+    check(nurAbruf.length >= 2, `nur ${nurAbruf.length} Abruf-Module – die Prüfung liefe ins Leere`);
+    const vAbruf = P.sitzungVorschlag(nurAbruf.slice());
+    check(vAbruf.module.length === 0,
+          `Der Sitzungsvorschlag nimmt Abruf-Module auf (${vAbruf.module.map(m => m.id).join(', ')}) – die sind zeitgebunden und stünden während der Wartezeit nur mit einer Auskunft da`);
     planTest.push(`Sitzung: ${v.module.length} Aufgaben aus ${skalen.size} Gruppen, ${v.minuten} Minuten`);
   }
 
