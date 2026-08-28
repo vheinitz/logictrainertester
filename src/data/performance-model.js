@@ -279,7 +279,13 @@ export function getPerformanceData(moduleId, lang) {
     einfluesse: data.einfluesse[lang] || data.einfluesse.de,
     hypothesen: data.hypothesen[lang] || data.hypothesen.de,
     foerderung: data.foerderung[lang] || data.foerderung.de,
-    subtestRef: data.subtestRef,
+    // subtestRef wurde hier durchgereicht statt aufgelöst. Als das Feld
+    // einsprachig war, ging das gut; seit es {de,ru,en} ist, stand auf jeder
+    // Schwerpunkte-Seite „[object Object]" – in allen 32 Modulen und in jeder
+    // Sprache. Der String-Zweig bleibt, falls doch einmal einer stehen bleibt.
+    subtestRef: typeof data.subtestRef === 'string'
+      ? data.subtestRef
+      : (data.subtestRef && (data.subtestRef[lang] || data.subtestRef.de)) || '',
     scale: data.scale
   };
 }

@@ -114,6 +114,7 @@ const navTest = [];
 const ziehTest = [];
 const appTest = [];
 const zeigenTest = [];
+const textTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
 const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-zahlen-rueckwaerts', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
@@ -1598,6 +1599,55 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   zeigenTest.push('Vorführung ändert nichts, Eintrag von Hand landet mit Niveau im Verlauf');
 }
 
+// ─── Kein "[object Object]" auf irgendeiner Seite ─────────────────────
+/**
+ * Ein mehrsprachiges Feld {de,ru,en}, das jemand direkt in eine Vorlage
+ * schreibt, ergibt "[object Object]". Auf der Schwerpunkte-Seite stand das
+ * so in allen 32 Modulen und in jeder Sprache, weil `subtestRef` beim
+ * Auflösen vergessen worden war — der Smoke-Test prüft das nur für die
+ * Spielmodule, nicht für die Ansichten.
+ *
+ * Deshalb hier über alle Seiten und in allen drei Sprachen. Es kostet kaum
+ * Zeit und fängt eine Fehlerart, die man beim Lesen des Codes übersieht.
+ */
+{
+  const KAPUTT = /\[object Object\]|undefined|NaN/;
+  const SEITEN = ['intro', 'plan', 'groups', 'modules', 'methods', 'ideen',
+                  'stats', 'radar', 'settings', 'background'];
+  let geprueft = 0;
+
+  for (const sprache of ['de', 'ru', 'en']) {
+    window.setLanguage(sprache);
+    await sleep(80);
+
+    for (const seite of SEITEN) {
+      window.navigateTo(seite);
+      await sleep(220);
+      const txt = main.textContent;
+      check(!KAPUTT.test(txt),
+            `Seite "${seite}" (${sprache}) zeigt einen unaufgelösten Wert: ` +
+            (txt.match(/.{0,40}(\[object Object\]|undefined|NaN).{0,20}/) || [''])[0].replace(/\s+/g, ' '));
+      geprueft++;
+    }
+
+    // Die Schwerpunkte-Seite jedes Moduls – dort steckte der Fehler
+    for (const m of modules) {
+      window.navigateTo('insights', { moduleId: m.id, step: 'intro' });
+      await sleep(35);
+      const txt = main.textContent;
+      check(!/\[object Object\]/.test(txt),
+            `Schwerpunkte von "${m.id}" (${sprache}) zeigen "[object Object]"`);
+      geprueft++;
+    }
+  }
+
+  window.setLanguage('de');
+  await sleep(80);
+  window.navigateTo('menu');
+  await sleep(120);
+  textTest.push(`${geprueft} Seitenaufrufe in drei Sprachen ohne unaufgelöste Werte`);
+}
+
 // ─── Fortschritt zurücksetzen ─────────────────────────────────────────
 // Löschen ist endgültig, deshalb wird hier beides geprüft: dass Abbrechen
 // wirklich nichts anfasst, und dass Einstellungen das Löschen überleben.
@@ -1659,6 +1709,7 @@ navTest.forEach(x => console.log(`   Navigation: ${x}`));
 ziehTest.forEach(x => console.log(`   Ziehen: ${x}`));
 appTest.forEach(x => console.log(`   Übungs-Apps: ${x}`));
 zeigenTest.forEach(x => console.log(`   Vorführen: ${x}`));
+textTest.forEach(x => console.log(`   Texte: ${x}`));
 resetTest.forEach(x => console.log(`   Zurücksetzen: ${x}`));
 
 // ─── Ergebnis ─────────────────────────────────────────────────────────
