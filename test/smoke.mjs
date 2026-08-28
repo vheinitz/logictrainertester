@@ -1147,7 +1147,13 @@ for (const [id, load] of Object.entries(registry)) {
   // Namentlich, nicht nur der Zahl nach: ein fehlendes `stufen` an einem
   // einzelnen Modul verschwindet sonst in der Gesamtzahl, und genau dieses
   // Modul ließe sich dann nie einordnen.
-  const OHNE_LEITER = ['lern-memory'];   // misst Züge, nicht Schwierigkeit
+  // Module ohne Niveauleiter – jedes mit einem Grund, sonst wäre die Liste
+  // eine bequeme Ablage für alles, was gerade nicht passt.
+  const OHNE_LEITER = [
+    'lern-memory',           // misst Züge, nicht Schwierigkeit
+    'lern-atlantis-abruf',   // fragt genau die gelernten Paare ab – die Schwierigkeit
+    'lern-symbole-abruf'     // stand beim Lernen fest, hier wird nur noch gezählt
+  ];
   for (const m of modules) {
     if (OHNE_LEITER.includes(m.id)) continue;
     check('richtwerte', m.stufen && m.stufen.length === 2,
@@ -1362,6 +1368,68 @@ for (const [id, load] of Object.entries(registry)) {
           `${nutzer.length} Module nutzen die Rückwärts-Richtwerte – erwartet genau eines`);
   }
   console.log('   Rückwärts: umgekehrte Reihe richtig, gleiche Richtung falsch, Richtwerttabelle belegt');
+}
+
+// ─── Verzögerter Abruf: die Wartezeit ist der Test ────────────────────
+/**
+ * „Atlantis Abruf" und „Symbole Abruf" standen seit Anfang an als Namen in
+ * den Skalen, ohne dass es Module dazu gab. Der Abstand zum Lernen IST hier
+ * der Test: wer sofort abfragt, misst das Kurzzeitgedächtnis ein zweites Mal.
+ * Diese Prüfung sichert die drei Zustände ab, in denen das Modul stehen kann.
+ */
+{
+  const A = await import('../src/core/abruf.js');
+  const MIN = A.MIN_MINUTEN;
+
+  const paare = [
+    { schluessel: 'a', bild: '🐠', name: 'Malu' },
+    { schluessel: 'b', bild: '🐟', name: 'Tirok' }
+  ];
+  const setze = (minutenHer) => {
+    localStorage.setItem('logik-abruf', JSON.stringify({
+      'lern-atlantis': { paare, zeit: Date.now() - minutenHer * 60000 }
+    }));
+  };
+
+  A.abrufZuruecksetzen();
+  check('abruf', A.stand('lern-atlantis').grund === 'nichts',
+        'Ohne vorheriges Lernen meldet der Abruf nicht "nichts gelernt"');
+
+  setze(1);
+  check('abruf', A.stand('lern-atlantis').grund === 'zufrueh',
+        `Eine Minute nach dem Lernen gilt der Abruf schon als bereit – die Wartezeit von ${MIN} Minuten greift nicht`);
+
+  setze(MIN + 5);
+  check('abruf', A.stand('lern-atlantis').bereit === true,
+        `${MIN + 5} Minuten nach dem Lernen ist der Abruf immer noch nicht bereit`);
+
+  setze(A.MAX_STUNDEN * 60 + 60);
+  check('abruf', A.stand('lern-atlantis').grund === 'zualt',
+        'Ein tagealtes Lernen gilt noch als gültiger Abruf');
+
+  // Zusammenführen statt Überschreiben: ein Lernmodul zeigt über mehrere
+  // Runden verschiedene Paare, und der Abruf soll nach allen fragen können.
+  A.abrufZuruecksetzen();
+  A.merken('lern-atlantis', [{ schluessel: 'x', bild: '🐙', name: 'Panux' }]);
+  A.merken('lern-atlantis', [{ schluessel: 'y', bild: '🦀', name: 'Fimbo' }]);
+  const nachher = A.gelernt('lern-atlantis');
+  check('abruf', nachher && nachher.paare.length === 2,
+        `Nach zwei Lernrunden sind ${nachher && nachher.paare.length} Paare gemerkt statt 2`);
+
+  // Dasselbe Bild darf nicht zweimal abgefragt werden
+  A.merken('lern-atlantis', [{ schluessel: 'x', bild: '🐙', name: 'Anders' }]);
+  const d = A.gelernt('lern-atlantis');
+  check('abruf', d.paare.length === 2, `Dasselbe Bild liegt ${d.paare.length}-mal im Vorrat`);
+  check('abruf', d.paare.some(p => p.name === 'Anders'),
+        'Das zuletzt gezeigte Paar hat das ältere nicht ersetzt');
+
+  // Nach dem Abruf ist das Gelernte verbraucht
+  A.verbrauchen('lern-atlantis');
+  check('abruf', A.stand('lern-atlantis').grund === 'nichts',
+        'Nach dem Abruf lässt sich derselbe Vorrat ein zweites Mal abfragen');
+
+  A.abrufZuruecksetzen();
+  console.log(`   Verzögerter Abruf: nichts / zu früh (<${MIN} min) / bereit / zu alt (>${A.MAX_STUNDEN} h) greifen`);
 }
 
 // ─── Konsistenz der Registrierungen ───────────────────────────────────

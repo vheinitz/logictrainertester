@@ -159,6 +159,24 @@ const { modules } = await import('../src/data/modules.js');
 
 for (const m of modules) {
   errors.length = 0;
+
+  // Die Abruf-Module fragen ab, was ein Lernmodul zwanzig Minuten vorher
+  // gezeigt hat. Ohne diesen Eintrag steht dort zu Recht eine Auskunft statt
+  // eines Tests – dann liefe die Prüfung unten ins Leere. Der Zeitstempel
+  // wird zurückdatiert, weil das Lernmodul in dieser Schleife gerade eben
+  // gelaufen ist und die Wartezeit sonst nicht um wäre.
+  if (m.id.endsWith('-abruf')) {
+    const lern = m.id.replace('-abruf', '');
+    const paare = [
+      { schluessel: 'a', bild: '🐠', name: 'Malu' },
+      { schluessel: 'b', bild: '🐟', name: 'Tirok' },
+      { schluessel: 'c', bild: '🐡', name: 'Wesa' }
+    ];
+    const roh = JSON.parse(window.localStorage.getItem('logik-abruf') || '{}');
+    roh[lern] = { paare, zeit: Date.now() - 25 * 60000 };
+    window.localStorage.setItem('logik-abruf', JSON.stringify(roh));
+  }
+
   window.startModule(m.id);
   await sleep(60);
 

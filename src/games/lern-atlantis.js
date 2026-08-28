@@ -13,6 +13,7 @@
  */
 import { createChoiceGame } from '../core/choice.js';
 import { sample, shuffle, color, pick } from '../core/html.js';
+import { merken } from '../core/abruf.js';
 
 const UI = {
   intro: { de: '🌊 Willkommen in Atlantis!', ru: '🌊 Добро пожаловать в Атлантиду!', en: '🌊 Welcome to Atlantis!' },
@@ -55,6 +56,10 @@ const game = createChoiceGame({
     const names = sample(NAMES, n);
     const pairs = creatures.map((c, i) => ({ ...c, name: names[i] }));
 
+    // Für den verzögerten Abruf festhalten, was gezeigt wurde. Ohne diese
+    // Meldung wüsste „Atlantis Abruf" nicht, wonach es fragen soll.
+    merken('lern-atlantis', pairs.map(p => ({ schluessel: p.e + p.name, bild: p.e, name: p.name })));
+
     const target = pairs[Math.floor(Math.random() * pairs.length)];
     const others = pairs.filter(p => p.name !== target.name).map(p => p.name);
     const extra = sample(NAMES.filter(x => !names.includes(x)), Math.max(0, 3 - others.length));
@@ -88,3 +93,6 @@ const game = createChoiceGame({
 });
 
 export const { init, render, dispose, actions, scoring } = game;
+
+/** Für die Ablenker im Abruf-Modul: der ganze Namensvorrat. */
+export const NAMEN_VORRAT = NAMES;

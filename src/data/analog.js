@@ -169,6 +169,22 @@ export const ANALOG = {
       en: 'Give three animals invented names – "this is a wumo" – and repeat them twice. Then ask. After ten minutes of something else, ask again: that is the real test.'
     }
   },
+  'lern-atlantis-abruf': {
+    material: { de: 'Dieselben Bildkarten wie vorhin', ru: 'Те же карточки, что и раньше', en: 'The same picture cards as before' },
+    so: {
+      de: 'Nach etwa zwanzig Minuten, in denen etwas anderes passiert ist, die Karten noch einmal zeigen – ohne die Namen. „Weißt du noch, wie der hieß?" Genau das ist der eigentliche Test: nicht ob es aufgenommen wurde, sondern ob es liegen geblieben ist.',
+      ru: 'Примерно через двадцать минут, занятых чем-то другим, показать карточки снова — уже без имён. «Помнишь, как его звали?» Именно это и есть настоящая проверка: не усвоил ли, а осталось ли.',
+      en: 'After about twenty minutes filled with something else, show the cards again – without the names. "Do you still remember what this one was called?" That is the real test: not whether it went in, but whether it stayed.'
+    }
+  },
+  'lern-symbole-abruf': {
+    material: { de: 'Dieselben Zeichen-Kärtchen wie vorhin', ru: 'Те же карточки со знаками', en: 'The same sign cards as before' },
+    so: {
+      de: 'Nach zwanzig Minuten Pause die Zeichen einzeln zeigen und nach dem Wort fragen. Wenn nichts mehr kommt: nicht auflösen, sondern die erste Silbe vorsagen. Was mit einem Anstoß wiederkommt, war da – es fehlte nur der Weg dorthin.',
+      ru: 'Через двадцать минут показать знаки по одному и спросить слово. Если ничего не всплывает — не подсказывать ответ, а назвать первый слог. То, что возвращается с подсказкой, было в памяти — не хватало только пути к нему.',
+      en: 'After a twenty-minute break, show the signs one at a time and ask for the word. If nothing comes: do not give the answer, say the first syllable. What comes back with a nudge was there – only the way to it was missing.'
+    }
+  },
   'lern-symbole': {
     material: { de: 'Kärtchen mit selbstgemalten Zeichen', ru: 'Карточки с самодельными знаками', en: 'Cards with hand-drawn signs' },
     so: {

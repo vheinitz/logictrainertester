@@ -71,6 +71,28 @@ const T = {
   a3: { de: 'Aufhören, wenn das Kind nicht mehr mag. Der Rest läuft nicht weg.', ru: 'Прекращать, когда ребёнок больше не хочет. Остальное никуда не денется.', en: 'Stop when the child has had enough. The rest will keep.' },
   a4: { de: 'Ergebnisse nicht vor dem Kind bewerten. „Schwach" ist kein Urteil über ein Kind, sondern ein Hinweis, wo Üben lohnt.', ru: 'Не оценивайте результаты при ребёнке. «Слабо» — это не приговор ребёнку, а указание, где стоит позаниматься.', en: 'Do not judge results in front of the child. "Weak" is not a verdict on a child but a pointer to where practice pays off.' },
 
+  ohneT: { de: 'Der Bildschirm ist der Notbehelf', ru: 'Экран — это запасной путь', en: 'The screen is the fallback' },
+  ohne: {
+    de: 'Jede Aufgabe hier lässt sich auch am Küchentisch machen: mit Kärtchen, Bausteinen, Münzen, den eigenen Händen. Auf jedem Startbildschirm steht, wie – und im Plan steht die Anleitung für den Tisch vor dem Verweis auf die App.',
+    ru: 'Любое задание здесь можно сделать и за кухонным столом: карточками, кубиками, монетами, собственными руками. На каждом стартовом экране написано как — и в плане инструкция для стола стоит раньше ссылки на приложение.',
+    en: 'Every task here can also be done at the kitchen table: with cards, blocks, coins, your own hands. Every start screen says how – and in the plan the table instructions come before the pointer to the app.'
+  },
+  ohne1: {
+    de: 'Ein Mensch sitzt gegenüber. Er sieht, ob das Kind rät, aufgibt, sich verzettelt oder die Aufgabe nur nicht verstanden hat. Kein Programm bemerkt das.',
+    ru: 'Напротив сидит человек. Он видит, угадывает ли ребёнок, сдаётся, путается или просто не понял задание. Программа этого не замечает.',
+    en: 'A person sits opposite. They see whether the child is guessing, giving up, getting lost, or simply did not understand the task. No program notices that.'
+  },
+  ohne2: {
+    de: 'Was in der Hand liegt, wird anders behalten als was auf Glas erscheint. Und am Tisch lässt sich alles anpassen: ein Kärtchen weniger, die Lieblingstiere statt der vorgegebenen Bilder.',
+    ru: 'То, что лежит в руке, запоминается иначе, чем то, что появляется на стекле. И за столом всё можно подстроить: на карточку меньше, любимые звери вместо заданных картинок.',
+    en: 'What lies in the hand is retained differently from what appears on glass. And at the table everything can be adapted: one card fewer, the favourite animals instead of the given pictures.'
+  },
+  ohne3: {
+    de: 'Wozu dann die App? Für die Abende ohne Material, für unterwegs – und für den Vergleich über die Zeit: sie misst Zeiten und Stufen gleichmäßig, das gelingt am Küchentisch nicht.',
+    ru: 'Зачем тогда приложение? Для вечеров без материалов, для дороги — и для сравнения во времени: оно измеряет время и уровни одинаково, за кухонным столом так не выйдет.',
+    en: 'So why the app at all? For evenings without materials, for travelling – and for comparison over time: it measures times and levels evenly, which a kitchen table cannot.'
+  },
+
   losT: { de: 'Womit fange ich an?', ru: 'С чего начать?', en: 'Where do I start?' },
   los: {
     de: 'Trag zuerst das Geburtsjahr ein – ohne Alter lässt sich kein Ergebnis einordnen. Dann nimm die erste Gruppe und arbeite dich durch. Der Plan zeigt dir jederzeit, was als Nächstes dran ist.',
@@ -142,6 +164,17 @@ export function renderIntro(main) {
         <li>${esc(t('a3'))}</li>
         <li>${esc(t('a4'))}</li>
       </ul>
+
+      <div data-role="ohne-bildschirm" style="margin-top:22px;background:#F4FAF4;border-left:4px solid var(--green);
+          border-radius:var(--radius-sm);padding:16px 18px">
+        <div style="font-weight:800;font-size:1.05em;margin-bottom:8px">🧺 ${esc(t('ohneT'))}</div>
+        <p style="line-height:1.7">${esc(t('ohne'))}</p>
+        <ul style="line-height:1.75;margin:10px 0 0 18px;font-size:.95em">
+          <li>${esc(t('ohne1'))}</li>
+          <li>${esc(t('ohne2'))}</li>
+        </ul>
+        <p style="line-height:1.65;margin-top:10px;font-size:.9em;color:var(--text-light)">${esc(t('ohne3'))}</p>
+      </div>
 
       <h3 class="section-title" style="margin-top:22px">🚀 ${t('losT')}</h3>
       <p style="line-height:1.7">${esc(t('los'))}</p>

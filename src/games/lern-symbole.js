@@ -15,6 +15,7 @@
  */
 import { createChoiceGame } from '../core/choice.js';
 import { sample, shuffle, color, pick } from '../core/html.js';
+import { merken } from '../core/abruf.js';
 
 const UI = {
   merke: { de: '🧠 Merke dir, was zusammengehört!', ru: '🧠 Запомни, что к чему относится!', en: '🧠 Remember what goes together!' },
@@ -71,6 +72,10 @@ const game = createChoiceGame({
     const words = sample(WORDS, n);
     const pairs = syms.map((s, i) => ({ sym: s, word: words[i] }));
 
+    // Für den verzögerten Abruf festhalten, was gezeigt wurde. Der Schlüssel
+    // ist das Symbol: dasselbe Symbol darf nicht zweimal abgefragt werden.
+    merken('lern-symbole', pairs.map(p => ({ schluessel: p.sym, bild: p.sym, name: pick(p.word) })));
+
     const target = pairs[Math.floor(Math.random() * pairs.length)];
     const others = pairs.filter(p => p.word.de !== target.word.de).map(p => p.word);
     const extra = sample(WORDS.filter(w => !words.includes(w)), Math.max(0, 3 - others.length));
@@ -105,3 +110,6 @@ const game = createChoiceGame({
 });
 
 export const { init, render, dispose, actions, scoring } = game;
+
+/** Für die Ablenker im Abruf-Modul: alle Wörter in der aktiven Sprache. */
+export const WOERTER_VORRAT = () => WORDS.map(w => pick(w));

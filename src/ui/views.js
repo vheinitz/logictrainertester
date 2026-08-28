@@ -19,6 +19,7 @@ import { renderSettings } from './settings-view.js';
 import { renderIntro as renderProjektIntro } from './intro-view.js';
 import { renderPlan, renderFactor } from './plan-view.js';
 import { FAKTOR_SCHWACH_UNTER as SCHWACH_UNTER } from '../core/richtwerte.js';
+import { abrufZuruecksetzen } from '../core/abruf.js';
 import { renderBackground } from './background-view.js';
 import { renderNav } from './nav.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
@@ -883,6 +884,10 @@ window._cancelReset = () => { resetState = null; engine.render(); };
 window._doReset = async () => {
   try {
     const weg = await storage.resetProgress();
+    // Das Gelernte für den verzögerten Abruf liegt nicht in der Datenbank,
+    // sondern in localStorage. Ohne diese Zeile fragte ein Abruf nach dem
+    // Zurücksetzen nach Paaren, die es im Verlauf nicht mehr gibt.
+    abrufZuruecksetzen();
     _last = { moduleId: null, score: 0, total: 0, percent: 0 };
     resetState = 'fertig';
     console.info(`[reset] ${weg.scores} Spielstände, ${weg.history} Verlaufseinträge gelöscht`);
