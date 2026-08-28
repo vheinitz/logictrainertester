@@ -148,6 +148,14 @@ export function erwartetesNiveau(mod, alter) {
  * lange und kurze Leitern vergleichbar; die Mindeststufe verhindert, dass bei
  * einer Leiter mit fünf Stufen schon ein halber Schritt als Auffälligkeit
  * gilt – Niveaus sind ganze Zahlen, weniger als ein Schritt ist nicht messbar.
+ *
+ * Eine bekannte Folge davon: bei kurzen Leitern (1–5) und einem Kind am
+ * unteren Rand des Altersbands liegt der Richtwert selbst nahe bei 1, und
+ * unterhalb davon ist kaum Platz. Ein Siebenjähriger kann bei einer Aufgabe
+ * für 7–18 Jahre also fast nicht auffallen. Das ist keine Nachlässigkeit,
+ * sondern der ehrliche Zustand: die Aufgabe hat dort nach unten keine
+ * Auflösung mehr. Wer das ändern will, braucht feinere Stufen im Modul –
+ * nicht eine schärfere Schwelle, die dann Rauschen als Befund ausgäbe.
  */
 export function schwelle(mod) {
   if (!mod || !mod.stufen) return 1;

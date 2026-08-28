@@ -1326,6 +1326,33 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
     }
   }
 
+  // ── Die Ergebnisseite ordnet ein, nicht nur zählt ──────────────────
+  // „7 von 10 richtig" sagt einem Elternteil nichts: die Aufgabe wächst mit,
+  // fast jeder landet dort. Die Einordnung muss in dem Moment dastehen, in
+  // dem tatsächlich jemand hinsieht.
+  {
+    const S = await import('../src/core/session.js');
+    const { getModule } = await import('../src/data/modules.js');
+    // seq-wortreihe: Leiter 2–10, keine Normtabelle, Richtwert mit neun
+    // Jahren bei 5,2 – Stufe 2 liegt dort deutlich darunter. Der erste
+    // Anlauf nahm plan-muster (Leiter 1–5, Richtwert 1,7); dort ist Stufe 2
+    // über dem Richtwert, und die Prüfung meldete zu Recht keinen Weg zum
+    // Plan – aber aus dem falschen Grund.
+    const mod = getModule('seq-wortreihe');
+    const gs = { moduleId: 'seq-wortreihe', score: 7, total: 10, level: 2 };
+    const html = S.resultScreen(gs, { score: 7, total: 10 });
+    check(/data-role="richtwert"/.test(html),
+          'Die Ergebnisseite eines Moduls ohne Normtabelle zeigt keine Einordnung');
+    check(/Richtwert|ориентир|guide value/i.test(html),
+          'Die Einordnung auf der Ergebnisseite nennt sich nicht Richtwert');
+    // Unter dem Richtwert gehört ein Weg zum Plan dazu – sonst endet es bei
+    // der Feststellung, so wie das Profil vor dem Umbau.
+    check(/navigateTo\('plan'\)/.test(html),
+          'Ein Ergebnis unter dem Richtwert führt nicht weiter zum Plan');
+    void mod;
+    planTest.push('Ergebnisseite: Einordnung gegen den Richtwert, bei Rückstand Weg zum Plan');
+  }
+
   // ── Fälliger Abruf steht im Plan ganz oben ─────────────────────────
   // Zeitkritisch: das Zeitfenster schließt sich wieder. Stünde die Karte
   // unter „üben", würde sie zwischen drei Übungsvorschlägen übersehen.
