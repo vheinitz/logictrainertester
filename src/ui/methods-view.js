@@ -42,9 +42,9 @@ const KIND_ICON = {
  */
 const UI = {
   titel:      { de: 'Fördermethoden', ru: 'Методы развития', en: 'Training methods' },
-  untertitel: { de: 'Wege, die getesteten Fähigkeiten im Alltag zu stärken',
-                ru: 'Способы развивать проверяемые способности в повседневной жизни',
-                en: 'Ways to strengthen the tested abilities in everyday life' },
+  untertitel: { de: 'Anleitungen mit Material, zum Üben ohne Bildschirm',
+                ru: 'Инструкции с материалами, для занятий без экрана',
+                en: 'Instructions with materials, for practising without a screen' },
   alter:      { de: 'Alter', ru: 'Возраст', en: 'Age' },
   ueben:      { de: 'So wird geübt', ru: 'Как заниматься', en: 'How to practise' },
   ankommt:    { de: 'Worauf es ankommt', ru: 'На что обратить внимание', en: 'What matters' },

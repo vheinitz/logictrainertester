@@ -15,9 +15,9 @@ import { methods } from '../data/methods/index.js';
 
 const T = {
   titel: { de: 'Herkunft und Hintergrund', ru: 'Истоки и предыстория', en: 'Origin and background' },
-  unter: { de: 'Worauf sich die App stützt – und wo sie eigene Wege geht',
-           ru: 'На что опирается приложение и где идёт своим путём',
-           en: 'What the app builds on – and where it goes its own way' },
+  unter: { de: 'Quellen der Aufgaben und des Faktorenmodells, und was davon abweicht',
+           ru: 'Источники заданий и модели факторов, и где есть отступления',
+           en: 'Sources of the tasks and the factor model, and what departs from them' },
 
   grundT: { de: 'Die Vorlage', ru: 'Первоисточник', en: 'The source' },
   grund: {

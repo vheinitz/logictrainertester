@@ -13,23 +13,14 @@
  * was es kann.
  */
 import { lang, esc } from '../core/html.js';
+import { t as i18n } from '../i18n/i18n-core.js';
 import { modules } from '../data/modules.js';
 
 const T = {
-  titel: {
-    de: 'So ist es gedacht',
-    ru: 'Как это устроено',
-    en: 'How this works'
-  },
-  unter: {
-    de: 'Ein Weg in vier Schritten – vom ersten Testen bis zum geplanten Üben',
-    ru: 'Путь из четырёх шагов — от первых проб до целенаправленных занятий',
-    en: 'A path in four steps – from the first tests to planned practice'
-  },
   einleitung: {
-    de: 'Diese App ist kein Spielesammlung, auch wenn sie so aussieht. Sie geht einen Weg mit dir und deinem Kind: erst schauen, was schon gut geht und was noch schwerfällt, dann gezielt das Fehlende üben, und nach einiger Zeit noch einmal nachsehen, was sich verändert hat.',
-    ru: 'Это приложение — не сборник игр, хотя выглядит похоже. Оно проходит путь вместе с вами и ребёнком: сначала посмотреть, что уже получается и что даётся трудно, затем целенаправленно тренировать недостающее, а через некоторое время снова проверить, что изменилось.',
-    en: 'This app is not a collection of games, even though it looks like one. It walks a path with you and your child: first see what already works and what is still hard, then practise what is missing, and after a while look again at what has changed.'
+    de: 'Die App misst und übt. Sie ist keine Spielesammlung, auch wenn sie so aussieht. Der Ablauf: erst alle Aufgaben einmal durchgehen, dann das Ergebnis ansehen, dann das Fehlende üben, nach zwei bis drei Monaten erneut messen.',
+    ru: 'Приложение измеряет и тренирует. Это не сборник игр, хотя выглядит похоже. Порядок такой: пройти все задания по разу, посмотреть результат, тренировать недостающее, через два–три месяца измерить снова.',
+    en: 'The app measures and practises. It is not a collection of games, even though it looks like one. The sequence: work through every task once, look at the result, practise what is missing, measure again after two to three months.'
   },
 
   s1t: { de: 'Alle Aufgaben einmal durchgehen', ru: 'Пройти все задания по разу', en: 'Work through every task once' },
@@ -53,9 +44,9 @@ const T = {
 
   s3t: { de: 'Das Fehlende üben', ru: 'Тренировать недостающее', en: 'Practise what is missing' },
   s3: {
-    de: 'Zu jeder schwächeren Fähigkeit schlägt die App Übungen vor – Aufgaben in der App und Wege für den Alltag: Spiele, Material, kleine Gewohnheiten. Wenige Minuten regelmäßig bringen mehr als eine lange Sitzung alle zwei Wochen.',
-    ru: 'К каждой слабой стороне приложение предлагает упражнения — задания в приложении и способы для повседневности: игры, материалы, небольшие привычки. Несколько минут регулярно дают больше, чем одно долгое занятие раз в две недели.',
-    en: 'For every weaker ability the app suggests exercises – tasks in the app and ways for everyday life: games, materials, small habits. A few minutes regularly achieve more than one long session every two weeks.'
+    de: 'Zu jeder schwächeren Fähigkeit nennt die App Übungen: Anleitungen mit Material für den Tisch, Methodenseiten zum Nachlesen und die Aufgabe in der App. Zehn Minuten dreimal die Woche bringen mehr als eine Stunde alle zwei Wochen.',
+    ru: 'К каждой слабой стороне приложение называет упражнения: инструкции с материалами для стола, страницы методик и задание в приложении. Десять минут трижды в неделю дают больше, чем час раз в две недели.',
+    en: 'For every weaker ability the app names exercises: instructions with materials for the table, method pages to read up on, and the task in the app. Ten minutes three times a week does more than one hour every two weeks.'
   },
 
   s4t: { de: 'Nach einiger Zeit erneut testen', ru: 'Через время проверить снова', en: 'Test again after a while' },
@@ -122,7 +113,7 @@ function stundenSchaetzung() {
 }
 
 function schritt(nr, titel, text, extra) {
-  return `<div style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px">
+  return `<div data-role="schritt" style="display:flex;gap:14px;align-items:flex-start;margin-bottom:18px">
     <div style="flex:0 0 34px;height:34px;border-radius:50%;background:var(--primary);color:#fff;
       display:flex;align-items:center;justify-content:center;font-weight:800">${nr}</div>
     <div style="flex:1;min-width:0">
@@ -140,8 +131,7 @@ export function renderIntro(main) {
     <div style="font-size:1.8em;font-weight:800;color:var(--primary)">${wert}</div>
     <div style="font-size:.8em;color:var(--text-light);line-height:1.35">${esc(text)}</div></div>`;
 
-  main.innerHTML = `<h2 class="page-title">📖 ${t('titel')}</h2>
-    <p class="page-subtitle">${esc(t('unter'))}</p>
+  main.innerHTML = `<h2 class="page-title">🧠 ${esc(i18n('appTitle'))}</h2>
 
     <div class="training-container"><div class="training-area" style="align-items:stretch;max-width:640px;margin:0 auto">
       <p style="line-height:1.7;margin-bottom:20px">${esc(t('einleitung'))}</p>
@@ -152,10 +142,12 @@ export function renderIntro(main) {
         ${kachel('2–3', t('wieder'))}
       </div>
 
-      ${schritt(1, t('s1t'), t('s1'), t('s1zeit'))}
-      ${schritt(2, t('s2t'), t('s2'))}
-      ${schritt(3, t('s3t'), t('s3'))}
-      ${schritt(4, t('s4t'), t('s4'))}
+      <div data-role="schritte">
+        ${schritt(1, t('s1t'), t('s1'), t('s1zeit'))}
+        ${schritt(2, t('s2t'), t('s2'))}
+        ${schritt(3, t('s3t'), t('s3'))}
+        ${schritt(4, t('s4t'), t('s4'))}
+      </div>
 
       <h3 class="section-title" style="margin-top:8px">⚠️ ${t('achtungT')}</h3>
       <ul style="line-height:1.8;margin-left:18px">

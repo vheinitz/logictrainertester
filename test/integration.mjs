@@ -68,7 +68,11 @@ const problems = [];
   // Die App öffnet mit der Einführung, und zwar bei JEDEM Start: sie wird in
   // Abständen von Wochen benutzt, bis dahin ist der Ablauf meist wieder
   // vergessen. Wer weiterarbeiten will, ist mit einem Klick in der Leiste dort.
-  if (!/vier Schritten|four steps|четырёх шагов/.test(main.textContent)) {
+  // Woran die Einführung erkennbar ist: die vier nummerierten Schritte.
+  // Vorher hing das an der Unterzeile „Ein Weg in vier Schritten"; die ist
+  // weg, weil sie Werbesprache war – und mit ihr wäre die Prüfung nur noch
+  // ein Test auf einen Werbesatz gewesen.
+  if (main.querySelectorAll('[data-role="schritt"]').length !== 4) {
     problems.push('Beim Öffnen erscheint nicht die Einführung, sondern: ' +
                   main.textContent.replace(/\s+/g, ' ').trim().slice(0, 60));
   }
@@ -935,8 +939,11 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
 {
   window.navigateTo('intro');
   await sleep(300);
-  check(/vier Schritten|четырёх шагов|four steps/.test(main.textContent),
-        'Die Einführungsseite beschreibt den Ablauf nicht');
+  check(main.querySelectorAll('[data-role="schritt"]').length === 4,
+        `Die Einführungsseite zeigt ${main.querySelectorAll('[data-role="schritt"]').length} Schritte statt vier`);
+  // Der Titel der Seite ist der Name der App, keine Überschrift über ihr
+  check(/LOGIK-Trainer|ЛОГИК-Тренажёр|LOGIC Trainer/.test(main.textContent),
+        'Die Einführungsseite trägt nicht den Namen der App als Titel');
   check(/Stunden|часов|hours/.test(main.textContent),
         'Die Einführung sagt nicht, dass die Tests Zeit brauchen');
   // Der Grundsatz gehört auf die erste Seite, nicht nur an die einzelnen

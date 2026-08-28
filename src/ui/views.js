@@ -93,10 +93,10 @@ export function renderView(view) {
 
 const STAT_UI = {
   titelVerlauf: { de: 'Ausdauer und Gleichmäßigkeit',
-                  ru: 'Выносливость и ровность',
+                  ru: 'Выносливость и последовательность',
                   en: 'Endurance and steadiness' },
   erklaerung:   { de: 'Aus der Reihenfolge der einzelnen Antworten, nicht aus ihrem Mittelwert. Ausdauer: zweite Hälfte eines Durchgangs gegenüber der ersten, in Punkten. Gleichmäßigkeit: 1,0 heißt so wechselhaft wie zufällig, darunter ruhiger, darüber sprunghafter.',
-                  ru: 'По порядку отдельных ответов, а не по их среднему. Выносливость: вторая половина подхода против первой, в пунктах. Ровность: 1,0 — как при случайном порядке, ниже ровнее, выше скачкообразнее.',
+                  ru: 'По порядку отдельных ответов, а не по их среднему. Выносливость: вторая половина подхода против первой, в пунктах. последовательность: 1,0 — как при случайном порядке, ниже ровнее, выше скачкообразнее.',
                   en: 'From the order of the individual answers, not their mean. Endurance: second half of a session against the first, in points. Steadiness: 1.0 means as variable as chance, below is calmer, above more erratic.' },
   basis:        { de: 'Grundlage: {n} Durchgänge. Das ist ein Hinweis, keine Messung – Tagesform und Aufgabenwechsel wirken mit.',
                   ru: 'Основа: {n} подходов. Это указание, а не измерение — влияют самочувствие и смена заданий.',
@@ -448,7 +448,7 @@ function renderTraining(main) {
  * zentralen i18n-Tabelle, wo sie schwerer zu finden wären.
  */
 const INTRO_UI = {
-  schwerpunkte: { de: 'Schwerpunkte & Trainingswege', ru: 'Что тренируется и как', en: 'What is trained & how' },
+  schwerpunkte: { de: 'Was gemessen wird, und womit man es übt', ru: 'Что измеряется и чем это тренировать', en: 'What is measured, and what trains it' },
   ausfuehren:   { de: '▶ Aufgabe ausführen', ru: '▶ Выполнить задание', en: '▶ Do the task' },
   zeigen:       { de: '👁️ Aufgabe nur zeigen', ru: '👁️ Только показать задание', en: '👁️ Only show the task' },
   zeigenHilfe:  { de: 'Zeigen heißt: die App führt vor, wie es geht – gewertet wird nichts. Gemacht wird die Aufgabe danach am Tisch, und das Ergebnis trägst du selbst ein.',
@@ -457,7 +457,7 @@ const INTRO_UI = {
   laeuftZeigen: { de: '👁️ Vorführung – wird nicht gewertet', ru: '👁️ Показ — не засчитывается', en: '👁️ Demonstration – not scored' },
   jetztEintragen:{ de: '✍️ Ergebnis eintragen', ru: '✍️ Внести результат', en: '✍️ Enter the result' },
   zurueck:      { de: '← Zurück zur Aufgabe', ru: '← Назад к заданию', en: '← Back to the task' },
-  wege:         { de: 'Trainingswege im Alltag', ru: 'Как тренировать в жизни', en: 'Ways to practise in daily life' },
+  wege:         { de: 'Methoden für den Alltag', ru: 'Методы для повседневности', en: 'Methods for everyday life' },
   wegeHinweis:  { de: 'Tippe einen Punkt an – dahinter steht eine Anleitung mit Material und Links.',
                   ru: 'Нажмите на пункт — за ним инструкция с материалами и ссылками.',
                   en: 'Tap an item – behind it is a guide with materials and links.' },

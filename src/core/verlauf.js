@@ -184,7 +184,7 @@ const TEXTE = {
   normal:         { de: 'unauffällig',                     ru: 'без особенностей',             en: 'unremarkable' },
   unruhig:        { de: 'auffällig sprunghaft',            ru: 'заметно скачкообразно',        en: 'noticeably erratic' },
   titelAusdauer:  { de: 'Ausdauer',                        ru: 'Выносливость',                 en: 'Endurance' },
-  titelRuhe:      { de: 'Gleichmäßigkeit',                 ru: 'Ровность',                     en: 'Steadiness' },
+  titelRuhe:      { de: 'Gleichmäßigkeit',                 ru: 'последовательность',                     en: 'Steadiness' },
   zuWenig:        { de: 'Noch zu wenige Durchgänge für eine Aussage.',
                     ru: 'Пока слишком мало подходов для вывода.',
                     en: 'Not enough sessions yet for a statement.' }

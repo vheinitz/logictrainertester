@@ -107,7 +107,7 @@ const T = {
   keineSchwach: { de: 'Zurzeit liegt kein Bereich auffällig zurück. Weiter wie bisher – und in einigen Wochen erneut nachsehen.',
                   ru: 'Сейчас ни одна область заметно не отстаёт. Продолжайте как есть и проверьте снова через несколько недель.',
                   en: 'No area is noticeably behind at the moment. Carry on – and look again in a few weeks.' },
-  mehrDazu: { de: 'Mehr Wege dazu', ru: 'Другие способы', en: 'More ways to do this' },
+  mehrDazu: { de: 'Methodenseiten dazu', ru: 'Страницы методик', en: 'Method pages on this' },
   amGeraet: { de: 'Im Notfall auch als Aufgabe in der App', ru: 'В крайнем случае — как задание в приложении', en: 'If need be, also as a task in the app' },
 
   wiederT: { de: 'Erneut messen', ru: 'Измерить снова', en: 'Measure again' },
@@ -120,7 +120,7 @@ const T = {
   wochenRein: { de: 'Wochen', ru: 'нед.', en: 'weeks' },
 
   uebungenIn:  { de: 'Aufgaben in der App', ru: 'Задания в приложении', en: 'Tasks in the app' },
-  uebungenAlltag: { de: 'Wege für den Alltag', ru: 'Способы для повседневности', en: 'Ways for everyday life' },
+  uebungenAlltag: { de: 'Methoden für den Alltag', ru: 'Методы для повседневности', en: 'Methods for everyday life' },
   trainiertVon: { de: 'Trainiert wird das mit', ru: 'Тренируется с помощью', en: 'This is trained with' },
   zumProfil: { de: '🎯 Ganzes Profil', ru: '🎯 Весь профиль', en: '🎯 Full profile' },
   quelleEigen: { de: 'eigene Ergänzung, im Skript nicht als Faktor genannt',

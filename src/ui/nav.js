@@ -21,8 +21,6 @@ import { lang, esc } from '../core/html.js';
 import { engine } from '../core/engine.js';
 
 const T = {
-  ueber:      { de: 'Über die App', ru: 'О приложении', en: 'About' },
-  ueberSo:    { de: 'So ist es gedacht', ru: 'Как это устроено', en: 'How it works' },
   hintergrund:{ de: 'Herkunft und Hintergrund', ru: 'Истоки и предыстория', en: 'Origin and background' },
   plan:       { de: 'Plan', ru: 'План', en: 'Plan' },
   testen:     { de: 'Testen', ru: 'Тестирование', en: 'Testing' },
