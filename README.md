@@ -96,11 +96,16 @@ src/
     audio.js       kurze Töne per WebAudio, über die Audio-Uhr geplant
     storage.js     IndexedDB: Spielstände, Verlauf, Einstellungen
     html.js        esc/jsArg/shuffle/sample und die Farbpalette
+    richtwerte.js  Einordnung des erreichten Niveaus gegen das Alter
+    abruf.js       was ein Lernmodul gezeigt hat, für den verzögerten Abruf
+    drag.js        aufnehmen, bewegen, ablegen (Antippen und Ziehen)
     stub.js        Platzhalter für noch nicht umgesetzte Module
   data/
-    modules.js            26 Module mit Skala, Altersband und KABC-Bezug
+    modules.js            32 Module mit Skala, Altersband, Niveauleiter und KABC-Bezug
     cognitive-factors.js  89 kognitive Faktoren → welche Module sie trainieren
     performance-model.js  Was misst ein Subtest, Einflüsse, Hypothesen, Förderung
+    analog.js             zu jedem Modul dieselbe Übung ohne Bildschirm
+    miniapp-zuordnung.js  welche Übungs-App zu welcher Methodenseite gehört
   games/           ein Modul je Datei + index.js als Registry
   ui/views.js      Menü, Training, Statistik, kognitives Profil
   i18n/            Oberflächentexte DE/RU/EN
@@ -924,30 +929,20 @@ jede Stelle, die beim Vergrößern zurückbliebe und die Kachel zerrisse.
 ### Der Weg durch die App: Einführung und Plan
 
 Die App hatte alles, was man braucht — Tests, Auswertung, 54 Methodenseiten —
-aber nichts, was sie verbindet. Wer 29 Module und ein Profil mit 89 Faktoren
+aber nichts, was sie verbindet. Wer 32 Module und ein Profil mit 89 Faktoren
 vor sich hat, weiß nicht, womit er anfangen soll. Zwei Seiten schließen das.
 
 **Die Einführung** (`ui/intro-view.js`) beschreibt den Ablauf in vier
 Schritten: alles einmal durchtesten, Ergebnis ansehen, das Fehlende üben,
-nach zwei bis drei Monaten erneut testen. Zwei Punkte stehen dort bewusst
-deutlich, weil sie die Messung stärker beeinflussen als jede Feineinstellung
+nach zwei bis drei Monaten erneut testen. Drei Punkte stehen dort bewusst
+deutlich, weil sie das Ergebnis stärker beeinflussen als jede Feineinstellung
 im Ablauf: dass der erste Durchgang **mehrere Stunden über mehrere Tage**
-braucht, und dass ein gehetztes oder müdes Kind nicht zeigt, was es kann.
-Die Stundenzahl wird aus der Modulzahl gerechnet, nicht geraten.
+braucht, dass ein gehetztes oder müdes Kind nicht zeigt, was es kann, und
+dass sich **jede Aufgabe auch ohne Bildschirm** stellen lässt. Die
+Stundenzahl wird aus der Modulzahl gerechnet, nicht geraten.
 
-**Der Plan** (`ui/plan-view.js`) beantwortet genau eine Frage: *was mache ich
-jetzt?* Er speichert nichts eigenes, sondern liest den Stand aus und leitet
-daraus einen Schritt ab:
-
-| Zustand | nächster Schritt |
-|---|---|
-| kein Geburtsjahr | eintragen — ohne Alter ist nichts einzuordnen |
-| nicht alles getestet | die nächsten offenen Aufgaben, mit Zähler |
-| alles getestet | die schwächsten Bereiche üben |
-| Übungsphase lang genug | erneut testen (nach 8 Wochen) |
-
-Bewusst **kein** Fortschrittsbalken über allem: der legte nahe, es gehe
-darum, „fertig" zu werden. Es geht darum, an der richtigen Stelle zu üben.
+Der Plan selbst steht weiter unten unter „Der Plan für Eltern" — er hat
+seit dem Umbau auf Richtwerte eine andere Grundlage.
 
 ### Von der Schwäche zur Übung
 
@@ -1066,8 +1061,8 @@ ist keine Ablauf-Vorliebe, sondern eine Angabe über das Kind.
 
 Module mit `requires: 'lesen'` oder `'zahlen'` werden jüngeren Kindern gar
 nicht angeboten. Ein Fünfjähriger scheitert an „Was macht ein Tierarzt?"
-nicht am Sachwissen, sondern am Text — der Wert misst dann das Lesen. Elf
-der 29 Module sind betroffen; für Fünfjährige bleiben 18.
+nicht am Sachwissen, sondern am Text — der Wert misst dann das Lesen.
+Vierzehn der 32 Module sind betroffen; für Fünfjährige bleiben 18.
 
 Die Wörter-Kette ist bewusst **nicht** dabei: dort steht neben jedem Wort
 ein Bild, und genau dafür ist es da.
@@ -1081,9 +1076,161 @@ ein Bild, und genau dafür ist es da.
 | gespeichert als | `cumScore`/`cumTotal` | `bestPercent`/`bestLevel` |
 | `accuracy` (0–100) | `cumScore / cumTotal` | `min(100, bestPercent)` |
 
-`accuracy` ist das einzige Feld, das Statistik und kognitives Profil auswerten.
-Die Score-Map der adaptiven Tests geht bis 150 %; der Rohwert bleibt in
+`accuracy` ist das Feld, das Statistik und kognitives Profil auswerten. Die
+Score-Map der adaptiven Tests geht bis 150 %; der Rohwert bleibt in
 `bestPercent` erhalten, auch wenn die Anzeige bei 100 deckelt.
+
+**Der Plan wertet nicht `accuracy` aus, sondern `bestLevel`.** Das ist der
+Kern des Umbaus weiter unten: bei mitwachsender Schwierigkeit unterscheidet
+die Quote Starke und Schwache nicht. `bestLevel` wird seither bei *beiden*
+Bewertungsarten fortgeschrieben — vorher stand es nur bei den Spannen-Tests,
+und die Auswahlspiele hatten gar keinen Niveauwert.
+
+### Der Bildschirm ist der Notbehelf
+
+Das ist keine Bescheidenheitsfloskel, sondern die Rangfolge, nach der die
+Oberfläche gebaut ist. Zu jedem der 32 Module steht in `data/analog.js`, wie
+sich dieselbe Aufgabe am Küchentisch stellen lässt — Material und Ablauf, in
+drei Sprachen. Der Kasten dazu steht **vor** dem Startknopf, im Plan **vor**
+dem Verweis auf die App, und auf den Methodenseiten stehen die Apps **unter**
+der Anleitung mit echtem Material. Ein Integrationstest prüft jede dieser drei
+Reihenfolgen, weil sie sich beim Umbauen lautlos verdreht.
+
+Warum der Tisch gewinnt:
+
+* Ein Mensch sitzt gegenüber. Er sieht, ob das Kind rät, aufgibt, sich
+  verzettelt oder die Aufgabe nur nicht verstanden hat. Kein Programm
+  bemerkt das — und genau diese Beobachtung ist für die Förderung mehr wert
+  als der Prozentwert.
+* Was in der Hand liegt, wird anders behalten als was auf Glas erscheint.
+* Am Tisch ist alles anpassbar: ein Kärtchen weniger, die Lieblingstiere
+  statt der vorgegebenen Bilder.
+
+Wozu dann die App? Für die Abende ohne Material, für unterwegs, und für den
+Vergleich über die Zeit: sie misst Zeiten und Stufen gleichmäßig, das gelingt
+am Küchentisch nicht.
+
+### Richtwerte statt Trefferquote
+
+Der Plan entschied lange nach der Trefferquote: unter 60 % galt ein Bereich
+als übungsbedürftig. Das kann nicht funktionieren. Alle Module stellen sich
+auf das Kind ein — nach zwei richtigen Antworten wird es schwerer, nach zwei
+falschen leichter. Die Quote pendelt sich dadurch **bauartbedingt** um die
+Mitte ein, ganz gleich wie stark das Kind ist. Ein Achtjähriger auf Stufe 5
+und einer auf Stufe 2 stehen am Ende beide bei etwa 60 %.
+
+Die Auskunft steckt im **erreichten Niveau**. `core/richtwerte.js` vergleicht
+es gegen einen Richtwert für das Alter:
+
+| Quelle | wofür | wie |
+|---|---|---|
+| `tabelle` | Ziffernspanne vor- und rückwärts | Literaturwerte je Altersjahr aus `core/norms.js` |
+| `leiter` | alle übrigen | aus dem Aufbau der Stufen: unterste Stufe = jüngstes vorgesehenes Alter, oberste = ältestes, dazwischen linear |
+
+**Richtwert, nicht Norm.** Ein Normwert setzt eine Eichstichprobe voraus —
+hunderte Kinder je Altersjahr unter gleichen Bedingungen. Die gibt es hier
+nicht und wird es nicht geben. Der Unterschied ist kein Wortspiel: ein
+Normwert erlaubt „unterdurchschnittlich", ein Richtwert nur „weniger, als wir
+hier erwartet hätten". Deshalb heißt es in der Oberfläche überall Richtwert,
+und bei jeder Einordnung steht, worauf sie beruht.
+
+Damit „Stufe 4" überhaupt deutbar ist, trägt jedes Modul seine Niveauleiter
+als `stufen: [von, bis]` — bei den Ziffern 2–10, beim Tangram 1–5. Verglichen
+wird die **Abweichung vom Richtwert**, nicht das Niveau selbst: erst dadurch
+sind Module untereinander vergleichbar, weil der Richtwert die Steilheit
+jeder Leiter schon enthält.
+
+Die Schwelle ist ein Fünftel der Leiter, mindestens aber eine ganze Stufe
+(Niveaus sind ganze Zahlen). Zwei Schwellen darunter heißt „deutlich unter
+dem Richtwert" — daraus wird der Schwerpunkt der nächsten Wochen; eine
+Schwelle darunter heißt „etwas darunter" — das übt man nebenher mit.
+
+Drei Module haben bewusst keine Leiter und werden deshalb nicht eingeordnet:
+Memory misst Züge statt Schwierigkeit, die beiden Abruf-Module fragen genau
+die vorher gelernten Paare ab.
+
+### Der Plan für Eltern
+
+`ui/plan-view.js` beantwortet genau eine Frage: *was mache ich jetzt?* Er
+speichert nichts eigenes, sondern liest den Stand aus:
+
+| Zustand | nächster Schritt |
+|---|---|
+| kein Geburtsjahr | eintragen — ohne Alter ist nichts einzuordnen |
+| ein Abruf ist fällig | zuerst, denn das Zeitfenster schließt sich |
+| nicht alles getestet | **eine Sitzung**: 3–4 Aufgaben, gemischt über die Skalen, höchstens 20 Minuten |
+| etwas liegt zurück | dort üben — Anleitung für den Tisch, dann Alltagswege, zuletzt die App |
+| Übungsphase lang genug | erneut messen (nach 8 Wochen) |
+
+Der Sitzungsvorschlag nimmt nicht einfach die ersten fünf aus der Liste: die
+stünden alle in derselben Gruppe, und viermal hintereinander Merkspanne
+ermüdet mehr als vier verschiedene Aufgaben. Stattdessen reihum durch die
+Skalen, bis die Zeit voll ist. Zwanzig Minuten sind kein Literaturwert,
+sondern eine Vorsichtsgrenze: was länger dauert, wird abgebrochen oder unter
+Quengeln zu Ende gebracht — und dann misst man Erschöpfung statt Fähigkeit.
+
+### Verzögerter Abruf: der Abstand ist der Test
+
+„Atlantis Abruf" und „Symbole Abruf" standen seit Anfang an als Namen in den
+Skalen, ohne dass es Module dazu gab. Damit fehlte der Unterschied, um den es
+geht: „Atlantis" und „Symbole" prüfen, ob ein Kind eine neue, willkürliche
+Verknüpfung **aufnehmen** kann. Ob sie **liegen bleibt**, zeigt sich erst
+nach zwanzig Minuten, in denen etwas anderes passiert ist.
+
+Der Unterschied hat Folgen für die Förderung. Wer gleich nach dem Zeigen
+alles weiß und zwanzig Minuten später nichts, braucht Wiederholung in
+Abständen und Eselsbrücken. Wer schon beim ersten Abfragen scheitert, braucht
+weniger Paare, mehr Zeit und mehr Sinnbezug.
+
+Das Lernmodul meldet nach jeder Runde, welche Paare es gezeigt hat
+(`core/abruf.js`, in localStorage — zwischen Lernen und Abruf kann die Seite
+geschlossen werden). Drei Zeitgrenzen:
+
+| Grenze | Wert | warum |
+|---|---|---|
+| `MIN_MINUTEN` | 15 | vorher misst der Abruf das Kurzzeitgedächtnis ein zweites Mal |
+| `SOLL_MINUTEN` | 20 | der angepeilte Abstand |
+| `MAX_STUNDEN` | 8 | was nach zwei Tagen noch da ist, ist etwas anderes — und die Bedingungen dazwischen kennt niemand |
+
+Außerhalb des Fensters steht dort eine Auskunft statt eines Tests: was zuerst
+zu tun ist und wie lange es noch dauert. Ein ausgedachter Test lieferte eine
+Zahl ohne Bedeutung.
+
+Bewusst **kein** `createChoiceGame`: dort wächst die Schwierigkeit mit dem
+Können, und die Rundenzahl steht in den Einstellungen. Beim Abruf ist beides
+falsch — gefragt wird genau das, was gelernt wurde, jedes Paar einmal.
+
+### Zahlenfolge rückwärts
+
+Die Richtwerttabelle für die Rückwärtsspanne lag seit Langem in `norms.js`,
+ohne dass ein Modul sie je gefüllt hätte. Ein Richtwert ohne Messung nützt
+niemandem.
+
+Sie steht als **eigenes** Modul da und nicht als Variante von „Zahlen
+nachsprechen": die Rückwärtsspanne stammt aus der Wechsler-Reihe, nicht aus
+der KABC-II, und sie misst etwas anderes. Vorwärts ist reines Behalten;
+rückwärts muss die Reihe zusätzlich im Kopf umgedreht werden, während sie
+gehalten wird — Arbeitsgedächtnis im engeren Sinn. Ein Kind, das vorwärts
+altersgemäß liegt und rückwärts abfällt, hat kein Gedächtnisproblem, sondern
+eines mit dem Hantieren im Kopf, und das führt zu anderen Übungen.
+
+Ab 5 Jahren (darunter Bodeneffekt), Leiter bis Stufe 8 statt 10 — der
+Richtwert erreicht mit achtzehn Jahren erst 4,8.
+
+### Die 20 Übungs-Apps
+
+Unter `apps/` liegen zwanzig eigenständige Apps mit eigenem Bündel. Aus der
+Anwendung heraus führte zu keiner ein Verweis — `grep -rn "apps/" src/` ergab
+null Treffer. Jetzt hängt jede an einer Methodenseite:
+
+* `tools/gen-miniapps.mjs` liest Titel und Symbol aus den Apps selbst statt
+  sie ein zweites Mal zu pflegen; läuft bei `npm run build` mit.
+* `data/miniapp-zuordnung.js` sagt von Hand, welche App zu welcher Methode
+  gehört — das steht in keiner der beiden Dateien und lässt sich nicht
+  ableiten. Zwei lockerere Zuordnungen (Flächen, Null-Eins-Wandler) sind dort
+  ausdrücklich als solche benannt.
+* Verlinkt, nicht eingebettet: eine App in einem Rahmen innerhalb der Seite
+  bricht bei `file://` je nach Browser weg, ein Verweis nicht.
 
 ## Noch offen
 
@@ -1092,6 +1239,11 @@ Die Score-Map der adaptiven Tests geht bis 150 %; der Rohwert bleibt in
 - Spieltexte in den Modulen sind weitgehend dreisprachig; Lücken fallen über
   `check-lang` auf (deutscher Satz in RU/EN).
 - Mehrere Kinder auf einem Gerät (Name + Profil) fehlen noch. Geburtsjahr gibt
-  es; ohne weitere Normtabellen bleibt das Profil ein Verlauf, keine Einordnung.
-- `sim-rover`, `sim-dreiecke`, `sim-tangram` und `plan-geschichten` sind umgesetzt
-  (Raster / Slots / Drag bzw. Wegtippen), keine Stubs mehr.
+  es; die Einordnung läuft über Richtwerte, nicht über geeichte Normen.
+- Alle Module sind umgesetzt, keine Stubs mehr. Von den KABC-Subtests des
+  Modells fehlt keiner: „Atlantis Abruf" und „Symbole Abruf" haben seit dem
+  Umbau eigene Module, dazu kam die Rückwärtsspanne aus der Wechsler-Reihe.
+- Die Richtwerte der Herkunft `leiter` sind aus dem Aufbau der Stufen
+  abgeleitet, nicht an Kindern erprobt. Wer echte Werte je Altersjahr hat,
+  kann sie in `core/norms.js` eintragen — `richtwerte.js` bevorzugt Tabellen
+  automatisch vor der Leiter.
