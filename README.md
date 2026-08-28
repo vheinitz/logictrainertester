@@ -1110,6 +1110,40 @@ Wozu dann die App? Für die Abende ohne Material, für unterwegs, und für den
 Vergleich über die Zeit: sie misst Zeiten und Stufen gleichmäßig, das gelingt
 am Küchentisch nicht.
 
+### Aufgabe ausführen — oder nur zeigen
+
+Auf jedem Startbildschirm stehen zwei Knöpfe. **Ausführen** ist der bekannte
+Weg: das Kind spielt, die App misst. **Nur zeigen** führt vor, wie die
+Aufgabe geht, und speichert davon nichts — gemacht wird sie danach am Tisch,
+und hinterher trägt ein Mensch ein, was dabei herauskam.
+
+Das schließt eine Lücke, die der Grundsatz oben aufgerissen hatte: wenn das
+Üben mit Kärtchen der bessere Weg ist, aber nur die App einen Verlauf führt,
+muss man sich zwischen beidem entscheiden. Mit der Vorführung nicht mehr.
+
+* Während der Vorführung steht ein Hinweis über der Aufgabe — auch bei der
+  Minimal-Hülle, wo sonst nur die Aufgabe zu sehen ist. Die Begleitperson
+  muss jederzeit wissen, dass gerade nichts gezählt wird.
+* `autoPersist()` steigt im Vorführungsmodus sofort aus. Sonst stünde die
+  Leistung der Begleitperson im Verlauf des Kindes.
+* Eingetragen werden **Stufe** und **richtig von gestellt**. Die Stufe zuerst,
+  weil der Plan danach entscheidet; die Quote daneben, weil sie die Sicherheit
+  auf dieser Stufe beschreibt — Stufe 4 mit 8 von 10 ist etwas anderes als
+  Stufe 4 mit 4 von 10.
+* Gespeichert wird auf demselben Weg wie ein gespielter Durchgang, aber mit
+  `vonHand: true` im Verlauf. Wer später fragt, warum ein Wert aus der Reihe
+  fällt, soll sehen können, dass er nicht aus dem Spiel stammt.
+
+Im Eintragsformular steht die Anleitung ohne Bildschirm noch einmal — hier
+wird sie gebraucht, nicht auf einer Seite davor.
+
+### Nach der Aufgabe: weiter im Plan
+
+Die Ergebnisseite führte in die Gruppe des Moduls zurück. Wer dem Plan folgt,
+musste sich dort seine Stelle neu suchen. Jetzt stehen dort **Nächste
+Aufgabe** (die erste offene aus dem Sitzungsvorschlag, nach denselben Regeln
+ausgewählt) und **Zurück zum Plan**; die Gruppe bleibt als dritter Weg.
+
 ### Richtwerte statt Trefferquote
 
 Der Plan entschied lange nach der Trefferquote: unter 60 % galt ein Bereich
