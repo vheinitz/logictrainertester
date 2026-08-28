@@ -127,9 +127,17 @@ const T = {
 const t = k => { const l = lang(); return T[k][l] || T[k].de; };
 const komma = n => String(n).replace('.', ',');
 
-/** Karte eines Planschritts. */
-function karte(marke, icon, titel, text, inhalt, knopf) {
-  return `<div style="background:#fff;border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:14px;
+/**
+ * Karte eines Planschritts.
+ *
+ * `rolle` steht als data-role im Markup: nur so lässt sich prüfen, ob die
+ * Zeitangabe wirklich in der Sitzungskarte steht. Ohne die Marke fand eine
+ * Suche über den ganzen Seitentext das Wort „Minuten" auch im Satz zur
+ * Dosierung – und meldete nichts, als die Zeitangabe verschwunden war.
+ */
+function karte(marke, icon, titel, text, inhalt, knopf, rolle) {
+  return `<div ${rolle ? `data-role="${rolle}"` : ''}
+      style="background:#fff;border-radius:var(--radius-sm);padding:16px 18px;margin-bottom:14px;
       border-left:4px solid ${marke === 'jetzt' ? 'var(--primary)' : '#DDD9F0'};box-shadow:0 1px 3px rgba(0,0,0,.05)">
     <div style="font-size:.72em;letter-spacing:.08em;text-transform:uppercase;color:var(--text-light)">
       ${marke === 'jetzt' ? t('schrittJetzt') : t('danach')}</div>
@@ -266,7 +274,7 @@ export async function renderPlan(main) {
           onclick="startModule('${v.module[0].id}')">${esc(t('starten'))}</button></div>`
       : '';
 
-    html += karte('jetzt', '🧪', t('sitzungT'), t('sitzung'), kopf + liste, knopf);
+    html += karte('jetzt', '🧪', t('sitzungT'), t('sitzung'), kopf + liste, knopf, 'sitzung');
   }
 
   // ── Schritt: üben, was zurückliegt ──────────────────────────────────
@@ -281,7 +289,7 @@ export async function renderPlan(main) {
         ⏱️ ${esc(t('dosierung'))}</p>
         <p style="font-size:.75em;color:var(--text-light);line-height:1.5;margin-top:6px">
         ${esc(t('richtwertHinweis'))}</p>`;
-      html += karte(stelle, '💪', t('uebenT'), t('ueben'), liste + fuss);
+      html += karte(stelle, '💪', t('uebenT'), t('ueben'), liste + fuss, null, 'ueben');
     }
   }
 

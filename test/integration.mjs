@@ -1202,10 +1202,15 @@ check(adaptiveSeen === MINIMAL.length, `Es wurden ${adaptiveSeen} Module mit Min
   await sleep(500);
   const planText = main.textContent.replace(/\s+/g, ' ');
 
-  check(/Minuten|мин\.|minutes/.test(planText),
-        'Der Plan sagt nicht, wie lange die nächste Sitzung dauert');
-  check(main.querySelectorAll('[onclick^="startModule"]').length > 0,
-        'Der Plan bietet keine Aufgabe zum direkten Starten an');
+  // In der Sitzungskarte nachsehen, nicht im ganzen Seitentext: „Minuten"
+  // steht auch im Satz zur Dosierung, und die Prüfung meldete deshalb nichts,
+  // als die Zeitangabe der Sitzung entfernt wurde.
+  const sitzung = main.querySelector('[data-role="sitzung"]');
+  check(!!sitzung, 'Der Plan zeigt keine Sitzungskarte');
+  check(sitzung && /\d+\s*(Minuten|мин|minutes)/.test(sitzung.textContent),
+        'Die Sitzungskarte sagt nicht, wie lange die nächste Sitzung dauert');
+  check(sitzung && sitzung.querySelectorAll('[onclick^="startModule"]').length > 0,
+        'Die Sitzungskarte bietet keine Aufgabe zum direkten Starten an');
 
   // Eine Sitzung darf nicht aus vier Aufgaben derselben Gruppe bestehen –
   // viermal hintereinander Merkspanne ermüdet mehr als vier verschiedene.
