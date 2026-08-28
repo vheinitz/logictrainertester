@@ -920,6 +920,11 @@ for (const id of ['seq-zahlenfolgen', 'seq-wortreihe', 'sim-gesichter']) {
         'Die Einführungsseite beschreibt den Ablauf nicht');
   check(/Stunden|часов|hours/.test(main.textContent),
         'Die Einführung sagt nicht, dass die Tests Zeit brauchen');
+  // Der Grundsatz gehört auf die erste Seite, nicht nur an die einzelnen
+  // Module: wer hier anfängt, soll wissen, dass der Bildschirm der Notbehelf
+  // ist und die Übung am Tisch die eigentliche Sache.
+  check(!!main.querySelector('[data-role="ohne-bildschirm"]'),
+        'Die Einführung sagt nicht, dass die Aufgaben auch ohne Bildschirm gehen');
 
   window.navigateTo('plan');
   await sleep(500);
