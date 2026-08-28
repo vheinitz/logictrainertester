@@ -327,6 +327,10 @@ export function createChoiceGame(cfg) {
       gs.total = (gs.total || 0) + 1;
       if (correct) {
         gs.score = (gs.score || 0) + 1;
+        // Das höchste Niveau, auf dem eine Antwort gestimmt hat. Ohne diese
+        // Zeile kannte die Auswertung nur die Trefferquote – und die pendelt
+        // sich bauartbedingt um die Mitte ein, gleich wie stark das Kind ist.
+        gs.level = Math.max(gs.level || 0, gd.level);
         gd.streakUp++; gd.streakDown = 0;
         if (gd.streakUp >= upAfter && gd.level < maxLevel) { gd.level++; gd.streakUp = 0; }
       } else {
@@ -345,7 +349,7 @@ export function createChoiceGame(cfg) {
     restart(gs) {
       stopTimers(id);
       gs.gd = {};
-      gs.score = 0; gs.total = 0; gs.rounds = 0;
+      gs.score = 0; gs.total = 0; gs.rounds = 0; gs.level = 0;
       init(gs);
     },
 

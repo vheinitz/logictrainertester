@@ -1129,6 +1129,120 @@ for (const [id, load] of Object.entries(registry)) {
         `nur ${tonModule.length} Modul(e) mit Tonausgabe gefunden – Prüfung liefe ins Leere`);
 }
 
+// ─── Richtwerte: Einordnung statt Trefferquote ────────────────────────
+/**
+ * Die Trefferquote kann Starke und Schwache nicht unterscheiden, weil alle
+ * Module mitwachsen. Diese Prüfungen sichern die Ablösung ab: dass jedes
+ * Modul mit Niveauleiter einen Richtwert liefert, dass der Richtwert mit dem
+ * Alter steigt und in der Leiter bleibt, und dass die vier Einordnungen
+ * tatsächlich auseinanderfallen.
+ */
+{
+  const R = await import('../src/core/richtwerte.js');
+  const mitLeiter = modules.filter(m => m.stufen);
+
+  check('richtwerte', mitLeiter.length >= 25,
+        `nur ${mitLeiter.length} Module haben eine Niveauleiter – die Einordnung liefe weitgehend ins Leere`);
+
+  // Namentlich, nicht nur der Zahl nach: ein fehlendes `stufen` an einem
+  // einzelnen Modul verschwindet sonst in der Gesamtzahl, und genau dieses
+  // Modul ließe sich dann nie einordnen.
+  const OHNE_LEITER = ['lern-memory'];   // misst Züge, nicht Schwierigkeit
+  for (const m of modules) {
+    if (OHNE_LEITER.includes(m.id)) continue;
+    check('richtwerte', m.stufen && m.stufen.length === 2,
+          `Modul "${m.id}" hat keine Niveauleiter (stufen) – es kann nicht eingeordnet werden`);
+  }
+
+  for (const m of mitLeiter) {
+    const band = R.altersband(m);
+    check('richtwerte', band, `Modul "${m.id}" hat kein lesbares Altersband ("${m.ages}")`);
+    if (!band) continue;
+    const [von, bis] = band;
+    const [sVon, sBis] = m.stufen;
+
+    const unten = R.erwartetesNiveau(m, von);
+    const oben = R.erwartetesNiveau(m, bis);
+    check('richtwerte', unten && oben, `Modul "${m.id}" liefert keinen Richtwert für sein eigenes Altersband`);
+    if (!unten || !oben) continue;
+
+    check('richtwerte', oben.niveau > unten.niveau,
+          `Modul "${m.id}": der Richtwert steigt mit dem Alter nicht (${unten.niveau} → ${oben.niveau})`);
+
+    // Der Richtwert darf die Leiter nicht verlassen – sonst wäre er auch bei
+    // bester Leistung unerreichbar und jedes Kind stünde „darunter".
+    for (let a = von; a <= bis; a++) {
+      const e = R.erwartetesNiveau(m, a);
+      check('richtwerte', e && e.niveau >= sVon - 0.01 && e.niveau <= sBis + 0.01,
+            `Modul "${m.id}": Richtwert ${e && e.niveau} mit ${a} Jahren liegt außerhalb der Leiter [${sVon}, ${sBis}]`);
+    }
+  }
+
+  // Die vier Einordnungen müssen bei denselben Daten verschieden ausfallen
+  {
+    const m = modules.find(x => x.id === 'plan-muster');
+    const alter = 12;
+    const e = R.erwartetesNiveau(m, alter);
+    check('richtwerte', e, 'Für plan-muster mit 12 Jahren kommt kein Richtwert heraus');
+    const erw = e ? e.niveau : 0;
+    const s = R.schwelle(m);
+    const stufen = [
+      [erw - 2.5 * s, 'weitDarunter'],
+      [erw - 1.2 * s, 'darunter'],
+      [erw, 'erwartet'],
+      [erw + 1.5 * s, 'darueber']
+    ];
+    for (const [niveau, erwartet] of (e ? stufen : [])) {
+      const b = R.bewerte(m, Math.max(0.1, niveau), alter);
+      check('richtwerte', b && b.stufe === erwartet,
+            `Niveau ${niveau.toFixed(1)} bei Richtwert ${erw.toFixed(1)} ergibt "${b && b.stufe}" statt "${erwartet}"`);
+    }
+  }
+
+  // Ohne Alter darf nichts eingeordnet werden – lieber keine Aussage als eine
+  // falsche. Dieselbe Leistung ist mit sechs stark und mit fünfzehn schwach.
+  check('richtwerte', R.bewerte(modules[0], 4, null) === null,
+        'Ohne Alter wird trotzdem eingeordnet');
+
+  // Die Literaturtabelle hat Vorrang vor der abgeleiteten Leiter
+  {
+    const ziffern = modules.find(x => x.id === 'seq-zahlenfolgen');
+    const e = R.erwartetesNiveau(ziffern, 9);
+    check('richtwerte', e && e.herkunft === 'tabelle',
+          `Ziffernspanne nimmt "${e && e.herkunft}" statt der vorhandenen Literaturtabelle`);
+    check('richtwerte', e && Math.abs(e.niveau - 5.5) < 0.2,
+          `Ziffernspanne mit 9 Jahren: Richtwert ${e && e.niveau} statt der Tabellenangabe 5,5`);
+  }
+  console.log(`   Richtwerte: ${mitLeiter.length} Module mit Niveauleiter, Richtwert steigt mit dem Alter und bleibt in der Leiter`);
+}
+
+// ─── Übung ohne Bildschirm ────────────────────────────────────────────
+/**
+ * Der Bildschirm ist der Notbehelf. Wenn zu einem Modul die Anleitung für den
+ * Küchentisch fehlt, bleibt genau der Weg unsichtbar, der dem Kind mehr
+ * bringt – deshalb ist Vollständigkeit hier Pflicht und nicht Kür.
+ */
+{
+  const { ANALOG } = await import('../src/data/analog.js');
+  const SPRACHEN = ['de', 'ru', 'en'];
+
+  for (const m of modules) {
+    const a = ANALOG[m.id];
+    if (!check('analog', a, `Modul "${m.id}" hat keine Anleitung ohne Bildschirm`)) continue;
+    for (const l of SPRACHEN) {
+      check('analog', a.material && typeof a.material[l] === 'string' && a.material[l].length > 2,
+            `"${m.id}": Materialangabe fehlt auf ${l}`);
+      check('analog', a.so && typeof a.so[l] === 'string' && a.so[l].length > 40,
+            `"${m.id}": Anleitung auf ${l} fehlt oder ist zu kurz, um brauchbar zu sein`);
+    }
+  }
+  for (const id of Object.keys(ANALOG)) {
+    check('analog', modules.some(m => m.id === id),
+          `Anleitung für unbekanntes Modul "${id}"`);
+  }
+  console.log(`   Ohne Bildschirm: ${modules.length} Module mit Anleitung für den Tisch, dreisprachig`);
+}
+
 // ─── Konsistenz der Registrierungen ───────────────────────────────────
 for (const m of modules) {
   check('modules.js', registry[m.id], `Modul "${m.id}" hat keinen Registry-Eintrag`);

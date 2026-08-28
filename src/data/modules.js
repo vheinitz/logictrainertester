@@ -55,63 +55,63 @@ const REF = {
 };
 
 export const modules = [
-  { id:'seq-zahlenfolgen', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔢', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
+  { id:'seq-zahlenfolgen', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔢', ages:'4-18', stufen:[2,10], mode:'self', kabcRef:REF.zahlen,
     title:{ de:'Zahlenfolgen sehen', ru:'Ряд чисел — смотреть', en:'Number sequence — watch' } },
-  { id:'seq-zahlenfolgen-audio', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔊', ages:'4-18', mode:'self', kabcRef:REF.zahlen,
+  { id:'seq-zahlenfolgen-audio', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔊', ages:'4-18', stufen:[2,10], mode:'self', kabcRef:REF.zahlen,
     title:{ de:'Zahlenfolgen hören', ru:'Ряд чисел — слушать', en:'Number sequence — listen' } },
-  { id:'seq-wortreihe', scale:'sequential', icon:'🔗', ages:'3-18', mode:'self', kabcRef:REF.wortreihe,
+  { id:'seq-wortreihe', scale:'sequential', icon:'🔗', ages:'3-18', stufen:[2,10], mode:'self', kabcRef:REF.wortreihe,
     title:{ de:'Wörter-Kette sehen', ru:'Цепочка слов — смотреть', en:'Word chain — watch' } },
-  { id:'seq-wortreihe-audio', scale:'sequential', icon:'🔊', ages:'4-18', mode:'self', kabcRef:REF.wortreihe,
+  { id:'seq-wortreihe-audio', scale:'sequential', icon:'🔊', ages:'4-18', stufen:[2,10], mode:'self', kabcRef:REF.wortreihe,
     title:{ de:'Wörter-Kette hören', ru:'Цепочка слов — слушать', en:'Word chain — listen' } },
-  { id:'seq-handbewegungen', scale:'sequential', icon:'✋', ages:'4-18', mode:'self', kabcRef:REF.hand,
+  { id:'seq-handbewegungen', scale:'sequential', icon:'✋', ages:'4-18', stufen:[2,8], mode:'self', kabcRef:REF.hand,
     title:{ de:'Händchen-Folge', ru:'Жесты по порядку', en:'Hand moves in order' } },
-  { id:'seq-koffer-packen', scale:'sequential', icon:'🧳', ages:'3-18', mode:'self',
+  { id:'seq-koffer-packen', scale:'sequential', icon:'🧳', ages:'3-18', stufen:[2,10], mode:'self',
     title:{ de:'Koffer packen sehen', ru:'Собираем чемодан — смотреть', en:'Packing the suitcase — watch' } },
-  { id:'seq-koffer-packen-audio', scale:'sequential', icon:'🔊', ages:'4-18', mode:'self',
+  { id:'seq-koffer-packen-audio', scale:'sequential', icon:'🔊', ages:'4-18', stufen:[2,10], mode:'self',
     title:{ de:'Koffer packen hören', ru:'Собираем чемодан — слушать', en:'Packing the suitcase — listen' } },
-  { id:'seq-rhythmus', scale:'sequential', icon:'🥁', ages:'4-18', mode:'self',
+  { id:'seq-rhythmus', scale:'sequential', icon:'🥁', ages:'4-18', stufen:[3,8], mode:'self',
     title:{ de:'Rhythmus-Klopfer', ru:'Простучи ритм', en:'Tap the rhythm' } },
-  { id:'sim-konzeptbildung', scale:'simultan', icon:'❓', ages:'3-6', mode:'self', kabcRef:REF.konzept,
+  { id:'sim-konzeptbildung', scale:'simultan', icon:'❓', ages:'3-6', stufen:[1,5], mode:'self', kabcRef:REF.konzept,
     title:{ de:'Was passt nicht?', ru:'Что лишнее?', en:'Odd one out' } },
-  { id:'sim-gesichter', scale:'simultan', icon:'😀', ages:'4-18', mode:'self', kabcRef:REF.gesichter,
+  { id:'sim-gesichter', scale:'simultan', icon:'😀', ages:'4-18', stufen:[2,8], mode:'self', kabcRef:REF.gesichter,
     title:{ de:'Gesichter-Merkspiel', ru:'Запомни лица', en:'Remember the faces' } },
-  { id:'sim-rover', scale:'simultan', icon:'🤖', ages:'6-18', mode:'self', kabcRef:REF.rover,
+  { id:'sim-rover', scale:'simultan', icon:'🤖', ages:'6-18', stufen:[1,5], mode:'self', kabcRef:REF.rover,
     title:{ de:'Rover im Labyrinth', ru:'Ровер в лабиринте', en:'Rover in the maze' } },
-  { id:'sim-dreiecke', scale:'simultan', icon:'🔺', ages:'3-12', mode:'mixed', kabcRef:REF.dreiecke,
+  { id:'sim-dreiecke', scale:'simultan', icon:'🔺', ages:'3-12', stufen:[1,5], mode:'mixed', kabcRef:REF.dreiecke,
     title:{ de:'Dreiecke legen', ru:'Сложи треугольники', en:'Build with triangles' } },
-  { id:'sim-bausteine', requires:'zahlen', scale:'simultan', icon:'🧱', ages:'5-18', mode:'self', kabcRef:REF.bausteine,
+  { id:'sim-bausteine', requires:'zahlen', scale:'simultan', icon:'🧱', ages:'5-18', stufen:[1,6], mode:'self', kabcRef:REF.bausteine,
     title:{ de:'Bausteine zählen', ru:'Сосчитай кубики', en:'Count the blocks' } },
-  { id:'sim-gestaltschliessen', requires:'lesen', scale:'simultan', icon:'🧐', ages:'3-18', mode:'self', kabcRef:REF.gestalt,
+  { id:'sim-gestaltschliessen', requires:'lesen', scale:'simultan', icon:'🧐', ages:'3-18', stufen:[1,6], mode:'self', kabcRef:REF.gestalt,
     title:{ de:'Was ist das?', ru:'Что это?', en:'What is it?' } },
-  { id:'sim-tangram', scale:'simultan', icon:'🔷', ages:'6-18', mode:'self',
+  { id:'sim-tangram', scale:'simultan', icon:'🔷', ages:'6-18', stufen:[1,5], mode:'self',
     title:{ de:'Tangram-Puzzle', ru:'Танграм', en:'Tangram puzzle' } },
-  { id:'sim-suchbild', scale:'simultan', icon:'🔍', ages:'4-18', mode:'self',
+  { id:'sim-suchbild', scale:'simultan', icon:'🔍', ages:'4-18', stufen:[1,6], mode:'self',
     title:{ de:'Suchbild-Vergleich', ru:'Найди отличие', en:'Spot the difference' } },
-  { id:'lern-atlantis', requires:'lesen', scale:'lernen', icon:'🐠', ages:'3-18', mode:'self', kabcRef:REF.atlantis,
+  { id:'lern-atlantis', requires:'lesen', scale:'lernen', icon:'🐠', ages:'3-18', stufen:[2,6], mode:'self', kabcRef:REF.atlantis,
     title:{ de:'Atlantis: Fisch-Namen', ru:'Атлантида: имена рыб', en:'Atlantis: fish names' } },
-  { id:'lern-symbole', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', mode:'self', kabcRef:REF.symbole,
+  { id:'lern-symbole', requires:'lesen', scale:'lernen', icon:'⭐', ages:'4-18', stufen:[2,7], mode:'self', kabcRef:REF.symbole,
     title:{ de:'Symbole merken', ru:'Запомни символы', en:'Remember the symbols' } },
   { id:'lern-memory', scale:'lernen', icon:'🃏', ages:'3-18', mode:'self',
     title:{ de:'Memory', ru:'Мемори', en:'Memory' } },
-  { id:'lern-storycubes', scale:'lernen', icon:'🎲', ages:'6-18', mode:'tutor',
+  { id:'lern-storycubes', scale:'lernen', icon:'🎲', ages:'6-18', stufen:[1,6], mode:'tutor',
     title:{ de:'Geschichten-Würfel', ru:'Кубики историй', en:'Story cubes' } },
-  { id:'plan-geschichten', scale:'planung', icon:'📖', ages:'7-18', mode:'self', kabcRef:REF.geschichten,
+  { id:'plan-geschichten', scale:'planung', icon:'📖', ages:'7-18', stufen:[1,5], mode:'self', kabcRef:REF.geschichten,
     title:{ de:'Bildergeschichte ordnen', ru:'Разложи историю по порядку', en:'Order the picture story' } },
-  { id:'plan-muster', scale:'planung', icon:'🔲', ages:'7-18', mode:'self', kabcRef:REF.muster,
+  { id:'plan-muster', scale:'planung', icon:'🔲', ages:'7-18', stufen:[1,5], mode:'self', kabcRef:REF.muster,
     title:{ de:'Muster fortsetzen', ru:'Продолжи узор', en:'Continue the pattern' } },
-  { id:'plan-sudoku', scale:'planung', icon:'🧮', ages:'8-18', mode:'self',
+  { id:'plan-sudoku', scale:'planung', icon:'🧮', ages:'8-18', stufen:[1,6], mode:'self',
     title:{ de:'Bilder-Sudoku', ru:'Судоку с картинками', en:'Picture sudoku' } },
-  { id:'plan-zaubertricks', scale:'planung', icon:'🪄', ages:'7-18', mode:'tutor',
+  { id:'plan-zaubertricks', scale:'planung', icon:'🪄', ages:'7-18', stufen:[1,5], mode:'tutor',
     title:{ de:'Zaubertrick nachmachen', ru:'Повтори фокус', en:'Repeat the magic trick' } },
-  { id:'wiss-wortschatz', requires:'lesen', scale:'wissen', icon:'💬', ages:'3-6', mode:'self', kabcRef:REF.wortschatz,
+  { id:'wiss-wortschatz', requires:'lesen', scale:'wissen', icon:'💬', ages:'3-6', stufen:[1,5], mode:'self', kabcRef:REF.wortschatz,
     title:{ de:'Wortschatz-Quiz', ru:'Словарная викторина', en:'Vocabulary quiz' } },
-  { id:'wiss-sachwissen', requires:'lesen', scale:'wissen', icon:'🌍', ages:'7-18', mode:'self', kabcRef:REF.sachwissen,
+  { id:'wiss-sachwissen', requires:'lesen', scale:'wissen', icon:'🌍', ages:'7-18', stufen:[1,5], mode:'self', kabcRef:REF.sachwissen,
     title:{ de:'Was weißt du?', ru:'Что ты знаешь?', en:'What do you know?' } },
-  { id:'wiss-raetsel', requires:'lesen', scale:'wissen', icon:'🤔', ages:'3-18', mode:'self', kabcRef:REF.raetsel,
+  { id:'wiss-raetsel', requires:'lesen', scale:'wissen', icon:'🤔', ages:'3-18', stufen:[1,5], mode:'self', kabcRef:REF.raetsel,
     title:{ de:'Rätsel-Raten', ru:'Отгадай загадку', en:'Guess the riddle' } },
-  { id:'wiss-oberbegriffe', requires:'lesen', scale:'wissen', icon:'🏷️', ages:'6-18', mode:'self',
+  { id:'wiss-oberbegriffe', requires:'lesen', scale:'wissen', icon:'🏷️', ages:'6-18', stufen:[1,5], mode:'self',
     title:{ de:'Oberbegriffe finden', ru:'Назови одним словом', en:'Find the category' } },
-  { id:'wiss-teekesselchen', requires:'lesen', scale:'wissen', icon:'🫖', ages:'6-18', mode:'self',
+  { id:'wiss-teekesselchen', requires:'lesen', scale:'wissen', icon:'🫖', ages:'6-18', stufen:[1,5], mode:'self',
     title:{ de:'Teekesselchen', ru:'Слова-двойники', en:'Double meanings' } }
 ];
 
@@ -126,6 +126,19 @@ export const modules = [
  * 'zahlen' für Ziffern. Module mit Bildern neben dem Wort – die Wörter-Kette
  * etwa – brauchen die Sperre nicht, dafür sind die Bilder da.
  */
+/**
+ * `stufen: [von, bis]` – die Niveauleiter des Moduls.
+ *
+ * Die Module messen auf sehr verschiedenen Leitern: die Ziffernspanne läuft
+ * von 2 bis 10, ein Auswahlspiel von 1 bis 5. Ohne diese Angabe lässt sich
+ * ein erreichtes Niveau nicht einordnen – „Stufe 4" ist bei den Ziffern
+ * schwach und beim Tangram stark.
+ *
+ * Ausgelesen wird sie aus den Modulen selbst (minN/maxN bei den Spannen,
+ * minLevel/maxLevel bei den Auswahlspielen). Steht sie nicht dabei, hat das
+ * Modul keine Niveauleiter – Memory etwa misst nur Züge, nicht Schwierigkeit.
+ */
+
 export const MIN_ALTER_SCHRIFT = 6;
 
 /**

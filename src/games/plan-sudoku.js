@@ -246,7 +246,7 @@ export const actions = {
   restart(gs) {
     clearTimer();
     gs.gd = { level: 1 };
-    gs.score = 0; gs.total = 0; gs.rounds = 0;
+    gs.score = 0; gs.total = 0; gs.rounds = 0; gs.level = 0;
     init(gs);
   }
 };
@@ -300,6 +300,9 @@ function auswerten(gs) {
   gs.total = (gs.total || 0) + 1;
   if (geloest) {
     gs.score = (gs.score || 0) + 1;
+    // Höchstes gelöstes Niveau – die Auswertung braucht es, weil die
+    // Trefferquote bei mitwachsender Schwierigkeit nichts unterscheidet.
+    gs.level = Math.max(gs.level || 0, gd.level);
     if (gd.level < 6) gd.level++;
   } else if (gd.level > 1) {
     gd.level--;

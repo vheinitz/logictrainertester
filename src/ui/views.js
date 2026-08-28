@@ -6,6 +6,7 @@ import { modules, scales, getModule, getScale, moduleFreigegeben, minAlter } fro
 import { alterJahre, alterBekannt } from '../core/norms.js';
 import { engine } from '../core/engine.js';
 import { getPerformanceData } from '../data/performance-model.js';
+import { analogBox } from './analog-box.js';
 import { cognitiveFactors, FACTOR_CATEGORIES, aggregateFactorScores } from '../data/cognitive-factors.js';
 import * as storage from '../core/storage.js';
 import { lang, pick } from '../core/html.js';
@@ -16,7 +17,8 @@ import { renderSettings } from './settings-view.js';
 // In views.js heisst renderIntro schon der Startbildschirm einer
 // einzelnen Aufgabe. Diese Seite erklaert das ganze Vorhaben.
 import { renderIntro as renderProjektIntro } from './intro-view.js';
-import { renderPlan, renderFactor, SCHWACH_UNTER } from './plan-view.js';
+import { renderPlan, renderFactor } from './plan-view.js';
+import { FAKTOR_SCHWACH_UNTER as SCHWACH_UNTER } from '../core/richtwerte.js';
 import { renderBackground } from './background-view.js';
 import { renderNav } from './nav.js';
 import { methodLinkFor } from '../data/foerderung-links.js';
@@ -544,6 +546,10 @@ async function renderIntro(main, mod, header) {
       <h3>${t('mixedGuideTitle')}</h3><p>${t('mixedGuideDesc')}</p></div>`;
   }
 
+  // Der Weg ohne Bildschirm steht VOR dem Startknopf. Wer die App öffnet
+  // und sofort losspielt, hat den besseren Weg sonst nie gesehen.
+  body += analogBox(mod.id);
+
   body += `<button class="btn btn-primary" style="font-size:1.1em;padding:14px 36px;margin-top:8px"
     onclick="window._startGame()">${t('startTraining')}</button>`;
 
@@ -791,7 +797,7 @@ export function autoPersist() {
     if (percent <= _last.percent) return;      // nur Verbesserungen schreiben
     _last.percent = percent;
     persist(scale, { kind, percent, level: gs.level || 0 },
-            () => storage.saveHistory(gs.moduleId, scale, gs.attempts || 0, percent, 100, true, 'percent', _last.sessionId));
+            () => storage.saveHistory(gs.moduleId, scale, gs.attempts || 0, percent, 100, true, 'percent', _last.sessionId, gs.level || 0));
   } else {
     const score = gs.score || 0, total = gs.total || 0;
     if (total <= _last.total) return;          // erst zählen, wenn eine Antwort dazukam
@@ -799,8 +805,8 @@ export function autoPersist() {
     const addTotal = total - _last.total;
     const correct = addScore > 0;
     _last.score = score; _last.total = total;
-    persist(scale, { kind, addScore, addTotal },
-            () => storage.saveHistory(gs.moduleId, scale, total, addScore, addTotal, correct, 'count', _last.sessionId));
+    persist(scale, { kind, addScore, addTotal, level: gs.level || 0 },
+            () => storage.saveHistory(gs.moduleId, scale, total, addScore, addTotal, correct, 'count', _last.sessionId, gs.level || 0));
   }
 }
 

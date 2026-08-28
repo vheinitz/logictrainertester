@@ -63,10 +63,15 @@ export async function recordProgress(moduleId, scale, delta) {
     rounds: base ? (base.rounds || 0) : 0
   };
 
+  // Das erreichte Niveau wird bei BEIDEN Bewertungsarten fortgeschrieben.
+  // Früher stand es nur bei den Spannen-Tests, und die Auswertung der
+  // Auswahlspiele hatte damit nur die Trefferquote – die bei mitwachsender
+  // Schwierigkeit aber kaum etwas unterscheidet (siehe core/richtwerte.js).
+  rec.bestLevel = Math.max(rec.bestLevel, delta.level || 0);
+
   if (kind === 'percent') {
     rec.lastPercent = delta.percent || 0;
     rec.bestPercent = Math.max(rec.bestPercent, delta.percent || 0);
-    rec.bestLevel = Math.max(rec.bestLevel, delta.level || 0);
     rec.accuracy = clamp(rec.bestPercent);
   } else {
     rec.cumScore += delta.addScore || 0;
@@ -111,7 +116,7 @@ export async function loadScore(moduleId) {
   });
 }
 
-export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count', sessionId = 0) {
+export async function saveHistory(moduleId, scale, round, score, total, correct, kind = 'count', sessionId = 0, level = 0) {
   const db = await open();
   return new Promise((ok, fail) => {
     const tx = db.transaction('history', 'readwrite');
@@ -121,6 +126,9 @@ export async function saveHistory(moduleId, scale, round, score, total, correct,
       // welchem Sitzungsverlauf gehören – und genau daraus liest man ab,
       // ob die Leistung bis zum Schluss hält.
       moduleId, scale, round, score, total, correct, kind, sessionId,
+      // Niveau je Eintrag: nur damit lässt sich später sehen, ob ein Kind
+      // im Lauf einer Sitzung höher gekommen ist oder abgerutscht.
+      level,
       timestamp: Date.now(),
       dateStr: new Date().toISOString().split('T')[0]
     });
