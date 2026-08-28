@@ -1309,6 +1309,61 @@ for (const [id, load] of Object.entries(registry)) {
   console.log(`   Übungs-Apps: ${MINIAPPS.length} Apps an ${Object.keys(MINIAPP_ZU_METHODE).length} Methodenseiten, alle Pfade vorhanden`);
 }
 
+// ─── Rückwärts heißt rückwärts ────────────────────────────────────────
+/**
+ * Der ganze Zweck des Moduls steckt in einer einzigen Zeile: dem Vergleich
+ * gegen die UMGEKEHRTE Reihe. Fällt sie weg, misst das Modul dasselbe wie
+ * die Vorwärtsspanne daneben – und an der Oberfläche sähe das niemand,
+ * weil beide gleich aussehen und beide Ergebnisse liefern.
+ *
+ * Die Auswertung läuft 350 ms verzögert, damit das Kind seine letzte Eingabe
+ * noch sieht. Deshalb wird hier gewartet und `gd.solved` gelesen, nicht ein
+ * Feld unmittelbar nach dem letzten pick() – der erste Anlauf dieser Prüfung
+ * hat genau das getan und beide Richtungen als falsch gemeldet.
+ */
+{
+  const warte = ms => new Promise(r => setTimeout(r, ms));
+  const mod = await registry['seq-zahlen-rueckwaerts']();
+
+  /** Eine Reihe eingeben und sagen, ob sie als gelöst gilt. */
+  async function eingabe(folge, antwort) {
+    const gs = { moduleId: 'seq-zahlen-rueckwaerts', score: 0, total: 0, rounds: 0 };
+    // Die Ablauf-Engine lässt ihre Timer nur laufen, solange das Modul das
+    // aktive Spiel ist – eine Absicherung gegen Timer, die einen alten
+    // Spielstand ändern. Ohne diese Zeile feuert die Auswertung nie, und die
+    // Prüfung meldete beide Richtungen als falsch.
+    engine.activeGame = { id: 'seq-zahlen-rueckwaerts', mod };
+    engine.gameState = gs;
+    mod.init(gs);
+    const gd = gs.gd;
+    gd.sequence = folge.slice();
+    gd.userAnswer = [];
+    gd.phase = 'answer';
+    for (const n of antwort) mod.actions.pick(gs, n);
+    await warte(420);
+    const gelöst = (gd.solved || 0) > 0;
+    mod.dispose(gs);
+    engine.activeGame = null;
+    return gelöst;
+  }
+
+  const folge = [1, 5, 3];
+  check('rueckwaerts', await eingabe(folge, [3, 5, 1]),
+        'Die umgekehrte Reihe [3,5,1] zu [1,5,3] gilt nicht als richtig');
+  check('rueckwaerts', !(await eingabe(folge, [1, 5, 3])),
+        'Die Reihe [1,5,3] in derselben Richtung eingegeben gilt als richtig – das Modul misst vorwärts');
+
+  // Der Richtwert dafür lag ungenutzt herum – jetzt muss ihn ein Modul füllen
+  {
+    const { NORMEN } = await import('../src/core/norms.js');
+    const nutzer = modules.filter(m => m.norm === 'ziffernRueckwaerts');
+    check('rueckwaerts', NORMEN.ziffernRueckwaerts, 'Die Richtwerttabelle rückwärts fehlt');
+    check('rueckwaerts', nutzer.length === 1,
+          `${nutzer.length} Module nutzen die Rückwärts-Richtwerte – erwartet genau eines`);
+  }
+  console.log('   Rückwärts: umgekehrte Reihe richtig, gleiche Richtung falsch, Richtwerttabelle belegt');
+}
+
 // ─── Konsistenz der Registrierungen ───────────────────────────────────
 for (const m of modules) {
   check('modules.js', registry[m.id], `Modul "${m.id}" hat keinen Registry-Eintrag`);

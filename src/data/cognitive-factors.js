@@ -48,7 +48,7 @@ export const cognitiveFactors = {
   KF005: { quelle: 'skript', category:'sozial_kulturell', de:'Allgemeinwissen', ru:'Общие знания (эрудиция)', en:'General knowledge', modules:['wiss-raetsel','wiss-sachwissen'] },
   KF006: { quelle: 'sinngemaess', category:'sozial_kulturell', de:'Alltagswissen', ru:'Житейские знания', en:'Everyday knowledge', modules:['plan-geschichten'] },
   KF007: { quelle: 'skript', category:'exekutive_funktionen', de:'Analytisches Denken', ru:'Аналитическое мышление', en:'Analytical thinking', modules:['plan-muster','plan-sudoku'] },
-  KF008: { quelle: 'skript', category:'gedaechtnis', de:'Arbeitsgedächtnis', ru:'Рабочая память', en:'Working memory', modules:['lern-atlantis'] },
+  KF008: { quelle: 'skript', category:'gedaechtnis', de:'Arbeitsgedächtnis', ru:'Рабочая память', en:'Working memory', modules:['lern-atlantis','seq-zahlen-rueckwaerts'] },
   KF009: { quelle: 'skript', category:'lernfaehigkeit', de:'Assoziative Lernfähigkeit', ru:'Способность к ассоциативному обучению', en:'Associative learning ability', modules:['lern-symbole'] },
   KF010: { quelle: 'skript', category:'auditive_wahrnehmung', de:'Auditive Wahrnehmung', ru:'Слуховое восприятие', en:'Auditory perception', modules:['seq-rhythmus','seq-zahlenfolgen-audio','seq-wortreihe-audio'] },
   KF011: { quelle: 'skript', category:'auditive_wahrnehmung', de:'Auditives Kurzzeitgedächtnis', ru:'Слуховая кратковременная память', en:'Auditory short-term memory', modules:['seq-zahlenfolgen-audio','seq-wortreihe-audio','seq-koffer-packen-audio'] },

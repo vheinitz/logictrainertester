@@ -110,7 +110,7 @@ const navTest = [];
 const ziehTest = [];
 const appTest = [];
 // Diese Module laufen mit der Minimal-Hülle: im Spiel nur die Aufgabe.
-const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-wortreihe',
+const MINIMAL = ['seq-zahlenfolgen', 'seq-zahlenfolgen-audio', 'seq-zahlen-rueckwaerts', 'seq-wortreihe',
                  'seq-wortreihe-audio', 'seq-handbewegungen', 'seq-koffer-packen',
                  'seq-koffer-packen-audio', 'sim-gesichter', 'seq-rhythmus'];
 // Merkspannen-Tests mit Auswahl-Eingabe (Rhythmus klopft stattdessen)

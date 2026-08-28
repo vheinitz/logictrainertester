@@ -41,6 +41,14 @@ export const ANALOG = {
       en: 'Like the number row, but with nothing laid out: only spoken, with the child looking away or eyes closed. That is the real memory-span task – without a picture there is no crutch.'
     }
   },
+  'seq-zahlen-rueckwaerts': {
+    material: { de: 'Nichts', ru: 'Ничего', en: 'Nothing' },
+    so: {
+      de: 'Zwei Zahlen vorsprechen, das Kind sagt sie rückwärts: „3 – 8" wird zu „8 – 3". Mit zwei anfangen, auch bei größeren Kindern. Wenn es hakt: die Zahlen auf Kärtchen legen, umdrehen lassen, dann vorlesen – so wird das Umdrehen sichtbar, bevor es im Kopf gelingen muss.',
+      ru: 'Назвать два числа, ребёнок повторяет их наоборот: «3 – 8» превращается в «8 – 3». Начинать с двух даже со старшими. Если не идёт: выложить числа карточками, дать перевернуть порядок руками, потом прочитать — так переворот виден до того, как он получится в уме.',
+      en: 'Say two numbers, the child says them backwards: "3 – 8" becomes "8 – 3". Start with two even for older children. If it stalls: lay the numbers out as cards, let the child reverse them by hand, then read – that makes the reversal visible before it has to happen in the head.'
+    }
+  },
   'seq-wortreihe': {
     material: { de: 'Bildkarten oder Spielzeugtiere', ru: 'Карточки с картинками или игрушечные животные', en: 'Picture cards or toy animals' },
     so: {

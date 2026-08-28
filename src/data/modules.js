@@ -59,6 +59,8 @@ export const modules = [
     title:{ de:'Zahlenfolgen sehen', ru:'Ряд чисел — смотреть', en:'Number sequence — watch' } },
   { id:'seq-zahlenfolgen-audio', requires:'zahlen', norm:'ziffernVorwaerts', scale:'sequential', icon:'🔊', ages:'4-18', stufen:[2,10], mode:'self', kabcRef:REF.zahlen,
     title:{ de:'Zahlenfolgen hören', ru:'Ряд чисел — слушать', en:'Number sequence — listen' } },
+  { id:'seq-zahlen-rueckwaerts', requires:'zahlen', norm:'ziffernRueckwaerts', scale:'sequential', icon:'🔁', ages:'5-18', stufen:[2,8], mode:'self',
+    title:{ de:'Zahlenfolge rückwärts', ru:'Ряд чисел наоборот', en:'Number sequence backwards' } },
   { id:'seq-wortreihe', scale:'sequential', icon:'🔗', ages:'3-18', stufen:[2,10], mode:'self', kabcRef:REF.wortreihe,
     title:{ de:'Wörter-Kette sehen', ru:'Цепочка слов — смотреть', en:'Word chain — watch' } },
   { id:'seq-wortreihe-audio', scale:'sequential', icon:'🔊', ages:'4-18', stufen:[2,10], mode:'self', kabcRef:REF.wortreihe,

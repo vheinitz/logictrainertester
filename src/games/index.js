@@ -14,6 +14,7 @@
 export const registry = {
   'seq-zahlenfolgen':     () => import('./seq-zahlenfolgen.js'),
   'seq-zahlenfolgen-audio': () => import('./seq-zahlenfolgen-audio.js'),
+  'seq-zahlen-rueckwaerts': () => import('./seq-zahlen-rueckwaerts.js'),
   'seq-wortreihe':        () => import('./seq-wortreihe.js'),
   'seq-wortreihe-audio':  () => import('./seq-wortreihe-audio.js'),
   'seq-handbewegungen':   () => import('./seq-handbewegungen.js'),
